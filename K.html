@@ -1,0 +1,551 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>اختبار المخلوقات الحية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Readex+Pro:wght@400;500;600&display=swap">
+<style>
+/* Layout: one centred question column, like a page in a young scientist's notebook; each unit has its own colour (leaf, water, earth) */
+:root{
+  --bg:#F1F6F3; --surface:#FFFFFF; --ink:#1B2724; --muted:#5B6D67; --line:#D5E0DB; --soft:#E7EFEB;
+  --u1:#2E8B4C; --u2:#18788A; --u3:#A86A12;
+  --on-accent:#FFFFFF;
+  --ok:#1C9455; --ok-bg:#E1F4E8; --bad:#C93A32; --bad-bg:#FBE6E4;
+  --star:#E3A21A;
+  --accent:var(--u1);
+  --display:"Baloo Bhaijaan 2","Readex Pro",Tahoma,system-ui,sans-serif;
+  --body:"Readex Pro","Segoe UI",Tahoma,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1513; --surface:#17211E; --ink:#E4EEE9; --muted:#9AAFA8; --line:#2A3833; --soft:#1E2A26;
+    --u1:#52C27C; --u2:#45B5C6; --u3:#E2AA4E; --on-accent:#0E1513;
+    --ok:#4BCB84; --ok-bg:#15342A; --bad:#F2716A; --bad-bg:#3B1C1A; --star:#F2C14E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1513; --surface:#17211E; --ink:#E4EEE9; --muted:#9AAFA8; --line:#2A3833; --soft:#1E2A26;
+  --u1:#52C27C; --u2:#45B5C6; --u3:#E2AA4E; --on-accent:#0E1513;
+  --ok:#4BCB84; --ok-bg:#15342A; --bad:#F2716A; --bad-bg:#3B1C1A; --star:#F2C14E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.app{max-width:640px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+[data-u="1"]{--accent:var(--u1)} [data-u="2"]{--accent:var(--u2)} [data-u="3"]{--accent:var(--u3)}
+h1,h2,h3{font-family:var(--display);line-height:1.25;margin:0;text-wrap:balance}
+button{font-family:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Home */
+.hero{display:grid;gap:6px;padding-block:8px 18px}
+.hero h1{font-size:2.1rem;font-weight:800}
+.hero p{margin:0;color:var(--muted)}
+.namebox{display:grid;gap:6px;margin-block:4px 18px}
+.namebox label{font-weight:500}
+.namebox input{font:inherit;font-size:1.05rem;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.units{display:grid;gap:12px}
+.unit{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:14px 16px}
+.unit .badge{grid-row:span 2;width:52px;height:52px;border-radius:14px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.5rem}
+.unit h2{font-size:1.25rem}
+.unit .meta{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums}
+.unit .acts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{border:0;border-radius:12px;padding:11px 18px;font-weight:600;font-size:1rem;background:var(--accent);color:var(--on-accent)}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.plain{background:var(--soft);color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.toggle{display:flex;align-items:center;gap:10px;margin-top:16px;color:var(--muted);font-size:.95rem}
+.toggle input{width:20px;height:20px;accent-color:var(--u1)}
+.note{margin-top:20px;color:var(--muted);font-size:.85rem}
+
+/* Quiz */
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.bar .where{flex:1;min-width:0;font-weight:600}
+.bar .where small{display:block;color:var(--muted);font-weight:400;font-size:.85rem;font-variant-numeric:tabular-nums}
+.chip{background:var(--ok-bg);color:var(--ok);border-radius:999px;padding:4px 12px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.homebtn{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 12px;font-size:.9rem}
+.track{height:8px;background:var(--soft);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.track span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s ease}
+.card{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:20px 18px;display:grid;gap:16px}
+.kind{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.kind b{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.05rem}
+.kind span{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.q{font-size:1.25rem;font-weight:500;line-height:1.7;margin:0}
+.blank{display:inline-block;min-width:4.5em;border-bottom:3px dashed var(--accent);margin-inline:4px;color:var(--accent);font-weight:600;text-align:center}
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:12px;text-align:start;width:100%;min-height:54px;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:var(--surface);font-size:1.05rem;line-height:1.5;transition:border-color .15s,background .15s}
+.opt .mk{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:600;font-size:.95rem}
+.opts.two .opt{justify-content:center;font-family:var(--display);font-weight:700;font-size:1.3rem}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .mk{background:var(--ok);color:var(--surface)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .mk{background:var(--bad);color:var(--surface)}
+.opt.dim{opacity:.55}
+
+.ordzone{display:grid;gap:10px}
+.ordzone .lbl{font-size:.85rem;color:var(--muted)}
+.slots,.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:52px;align-items:center}
+.slots{border:2px dashed var(--line);border-radius:14px;padding:8px}
+.slots .empty{color:var(--muted);font-size:.9rem;padding-inline:6px}
+.pc{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 14px;font-size:1rem;display:inline-flex;align-items:center;gap:8px}
+.pc i{font-style:normal;font-variant-numeric:tabular-nums;background:var(--accent);color:var(--on-accent);border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font-size:.8rem;font-weight:600}
+.pool .pc:hover{border-color:var(--accent)}
+.slots.right{border-color:var(--ok);border-style:solid;background:var(--ok-bg)}
+.slots.wrong{border-color:var(--bad);border-style:solid;background:var(--bad-bg)}
+
+.fb{border-radius:14px;padding:12px 14px;display:grid;gap:2px}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.no{background:var(--bad-bg);color:var(--bad)}
+.fb strong{font-family:var(--display);font-size:1.3rem}
+.fb p{margin:0;color:var(--ink)}
+.next{width:100%;padding:14px;font-size:1.1rem;border-radius:14px}
+
+/* Done */
+.done{display:grid;gap:18px;text-align:center}
+.score{font-family:var(--display);font-weight:800;font-size:3.4rem;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.stars{font-size:2.6rem;letter-spacing:6px;color:var(--line)}
+.stars .on{color:var(--star)}
+.done .msg{font-size:1.2rem;font-weight:500;margin:0}
+.done .acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.review{text-align:start;background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:14px 16px}
+.review summary{cursor:pointer;font-weight:600}
+.review ol{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:10px}
+.review li{display:grid;gap:2px;border-top:1px solid var(--line);padding-top:10px}
+.review li span{color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.review li b{color:var(--ok);font-weight:600}
+
+.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.pop{animation:none}.track span{transition:none}}
+@media (max-width:420px){.hero h1{font-size:1.8rem}.q{font-size:1.15rem}.score{font-size:2.8rem}}
+</style>
+
+<div class="app" id="app" dir="rtl" lang="ar">
+
+  <section id="home">
+    <div class="hero">
+      <h1>اختبار العلوم</h1>
+      <p>الصف الثالث الابتدائي – الفصل الدراسي الأول – من صفحة ٢٥ إلى ٧٤</p>
+    </div>
+    <div class="namebox">
+      <label for="kidname">اسم البطل</label>
+      <input id="kidname" type="text" placeholder="اكتب اسمك هنا" autocomplete="off">
+    </div>
+    <div class="units" id="units"></div>
+    <label class="toggle"><input type="checkbox" id="shuffle"> خلط ترتيب الأسئلة</label>
+    <p class="note">يحفظ الاختبار تقدّمك على هذا الجهاز، فتستطيع التوقف والمتابعة لاحقاً.</p>
+  </section>
+
+  <section id="quiz" hidden>
+    <div class="bar">
+      <button class="homebtn" id="toHome" type="button">الرئيسية</button>
+      <div class="where"><span id="unitName"></span><small id="counter"></small></div>
+      <span class="chip" id="scoreChip"></span>
+    </div>
+    <div class="track"><span id="prog"></span></div>
+    <div class="card" id="card"></div>
+  </section>
+
+  <section id="done" hidden>
+    <div class="done" id="doneBox"></div>
+  </section>
+</div>
+
+<script>
+document.documentElement.setAttribute("dir","rtl");
+document.documentElement.setAttribute("lang","ar");
+
+const UNITS = [
+{ id:1, name:"الوحدة الأولى", title:"المخلوقات الحية", start:1,
+  bank:["الخلايا","المأوى","الجذور","الساق","الأوراق","البذرة","الإنبات","البادرة","التلقيح","الثمرة","الأبواغ","دورة الحياة","التحول","اليرقة","الحورية"],
+  groups:[
+  ["tf",[
+    ["المخلوقات الحية تنمو وتتغير.",1],
+    ["الصخرة من المخلوقات الحية لأنها تكبر أحياناً.",0],
+    ["تتكوّن أجسام جميع المخلوقات الحية من خلايا.",1],
+    ["يمكن رؤية جميع الخلايا بالعين المجردة دون مجهر.",0],
+    ["تحتاج المخلوقات الحية إلى الماء والغذاء والهواء لكي تعيش.",1],
+    ["تصنع النباتات غذاءها بنفسها.",1],
+    ["تأكل النباتات مخلوقات حية أخرى لتحصل على غذائها.",0],
+    ["تمتص الأوراق الماء والأملاح المعدنية من التربة.",0],
+    ["تثبّت الجذور النبات في التربة.",1],
+    ["تنقل الساق الماء من الجذور إلى الأوراق.",1],
+    ["جميع النباتات لها أزهار.",0],
+    ["يتكاثر نبات السرخس بالأبواغ وليس بالبذور.",1],
+    ["تحتوي البذرة على نبات صغير وغذاء مخزّن.",1],
+    ["تنمو البذرة دون حاجة إلى الماء.",0],
+    ["تحمي الثمرة البذور التي بداخلها.",1],
+    ["تساعد الرياح والحشرات على نقل حبوب اللقاح.",1],
+    ["ترضع الثدييات صغارها الحليب.",1],
+    ["يعيش صغير الضفدع (أبو ذنيبة) في الماء ويتنفس بالخياشيم.",1],
+    ["تمر الحشرة بمرحلة الحورية في التحول الكامل.",0],
+    ["يخرج صغير الجرادة من البيضة على هيئة يرقة.",0],
+    ["كرة الثلج التي تكبر عندما تتدحرج تُعد مخلوقاً حياً.",0],
+    ["تتكاثر المخلوقات الحية فتنتج مخلوقات جديدة من نوعها.",1],
+    ["تستجيب المخلوقات الحية لما يحدث حولها.",1],
+    ["جذور جميع النباتات متشابهة تماماً في الشكل والحجم.",0],
+    ["تتكوّن البذور داخل الثمار في النباتات الزهرية.",1]
+  ]],
+  ["mc",[
+    ["أي مما يلي من المخلوقات الحية؟",["الحجر","الشجرة","الكرسي","الماء"],1],
+    ["وحدة بناء أجسام المخلوقات الحية هي:",["الخلية","الورقة","العظم","البذرة"],0],
+    ["الأداة التي نستخدمها لرؤية الخلايا الصغيرة جداً:",["المسطرة","الميزان","المجهر","مقياس الحرارة"],2],
+    ["ما الذي يحتاج إليه الحيوان ليحميه من الطقس ومن أعدائه؟",["الضوء","المأوى","التربة","الأزهار"],1],
+    ["تحصل المخلوقات الحية على الطاقة من:",["الغذاء","الصخور","الرمل","البلاستيك"],0],
+    ["الجزء من النبات الذي يصنع الغذاء غالباً هو:",["الجذر","الساق","الورقة","البذرة"],2],
+    ["تسمى عملية صنع النبات لغذائه:",["التلقيح","البناء الضوئي","الإنبات","التحول"],1],
+    ["يحتاج النبات لصنع غذائه إلى ضوء الشمس والماء و:",["الهواء","الحليب","الرمل","الحديد"],0],
+    ["الجزء الذي يمتص الماء والأملاح المعدنية من التربة هو:",["الأوراق","الأزهار","الجذور","الثمار"],2],
+    ["الجزر مثال على جذر:",["يخزّن الغذاء","يصنع البذور","ينتج الأزهار","ينمو في الهواء"],0],
+    ["ساق الشجرة الكبيرة تكون:",["طرية خضراء","خشبية قوية","تحت الماء دائماً","بلا فائدة"],1],
+    ["أي النباتات التالية لا ينتج أزهاراً؟",["الورد","التفاح","السرخس","عبّاد الشمس"],2],
+    ["تتكوّن بذور شجرة الصنوبر داخل:",["الأزهار","المخاريط","الجذور","الأوراق"],1],
+    ["أول مرحلة في دورة حياة معظم النباتات الزهرية هي:",["البذرة","الثمرة","الزهرة","النبات البالغ"],0],
+    ["النبات الصغير الذي يخرج من البذرة بعد الإنبات يسمى:",["البادرة","اليرقة","الحورية","العذراء"],0],
+    ["انتقال حبوب اللقاح من زهرة إلى أخرى يسمى:",["الإنبات","التلقيح","التحول","التنفس"],1],
+    ["الجزء من النبات الذي تتكوّن فيه البذور هو:",["الزهرة","الجذر","الساق","الورقة"],0],
+    ["أي مما يلي يساعد على نشر البذور؟",["الرياح","الماء","الحيوانات","جميع ما سبق"],3],
+    ["المراحل التي يمر بها المخلوق الحي منذ بداية حياته حتى يكبر ويتكاثر تسمى:",["دورة الحياة","السلسلة الغذائية","الموطن","التكيف"],0],
+    ["أي الحيوانات التالية يلد صغاره؟",["الدجاجة","الضفدع","القطة","السلحفاة"],2],
+    ["تضع الطيور بيضها في الأعشاش ثم:",["تدفنه في الماء","تحضنه لتدفئته","تتركه في الشمس","تأكله"],1],
+    ["صغير الضفدع يسمى:",["أبو ذنيبة (الشرغوف)","اليرقة","الحورية","الكتكوت"],0],
+    ["التغيرات الكبيرة في شكل الحيوان خلال دورة حياته تسمى:",["التلقيح","التحول","البناء الضوئي","الإنبات"],1],
+    ["المرحلة التي تأتي بعد اليرقة في دورة حياة الفراشة هي:",["البيضة","العذراء (الشرنقة)","الحورية","الحشرة الكاملة"],1],
+    ["أي الحشرات التالية تمر بتحول ناقص؟",["الفراشة","الخنفساء","الجرادة","النحلة"],2],
+    ["أي مما يلي ليس من حاجات المخلوقات الحية؟",["الماء","الغذاء","الهواء","الألعاب"],3],
+    ["أي الحيوانات التالية من البرمائيات؟",["الضفدع","الثعبان","الحمامة","الجمل"],0],
+    ["أي الحيوانات التالية من الزواحف؟",["الأرنب","السحلية","النحلة","العصفور"],1],
+    ["أي الحيوانات التالية من الحشرات؟",["العنكبوت","النملة","الضفدع","السمكة"],1],
+    ["تتنفس الأسماك بواسطة:",["الرئتين","الخياشيم","الجلد فقط","الأجنحة"],1],
+    ["يغطي جسم الطيور:",["الريش","الحراشف","الشعر","الأصداف"],0],
+    ["عدد مراحل دورة حياة الفراشة:",["مرحلتان","ثلاث مراحل","أربع مراحل","خمس مراحل"],2],
+    ["الجزء الذي يحمل الأوراق والأزهار في النبات هو:",["الجذر","الساق","البذرة","الثمرة"],1],
+    ["أي مما يلي يساعد البذرة على الإنبات؟",["الماء والدفء","البرودة الشديدة","الملح","البلاستيك"],0],
+    ["عندما تكبر صغار الثدييات تصبح:",["نباتات","حيوانات بالغة تشبه آباءها","حشرات","صخوراً"],1]
+  ]],
+  ["fill",[
+    ["تتكوّن أجسام المخلوقات الحية من وحدات صغيرة جداً تسمى __","الخلايا"],
+    ["المكان الذي يعيش فيه الحيوان ويحميه يسمى __","المأوى"],
+    ["تثبّت __ النبات في التربة.","الجذور"],
+    ["تحمل __ الأوراق وتنقل الماء إلى أجزاء النبات.","الساق"],
+    ["تصنع __ الغذاء للنبات باستخدام ضوء الشمس.","الأوراق"],
+    ["التركيب الذي يحتوي على نبات صغير وغذاء مخزّن يسمى __","البذرة"],
+    ["بداية نمو البذرة لتصبح نباتاً جديداً تسمى __","الإنبات"],
+    ["النبات الصغير الذي ينمو من البذرة يسمى __","البادرة"],
+    ["انتقال حبوب اللقاح من زهرة إلى أخرى يسمى __","التلقيح"],
+    ["الجزء الذي يحيط بالبذور ويحميها يسمى __","الثمرة"],
+    ["يتكاثر نبات السرخس بواسطة __","الأبواغ"],
+    ["المراحل التي يمر بها المخلوق الحي وهو ينمو ويتغير تسمى __","دورة الحياة"],
+    ["تغيّر شكل الضفدع من أبي ذنيبة إلى ضفدع بالغ يسمى __","التحول"],
+    ["المرحلة التي تأكل فيها الفراشة الصغيرة كثيراً من الأوراق تسمى __","اليرقة"],
+    ["صغير الجرادة الذي يشبه أبويه لكنه بلا أجنحة يسمى __","الحورية"]
+  ]],
+  ["match",[
+    ["الجذور","تمتص الماء والأملاح من التربة"],
+    ["الساق","تدعم النبات وتنقل الماء والغذاء"],
+    ["الأوراق","تصنع الغذاء للنبات"],
+    ["الزهرة","تنتج البذور وتجذب الحشرات"],
+    ["الثمرة","تحمي البذور"],
+    ["الثدييات","ترضع صغارها الحليب"],
+    ["الطيور","يغطي جسمها الريش وتضع بيضاً في الأعشاش"],
+    ["البرمائيات","تعيش صغارها في الماء ثم تنتقل إلى اليابسة"],
+    ["الحشرات","لها ثلاثة أزواج من الأرجل"],
+    ["الزواحف","يغطي جسمها الحراشف وتضع بيضاً على اليابسة"]
+  ]],
+  ["ord",[
+    ["رتّب مراحل دورة حياة النبات الزهري",["بذرة","بادرة","نبات بالغ","زهرة","ثمرة"]],
+    ["رتّب مراحل دورة حياة الضفدع",["بيضة","أبو ذنيبة","ضفدع صغير","ضفدع بالغ"]],
+    ["رتّب مراحل دورة حياة الفراشة",["بيضة","يرقة","عذراء","حشرة كاملة"]],
+    ["رتّب مراحل دورة حياة الجرادة",["بيضة","حورية","جرادة بالغة"]]
+  ]],
+  ["mc",[
+    ["ما الأشياء التي تحتاج إليها جميع المخلوقات الحية لكي تعيش؟",["الماء والغذاء والهواء","الألعاب والملابس","الرمل والصخور","الكهرباء والمصابيح"],0],
+    ["أي مما يلي من صفات المخلوقات الحية؟",["تنمو وتتكاثر","لا تتغير أبداً","لا تحتاج إلى غذاء","مصنوعة من البلاستيك"],0],
+    ["ما الأجزاء الرئيسة الثلاثة لمعظم النباتات؟",["الجذور والساق والأوراق","الريش والحراشف والشعر","الأجنحة والأرجل والذيل","الخياشيم والزعانف والقشور"],0],
+    ["كيف تساعد النحلة النبات عندما تزور الأزهار؟",["تنقل حبوب اللقاح من زهرة إلى أخرى","تأكل جذور النبات","تقطع أوراقه","تسقيه بالماء"],0],
+    ["ماذا يحدث للبذرة إذا لم تحصل على كمية كافية من الماء؟",["لا تنبت","تنبت أسرع","تصبح ثمرة","تتحول إلى زهرة"],0],
+    ["ما الفرق بين التحول الكامل والتحول الناقص؟",["الكامل فيه مرحلة عذراء، والناقص فيه مرحلة حورية","لا يوجد فرق بينهما","الناقص فيه أربع مراحل","التحول الكامل للنباتات فقط"],0],
+    ["لماذا تعد الشجرة مخلوقاً حياً والكرسي ليس كذلك؟",["لأن الشجرة تنمو وتتكاثر وتحتاج إلى الماء","لأن الشجرة أطول","لأن الكرسي ملوّن","لأن الشجرة لا تتحرك"],0],
+    ["بأي الطرق تنتشر البذور؟",["الرياح والماء والحيوانات","الزلازل فقط","البراكين فقط","لا تنتشر أبداً"],0],
+    ["أي زوج يبدأ بحيوان يمر بتحول كامل ثم حيوان يمر بتحول ناقص؟",["الفراشة ثم الجرادة","الجرادة ثم الفراشة","القطة ثم الكلب","السمكة ثم الضفدع"],0],
+    ["كيف تبدأ حياة القطة الصغيرة؟",["تولد صغيرة تشبه أمها وترضع الحليب","تفقس من بيضة على شكل يرقة","تخرج من بذرة","تبدأ على شكل أبي ذنيبة"],0],
+    ["ما وظيفة الأوراق في النبات؟",["صنع الغذاء للنبات","تثبيت النبات في التربة","حماية البذور","امتصاص الماء من التربة"],0]
+  ]]
+]}
+];
+
+/* ---------- the page 25–74 test: 80 questions ---------- */
+(function(){ const g=UNITS[0].groups; UNITS[0].groups=[["tf",g[0][1].slice(0,20)],["mc",g[1][1].slice(0,25)],g[2],g[3],g[4],["mc",g[5][1].slice(0,6)]]; })();
+
+/* ---------- build question list ---------- */
+const Q = {}; const ORDER = { u1:[], u2:[], u3:[] };
+UNITS.forEach(u=>{
+  let n = u.start;
+  const matchBs = [];
+  u.groups.forEach(([t,items])=>{ if(t==="match") items.forEach(it=>matchBs.push(it[1])); });
+  u.groups.forEach(([t,items])=>{
+    items.forEach(it=>{
+      let q = {n, u:u.id, type:t};
+      if(t==="tf"){ q.q=it[0]; q.ans=!!it[1]; }
+      else if(t==="mc"){ q.q=it[0]; q.opts=it[1]; q.ans=it[2]; }
+      else if(t==="fill"){ q.q=it[0]; q.word=it[1]; q.pool=u.bank; }
+      else if(t==="match"){ q.a=it[0]; q.b=it[1]; q.pool=matchBs; }
+      else if(t==="ord"){ q.q=it[0]; q.items=it[1]; }
+      Q[n]=q; ORDER["u"+u.id].push(n); n++;
+    });
+  });
+});
+ORDER.all = [...ORDER.u1, ...ORDER.u2, ...ORDER.u3];
+ORDER.p = ORDER.u1.slice();
+const MODES = [
+  {key:"p", u:1, name:"اختبار من صفحة ٢٥ إلى ٧٤", sub:"المخلوقات الحية", range:"الأسئلة 1–80"}
+];
+
+/* ---------- helpers ---------- */
+function rng(seed){ let a = seed>>>0; return ()=>{ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function shuffle(arr, r){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+const LETTERS = ["أ","ب","ج","د"];
+const $ = id=>document.getElementById(id);
+function esc(s){ return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+function store(k,v){ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)); if(v===null) localStorage.removeItem(k); else localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } }
+
+function optionsFor(q){
+  const r = rng(q.n*7919+13);
+  if(q.type==="tf") return [{t:"صح",ok:q.ans===true},{t:"خطأ",ok:q.ans===false}];
+  if(q.type==="mc"){
+    const list = q.opts.map((t,i)=>({t,ok:i===q.ans}));
+    return q.opts.some(o=>o.includes("ما سبق")) ? list : shuffle(list,r);
+  }
+  const right = q.type==="fill" ? q.word : q.b;
+  const others = shuffle(q.pool.filter(x=>x!==right), r).slice(0,3);
+  return shuffle([right,...others], r).map(t=>({t, ok:t===right}));
+}
+function correctText(q){
+  if(q.type==="tf") return q.ans ? "صح" : "خطأ";
+  if(q.type==="mc") return q.opts[q.ans];
+  if(q.type==="fill") return q.word;
+  if(q.type==="match") return q.b;
+  return q.items.join(" ← ");
+}
+function questionText(q){
+  if(q.type==="match") return "«"+q.a+"»";
+  return q.q;
+}
+const KIND = {tf:"صح أم خطأ؟", mc:"اختر الإجابة الصحيحة", fill:"أكمل الفراغ", match:"صِل الكلمة بما يناسبها", ord:"رتّب بالضغط على البطاقات بالترتيب"};
+const PRAISE = ["أحسنت!","رائع!","ممتاز!","إجابة صحيحة!","عمل جميل!"];
+
+/* ---------- state ---------- */
+let S = null; // {mode, order:[], i, ans:{}, saveKey}
+
+function saved(key){ const s = store("sci3p-"+key); return (s && Array.isArray(s.order) && s.i>0 && s.i<s.order.length) ? s : null; }
+
+function renderHome(){
+  const box = $("units"); box.innerHTML = "";
+  MODES.forEach(m=>{
+    const sv = saved(m.key);
+    const div = document.createElement("div");
+    div.className = "unit"; div.dataset.u = m.u;
+    div.innerHTML =
+      '<div class="badge">'+"٨٠"+'</div>'+
+      '<h2>'+m.name+'</h2>'+
+      '<div class="meta">'+m.sub+' · '+m.range+'</div>'+
+      '<div class="acts"></div>';
+    const acts = div.querySelector(".acts");
+    if(sv){
+      const c = document.createElement("button"); c.className="btn"; c.type="button";
+      c.textContent = "متابعة من السؤال "+(sv.i+1)+" من "+sv.order.length;
+      c.onclick = ()=>start(m.key, sv);
+      const r = document.createElement("button"); r.className="btn ghost"; r.type="button";
+      r.textContent = "البدء من جديد";
+      r.onclick = ()=>start(m.key);
+      acts.append(c,r);
+    } else {
+      const b = document.createElement("button"); b.className="btn"; b.type="button";
+      b.textContent = "ابدأ";
+      b.onclick = ()=>start(m.key);
+      acts.append(b);
+    }
+    box.append(div);
+  });
+}
+
+function start(key, resume, customOrder){
+  let order;
+  if(resume){ S = {...resume, mode:key}; }
+  else {
+    order = customOrder || ORDER[key].slice();
+    if(!customOrder && $("shuffle").checked) order = shuffle(order, rng(Date.now()%100000));
+    S = {mode:key, order, i:0, ans:{}};
+  }
+  show("quiz"); renderQ();
+}
+
+function persist(){ if(S.mode==="wrong") return; store("sci3p-"+S.mode, S); }
+
+function show(id){ ["home","quiz","done"].forEach(s=>$(s).hidden = s!==id); window.scrollTo(0,0); }
+
+function score(){ return Object.values(S.ans).filter(a=>a.ok).length; }
+
+function renderQ(){
+  const n = S.order[S.i], q = Q[n], u = UNITS[q.u-1];
+  $("quiz").dataset.u = q.u;
+  $("unitName").textContent = S.mode==="wrong" ? "مراجعة الأخطاء" : u.name+": "+u.title;
+  $("counter").textContent = "سؤال "+(S.i+1)+" من "+S.order.length;
+  $("scoreChip").textContent = "✓ "+score();
+  $("prog").style.width = (S.i/S.order.length*100)+"%";
+
+  const card = $("card"); card.className="card"; card.innerHTML="";
+  const kind = document.createElement("div"); kind.className="kind";
+  kind.innerHTML = '<b>'+KIND[q.type]+'</b><span>رقم '+n+'</span>';
+  card.append(kind);
+
+  const p = document.createElement("p"); p.className="q";
+  if(q.type==="fill") p.innerHTML = esc(q.q).replace("__",'<span class="blank" id="blank">؟</span>');
+  else p.textContent = questionText(q);
+  card.append(p);
+
+  const prev = S.ans[n];
+  if(q.type==="ord") renderOrd(q, card, prev); else renderOpts(q, card, prev);
+}
+
+function renderOpts(q, card, prev){
+  const opts = optionsFor(q);
+  const wrap = document.createElement("div"); wrap.className = "opts"+(q.type==="tf"?" two":"");
+  opts.forEach((o,i)=>{
+    const b = document.createElement("button"); b.type="button"; b.className="opt";
+    b.innerHTML = (q.type==="tf"?"":'<span class="mk">'+LETTERS[i]+'</span>')+'<span>'+esc(o.t)+'</span>';
+    b.onclick = ()=>answer(q, o.t, o.ok, wrap, card);
+    b.dataset.ok = o.ok?"1":""; b.dataset.t = o.t;
+    wrap.append(b);
+  });
+  card.append(wrap);
+  if(prev) lockOpts(q, wrap, prev.pick, card, false);
+}
+
+function lockOpts(q, wrap, pick, card, fresh){
+  [...wrap.children].forEach(b=>{
+    b.disabled = true;
+    if(b.dataset.ok) { b.classList.add("right"); if(q.type!=="tf") b.querySelector(".mk").textContent="✓"; }
+    else if(b.dataset.t===pick){ b.classList.add("wrong"); if(q.type!=="tf") b.querySelector(".mk").textContent="✗"; }
+    else b.classList.add("dim");
+  });
+  if(q.type==="fill"){ const bl=$("blank"); if(bl) bl.textContent=q.word; }
+  feedback(q, pick===undefined ? false : S.ans[q.n].ok, card, fresh);
+}
+
+function answer(q, pick, ok, wrap, card){
+  if(S.ans[q.n]) return;
+  S.ans[q.n] = {ok, pick};
+  persist();
+  lockOpts(q, wrap, pick, card, true);
+}
+
+function renderOrd(q, card, prev){
+  const zone = document.createElement("div"); zone.className="ordzone";
+  zone.innerHTML = '<span class="lbl">ترتيبك:</span><div class="slots" id="slots"></div><span class="lbl">البطاقات:</span><div class="pool" id="pool"></div>';
+  card.append(zone);
+  let pool = shuffle(q.items, rng(q.n*31+7));
+  if(pool.join()===q.items.join()) pool.reverse();
+  let picked = [];
+  const check = document.createElement("button"); check.type="button"; check.className="btn next"; check.textContent="تحقّق من الترتيب"; check.disabled=true;
+  card.append(check);
+
+  function draw(locked){
+    const sl = zone.querySelector("#slots"), po = zone.querySelector("#pool");
+    sl.innerHTML = ""; po.innerHTML = "";
+    if(!picked.length) sl.innerHTML = '<span class="empty">اضغط على البطاقات بالترتيب الصحيح</span>';
+    picked.forEach((t,i)=>{
+      const b=document.createElement("button"); b.type="button"; b.className="pc";
+      b.innerHTML='<i>'+(i+1)+'</i>'+esc(t);
+      if(locked) b.disabled=true; else b.onclick=()=>{ picked.splice(i,1); draw(); };
+      sl.append(b);
+    });
+    pool.filter(t=>!picked.includes(t)).forEach(t=>{
+      const b=document.createElement("button"); b.type="button"; b.className="pc"; b.textContent=t;
+      if(locked) b.disabled=true; else b.onclick=()=>{ picked.push(t); draw(); };
+      po.append(b);
+    });
+    check.disabled = picked.length!==q.items.length;
+  }
+  function finish(fresh){
+    const ok = picked.join("|")===q.items.join("|");
+    draw(true);
+    zone.querySelector("#slots").classList.add(ok?"right":"wrong");
+    check.remove();
+    feedback(q, ok, card, fresh);
+  }
+  check.onclick = ()=>{
+    const ok = picked.join("|")===q.items.join("|");
+    S.ans[q.n] = {ok, pick:picked.join(" ← ")};
+    persist(); finish(true);
+  };
+  if(prev){ picked = prev.pick.split(" ← "); finish(false); } else draw();
+}
+
+function feedback(q, ok, card, fresh){
+  const fb = document.createElement("div"); fb.className = "fb "+(ok?"ok":"no");
+  fb.setAttribute("role","status");
+  if(ok) fb.innerHTML = '<strong>'+PRAISE[q.n%PRAISE.length]+'</strong>';
+  else fb.innerHTML = '<strong>حاول مرة أخرى في المراجعة</strong><p>الإجابة الصحيحة: <b>'+esc(correctText(q))+'</b></p>';
+  card.append(fb);
+  if(fresh && ok) card.classList.add("pop");
+  const nx = document.createElement("button"); nx.type="button"; nx.className="btn next";
+  const last = S.i===S.order.length-1;
+  nx.textContent = last ? "عرض النتيجة" : "السؤال التالي";
+  nx.onclick = ()=>{ if(last){ S.i=S.order.length; persist(); finishQuiz(); } else { S.i++; persist(); renderQ(); window.scrollTo(0,0); } };
+  card.append(nx);
+  $("scoreChip").textContent = "✓ "+score();
+  if(fresh) nx.focus({preventScroll:true});
+}
+
+function finishQuiz(){
+  const total = S.order.length, sc = S.order.filter(n=>S.ans[n]&&S.ans[n].ok).length;
+  const pct = total ? sc/total : 0;
+  const stars = pct>=0.9?3:pct>=0.7?2:pct>=0.5?1:0;
+  const name = ($("kidname").value||"").trim();
+  const msg = pct>=0.9 ? "ممتاز"+(name?" يا "+name:"")+"! أنت عالم صغير."
+            : pct>=0.7 ? "أحسنت"+(name?" يا "+name:"")+"! راجع الأسئلة الخاطئة لتصل إلى العلامة الكاملة."
+            : pct>=0.5 ? "جيد"+(name?" يا "+name:"")+"، تحتاج إلى مراجعة بعض الدروس."
+            : "لا بأس"+(name?" يا "+name:"")+"، راجع الدروس ثم جرّب مرة أخرى.";
+  const wrong = S.order.filter(n=>!(S.ans[n]&&S.ans[n].ok));
+  const box = $("doneBox");
+  $("done").dataset.u = S.mode==="wrong" ? Q[S.order[0]].u : (MODES.find(m=>m.key===S.mode)||{u:1}).u;
+  box.innerHTML =
+    '<h1>النتيجة</h1>'+
+    '<div class="score">'+sc+' / '+total+'</div>'+
+    '<div class="stars" aria-label="'+stars+' من 3 نجوم">'+[0,1,2].map(i=>'<span class="'+(i<stars?"on":"")+'">★</span>').join("")+'</div>'+
+    '<p class="msg">'+esc(msg)+'</p>'+
+    '<div class="acts" id="doneActs"></div>';
+  const acts = box.querySelector("#doneActs");
+  if(wrong.length){
+    const rw = document.createElement("button"); rw.type="button"; rw.className="btn";
+    rw.textContent = "أعد الأسئلة الخاطئة ("+wrong.length+")";
+    rw.onclick = ()=>start("wrong", null, wrong);
+    acts.append(rw);
+  }
+  const hm = document.createElement("button"); hm.type="button"; hm.className="btn plain";
+  hm.textContent = "العودة إلى البداية";
+  hm.onclick = ()=>{ if(S.mode!=="wrong") store("sci3p-"+S.mode, null); renderHome(); show("home"); };
+  acts.append(hm);
+  if(wrong.length){
+    const d = document.createElement("details"); d.className="review";
+    d.innerHTML = '<summary>الأسئلة التي تحتاج إلى مراجعة ('+wrong.length+')</summary><ol>'+
+      wrong.map(n=>{ const q=Q[n]; return '<li><span>رقم '+n+'</span>'+esc(q.type==="match"?"ما يناسب «"+q.a+"»":q.type==="fill"?q.q.replace("__","……"):q.q)+'<b>'+esc(correctText(q))+'</b></li>'; }).join("")+
+      '</ol>';
+    box.append(d);
+  }
+  if(S.mode!=="wrong") store("sci3p-"+S.mode, null);
+  show("done");
+}
+
+$("toHome").onclick = ()=>{ persist(); renderHome(); show("home"); };
+$("kidname").addEventListener("input", e=>store("sci3p-name", e.target.value));
+(function(){ const nm = store("sci3p-name"); if(typeof nm==="string") $("kidname").value = nm; })();
+renderHome();
+</script>
+
+</body></html>

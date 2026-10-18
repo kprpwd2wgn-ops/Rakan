@@ -1,0 +1,319 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>اختبار لغتي للصف الثالث</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap">
+<style>
+/* Layout: one question card per screen with a progress bar, big tap targets for iPad, right-to-left */
+:root {
+  --bg: #EEF5F2;
+  --surface: #FFFFFF;
+  --ink: #12332D;
+  --muted: #5B7A73;
+  --brand: #0E6B5C;
+  --sun: #F2B705;
+  --line: #CFE0DA;
+  --ok: #1E8E4E;
+  --ok-bg: #E2F5EA;
+  --bad: #C2413A;
+  --bad-bg: #FBE7E5;
+  --display: "Baloo Bhaijaan 2", "Noto Naskh Arabic", "Geeza Pro", Tahoma, sans-serif;
+  --read: "Noto Naskh Arabic", "Geeza Pro", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1917; --surface: #172623; --ink: #E6F2EE; --muted: #9DB8B1;
+    --brand: #4FC2AA; --sun: #F5C842; --line: #2A3F3B;
+    --ok: #5BD08C; --ok-bg: #173A28; --bad: #F08A82; --bad-bg: #3E1E1C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1917; --surface: #172623; --ink: #E6F2EE; --muted: #9DB8B1;
+  --brand: #4FC2AA; --sun: #F5C842; --line: #2A3F3B;
+  --ok: #5BD08C; --ok-bg: #173A28; --bad: #F08A82; --bad-bg: #3E1E1C;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--display);
+  direction: rtl; text-align: right;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 32px;
+  -webkit-tap-highlight-color: transparent;
+}
+.wrap { max-width: 660px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+header { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 1.9rem; font-weight: 800; color: var(--brand); }
+.sub { color: var(--muted); font-size: 1rem; }
+.score { font-size: 1.15rem; font-weight: 700; color: var(--brand); font-variant-numeric: tabular-nums; }
+.bar { height: 14px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.fill { height: 100%; width: 0; background: var(--sun); border-radius: 99px; transition: width .3s ease; }
+.card {
+  background: var(--surface); border: 2px solid var(--line); border-radius: 22px;
+  padding: 22px; display: flex; flex-direction: column; gap: 16px;
+}
+.tag { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 1rem; font-weight: 700; }
+.tag .sec { color: var(--surface); background: var(--brand); border-radius: 99px; padding: 2px 14px; }
+.tag .num { color: var(--muted); font-variant-numeric: tabular-nums; }
+.story {
+  font-family: var(--read); font-size: 1.3rem; line-height: 2.1;
+  background: var(--bg); border-radius: 14px; padding: 12px 16px; margin: 0;
+}
+.q { font-size: 1.6rem; font-weight: 700; line-height: 1.6; margin: 0; }
+.q b { color: var(--brand); }
+.choices { display: grid; gap: 12px; }
+.choice {
+  font-family: var(--read); font-size: 1.4rem; font-weight: 700;
+  min-height: 68px; padding: 12px 18px; border-radius: 16px;
+  border: 2px solid var(--line); background: var(--surface); color: var(--ink);
+  text-align: right; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  transition: transform .12s ease;
+}
+.choice:active { transform: scale(.98); }
+.choice:focus-visible, .btn:focus-visible, .link:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+.choice.ok { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); }
+.choice.bad { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
+.choice[disabled] { cursor: default; }
+.mark { font-family: var(--display); font-size: 1.5rem; }
+.feedback { font-size: 1.3rem; font-weight: 700; min-height: 1.6em; margin: 0; }
+.feedback.ok { color: var(--ok); }
+.feedback.bad { color: var(--bad); }
+.btn {
+  font-family: var(--display); font-size: 1.4rem; font-weight: 800;
+  min-height: 62px; border: 0; border-radius: 16px; cursor: pointer;
+  background: var(--brand); color: var(--surface); padding: 10px 24px;
+}
+.btn.alt { background: var(--sun); color: #2A2200; }
+.link { background: none; border: 0; color: var(--muted); font-family: var(--display); font-size: 1rem; cursor: pointer; text-decoration: underline; padding: 6px 0; align-self: flex-start; }
+.result { text-align: center; align-items: center; }
+.big { font-size: 4rem; font-weight: 800; color: var(--brand); line-height: 1; font-variant-numeric: tabular-nums; }
+.stars { font-size: 2.6rem; letter-spacing: 6px; color: var(--sun); }
+.stars .off { color: var(--line); }
+.review { width: 100%; text-align: right; display: grid; gap: 10px; }
+.review h2 { font-size: 1.3rem; margin: 6px 0 0; }
+.rv { font-family: var(--read); background: var(--bg); border-radius: 12px; padding: 10px 14px; line-height: 1.8; font-size: 1.05rem; }
+.rv .ans { color: var(--ok); font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .choice, .fill { transition: none; } }
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+  <header>
+    <div>
+      <h1>اختبار لغتي</h1>
+      <div class="sub">الصف الثالث الابتدائي · الفصل الأول · ٨٠ سؤالًا</div>
+    </div>
+    <div class="score" id="score">النقاط: ٠</div>
+  </header>
+  <div class="bar" aria-hidden="true"><div class="fill" id="fill"></div></div>
+  <main class="card" id="card"></main>
+  <button class="link" id="restart">ابدأ من جديد</button>
+</div>
+
+<script>
+document.documentElement.setAttribute('dir', 'rtl');
+document.documentElement.setAttribute('lang', 'ar');
+
+const STORIES = {
+  adel: 'سافرَ عادلٌ معَ أسرتِهِ إلى أبها بالطائرةِ. وفي صالةِ الانتظارِ رأى رجلًا كبيرًا لا يجدُ مقعدًا، فقامَ وأجلسَهُ مكانَهُ. وفي الطائرةِ ربطَ حزامَ الأمانِ، واستمعَ إلى إرشاداتِ المضيفِ.',
+  fawaz: 'في أولِ يومٍ من العامِ الدراسيِّ الجديدِ، دخلَ فوازٌ الصفَّ مبتسمًا. طلبَ المعلمُ من التلاميذِ أن يعرّفوا بأنفسِهم، فقالَ فوازٌ: اسمي فوازٌ، وأحبُّ القراءةَ. ثمَّ اقترحَ أن يزرعوا ساحةَ المدرسةِ، فوافقَ الجميعُ.',
+  riyadh: 'الرياضُ عاصمةُ المملكةِ العربيةِ السعوديةِ. فيها مبانٍ عاليةٌ وحدائقُ كثيرةٌ، ومن معالمِها التاريخيةِ قصرُ المصمكِ.',
+  summer: 'في الصيفِ يذهبُ كثيرٌ من الناسِ إلى أبها والطائفِ والباحةِ، لأنَّ جوَّها معتدلٌ، وجبالَها خضراءُ، والضبابُ يغطي قممَها.'
+};
+
+// c[0] is always the correct answer; choices are shuffled when shown
+const Q = [
+  // الفهم والاستيعاب
+  { t: 'الفهم', s: 'adel', q: 'سافرَ عادلٌ إلى مدينةِ:', c: ['أبها', 'الرياض', 'جدة'] },
+  { t: 'الفهم', s: 'adel', q: 'سافرَ عادلٌ بـ:', c: ['الطائرةِ', 'السيارةِ', 'القطارِ'] },
+  { t: 'الفهم', s: 'adel', q: 'أينَ رأى عادلٌ الرجلَ الكبيرَ؟', c: ['في صالةِ الانتظارِ', 'في السوقِ', 'في المدرسةِ'] },
+  { t: 'الفهم', s: 'adel', q: 'ماذا فعلَ عادلٌ للرجلِ الكبيرِ؟', c: ['أجلسَهُ مكانَهُ', 'تركَهُ واقفًا', 'ذهبَ بعيدًا'] },
+  { t: 'الفهم', s: 'adel', q: 'ماذا ربطَ عادلٌ في الطائرةِ؟', c: ['حزامَ الأمانِ', 'حذاءَهُ', 'حقيبتَهُ'] },
+  { t: 'الفهم', s: 'adel', q: 'إلى مَن استمعَ عادلٌ في الطائرةِ؟', c: ['المضيفِ', 'صديقِهِ', 'المعلمِ'] },
+  { t: 'الفهم', s: 'adel', q: 'تصرّفُ عادلٍ يدلُّ على أنَّهُ:', c: ['يحترمُ الكبيرَ', 'كسولٌ', 'لا يهتمُّ بغيرِهِ'] },
+  { t: 'الفهم', s: 'fawaz', q: 'دخلَ فوازٌ الصفَّ:', c: ['مبتسمًا', 'حزينًا', 'غاضبًا'] },
+  { t: 'الفهم', s: 'fawaz', q: 'ماذا طلبَ المعلمُ من التلاميذِ؟', c: ['أن يعرّفوا بأنفسِهم', 'أن يرسموا', 'أن يخرجوا'] },
+  { t: 'الفهم', s: 'fawaz', q: 'فوازٌ يحبُّ:', c: ['القراءةَ', 'الرسمَ', 'السباحةَ'] },
+  { t: 'الفهم', s: 'fawaz', q: 'ماذا اقترحَ فوازٌ؟', c: ['زراعةَ ساحةِ المدرسةِ', 'تنظيفَ الفصلِ', 'رحلةً إلى البحرِ'] },
+  { t: 'الفهم', s: 'fawaz', q: 'متى حدثَتِ القصةُ؟', c: ['في أولِ يومٍ دراسيٍّ', 'في آخرِ العامِ', 'في الإجازةِ'] },
+  { t: 'الفهم', s: 'riyadh', q: 'عاصمةُ المملكةِ العربيةِ السعوديةِ هي:', c: ['الرياضُ', 'جدةُ', 'الدمامُ'] },
+  { t: 'الفهم', s: 'riyadh', q: 'من معالمِ الرياضِ التاريخيةِ:', c: ['قصرُ المصمكِ', 'برجُ إيفلَ', 'الأهراماتُ'] },
+  { t: 'الفهم', s: 'riyadh', q: 'الحدائقُ في الرياضِ:', c: ['كثيرةٌ', 'قليلةٌ', 'لا توجدُ'] },
+  { t: 'الفهم', s: 'summer', q: 'لماذا يذهبُ الناسُ إلى أبها في الصيفِ؟', c: ['لأنَّ جوَّها معتدلٌ', 'لأنَّها حارّةٌ', 'لأنَّ فيها بحرًا'] },
+  { t: 'الفهم', s: 'summer', q: 'من المصايفِ المذكورةِ في النصِّ:', c: ['الطائفُ', 'الدمامُ', 'تبوكُ'] },
+  { t: 'الفهم', s: 'summer', q: 'الضبابُ يغطي:', c: ['قممَ الجبالِ', 'البحارَ', 'الصحراءَ'] },
+  { t: 'الفهم', q: 'الشجاعُ هو الذي:', c: ['يقولُ الحقَّ ولا يخافُ', 'يهربُ من كلِّ شيءٍ', 'يكذبُ على أصدقائِهِ'] },
+  { t: 'الفهم', q: 'إذا رأيتُ رجلًا كبيرًا واقفًا فإنّي:', c: ['أُجلِسُهُ مكاني', 'أتجاهلُهُ', 'أضحكُ'] },
+
+  // المعجم
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>صَعِدَ</b>:', c: ['نَزَلَ', 'جَلَسَ', 'رَكِبَ'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>كبير</b>:', c: ['صغير', 'طويل', 'جميل'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>قامَ</b>:', c: ['جَلَسَ', 'مَشى', 'وَقَفَ'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>قليل</b>:', c: ['كثير', 'صغير', 'بعيد'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>فَرِحَ</b>:', c: ['حَزِنَ', 'ضَحِكَ', 'لَعِبَ'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>دَخَلَ</b>:', c: ['خَرَجَ', 'جَلَسَ', 'نامَ'] },
+  { t: 'المعجم', q: 'ضدُّ كلمةِ <b>نظيف</b>:', c: ['مُتَّسِخ', 'جديد', 'لامِع'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>مَقْعَد</b>:', c: ['مَقاعِد', 'مَقْعَدات', 'قُعود'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>جَبَل</b>:', c: ['جِبال', 'جَبَلات', 'أجْبُل'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>حديقة</b>:', c: ['حدائق', 'حديقات', 'حُدوق'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>تِلْميذ</b>:', c: ['تَلاميذ', 'تِلْميذات', 'تَلامِذَة'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>كِتاب</b>:', c: ['كُتُب', 'كِتابات', 'كَتائِب'] },
+  { t: 'المعجم', q: 'جمعُ كلمةِ <b>مَدينة</b>:', c: ['مُدُن', 'مَدينات', 'مَدائن'] },
+  { t: 'المعجم', q: 'مفردُ كلمةِ <b>أشْجار</b>:', c: ['شَجَرة', 'شُجَيْرات', 'أشْجَر'] },
+  { t: 'المعجم', q: 'مفردُ كلمةِ <b>قِمَم</b>:', c: ['قِمَّة', 'قامَة', 'قُمْقُم'] },
+  { t: 'المعجم', q: 'معنى كلمةِ <b>القِمَم</b>:', c: ['رؤوسُ الجبالِ', 'الأوديةُ', 'البحارُ'] },
+  { t: 'المعجم', q: 'معنى كلمةِ <b>مُعْتَدِل</b> (الجوّ):', c: ['لا حارٌّ ولا باردٌ', 'حارٌّ جدًّا', 'باردٌ جدًّا'] },
+  { t: 'المعجم', q: 'معنى كلمةِ <b>الضَّباب</b>:', c: ['سحابٌ قريبٌ من الأرضِ', 'مطرٌ شديدٌ', 'ريحٌ قويةٌ'] },
+  { t: 'المعجم', q: 'معنى كلمةِ <b>اقْتَرَحَ</b>:', c: ['قدّمَ فكرةً', 'رفضَ', 'نامَ'] },
+
+  // الصنف اللغوي
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>سافَرَ</b>:', c: ['فعل', 'اسم', 'حرف'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>عادِل</b>:', c: ['اسم', 'فعل', 'حرف'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>إلى</b>:', c: ['حرف', 'اسم', 'فعل'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>الطائرة</b>:', c: ['اسم', 'فعل', 'حرف'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>رَبَطَ</b>:', c: ['فعل', 'اسم', 'حرف'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>في</b>:', c: ['حرف', 'فعل', 'اسم'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>يُحِبُّ</b>:', c: ['فعل', 'حرف', 'اسم'] },
+  { t: 'الصنف اللغوي', q: 'كلمةُ <b>اسْتَمَعَ</b>:', c: ['فعل', 'اسم', 'حرف'] },
+
+  // النكرة والمعرفة
+  { t: 'النكرة والمعرفة', q: 'أيُّ كلمةٍ <b>معرفة</b>؟', c: ['الكتاب', 'كتاب', 'قلم'] },
+  { t: 'النكرة والمعرفة', q: 'أيُّ كلمةٍ <b>نكرة</b>؟', c: ['باب', 'الباب', 'الصف'] },
+  { t: 'النكرة والمعرفة', q: 'كلمةُ <b>حديقة</b> بعدَ تعريفِها بـ (ال):', c: ['الحديقة', 'حديقتي', 'حديقةٌ'] },
+  { t: 'النكرة والمعرفة', q: 'كلمةُ <b>طائرة</b> بعدَ تعريفِها بـ (ال):', c: ['الطائرة', 'طائرات', 'طائرةً'] },
+
+  // الأساليب
+  { t: 'الأساليب', q: 'أيُّ جملةٍ فيها <b>تعجُّب</b>؟', c: ['ما أجملَ الحديقةَ!', 'الحديقةُ جميلةٌ.', 'هل الحديقةُ جميلةٌ؟'] },
+  { t: 'الأساليب', q: 'أتعجّبُ من جملةِ: السماءُ صافيةٌ', c: ['ما أصفى السماءَ!', 'هل السماءُ صافيةٌ؟', 'السماءُ زرقاءُ.'] },
+  { t: 'الأساليب', q: 'العلامةُ التي نضعُها بعدَ جملةِ التعجّبِ:', c: ['!', '؟', '.'] },
+  { t: 'الأساليب', q: 'العلامةُ التي نضعُها بعدَ السؤالِ:', c: ['؟', '!', '،'] },
+  { t: 'الأساليب', q: '«هل تحبُّ القراءةَ؟» أسلوبُ:', c: ['استفهام', 'تعجُّب', 'نداء'] },
+  { t: 'الأساليب', q: '«يا فوازُ، تعالَ» أسلوبُ:', c: ['نداء', 'تعجُّب', 'استفهام'] },
+
+  // الجملة الاسمية والفعلية
+  { t: 'نوع الجملة', q: '«الطائرةُ سريعةٌ» جملةٌ:', c: ['اسمية', 'فعلية'] },
+  { t: 'نوع الجملة', q: '«ربطَ عادلٌ الحزامَ» جملةٌ:', c: ['فعلية', 'اسمية'] },
+  { t: 'نوع الجملة', q: '«الرياضُ عاصمةُ بلادي» جملةٌ:', c: ['اسمية', 'فعلية'] },
+  { t: 'نوع الجملة', q: '«زرعَ التلاميذُ الساحةَ» جملةٌ:', c: ['فعلية', 'اسمية'] },
+  { t: 'نوع الجملة', q: '«الجبالُ خضراءُ» جملةٌ:', c: ['اسمية', 'فعلية'] },
+  { t: 'نوع الجملة', q: 'الجملةُ الفعليةُ تبدأُ بـ:', c: ['فعل', 'اسم', 'حرف'] },
+
+  // ترتيب الكلمات
+  { t: 'ترتيب الكلمات', q: 'أرتّبُ: (المطارِ – إلى – وصلتِ – الأسرةُ)', c: ['وصلتِ الأسرةُ إلى المطارِ.', 'إلى الأسرةُ وصلتِ المطارِ.', 'المطارِ وصلتِ إلى الأسرةُ.'] },
+  { t: 'ترتيب الكلمات', q: 'أرتّبُ: (عاصمةُ – الرياضُ – المملكةِ)', c: ['الرياضُ عاصمةُ المملكةِ.', 'المملكةِ الرياضُ عاصمةُ.', 'عاصمةُ المملكةِ الرياضُ.'] },
+  { t: 'ترتيب الكلمات', q: 'أرتّبُ: (الكبيرَ – أحترمُ – أنا)', c: ['أنا أحترمُ الكبيرَ.', 'الكبيرَ أنا أحترمُ.', 'أحترمُ أنا الكبيرَ.'] },
+
+  // الإملاء
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>الشَّمْس</b>:', c: ['شمسية', 'قمرية'] },
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>القَمَر</b>:', c: ['قمرية', 'شمسية'] },
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>الطّائِرة</b>:', c: ['شمسية', 'قمرية'] },
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>الجِبال</b>:', c: ['قمرية', 'شمسية'] },
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>السَّحاب</b>:', c: ['شمسية', 'قمرية'] },
+  { t: 'الإملاء', q: 'اللامُ في كلمةِ <b>المَطار</b>:', c: ['قمرية', 'شمسية'] },
+  { t: 'الإملاء', q: 'أكملُ: مدرسـ…', c: ['ة', 'ت', 'ه'] },
+  { t: 'الإملاء', q: 'أكملُ: بنـ… (ابنة)', c: ['ت', 'ة', 'ه'] },
+  { t: 'الإملاء', q: 'أكملُ: بيـ… (المنزل)', c: ['ت', 'ة', 'ه'] },
+  { t: 'الإملاء', q: 'أكملُ: حديقـ…', c: ['ة', 'ت', 'ه'] },
+  { t: 'الإملاء', q: 'أكملُ: وجـ… (الوجه)', c: ['ه', 'ة', 'ت'] },
+  { t: 'الإملاء', q: 'رأيتُ حديقةً …', c: ['جميلةً', 'جميلةٌ', 'جميلةٍ'] },
+  { t: 'الإملاء', q: 'قرأتُ …', c: ['كتابًا', 'كتابٌ', 'كتابٍ'] },
+  { t: 'الإملاء', q: 'هذا …', c: ['قلمٌ', 'قلمًا', 'قلمٍ'] }
+];
+
+const KEY = 'lughati-g3-80-v1';
+let state = { i: 0, score: 0, wrong: [], answered: false };
+try { const saved = JSON.parse(localStorage.getItem(KEY)); if (saved && typeof saved.i === 'number') state = saved; } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+const ar = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const card = document.getElementById('card');
+const fill = document.getElementById('fill');
+const scoreEl = document.getElementById('score');
+
+function shuffle(a) { const b = a.slice(); for (let k = b.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [b[k], b[j]] = [b[j], b[k]]; } return b; }
+
+function header() {
+  fill.style.width = (state.i / Q.length * 100) + '%';
+  scoreEl.textContent = 'النقاط: ' + ar(state.score);
+}
+
+function show() {
+  if (state.i >= Q.length) return finish();
+  state.answered = false; save();
+  header();
+  const item = Q[state.i];
+  const opts = shuffle(item.c);
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="tag"><span class="sec">${item.t}</span><span class="num">السؤال ${ar(state.i + 1)} من ${ar(Q.length)}</span></div>
+    ${item.s ? `<p class="story">${STORIES[item.s]}</p>` : ''}
+    <p class="q">${item.q}</p>
+    <div class="choices">
+      ${opts.map((c, k) => `<button class="choice" id="q${state.i}-c${k}" data-v="${encodeURIComponent(c)}"><span>${c}</span><span class="mark"></span></button>`).join('')}
+    </div>
+    <p class="feedback" id="fb" aria-live="polite"></p>
+  `;
+  card.querySelectorAll('.choice').forEach(b => b.addEventListener('click', () => pick(b)));
+  window.scrollTo({ top: 0 });
+}
+
+function pick(btn) {
+  if (state.answered) return;
+  state.answered = true;
+  const item = Q[state.i];
+  const val = decodeURIComponent(btn.dataset.v);
+  const right = val === item.c[0];
+  const btns = card.querySelectorAll('.choice');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (decodeURIComponent(b.dataset.v) === item.c[0]) { b.classList.add('ok'); b.querySelector('.mark').textContent = '✓'; }
+  });
+  if (right) state.score++;
+  else { btn.classList.add('bad'); btn.querySelector('.mark').textContent = '✗'; state.wrong.push(state.i); }
+  const fb = document.getElementById('fb');
+  fb.className = 'feedback ' + (right ? 'ok' : 'bad');
+  fb.textContent = right ? 'أحسنت! إجابة صحيحة' : 'الإجابة الصحيحة باللون الأخضر';
+  state.i++;
+  save();
+  scoreEl.textContent = 'النقاط: ' + ar(state.score);
+  fill.style.width = (state.i / Q.length * 100) + '%';
+  const next = document.createElement('button');
+  next.className = 'btn';
+  next.id = 'next-' + state.i;
+  next.textContent = state.i < Q.length ? 'السؤال التالي' : 'شاهد النتيجة';
+  next.addEventListener('click', show);
+  card.appendChild(next);
+  next.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+function finish() {
+  header();
+  const n = Q.length, s = state.score;
+  const starsOn = s >= 72 ? 3 : s >= 56 ? 2 : s >= 40 ? 1 : 0;
+  const msg = s >= 72 ? 'ممتاز يا بطل!' : s >= 56 ? 'أحسنت، أداء رائع!' : 'جيد، راجع أخطاءك وحاول مرة أخرى';
+  card.className = 'card result';
+  card.innerHTML = `
+    <div class="stars">${[0, 1, 2].map(k => `<span class="${k < starsOn ? '' : 'off'}">★</span>`).join('')}</div>
+    <div class="big">${ar(s)} / ${ar(n)}</div>
+    <p class="q">${msg}</p>
+    <button class="btn alt" id="again">أعد الاختبار</button>
+    ${state.wrong.length ? `<div class="review"><h2>مراجعة الأخطاء (${ar(state.wrong.length)})</h2>
+      ${state.wrong.map(k => `<div class="rv">${Q[k].q.replace(/<\/?b>/g, '')}<br>الإجابة: <span class="ans">${Q[k].c[0]}</span></div>`).join('')}</div>` : ''}
+  `;
+  document.getElementById('again').addEventListener('click', reset);
+}
+
+function reset() { state = { i: 0, score: 0, wrong: [], answered: false }; save(); show(); }
+
+const restart = document.getElementById('restart');
+let armed = false;
+restart.addEventListener('click', () => {
+  if (!armed) { armed = true; restart.textContent = 'اضغط مرة أخرى للتأكيد'; setTimeout(() => { armed = false; restart.textContent = 'ابدأ من جديد'; }, 3000); return; }
+  armed = false; restart.textContent = 'ابدأ من جديد'; reset();
+});
+
+show();
+</script>
+
+</body></html>

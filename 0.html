@@ -1,0 +1,381 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>اختبار رياضيات الصف الثالث</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: one exercise-book page at a time, question cards on lightly ruled paper, sticky footer to move between pages */
+:root{
+  --paper:#F7FAF6; --rule:#DCE7F0; --card:#FFFFFF; --ink:#1E2A45; --muted:#5A6684;
+  --teal:#0F7C7A; --teal-soft:#E2F2F1; --pencil:#F2B01E; --pencil-soft:#FFF4D6;
+  --ok:#2C8A55; --ok-soft:#E3F4EA; --bad:#CC3F55; --bad-soft:#FCE6EA; --field:#F1F6FA;
+  --font-display:'Baloo Bhaijaan 2','Tajawal',system-ui,sans-serif;
+  --font-body:'Tajawal',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111827; --rule:#1E2A3E; --card:#18223A; --ink:#E9EEF7; --muted:#A3AEC6;
+  --teal:#43C0BA; --teal-soft:#16343A; --pencil:#F6BE3C; --pencil-soft:#3A3014;
+  --ok:#53C98A; --ok-soft:#173326; --bad:#F2768A; --bad-soft:#3D1C25; --field:#202C47; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111827; --rule:#1E2A3E; --card:#18223A; --ink:#E9EEF7; --muted:#A3AEC6;
+  --teal:#43C0BA; --teal-soft:#16343A; --pencil:#F6BE3C; --pencil-soft:#3A3014;
+  --ok:#53C98A; --ok-soft:#173326; --bad:#F2768A; --bad-soft:#3D1C25; --field:#202C47; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:19px;line-height:1.7;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 35px,var(--rule) 35px 36px);}
+.wrap{max-width:780px;margin:0 auto;padding-block:18px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;line-height:1.3}
+
+.head{background:var(--card);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;
+  border:2px solid var(--rule)}
+.head h1{font-size:30px;font-weight:800}
+.head .sub{color:var(--muted);font-size:16px;margin:0}
+.namebox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.namebox label{font-weight:700}
+.namebox input{flex:1;min-width:0;max-width:320px;font:500 20px var(--font-body);color:var(--ink);background:var(--field);
+  border:2px solid var(--rule);border-radius:12px;padding:8px 12px}
+
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tab{font:700 17px var(--font-display);color:var(--muted);background:var(--card);border:2px solid var(--rule);
+  border-radius:14px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.3}
+.tab small{font:500 13px var(--font-body)}
+.tab[aria-current="true"]{color:var(--ink);border-color:var(--teal);background:var(--teal-soft)}
+.tab.done small{color:var(--ok)}
+
+.pagehead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding-inline:4px}
+.pagehead h2{font-size:24px;font-weight:800}
+.pts{font:700 14px var(--font-body);background:var(--pencil-soft);color:var(--ink);border-radius:999px;padding:3px 12px;white-space:nowrap}
+
+.q{background:var(--card);border-radius:18px;padding:18px 18px 16px;border:2px solid var(--rule);display:flex;flex-direction:column;gap:12px}
+.q h3{font-size:20px;font-weight:700;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.items{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--paper);border:2px solid transparent}
+.item .num{font:800 17px var(--font-display);color:var(--teal);min-width:1.4em;padding-top:6px}
+.item .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.line{font-size:21px;line-height:2.2}
+mark{background:var(--pencil-soft);color:inherit;border-bottom:3px solid var(--pencil);padding:0 2px;border-radius:3px}
+
+.blank{width:4.6em;font:700 22px var(--font-display);color:var(--ink);text-align:center;background:var(--field);
+  border:none;border-bottom:3px dashed var(--teal);border-radius:10px 10px 4px 4px;padding:4px 6px;margin-inline:3px;vertical-align:middle}
+.blank.wide{width:6em}
+.blank:focus{outline:3px solid var(--pencil);outline-offset:2px;border-bottom-style:solid}
+.blank[readonly]{border-bottom-style:solid}
+
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{font:700 18px var(--font-body);color:var(--ink);background:var(--card);border:2px solid var(--rule);border-radius:12px;
+  padding:9px 16px;cursor:pointer;min-height:48px;text-align:right}
+.choice[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.choice:focus-visible,.tab:focus-visible,.btn:focus-visible{outline:3px solid var(--pencil);outline-offset:2px}
+
+.cmp{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:700 24px var(--font-display)}
+.slot{min-width:5.4em;text-align:center;border:2px dashed var(--teal);border-radius:12px;padding:2px 10px;font:700 18px var(--font-body);color:var(--teal)}
+.slot.empty{color:var(--muted)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.vcard{padding:12px 14px}
+.vcard .num{padding-top:0}
+.vsum{direction:ltr;display:grid;grid-template-columns:auto 1fr;font:700 28px/1.35 var(--font-display);font-variant-numeric:tabular-nums}
+.vsum .n{text-align:right;letter-spacing:.06em}
+.vsum .op{color:var(--teal);padding-right:8px}
+.vsum .bar{grid-column:1/-1;border-top:3px solid var(--ink);margin:4px 0 6px}
+.vsum .blank{grid-column:1/-1;width:100%;margin:0;text-align:right;letter-spacing:.06em;font-size:26px}
+
+.item.ok{border-color:var(--ok);background:var(--ok-soft)}
+.item.bad{border-color:var(--bad);background:var(--bad-soft)}
+.mark{font:800 15px var(--font-body);border-radius:999px;padding:1px 10px;align-self:flex-start}
+.item.ok .mark{color:var(--ok)} .item.bad .mark{color:var(--bad)}
+.fix{font:500 16px var(--font-body);color:var(--ink)}
+.fix b{color:var(--bad)}
+.choice.right{border-color:var(--ok);background:var(--ok-soft)}
+
+.foot{position:sticky;bottom:0;z-index:5;background:var(--paper);border-top:2px solid var(--rule);
+  padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.foot .in{max-width:780px;margin:0 auto;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.btn{font:800 19px var(--font-display);border-radius:14px;padding:10px 22px;min-height:52px;cursor:pointer;border:2px solid var(--rule);background:var(--card);color:var(--ink)}
+.btn.main{background:var(--teal);border-color:var(--teal);color:var(--card)}
+.btn.grade{background:var(--pencil);border-color:var(--pencil);color:#1E2A45}
+.btn[disabled]{opacity:.4;cursor:default}
+.confirm{width:100%;background:var(--pencil-soft);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.confirm p{margin:0;font-weight:700}
+
+.result{background:var(--card);border:3px solid var(--pencil);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.stars{font-size:40px;letter-spacing:6px;color:var(--pencil);line-height:1}
+.stars .off{color:var(--rule)}
+.score{font:800 56px/1 var(--font-display)}
+.score small{font-size:24px;color:var(--muted)}
+.result .msg{font:700 22px var(--font-display);margin:0}
+.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.breakdown div{background:var(--paper);border-radius:12px;padding:8px 4px;font-size:15px;line-height:1.4}
+.breakdown b{display:block;font:800 22px var(--font-display)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.note{color:var(--muted);font-size:15px;margin:0}
+@media (max-width:480px){.line{font-size:19px}.blank{font-size:19px;width:4.2em}.head h1{font-size:25px}.score{font-size:46px}}
+@media (prefers-reduced-motion:no-preference){.item{transition:background .2s,border-color .2s}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar" id="app"></div>
+<div class="foot" dir="rtl" lang="ar" id="foot"></div>
+
+<script>
+document.documentElement.setAttribute('dir','rtl');
+document.documentElement.setAttribute('lang','ar');
+
+const AR='٠١٢٣٤٥٦٧٨٩';
+const toAr=v=>String(v).replace(/[0-9]/g,d=>AR[d]);
+const toEn=s=>String(s??'').replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[\s,٬،.]/g,'');
+const same=(v,a)=>{const s=toEn(v);return /^\d+$/.test(s)&&Number(s)===a};
+const CMP={lt:'أصغر من',gt:'أكبر من',eq:'يساوي'};
+
+const PAGES=[
+ {title:'الأنماط العددية والقيمة المنزلية',qs:[
+  {title:'أكمل النمط العددي',items:[
+   {t:'blanks',tpl:'١٥ ، ٢٠ ، ٢٥ ، {} ، {}',ans:[30,35]},
+   {t:'blanks',tpl:'١٠٠ ، ٢٠٠ ، ٣٠٠ ، {} ، {}',ans:[400,500]},
+   {t:'blanks',tpl:'٤٨ ، ٤٥ ، ٤٢ ، {} ، {}',ans:[39,36]}]},
+  {title:'اكتب قيمة الرقم الملوّن',items:[
+   {t:'blanks',tpl:'قيمة الرقم ٧ في العدد ٤<mark>٧</mark>٣٢ = {}',ans:[700],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٥ في العدد <mark>٥</mark>٢١٨ = {}',ans:[5000],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٩ في العدد ٣٦<mark>٩</mark>٠٤ = {}',ans:[900],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٢ في العدد <mark>٢</mark>٨٤٥٦ = {}',ans:[20000],wide:1}]},
+  {title:'اكتب العدد بالصيغة القياسية',items:[
+   {t:'blanks',tpl:'ثلاثة آلاف وأربعمئة وخمسة = {}',ans:[3405],wide:1},
+   {t:'blanks',tpl:'٦٠٠٠ + ٢٠٠ + ٨٠ + ١ = {}',ans:[6281],wide:1},
+   {t:'blanks',tpl:'٤٠٠٠٠ + ٣٠٠٠ + ٥٠٠ + ٧ = {}',ans:[43507],wide:1}]},
+  {title:'اكتب العدد بالصيغة التحليلية',items:[
+   {t:'expanded',label:'٧٥٢٦ =',ans:[7000,500,20,6]},
+   {t:'expanded',label:'٢٤٠٣٨ =',ans:[20000,4000,30,8]}]},
+  {title:'اختر الطريقة الصحيحة لقراءة العدد',items:[
+   {t:'mcq',q:'العدد ٨٣٥٠ يُقرأ:',opts:['ثمانية آلاف وخمسمئة وثلاثون','ثمانية آلاف وثلاثمئة وخمسون','ثمانمئة وخمسة وثلاثون'],ans:1},
+   {t:'mcq',q:'العدد ١٥٠٢٧ يُقرأ:',opts:['خمسة عشر ألفًا وسبعة وعشرون','مئة وخمسون ألفًا وسبعة وعشرون','خمسة عشر ألفًا ومئتان وسبعون'],ans:0}]}
+ ]},
+ {title:'مقارنة الأعداد وترتيبها والتقريب',qs:[
+  {title:'اختر الكلمة المناسبة للمقارنة',items:[
+   {t:'compare',a:'٤٥٦٧',b:'٤٦٥٧',ans:'lt'},
+   {t:'compare',a:'٣٠٩٠',b:'٣٠٠٩',ans:'gt'},
+   {t:'compare',a:'٢٥٠٠٠',b:'٢٤٩٩٩',ans:'gt'},
+   {t:'compare',a:'٧٠٠٠ + ٥٠',b:'٧٠٥٠',ans:'eq'}]},
+  {title:'رتّب الأعداد',items:[
+   {t:'blanks',tpl:'من الأصغر إلى الأكبر: ٣٥٢١ ، ٣١٢٥ ، ٣٥١٢<br>{} ، {} ، {}',ans:[3125,3512,3521]},
+   {t:'blanks',tpl:'من الأكبر إلى الأصغر: ١٨٣٤٠ ، ١٨٤٣٠ ، ١٣٨٤٠<br>{} ، {} ، {}',ans:[18430,18340,13840]}]},
+  {title:'قرّب إلى أقرب عشرة',items:[
+   {t:'blanks',tpl:'٤٧ ← {}',ans:[50]},{t:'blanks',tpl:'٢٣٤ ← {}',ans:[230]}]},
+  {title:'قرّب إلى أقرب مئة',items:[
+   {t:'blanks',tpl:'٣٦٢ ← {}',ans:[400]},{t:'blanks',tpl:'١٢٤٩ ← {}',ans:[1200]}]},
+  {title:'قرّب إلى أقرب ألف',items:[
+   {t:'blanks',tpl:'٥٦٧٣ ← {}',ans:[6000]},{t:'blanks',tpl:'٢٤١٩ ← {}',ans:[2000]}]},
+  {title:'حلّ المسألة',items:[
+   {t:'mcq',q:'زار المكتبة يوم الأحد ٢٣٤٥ زائرًا، ويوم الإثنين ٢٥٤٣ زائرًا. في أي اليومين كان عدد الزوار أكثر؟',opts:['يوم الأحد','يوم الإثنين'],ans:1}]}
+ ]},
+ {title:'الجمع',qs:[
+  {title:'أكمل مستعملًا خصائص الجمع',items:[
+   {t:'blanks',tpl:'٨ + ٥ = ٥ + {}',ans:[8]},
+   {t:'blanks',tpl:'٢٧ + ٠ = {}',ans:[27]},
+   {t:'blanks',tpl:'(٤ + ٦) + ٣ = ٤ + ({} + ٣)',ans:[6]}]},
+  {title:'قدّر ناتج الجمع',items:[
+   {t:'blanks',tpl:'إلى أقرب عشرة:<br>٣٨ + ٤٤ ≈ {} + {} = {}',ans:[40,40,80]},
+   {t:'blanks',tpl:'إلى أقرب مئة:<br>٢٨٧ + ٤١٢ ≈ {} + {} = {}',ans:[300,400,700]}]},
+  {title:'أوجد ناتج الجمع',grid:1,items:[
+   {t:'vertical',a:46,b:37,ans:[83]},{t:'vertical',a:254,b:132,ans:[386]},{t:'vertical',a:468,b:275,ans:[743]},
+   {t:'vertical',a:605,b:198,ans:[803]},{t:'vertical',a:589,b:346,ans:[935]}]},
+  {title:'حلّ المسائل',items:[
+   {t:'blanks',tpl:'قرأ خالد ٢٤٨ صفحة في الأسبوع الأول، و١٨٥ صفحة في الأسبوع الثاني. كم صفحة قرأ في الأسبوعين؟<br>الحل: {} صفحة',ans:[433],wide:1},
+   {t:'blanks',tpl:'في مزرعة ٣٥٦ نخلة و٢٧٩ شجرة ليمون. كم شجرة في المزرعة كلها؟<br>الحل: {} شجرة',ans:[635],wide:1},
+   {t:'blanks',tpl:'اشترت أمي ثوبًا بـ ١٢٥ ريالًا وحذاءً بـ ٨٩ ريالًا. قدّر المبلغ بالتقريب إلى أقرب عشرة، ثم احسب المبلغ الحقيقي.<br>التقدير: {} ريالًا<br>المبلغ الحقيقي: {} ريالًا',ans:[220,214],wide:1}]}
+ ]}
+];
+
+// ids + totals
+PAGES.forEach((p,pi)=>{p.total=0;p.qs.forEach((q,qi)=>q.items.forEach((it,ii)=>{it.id=`p${pi}q${qi}i${ii}`;p.total++}))});
+const TOTAL=PAGES.reduce((s,p)=>s+p.total,0);
+
+const KEY='g3-math-quiz-v1';
+let S={name:'',ans:{},graded:false,page:0};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+let confirming=false;
+
+function nBlanks(it){return it.t==='blanks'?it.ans.length:it.t==='expanded'?it.ans.length:it.t==='vertical'?1:0}
+function filled(it){
+  const v=S.ans[it.id];
+  if(it.t==='mcq'||it.t==='compare')return v!==undefined&&v!==null;
+  if(!Array.isArray(v))return false;
+  for(let k=0;k<nBlanks(it);k++)if(!toEn(v[k]))return false;return true;
+}
+function correct(it){
+  const v=S.ans[it.id];
+  if(it.t==='mcq'||it.t==='compare')return v===it.ans;
+  if(!Array.isArray(v))return false;
+  if(it.t==='expanded'){
+    const got=v.map(toEn).filter(x=>/^\d+$/.test(x)&&Number(x)!==0).map(Number).sort((a,b)=>a-b);
+    const exp=[...it.ans].sort((a,b)=>a-b);
+    return got.length===exp.length&&got.every((x,i)=>x===exp[i]);
+  }
+  return it.ans.every((a,k)=>same(v[k],a));
+}
+function fixText(it){
+  if(it.t==='mcq')return it.opts[it.ans];
+  if(it.t==='compare')return `${it.a} ${CMP[it.ans]} ${it.b}`;
+  if(it.t==='expanded')return it.label+' '+it.ans.map(toAr).join(' + ');
+  return it.ans.map(toAr).join(' ، ');
+}
+
+function inputEl(it,k){
+  const i=document.createElement('input');
+  i.className='blank'+(it.wide?' wide':'');i.id=`${it.id}_${k}`;
+  i.type='text';i.inputMode='numeric';i.autocomplete='off';i.setAttribute('aria-label','الإجابة');
+  const v=(S.ans[it.id]||[])[k];i.value=v?toAr(v):'';
+  if(S.graded)i.readOnly=true;
+  i.addEventListener('input',()=>{
+    const ar=toAr(i.value);if(ar!==i.value)i.value=ar;
+    const arr=S.ans[it.id]||(S.ans[it.id]=[]);arr[k]=i.value;save();refreshTabs();
+  });
+  return i;
+}
+function choiceBtns(it,labels,values){
+  const wrap=document.createElement('div');wrap.className='choices';
+  labels.forEach((lab,j)=>{
+    const b=document.createElement('button');b.type='button';b.className='choice';b.textContent=lab;
+    const val=values[j];b.setAttribute('aria-pressed',String(S.ans[it.id]===val));
+    if(S.graded){b.disabled=true;if(val===it.ans&&S.ans[it.id]!==it.ans)b.classList.add('right')}
+    b.addEventListener('click',()=>{if(S.graded)return;S.ans[it.id]=val;save();
+      wrap.querySelectorAll('.choice').forEach((x,m)=>x.setAttribute('aria-pressed',String(values[m]===val)));
+      const slot=wrap.parentElement.querySelector('.slot');if(slot){slot.textContent=CMP[val];slot.classList.remove('empty')}
+      refreshTabs();});
+    wrap.appendChild(b);
+  });
+  return wrap;
+}
+
+function renderItem(it,n,inGrid){
+  const box=document.createElement('div');box.className='item'+(inGrid?' vcard':'');box.id=it.id;
+  const num=document.createElement('span');num.className='num';num.textContent=toAr(n)+'.';
+  const body=document.createElement('div');body.className='body';
+  if(it.t==='blanks'){
+    const line=document.createElement('div');line.className='line';
+    it.tpl.split('{}').forEach((seg,k,arr)=>{const s=document.createElement('span');s.innerHTML=seg;line.appendChild(s);if(k<arr.length-1)line.appendChild(inputEl(it,k))});
+    body.appendChild(line);
+  }else if(it.t==='expanded'){
+    const line=document.createElement('div');line.className='line';
+    line.append(it.label+' ');
+    it.ans.forEach((_,k)=>{line.appendChild(inputEl(it,k));if(k<it.ans.length-1)line.append(' + ')});
+    body.appendChild(line);
+  }else if(it.t==='vertical'){
+    const g=document.createElement('div');g.className='vsum';
+    g.innerHTML=`<span></span><span class="n">${toAr(it.a)}</span><span class="op">+</span><span class="n">${toAr(it.b)}</span><span class="bar"></span>`;
+    const inp=inputEl(it,0);inp.setAttribute('dir','ltr');g.appendChild(inp);body.appendChild(g);
+  }else if(it.t==='compare'){
+    const row=document.createElement('div');row.className='cmp';
+    const v=S.ans[it.id];
+    row.innerHTML=`<span>${it.a}</span><span class="slot${v?'':' empty'}">${v?CMP[v]:'؟'}</span><span>${it.b}</span>`;
+    body.appendChild(row);body.appendChild(choiceBtns(it,['أكبر من','أصغر من','يساوي'],['gt','lt','eq']));
+  }else if(it.t==='mcq'){
+    const p=document.createElement('div');p.className='line';p.style.lineHeight='1.7';p.textContent=it.q;body.appendChild(p);
+    body.appendChild(choiceBtns(it,it.opts,it.opts.map((_,j)=>j)));
+  }
+  if(S.graded){
+    const ok=correct(it);box.classList.add(ok?'ok':'bad');
+    const m=document.createElement('span');m.className='mark';m.textContent=ok?'✓ صحيح':'✗ خطأ';
+    if(!ok){const f=document.createElement('div');f.className='fix';f.innerHTML='الإجابة الصحيحة: <b></b>';f.querySelector('b').textContent=fixText(it);body.appendChild(f)}
+    box.append(num,body,m);
+  }else box.append(num,body);
+  return box;
+}
+
+function renderPage(pi){
+  const p=PAGES[pi];const frag=document.createElement('section');frag.style.display='contents';
+  const h=document.createElement('div');h.className='pagehead';
+  h.innerHTML=`<h2>الصفحة ${toAr(pi+1)}: ${p.title}</h2><span class="pts">${toAr(p.total)} درجة</span>`;
+  frag.appendChild(h);
+  p.qs.forEach((q,qi)=>{
+    const card=document.createElement('div');card.className='q';
+    const n=q.items.length;
+    card.innerHTML=`<h3><span>السؤال ${['الأول','الثاني','الثالث','الرابع','الخامس','السادس'][qi]}: ${q.title}</span><span class="pts">${n===1?'درجة واحدة':n===2?'درجتان':toAr(n)+' درجات'}</span></h3>`;
+    const items=document.createElement('div');items.className=q.grid?'vgrid':'items';
+    q.items.forEach((it,ii)=>items.appendChild(renderItem(it,ii+1,q.grid)));
+    card.appendChild(items);frag.appendChild(card);
+  });
+  return frag;
+}
+
+function pageStats(pi){const its=PAGES[pi].qs.flatMap(q=>q.items);return{done:its.filter(filled).length,ok:its.filter(correct).length,n:its.length}}
+
+function refreshTabs(){
+  document.querySelectorAll('.tab').forEach((t,pi)=>{const s=pageStats(pi);
+    t.querySelector('small').textContent=S.graded?`${toAr(s.ok)} من ${toAr(s.n)}`:`أجبت ${toAr(s.done)} من ${toAr(s.n)}`;
+    t.classList.toggle('done',s.done===s.n)});
+}
+
+function render(){
+  const app=document.getElementById('app');app.innerHTML='';
+  const head=document.createElement('div');head.className='head';
+  head.innerHTML=`<h1>اختبار الرياضيات</h1><p class="sub">الصف الثالث الابتدائي · الفصل الدراسي الأول · من بداية الكتاب حتى صفحة ٧٧ · الدرجة الكلية ${toAr(TOTAL)}</p>
+   <div class="namebox"><label for="sname">اسمي:</label><input id="sname" autocomplete="off" placeholder="اكتب اسمك هنا"></div>`;
+  app.appendChild(head);
+  const nm=head.querySelector('#sname');nm.value=S.name||'';nm.addEventListener('input',()=>{S.name=nm.value;save()});
+
+  if(S.graded){
+    let ok=0;PAGES.forEach((_,pi)=>ok+=pageStats(pi).ok);
+    const pct=ok/TOTAL,stars=pct>=.9?3:pct>=.7?2:1;
+    const nmTxt=S.name.trim()?` يا ${S.name.trim()}`:'';
+    const msg=pct===1?`ممتاز${nmTxt}! كل إجاباتك صحيحة`:pct>=.9?`رائع${nmTxt}! أداء ممتاز`:pct>=.7?`أحسنت${nmTxt}! راجع الأخطاء القليلة`:`بداية جيدة${nmTxt}، لنراجع الدروس معًا`;
+    const r=document.createElement('div');r.className='result';
+    r.innerHTML=`<div class="stars" aria-label="${stars} نجوم">${'★'.repeat(stars)}<span class="off">${'★'.repeat(3-stars)}</span></div>
+      <div class="score">${toAr(ok)} <small>من ${toAr(TOTAL)}</small></div><p class="msg"></p>
+      <div class="breakdown">${PAGES.map((p,pi)=>{const s=pageStats(pi);return `<div>الصفحة ${toAr(pi+1)}<b>${toAr(s.ok)} / ${toAr(s.n)}</b></div>`}).join('')}</div>
+      <div class="actions"><button class="btn main" id="retry" type="button">أعد حل الأخطاء</button><button class="btn" id="restart" type="button">ابدأ من جديد</button></div>
+      <p class="note">الإجابات الخضراء صحيحة، والحمراء تحتها الإجابة الصحيحة.</p>`;
+    r.querySelector('.msg').textContent=msg;
+    app.appendChild(r);
+    r.querySelector('#retry').onclick=()=>{PAGES.forEach(p=>p.qs.forEach(q=>q.items.forEach(it=>{if(!correct(it))delete S.ans[it.id]})));S.graded=false;S.page=firstWrongPage();save();render();scrollTo(0,0)};
+    r.querySelector('#restart').onclick=()=>{S.ans={};S.graded=false;S.page=0;save();render();scrollTo(0,0)};
+    PAGES.forEach((_,pi)=>app.appendChild(renderPage(pi)));
+    renderFoot();return;
+  }
+
+  const tabs=document.createElement('div');tabs.className='tabs';
+  PAGES.forEach((p,pi)=>{const t=document.createElement('button');t.type='button';t.className='tab';
+    t.setAttribute('aria-current',String(pi===S.page));t.innerHTML=`الصفحة ${toAr(pi+1)}<small></small>`;
+    t.onclick=()=>{S.page=pi;confirming=false;save();render();scrollTo(0,0)};tabs.appendChild(t)});
+  app.appendChild(tabs);
+  app.appendChild(renderPage(S.page));
+  refreshTabs();renderFoot();
+}
+const qWord=n=>n===1?'سؤال واحد':n===2?'سؤالان':n<=10?toAr(n)+' أسئلة':toAr(n)+' سؤالًا';
+function firstWrongPage(){for(let pi=0;pi<PAGES.length;pi++)if(PAGES[pi].qs.some(q=>q.items.some(it=>!S.ans[it.id])))return pi;return 0}
+
+function renderFoot(){
+  const f=document.getElementById('foot');f.innerHTML='';
+  if(S.graded){f.hidden=true;return}f.hidden=false;
+  const inn=document.createElement('div');inn.className='in';
+  const prev=document.createElement('button');prev.className='btn';prev.type='button';prev.textContent='→ السابق';prev.disabled=S.page===0;
+  prev.onclick=()=>{S.page--;confirming=false;save();render();scrollTo(0,0)};
+  const last=S.page===PAGES.length-1;
+  const next=document.createElement('button');next.type='button';
+  next.className='btn '+(last?'grade':'main');next.textContent=last?'انتهيت، صحّح الاختبار':'التالي ←';
+  next.onclick=()=>{
+    if(!last){S.page++;confirming=false;save();render();scrollTo(0,0);return}
+    const empty=PAGES.flatMap(p=>p.qs.flatMap(q=>q.items)).filter(it=>!filled(it)).length;
+    if(empty>0&&!confirming){confirming=true;renderFoot();return}
+    doGrade();
+  };
+  if(confirming){
+    const empty=PAGES.flatMap(p=>p.qs.flatMap(q=>q.items)).filter(it=>!filled(it)).length;
+    const c=document.createElement('div');c.className='confirm';
+    c.innerHTML=`<p>بقي ${qWord(empty)} بدون إجابة كاملة. هل تريد التصحيح الآن؟</p>`;
+    const go=document.createElement('button');go.className='btn grade';go.type='button';go.textContent='صحّح الآن';go.onclick=doGrade;
+    const back=document.createElement('button');back.className='btn';back.type='button';back.textContent='أكمل الإجابة';
+    back.onclick=()=>{confirming=false;S.page=firstWrongPage();save();render();scrollTo(0,0)};
+    const btns=document.createElement('div');btns.className='actions';btns.append(back,go);c.appendChild(btns);
+    inn.appendChild(c);
+  }else inn.append(prev,next);
+  f.appendChild(inn);
+}
+function doGrade(){confirming=false;S.graded=true;save();render();scrollTo(0,0)}
+
+render();
+</script>
+
+</body></html>

@@ -1,0 +1,342 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>اختبار We Can 3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one narrow worksheet column, sticky score strip, sections that mirror the book's lessons */
+:root{
+  --bg:#EEF5F6; --paper:#FFFFFF; --ink:#15313D; --muted:#5A717C; --line:#D3E2E7;
+  --accent:#0A7487; --accent-soft:#DCEFF3; --good:#23824F; --good-soft:#DDF3E6;
+  --bad:#C2453A; --bad-soft:#FBE4E1; --sun:#E9A21F;
+  --font:"Baloo Bhaijaan 2", "Geeza Pro", "Segoe UI", Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0C1A20; --paper:#13252D; --ink:#E4EEF1; --muted:#93AAB3; --line:#24404B;
+  --accent:#4CC2D6; --accent-soft:#143844; --good:#5CCB8D; --good-soft:#163828;
+  --bad:#F0796C; --bad-soft:#41201C; --sun:#F4C356; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0C1A20; --paper:#13252D; --ink:#E4EEF1; --muted:#93AAB3; --line:#24404B;
+  --accent:#4CC2D6; --accent-soft:#143844; --good:#5CCB8D; --good-soft:#163828;
+  --bad:#F0796C; --bad-soft:#41201C; --sun:#F4C356; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:20px 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--bg)}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.en{direction:ltr;text-align:left;unicode-bidi:isolate}
+
+header{display:flex;flex-direction:column;gap:10px;padding-block:8px}
+.book{font-weight:700;color:var(--accent);letter-spacing:.02em;font-size:15px}
+h1{margin:0;font-size:34px;line-height:1.2;font-weight:800;text-wrap:balance}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:14px;color:var(--muted)}
+.namebar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.namebar label{font-weight:700;font-size:15px;color:var(--muted)}
+.namebar input{flex:1;min-width:0;font:inherit;font-size:20px;border:0;border-bottom:2px dashed var(--line);background:transparent;color:var(--ink);padding:2px 4px}
+.namebar input:focus{outline:none;border-bottom-color:var(--accent)}
+
+.strip{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--bg);padding-block:8px}
+.strip-in{display:flex;align-items:center;gap:12px;background:var(--ink);color:var(--paper);border-radius:14px;padding:8px 14px}
+.bar{flex:1;height:10px;border-radius:99px;background:color-mix(in srgb, var(--paper) 22%, transparent);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--sun);border-radius:99px;transition:width .3s}
+.strip b{font-variant-numeric:tabular-nums;font-size:16px;white-space:nowrap}
+
+section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px 16px;display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;flex-direction:column;gap:2px}
+.sec-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.unit{background:var(--accent);color:var(--paper);font-weight:700;border-radius:8px;padding:0 10px;font-size:14px;direction:ltr}
+.ref{font-size:13px;color:var(--muted)}
+h2{margin:0;font-size:23px;font-weight:800}
+.hint{color:var(--muted);font-size:15px}
+
+.q{border-top:1px dashed var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.qrow{display:flex;align-items:flex-start;gap:10px;direction:ltr}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:grid;place-items:center;font-size:15px;font-variant-numeric:tabular-nums}
+.qtext{flex:1;min-width:0;font-size:20px;font-weight:600;line-height:1.45}
+.ctx{direction:rtl;text-align:right;font-size:14px;color:var(--muted);font-weight:500}
+.pic{font-size:46px;line-height:1;text-align:center}
+.blank{display:inline-block;min-width:54px;border-bottom:3px solid var(--accent);margin:0 3px;text-align:center;color:var(--accent)}
+.say{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--accent);display:grid;place-items:center;cursor:pointer}
+.say svg{width:20px;height:20px}
+.say:focus-visible,.opt:focus-visible,.tile:focus-visible,.btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;direction:ltr}
+.opt{font:inherit;font-size:19px;font-weight:600;min-height:54px;padding:6px 12px;border-radius:12px;border:2px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-align:center;transition:transform .1s, border-color .15s}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:active:not(:disabled){transform:scale(.97)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.opt.no{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
+.opt.dim{opacity:.45}
+
+.fb{font-size:15px;font-weight:700;min-height:0}
+.fb.ok{color:var(--good)} .fb.no{color:var(--bad)}
+.fb .en{display:inline}
+
+.answer{min-height:56px;border:2px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;direction:ltr;align-items:center}
+.answer.ok{border-style:solid;border-color:var(--good);background:var(--good-soft)}
+.answer.no{border-style:solid;border-color:var(--bad);background:var(--bad-soft)}
+.pool{display:flex;flex-wrap:wrap;gap:6px;direction:ltr}
+.tile{font:inherit;font-size:19px;font-weight:700;min-width:44px;min-height:44px;padding:2px 12px;border-radius:10px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);cursor:pointer}
+.tile:disabled{cursor:default}
+.tile.letter{min-width:46px;padding:2px 0;text-transform:lowercase}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:700;font-size:16px;border-radius:12px;padding:6px 18px;min-height:44px;cursor:pointer;border:2px solid var(--accent);background:var(--accent);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:default}
+
+.result{background:var(--ink);color:var(--paper);border-radius:20px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.result h2{font-size:26px}
+.stars{font-size:46px;letter-spacing:6px;line-height:1}
+.stars .on{color:var(--sun)} .stars .off{color:color-mix(in srgb, var(--paper) 25%, transparent)}
+.big{font-size:44px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.result p{margin:0;max-width:44ch}
+.result .btn{background:var(--sun);border-color:var(--sun);color:#15313D;margin-top:6px}
+.note{font-size:13px;color:var(--muted);text-align:center}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap" dir="rtl">
+  <header>
+    <div class="book en">We Can! 3 · Term 1 · Units 1–2</div>
+    <h1>اختبار اللغة الإنجليزية</h1>
+    <div class="chips">
+      <span class="chip">الصف الثالث الابتدائي</span>
+      <span class="chip">الفصل الدراسي الأول</span>
+      <span class="chip">كتاب الطالب ص ٢–١٧</span>
+      <span class="chip">كتاب التمارين ص ٧١–٨٦</span>
+    </div>
+    <div class="namebar">
+      <label for="stuname" class="en">Name</label>
+      <input id="stuname" class="en" autocomplete="off" placeholder="...">
+    </div>
+  </header>
+
+  <div class="strip" aria-live="polite">
+    <div class="strip-in">
+      <b id="prog">٠ / ٠</b>
+      <div class="bar"><i id="barfill"></i></div>
+      <b id="score">★ ٠</b>
+    </div>
+  </div>
+
+  <main id="test" class="wrap" style="gap:18px"></main>
+
+  <div class="result" id="result">
+    <div class="stars" id="stars"><span class="off">★</span><span class="off">★</span><span class="off">★</span></div>
+    <div class="big" id="final">—</div>
+    <h2 id="msg">أجب عن كل الأسئلة لتظهر نتيجتك</h2>
+    <p id="sub">كل إجابة صحيحة = نجمة واحدة</p>
+    <button class="btn" id="again" type="button">ابدأ الاختبار من جديد</button>
+  </div>
+  <p class="note">اضغط زر السماعة لتسمع الجملة بالإنجليزية</p>
+</div>
+
+<script>
+const SECTIONS = [
+ {unit:"Unit 1", title:"التعارف", hint:"اختر الرد الصحيح", ref:"كتاب الطالب ص ٢–٣ · التمارين ص ٧١–٧٢", qs:[
+  {q:"Hi. I'm Jack. What's your ___?", say:"Hi. I'm Jack. What's your name?", opts:["name","old","live"]},
+  {q:"How old are you?", say:"How old are you?", opts:["I'm nine years old.","I live in Jeddah.","My name's Hashim."]},
+  {q:"Where do you live?", say:"Where do you live?", opts:["I live in Riyadh.","I'm eleven years old.","Nice to meet you."]},
+  {q:"Nice to meet you.", say:"Nice to meet you.", opts:["Nice to meet you, too.","Where do you live?","I'm Jack."]}
+ ]},
+ {unit:"Unit 1", title:"my · his · her · their · whose", hint:"اختر الكلمة المناسبة للفراغ", ref:"كتاب الطالب ص ٤–٥ · التمارين ص ٧٣–٧٤", qs:[
+  {q:"This is my mother. ___ name is Jasmine.", say:"This is my mother. Her name is Jasmine.", opts:["Her","His","Their"]},
+  {q:"These are my sisters. ___ names are Judy and Rose.", say:"These are my sisters. Their names are Judy and Rose.", opts:["Their","Her","My"]},
+  {q:"This is our little brother. ___ name is Pete.", say:"This is our little brother. His name is Pete.", opts:["His","Her","Our"]},
+  {q:"Whose bag is this? It's ___.", ctx:"الحقيبة لي أنا", say:"Whose bag is this? It's mine.", opts:["mine","my","me"]},
+  {q:"Whose shoes are these? They're ___.", ctx:"الحذاء لستيف", say:"Whose shoes are these? They're Steve's.", opts:["Steve's","Steve","Steves"]},
+  {t:"build", words:["Whose","scissors","are","these?"], say:"Whose scissors are these?", hint:"رتّب الكلمات لتكوّن سؤالاً"}
+ ]},
+ {unit:"Unit 1", title:"الحروف والأصوات", hint:"اختر الإجابة الصحيحة", ref:"كتاب الطالب ص ٦–٩ · التمارين ص ٧٥–٧٨", qs:[
+  {q:"I have a b. You have an i. He has a c. She has a y. If you have a c, an l, an e, then we can write ___.", say:"I have a b. You have an i. He has a c. She has a y. If you have a c, an l, an e, then we have all the letters to write", opts:["bicycle","computer","school"]},
+  {q:"Letters:  d  e  r  s  s\nCan we write hat?", say:"Can we write hat?", opts:["No, we can't.","Yes, we can."]},
+  {pic:"🐑", q:"sh__p", say:"sheep", opts:["ee","ea","ai"]},
+  {pic:"🦭", q:"s__l", say:"seal", opts:["ea","ee","ai"]},
+  {pic:"🚆", q:"tr__n", say:"train", opts:["ai","ay","ie"]},
+  {pic:"👔", q:"t__", say:"tie", opts:["ie","ee","ay"]}
+ ]},
+ {unit:"Unit 2", title:"حيوانات البحر", hint:"انظر واقرأ ثم اختر", ref:"كتاب الطالب ص ١٠–١٣ · التمارين ص ٧٩–٨٢", qs:[
+  {pic:"🐋", q:"What's that? It's a ___.", say:"What's that? It's a whale.", opts:["whale","shark","seal"]},
+  {pic:"🐬 🐬", q:"What are those? They're ___.", say:"What are those? They're dolphins.", opts:["dolphins","sharks","crabs"]},
+  {q:"It has eight legs. It can walk and swim. What is it?", say:"It has eight legs. It can walk and swim. What is it?", opts:["🐙 octopus","🦀 crab","⭐ starfish"]},
+  {q:"It has a hard shell and two big claws. It can pinch.", say:"It has a hard shell and two big claws. It can pinch.", opts:["🦀 crab","🦈 shark","🦑 squid"]},
+  {q:"It can sting. It's not a fish. It's like jelly.", say:"It can sting. It's not a fish. It's like jelly.", opts:["🪼 jellyfish","🐙 octopus","🐬 dolphin"]},
+  {q:"It has ten legs. It can change color.", say:"It has ten legs. It can change color.", opts:["🦑 squid","🐙 octopus","🦀 crab"]}
+ ]},
+ {unit:"Unit 2", title:"I think · cuter · the cutest", hint:"اختر الإجابة الصحيحة", ref:"كتاب الطالب ص ١١–١٢ · التمارين ص ٨٠–٨١", qs:[
+  {pic:"🦈", q:"What do you think about it?", say:"What do you think about it?", opts:["I think it's scary.","It's a shark.","They're seals."]},
+  {q:"cute → cuter → the ___", say:"cute, cuter, the cutest", opts:["cutest","cuter","cutes"]},
+  {q:"big → ___ → the biggest", say:"big, bigger, the biggest", opts:["bigger","biger","bigest"]},
+  {q:"Sharks are ___ than whales.", say:"Sharks are faster than whales.", opts:["faster","fastest","fast"]},
+  {q:"Dolphins are the ___.", say:"Dolphins are the fastest.", opts:["fastest","faster","fast"]}
+ ]},
+ {unit:"Unit 2", title:"Just Like Something · Jack's House", hint:"أكمل من الأنشودة", ref:"كتاب الطالب ص ١٤–١٧ · التمارين ص ٨٣–٨٦", qs:[
+  {q:"As slippery as an ___.", say:"As slippery as an eel.", opts:["eel","whale","seagull"]},
+  {q:"As noisy as a ___.", say:"As noisy as a seagull.", opts:["seagull","seahorse","walrus"]},
+  {q:"As slow as a ___.", say:"As slow as a seahorse.", opts:["seahorse","dolphin","shark"]},
+  {q:"This is the mouse that eats the ___.", say:"This is the mouse that eats the cheese.", opts:["cheese","cat","cow"]},
+  {q:"This is the cat that ___ the mouse.", say:"This is the cat that chases the mouse.", opts:["chases","eats","tosses"]}
+ ]},
+ {unit:"Unit 2", title:"oa · ow · ou", hint:"اختر الحرفين الناقصين", ref:"كتاب الطالب ص ١٦ · التمارين ص ٨٥", qs:[
+  {pic:"🐐", q:"g__t", say:"goat", opts:["oa","ow","ou"]},
+  {pic:"🏠", q:"h__se", say:"house", opts:["ou","oa","ow"]},
+  {pic:"🐄", q:"c__", say:"cow", opts:["ow","oa","ou"]}
+ ]},
+ {unit:"Unit 1–2", title:"تهجئة وجمل", hint:"اضغط الحروف أو الكلمات بالترتيب الصحيح", ref:"مراجعة شاملة", qs:[
+  {t:"spell", pic:"🐋", word:"whale", say:"whale", hint:"اكتب اسم الحيوان"},
+  {t:"spell", pic:"🐬", word:"dolphin", say:"dolphin", hint:"اكتب اسم الحيوان"},
+  {t:"build", words:["This","is","Jack's","house."], say:"This is Jack's house.", hint:"رتّب الكلمات لتكوّن جملة"}
+ ]}
+];
+
+const AR = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+const shuffle = a => { const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]} return b; };
+const shuffleDiff = (a, key) => { let b; let n=0; do { b=shuffle(a); n++; } while (key(b)===key(a) && n<20); return b; };
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const fmtQ = s => esc(s).replace(/\n/g,"<br>").replace(/_{2,3}/g, m => `<span class="blank">${m.length===2?"··":"?"}</span>`);
+
+const SPEAKER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor" fill-opacity=".15"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+
+function speak(text){
+  try{
+    const s = window.speechSynthesis; if(!s) return;
+    s.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; u.rate = 0.85;
+    const v = s.getVoices().find(v => /^en(-|_)/i.test(v.lang));
+    if (v) u.voice = v;
+    s.speak(u);
+  }catch(e){}
+}
+
+let total = 0, results = {};
+
+function render(){
+  const root = document.getElementById("test");
+  root.innerHTML = ""; results = {}; total = 0;
+  let n = 0;
+  SECTIONS.forEach(sec => {
+    const el = document.createElement("section");
+    el.innerHTML = `<div class="sec-head">
+        <div class="sec-top"><span class="unit">${sec.unit}</span><span class="ref">${sec.ref}</span></div>
+        <h2><span class="${/[a-z]/i.test(sec.title)?'en':''}" style="display:inline-block">${esc(sec.title)}</span></h2>
+        <div class="hint">${sec.hint}</div></div>`;
+    sec.qs.forEach(q => { n++; total++; el.appendChild(makeQ(q, n)); });
+    root.appendChild(el);
+  });
+  update();
+}
+
+function head(q, n, textHtml){
+  const d = document.createElement("div"); d.className = "q";
+  d.innerHTML = `${q.pic?`<div class="pic" aria-hidden="true">${q.pic}</div>`:""}
+    <div class="qrow"><span class="num">${n}</span><div class="qtext">${textHtml}</div>
+    <button class="say" type="button" aria-label="استمع">${SPEAKER}</button></div>
+    ${q.ctx?`<div class="ctx">(${q.ctx})</div>`:""}`;
+  d.querySelector(".say").addEventListener("click", () => speak(q.say));
+  return d;
+}
+
+function feedback(d, ok, correctText){
+  const f = document.createElement("div");
+  f.className = "fb " + (ok?"ok":"no");
+  f.innerHTML = ok ? "أحسنت! ★" : `الإجابة الصحيحة: <span class="en">${esc(correctText)}</span>`;
+  d.appendChild(f);
+}
+
+function makeQ(q, n){
+  if (q.t === "build" || q.t === "spell") return makeBuild(q, n);
+  const d = head(q, n, fmtQ(q.q));
+  const correct = q.opts[0];
+  const box = document.createElement("div"); box.className = "opts";
+  shuffle(q.opts).forEach(o => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "opt"; b.textContent = o;
+    b.addEventListener("click", () => {
+      const ok = o === correct;
+      box.querySelectorAll(".opt").forEach(x => {
+        x.disabled = true;
+        if (x.textContent === correct) x.classList.add("ok");
+        else if (x === b) x.classList.add("no");
+        else x.classList.add("dim");
+      });
+      results[n] = ok; feedback(d, ok, correct); update();
+    });
+    box.appendChild(b);
+  });
+  d.appendChild(box);
+  return d;
+}
+
+function makeBuild(q, n){
+  const spell = q.t === "spell";
+  const pieces = spell ? q.word.split("") : q.words;
+  const join = spell ? "" : " ";
+  const target = pieces.join(join);
+  const d = head(q, n, `<span class="ctx" style="font-size:17px;font-weight:700;color:var(--ink);display:block">${q.hint}</span>`);
+  const ans = document.createElement("div"); ans.className = "answer";
+  const pool = document.createElement("div"); pool.className = "pool";
+  const row = document.createElement("div"); row.className = "row";
+  const check = document.createElement("button"); check.type="button"; check.className="btn"; check.textContent="تحقّق"; check.disabled = true;
+  const clear = document.createElement("button"); clear.type="button"; clear.className="btn ghost"; clear.textContent="امسح";
+  row.append(check, clear);
+  const order = shuffleDiff(pieces.map((p,i)=>({p,i})), a => a.map(x=>x.p).join(join));
+  let picked = [];
+  const tiles = order.map(o => {
+    const t = document.createElement("button");
+    t.type="button"; t.className = "tile" + (spell?" letter":""); t.textContent = o.p;
+    t.addEventListener("click", () => {
+      if (t.parentElement === pool){ pool.removeChild(t); ans.appendChild(t); picked.push(o); }
+      else { ans.removeChild(t); pool.appendChild(t); picked = picked.filter(x => x !== o); }
+      check.disabled = picked.length !== pieces.length;
+    });
+    pool.appendChild(t); return t;
+  });
+  clear.addEventListener("click", () => { tiles.forEach(t => pool.appendChild(t)); picked = []; check.disabled = true; });
+  check.addEventListener("click", () => {
+    const ok = picked.map(x=>x.p).join(join) === target;
+    tiles.forEach(t => t.disabled = true); check.disabled = true; clear.disabled = true;
+    ans.classList.add(ok?"ok":"no");
+    results[n] = ok; feedback(d, ok, target); update();
+  });
+  d.append(ans, pool, row);
+  return d;
+}
+
+function update(){
+  const done = Object.keys(results).length;
+  const good = Object.values(results).filter(Boolean).length;
+  document.getElementById("prog").textContent = `${AR(done)} / ${AR(total)}`;
+  document.getElementById("score").textContent = `★ ${AR(good)}`;
+  document.getElementById("barfill").style.width = (total? done/total*100 : 0) + "%";
+  const stars = document.querySelectorAll("#stars span");
+  const final = document.getElementById("final"), msg = document.getElementById("msg"), sub = document.getElementById("sub");
+  if (done < total){
+    stars.forEach(s => s.className = "off");
+    final.textContent = "—";
+    msg.textContent = "أجب عن كل الأسئلة لتظهر نتيجتك";
+    sub.textContent = `بقي ${AR(total-done)} سؤالاً · كل إجابة صحيحة = نجمة`;
+    return;
+  }
+  const pct = good/total;
+  const k = pct >= .9 ? 3 : pct >= .7 ? 2 : pct >= .5 ? 1 : 0;
+  stars.forEach((s,i) => s.className = i < k ? "on" : "off");
+  final.textContent = `${AR(good)} / ${AR(total)}`;
+  const name = (document.getElementById("stuname").value || "").trim();
+  const who = name ? ` يا ${name}` : "";
+  msg.textContent = k===3 ? `ممتاز${who}! أنت جاهز للاختبار` : k===2 ? `جيد جداً${who}!` : k===1 ? `جيد${who}، راجع الأخطاء وحاول مرة أخرى` : `لا بأس${who}، لنراجع الدروس ونحاول من جديد`;
+  sub.textContent = good===total ? "كل الإجابات صحيحة!" : `راجع الأسئلة المظللة بالأحمر في الأعلى (${AR(total-good)})`;
+}
+
+document.getElementById("again").addEventListener("click", () => { render(); try{ window.scrollTo({top:0, behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); } });
+document.getElementById("stuname").addEventListener("input", update);
+try{ window.speechSynthesis && window.speechSynthesis.getVoices(); }catch(e){}
+render();
+</script>
+
+</body></html>

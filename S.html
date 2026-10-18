@@ -1,0 +1,575 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>الاختبار الشامل للرياضيات</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: one exercise-book page at a time, question cards on lightly ruled paper, column sums drawn as digit-by-digit place-value grids, sticky footer to move between pages */
+:root{
+  --paper:#F7FAF6; --rule:#DCE7F0; --card:#FFFFFF; --ink:#1E2A45; --muted:#5A6684;
+  --teal:#0F7C7A; --teal-soft:#E2F2F1; --pencil:#F2B01E; --pencil-soft:#FFF4D6;
+  --ok:#2C8A55; --ok-soft:#E3F4EA; --bad:#CC3F55; --bad-soft:#FCE6EA; --field:#F1F6FA;
+  --font-display:'Baloo Bhaijaan 2','Tajawal',system-ui,sans-serif;
+  --font-body:'Tajawal',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111827; --rule:#1E2A3E; --card:#18223A; --ink:#E9EEF7; --muted:#A3AEC6;
+  --teal:#43C0BA; --teal-soft:#16343A; --pencil:#F6BE3C; --pencil-soft:#3A3014;
+  --ok:#53C98A; --ok-soft:#173326; --bad:#F2768A; --bad-soft:#3D1C25; --field:#202C47; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111827; --rule:#1E2A3E; --card:#18223A; --ink:#E9EEF7; --muted:#A3AEC6;
+  --teal:#43C0BA; --teal-soft:#16343A; --pencil:#F6BE3C; --pencil-soft:#3A3014;
+  --ok:#53C98A; --ok-soft:#173326; --bad:#F2768A; --bad-soft:#3D1C25; --field:#202C47; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:19px;line-height:1.7;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 35px,var(--rule) 35px 36px);}
+.wrap{max-width:820px;margin:0 auto;padding-block:18px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance;line-height:1.3}
+
+.head{background:var(--card);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;border:2px solid var(--rule)}
+.head h1{font-size:30px;font-weight:800}
+.head .sub{color:var(--muted);font-size:16px;margin:0}
+.namebox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.namebox label{font-weight:700}
+.namebox input{flex:1;min-width:0;max-width:320px;font:500 20px var(--font-body);color:var(--ink);background:var(--field);
+  border:2px solid var(--rule);border-radius:12px;padding:8px 12px}
+
+.tabs{display:grid;gap:8px}
+.tab{font:700 17px var(--font-display);color:var(--muted);background:var(--card);border:2px solid var(--rule);
+  border-radius:14px;padding:10px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.3;min-width:0}
+.tab small{font:500 13px var(--font-body);text-align:center}
+.tab[aria-current="true"]{color:var(--ink);border-color:var(--teal);background:var(--teal-soft)}
+.tab.done small{color:var(--ok)}
+
+.pagehead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;padding-inline:4px}
+.pagehead h2{font-size:24px;font-weight:800}
+.pts{font:700 14px var(--font-body);background:var(--pencil-soft);color:var(--ink);border-radius:999px;padding:3px 12px;white-space:nowrap}
+
+.q{background:var(--card);border-radius:18px;padding:18px 18px 16px;border:2px solid var(--rule);display:flex;flex-direction:column;gap:12px;min-width:0}
+.q h3{font-size:20px;font-weight:700;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.q .hint{margin:-6px 0 0;font-size:16px;color:var(--teal);font-weight:700}
+.items{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--paper);border:2px solid transparent;min-width:0}
+.item .num{font:800 17px var(--font-display);color:var(--teal);min-width:1.4em;padding-top:6px}
+.item .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.line{font-size:21px;line-height:2.2}
+.prompt{font-size:20px;line-height:1.7}
+mark{background:var(--pencil-soft);color:inherit;border-bottom:3px solid var(--pencil);padding:0 2px;border-radius:3px}
+
+.blank{width:4.6em;font:700 22px var(--font-display);color:var(--ink);text-align:center;background:var(--field);
+  border:none;border-bottom:3px dashed var(--teal);border-radius:10px 10px 4px 4px;padding:4px 6px;margin-inline:3px;vertical-align:middle}
+.blank.wide{width:6em}
+.blank:focus,.dbox:focus,.hbox:focus{outline:3px solid var(--pencil);outline-offset:2px}
+.blank[readonly]{border-bottom-style:solid}
+
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{font:700 18px var(--font-body);color:var(--ink);background:var(--card);border:2px solid var(--rule);border-radius:12px;
+  padding:9px 16px;cursor:pointer;min-height:48px;text-align:right}
+.choice[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.choice:focus-visible,.tab:focus-visible,.btn:focus-visible{outline:3px solid var(--pencil);outline-offset:2px}
+.choice.right{border-color:var(--ok);background:var(--ok-soft)}
+
+.cmp{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font:700 24px var(--font-display)}
+.slot{min-width:5.4em;text-align:center;border:2px dashed var(--teal);border-radius:12px;padding:2px 10px;font:700 18px var(--font-body);color:var(--teal)}
+.slot.empty{color:var(--muted)}
+
+/* column sums: one box per digit, columns labelled by place */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.vcard{padding:12px 10px}
+.vcard .num{padding-top:0}
+.vscroll{overflow-x:auto;max-width:100%;padding-bottom:2px}
+.vop{--cell:52px;--opw:30px;display:inline-grid;direction:ltr;gap:6px;align-items:center;justify-items:center;
+  font:700 30px/1 var(--font-display);font-variant-numeric:tabular-nums}
+.vop .pl{font:700 12px/1.2 var(--font-body);color:var(--muted);text-align:center;width:var(--cell)}
+.vop .d{width:var(--cell);text-align:center;padding-block:2px}
+.vop .opch{color:var(--teal);font-size:30px}
+.vop .rule{grid-column:1/-1;justify-self:stretch;border-top:3px solid var(--ink);height:0}
+.dbox{width:var(--cell);height:58px;font:800 30px/1 var(--font-display);text-align:center;color:var(--ink);background:var(--field);
+  border:2px solid var(--teal);border-radius:12px;padding:0}
+.hbox{width:34px;height:32px;font:700 17px/1 var(--font-body);text-align:center;color:var(--muted);background:transparent;
+  border:2px dashed var(--rule);border-radius:8px;padding:0}
+.dbox[readonly],.hbox[readonly]{border-style:solid}
+.helplbl{font:500 11px/1.1 var(--font-body);color:var(--muted);text-align:center}
+
+.dots{display:inline-grid;gap:9px;padding:12px;background:var(--card);border-radius:12px;border:2px solid var(--rule);justify-self:start;align-self:flex-start}
+.dots i{width:20px;height:20px;border-radius:50%;background:var(--teal);display:block}
+
+.item.ok{border-color:var(--ok);background:var(--ok-soft)}
+.item.bad{border-color:var(--bad);background:var(--bad-soft)}
+.mark{font:800 15px var(--font-body);border-radius:999px;padding:1px 6px;align-self:flex-start;white-space:nowrap}
+.item.ok .mark{color:var(--ok)} .item.bad .mark{color:var(--bad)}
+.fix{font:500 16px var(--font-body);color:var(--ink)}
+.fix b{color:var(--bad)}
+
+.foot{position:sticky;bottom:0;z-index:5;background:var(--paper);border-top:2px solid var(--rule);
+  padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.foot .in{max-width:820px;margin:0 auto;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.btn{font:800 19px var(--font-display);border-radius:14px;padding:10px 22px;min-height:52px;cursor:pointer;border:2px solid var(--rule);background:var(--card);color:var(--ink)}
+.btn.main{background:var(--teal);border-color:var(--teal);color:var(--card)}
+.btn.grade{background:var(--pencil);border-color:var(--pencil);color:#1E2A45}
+.btn[disabled]{opacity:.4;cursor:default}
+.confirm{width:100%;background:var(--pencil-soft);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.confirm p{margin:0;font-weight:700}
+
+.result{background:var(--card);border:3px solid var(--pencil);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.stars{font-size:40px;letter-spacing:6px;color:var(--pencil);line-height:1}
+.stars .off{color:var(--rule)}
+.score{font:800 56px/1 var(--font-display)}
+.score small{font-size:24px;color:var(--muted)}
+.result .msg{font:700 22px var(--font-display);margin:0}
+.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px;width:100%}
+.breakdown div{background:var(--paper);border-radius:12px;padding:8px 4px;font-size:15px;line-height:1.4}
+.breakdown b{display:block;font:800 22px var(--font-display)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.note{color:var(--muted);font-size:15px;margin:0}
+@media (max-width:520px){
+  .line{font-size:19px}.blank{font-size:19px;width:4.2em}.head h1{font-size:25px}.score{font-size:46px}
+  .tab{font-size:15px}.tab small{font-size:11px}
+  .vop{--cell:44px;--opw:24px}.dbox{height:52px;font-size:26px}.vop .d{font-size:26px}.hbox{width:30px}
+}
+@media (prefers-reduced-motion:no-preference){.item{transition:background .2s,border-color .2s}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar" id="app"></div>
+<div class="foot" dir="rtl" lang="ar" id="foot"></div>
+
+<script>
+document.documentElement.setAttribute('dir','rtl');
+document.documentElement.setAttribute('lang','ar');
+
+const META={key:'g3-math-full-v2',tab:'الفصل',ordinal:true,title:'الاختبار الشامل في الرياضيات',
+  sub:'الصف الثالث الابتدائي · الفصل الدراسي الأول · الكتاب كاملًا من الفصل الأول إلى الخامس'};
+const COLHINT='اكتب كل رقم في خانته. ابدأ من خانة الآحاد (أقصى اليمين) وسينتقل المؤشر وحده إلى الخانة التالية. خانات «الحمل» و«الاستلاف» الصغيرة للمساعدة فقط ولا تُصحَّح.';
+const WORDHINT='اكتب الناتج رقمًا في كل خانة، كل رقم تحت اسم منزلته.';
+const PAGES=[
+ {title:'القيمة المنزلية',qs:[
+  {title:'أكمل النمط العددي',items:[
+   {t:'blanks',tpl:'٢٤ ، ٣٠ ، ٣٦ ، {} ، {}',ans:[42,48]},
+   {t:'blanks',tpl:'٦٥ ، ٦٠ ، ٥٥ ، {} ، {}',ans:[50,45]},
+   {t:'blanks',tpl:'٣٠٠٠ ، ٣٥٠٠ ، ٤٠٠٠ ، {} ، {}',ans:[4500,5000],wide:1},
+   {t:'blanks',tpl:'٩٠٠٠ ، ٨٠٠٠ ، ٧٠٠٠ ، {} ، {}',ans:[6000,5000],wide:1}]},
+  {title:'اكتب قيمة الرقم الملوّن',items:[
+   {t:'blanks',tpl:'قيمة الرقم ٨ في العدد ٤<mark>٨</mark>٧١ = {}',ans:[800],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٣ في العدد ٥<mark>٣</mark>٠٩ = {}',ans:[300],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٦ في العدد ٣<mark>٦</mark>٤٥٢ = {}',ans:[6000],wide:1},
+   {t:'blanks',tpl:'قيمة الرقم ٤ في العدد <mark>٤</mark>٢٣١٧ = {}',ans:[40000],wide:1}]},
+  {title:'اختر الإجابة الصحيحة',items:[
+   {t:'mcq',q:'في العدد ٦٨٢٥٤، ما الرقم الذي في منزلة الآلاف؟',opts:['٦','٨','٢'],ans:1}]},
+  {title:'اكتب العدد بالصيغة القياسية',items:[
+   {t:'blanks',tpl:'سبعة آلاف وستون = {}',ans:[7060],wide:1},
+   {t:'blanks',tpl:'اثنا عشر ألفًا وأربعمئة وعشرون = {}',ans:[12420],wide:1},
+   {t:'blanks',tpl:'٥٠٠٠٠ + ٢٠٠٠ + ٣٠٠ + ٩ = {}',ans:[52309],wide:1}]},
+  {title:'اكتب العدد بالصيغة التحليلية',items:[
+   {t:'expanded',label:'٣٨٠٥ =',ans:[3000,800,5]},
+   {t:'expanded',label:'٦١٢٤٧ =',ans:[60000,1000,200,40,7]}]},
+  {title:'اختر الطريقة الصحيحة لقراءة العدد',items:[
+   {t:'mcq',q:'العدد ٤٠٧٣ يُقرأ:',opts:['أربعة آلاف وسبعمئة وثلاثة','أربعة آلاف وثلاثة وسبعون','أربعمئة وسبعة وثلاثون'],ans:1},
+   {t:'mcq',q:'العدد ٢٠٦٠٥ يُقرأ:',opts:['ألفان وستمئة وخمسة','عشرون ألفًا وستمئة وخمسة','عشرون ألفًا وستون وخمسة'],ans:1}]},
+  {title:'قارن بين العددين',items:[
+   {t:'compare',a:'٦٣٢٨',b:'٦٢٣٨',ans:'gt'},
+   {t:'compare',a:'٥٠٧٠',b:'٥٧٠٠',ans:'lt'},
+   {t:'compare',a:'١٩٩٩٩',b:'٢٠٠٠٠',ans:'lt'},
+   {t:'compare',a:'٨٠٠٠ + ٤٠٠',b:'٨٠٤٠',ans:'gt'}]},
+  {title:'رتّب الأعداد',items:[
+   {t:'blanks',q:'من الأصغر إلى الأكبر: ٧٤٠٢ ، ٧٠٤٢ ، ٧٢٠٤',tpl:'{} ، {} ، {}',ans:[7042,7204,7402]},
+   {t:'blanks',q:'من الأكبر إلى الأصغر: ٩١٨٠ ، ٩٨١٠ ، ٩٨٠١',tpl:'{} ، {} ، {}',ans:[9810,9801,9180]}]},
+  {title:'قرّب العدد',items:[
+   {t:'blanks',tpl:'٨٦ إلى أقرب عشرة ← {}',ans:[90]},
+   {t:'blanks',tpl:'٢٤٥ إلى أقرب عشرة ← {}',ans:[250]},
+   {t:'blanks',tpl:'٧٥٢ إلى أقرب مئة ← {}',ans:[800]},
+   {t:'blanks',tpl:'٦١٨ إلى أقرب مئة ← {}',ans:[600]},
+   {t:'blanks',tpl:'٣٤٩٨ إلى أقرب ألف ← {}',ans:[3000],wide:1},
+   {t:'blanks',tpl:'٨٥٠٠ إلى أقرب ألف ← {}',ans:[9000],wide:1}]},
+  {title:'حلّ المسألة',items:[
+   {t:'mcq',q:'في النادي الأول ١٢٣٤٠ عضوًا، وفي النادي الثاني ١٢٤٣٠ عضوًا. أي الناديين أعضاؤه أكثر؟',opts:['النادي الأول','النادي الثاني'],ans:1}]}
+ ]},
+ {title:'الجمع',qs:[
+  {title:'أكمل مستعملًا خصائص الجمع',items:[
+   {t:'blanks',tpl:'٩ + ٧ = ٧ + {}',ans:[9]},
+   {t:'blanks',tpl:'١٥ + ٢٦ = ٢٦ + {}',ans:[15]},
+   {t:'blanks',tpl:'٠ + ٦٣ = {}',ans:[63]},
+   {t:'blanks',tpl:'(٥ + ٢) + ٨ = ٥ + (٢ + {})',ans:[8]},
+   {t:'blanks',tpl:'(٧ + ٣) + ٩ = {}',ans:[19]}]},
+  {title:'قدّر ناتج الجمع',items:[
+   {t:'blanks',q:'بالتقريب إلى أقرب عشرة:',tpl:'٦٢ + ٢٩ ≈ {} + {} = {}',ans:[60,30,90]},
+   {t:'blanks',q:'بالتقريب إلى أقرب عشرة:',tpl:'٤٧ + ٣٣ ≈ {} + {} = {}',ans:[50,30,80]},
+   {t:'blanks',q:'بالتقريب إلى أقرب مئة:',tpl:'٣١٢ + ٤٨٩ ≈ {} + {} = {}',ans:[300,500,800]}]},
+  {title:'اجمع الأعداد المكونة من رقمين',grid:1,hint:COLHINT,items:[
+   {t:'vertical',op:'+',a:25,b:43,ans:68},
+   {t:'vertical',op:'+',a:58,b:34,ans:92},
+   {t:'vertical',op:'+',a:67,b:28,ans:95},
+   {t:'vertical',op:'+',a:84,b:39,ans:123}]},
+  {title:'اجمع الأعداد المكونة من ثلاثة أرقام',grid:1,hint:COLHINT,items:[
+   {t:'vertical',op:'+',a:321,b:456,ans:777},
+   {t:'vertical',op:'+',a:375,b:248,ans:623},
+   {t:'vertical',op:'+',a:406,b:397,ans:803},
+   {t:'vertical',op:'+',a:597,b:208,ans:805},
+   {t:'vertical',op:'+',a:768,b:154,ans:922},
+   {t:'vertical',op:'+',a:653,b:479,ans:1132}]},
+  {title:'حلّ المسائل',hint:WORDHINT,items:[
+   {t:'digits',q:'في الصف الأول ٢٨ طالبًا، وفي الصف الثاني ٢٧ طالبًا. كم طالبًا في الصفين معًا؟',ans:55},
+   {t:'digits',q:'مع ماجد ٤٥ ريالًا، وأعطاه أبوه ٣٨ ريالًا. كم ريالًا أصبح معه؟',ans:83},
+   {t:'digits',q:'في حديقة ١٣٨ شجرة، ثم زُرعت فيها ٦٧ شجرة جديدة. كم شجرة أصبحت في الحديقة؟',ans:205},
+   {t:'digits',q:'قطعت سيارة ٢٨٥ كيلومترًا في اليوم الأول، و٣٤٦ كيلومترًا في اليوم الثاني. كم كيلومترًا قطعت في اليومين؟',ans:631},
+   {t:'digits',q:'جمع فيصل ٤٥٦ ورقة لإعادة التدوير، وجمعت أخته ٣٦٨ ورقة. كم ورقة جمعا معًا؟',ans:824}]}
+ ]},
+ {title:'الطرح',qs:[
+  {title:'اطرح الأعداد المكونة من رقمين',grid:1,hint:COLHINT,items:[
+   {t:'vertical',op:'−',a:87,b:43,ans:44},
+   {t:'vertical',op:'−',a:95,b:62,ans:33},
+   {t:'vertical',op:'−',a:72,b:38,ans:34},
+   {t:'vertical',op:'−',a:64,b:27,ans:37},
+   {t:'vertical',op:'−',a:50,b:18,ans:32}]},
+  {title:'اطرح الأعداد المكونة من ثلاثة أرقام',grid:1,hint:COLHINT,items:[
+   {t:'vertical',op:'−',a:765,b:342,ans:423},
+   {t:'vertical',op:'−',a:542,b:267,ans:275},
+   {t:'vertical',op:'−',a:813,b:456,ans:357},
+   {t:'vertical',op:'−',a:631,b:284,ans:347},
+   {t:'vertical',op:'−',a:924,b:578,ans:346}]},
+  {title:'اطرح مع وجود الأصفار',grid:1,hint:COLHINT,items:[
+   {t:'vertical',op:'−',a:500,b:237,ans:263},
+   {t:'vertical',op:'−',a:300,b:125,ans:175},
+   {t:'vertical',op:'−',a:403,b:158,ans:245},
+   {t:'vertical',op:'−',a:605,b:289,ans:316}]},
+  {title:'قدّر ناتج الطرح',items:[
+   {t:'blanks',q:'بالتقريب إلى أقرب عشرة:',tpl:'٨٩ − ٤٢ ≈ {} − {} = {}',ans:[90,40,50]},
+   {t:'blanks',q:'بالتقريب إلى أقرب مئة:',tpl:'٦٨٢ − ٣١٩ ≈ {} − {} = {}',ans:[700,300,400]}]},
+  {title:'تحقّق من ناتج الطرح بالجمع',items:[
+   {t:'blanks',q:'٥٤ − ٢١ = ٣٣ ، وللتحقق:',tpl:'٣٣ + {} = ٥٤',ans:[21]}]},
+  {title:'حدّد العملية المناسبة',items:[
+   {t:'mcq',q:'عند سارة ٤٥ قصة، أعطت صديقتها ١٢ قصة. ما العملية التي تعرف بها عدد القصص الباقية؟',opts:['الجمع','الطرح'],ans:1},
+   {t:'mcq',q:'اشترى أبي ٢٤ برتقالة و١٨ تفاحة. ما العملية التي تعرف بها عدد الثمار كلها؟',opts:['الجمع','الطرح'],ans:0},
+   {t:'mcq',q:'كان في الحافلة ٤٢ راكبًا، ونزل منها ١٥ راكبًا. ما العملية التي تعرف بها عدد الركاب الباقين؟',opts:['الجمع','الطرح'],ans:1},
+   {t:'mcq',q:'في الصف ١٥ ولدًا و١٣ بنتًا. ما العملية التي تعرف بها عدد الطلاب كلهم؟',opts:['الجمع','الطرح'],ans:0}]},
+  {title:'حلّ المسائل',hint:WORDHINT,items:[
+   {t:'digits',q:'ما الفرق بين العددين ٣٤٥ و١٢٨؟',ans:217},
+   {t:'digits',q:'في مكتبة المدرسة ٦٠٤ كتب، استعار الطلاب منها ٣٢٧ كتابًا. كم كتابًا بقي في المكتبة؟',ans:277},
+   {t:'digits',q:'كان مع هند ٥٠٠ ريال، اشترت حقيبة بـ ١٨٥ ريالًا. كم ريالًا بقي معها؟',ans:315},
+   {t:'digits',q:'يتسع ملعب لـ ٨٢٠ متفرجًا، وحضر المباراة ٥٤٦ متفرجًا. كم مقعدًا بقي فارغًا؟',ans:274}]}
+ ]},
+ {title:'الضرب (١)',qs:[
+  {title:'اكتب جملة الضرب التي تمثلها الشبكة',items:[
+   {t:'array',r:2,c:6,q:'عدد الصفوف × عدد النقاط في كل صف'},
+   {t:'array',r:3,c:5,q:'عدد الصفوف × عدد النقاط في كل صف'},
+   {t:'array',r:4,c:4,q:'عدد الصفوف × عدد النقاط في كل صف'}]},
+  {title:'اكتب الجمع المتكرر على صورة ضرب',items:[
+   {t:'blanks',tpl:'٣ + ٣ + ٣ + ٣ = {} × ٣',ans:[4]},
+   {t:'blanks',tpl:'٥ + ٥ + ٥ = ٣ × {}',ans:[5]}]},
+  {title:'أوجد ناتج الضرب',items:[
+   {t:'blanks',tpl:'٢ × ٨ = {}',ans:[16]},
+   {t:'blanks',tpl:'٢ × ٩ = {}',ans:[18]},
+   {t:'blanks',tpl:'٤ × ٣ = {}',ans:[12]},
+   {t:'blanks',tpl:'٤ × ٦ = {}',ans:[24]},
+   {t:'blanks',tpl:'٤ × ٨ = {}',ans:[32]},
+   {t:'blanks',tpl:'٥ × ٤ = {}',ans:[20]},
+   {t:'blanks',tpl:'٥ × ٧ = {}',ans:[35]},
+   {t:'blanks',tpl:'٥ × ٩ = {}',ans:[45]},
+   {t:'blanks',tpl:'١٠ × ٩ = {}',ans:[90]},
+   {t:'blanks',tpl:'٧ × ١٠ = {}',ans:[70]}]},
+  {title:'أوجد العدد المجهول',items:[
+   {t:'blanks',tpl:'٢ × {} = ١٤',ans:[7]},
+   {t:'blanks',tpl:'٤ × {} = ٢٨',ans:[7]},
+   {t:'blanks',tpl:'٥ × {} = ٤٥',ans:[9]},
+   {t:'blanks',tpl:'١٠ × {} = ٨٠',ans:[8]}]},
+  {title:'الضرب في الصفر وفي الواحد',items:[
+   {t:'blanks',tpl:'٩ × ٠ = {}',ans:[0]},
+   {t:'blanks',tpl:'٠ × ٧ = {}',ans:[0]},
+   {t:'blanks',tpl:'١ × ٨ = {}',ans:[8]},
+   {t:'blanks',tpl:'{} × ١ = ٩',ans:[9]}]},
+  {title:'خاصية الإبدال في الضرب',items:[
+   {t:'blanks',tpl:'٤ × ٥ = ٥ × {}',ans:[4]}]},
+  {title:'قارن بين ناتجي الضرب',items:[
+   {t:'compare',a:'٤ × ٥',b:'٢ × ١٠',ans:'eq'},
+   {t:'compare',a:'٥ × ٦',b:'٤ × ٨',ans:'lt'}]},
+  {title:'حلّ المسائل',items:[
+   {t:'blanks',q:'في كل أصيص وردتان. كم وردة في ٤ أصص؟',tpl:'الحل: {} ورود',ans:[8]},
+   {t:'blanks',q:'للقطة ٤ أرجل. كم رجلًا لـ ٧ قطط؟',tpl:'الحل: {} رجلًا',ans:[28]},
+   {t:'blanks',q:'في كل علبة ٥ أقلام. كم قلمًا في ٦ علب؟',tpl:'الحل: {} قلمًا',ans:[30]},
+   {t:'blanks',q:'في كل يد ٥ أصابع. كم إصبعًا في ٨ أيدٍ؟',tpl:'الحل: {} إصبعًا',ans:[40]},
+   {t:'blanks',q:'ثمن الدفتر الواحد ١٠ ريالات. كم ثمن ٥ دفاتر؟',tpl:'الحل: {} ريالًا',ans:[50]}]}
+ ]},
+ {title:'الضرب (٢)',qs:[
+  {title:'أوجد ناتج الضرب',items:[
+   {t:'blanks',tpl:'٣ × ٧ = {}',ans:[21]},
+   {t:'blanks',tpl:'٣ × ٨ = {}',ans:[24]},
+   {t:'blanks',tpl:'٦ × ٦ = {}',ans:[36]},
+   {t:'blanks',tpl:'٦ × ٨ = {}',ans:[48]},
+   {t:'blanks',tpl:'٧ × ٤ = {}',ans:[28]},
+   {t:'blanks',tpl:'٧ × ٧ = {}',ans:[49]},
+   {t:'blanks',tpl:'٨ × ٥ = {}',ans:[40]},
+   {t:'blanks',tpl:'٨ × ٩ = {}',ans:[72]},
+   {t:'blanks',tpl:'٩ × ٦ = {}',ans:[54]},
+   {t:'blanks',tpl:'٩ × ٩ = {}',ans:[81]}]},
+  {title:'أوجد العدد المجهول',items:[
+   {t:'blanks',tpl:'٣ × {} = ٢٧',ans:[9]},
+   {t:'blanks',tpl:'٦ × {} = ٤٢',ans:[7]},
+   {t:'blanks',tpl:'٧ × {} = ٥٦',ans:[8]},
+   {t:'blanks',tpl:'٨ × {} = ٣٢',ans:[4]},
+   {t:'blanks',tpl:'٩ × {} = ٦٣',ans:[7]}]},
+  {title:'الخاصية التجميعية',items:[
+   {t:'blanks',tpl:'(٢ × ٣) × ٤ = ٢ × (٣ × {})',ans:[4]},
+   {t:'blanks',tpl:'(٢ × ٥) × ٣ = {}',ans:[30]},
+   {t:'blanks',tpl:'٣ × (٢ × ٤) = {}',ans:[24]},
+   {t:'blanks',tpl:'(٥ × ٢) × ٧ = {} × ٧ = {}',ans:[10,70]}]},
+  {title:'قارن بين ناتجي الضرب',items:[
+   {t:'compare',a:'٦ × ٤',b:'٣ × ٨',ans:'eq'},
+   {t:'compare',a:'٧ × ٣',b:'٤ × ٦',ans:'lt'},
+   {t:'compare',a:'٩ × ٤',b:'٦ × ٥',ans:'gt'}]},
+  {title:'حلّ المسائل',items:[
+   {t:'blanks',q:'في الأسبوع ٧ أيام. كم يومًا في ٣ أسابيع؟',tpl:'الحل: {} يومًا',ans:[21]},
+   {t:'blanks',q:'رتّب المعلم المقاعد في ٧ صفوف، في كل صف ٦ مقاعد. كم مقعدًا رتّب؟',tpl:'الحل: {} مقعدًا',ans:[42]},
+   {t:'blanks',q:'اشترت منى ٦ علب، في كل علبة ٨ بيضات. كم بيضة اشترت؟',tpl:'الحل: {} بيضة',ans:[48]},
+   {t:'blanks',q:'اشترى سعد ٨ علب، في كل علبة ٩ قطع حلوى. كم قطعة اشترى؟',tpl:'الحل: {} قطعة',ans:[72]},
+   {t:'blanks',q:'عند علي ٣ علب، في كل علبة ٩ كرات، فأعطى أخاه ٥ كرات. كم كرة بقيت معه؟',tpl:'عدد الكرات كلها: {}<br>الباقي معه: {} كرة',ans:[27,22]}]}
+ ]}
+];
+
+
+const AR='٠١٢٣٤٥٦٧٨٩';
+const toAr=v=>String(v).replace(/[0-9]/g,d=>AR[d]);
+const toEn=s=>String(s??'').replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776).replace(/[\s,٬،.]/g,'');
+const same=(v,a)=>{const s=toEn(v);return /^\d+$/.test(s)&&Number(s)===a};
+const CMP={lt:'أصغر من',gt:'أكبر من',eq:'يساوي'};
+const PLACES=['آحاد','عشرات','مئات','آلاف','عشرات الألوف'];
+const ORD=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع'];
+
+PAGES.forEach((p,pi)=>{p.total=0;p.qs.forEach((q,qi)=>q.items.forEach((it,ii)=>{it.id=`p${pi}q${qi}i${ii}`;p.total++;
+  if(it.t==='vertical')it.W=Math.max(String(it.a).length,String(it.b).length,String(it.ans).length);
+  if(it.t==='digits')it.W=Math.max(String(it.ans).length,3);}))});
+const TOTAL=PAGES.reduce((s,p)=>s+p.total,0);
+const ALL=()=>PAGES.flatMap(p=>p.qs.flatMap(q=>q.items));
+
+let S={name:'',ans:{},help:{},graded:false,page:0};
+try{const r=localStorage.getItem(META.key);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+if(!S.help)S.help={};
+const save=()=>{try{localStorage.setItem(META.key,JSON.stringify(S))}catch(e){}};
+let confirming=false;
+
+// number written in place-value boxes (left to right); leading empty boxes are allowed, gaps are not
+function boxNum(arr,W){
+  let s='';for(let c=0;c<W;c++){const d=(arr||[])[c]||'';s+=d===''?' ':d}
+  s=s.replace(/^ +/,'');if(!s||s.includes(' '))return null;return Number(s);
+}
+function filled(it){
+  const v=S.ans[it.id];
+  if(it.t==='mcq'||it.t==='compare')return v!==undefined&&v!==null;
+  if(!Array.isArray(v))return false;
+  if(it.t==='vertical'||it.t==='digits')return boxNum(v,it.W)!==null;
+  const n=it.t==='array'?3:it.ans.length;
+  for(let k=0;k<n;k++)if(!toEn(v[k]))return false;return true;
+}
+function correct(it){
+  const v=S.ans[it.id];
+  if(it.t==='mcq'||it.t==='compare')return v===it.ans;
+  if(!Array.isArray(v))return false;
+  if(it.t==='vertical'||it.t==='digits')return boxNum(v,it.W)===it.ans;
+  if(it.t==='array'){
+    const [x,y,z]=v.map(toEn).map(Number);
+    return z===it.r*it.c&&((x===it.r&&y===it.c)||(x===it.c&&y===it.r));
+  }
+  if(it.t==='expanded'){
+    const got=v.map(toEn).filter(x=>/^\d+$/.test(x)&&Number(x)!==0).map(Number).sort((a,b)=>a-b);
+    const exp=[...it.ans].sort((a,b)=>a-b);
+    return got.length===exp.length&&got.every((x,i)=>x===exp[i]);
+  }
+  return it.ans.every((a,k)=>same(v[k],a));
+}
+function fixText(it){
+  if(it.t==='mcq')return it.opts[it.ans];
+  if(it.t==='compare')return `${it.a} ${CMP[it.ans]} ${it.b}`;
+  if(it.t==='expanded')return it.label+' '+it.ans.map(toAr).join(' + ');
+  if(it.t==='array')return `${toAr(it.r)} × ${toAr(it.c)} = ${toAr(it.r*it.c)}`;
+  if(it.t==='vertical'||it.t==='digits')return toAr(it.ans);
+  return it.ans.map(toAr).join(' ، ');
+}
+
+function inputEl(it,k){
+  const i=document.createElement('input');
+  i.className='blank'+(it.wide?' wide':'');i.id=`${it.id}_${k}`;
+  i.type='text';i.inputMode='numeric';i.autocomplete='off';i.setAttribute('aria-label','الإجابة');
+  const v=(S.ans[it.id]||[])[k];i.value=v?toAr(v):'';
+  if(S.graded)i.readOnly=true;
+  i.addEventListener('input',()=>{
+    const ar=toAr(i.value);if(ar!==i.value)i.value=ar;
+    const arr=S.ans[it.id]||(S.ans[it.id]=[]);arr[k]=i.value;save();refreshTabs();
+  });
+  return i;
+}
+// one box = one digit. After a digit, focus jumps one place to the LEFT (next higher place), the way column sums are worked.
+function digitBox(it,c,boxes,store,cls){
+  const i=document.createElement('input');
+  i.className=cls;i.id=`${it.id}_${store}${c}`;i.type='text';i.inputMode='numeric';i.autocomplete='off';
+  i.setAttribute('aria-label',(store==='h'?'خانة مساعدة ':'')+PLACES[it.W-1-c]);
+  const bag=store==='h'?S.help:S.ans;
+  const v=(bag[it.id]||[])[c];i.value=v?toAr(v):'';
+  if(S.graded)i.readOnly=true;
+  i.addEventListener('input',()=>{
+    const d=(toEn(i.value).match(/\d/g)||[]).pop()||'';
+    i.value=d?toAr(d):'';
+    const arr=bag[it.id]||(bag[it.id]=[]);arr[c]=d;save();refreshTabs();
+    if(d&&store==='a'&&c>0)boxes[c-1].focus();
+  });
+  i.addEventListener('focus',()=>{try{i.select()}catch(e){}});
+  i.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!i.value&&store==='a'&&c<it.W-1){e.preventDefault();boxes[c+1].focus()}});
+  boxes[c]=i;return i;
+}
+function cell(cls,txt){const s=document.createElement('span');if(cls)s.className=cls;if(txt!==undefined)s.textContent=txt;return s}
+
+function verticalEl(it){
+  const W=it.W,A=String(it.a).padStart(W,' '),B=String(it.b).padStart(W,' ');
+  const g=document.createElement('div');g.className='vop';
+  g.style.gridTemplateColumns=`var(--opw) repeat(${W},var(--cell))`;
+  g.append(cell());for(let c=0;c<W;c++)g.append(cell('pl',PLACES[W-1-c]));
+  const hb=[];g.append(cell('helplbl','حمل'));for(let c=0;c<W;c++)g.append(digitBox(it,c,hb,'h','hbox'));
+  g.append(cell());for(let c=0;c<W;c++)g.append(cell('d',A[c]===' '?'':toAr(A[c])));
+  g.append(cell('opch',it.op));for(let c=0;c<W;c++)g.append(cell('d',B[c]===' '?'':toAr(B[c])));
+  const r=cell('rule');g.append(r);
+  const ab=[];g.append(cell());for(let c=0;c<W;c++)g.append(digitBox(it,c,ab,'a','dbox'));
+  if(it.op==='−')g.children[W+1].textContent='استلاف';
+  const wrap=document.createElement('div');wrap.className='vscroll';wrap.appendChild(g);return wrap;
+}
+function digitsEl(it){
+  const W=it.W,g=document.createElement('div');g.className='vop';
+  g.style.gridTemplateColumns=`repeat(${W},var(--cell))`;
+  for(let c=0;c<W;c++)g.append(cell('pl',PLACES[W-1-c]));
+  const ab=[];for(let c=0;c<W;c++)g.append(digitBox(it,c,ab,'a','dbox'));
+  const wrap=document.createElement('div');wrap.className='vscroll';wrap.appendChild(g);return wrap;
+}
+function choiceBtns(it,labels,values){
+  const wrap=document.createElement('div');wrap.className='choices';
+  labels.forEach((lab,j)=>{
+    const b=document.createElement('button');b.type='button';b.className='choice';b.textContent=lab;
+    const val=values[j];b.setAttribute('aria-pressed',String(S.ans[it.id]===val));
+    if(S.graded){b.disabled=true;if(val===it.ans&&S.ans[it.id]!==it.ans)b.classList.add('right')}
+    b.addEventListener('click',()=>{if(S.graded)return;S.ans[it.id]=val;save();
+      wrap.querySelectorAll('.choice').forEach((x,m)=>x.setAttribute('aria-pressed',String(values[m]===val)));
+      const slot=wrap.parentElement.querySelector('.slot');if(slot){slot.textContent=CMP[val];slot.classList.remove('empty')}
+      refreshTabs();});
+    wrap.appendChild(b);
+  });
+  return wrap;
+}
+function blanksLine(it,tpl){
+  const line=document.createElement('div');line.className='line';
+  tpl.split('{}').forEach((seg,k,arr)=>{const s=document.createElement('span');s.innerHTML=seg;line.appendChild(s);if(k<arr.length-1)line.appendChild(inputEl(it,k))});
+  return line;
+}
+
+function renderItem(it,n,inGrid){
+  const box=document.createElement('div');box.className='item'+(inGrid?' vcard':'');box.id=it.id;
+  const num=cell('num',toAr(n)+'.');
+  const body=document.createElement('div');body.className='body';
+  if(it.q){const p=document.createElement('div');p.className='prompt';p.innerHTML=it.q;body.appendChild(p)}
+  if(it.t==='blanks')body.appendChild(blanksLine(it,it.tpl));
+  else if(it.t==='expanded'){
+    const line=document.createElement('div');line.className='line';line.append(it.label+' ');
+    it.ans.forEach((_,k)=>{line.appendChild(inputEl(it,k));if(k<it.ans.length-1)line.append(' + ')});
+    body.appendChild(line);
+  }else if(it.t==='vertical')body.appendChild(verticalEl(it));
+  else if(it.t==='digits')body.appendChild(digitsEl(it));
+  else if(it.t==='array'){
+    const d=document.createElement('div');d.className='dots';d.style.gridTemplateColumns=`repeat(${it.c},20px)`;
+    for(let k=0;k<it.r*it.c;k++)d.appendChild(document.createElement('i'));
+    body.appendChild(d);body.appendChild(blanksLine(it,'{} × {} = {}'));
+  }else if(it.t==='compare'){
+    const row=document.createElement('div');row.className='cmp';const v=S.ans[it.id];
+    row.innerHTML=`<span>${it.a}</span><span class="slot${v?'':' empty'}">${v?CMP[v]:'؟'}</span><span>${it.b}</span>`;
+    body.appendChild(row);body.appendChild(choiceBtns(it,['أكبر من','أصغر من','يساوي'],['gt','lt','eq']));
+  }else if(it.t==='mcq')body.appendChild(choiceBtns(it,it.opts,it.opts.map((_,j)=>j)));
+  if(S.graded){
+    const ok=correct(it);box.classList.add(ok?'ok':'bad');
+    const m=cell('mark',ok?'✓ صحيح':'✗ خطأ');
+    if(!ok){const f=document.createElement('div');f.className='fix';f.innerHTML='الإجابة الصحيحة: <b></b>';f.querySelector('b').textContent=fixText(it);body.appendChild(f)}
+    box.append(num,body,m);
+  }else box.append(num,body);
+  return box;
+}
+const ptsTxt=n=>n===1?'درجة واحدة':n===2?'درجتان':n<=10?toAr(n)+' درجات':toAr(n)+' درجة';
+
+function renderPage(pi){
+  const p=PAGES[pi];const frag=document.createElement('section');frag.style.display='contents';
+  const h=document.createElement('div');h.className='pagehead';
+  h.innerHTML=`<h2>${META.tab} ${META.ordinal?ORD[pi]:toAr(pi+1)}: ${p.title}</h2><span class="pts">${ptsTxt(p.total)}</span>`;
+  frag.appendChild(h);
+  p.qs.forEach((q,qi)=>{
+    const card=document.createElement('div');card.className='q';
+    card.innerHTML=`<h3><span>السؤال ${ORD[qi]}: ${q.title}</span><span class="pts">${ptsTxt(q.items.length)}</span></h3>`;
+    if(q.hint){const h=document.createElement('p');h.className='hint';h.textContent=q.hint;card.appendChild(h)}
+    const items=document.createElement('div');items.className=q.grid?'vgrid':'items';
+    q.items.forEach((it,ii)=>items.appendChild(renderItem(it,ii+1,q.grid)));
+    card.appendChild(items);frag.appendChild(card);
+  });
+  return frag;
+}
+function pageStats(pi){const its=PAGES[pi].qs.flatMap(q=>q.items);return{done:its.filter(filled).length,ok:its.filter(correct).length,n:its.length}}
+function refreshTabs(){
+  document.querySelectorAll('.tab').forEach((t,pi)=>{const s=pageStats(pi);
+    t.querySelector('small').textContent=S.graded?`${toAr(s.ok)} من ${toAr(s.n)}`:`${toAr(s.done)} من ${toAr(s.n)}`;
+    t.classList.toggle('done',s.done===s.n)});
+}
+const qWord=n=>n===1?'سؤال واحد':n===2?'سؤالان':n<=10?toAr(n)+' أسئلة':toAr(n)+' سؤالًا';
+function firstOpenPage(){for(let pi=0;pi<PAGES.length;pi++)if(PAGES[pi].qs.some(q=>q.items.some(it=>!filled(it))))return pi;return 0}
+const go=pi=>{S.page=pi;confirming=false;save();render();scrollTo(0,0)};
+
+function render(){
+  const app=document.getElementById('app');app.innerHTML='';
+  const head=document.createElement('div');head.className='head';
+  head.innerHTML=`<h1>${META.title}</h1><p class="sub">${META.sub} · الدرجة الكلية ${toAr(TOTAL)}</p>
+   <div class="namebox"><label for="sname">اسمي:</label><input id="sname" autocomplete="off" placeholder="اكتب اسمك هنا"></div>`;
+  app.appendChild(head);
+  const nm=head.querySelector('#sname');nm.value=S.name||'';nm.addEventListener('input',()=>{S.name=nm.value;save()});
+
+  if(S.graded){
+    let ok=0;PAGES.forEach((_,pi)=>ok+=pageStats(pi).ok);
+    const pct=ok/TOTAL,stars=pct>=.9?3:pct>=.7?2:1;
+    const nmTxt=S.name.trim()?` يا ${S.name.trim()}`:'';
+    const msg=pct===1?`ممتاز${nmTxt}! كل إجاباتك صحيحة`:pct>=.9?`رائع${nmTxt}! أداء ممتاز`:pct>=.7?`أحسنت${nmTxt}! راجع الأخطاء القليلة`:`بداية جيدة${nmTxt}، لنراجع الدروس معًا`;
+    const r=document.createElement('div');r.className='result';
+    r.innerHTML=`<div class="stars" aria-label="${stars} نجوم">${'★'.repeat(stars)}<span class="off">${'★'.repeat(3-stars)}</span></div>
+      <div class="score">${toAr(ok)} <small>من ${toAr(TOTAL)}</small></div><p class="msg"></p>
+      <div class="breakdown">${PAGES.map((p,pi)=>{const s=pageStats(pi);return `<div>${META.tab} ${toAr(pi+1)}<b>${toAr(s.ok)} / ${toAr(s.n)}</b></div>`}).join('')}</div>
+      <div class="actions"><button class="btn main" id="retry" type="button">أعد حل الأخطاء</button><button class="btn" id="restart" type="button">ابدأ من جديد</button></div>
+      <p class="note">الإجابات الخضراء صحيحة، والحمراء تحتها الإجابة الصحيحة.</p>`;
+    r.querySelector('.msg').textContent=msg;app.appendChild(r);
+    r.querySelector('#retry').onclick=()=>{ALL().forEach(it=>{if(!correct(it)){delete S.ans[it.id];delete S.help[it.id]}});S.graded=false;go(firstOpenPage())};
+    r.querySelector('#restart').onclick=()=>{S.ans={};S.help={};S.graded=false;go(0)};
+    PAGES.forEach((_,pi)=>app.appendChild(renderPage(pi)));
+    renderFoot();return;
+  }
+  const tabs=document.createElement('div');tabs.className='tabs';tabs.style.gridTemplateColumns=`repeat(${PAGES.length},minmax(0,1fr))`;
+  PAGES.forEach((p,pi)=>{const t=document.createElement('button');t.type='button';t.className='tab';
+    t.setAttribute('aria-current',String(pi===S.page));t.innerHTML=`${META.tab} ${toAr(pi+1)}<small></small>`;
+    t.onclick=()=>go(pi);tabs.appendChild(t)});
+  app.appendChild(tabs);app.appendChild(renderPage(S.page));
+  refreshTabs();renderFoot();
+}
+function renderFoot(){
+  const f=document.getElementById('foot');f.innerHTML='';
+  if(S.graded){f.hidden=true;return}f.hidden=false;
+  const inn=document.createElement('div');inn.className='in';
+  const last=S.page===PAGES.length-1;
+  const empty=ALL().filter(it=>!filled(it)).length;
+  if(confirming){
+    const c=document.createElement('div');c.className='confirm';
+    c.innerHTML=`<p>بقي ${qWord(empty)} بدون إجابة كاملة. هل تريد التصحيح الآن؟</p>`;
+    const g=document.createElement('button');g.className='btn grade';g.type='button';g.textContent='صحّح الآن';g.onclick=doGrade;
+    const b=document.createElement('button');b.className='btn';b.type='button';b.textContent='أكمل الإجابة';b.onclick=()=>go(firstOpenPage());
+    const btns=document.createElement('div');btns.className='actions';btns.append(b,g);c.appendChild(btns);inn.appendChild(c);
+  }else{
+    const prev=document.createElement('button');prev.className='btn';prev.type='button';prev.textContent='→ السابق';prev.disabled=S.page===0;
+    prev.onclick=()=>go(S.page-1);
+    const next=document.createElement('button');next.type='button';
+    next.className='btn '+(last?'grade':'main');next.textContent=last?'انتهيت، صحّح الاختبار':'التالي ←';
+    next.onclick=()=>{if(!last)return go(S.page+1);if(empty>0){confirming=true;renderFoot();return}doGrade()};
+    inn.append(prev,next);
+  }
+  f.appendChild(inn);
+}
+function doGrade(){confirming=false;S.graded=true;save();render();scrollTo(0,0)}
+render();
+</script>
+
+</body></html>

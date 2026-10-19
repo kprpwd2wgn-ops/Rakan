@@ -1,0 +1,495 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>رحلة الحساب الذهني</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Readex+Pro:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: one narrow column; levels are beads threaded on a wooden abacus rod, grouped by stage */
+:root{
+  --bg:#F1F5F4; --card:#FFFFFF; --ink:#1B2533; --muted:#5A6776; --line:#D9E1DF; --soft:#E6EDEB;
+  --rod:#B89F74;
+  --s1:#0D8577; --s2:#B87510; --s3:#D04535; --s4:#4553C2;
+  --good:#1B8F50; --bad:#C63A3A; --beadink:#FFFFFF;
+  --fd:'Baloo Bhaijaan 2','Readex Pro',system-ui,sans-serif;
+  --fb:'Readex Pro',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --c:var(--s1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161C; --card:#18212A; --ink:#E7EDF1; --muted:#9BA8B4; --line:#2A3540; --soft:#1F2A34;
+  --rod:#6F5D41; --s1:#2DB6A6; --s2:#EFAC43; --s3:#F06B59; --s4:#8592F2;
+  --good:#3EC57C; --bad:#F06767; --beadink:#10161C; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#10161C; --card:#18212A; --ink:#E7EDF1; --muted:#9BA8B4; --line:#2A3540; --soft:#1F2A34;
+  --rod:#6F5D41; --s1:#2DB6A6; --s2:#EFAC43; --s3:#F06B59; --s4:#8592F2;
+  --good:#3EC57C; --bad:#F06767; --beadink:#10161C; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding-block:20px 48px;display:flex;flex-direction:column;gap:20px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1,h2,h3{font-family:var(--fd);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-weight:800;font-size:clamp(26px,6.5vw,34px)}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.tools{display:flex;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-family:var(--fd);font-weight:700;font-size:17px}
+.chip .s{color:var(--s2)}
+.chip-btn{cursor:pointer}
+.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:999px;align-self:flex-start}
+.tabs button{border:0;background:transparent;color:var(--muted);font-weight:500;padding:7px 16px;border-radius:999px;cursor:pointer}
+.tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+section{display:flex;flex-direction:column;gap:22px}
+.ex{font-family:var(--fd);font-weight:700;white-space:nowrap;unicode-bidi:isolate}
+
+/* path */
+.hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.hero p{margin:0;color:var(--muted)}
+.hero b{color:var(--ink)}
+.abacus{position:relative;display:flex;gap:4px;padding:4px 2px;flex-wrap:nowrap}
+.abacus::before{content:"";position:absolute;inset-inline:0;top:50%;height:3px;margin-top:-1.5px;background:var(--rod);border-radius:2px}
+.abacus i{position:relative;flex:1;max-width:26px;aspect-ratio:1;border-radius:50%;background:var(--soft);border:1px solid var(--line)}
+.abacus i.on{background:var(--bc);border-color:transparent}
+.stage{display:flex;flex-direction:column;gap:12px}
+.stage-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.stage-n{font-size:12.5px;letter-spacing:.03em;color:var(--c);font-weight:600}
+.stage-h h2{font-size:23px;font-weight:800}
+.rod{list-style:none;margin:0;padding:0;position:relative;display:flex;flex-direction:column;gap:12px}
+.rod::before{content:"";position:absolute;top:26px;bottom:26px;inset-inline-start:37px;width:4px;border-radius:2px;background:var(--rod)}
+.lvl{position:relative;z-index:1;width:100%;display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding-block:10px;padding-inline:10px 14px;cursor:pointer;transition:transform .15s}
+.lvl:active{transform:scale(.985)}
+.bead{width:44px;height:44px;border-radius:50%;justify-self:center;display:grid;place-items:center;background:var(--c);color:var(--beadink);font-family:var(--fd);font-weight:800;font-size:20px;position:relative;box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.bead::after{content:"";position:absolute;top:7px;inset-inline-start:10px;width:12px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}
+.lvl.locked{cursor:default}
+.lvl.locked .bead{background:var(--soft);color:var(--muted);box-shadow:none}
+.lvl.locked .bead::after{display:none}
+.lvl.locked .lt{opacity:.6}
+.lt b{display:block;font-weight:600;font-size:16px;line-height:1.4}
+.lt small{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.st{font-size:15px;letter-spacing:1px;white-space:nowrap;color:var(--s2)}
+.st .o{color:var(--line)}
+.best{display:block;font-size:11.5px;color:var(--muted);letter-spacing:0;text-align:center}
+
+/* lesson */
+.back{align-self:flex-start;border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px 0;font-weight:500}
+.lhead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.lhead .bead{width:60px;height:60px;font-size:28px}
+.eyebrow{font-size:12.5px;letter-spacing:.03em;color:var(--c);font-weight:600}
+.lhead h2{font-size:clamp(26px,6vw,32px);font-weight:800}
+.goal{margin:4px 0 0;color:var(--muted)}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.step h3{font-size:20px;font-weight:700;color:var(--c)}
+.step p{margin:0;max-width:62ch}
+.exbox{background:var(--soft);border-radius:12px;padding:10px 14px;display:flex;flex-direction:column;gap:2px;font-size:19px}
+.exbox div{font-family:var(--fd);font-weight:600}
+.tip{background:var(--soft);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tip .lbl{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.03em}
+.tip p{margin:0}
+.bonds{display:flex;flex-direction:column;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.brow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.beads{position:relative;display:flex;gap:3px;padding:2px 4px}
+.beads::before{content:"";position:absolute;inset-inline:0;top:50%;height:3px;margin-top:-1.5px;background:var(--rod)}
+.beads i{position:relative;width:17px;height:17px;border-radius:50%}
+.beads i.a{background:var(--s1)} .beads i.b{background:var(--s2)}
+.brow .ex{font-size:18px}
+.actions{position:sticky;bottom:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;padding-block:14px calc(14px + env(safe-area-inset-bottom,0px));background:linear-gradient(to bottom,transparent,var(--bg) 35%)}
+.primary,.secondary{border-radius:999px;padding:12px 22px;font-family:var(--fd);font-weight:700;font-size:19px;cursor:pointer;line-height:1.2}
+.primary{background:var(--c);color:var(--beadink);border:2px solid var(--c)}
+.secondary{background:var(--card);color:var(--ink);border:2px solid var(--c)}
+.secondary:disabled{opacity:.45;cursor:not-allowed;border-color:var(--line)}
+.actions .primary{flex:1 1 200px}
+.note{margin:-8px 0 0;font-size:13px;color:var(--muted)}
+
+/* play */
+.playbar{display:flex;align-items:center;gap:12px}
+.x{border:1px solid var(--line);background:var(--card);border-radius:50%;width:40px;height:40px;cursor:pointer;flex:none;font-size:16px}
+.dots{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.dots i{width:14px;height:14px;border-radius:50%;background:var(--soft);border:2px solid var(--line)}
+.dots i.cur{border-color:var(--c)}
+.dots i.g{background:var(--good);border-color:var(--good)}
+.dots i.r{background:var(--bad);border-color:var(--bad)}
+.timer{flex:1;display:flex;align-items:baseline;gap:6px;font-family:var(--fd);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
+.timer small{font-family:var(--fb);font-weight:400;font-size:13px;color:var(--muted)}
+.timer.low{color:var(--bad)}
+.sc{font-family:var(--fd);font-weight:700;font-size:20px;color:var(--good)}
+.lvlname{font-size:13px;color:var(--muted);margin-top:-12px}
+.qcard{background:var(--card);border:2px solid var(--line);border-radius:26px;padding:30px 16px 22px;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:border-color .2s}
+.qcard.ok{border-color:var(--good)} .qcard.bad{border-color:var(--bad)}
+.eq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.28em;font-family:var(--fd);font-weight:700;font-size:clamp(38px,11vw,66px);line-height:1.1;font-variant-numeric:tabular-nums}
+.op{color:var(--muted);font-weight:500}
+.blank{min-width:1.5em;height:1.15em;padding:0 .15em;border-bottom:5px solid var(--c);text-align:center;color:var(--c);display:inline-flex;align-items:center;justify-content:center}
+.qcard.ok .blank{color:var(--good);border-color:var(--good)}
+.qcard.bad .blank{color:var(--bad);border-color:var(--bad);text-decoration:line-through;text-decoration-thickness:3px}
+.blank.empty::after{content:"";width:3px;height:.8em;background:var(--c);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.fb{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;max-width:52ch}
+.fb p{margin:0}
+.fb.ok{color:var(--good);font-family:var(--fd);font-weight:800;font-size:24px}
+.fb.bad b{font-family:var(--fd);font-size:24px;color:var(--good)}
+.hint{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:15.5px}
+.qcard.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(6px)}75%{transform:translateX(-6px)}}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:420px;width:100%;margin:0 auto}
+.k{height:62px;border-radius:16px;border:1px solid var(--line);background:var(--card);font-family:var(--fd);font-weight:700;font-size:28px;cursor:pointer;touch-action:manipulation;transition:transform .08s}
+.k:active{transform:scale(.95)}
+.k.fn{font-family:var(--fb);font-size:16px;font-weight:500;background:var(--soft)}
+.k.go{background:var(--c);color:var(--beadink);border-color:var(--c);font-family:var(--fd);font-size:20px}
+.pad.off .k{opacity:.4;pointer-events:none}
+
+/* result */
+.res{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.bigstars{font-size:46px;letter-spacing:6px;color:var(--s2);line-height:1}
+.bigstars .o{color:var(--line)}
+.big{font-family:var(--fd);font-weight:800;font-size:44px;line-height:1.1;margin:0}
+.res p{margin:0;max-width:44ch}
+.res .muted{color:var(--muted);font-size:14px}
+.rbtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* guide */
+.g-block{display:flex;flex-direction:column;gap:10px}
+.g-block h2{font-size:22px;font-weight:800}
+.g-block p{margin:0;max-width:64ch}
+.g-block ol,.g-block ul{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px;max-width:64ch}
+.g-block li::marker{color:var(--s1);font-family:var(--fd);font-weight:700}
+.stable{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;align-items:center}
+.stable .st{font-size:18px}
+.stagelist{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stagelist div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stagelist b{font-family:var(--fd);font-size:18px;color:var(--c)}
+.stagelist small{color:var(--muted);font-size:13px;line-height:1.5}
+.settings{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px 16px;display:flex;flex-direction:column}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:12px}
+.row+.row{border-top:1px solid var(--line)}
+.row div{min-width:0}
+.row small{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.sw{flex:none;width:52px;height:30px;border-radius:999px;border:0;background:var(--line);position:relative;cursor:pointer}
+.sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:24px;height:24px;border-radius:50%;background:var(--card);transition:inset-inline-start .2s}
+.sw[aria-checked="true"]{background:var(--s1)}
+.sw[aria-checked="true"]::after{inset-inline-start:25px}
+.danger{flex:none;border:1px solid var(--bad);color:var(--bad);background:transparent;border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px}
+.danger.armed{background:var(--bad);color:var(--card)}
+.toast{position:fixed;inset-inline:max(16px,env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:20;margin:0 auto;max-width:420px;background:var(--ink);color:var(--bg);border-radius:14px;padding:12px 16px;text-align:center;font-size:14.5px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="top">
+    <div class="brand">
+      <h1>رحلة الحساب الذهني</h1>
+      <p>من أصحاب العشرة إلى حيل الأبطال</p>
+    </div>
+    <div class="tools">
+      <span class="chip" aria-label="مجموع النجوم"><span class="s">★</span><span id="starTotal">٠</span></span>
+      <button class="chip chip-btn" id="digitBtn" data-act="digits" aria-label="تغيير شكل الأرقام">١٢٣</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs">
+    <button data-act="tab" data-t="path" class="on" id="tabPath">المسار</button>
+    <button data-act="tab" data-t="guide" id="tabGuide">دليل ولي الأمر</button>
+  </nav>
+  <main>
+    <section id="sPath"></section>
+    <section id="sGuide" hidden></section>
+    <section id="sLesson" hidden></section>
+    <section id="sPlay" hidden></section>
+    <section id="sResult" hidden></section>
+  </main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+document.documentElement.setAttribute('dir','rtl');
+document.documentElement.setAttribute('lang','ar');
+const $=s=>document.querySelector(s);
+const AR='٠١٢٣٤٥٦٧٨٩', KEY='mental-math-journey-v1';
+let S={east:true,unlockAll:false,lv:{}};
+try{const raw=localStorage.getItem(KEY);if(raw)S=Object.assign(S,JSON.parse(raw));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+const dg=s=>S.east?String(s).replace(/[0-9]/g,d=>AR[d]):String(s);
+const fmtText=s=>dg(String(s).replace(/⟨([^⟩]+)⟩/g,(m,x)=>`<span class="ex" dir="${S.east?'rtl':'ltr'}">${x}</span>`));
+const r=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const M='−',X='×',D='÷';
+const Q=(a,op,b,ans,hint)=>({parts:[a,op,b,'=','?'],ans,hint});
+const ORD=['الأولى','الثانية','الثالثة','الرابعة'];
+const STAGES=[
+  {name:'البداية',sub:'أصحاب العشرة، والجمع والطرح حتى ٢٠'},
+  {name:'الأعداد الكبيرة',sub:'العشرات، وجمع وطرح عددين من رقمين'},
+  {name:'الضرب والقسمة',sub:'جداول الضرب كلها، والقسمة'},
+  {name:'الإبداع',sub:'الضرب الكبير، وحيل الأبطال، والتحدي الشامل'}];
+
+const LEVELS=[
+{id:'bonds',stage:0,title:'أصحاب العشرة',goal:'يعرف فوراً كم يكمّل أي عدد إلى 10، بدون عدّ على الأصابع.',visual:'bonds',
+ steps:[{h:'كل عدد له صاحب',p:'الصاحب هو العدد الذي يكمّل معه 10 تماماً. هذه الأزواج الخمسة أساس كل ما بعدها.'},
+        {h:'العشرة ناقص عدد',p:'إذا عرفت الصاحب عرفت الطرح من العشرة أيضاً.',ex:['⟨10 − 7 = 3⟩','لأن ⟨7 + 3 = 10⟩']}],
+ tip:'العبي معه لعبة «قل الصاحب» في السيارة أو قبل النوم: تقولين 6 فيقول 4. دقيقتان يومياً تكفيان حتى تصير الإجابة فورية.',
+ gen(){const t=Math.random();
+  if(t<.45){const a=r(1,9);return {parts:[a,'+','?','=',10],ans:10-a,hint:`صاحب ${a} هو ${10-a}، لأن ⟨${a} + ${10-a} = 10⟩`};}
+  if(t<.75){const a=r(1,9);return Q(10,M,a,10-a,`فكّر بالصاحب: ⟨${a} + ${10-a} = 10⟩ إذن ⟨10 ${M} ${a} = ${10-a}⟩`);}
+  const a=r(1,8),b=r(1,10-a),B=Math.max(a,b),s=Math.min(a,b);
+  return Q(a,'+',b,a+b,`ابدأ بالأكبر ${B} وعُدّ ${s} خطوات للأمام: ⟨${B} + ${s} = ${a+b}⟩`);}},
+{id:'add20',stage:0,title:'الجمع حتى 20',goal:'يجمع عددين من رقم واحد بسرعة، خاصة عندما يتجاوز الناتج 10.',
+ steps:[{h:'المضاعفات',p:'احفظ جمع العدد مع نفسه، ثم استعمله للأعداد المتجاورة.',ex:['⟨6 + 6 = 12⟩','إذن ⟨6 + 7 = 13⟩']},
+        {h:'القفز إلى العشرة',p:'خذ من العدد الصغير ما يكمّل الكبير إلى 10، ثم أضف الباقي.',ex:['⟨8 + 5⟩','⟨8 + 2 = 10⟩','⟨10 + 3 = 13⟩']}],
+ tip:'هنا تظهر فائدة «أصحاب العشرة». إذا تعثّر، ارجعي معه إلى المستوى الأول يوماً واحداً.',
+ gen(){let a,b;do{a=r(2,9);b=r(2,9);}while(a+b<=10&&Math.random()<.75);
+  const B=Math.max(a,b),s=Math.min(a,b);let h;
+  if(a===b)h=`مضاعفة: ⟨${a} + ${a} = ${2*a}⟩`;
+  else if(B-s===1)h=`استعمل المضاعفة: ⟨${s} + ${s} = ${2*s}⟩ ثم زِد 1 فيصير ${a+b}`;
+  else if(a+b>10){const k=10-B;h=`أكمل ${B} إلى العشرة: ⟨${B} + ${k} = 10⟩ ثم أضف الباقي: ⟨10 + ${s-k} = ${a+b}⟩`;}
+  else h=`ابدأ بالأكبر ${B} وعُدّ ${s} للأمام: ${a+b}`;
+  return Q(a,'+',b,a+b,h);}},
+{id:'sub20',stage:0,title:'الطرح حتى 20',goal:'يطرح بسرعة من الأعداد بين 11 و18.',
+ steps:[{h:'الرجوع إلى العشرة',p:'انزل أولاً إلى 10، ثم أكمل الطرح.',ex:['⟨14 − 6⟩','⟨14 − 4 = 10⟩','⟨10 − 2 = 8⟩']},
+        {h:'اقلبها جمعاً',p:'الطرح سؤال: كم أضيف إلى الصغير حتى أصل إلى الكبير؟',ex:['⟨13 − 8 = ؟⟩','⟨8 + 5 = 13⟩ إذن الجواب 5']}],
+ tip:'اسأليه «كم ينقص 8 ليصل إلى 13؟». كثير من الأطفال يجدون هذا السؤال أسهل من كلمة «اطرح».',
+ gen(){const a=r(11,18),b=r(Math.max(2,a-9),9),o=a-10,d=a-b;let h;
+  if(b>o)h=`انزل إلى العشرة: ⟨${a} ${M} ${o} = 10⟩ ثم ⟨10 ${M} ${b-o} = ${d}⟩. أو اسأل: ⟨${b} + ؟ = ${a}⟩`;
+  else h=`اطرح من الآحاد: ⟨${o} ${M} ${b} = ${o-b}⟩ إذن ⟨${a} ${M} ${b} = ${d}⟩`;
+  return Q(a,M,b,d,h);}},
+{id:'tens',stage:1,title:'قفزات العشرات',goal:'يضيف ويطرح العشرات الكاملة دون تعب.',
+ steps:[{h:'إضافة 10 تغيّر العشرات فقط',p:'رقم الآحاد يبقى كما هو، ورقم العشرات يزيد أو ينقص واحداً.',ex:['⟨34 + 10 = 44⟩','⟨67 − 10 = 57⟩']},
+        {h:'العشرات مثل الآحاد',p:'3 عشرات و4 عشرات تساوي 7 عشرات.',ex:['⟨3 + 4 = 7⟩','إذن ⟨30 + 40 = 70⟩']}],
+ tip:'لوحة المئة (جدول من 1 إلى 100) مفيدة هنا: إضافة 10 تعني النزول صفاً واحداً في اللوحة.',
+ gen(){const t=r(1,5);
+  if(t===1){const n=r(11,89);return Q(n,'+',10,n+10,`الآحاد تبقى ${n%10}، والعشرات تزيد واحداً: ${n+10}`);}
+  if(t===2){const n=r(20,99);return Q(n,M,10,n-10,`الآحاد تبقى ${n%10}، والعشرات تنقص واحداً: ${n-10}`);}
+  if(t===3){const a=r(1,8),b=r(1,9-a);return Q(a*10,'+',b*10,(a+b)*10,`مثل ⟨${a} + ${b} = ${a+b}⟩ لكنها عشرات: ${(a+b)*10}`);}
+  if(t===4){const a=r(3,9),b=r(1,a-1);return Q(a*10,M,b*10,(a-b)*10,`مثل ⟨${a} ${M} ${b} = ${a-b}⟩ لكنها عشرات: ${(a-b)*10}`);}
+  const n=r(11,59),k=r(1,Math.floor((99-n)/10));return Q(n,'+',k*10,n+k*10,`الآحاد تبقى ${n%10}، وأضف ${k} إلى العشرات: ${n+k*10}`);}},
+{id:'add2d',stage:1,title:'جمع عددين من رقمين',goal:'يجمع عددين من رقمين في ذهنه.',
+ steps:[{h:'فكّك العددين',p:'اجمع العشرات مع العشرات، والآحاد مع الآحاد، ثم اجمع الناتجين.',ex:['⟨37 + 25⟩','⟨30 + 20 = 50⟩','⟨7 + 5 = 12⟩','⟨50 + 12 = 62⟩']},
+        {h:'أو ابدأ بالعشرات',p:'أضف عشرات العدد الثاني أولاً، ثم آحاده.',ex:['⟨37 + 20 = 57⟩','⟨57 + 5 = 62⟩']}],
+ tip:'اطلبي منه أن يقول خطواته بصوت مسموع. سماع طريقة تفكيره يكشف أين يتعثّر.',
+ gen(){const a=r(15,68),b=r(11,Math.min(39,98-a)),ta=a-a%10,tb=b-b%10,oa=a%10,ob=b%10;
+  return Q(a,'+',b,a+b,`العشرات: ⟨${ta} + ${tb} = ${ta+tb}⟩، والآحاد: ⟨${oa} + ${ob} = ${oa+ob}⟩، ثم ⟨${ta+tb} + ${oa+ob} = ${a+b}⟩`);}},
+{id:'sub2d',stage:1,title:'طرح عددين من رقمين',goal:'يطرح عددين من رقمين دون ورقة.',
+ steps:[{h:'العشرات ثم الآحاد',p:'اطرح عشرات العدد الثاني، ثم آحاده.',ex:['⟨72 − 25⟩','⟨72 − 20 = 52⟩','⟨52 − 5 = 47⟩']},
+        {h:'التقريب ثم التعديل',p:'إذا كان العدد قريباً من عشرة كاملة، اطرح العشرة ثم أرجع الزيادة.',ex:['⟨63 − 29⟩','⟨63 − 30 = 33⟩','⟨33 + 1 = 34⟩']}],
+ tip:'طريقة التقريب ممتعة للأطفال لأنها تشبه الحيلة. احتفلي بها عندما يستعملها من نفسه.',
+ gen(){const a=r(41,99),b=r(11,Math.min(49,a-11)),ob=b%10,tb=b-ob;let h;
+  if(ob>=7){const B=tb+10;h=`قرّب ${b} إلى ${B}: ⟨${a} ${M} ${B} = ${a-B}⟩ ثم أرجع ${B-b}: ⟨${a-B} + ${B-b} = ${a-b}⟩`;}
+  else if(ob===0)h=`اطرح العشرات فقط: ⟨${a} ${M} ${b} = ${a-b}⟩`;
+  else h=`العشرات أولاً: ⟨${a} ${M} ${tb} = ${a-tb}⟩ ثم الآحاد: ⟨${a-tb} ${M} ${ob} = ${a-b}⟩`;
+  return Q(a,M,b,a-b,h);}},
+{id:'x2510',stage:2,title:'جداول 2 و5 و10',goal:'يحفظ أسهل ثلاثة جداول، ويفهم معنى الضرب.',
+ steps:[{h:'الضرب جمع متكرر',p:'⟨4 × 3⟩ تعني 3 مجموعات، في كل مجموعة 4.',ex:['⟨4 × 3 = 4 + 4 + 4 = 12⟩']},
+        {h:'الضعف والصفر',p:'الضرب في 2 هو الضعف، والضرب في 10 نضيف صفراً.',ex:['⟨7 × 2 = 7 + 7 = 14⟩','⟨6 × 10 = 60⟩']},
+        {h:'الخمسة نصف العشرة',p:'اضرب في 10 ثم خذ النصف. ونواتج جدول 5 تنتهي دائماً بـ 0 أو 5.',ex:['⟨8 × 5⟩','⟨8 × 10 = 80⟩','نصف 80 هو 40']}],
+ tip:'هذه الجداول من منهج الصف الثالث. ثبّتيها جيداً قبل الانتقال، فبقية الجداول تُبنى عليها.',
+ gen(){const t=pick([2,5,10]),n=r(1,10),p=t*n;let h;
+  if(t===2)h=`الضعف: ⟨${n} + ${n} = ${p}⟩`;
+  else if(t===10)h=`أضف صفراً إلى ${n}: ${p}`;
+  else h=`⟨${n} × 10 = ${n*10}⟩ ونصفها ${p}`;
+  return Math.random()<.5?Q(n,X,t,p,h):Q(t,X,n,p,h);}},
+{id:'x346',stage:2,title:'جداول 3 و4 و6',goal:'يحسب الجداول المتوسطة من الجداول التي يعرفها.',
+ steps:[{h:'الثلاثة: اثنان ثم مرة',p:'اضرب في 2 ثم أضف العدد مرة واحدة.',ex:['⟨6 × 3⟩','⟨6 × 2 = 12⟩','⟨12 + 6 = 18⟩']},
+        {h:'الأربعة: ضعف الضعف',p:'ضاعف العدد مرتين.',ex:['⟨7 × 4⟩','7 ثم 14 ثم 28']},
+        {h:'الستة: خمسة ثم مرة',p:'اضرب في 5 ثم أضف العدد مرة واحدة.',ex:['⟨7 × 6⟩','⟨7 × 5 = 35⟩','⟨35 + 7 = 42⟩']}],
+ tip:'ذكّريه أن الترتيب لا يهم: ⟨3 × 8⟩ هي نفسها ⟨8 × 3⟩. هذا يقلّل ما يحتاج إلى حفظه إلى النصف.',
+ gen(){const t=pick([3,4,6]),n=r(2,10),p=t*n;let h;
+  if(t===3)h=`⟨${n} × 2 = ${2*n}⟩ ثم أضف ${n}: ${p}`;
+  else if(t===4)h=`ضاعف مرتين: ${n} ثم ${2*n} ثم ${p}`;
+  else h=`⟨${n} × 5 = ${5*n}⟩ ثم أضف ${n}: ${p}`;
+  return Math.random()<.5?Q(n,X,t,p,h):Q(t,X,n,p,h);}},
+{id:'x789',stage:2,title:'جداول 7 و8 و9',goal:'يتقن أصعب الجداول بحيل بسيطة.',
+ steps:[{h:'التسعة: عشرة ناقص مرة',p:'اضرب في 10 ثم اطرح العدد. ومجموع رقمي ناتج جدول 9 يساوي 9 دائماً.',ex:['⟨7 × 9⟩','⟨7 × 10 = 70⟩','⟨70 − 7 = 63⟩','للتأكد: ⟨6 + 3 = 9⟩']},
+        {h:'الثمانية: ضعف ثلاث مرات',p:'ضاعف، ثم ضاعف، ثم ضاعف.',ex:['⟨6 × 8⟩','6 ثم 12 ثم 24 ثم 48']},
+        {h:'السبعة: خمسة واثنان',p:'اضرب في 5 وفي 2، ثم اجمع الناتجين.',ex:['⟨8 × 7⟩','⟨8 × 5 = 40⟩','⟨8 × 2 = 16⟩','⟨40 + 16 = 56⟩']}],
+ tip:'جملة تساعد على الحفظ: ⟨56 = 7 × 8⟩، الأرقام فيها متتالية 5 و6 و7 و8.',
+ gen(){const t=pick([7,8,9]),n=r(2,10),p=t*n;let h;
+  if(t===9)h=`⟨${n} × 10 = ${10*n}⟩ ثم اطرح ${n}: ${p}`;
+  else if(t===8)h=`ضاعف ثلاث مرات: ${n} ثم ${2*n} ثم ${4*n} ثم ${p}`;
+  else h=`⟨${n} × 5 = ${5*n}⟩ و⟨${n} × 2 = ${2*n}⟩، والمجموع ${p}`;
+  return Math.random()<.5?Q(n,X,t,p,h):Q(t,X,n,p,h);}},
+{id:'div',stage:2,title:'القسمة',goal:'يعرف أن القسمة ضرب مقلوب، ويجيب عنها بسرعة.',
+ steps:[{h:'القسمة سؤال ضرب',p:'⟨36 ÷ 4⟩ تسأل: 4 في كم يساوي 36؟',ex:['⟨36 ÷ 4 = ؟⟩','⟨4 × 9 = 36⟩','الجواب 9']},
+        {h:'عائلة الحقيقة',p:'كل حقيقة ضرب تعطيك أربع حقائق.',ex:['⟨4 × 9 = 36⟩','⟨9 × 4 = 36⟩','⟨36 ÷ 4 = 9⟩','⟨36 ÷ 9 = 4⟩']}],
+ tip:'لا تنتقلي إلى هذا المستوى قبل إتقان جداول الضرب، فالقسمة تعتمد عليها كلياً.',
+ gen(){const d=r(2,9),q=r(2,10),p=d*q;
+  if(Math.random()<.3)return {parts:[d,X,'?','=',p],ans:q,hint:`عُدّ بجدول ${d} حتى تصل إلى ${p}: ⟨${d} × ${q} = ${p}⟩`};
+  return Q(p,D,d,q,`اسأل: ${d} في كم يساوي ${p}؟ ⟨${d} × ${q} = ${p}⟩ إذن الجواب ${q}`);}},
+{id:'bigx',stage:3,title:'الضرب الكبير',goal:'يضرب عدداً من رقمين في رقم واحد في ذهنه.',
+ steps:[{h:'العشرة والمئة',p:'الضرب في 10 نضيف صفراً، وفي 100 نضيف صفرين.',ex:['⟨45 × 10 = 450⟩','⟨23 × 100 = 2300⟩']},
+        {h:'فكّك العدد الكبير',p:'اضرب العشرات، ثم الآحاد، ثم اجمع.',ex:['⟨23 × 4⟩','⟨20 × 4 = 80⟩','⟨3 × 4 = 12⟩','⟨80 + 12 = 92⟩']}],
+ tip:'هذا المستوى يسبق منهج الصف الثالث قليلاً. لا بأس أن يأخذ وقته فيه.',
+ gen(){const t=r(1,4);
+  if(t===1){const n=r(11,99);return Q(n,X,10,n*10,`أضف صفراً إلى ${n}: ${n*10}`);}
+  if(t===2){const n=r(2,50);return Q(n,X,100,n*100,`أضف صفرين إلى ${n}: ${n*100}`);}
+  const n=r(12,49),m=r(2,9),o=n%10,tn=n-o;
+  return Q(n,X,m,n*m,o?`فكّك ${n}: ⟨${tn} × ${m} = ${tn*m}⟩ و⟨${o} × ${m} = ${o*m}⟩، ثم ⟨${tn*m} + ${o*m} = ${n*m}⟩`:`⟨${tn/10} × ${m} = ${tn/10*m}⟩ ثم أضف صفراً: ${n*m}`);}},
+{id:'tricks',stage:3,title:'حيل الأبطال',goal:'حيل سريعة يُدهش بها من حوله.',
+ steps:[{h:'الضرب في 11',p:'افصل رقمي العدد، وضع مجموعهما في الوسط.',ex:['⟨32 × 11⟩','الرقمان 3 و2، ومجموعهما 5 في الوسط','الجواب 352']},
+        {h:'مربع ما ينتهي بـ 5',p:'اضرب رقم العشرات في العدد الذي بعده، ثم اكتب 25 بعد الناتج.',ex:['⟨35 × 35⟩','⟨3 × 4 = 12⟩','الجواب 1225']},
+        {h:'الضرب في 5 بسرعة',p:'خذ نصف العدد ثم أضف صفراً.',ex:['⟨48 × 5⟩','نصف 48 هو 24','الجواب 240']},
+        {h:'الضرب في 9',p:'اضرب في 10 ثم اطرح العدد نفسه.',ex:['⟨23 × 9⟩','⟨230 − 23 = 207⟩']}],
+ tip:'اجعليه يعرض حيلة على أحد أفراد العائلة. شعوره بأنه «ساحر أرقام» يرفع حماسه كثيراً.',
+ gen(){const t=r(1,4);
+  if(t===1){const a=r(1,8),b=r(1,9-a),n=10*a+b;return Q(n,X,11,n*11,`الرقمان ${a} و${b}، ومجموعهما ${a+b} يدخل في الوسط: ${n*11}`);}
+  if(t===2){const k=r(1,9),n=10*k+5;return Q(n,X,n,n*n,`⟨${k} × ${k+1} = ${k*(k+1)}⟩ ثم اكتب 25 بعده: ${n*n}`);}
+  if(t===3){const n=r(6,49)*2;return Q(n,X,5,n*5,`نصف ${n} هو ${n/2}، ثم أضف صفراً: ${n*5}`);}
+  const n=r(12,49);return Q(n,X,9,n*9,`⟨${n} × 10 = ${n*10}⟩ ثم اطرح ${n}: ${n*9}`);}},
+{id:'master',stage:3,title:'البطل الشامل',goal:'أسئلة مختلطة من كل المستويات، للمراجعة والتحدي.',
+ steps:[{h:'اختر الحيلة المناسبة',p:'قبل أن تحسب، اسأل نفسك: أي طريقة تعلّمتها تناسب هذا السؤال؟',ex:['⟨8 + 7⟩ القفز إلى العشرة','⟨9 × 6⟩ عشرة ناقص مرة','⟨63 − 29⟩ التقريب ثم التعديل']},
+        {h:'السرعة تأتي وحدها',p:'ركّز على الصحة أولاً. مع التدريب اليومي تصبح الإجابة أسرع دون أن تحاول.'}],
+ tip:'استعملي «تحدي الدقيقة» في هذا المستوى مرة في الأسبوع، وتابعي أفضل نتيجة له أسبوعاً بعد أسبوع.',
+ gen(){return LEVELS[r(1,11)].gen();}}
+];
+
+let cur='path',curL=0,P=null,R=null,timer=null;
+const SECS={path:$('#sPath'),guide:$('#sGuide'),lesson:$('#sLesson'),play:$('#sPlay'),result:$('#sResult')};
+const rec=i=>S.lv[LEVELS[i].id]||{stars:0,best:0};
+const passed=i=>rec(i).stars>0;
+const unlocked=i=>S.unlockAll||i===0||passed(i-1);
+const starStr=(n,cls='st')=>`<span class="${cls}" aria-label="${n} من 3 نجوم">${'★'.repeat(n)}<span class="o">${'★'.repeat(3-n)}</span></span>`;
+const setC=(el,i)=>el.style.setProperty('--c',`var(--s${LEVELS[i].stage+1})`);
+const lock='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+function show(n){cur=n;for(const k in SECS)SECS[k].hidden=k!==n;
+  $('#tabs').hidden=!(n==='path'||n==='guide');
+  $('#tabPath').classList.toggle('on',n==='path');$('#tabGuide').classList.toggle('on',n==='guide');
+  window.scrollTo(0,0);}
+function renderStars(){let t=0;LEVELS.forEach((L,i)=>t+=rec(i).stars);$('#starTotal').textContent=dg(t);$('#digitBtn').textContent=S.east?'١٢٣':'123';}
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2600);}
+
+function renderPath(){
+  const done=LEVELS.filter((L,i)=>passed(i)).length;
+  let nx=LEVELS.findIndex((L,i)=>unlocked(i)&&!passed(i));
+  let h=`<div class="hero"><p>أنهى <b>${dg(done)}</b> من ${dg(13)} مستوى. كل مستوى: درس قصير، ثم تدريب من ${dg(10)} أسئلة.</p>
+   <div class="abacus" aria-hidden="true">${LEVELS.map((L,i)=>`<i class="${passed(i)?'on':''}" style="--bc:var(--s${L.stage+1})"></i>`).join('')}</div>
+   ${nx>=0?`<button class="primary" data-act="open" data-i="${nx}" style="--c:var(--s${LEVELS[nx].stage+1});align-self:flex-start">${done?'تابع':'ابدأ'}: ${fmtText(LEVELS[nx].title)}</button>`:`<p><b>أنهى البرنامج كاملاً. بطل حقيقي!</b> تابع تحدي الدقيقة لرفع السرعة.</p>`}</div>`;
+  STAGES.forEach((st,si)=>{
+    h+=`<div class="stage" style="--c:var(--s${si+1})"><div class="stage-h"><span class="stage-n">المرحلة ${ORD[si]}</span><h2>${st.name}</h2></div><ol class="rod">`;
+    LEVELS.forEach((L,i)=>{if(L.stage!==si)return;const u=unlocked(i),rc=rec(i);
+      h+=`<li><button class="lvl ${u?'':'locked'}" data-act="open" data-i="${i}" ${u?'':'aria-disabled="true"'}>
+        <span class="bead">${u?dg(i+1):lock}</span>
+        <span class="lt"><b>${fmtText(L.title)}</b><small>${fmtText(L.goal)}</small></span>
+        <span>${starStr(rc.stars)}${rc.best?`<span class="best">⏱ ${dg(rc.best)}</span>`:''}</span></button></li>`;});
+    h+='</ol></div>';});
+  SECS.path.innerHTML=h;}
+
+function bondsHTML(){const d=S.east?'rtl':'ltr';let h=`<div class="bonds" dir="${d}">`;
+  for(let k=1;k<=5;k++)h+=`<div class="brow"><div class="beads" aria-hidden="true">${Array.from({length:10},(_,j)=>`<i class="${j<k?'a':'b'}"></i>`).join('')}</div><span class="ex" dir="${d}">${dg(`${k} + ${10-k} = 10`)}</span></div>`;
+  return h+'</div>';}
+
+function openLesson(i,keep){curL=i;const L=LEVELS[i],el=SECS.lesson;setC(el,i);const p=passed(i),rc=rec(i);
+  el.innerHTML=`<button class="back" data-act="back">→ المسار</button>
+  <div class="lhead"><span class="bead">${dg(i+1)}</span><div><span class="eyebrow">المستوى ${dg(i+1)} من ${dg(13)} · المرحلة ${ORD[L.stage]}</span><h2>${fmtText(L.title)}</h2><p class="goal">${fmtText(L.goal)}</p></div></div>
+  ${L.visual==='bonds'?bondsHTML():''}
+  ${L.steps.map(s=>`<article class="step"><h3>${fmtText(s.h)}</h3><p>${fmtText(s.p)}</p>${s.ex?`<div class="exbox">${s.ex.map(x=>`<div>${fmtText(x)}</div>`).join('')}</div>`:''}</article>`).join('')}
+  <aside class="tip"><span class="lbl">لولي الأمر</span><p>${fmtText(L.tip)}</p></aside>
+  <div class="actions"><button class="primary" data-act="practice">ابدأ التدريب</button><button class="secondary" data-act="sprint" ${p?'':'disabled'}>تحدي الدقيقة</button></div>
+  <p class="note">${p?`أفضل نجوم: ${'★'.repeat(rc.stars)}${rc.best?` · أفضل نتيجة في تحدي الدقيقة: ${dg(rc.best)}`:''}`:`${dg(8)} إجابات صحيحة من ${dg(10)} تفتح المستوى التالي وتحدي الدقيقة.`}</p>`;
+  if(!keep)show('lesson');}
+
+function startPlay(i,mode){stopTimer();curL=i;P={i,mode,n:0,res:[],typed:'',lock:false,correct:0,tries:0,fb:null,q:null};
+  if(mode==='sprint'){P.end=Date.now()+60000;timer=setInterval(tick,200);}
+  setC(SECS.play,i);nextQ();show('play');}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+function nextQ(){let q,g=0;do{q=LEVELS[P.i].gen();g++;}while(P.q&&q.parts.join()===P.q.parts.join()&&g<10);
+  P.q=q;P.typed='';P.lock=false;P.fb=null;renderPlay();}
+function tick(){if(!P)return stopTimer();const s=Math.ceil(Math.max(0,P.end-Date.now())/1000);const t=$('#tm');
+  if(t){t.textContent=dg(s);t.parentNode.classList.toggle('low',s<=10);}if(s<=0)finish();}
+function eqHTML(){const q=P.q;return q.parts.map(p=>{
+  if(p==='?')return `<span class="blank ${P.typed===''?'empty':''}">${dg(P.typed)}</span>`;
+  if(typeof p==='number')return `<span>${dg(p)}</span>`;return `<span class="op">${p}</span>`;}).join('');}
+function renderPlay(){const L=LEVELS[P.i],q=P.q;
+  const top=P.mode==='practice'
+   ?`<div class="dots" aria-label="السؤال ${P.n+1} من 10">${Array.from({length:10},(_,j)=>`<i class="${j<P.res.length?(P.res[j]?'g':'r'):(j===P.n?'cur':'')}"></i>`).join('')}</div>`
+   :`<div class="timer"><span id="tm">${dg(Math.ceil(Math.max(0,P.end-Date.now())/1000))}</span><small>ثانية</small></div><div class="sc">✓ ${dg(P.correct)}</div>`;
+  let fb='';
+  if(P.fb==='ok')fb=`<p class="fb ok">${P.praise}</p>`;
+  else if(P.fb==='bad'&&P.mode==='practice')fb=`<div class="fb bad"><p>الجواب الصحيح: <b>${dg(q.ans)}</b></p><p class="hint">${fmtText(q.hint)}</p><button class="primary" data-act="next">التالي</button></div>`;
+  else if(P.fb==='bad')fb=`<div class="fb bad"><p>الجواب: <b>${dg(q.ans)}</b></p></div>`;
+  const k=n=>`<button class="k" data-act="key" data-k="${n}">${dg(n)}</button>`;
+  SECS.play.innerHTML=`<div class="playbar"><button class="x" data-act="quit" aria-label="إنهاء والعودة للدرس">✕</button>${top}</div>
+   <div class="lvlname">${fmtText(L.title)}${P.mode==='sprint'?' · تحدي الدقيقة':''}</div>
+   <div class="qcard ${P.fb||''} ${P.fb==='bad'?'shake':''}"><div class="eq" dir="${S.east?'rtl':'ltr'}">${eqHTML()}</div><div aria-live="polite">${fb}</div></div>
+   <div class="pad ${P.lock?'off':''}" dir="ltr">${[1,2,3,4,5,6,7,8,9].map(k).join('')}<button class="k fn" data-act="key" data-k="del">مسح</button>${k(0)}<button class="k go" data-act="key" data-k="ok">تحقق</button></div>`;}
+function press(k){if(!P||P.lock)return;
+  if(k==='del')P.typed=P.typed.slice(0,-1);
+  else if(k==='ok'){if(P.typed!=='')return check();return;}
+  else if(P.typed.length<5&&!(P.typed==='0'))P.typed+=k;
+  renderPlay();}
+function check(){const ok=Number(P.typed)===P.q.ans;P.lock=true;
+  if(P.mode==='practice'){P.res.push(ok);
+    if(ok){P.fb='ok';P.praise=pick(['أحسنت!','صح!','ممتاز!','رائع!','بطل!']);renderPlay();setTimeout(()=>{if(P&&P.mode==='practice')advance();},700);}
+    else{P.fb='bad';renderPlay();}}
+  else{P.tries++;if(ok){P.correct++;P.fb='ok';P.praise='✓';renderPlay();setTimeout(()=>{if(P&&P.mode==='sprint')nextQ();},300);}
+    else{P.fb='bad';renderPlay();setTimeout(()=>{if(P&&P.mode==='sprint')nextQ();},1100);}}}
+function advance(){if(!P)return;P.n++;if(P.n>=10)finish();else nextQ();}
+function finish(){stopTimer();if(!P)return;const id=LEVELS[P.i].id;const rc=S.lv[id]||(S.lv[id]={stars:0,best:0});
+  if(P.mode==='practice'){const sc=P.res.filter(Boolean).length,st=sc>=10?3:sc>=9?2:sc>=8?1:0,was=rc.stars>0;
+    rc.stars=Math.max(rc.stars,st);R={mode:'practice',sc,st,unl:!was&&st>0&&P.i<12};}
+  else{const prev=rc.best||0;rc.best=Math.max(prev,P.correct);R={mode:'sprint',c:P.correct,t:P.tries,best:rc.best,rec:P.correct>prev&&prev>0};}
+  save();P=null;renderResult();renderStars();show('result');}
+function renderResult(){const el=SECS.result;setC(el,curL);const i=curL;let h;
+  if(R.mode==='practice'){const m=R.st===3?'ممتاز! عشرة من عشرة.':R.st===2?'رائع، قريب جداً من الكمال.':R.st===1?'نجحت في هذا المستوى!':`تحتاج ${dg(8)} إجابات صحيحة لتفتح المستوى التالي. اقرأ الدرس مرة أخرى ثم حاول.`;
+    h=`<div class="res">${starStr(R.st,'bigstars')}<p class="big">${dg(R.sc)} من ${dg(10)}</p><p>${m}</p>
+     ${R.unl?`<p class="muted">انفتح المستوى ${dg(i+2)}: ${fmtText(LEVELS[i+1].title)}، وانفتح تحدي الدقيقة لهذا المستوى.</p>`:''}</div>
+     <div class="rbtns">${R.st>0&&i<12?`<button class="primary" data-act="nextlvl">المستوى التالي</button>`:''}<button class="${R.st>0&&i<12?'secondary':'primary'}" data-act="again" data-m="practice">تدريب جديد</button><button class="secondary" data-act="tolesson">العودة للدرس</button></div>`;}
+  else{h=`<div class="res"><p class="muted">تحدي الدقيقة · ${fmtText(LEVELS[i].title)}</p><p class="big">${dg(R.c)}</p><p>إجابة صحيحة في دقيقة واحدة${R.t>R.c?`، من ${dg(R.t)} محاولة`:''}.</p>
+     <p class="muted">${R.rec?'رقم قياسي جديد! ':''}أفضل نتيجة: ${dg(R.best)}</p></div>
+     <div class="rbtns"><button class="primary" data-act="again" data-m="sprint">حاول مرة أخرى</button><button class="secondary" data-act="tolesson">العودة للدرس</button></div>`;}
+  el.innerHTML=h;}
+
+function renderGuide(){const d=S.east;SECS.guide.innerHTML=`
+ <div class="g-block"><h2>كيف يعمل البرنامج</h2>
+  <p>${fmtText('البرنامج 13 مستوى في 4 مراحل. كل مستوى يبدأ بدرس قصير يشرح طريقة تفكير واحدة أو اثنتين، ثم تدريب من 10 أسئلة على لوحة أرقام كبيرة تناسب الآيباد. عند الخطأ يظهر له الجواب وشرح الطريقة على السؤال نفسه.')}</p></div>
+ <div class="stagelist">${STAGES.map((s,i)=>`<div style="--c:var(--s${i+1})"><b>${s.name}</b><small>${fmtText(s.sub)}</small></div>`).join('')}</div>
+ <div class="g-block"><h2>النجوم وفتح المستويات</h2>
+  <div class="stable">${starStr(1)}<span>${fmtText('8 إجابات صحيحة: ينفتح المستوى التالي')}</span>${starStr(2)}<span>${fmtText('9 إجابات صحيحة')}</span>${starStr(3)}<span>${fmtText('10 من 10')}</span></div>
+  <p>${fmtText('يمكنه إعادة التدريب ليرفع نجومه، والبرنامج يحفظ أفضل نتيجة. بعد اجتياز أي مستوى ينفتح «تحدي الدقيقة»: كم سؤالاً يحل صحيحاً في 60 ثانية.')}</p></div>
+ <div class="g-block"><h2>الجلسة اليومية: 10 إلى 15 دقيقة</h2>
+  <ol><li>${fmtText('دقيقتان شفهياً بدون الجهاز: لعبة «قل الصاحب»، أو جدول ضرب يقوله بصوت عالٍ.')}</li>
+   <li>إذا كان المستوى جديداً، اقرئي الدرس معه وحلّا الأمثلة معاً.</li>
+   <li>${fmtText('تدريب واحد من 10 أسئلة.')}</li>
+   <li>تحدي دقيقة على مستوى سابق، للمراجعة والسرعة.</li></ol>
+  <p>${fmtText('جلسة قصيرة كل يوم أنفع بكثير من ساعة مرة في الأسبوع. والبقاء أسبوعاً كاملاً في مستوى واحد أمر طبيعي.')}</p></div>
+ <div class="g-block"><h2>من أين يبدأ طالب الصف الثالث؟</h2>
+  <p>${fmtText('إذا كان يجمع ويطرح حتى 20 بسرعة ودون أصابع، يمكنه البدء من المرحلة الثانية. المرحلة الثالثة (الضرب والقسمة) تتماشى مع ما يدرسه في الصف الثالث. فعّلي «فتح كل المستويات» بالأسفل لتختاري له نقطة البداية.')}</p></div>
+ <div class="g-block"><h2>نصائح تصنع الفرق</h2>
+  <ul><li>الصحة أولاً، والسرعة تأتي مع التكرار.</li>
+   <li>اطلبي منه أن يشرح لك كيف وصل إلى الجواب. الشرح يثبّت الطريقة.</li>
+   <li>امدحي الطريقة لا الذكاء: «أعجبتني طريقة القفز إلى العشرة».</li>
+   <li>إذا تكرر الخطأ في مستوى، ارجعا إلى المستوى الذي قبله يوماً أو يومين.</li></ul></div>
+ <div class="g-block"><h2>الإعدادات</h2>
+  <div class="settings">
+   <div class="row"><div>فتح كل المستويات<small>لاختيار نقطة البداية بدل البدء من الأول</small></div><button class="sw" role="switch" aria-checked="${S.unlockAll}" data-act="unlockall" aria-label="فتح كل المستويات"></button></div>
+   <div class="row"><div>الأرقام العربية (١٢٣)<small>كما في كتب الرياضيات. أطفئيها لعرض 123</small></div><button class="sw" role="switch" aria-checked="${d}" data-act="digits" aria-label="الأرقام العربية"></button></div>
+   <div class="row"><div>مسح التقدم<small>يحذف النجوم والنتائج المحفوظة على هذا الجهاز</small></div><button class="danger" data-act="reset" id="resetBtn">مسح</button></div>
+  </div></div>`;}
+
+function rerender(){renderStars();
+  if(cur==='path')renderPath();else if(cur==='guide')renderGuide();else if(cur==='lesson')openLesson(curL,true);
+  else if(cur==='play'&&P)renderPlay();else if(cur==='result'&&R)renderResult();}
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;
+  switch(b.dataset.act){
+  case 'tab':if(b.dataset.t==='guide')renderGuide();else renderPath();show(b.dataset.t);break;
+  case 'open':{const i=+b.dataset.i;if(!unlocked(i)){toast('اجتز المستوى السابق أولاً، أو افتح كل المستويات من دليل ولي الأمر.');return;}openLesson(i);}break;
+  case 'back':renderPath();show('path');break;
+  case 'practice':startPlay(curL,'practice');break;
+  case 'sprint':if(passed(curL))startPlay(curL,'sprint');break;
+  case 'key':press(b.dataset.k);break;
+  case 'next':advance();break;
+  case 'quit':stopTimer();P=null;openLesson(curL);break;
+  case 'again':startPlay(curL,b.dataset.m);break;
+  case 'nextlvl':openLesson(curL+1);break;
+  case 'tolesson':openLesson(curL);break;
+  case 'digits':S.east=!S.east;save();rerender();break;
+  case 'unlockall':S.unlockAll=!S.unlockAll;save();renderGuide();break;
+  case 'reset':if(b.dataset.armed){S.lv={};save();renderStars();renderGuide();toast('تم مسح التقدم.');}
+    else{b.dataset.armed='1';b.classList.add('armed');b.textContent='اضغطي للتأكيد';setTimeout(()=>{if(b.isConnected){delete b.dataset.armed;b.classList.remove('armed');b.textContent='مسح';}},4000);}break;
+  }});
+document.addEventListener('keydown',e=>{if(cur!=='play'||!P)return;
+  if(/^[0-9]$/.test(e.key))press(e.key);
+  else if(e.key==='Backspace')press('del');
+  else if(e.key==='Enter'){e.preventDefault();if(P.fb==='bad'&&P.mode==='practice')advance();else press('ok');}});
+
+renderStars();renderPath();
+</script>
+
+</body></html>

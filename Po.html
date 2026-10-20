@@ -1,0 +1,684 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>جبل سند</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-column app. Home = mountain scene with altitude + numbered stations from base to summit; each station opens as its own view. */
+:root{
+  --sky:#E5F0F7; --sky2:#CDE1EE; --card:#FFFFFF; --ink:#16273A; --muted:#4F6579;
+  --rock:#5A7288; --rock2:#93AABD; --snow:#FFFFFF; --line:#C5D6E3;
+  --sun:#FF9F1C; --sun-ink:#4A2600; --sun-soft:#FFE8C7;
+  --rope:#E0502A; --go:#1F8F52; --go-bg:#DCF2E5; --stop:#C0392B; --stop-bg:#FBE2DE;
+  --display:"Baloo Bhaijaan 2","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,"Segoe UI",Tahoma,sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sky:#0D1925; --sky2:#14273A; --card:#172B3E; --ink:#E7EFF6; --muted:#A1B5C7;
+  --rock:#3A5166; --rock2:#58718A; --snow:#D6E3EE; --line:#2B435A;
+  --sun:#FFB04A; --sun-ink:#2B1600; --sun-soft:#3A2A14;
+  --rope:#FF7B57; --go:#52C987; --go-bg:#153526; --stop:#F2826F; --stop-bg:#3B1E1A;
+  color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --sky:#0D1925; --sky2:#14273A; --card:#172B3E; --ink:#E7EFF6; --muted:#A1B5C7;
+  --rock:#3A5166; --rock2:#58718A; --snow:#D6E3EE; --line:#2B435A;
+  --sun:#FFB04A; --sun-ink:#2B1600; --sun-soft:#3A2A14;
+  --rope:#FF7B57; --go:#52C987; --go-bg:#153526; --stop:#F2826F; --stop-bg:#3B1E1A;
+  color-scheme:dark; }
+
+html,body{background:var(--sky);color:var(--ink)}
+body{font-family:var(--body);font-size:17px;line-height:1.75;direction:rtl;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 40px}
+.app{max-width:720px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.25;text-wrap:balance;margin:0}
+h1{font-size:2.1rem;font-weight:800}
+h2{font-size:1.6rem;font-weight:800}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:12px}
+.view{display:flex;flex-direction:column;gap:18px}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:10px 22px;border-radius:999px;
+  font-family:var(--display);font-weight:700;font-size:1.15rem;background:var(--sun);color:var(--sun-ink);box-shadow:0 4px 0 color-mix(in srgb,var(--sun) 55%,#000);transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,var(--sun) 55%,#000)}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:0 0 0 2px var(--line) inset}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.card{background:var(--card);border-radius:var(--r);padding:20px}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.back{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:700;font-size:1.05rem;padding:8px 14px;border-radius:999px;background:var(--card)}
+.alt-pill{font-family:var(--display);font-weight:700;background:var(--card);padding:6px 14px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.alt-pill b{color:var(--rope)}
+
+/* home */
+.hero{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.hero .kicker{font-family:var(--display);font-weight:700;color:var(--rope);letter-spacing:.02em}
+.scene{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(to bottom,var(--sky2),var(--sky))}
+.scene svg{display:block;width:100%;height:auto}
+.meter{display:flex;align-items:center;gap:12px}
+.meter .track{flex:1;height:14px;border-radius:999px;background:var(--card);overflow:hidden;box-shadow:0 0 0 2px var(--line) inset}
+.meter .fill{height:100%;background:var(--rope);border-radius:999px;transition:width .8s ease}
+.meter span{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stations{display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0}
+.station{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;width:100%;text-align:right;background:var(--card);border-radius:var(--r);padding:14px 16px}
+.station .num{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.3rem;background:var(--sky2);color:var(--ink)}
+.station.done .num{background:var(--go);color:var(--card)}
+.station .txt{min-width:0}
+.station .txt h3{font-size:1.15rem}
+.station .txt p{font-size:.92rem;color:var(--muted);line-height:1.5}
+.station .gain{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--rope);white-space:nowrap}
+.station.done .gain{color:var(--go)}
+.station.mom{background:var(--sun-soft)}
+.station.mom .num{background:var(--sun);color:var(--sun-ink)}
+.camp-label{font-family:var(--display);font-weight:700;color:var(--muted);font-size:.95rem;padding-inline:4px}
+
+/* story */
+.story-alt{display:flex;gap:6px}
+.story-alt i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.story-alt i.on{background:var(--rope)}
+.story-text{font-size:1.2rem;line-height:1.9}
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{text-align:right;background:var(--card);border-radius:16px;padding:14px 18px;font-size:1.08rem;font-weight:500;box-shadow:0 0 0 2px var(--line) inset;line-height:1.6}
+.choice:hover{box-shadow:0 0 0 2px var(--rope) inset}
+.feedback{border-radius:16px;padding:14px 18px;font-weight:500;line-height:1.7}
+.feedback.good{background:var(--go-bg);color:var(--ink);box-shadow:inset -6px 0 0 var(--go)}
+.feedback.bad{background:var(--stop-bg);color:var(--ink);box-shadow:inset -6px 0 0 var(--stop)}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.lesson{background:var(--sky2);border-radius:14px;padding:12px 14px;font-weight:600;line-height:1.5}
+
+/* sort game */
+.sentence{font-family:var(--display);font-weight:700;font-size:1.45rem;line-height:1.5;text-align:center;padding:26px 18px;background:var(--card);border-radius:var(--r);min-height:120px;display:grid;place-items:center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{border-radius:16px;padding:14px 10px;font-family:var(--display);font-weight:700;font-size:1.05rem;line-height:1.4}
+.pick.stop{background:var(--stop-bg);color:var(--stop)}
+.pick.go{background:var(--go-bg);color:var(--go)}
+.count{font-family:var(--display);font-weight:700;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.magic{display:flex;flex-direction:column;gap:10px}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border-radius:16px;padding:12px 16px;flex-wrap:wrap}
+.mrow .s{font-size:1.1rem;font-weight:600;min-width:0}
+.mrow .yet{font-family:var(--display);font-weight:800;color:var(--rope);display:inline-block;animation:pop .5s ease}
+.mbtn{font-family:var(--display);font-weight:700;background:var(--sun-soft);color:var(--ink);border-radius:999px;padding:6px 16px;white-space:nowrap}
+@keyframes pop{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+
+/* hand plan */
+.hand{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end}
+.finger{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:4px;border-radius:999px 999px 18px 18px;background:var(--card);box-shadow:0 0 0 2px var(--line) inset;padding:12px 4px;font-family:var(--display);font-weight:800;font-size:1.4rem}
+.finger small{font-family:var(--body);font-size:.72rem;font-weight:600;color:var(--muted);line-height:1.3;text-align:center}
+.finger.seen{background:var(--sun-soft);box-shadow:0 0 0 2px var(--sun) inset}
+.finger.active{background:var(--sun);color:var(--sun-ink)}
+.finger.active small{color:var(--sun-ink)}
+.palm{height:34px;border-radius:0 0 40px 40px;background:var(--card);box-shadow:0 0 0 2px var(--line) inset;margin-top:-8px}
+.step-card{display:flex;flex-direction:column;gap:6px}
+.step-card h3{color:var(--rope)}
+.opts{display:flex;flex-direction:column;gap:8px}
+
+/* breathe */
+.balloon-wrap{display:grid;place-items:center;padding:24px 0;min-height:290px}
+.balloon{width:110px;height:130px;border-radius:50% 50% 48% 48%;background:var(--rope);transform:scale(.7);transition:transform 4s ease-in-out;position:relative}
+.balloon::after{content:"";position:absolute;bottom:-14px;left:50%;width:2px;height:40px;background:var(--muted);transform:translateX(-50%)}
+.balloon.big{transform:scale(1.6)}
+.breath-text{font-family:var(--display);font-weight:800;font-size:1.6rem;text-align:center;min-height:2.4em}
+
+/* puzzle */
+.levels{display:flex;gap:8px;flex-wrap:wrap}
+.lvl{font-family:var(--display);font-weight:700;padding:8px 16px;border-radius:999px;background:var(--card);box-shadow:0 0 0 2px var(--line) inset}
+.lvl.on{background:var(--ink);color:var(--card);box-shadow:none}
+.lvl.won::after{content:" ✓";color:var(--go)}
+.lvl.on.won::after{color:var(--go-bg)}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(100%,340px);margin-inline:auto;aspect-ratio:1;max-width:100%;background:var(--rock);padding:8px;border-radius:20px}
+.tile{border-radius:14px;background:var(--card);font-family:var(--display);font-weight:800;font-size:2.2rem;display:grid;place-items:center;box-shadow:0 4px 0 var(--rock2);transition:background .2s}
+.tile.blank{background:transparent;box-shadow:none;pointer-events:none}
+.tile.hint{background:var(--sun);color:var(--sun-ink)}
+.tile.right{color:var(--go)}
+.pstats{display:flex;justify-content:space-between;gap:10px;font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.coach{text-align:center;font-weight:600;min-height:1.8em;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* missions */
+.missions{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+.mission{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:var(--card);border-radius:16px;padding:12px 16px;width:100%;text-align:right}
+.mission .box{width:36px;height:36px;border-radius:10px;box-shadow:0 0 0 2.5px var(--line) inset;display:grid;place-items:center;font-weight:800;color:var(--card)}
+.mission.on .box{background:var(--go);box-shadow:none}
+.mission .day{font-family:var(--display);font-weight:700;color:var(--rope);font-size:.9rem;display:block;line-height:1.3}
+.mission .m{font-weight:600;line-height:1.5}
+.mission.on .m{color:var(--muted)}
+.jar-wrap{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.jar-wrap svg{width:120px;height:auto}
+
+/* parent guide */
+.guide{display:flex;flex-direction:column;gap:12px}
+details{background:var(--card);border-radius:var(--r);padding:4px 18px}
+summary{font-family:var(--display);font-weight:700;font-size:1.15rem;padding:12px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--rope);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"−"}
+details .in{padding-bottom:16px;display:flex;flex-direction:column;gap:10px;max-width:65ch}
+details ul,details ol{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px}
+.say{width:100%;border-collapse:separate;border-spacing:0 8px}
+.say td{padding:10px 12px;vertical-align:top;line-height:1.55;font-size:.98rem}
+.say td:first-child{background:var(--stop-bg);border-radius:0 12px 12px 0;width:50%}
+.say td:last-child{background:var(--go-bg);border-radius:12px 0 0 12px}
+.say th{font-family:var(--display);text-align:right;padding:0 12px;font-size:.95rem}
+.say th:first-child{color:var(--stop)} .say th:last-child{color:var(--go)}
+
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translate(-50%,-150%);background:var(--ink);color:var(--card);font-family:var(--display);font-weight:800;font-size:1.15rem;padding:12px 22px;border-radius:999px;z-index:20;transition:transform .35s cubic-bezier(.3,1.5,.6,1);white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+.toast.show{transform:translate(-50%,0)}
+.star-modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:color-mix(in srgb,var(--ink) 55%,transparent);
+  padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
+.star-box{background:var(--card);border-radius:28px;padding:28px 22px;max-width:420px;width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;animation:pop .6s ease}
+.big-star{width:130px;animation:spin 2.4s ease-in-out infinite}
+@keyframes spin{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08)}}
+.star-banner{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;width:100%;text-align:right;background:var(--sun-soft);border-radius:var(--r);padding:12px 16px;box-shadow:0 0 0 2px var(--sun) inset}
+.star-banner svg{width:56px}
+.star-banner b{font-family:var(--display);font-size:1.15rem;display:block;line-height:1.3}
+.star-banner span{font-size:.92rem;color:var(--muted);line-height:1.5}
+.star-goal{font-size:.92rem;color:var(--muted)}
+.reset{font-size:.85rem;color:var(--muted);text-decoration:underline;align-self:center;padding:8px}
+
+@media (max-width:420px){
+  h1{font-size:1.8rem}
+  .finger{font-size:1.15rem;padding:10px 2px}
+  .finger small{font-size:.62rem}
+  .sentence{font-size:1.25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .balloon{transition:transform 4s linear!important}
+}
+</style>
+
+<div class="app" id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="star-modal" id="starModal" hidden></div>
+
+<script>
+(function(){
+const AR = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const $ = (s, r=document) => r.querySelector(s);
+const app = $('#app');
+const KEY = 'sanad-mountain-v1';
+const fresh = () => ({story:false, yet:false, plan:false, breathe:false, puzzle:[false,false,false], missions:[false,false,false,false,false,false,false], jar:0, jarsFull:0, star1000:0});
+let S = fresh();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch(e){}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
+
+const PTS = {story:200, yet:150, plan:150, breathe:50, puzzle:100, mission:100};
+const TOTAL = PTS.story + PTS.yet + PTS.plan + PTS.breathe + PTS.puzzle*3 + PTS.mission*7;
+function altitude(){
+  let a = 0;
+  if (S.story) a += PTS.story; if (S.yet) a += PTS.yet; if (S.plan) a += PTS.plan; if (S.breathe) a += PTS.breathe;
+  a += S.puzzle.filter(Boolean).length * PTS.puzzle;
+  a += S.missions.filter(Boolean).length * PTS.mission;
+  return a;
+}
+let toastT;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('show'), 2600); }
+function award(key, pts, label){
+  if (S[key] === true) return;
+  S[key] = true; save();
+  toast('+' + AR(pts) + ' متر! ' + (label||'ارتفعت أكثر'));
+  checkStar();
+}
+const STAR_AT = 1000;
+const STAR_SVG = `<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,6 62,38 96,38 68,58 79,92 50,72 21,92 32,58 4,38 38,38" fill="var(--sun)" stroke="var(--sun-ink)" stroke-width="3" stroke-linejoin="round"/></svg>`;
+function checkStar(){
+  if (S.star1000 === 0 && altitude() >= STAR_AT){ S.star1000 = 1; save(); setTimeout(showStar, 900); }
+}
+function showStar(){
+  const m = $('#starModal');
+  m.innerHTML = `<div class="star-box" role="dialog" aria-modal="true" aria-labelledby="starTitle">
+    <div class="big-star">${STAR_SVG}</div>
+    <span class="kicker" style="font-family:var(--display);font-weight:700;color:var(--rope)">وصلت إلى ${AR(STAR_AT)} متر!</span>
+    <h2 id="starTitle">نجمة من ماما!</h2>
+    <p>صعدت ألف متر ولم تستسلم. اذهب إلى ماما الآن وأرِها هذه الشاشة، لتضع لك <b>نجمة في لوحة النجوم</b>.</p>
+    <div class="row"><button class="btn" id="starGiven">ماما أعطتني النجمة ✓</button><button class="btn ghost" id="starLater">لاحقاً</button></div>
+  </div>`;
+  m.hidden = false;
+  const b = $('#starGiven'); if (b) b.focus();
+}
+document.getElementById('starModal').addEventListener('click', e => {
+  const t = e.target.closest('button'); if(!t) return;
+  if (t.id==='starGiven'){ S.star1000 = 2; save(); $('#starModal').hidden = true; toast('مبروك النجمة! أكمل إلى القمة'); if(view==='home') home(); }
+  if (t.id==='starLater'){ $('#starModal').hidden = true; if(view==='home') home(); }
+});
+
+function bar(){
+  return `<div class="bar"><button class="back" data-go="home">→ الجبل</button><span class="alt-pill">ارتفاعي <b>${AR(altitude())}</b> م</span></div>`;
+}
+
+/* ---------------- HOME ---------------- */
+const STATIONS = [
+  {id:'story', t:'قصة سند والجبل', d:'رحلة فيها صخرة وحبل ودرجة عالية. أنت تختار.', pts:PTS.story, done:()=>S.story},
+  {id:'yet', t:'الكلمة السحرية: «بعد»', d:'كلام يوقفني وكلام يرفعني للأعلى.', pts:PTS.yet, done:()=>S.yet},
+  {id:'plan', t:'خطة اليد الخماسية', d:'خمس أصابع، خمس خطوات للبطل حين يصعب الشيء.', pts:PTS.plan, done:()=>S.plan},
+  {id:'breathe', t:'بالون الهدوء', d:'تنفّس مع البالون عندما تغضب أو تتضايق.', pts:PTS.breathe, done:()=>S.breathe},
+  {id:'puzzle', t:'تحدي اللغز', d:'لغز صعب قليلاً. المهم ألا تتركه!', pts:PTS.puzzle*3, done:()=>S.puzzle.every(Boolean), part:()=>AR(S.puzzle.filter(Boolean).length)+'/٣'},
+  {id:'missions', t:'مهام الأسبوع وجرّة المحاولات', d:'سبع مهام في سبعة أيام، وجرّة تمتلئ بمحاولاتك.', pts:PTS.mission*7, done:()=>S.missions.every(Boolean), part:()=>AR(S.missions.filter(Boolean).length)+'/٧'},
+];
+
+function mountainSVG(frac, summit){
+  return `<svg viewBox="0 0 360 220" role="img" aria-label="الجبل ومكان سند عليه">
+    <circle cx="70" cy="52" r="24" fill="var(--sun)" opacity=".9"/>
+    <polygon points="0,220 0,150 70,95 120,130 165,110 230,28 300,115 360,80 360,220" fill="var(--rock2)"/>
+    <polygon points="40,220 110,140 160,165 230,28 290,130 360,170 360,220" fill="var(--rock)"/>
+    <polygon points="230,28 212,60 222,55 230,66 239,54 249,60" fill="var(--snow)"/>
+    <path id="trail" d="M335 210 C 290 200, 300 180, 262 172 S 205 150, 248 128 S 200 100, 240 82 S 215 56, 230 34" fill="none" stroke="var(--snow)" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round" opacity=".85"/>
+    <g id="flag" style="opacity:${summit?1:0.25}">
+      <line x1="230" y1="30" x2="230" y2="6" stroke="var(--ink)" stroke-width="2.5"/>
+      <polygon points="230,6 252,12 230,19" fill="var(--rope)"/>
+    </g>
+    <g id="climber"><circle r="13" fill="var(--rope)" opacity=".25"><animate attributeName="r" values="9;15;9" dur="2s" repeatCount="indefinite"/></circle><circle r="7" fill="var(--rope)" stroke="var(--snow)" stroke-width="2.5"/></g>
+    <text x="335" y="200" text-anchor="middle" font-size="11" font-weight="700" fill="var(--snow)" font-family="var(--display)">المخيّم</text>
+  </svg>`;
+}
+function placeClimber(frac){
+  const p = $('#trail'), c = $('#climber'); if(!p||!c) return;
+  try{ const L = p.getTotalLength(); const pt = p.getPointAtLength(L*Math.min(1,frac)); c.setAttribute('transform', `translate(${pt.x},${pt.y})`);}catch(e){ c.setAttribute('transform','translate(335,210)'); }
+}
+
+function home(){
+  const a = altitude(), frac = a/TOTAL;
+  const nextIdx = STATIONS.findIndex(s=>!s.done());
+  app.innerHTML = `<div class="view">
+    <div class="hero">
+      <span class="kicker">برنامج البطل الذي لا يستسلم</span>
+      <h1>جبل سند</h1>
+      <p class="muted">كل محطة تنهيها ترفعك أمتاراً على الجبل. هدفك القمة: ${AR(TOTAL)} متر.</p>
+    </div>
+    <div class="scene">${mountainSVG(frac, a>=TOTAL)}</div>
+    <div class="meter"><div class="track"><div class="fill" style="width:${Math.round(frac*100)}%"></div></div><span>${AR(a)} / ${AR(TOTAL)} م</span></div>
+    ${S.star1000===1 ? `<button class="star-banner" id="starOpen">${STAR_SVG}<span><b>عندك نجمة من ماما!</b>أرِ ماما هذه الشاشة لتضعها في لوحة النجوم.</span></button>`
+      : S.star1000===0 ? `<p class="star-goal">عند ${AR(STAR_AT)} متر تحصل على <b style="color:var(--rope)">نجمة من ماما</b> في لوحة النجوم. باقي لك ${AR(Math.max(0,STAR_AT-a))} متر.</p>`
+      : `<p class="star-goal">أخذت نجمة ماما عند ${AR(STAR_AT)} متر ✓ أكمل إلى القمة!</p>`}
+    ${a>=TOTAL ? `<div class="feedback good"><b>وصلت إلى القمة!</b> أنت بطل لا يستسلم. أرِ ماما هذه الشاشة.</div>` : ''}
+    <span class="camp-label">${nextIdx<0?'كل المحطات مكتملة':'محطتك التالية: '+AR(nextIdx+1)}</span>
+    <ol class="stations">
+      ${STATIONS.map((s,i)=>`<li><button class="station ${s.done()?'done':''}" data-go="${s.id}">
+        <span class="num">${s.done()?'✓':AR(i+1)}</span>
+        <span class="txt"><h3>${s.t}</h3><p>${s.d}</p></span>
+        <span class="gain">${s.part?s.part():(s.done()?'تمّت':'+'+AR(s.pts)+' م')}</span>
+      </button></li>`).join('')}
+      <li><button class="station mom" data-go="parent">
+        <span class="num">م</span>
+        <span class="txt"><h3>دليل ماما</h3><p>ماذا أقول حين يترك الشيء؟ وماذا أتجنب؟</p></span>
+        <span class="gain">للأم</span>
+      </button></li>
+    </ol>
+  </div>`;
+  requestAnimationFrame(()=>placeClimber(frac));
+}
+
+/* ---------------- STORY ---------------- */
+const SCENES = [
+  {text:'هذا <b>سند</b>. عمره تسع سنوات، ويحلم أن يصل إلى قمة <b>جبل الصقر</b> ويرفع رايته الحمراء هناك. حمل حقيبته، وربط حذاءه، وبدأ يصعد…', next:'لنبدأ الصعود'},
+  {text:'بعد قليل صار الطريق مائلاً، وتعبت رجلا سند. قال وهو يلهث: «الطريق طويل!» ماذا يفعل سند؟',
+   choices:[
+     {t:'يرجع إلى البيت، فالصعود متعب.', ok:false, r:'لو رجع سند الآن، لن يعرف أبداً كيف تبدو الدنيا من فوق. التعب لا يعني أنه لا يقدر، بل يعني أنه يحتاج استراحة. اختر مرة ثانية.'},
+     {t:'يجلس دقيقتين، يشرب ماء، ثم يكمل.', ok:true, r:'أحسنت! الاستراحة القصيرة ليست استسلاماً. ارتاح سند ثم أكمل بقوة جديدة.'}]},
+  {text:'فجأة… <b>صخرة ضخمة</b> تسدّ الطريق! دفعها سند فلم تتحرك.',
+   choices:[
+     {t:'يصرخ: «مستحيل!» ويرمي حقيبته.', ok:false, r:'الغضب شعور طبيعي، لكنه لا يحرّك الصخرة. ماذا لو فكّر سند بطريقة أخرى؟ اختر مرة ثانية.'},
+     {t:'يقف ويفكر: هل يوجد طريق حول الصخرة؟', ok:true, r:'رائع! وجد سند ممراً صغيراً على اليمين. عندما لا تنفع طريقة، نجرّب غيرها.'}]},
+  {text:'ربط سند الحبل بسرعة، <b>فانزلق</b> ونزل خمس خطوات للخلف!',
+   choices:[
+     {t:'يقول: «أنا فاشل، لا أعرف أي شيء.»', ok:false, r:'الخطأ لا يعني أن سند فاشل. الخطأ معلّم صغير يقول له: جرّب بطريقة أفضل. اختر مرة ثانية.'},
+     {t:'يقول: «تعلّمت درساً! سأربط الحبل جيداً هذه المرة.»', ok:true, r:'بالضبط! كل خطأ يعلّمنا شيئاً. ربط سند الحبل بإحكام وصعد من جديد.'}]},
+  {text:'قرب القمة وجد سند <b>درجة صخرية عالية جداً</b>. حاول مرة، ومرتين، وثلاثاً… ولم يصل.',
+   choices:[
+     {t:'يجلس حزيناً ولا يقول لأحد شيئاً.', ok:false, r:'ليس عيباً أن نحتاج مساعدة. الأبطال يحاولون بأنفسهم أولاً، ثم يطلبون العون. اختر مرة ثانية.'},
+     {t:'بعد أن حاول، ينادي صديقته ريم: «ممكن تساعديني؟»', ok:true, r:'ممتاز! حاول سند بنفسه أولاً، ثم طلب المساعدة. مدّت ريم يدها وصعد.'}]},
+  {final:true, text:'وصل سند إلى <b>القمة</b>! رفع رايته ونظر إلى الطريق الطويل تحته. تذكّر التعب والصخرة والحبل والدرجة العالية، وقال مبتسماً: «كل صعوبة جعلتني أقوى.»'}
+];
+let sc = 0, scState = null;
+function story(){
+  const s = SCENES[sc];
+  let body = `<p class="story-text">${s.text}</p>`;
+  if (s.choices){
+    if (!scState || !scState.ok){
+      body += `<div class="choices">${s.choices.map((c,i)=>`<button class="choice" data-ch="${i}">${c.t}</button>`).join('')}</div>`;
+    }
+    if (scState) body += `<div class="feedback ${scState.ok?'good':'bad'}">${scState.r}</div>`;
+    if (scState && scState.ok) body += `<button class="btn" data-snext>أكمل الصعود ←</button>`;
+  } else if (s.final){
+    body += `<div class="card"><h3>دروس سند</h3><div class="lessons" style="margin-top:10px">
+      <div class="lesson">الاستراحة ليست استسلاماً</div><div class="lesson">إذا لم تنفع طريقة، أجرّب غيرها</div>
+      <div class="lesson">الخطأ يعلّمني</div><div class="lesson">أحاول أولاً، ثم أطلب المساعدة</div></div></div>
+      <button class="btn" data-sdone>${S.story?'ارجع إلى الجبل':'أنهيت القصة! (+'+AR(PTS.story)+' م)'}</button>`;
+  } else {
+    body += `<button class="btn" data-snext>${s.next} ←</button>`;
+  }
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>قصة سند والجبل</h2>
+    <div class="story-alt" aria-hidden="true">${SCENES.map((_,i)=>`<i class="${i<=sc?'on':''}"></i>`).join('')}</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:16px">${body}</div>
+  </div>`;
+}
+
+/* ---------------- YET ---------------- */
+const SENT = [
+  {s:'هذا صعب جداً، لن أكمل.', g:false, fix:'هذا صعب، سأكمله خطوة خطوة.'},
+  {s:'هذا صعب، سأجرّب طريقة أخرى.', g:true},
+  {s:'أنا لا أفهم الرياضيات أبداً.', g:false, fix:'لا أفهم هذا الدرس بعد، سأتدرب عليه.'},
+  {s:'أخطأت، ماذا تعلمت من الخطأ؟', g:true},
+  {s:'صديقي أذكى مني، أنا لن أقدر.', g:false, fix:'صديقي تدرّب كثيراً، وأنا أيضاً أقدر أتدرب.'},
+  {s:'سأحاول خمس دقائق أخرى.', g:true},
+  {s:'أخطأت، إذن أنا فاشل.', g:false, fix:'أخطأت، والخطأ يعلّمني.'},
+  {s:'لا أفهمها بعد، سأسأل وأتدرّب.', g:true},
+];
+const MAGIC = ['لا أعرف جدول السبعة','لا أستطيع رسم وجه جميل','لا أقدر أحفظ هذه الآية','لا أقرأ القصص بالإنجليزي'];
+let yIdx = 0, yAns = null, yOrder = null, magicOn = [];
+function yet(){
+  if (!yOrder){ yOrder = SENT.map((_,i)=>i).sort(()=>Math.random()-.5); }
+  let part;
+  if (yIdx < SENT.length){
+    const it = SENT[yOrder[yIdx]];
+    part = `<p class="muted">اقرأ الجملة: هل هي كلام <b style="color:var(--stop)">يوقفني</b> مثل الصخرة، أم كلام <b style="color:var(--go)">يرفعني</b> للأعلى؟</p>
+      <div class="count">${AR(yIdx+1)} من ${AR(SENT.length)}</div>
+      <div class="sentence">«${it.s}»</div>
+      ${yAns===null ? `<div class="two"><button class="pick stop" data-y="0">كلام يوقفني</button><button class="pick go" data-y="1">كلام يرفعني</button></div>` : ''}
+      ${yAns!==null ? `<div class="feedback ${yAns===it.g?'good':'bad'}">${yAns===it.g?'صح! ':'فكّر فيها مرة ثانية: '}${it.g?'هذا كلام بطل يرفعه للأعلى.':'هذا كلام يوقفنا. البطل يقوله هكذا: <b>«'+it.fix+'»</b>'}</div>
+        ${yAns===it.g?`<button class="btn" data-ynext>التالي ←</button>`:`<button class="btn ghost" data-yretry>أحاول مرة ثانية</button>`}` : ''}`;
+  } else {
+    const allOn = magicOn.length === MAGIC.length;
+    part = `<div class="card" style="display:flex;flex-direction:column;gap:8px"><h3>الآن الكلمة السحرية: «بعد»</h3>
+      <p>عندما تقول «لا أستطيع»، أضف كلمة <b style="color:var(--rope)">بعد</b>. عقلك مثل العضلة، يقوى كلما تدرّب، وكلمة «بعد» تعني: سأتعلّمها قريباً.</p></div>
+      <div class="magic">${MAGIC.map((m,i)=>`<div class="mrow"><span class="s">${m}${magicOn.includes(i)?' <span class="yet">… بعد!</span>':''}</span>
+        ${magicOn.includes(i)?'':`<button class="mbtn" data-mg="${i}">أضف «بعد»</button>`}</div>`).join('')}</div>
+      ${allOn ? `<div class="feedback good">أحسنت! من اليوم، كلما قلت «لا أستطيع» أكمل الجملة: «… بعد».</div><button class="btn" data-ydone>${S.yet?'ارجع إلى الجبل':'أنهيت المحطة! (+'+AR(PTS.yet)+' م)'}</button>` : ''}`;
+  }
+  app.innerHTML = `<div class="view">${bar()}<h2>الكلمة السحرية: «بعد»</h2>${part}</div>`;
+}
+
+/* ---------------- PLAN ---------------- */
+const FINGERS = [
+  {n:'أتوقف وأتنفّس', d:'قبل أن أغضب أو أترك الشيء، آخذ ثلاثة أنفاس بطيئة مثل بالون الهدوء.'},
+  {n:'أقول «بعد»', d:'لا أستطيع… بعد! عقلي يتعلّم، والصعب اليوم يصير سهلاً مع التدريب.'},
+  {n:'أقسّمها', d:'الشيء الكبير أقسمه قطعاً صغيرة، وأبدأ بأول قطعة فقط.'},
+  {n:'أجرّب طريقة ثانية', d:'إذا لم تنفع طريقة، أفكّر: ماذا أستطيع أن أغيّر؟'},
+  {n:'أطلب المساعدة', d:'بعد أن أحاول بنفسي، أسأل ماما أو المعلّم. هذا ذكاء وليس ضعفاً.'},
+];
+const QUIZ = [
+  {q:'عندك عشر مسائل في الواجب، وتشعر أنها كثيرة جداً.', o:['أتركها كلها','أقسّمها: ثلاث مسائل ثم استراحة قصيرة','أطلب من ماما أن تحلّها عني'], a:1, f:3},
+  {q:'خسرت في مرحلة اللعبة خمس مرات.', o:['أرمي اليد وأغضب','أتنفّس وأفكّر: ماذا أغيّر في طريقتي؟','لن ألعب أبداً'], a:1, f:4},
+  {q:'رسمت قطة وطلعت غريبة الشكل.', o:['أمزّق الورقة وأقول لا أعرف أرسم','أقول: لا أرسم القطط جيداً بعد، وأجرّب مرة ثانية','أطلب من أحد أن يرسمها بدلي'], a:1, f:2},
+  {q:'حاولت حلّ مسألة قسمة ثلاث مرات بطرق مختلفة ولم تنجح.', o:['أطلب مساعدة ماما أو المعلّم','أترك المسألة فاضية','أكتب أي جواب وخلاص'], a:0, f:5},
+  {q:'تريد أن تحفظ سورة طويلة.', o:['أحفظها كلها مرة واحدة اليوم','أحفظ كل يوم آيات قليلة','أقول إنها طويلة ولا أبدأ'], a:1, f:3},
+];
+let fSel = 0, fSeen = new Set([0]), qIdx = 0, qAns = null;
+function plan(){
+  const learned = fSeen.size === 5;
+  const f = FINGERS[fSel];
+  let quiz = '';
+  if (learned){
+    if (qIdx < QUIZ.length){
+      const q = QUIZ[qIdx];
+      quiz = `<div class="card" style="display:flex;flex-direction:column;gap:12px">
+        <span class="count">ماذا يفعل البطل؟ ${AR(qIdx+1)} من ${AR(QUIZ.length)}</span>
+        <p style="font-size:1.15rem;font-weight:600">${q.q}</p>
+        <div class="opts">${q.o.map((o,i)=>`<button class="choice" data-q="${i}" ${qAns!==null&&qAns===q.a?'disabled':''}>${o}</button>`).join('')}</div>
+        ${qAns!==null?`<div class="feedback ${qAns===q.a?'good':'bad'}">${qAns===q.a?'صح! هذا الإصبع رقم '+AR(q.f)+': '+FINGERS[q.f-1].n+'.':'هذا يوقفك عن الصعود. انظر إلى يدك واختر مرة ثانية.'}</div>`:''}
+        ${qAns===q.a?`<button class="btn" data-qnext>التالي ←</button>`:''}
+      </div>`;
+    } else {
+      quiz = `<div class="feedback good">حفظت خطة اليد! كلما صعب شيء، انظر إلى يدك وعدّ الخطوات الخمس.</div>
+        <button class="btn" data-pdone>${S.plan?'ارجع إلى الجبل':'أنهيت المحطة! (+'+AR(PTS.plan)+' م)'}</button>`;
+    }
+  }
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>خطة اليد الخماسية</h2>
+    <p class="muted">${learned?'ممتاز! الآن جرّب الخطة على مواقف حقيقية.':'اضغط على كل إصبع لتعرف خطوته. يدك تحمل الخطة معك دائماً.'}</p>
+    <div><div class="hand">${FINGERS.map((x,i)=>`<button class="finger ${i===fSel?'active':fSeen.has(i)?'seen':''}" data-f="${i}" style="height:${[118,150,162,150,128][i]}px" aria-label="الإصبع ${i+1}: ${x.n}">${AR(i+1)}<small>${fSeen.has(i)?x.n:''}</small></button>`).join('')}</div><div class="palm"></div></div>
+    <div class="card step-card"><h3>${AR(fSel+1)}. ${f.n}</h3><p>${f.d}</p></div>
+    ${quiz}
+  </div>`;
+}
+
+/* ---------------- BREATHE ---------------- */
+let bTimer = null, bRunning = false;
+function breathe(){
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>بالون الهدوء</h2>
+    <p class="muted">عندما يصعب الشيء ونشعر بالغضب، يتوقف عقلنا عن التفكير جيداً. ثلاثة أنفاس بطيئة تعيده. شمّ الوردة من أنفك، وانفخ الشمعة من فمك.</p>
+    <div class="card"><div class="balloon-wrap"><div class="balloon" id="balloon"></div></div>
+    <p class="breath-text" id="btext">جاهز؟</p></div>
+    <div class="row"><button class="btn" id="bstart">${bRunning?'…':'ابدأ التنفس'}</button></div>
+  </div>`;
+}
+function runBreath(){
+  if (bRunning) return; bRunning = true;
+  const b = $('#balloon'), t = $('#btext'), btn = $('#bstart'); if(btn) btn.disabled = true;
+  const steps = []; for(let r=1;r<=3;r++){ steps.push(['شمّ الوردة… (نَفَس '+AR(r)+')',true,4000],['احبس قليلاً',true,2000],['انفخ الشمعة ببطء',false,4500]); }
+  let i = 0;
+  const tick = () => {
+    if (!document.body.contains(b)) { bRunning=false; return; }
+    if (i >= steps.length){ t.textContent = 'أحسنت! أنت الآن هادئ وجاهز تحاول من جديد.'; bRunning=false; if(btn){btn.disabled=false;btn.textContent='مرة أخرى';} if(!S.breathe){award('breathe',PTS.breathe,'هدوء البطل');} return; }
+    const [txt,big,ms] = steps[i++]; t.textContent = txt; b.classList.toggle('big', big); bTimer = setTimeout(tick, ms);
+  };
+  tick();
+}
+
+/* ---------------- PUZZLE ---------------- */
+const GOAL = [1,2,3,4,5,6,7,8,0];
+const SCR = [8,18,32];
+let pz = {lvl:0, start:null, cur:null, moves:0, hint:-1, won:false};
+const nbrs = b => { const r=[], x=b%3, y=(b/3)|0; if(y>0)r.push(b-3); if(y<2)r.push(b+3); if(x>0)r.push(b-1); if(x<2)r.push(b+1); return r; };
+function scramble(n){
+  let s = GOAL.slice(), prev=-1;
+  for(let k=0;k<n;k++){ const b=s.indexOf(0); const opts=nbrs(b).filter(v=>v!==prev); const m=opts[(Math.random()*opts.length)|0]; s[b]=s[m]; s[m]=0; prev=b; }
+  if (s.join()===GOAL.join()) return scramble(n);
+  return s;
+}
+function newPuzzle(lvl){ pz.lvl=lvl; pz.start=scramble(SCR[lvl]); pz.cur=pz.start.slice(); pz.moves=0; pz.hint=-1; pz.won=false; }
+function hman(s){ let d=0; for(let i=0;i<9;i++){const v=s[i]; if(v){const g=v-1; d+=Math.abs(((i/3)|0)-((g/3)|0))+Math.abs(i%3-g%3);}} return d; }
+function nextMove(start){
+  const goal=GOAL.join(','), sk=start.join(','); if(sk===goal) return -1;
+  const heap=[], push=(n)=>{heap.push(n);let i=heap.length-1;while(i>0){const p=(i-1)>>1;if(heap[p].f<=heap[i].f)break;[heap[p],heap[i]]=[heap[i],heap[p]];i=p;}};
+  const pop=()=>{const top=heap[0],last=heap.pop();if(heap.length){heap[0]=last;let i=0;for(;;){let l=2*i+1,r=l+1,m=i;if(l<heap.length&&heap[l].f<heap[m].f)m=l;if(r<heap.length&&heap[r].f<heap[m].f)m=r;if(m===i)break;[heap[m],heap[i]]=[heap[i],heap[m]];i=m;}}return top;};
+  const seen=new Map(); seen.set(sk,0);
+  push({s:start,g:0,f:hman(start),first:-1});
+  let guard=0;
+  while(heap.length && guard++<200000){
+    const n=pop(); const k=n.s.join(',');
+    if(k===goal) return n.first;
+    const b=n.s.indexOf(0);
+    for(const m of nbrs(b)){
+      const t=n.s.slice(); t[b]=t[m]; t[m]=0; const tk=t.join(','); const g=n.g+1;
+      if(seen.has(tk)&&seen.get(tk)<=g) continue; seen.set(tk,g);
+      push({s:t,g,f:g+hman(t),first:n.first===-1?m:n.first});
+    }
+  }
+  return -1;
+}
+const COACH = [[0,''],[12,'أنت تحاول، وهذا أهم شيء.'],[25,'إذا تضايقت، خذ نفَساً من بالون الهدوء ثم أكمل.'],[40,'جرّب طريقة ثانية: رتّب السطر الأول أولاً (١ ٢ ٣).'],[60,'البطل يطلب المساعدة بعد أن يحاول: اضغط «تلميح».']];
+function puzzle(){
+  if(!pz.cur) newPuzzle(S.puzzle.findIndex(v=>!v) < 0 ? 0 : S.puzzle.findIndex(v=>!v));
+  let coach=''; for(const [m,t] of COACH){ if(pz.moves>=m) coach=t; }
+  if(pz.won) coach='';
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>تحدي اللغز</h2>
+    <p class="muted">رتّب الأرقام من ١ إلى ٨، والمربع الفارغ في الآخر. اضغط على رقم بجانب الفراغ لتحرّكه.</p>
+    <div class="levels">${['سهل','متوسط','صعب'].map((n,i)=>`<button class="lvl ${i===pz.lvl?'on':''} ${S.puzzle[i]?'won':''}" data-lvl="${i}">${n}</button>`).join('')}</div>
+    <div class="pstats"><span>حركاتي: ${AR(pz.moves)}</span><span>${S.puzzle[pz.lvl]?'حللت هذا المستوى ✓':'+'+AR(PTS.puzzle)+' م عند الحل'}</span></div>
+    <div class="board" id="board">${pz.cur.map((v,i)=>`<button class="tile ${v===0?'blank':''} ${i===pz.hint?'hint':''} ${v&&v===GOAL[i]?'right':''}" data-t="${i}" ${v===0?'aria-hidden="true" tabindex="-1"':'aria-label="'+v+'"'}>${v?AR(v):''}</button>`).join('')}</div>
+    ${pz.won?`<div class="feedback good"><b>حللته!</b> في ${AR(pz.moves)} حركة. ${pz.lvl<2?'جاهز للمستوى التالي؟':'أنت بطل الألغاز!'}</div>`:`<p class="coach">${coach}</p>`}
+    <div class="row">
+      ${pz.won?(pz.lvl<2?`<button class="btn" data-lvl="${pz.lvl+1}">المستوى التالي ←</button>`:`<button class="btn" data-go="home">ارجع إلى الجبل</button>`):`<button class="btn ghost" id="hintBtn">تلميح</button><button class="btn ghost" id="restart">أبدأ من جديد</button>`}
+      <button class="btn ghost" data-lvl="${pz.lvl}" data-newp>لغز جديد</button>
+    </div>
+  </div>`;
+}
+function tapTile(i){
+  if(pz.won) return;
+  const b = pz.cur.indexOf(0); if(!nbrs(b).includes(i)) return;
+  pz.cur[b]=pz.cur[i]; pz.cur[i]=0; pz.moves++; pz.hint=-1;
+  if(pz.cur.join()===GOAL.join()){ pz.won=true; if(!S.puzzle[pz.lvl]){ S.puzzle[pz.lvl]=true; save(); toast('+'+AR(PTS.puzzle)+' متر! لم تستسلم'); checkStar(); } }
+  puzzle();
+}
+
+/* ---------------- MISSIONS ---------------- */
+const MISS = [
+  'جرّب شيئاً صعباً لمدة خمس دقائق كاملة دون أن تتركه.',
+  'كلما قلت «لا أستطيع» أضف كلمة «بعد».',
+  'قسّم واجباً كبيراً إلى ثلاث خطوات صغيرة، وأنهها واحدة واحدة.',
+  'أخطئ في شيء، ثم قل: «ماذا تعلّمت من الخطأ؟»',
+  'جرّب طريقة ثانية لحل مسألة أو بناء شيء.',
+  'اسأل ماما عن شيء صعب تعلّمته وهي صغيرة، وكيف لم تستسلم.',
+  'أكمل شيئاً كنت قد تركته من قبل.',
+];
+const DAYS = ['اليوم الأول','اليوم الثاني','اليوم الثالث','اليوم الرابع','اليوم الخامس','اليوم السادس','اليوم السابع'];
+const JAR_MAX = 20;
+function jarSVG(n){
+  const pos=[]; for(let k=0;k<n&&k<JAR_MAX;k++){ const row=(k/4)|0, col=k%4; pos.push([30+col*20+(row%2?10:0), 138-row*19]); }
+  const fills=['var(--rope)','var(--sun)','var(--go)','var(--rock)'];
+  return `<svg viewBox="0 0 120 160" aria-hidden="true">
+    <rect x="34" y="6" width="52" height="14" rx="4" fill="var(--rock)"/>
+    <path d="M30 20 h60 q12 8 12 24 v96 q0 14 -14 14 h-56 q-14 0 -14 -14 v-96 q0 -16 12 -24z" fill="var(--sky2)" stroke="var(--line)" stroke-width="3"/>
+    ${pos.map(([x,y],k)=>`<circle cx="${Math.min(x,94)}" cy="${y}" r="8.5" fill="${fills[k%4]}"/>`).join('')}
+  </svg>`;
+}
+function missions(){
+  const full = S.jar>=JAR_MAX;
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>مهام الأسبوع</h2>
+    <p class="muted">مهمة واحدة كل يوم. عندما تنجزها، اضغط عليها مع ماما.</p>
+    <ul class="missions">${MISS.map((m,i)=>`<li><button class="mission ${S.missions[i]?'on':''}" data-m="${i}" aria-pressed="${S.missions[i]}">
+      <span class="box">${S.missions[i]?'✓':''}</span><span><span class="day">${DAYS[i]} · +${AR(PTS.mission)} م</span><span class="m">${m}</span></span></button></li>`).join('')}</ul>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <h3>جرّة المحاولات</h3>
+      <div class="jar-wrap">${jarSVG(S.jar)}
+        <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+          <p>كلما حاولت مرة ثانية بعد أن صعب عليك شيء، أضف كرة إلى الجرّة. ليس المهم أن تنجح، المهم أنك <b>حاولت من جديد</b>.</p>
+          <p class="count" style="text-align:right">في الجرّة: ${AR(Math.min(S.jar,JAR_MAX))} من ${AR(JAR_MAX)}${S.jarsFull?' · جرار ممتلئة: '+AR(S.jarsFull):''}</p>
+        </div>
+      </div>
+      ${full?`<div class="feedback good"><b>امتلأت الجرّة!</b> عشرون محاولة جديدة. اتفق مع ماما على مكافأتك.</div><button class="btn" id="jarNew">أبدأ جرّة جديدة</button>`:`<button class="btn" id="jarAdd">حاولت مرة ثانية!</button>`}
+    </div>
+    <button class="reset" id="resetAll">مسح كل التقدم والبدء من المخيّم</button>
+  </div>`;
+}
+
+/* ---------------- PARENT ---------------- */
+function parent(){
+  app.innerHTML = `<div class="view">${bar()}
+    <h2>دليل ماما</h2>
+    <p class="muted">البرنامج للطفل، وهذا الجزء لكِ. المثابرة مهارة تُتعلَّم بالتكرار، وأقوى أداة فيها هي ردّة فعلك في لحظة الترك.</p>
+    <div class="guide">
+      <details open><summary>لماذا يترك الطفل الشيء؟</summary><div class="in">
+        <ul>
+          <li><b>الخوف من الخطأ:</b> يترك قبل أن «يفشل»، فيحمي صورته عن نفسه.</li>
+          <li><b>توقّع النتيجة السريعة:</b> الألعاب والفيديو تعطي نتيجة فورية، والتعلّم الحقيقي بطيء.</li>
+          <li><b>تعوّد أن يُنقَذ:</b> إذا كان الكبار يكملون عنه عند أول تذمّر، يتعلّم أن الترك يحلّ المشكلة.</li>
+          <li><b>المهمة أكبر منه:</b> أحياناً الخطوة فعلاً كبيرة وتحتاج تقسيماً.</li>
+        </ul>
+        <p>لاحظي أيّها يتكرر عند ابنك، فهذا يحدد أي محطة في البرنامج تركّزين عليها.</p>
+      </div></details>
+
+      <details><summary>قولي… وتجنّبي</summary><div class="in">
+        <div style="overflow-x:auto"><table class="say"><thead><tr><th>بدلاً من</th><th>قولي</th></tr></thead><tbody>
+          <tr><td>«أنت ذكي!»</td><td>«تعبت عليها ولم تتركها، لهذا نجحت.»</td></tr>
+          <tr><td>«سهلة! يلا بسرعة.»</td><td>«هذه صعبة فعلاً، ونقدر عليها خطوة خطوة.»</td></tr>
+          <tr><td>«خلاص، هاتها أسويها عنك.»</td><td>«ما أول خطوة تقدر تسويها بنفسك؟»</td></tr>
+          <tr><td>«ليش تركتها؟ دائماً كذا!»</td><td>«وين وقفت؟ خلّنا نشوف المكان الصعب.»</td></tr>
+          <tr><td>«لا تبكي، ما فيها شيء.»</td><td>«واضح إنك متضايق. خذ نفَس، وبعدين نرجع لها.»</td></tr>
+          <tr><td>«أخوك/صديقك يعرفها.»</td><td>«أنت أحسن من أمس في كذا… تذكر؟»</td></tr>
+        </tbody></table></div>
+        <p>مدح <b>المجهود والطريقة</b> يبني طفلاً يحاول. مدح <b>الذكاء</b> يبني طفلاً يتجنّب الصعب حتى لا يخسر لقب «الذكي».</p>
+      </div></details>
+
+      <details><summary>لحظة الترك: أربع خطوات</summary><div class="in">
+        <ol>
+          <li><b>سمّي الشعور بهدوء:</b> «أشوفك زعلان لأنها ما ضبطت.» التسمية تهدّئ.</li>
+          <li><b>استراحة قصيرة محددة:</b> «خمس دقائق ونرجع.» الاستراحة غير الترك، ويتعلّم الفرق.</li>
+          <li><b>خطوة واحدة فقط:</b> لا تطلبي إكمال الكل. «حل أول مسألة فقط، وبعدها نشوف.»</li>
+          <li><b>امدحي العودة نفسها:</b> «رجعت لها بعد ما زعلت، هذا هو البطل.» ثم أضيفا كرة في جرّة المحاولات.</li>
+        </ol>
+      </div></details>
+
+      <details><summary>قاعدة «حاول قبل أن أساعد»</summary><div class="in">
+        <p>اتفقي معه على قاعدة ثابتة: قبل أن يطلب مساعدتك، يجرّب <b>ثلاث محاولات</b> بنفسه، أو يستخدم ثلاثة أصابع من خطة اليد. عندما يأتيك، اسأليه: «وش جربت؟» ثم ساعديه بسؤال يدلّه، لا بالجواب الكامل.</p>
+        <p>انتظري عشر ثوانٍ قبل أن تتدخّلي عندما ترينه يتعثّر. كثير من الأطفال يجدون الحل في هذه الثواني.</p>
+      </div></details>
+
+      <details><summary>كوني القدوة</summary><div class="in">
+        <ul>
+          <li>فكّري بصوت عالٍ أمامه وأنتِ تواجهين شيئاً صعباً: «ما ضبطت الوصفة، خلّني أجرب طريقة ثانية.»</li>
+          <li>احكي له قصة شيء تعلّمتِه بصعوبة (هذه مهمة اليوم السادس).</li>
+          <li>جرّبي أمامه شيئاً جديداً لا تتقنينه، وأخطئي واضحكي ثم أكملي.</li>
+        </ul>
+      </div></details>
+
+      <details><summary>كيف تستخدمين البرنامج</summary><div class="in">
+        <ul>
+          <li><b>الأسبوع الأول:</b> محطة واحدة يومياً من ١ إلى ٥، ومعها مهمة اليوم.</li>
+          <li><b>بعدها:</b> ارجعا للقصة ولخطة اليد عند أي موقف حقيقي. اسأليه: «أي إصبع نستخدم الآن؟»</li>
+          <li><b>اللغز:</b> لا تحلّيه عنه. دعيه يستخدم زر التلميح، فهو تدريب على طلب المساعدة بعد المحاولة.</li>
+          <li><b>نجمة الألف متر:</b> عندما يصل إلى ١٠٠٠ متر تظهر له شاشة «نجمة من ماما» تطلب منه أن يريك إياها. ضعي النجمة في لوحته، ثم اضغطي «ماما أعطتني النجمة» حتى تختفي الشاشة. إن ضغط «لاحقاً» تبقى بطاقة النجمة ظاهرة في الصفحة الرئيسية.</li>
+          <li><b>«بعد»:</b> استخدميها أنتِ أيضاً في كلامك اليومي معه حتى تصير لغة البيت.</li>
+        </ul>
+        <p class="muted">التقدّم محفوظ على هذا الجهاز فقط.</p>
+      </div></details>
+
+      <details><summary>متى أطلب رأي مختص؟</summary><div class="in">
+        <p>الترك عند الصعوبة طبيعي في هذا العمر. لكن إن رافقه غضب شديد متكرر، أو حزن واضح، أو قول مثل «أنا غبي» باستمرار، أو أثّر بوضوح على دراسته رغم تطبيق هذه الخطوات لأسابيع، فالحديث مع مرشد المدرسة أو طبيب الأطفال خطوة جيدة لفهم السبب.</p>
+      </div></details>
+    </div>
+  </div>`;
+}
+
+/* ---------------- ROUTER ---------------- */
+let view = 'home';
+const VIEWS = {home, story, yet, plan, breathe, puzzle, missions, parent};
+function go(v){
+  if (bTimer){ clearTimeout(bTimer); bTimer=null; bRunning=false; }
+  view = v;
+  if (v==='story'){ sc = 0; scState = null; }
+  if (v==='yet'){ yIdx=0; yAns=null; yOrder=null; magicOn=[]; }
+  if (v==='plan'){ fSel=0; fSeen=new Set([0]); qIdx=0; qAns=null; }
+  VIEWS[v](); window.scrollTo(0,0);
+}
+
+app.addEventListener('click', e => {
+  const t = e.target.closest('button'); if(!t) return;
+  const d = t.dataset;
+  if (d.go){ go(d.go); return; }
+  // story
+  if (d.ch!==undefined){ const c = SCENES[sc].choices[+d.ch]; scState = {ok:c.ok, r:c.r}; story(); return; }
+  if (d.snext!==undefined){ sc++; scState=null; story(); window.scrollTo(0,0); return; }
+  if (d.sdone!==undefined){ award('story',PTS.story,'وصلت مع سند'); go('home'); return; }
+  // yet
+  if (d.y!==undefined){ yAns = d.y==='1'; yet(); return; }
+  if (d.ynext!==undefined){ yIdx++; yAns=null; yet(); return; }
+  if (d.yretry!==undefined){ yAns=null; yet(); return; }
+  if (d.mg!==undefined){ magicOn.push(+d.mg); yet(); return; }
+  if (d.ydone!==undefined){ award('yet',PTS.yet,'كلمة «بعد» معك'); go('home'); return; }
+  // plan
+  if (d.f!==undefined){ fSel=+d.f; fSeen.add(fSel); plan(); return; }
+  if (d.q!==undefined){ qAns=+d.q; plan(); return; }
+  if (d.qnext!==undefined){ qIdx++; qAns=null; plan(); return; }
+  if (d.pdone!==undefined){ award('plan',PTS.plan,'خطة اليد معك'); go('home'); return; }
+  // breathe
+  if (t.id==='bstart'){ runBreath(); return; }
+  // puzzle
+  if (d.t!==undefined){ tapTile(+d.t); return; }
+  if (d.lvl!==undefined){ newPuzzle(+d.lvl); puzzle(); return; }
+  if (t.id==='restart'){ pz.cur=pz.start.slice(); pz.moves=0; pz.hint=-1; puzzle(); return; }
+  if (t.id==='hintBtn'){ t.disabled=true; t.textContent='أفكّر…'; setTimeout(()=>{ pz.hint=nextMove(pz.cur); puzzle(); },30); return; }
+  // missions
+  if (d.m!==undefined){ const i=+d.m; S.missions[i]=!S.missions[i]; save(); if(S.missions[i]) toast('+'+AR(PTS.mission)+' متر! مهمة '+DAYS[i]); missions(); checkStar(); return; }
+  if (t.id==='starOpen'){ showStar(); return; }
+  if (t.id==='jarAdd'){ S.jar=Math.min(JAR_MAX,S.jar+1); save(); if(S.jar===JAR_MAX) toast('امتلأت الجرّة!'); missions(); return; }
+  if (t.id==='jarNew'){ S.jar=0; S.jarsFull++; save(); missions(); return; }
+  if (t.id==='resetAll'){ t.outerHTML = `<div class="card" style="display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center"><p>متأكد؟ سيرجع سند إلى المخيّم وتُمسح كل المهام.</p><div class="row"><button class="btn ghost" id="resetNo">لا، تراجع</button><button class="btn" id="resetYes">نعم، امسح</button></div></div>`; return; }
+  if (t.id==='resetNo'){ missions(); return; }
+  if (t.id==='resetYes'){ S=fresh(); save(); pz.cur=null; go('home'); return; }
+});
+
+home();
+checkStar();
+})();
+</script>
+
+</body></html>

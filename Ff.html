@@ -1,0 +1,305 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>سيارات وألوان</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap">
+<style>
+/* Layout: one full-screen toy — a sky-and-road stage, big tap targets, a quiet parent bar on top. Single bright theme by choice. */
+:root{
+  --sky:#BFE4FF; --sky2:#EEF8FF; --road:#454E5C; --roadline:#F4F6F8;
+  --ink:#1D2742; --muted:#5B6785; --card:#FFFFFF; --edge:#D5E3F2;
+  --red:#E8382F; --blue:#1F7FE0; --yellow:#FFC21A; --green:#25A84A; --accent:#FF7417;
+  --font:"Baloo Bhaijaan 2","Geeza Pro","Noto Sans Arabic",Tahoma,sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{background:var(--sky2);color:var(--ink);font-family:var(--font);margin:0;overflow:hidden;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box}
+*{box-sizing:border-box}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible{outline:4px solid var(--accent);outline-offset:3px}
+.screen{height:100%;display:flex;flex-direction:column;gap:12px;padding-block:12px}
+
+/* Home */
+.home-head{display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:4px}
+.home-head h1{margin:0;font-size:clamp(34px,6vw,56px);font-weight:800;line-height:1.1;text-wrap:balance}
+.home-head p{margin:0;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+.tiles{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,22px);min-height:0}
+.tile{background:var(--card);border-radius:32px;border:3px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px;min-height:0;transition:transform .15s}
+.tile:active{transform:scale(.96)}
+.tile .art{width:min(70%,260px);flex:0 1 auto;display:flex;justify-content:center;align-items:center;min-height:0}
+.tile .art svg{width:100%;height:auto;max-height:22vh}
+.tile b{font-size:clamp(22px,3.6vw,38px);font-weight:800;line-height:1.2}
+.tile span{font-size:clamp(14px,1.8vw,18px);color:var(--muted)}
+.note{text-align:center;color:var(--muted);font-size:15px;margin:0}
+
+/* Game chrome */
+.bar{display:flex;align-items:center;gap:12px;min-height:56px}
+.back{width:56px;height:56px;border-radius:50%;background:var(--card);border:3px solid var(--edge);display:grid;place-items:center;flex:none}
+.back svg{width:26px;height:26px}
+.bar h2{margin:0;font-size:clamp(22px,3.4vw,32px);font-weight:800;flex:1}
+.seg{display:flex;background:var(--card);border:3px solid var(--edge);border-radius:999px;padding:3px;gap:2px}
+.seg button{padding:6px 14px;border-radius:999px;font-size:17px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+.stage{flex:1;position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(180deg,var(--sky) 0%,var(--sky2) 78%);min-height:0}
+.road{position:absolute;inset:auto 0 0 0;height:22%;background:var(--road)}
+.road::after{content:"";position:absolute;inset:50% 0 auto 0;height:8px;transform:translateY(-50%);
+  background:repeating-linear-gradient(90deg,var(--roadline) 0 60px,transparent 60px 110px)}
+.sun{position:absolute;top:7%;inset-inline-start:6%;width:clamp(56px,9vw,96px);aspect-ratio:1;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 14px rgba(255,194,26,.25)}
+.cloud{position:absolute;height:clamp(26px,4vw,40px);width:clamp(90px,14vw,150px);border-radius:999px;background:#fff;opacity:.9}
+.cloud::before{content:"";position:absolute;width:50%;height:150%;border-radius:50%;background:#fff;top:-60%;left:22%}
+.scene{position:absolute;inset:0 0 11% 0;display:flex;align-items:flex-end;justify-content:center;gap:clamp(10px,3vw,40px);padding-inline:12px}
+
+.car{display:block;width:100%;height:auto;overflow:visible}
+.car .cb{transition:fill .35s}
+.carbtn{width:min(30vw,300px);transition:transform .2s;color:var(--red)}
+.carbtn:active{transform:scale(.95)}
+.bounce{animation:bounce .55s}
+@keyframes bounce{0%,100%{transform:translateY(0)}35%{transform:translateY(-14%)}65%{transform:translateY(0)}80%{transform:translateY(-4%)}}
+.shake{animation:shake .45s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8%)}40%{transform:translateX(7%)}60%{transform:translateX(-5%)}80%{transform:translateX(3%)}}
+.away{transition:transform 1s ease-in,opacity 1s;transform:translateX(130vw)!important}
+
+/* Paint */
+.paints{display:flex;justify-content:center;gap:clamp(14px,4vw,40px);padding-block:4px}
+.paint{width:clamp(76px,12vw,110px);aspect-ratio:1;border-radius:50%;border:6px solid var(--card);box-shadow:0 0 0 3px var(--edge);transition:transform .15s}
+.paint:active{transform:scale(.9)}
+.paint[aria-pressed="true"]{box-shadow:0 0 0 6px var(--ink)}
+.paintcar{width:min(62vw,520px)}
+
+/* Find */
+.prompt{position:absolute;top:5%;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;padding-inline:12px}
+.prompt p{margin:0;background:var(--card);border-radius:24px;padding:8px 24px;font-size:clamp(26px,4.6vw,46px);font-weight:800;line-height:1.3;text-align:center}
+.speak{width:60px;height:60px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex:none}
+.speak svg{width:30px;height:30px}
+.score{display:flex;gap:6px;justify-content:center;min-height:34px;flex-wrap:wrap}
+.score svg{width:30px;height:30px}
+
+/* Count */
+.bignum{position:absolute;top:3%;left:0;right:0;text-align:center;font-size:clamp(110px,24vh,230px);font-weight:800;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;transition:transform .25s}
+.bignum.pop{transform:scale(1.25)}
+.hint{position:absolute;top:44%;left:0;right:0;text-align:center;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--muted);pointer-events:none}
+.tapzone{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.ccar{width:var(--cw);flex:none;animation:slidein .45s ease-out both}
+@keyframes slidein{from{transform:translateX(-60vw)}to{transform:translateX(0)}}
+.dots{display:flex;justify-content:center;gap:10px;min-height:34px;align-items:center}
+.dot{width:22px;height:22px;border-radius:50%;border:3px solid var(--ink);background:transparent;transition:background .2s}
+.dot.on{background:var(--ink)}
+
+/* Traffic light */
+.light{position:absolute;top:6%;inset-inline-end:6%;width:clamp(96px,15vw,150px);background:#20262F;border-radius:30px;padding:14px;display:flex;flex-direction:column;gap:14px;z-index:2}
+.light::after{content:"";position:absolute;bottom:-60%;left:50%;width:14px;height:60%;background:#20262F;transform:translateX(-50%);z-index:-1}
+.lamp{aspect-ratio:1;width:100%;border-radius:50%;background:#3A424F;transition:background .2s,box-shadow .2s}
+.lamp.red.on{background:var(--red);box-shadow:0 0 30px 6px rgba(232,56,47,.7)}
+.lamp.green.on{background:var(--green);box-shadow:0 0 30px 6px rgba(37,168,74,.7)}
+.sign{position:absolute;top:10%;inset-inline-start:6%;font-size:clamp(48px,9vw,96px);font-weight:800;line-height:1;background:var(--card);border-radius:28px;padding:10px 30px 4px}
+.sign.stop{color:var(--red)}.sign.go{color:var(--green)}
+.driver{position:absolute;bottom:11%;left:-35%;width:min(32vw,280px);color:var(--blue);animation:drive 5s linear infinite;animation-play-state:paused}
+.driver.go{animation-play-state:running}
+@keyframes drive{from{left:-35%}to{left:105%}}
+.driver.go .wheel{animation:spin .5s linear infinite}
+.wheel{transform-box:fill-box;transform-origin:center}
+@keyframes spin{to{transform:rotate(-360deg)}}
+
+/* Celebration */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+.star{position:absolute;width:44px;height:44px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{from{transform:translate(0,0) scale(.4) rotate(0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(1.2) rotate(200deg);opacity:0}}
+
+@media (max-width:600px){.tiles{grid-template-columns:1fr}.tile .art svg{max-height:12vh}}
+@media (prefers-reduced-motion:reduce){.star{display:none}.bounce,.shake{animation:none}}
+</style>
+
+<div id="fx"></div>
+
+<!-- HOME -->
+<section class="screen" id="home">
+  <header class="home-head">
+    <h1>سيارات وألوان</h1>
+    <p>العب وتعلّم الألوان والأرقام</p>
+  </header>
+  <div class="tiles">
+    <button class="tile" data-go="paint"><div class="art" data-car="var(--red)"></div><b>لوّن السيارة</b><span>اختر لوناً</span></button>
+    <button class="tile" data-go="find"><div class="art" data-car="var(--blue)"></div><b>أين السيارة؟</b><span>ابحث عن اللون</span></button>
+    <button class="tile" data-go="count"><div class="art" data-car="var(--yellow)"></div><b>عدّ السيارات</b><span>١ ٢ ٣</span></button>
+    <button class="tile" data-go="light"><div class="art" data-car="var(--green)"></div><b>إشارة المرور</b><span>قف وامشِ</span></button>
+  </div>
+  <p class="note">ارفعي صوت الآيباد ليسمع طفلك أسماء الألوان والأرقام.</p>
+</section>
+
+<!-- PAINT -->
+<section class="screen" id="paint" hidden>
+  <div class="bar"><button class="back" aria-label="رجوع"></button><h2>لوّن السيارة</h2></div>
+  <div class="stage"><div class="sun"></div><div class="cloud" style="top:12%;inset-inline-end:14%"></div><div class="road"></div>
+    <div class="scene"><button class="carbtn paintcar" id="paintCar" aria-label="السيارة"></button></div>
+  </div>
+  <div class="paints" id="paints"></div>
+</section>
+
+<!-- FIND -->
+<section class="screen" id="find" hidden>
+  <div class="bar"><button class="back" aria-label="رجوع"></button><h2>أين السيارة؟</h2>
+    <div class="seg" id="findSeg"><button data-n="2">سيارتان</button><button data-n="3">ثلاث</button></div></div>
+  <div class="stage"><div class="cloud" style="top:28%;inset-inline-start:8%"></div><div class="road"></div>
+    <div class="prompt"><p id="findText"></p><button class="speak" id="findSpeak" aria-label="أعد السؤال"></button></div>
+    <div class="scene" id="findScene"></div>
+  </div>
+  <div class="score" id="findScore"></div>
+</section>
+
+<!-- COUNT -->
+<section class="screen" id="count" hidden>
+  <div class="bar"><button class="back" aria-label="رجوع"></button><h2>عدّ السيارات</h2>
+    <div class="seg" id="countSeg"><button data-n="3">حتى ٣</button><button data-n="5">حتى ٥</button></div></div>
+  <div class="stage"><div class="road"></div>
+    <div class="bignum" id="bigNum">٠</div>
+    <div class="hint" id="countHint">اضغط لتأتي سيارة</div>
+    <div class="scene" id="countScene"></div>
+    <button class="tapzone" id="countTap" aria-label="أضف سيارة"></button>
+  </div>
+  <div class="dots" id="countDots"></div>
+</section>
+
+<!-- LIGHT -->
+<section class="screen" id="light" hidden>
+  <div class="bar"><button class="back" aria-label="رجوع"></button><h2>إشارة المرور</h2></div>
+  <div class="stage"><div class="road"></div>
+    <div class="sign stop" id="sign">قف</div>
+    <button class="light" id="lightBtn" aria-label="غيّر الإشارة"><span class="lamp red on"></span><span class="lamp green"></span></button>
+    <div class="driver" id="driver"></div>
+  </div>
+  <p class="note">اضغط على الإشارة لتغيّر لونها</p>
+</section>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const COLORS=[
+  {v:'var(--red)',m:'أحمر',f:'الحمراء',n:'حمراء'},
+  {v:'var(--blue)',m:'أزرق',f:'الزرقاء',n:'زرقاء'},
+  {v:'var(--yellow)',m:'أصفر',f:'الصفراء',n:'صفراء'},
+  {v:'var(--green)',m:'أخضر',f:'الخضراء',n:'خضراء'}
+];
+const AR=['٠','١','٢','٣','٤','٥'];
+const WORDS=['','واحد','اثنان','ثلاثة','أربعة','خمسة'];
+const TOTAL={3:'ثلاث سيارات',5:'خمس سيارات'};
+
+function carSVG(){
+  return '<svg class="car" viewBox="0 0 200 112" aria-hidden="true">'+
+  '<path class="cb" fill="currentColor" d="M14 78C14 58 26 50 46 48L62 46 82 20C86 15 92 12 100 12L138 12C146 12 152 15 157 21L176 46C192 49 192 60 192 72L192 80C192 86 188 88 182 88L20 88C16 88 14 85 14 78Z"/>'+
+  '<path fill="#fff" opacity=".22" d="M30 56C40 52 60 52 70 52L176 52C170 50 60 50 30 56Z"/>'+
+  '<path fill="#DDF3FF" d="M88 22L118 22 118 46 70 46Z"/><path fill="#DDF3FF" d="M126 22L140 22C146 22 149 24 152 28L164 46 126 46Z"/>'+
+  '<path d="M122 50L122 84M98 60L110 60" stroke="#000" stroke-opacity=".18" stroke-width="3" stroke-linecap="round" fill="none"/>'+
+  '<circle cx="185" cy="60" r="5" fill="#FFF6C2"/><rect x="14" y="60" width="6" height="11" rx="2" fill="#000" fill-opacity=".2"/>'+
+  wheel(52)+wheel(154)+'</svg>';
+}
+function wheel(x){return '<g class="wheel"><circle cx="'+x+'" cy="88" r="19" fill="#232833"/><circle cx="'+x+'" cy="88" r="8" fill="#C9D1DC"/><rect x="'+(x-2)+'" y="72" width="4" height="8" fill="#5B6473"/></g>';}
+const STAR='<svg viewBox="0 0 24 24"><path fill="var(--yellow)" stroke="#E0A300" stroke-width="1.2" d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg>';
+const BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>';
+
+document.querySelectorAll('[data-car]').forEach(el=>{el.innerHTML=carSVG();el.firstChild.style.color=el.dataset.car;});
+document.querySelectorAll('.back').forEach(b=>{b.innerHTML=BACK;b.onclick=()=>show('home');});
+
+/* storage */
+function load(k,d){try{const v=localStorage.getItem(k);return v?+v:d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+/* sound */
+let voice=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();voice=vs.find(v=>/^ar/i.test(v.lang))||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';if(voice)u.voice=voice;u.rate=.85;u.pitch=1.15;speechSynthesis.speak(u)}catch(e){}}
+let ac=null;
+function chime(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const t=ac.currentTime;[523,659,784].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,t+i*.1);g.gain.linearRampToValueAtTime(.18,t+i*.1+.02);g.gain.exponentialRampToValueAtTime(.001,t+i*.1+.35);o.connect(g).connect(ac.destination);o.start(t+i*.1);o.stop(t+i*.1+.4)})}catch(e){}}
+let lock=null;
+document.addEventListener('pointerdown',async()=>{try{if(!lock&&navigator.wakeLock){lock=await navigator.wakeLock.request('screen');lock.addEventListener('release',()=>lock=null)}}catch(e){}},{passive:true});
+
+function stars(el){
+  const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/3,fx=$('#fx');
+  for(let i=0;i<10;i++){const s=document.createElement('div');s.className='star';s.innerHTML=STAR;
+    const a=Math.PI*2*i/10,d=120+Math.random()*90;s.style.left=(cx-22)+'px';s.style.top=(cy-22)+'px';
+    s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d-40+'px');
+    fx.appendChild(s);setTimeout(()=>s.remove(),1200)}
+}
+function replay(el,cls){el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls)}
+
+/* navigation */
+let current='home';
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.hidden=s.id!==id);current=id;
+  try{speechSynthesis.cancel()}catch(e){}
+  if(id==='find')newRound(true);
+  if(id==='count')resetCount();
+  if(id==='light')setLight(false,true);
+  if(id==='paint')say('اختر لوناً للسيارة');
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+
+/* PAINT */
+const paintCar=$('#paintCar');paintCar.innerHTML=carSVG();paintCar.style.color=COLORS[0].v;
+const paints=$('#paints');
+COLORS.forEach((c,i)=>{const b=document.createElement('button');b.className='paint';b.style.background=c.v;b.setAttribute('aria-label',c.m);b.setAttribute('aria-pressed',i===0);
+  b.onclick=()=>{paintCar.style.color=c.v;paints.querySelectorAll('.paint').forEach(p=>p.setAttribute('aria-pressed',p===b));replay(paintCar,'bounce');say(c.m)};paints.appendChild(b)});
+paintCar.onclick=()=>{replay(paintCar,'bounce');say('بيب بيب')};
+
+/* FIND */
+let findN=load('findN',2),target=null,busy=false,streak=0,lastT=-1;
+const findSeg=$('#findSeg');
+function segSync(seg,n){seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===n))}
+segSync(findSeg,findN);
+findSeg.querySelectorAll('button').forEach(b=>b.onclick=()=>{findN=+b.dataset.n;save('findN',findN);segSync(findSeg,findN);newRound(true)});
+$('#findSpeak').innerHTML=SPK;
+$('#findSpeak').onclick=()=>target&&say('أين السيارة '+target.f+'؟');
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function newRound(reset){
+  if(reset){streak=0;renderScore()}
+  busy=false;let t;do{t=Math.random()*COLORS.length|0}while(t===lastT);lastT=t;target=COLORS[t];
+  const others=shuffle(COLORS.filter((_,i)=>i!==t)).slice(0,findN-1);
+  const opts=shuffle([target,...others]);
+  const sc=$('#findScene');sc.innerHTML='';
+  opts.forEach(c=>{const b=document.createElement('button');b.className='carbtn';b.style.color=c.v;b.style.width=findN===3?'min(27vw,260px)':'min(34vw,320px)';
+    b.setAttribute('aria-label','سيارة '+c.n);b.innerHTML=carSVG();b.onclick=()=>pick(b,c);sc.appendChild(b)});
+  $('#findText').innerHTML='أين السيارة <span style="color:'+target.v+'">'+target.f+'</span>؟';
+  say('أين السيارة '+target.f+'؟');
+}
+function pick(b,c){
+  if(busy)return;
+  if(c===target){busy=true;streak++;renderScore();chime();stars(b);replay(b,'bounce');say('أحسنت! '+c.m);
+    setTimeout(()=>b.classList.add('away'),900);setTimeout(()=>newRound(false),2000)}
+  else{replay(b,'shake');say('هذه '+c.n+'. أين '+target.f+'؟')}
+}
+function renderScore(){const s=$('#findScore');s.innerHTML='';for(let i=0;i<Math.min(streak,10);i++)s.insertAdjacentHTML('beforeend',STAR)}
+
+/* COUNT */
+let countMax=load('countMax',3),n=0,cBusy=false;
+const countSeg=$('#countSeg');segSync(countSeg,countMax);
+countSeg.querySelectorAll('button').forEach(b=>b.onclick=()=>{countMax=+b.dataset.n;save('countMax',countMax);segSync(countSeg,countMax);resetCount()});
+function resetCount(){n=0;cBusy=false;const sc=$('#countScene');sc.innerHTML='';sc.style.setProperty('--cw',countMax===3?'min(26vw,250px)':'min(17vw,170px)');
+  $('#bigNum').textContent=AR[0];$('#countHint').hidden=false;
+  const d=$('#countDots');d.innerHTML='';for(let i=0;i<countMax;i++){const s=document.createElement('span');s.className='dot';d.appendChild(s)}}
+$('#countTap').onclick=()=>{
+  if(cBusy)return;n++;$('#countHint').hidden=true;
+  const c=document.createElement('div');c.className='ccar';c.style.color=COLORS[(n-1)%4].v;c.innerHTML=carSVG();$('#countScene').appendChild(c);
+  const big=$('#bigNum');big.textContent=AR[n];replay(big,'pop');setTimeout(()=>big.classList.remove('pop'),260);
+  $('#countDots').children[n-1].classList.add('on');say(WORDS[n]);
+  if(n===countMax){cBusy=true;
+    setTimeout(()=>{chime();stars(big);say(TOTAL[countMax]+'! أحسنت')},900);
+    setTimeout(()=>document.querySelectorAll('#countScene .ccar').forEach(x=>{x.style.animation='none';x.classList.add('away')}),2600);
+    setTimeout(resetCount,3700)}
+};
+
+/* LIGHT */
+const driver=$('#driver');driver.innerHTML=carSVG();
+let green=false;
+function setLight(g,quiet){green=g;
+  const [r,gr]=document.querySelectorAll('.lamp');r.classList.toggle('on',!g);gr.classList.toggle('on',g);
+  driver.classList.toggle('go',g);const s=$('#sign');s.textContent=g?'امشِ':'قف';s.className='sign '+(g?'go':'stop');
+  say(quiet?'أحمر يعني قف. اضغط على الإشارة':(g?'أخضر، امشِ':'أحمر، قف'))}
+$('#lightBtn').onclick=()=>setLight(!green);
+})();
+</script>
+
+</body></html>

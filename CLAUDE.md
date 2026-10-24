@@ -41,9 +41,9 @@ These steps are the routine: do all of them, every time, without stopping to ask
      Never make a second artifact for a game that already has one.
 4. Commit with a short message that says what changed, and push straight to `main`.
    The repo owner allows this: no branches or pull requests.
-5. Reply, and end with both links: first the play link, then the GitHub link
-   `https://github.com/<owner>/<repo>/blob/main/<file>` (owner and repo come from `git remote get-url origin`).
-   She asked for the GitHub link at the end of every update. No technical details in the reply,
+5. Reply, and end with both links: first the play link, then the GitHub Pages link that opens the
+   game directly: `https://<owner>.github.io/<repo>/<file>` (owner and repo come from `git remote get-url origin`).
+   She asked for a GitHub link at the end of every update, one that opens the game, not the code. No technical details in the reply,
    unless something is broken and she has to act.
 
 "Undo that" or "put it back" means revert the last change to that game (`git revert`), then do steps 2 to 5.

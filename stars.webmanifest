@@ -1,0 +1,31 @@
+{
+ "name": "نجوم البطل",
+ "short_name": "نجوم البطل",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/stars.html",
+ "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
+ "display": "standalone",
+ "background_color": "#ffffff",
+ "theme_color": "#ffffff",
+ "icons": [
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/stars-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/stars-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/stars-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

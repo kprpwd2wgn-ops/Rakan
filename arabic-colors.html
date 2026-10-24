@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>عالم الألوان</title>
+<style>
+  :root {
+    --bg1: #fff6d6;
+    --bg2: #ffd9ec;
+    --ink: #3b2a55;
+    --card: #ffffff;
+    --accent: #7b5cff;
+    --good: #2fbf71;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: "Tajawal", "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, var(--bg1), var(--bg2));
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .screen {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    padding: 16px; gap: 14px; text-align: center;
+  }
+  .screen.on { display: flex; }
+  h1 { margin: 0; font-size: 44px; letter-spacing: 1px; }
+  h1 span { display: inline-block; animation: bob 2s ease-in-out infinite; }
+  h2 { margin: 0; font-size: 30px; }
+  p { margin: 0; font-size: 20px; }
+  button {
+    font: inherit; font-weight: 800; font-size: 26px;
+    border: none; border-radius: 22px; padding: 14px 30px;
+    color: #fff; background: var(--accent);
+    box-shadow: 0 6px 0 rgba(0,0,0,.18);
+    cursor: pointer; touch-action: manipulation;
+  }
+  button:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+  .big { font-size: 32px; padding: 18px 44px; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn-learn { background: #ff8a3d; }
+  .btn-play { background: #2fbf71; }
+  .btn-home { background: #9a8bb8; font-size: 20px; padding: 10px 18px; }
+  .topbar {
+    position: absolute; top: 12px; left: 12px; right: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pill {
+    background: rgba(255,255,255,.85); border-radius: 999px;
+    padding: 8px 16px; font-size: 22px; font-weight: 800;
+  }
+  .rainbow { width: 260px; max-width: 80vw; }
+
+  /* learn */
+  .card {
+    background: var(--card); border-radius: 32px; padding: 18px 18px 22px;
+    width: min(340px, 92vw);
+    box-shadow: 0 10px 30px rgba(59,42,85,.15);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .card .name { font-size: 64px; font-weight: 900; line-height: 1.1; }
+  .card .example { font-size: 24px; }
+  .card .example b { font-size: 34px; }
+  .blob { width: 190px; height: 190px; cursor: pointer; }
+  .blob.small { width: 120px; height: 120px; }
+  .bounce { animation: bounce .55s ease; }
+  .shake { animation: shake .45s ease; }
+  .nav { display: flex; gap: 18px; align-items: center; }
+  .nav button { font-size: 34px; padding: 8px 22px; }
+  .dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 320px; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,.2); }
+  .dot.cur { transform: scale(1.35); border-color: var(--ink); }
+  .speak { background: #4aa3ff; font-size: 22px; padding: 10px 20px; }
+
+  /* quiz */
+  .question { font-size: 34px; font-weight: 900; }
+  .question .cname { font-size: 46px; padding: 0 6px; border-radius: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: min(360px, 94vw); }
+  .choice {
+    background: rgba(255,255,255,.75); border-radius: 26px; padding: 6px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 0 rgba(0,0,0,.08); cursor: pointer;
+  }
+  .choice.right { background: #c9f7dc; }
+  .choice.wrong { background: #ffd4d4; }
+  .stars { font-size: 46px; letter-spacing: 4px; }
+  .confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes bounce {
+    0% { transform: scale(1); } 30% { transform: scale(1.18, .85); }
+    55% { transform: scale(.92, 1.12) translateY(-14px); } 100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); } 20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); } 60% { transform: translateX(-7px); } 80% { transform: translateX(7px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- start -->
+<section id="start" class="screen on">
+  <svg class="rainbow" viewBox="0 0 260 140" aria-hidden="true">
+    <g fill="none" stroke-width="16" stroke-linecap="round">
+      <path d="M20 130 A110 110 0 0 1 240 130" stroke="#ff4d4d"/>
+      <path d="M36 130 A94 94 0 0 1 224 130" stroke="#ff9f1c"/>
+      <path d="M52 130 A78 78 0 0 1 208 130" stroke="#ffd60a"/>
+      <path d="M68 130 A62 62 0 0 1 192 130" stroke="#2fbf71"/>
+      <path d="M84 130 A46 46 0 0 1 176 130" stroke="#3a86ff"/>
+      <path d="M100 130 A30 30 0 0 1 160 130" stroke="#8e44ad"/>
+    </g>
+    <g fill="#fff">
+      <circle cx="22" cy="128" r="16"/><circle cx="40" cy="132" r="13"/><circle cx="8" cy="134" r="10"/>
+      <circle cx="238" cy="128" r="16"/><circle cx="220" cy="132" r="13"/><circle cx="252" cy="134" r="10"/>
+    </g>
+  </svg>
+  <h1><span>عالم</span> <span style="animation-delay:.3s">الألوان</span></h1>
+  <div id="startBlobs" class="row"></div>
+  <p>هيا نتعلّم الألوان بالعربي!</p>
+  <button id="startBtn" class="big">ابدأ ▶</button>
+</section>
+
+<!-- menu -->
+<section id="menu" class="screen">
+  <h2>ماذا تريد أن تفعل؟</h2>
+  <div id="menuBlob"></div>
+  <div class="row">
+    <button id="learnBtn" class="btn-learn big">📖 تعلّم</button>
+    <button id="playBtn" class="btn-play big">🎮 العب</button>
+  </div>
+</section>
+
+<!-- learn -->
+<section id="learn" class="screen">
+  <div class="topbar"><button class="btn-home" data-home>🏠 رجوع</button><span></span></div>
+  <div class="card">
+    <div id="learnBlob"></div>
+    <div id="learnName" class="name"></div>
+    <div id="learnExample" class="example"></div>
+    <button id="learnSpeak" class="speak">🔊 اسمع</button>
+  </div>
+  <div class="nav">
+    <button id="nextBtn">→</button>
+    <button id="prevBtn">←</button>
+  </div>
+  <div id="dots" class="dots"></div>
+</section>
+
+<!-- quiz -->
+<section id="quiz" class="screen">
+  <div class="topbar">
+    <button class="btn-home" data-home>🏠 رجوع</button>
+    <span class="pill">⭐ <span id="score">0</span> &nbsp; <span id="round">1</span>/10</span>
+  </div>
+  <div class="question">أين اللون <span id="qName" class="cname"></span>؟</div>
+  <button id="qSpeak" class="speak">🔊 اسمع</button>
+  <div id="grid" class="grid"></div>
+</section>
+
+<!-- end -->
+<section id="end" class="screen">
+  <h2 id="endTitle">أحسنت!</h2>
+  <div id="endBlob"></div>
+  <div id="endStars" class="stars"></div>
+  <p id="endText"></p>
+  <div class="row">
+    <button id="againBtn" class="btn-play big">🔁 مرة أخرى</button>
+    <button class="btn-home" data-home>🏠 القائمة</button>
+  </div>
+</section>
+
+<canvas id="confetti" class="confetti"></canvas>
+
+<script>
+const COLORS = [
+  { name: 'أحمر',    hex: '#ff4d4d', ex: 'تفاحة',   emoji: '🍎' },
+  { name: 'أزرق',    hex: '#3a86ff', ex: 'سماء',    emoji: '🌊' },
+  { name: 'أصفر',    hex: '#ffd60a', ex: 'شمس',     emoji: '🌞' },
+  { name: 'أخضر',    hex: '#2fbf71', ex: 'شجرة',    emoji: '🌳' },
+  { name: 'برتقالي', hex: '#ff9f1c', ex: 'برتقالة', emoji: '🍊' },
+  { name: 'بنفسجي',  hex: '#8e44ad', ex: 'عنب',     emoji: '🍇' },
+  { name: 'وردي',    hex: '#ff8fc7', ex: 'وردة',    emoji: '🌸' },
+  { name: 'بني',     hex: '#8b5a2b', ex: 'دبدوب',   emoji: '🧸' },
+  { name: 'أسود',    hex: '#222222', ex: 'ليل',     emoji: '🌙' },
+  { name: 'أبيض',    hex: '#ffffff', ex: 'سحابة',   emoji: '☁️' },
+  { name: 'رمادي',   hex: '#9aa0a6', ex: 'فيل',     emoji: '🐘' },
+];
+
+// ---------- drawn paint-drop friend ----------
+function blobSVG(color, mood = 'happy', cls = '') {
+  const light = color.hex === '#ffffff';
+  const stroke = light ? '#c9c2d8' : 'rgba(0,0,0,.15)';
+  let mouth;
+  if (mood === 'sad') mouth = '<path d="M80 128 Q100 114 120 128" stroke="#3b2a55" stroke-width="6" fill="none" stroke-linecap="round"/>';
+  else if (mood === 'wow') mouth = '<ellipse cx="100" cy="126" rx="12" ry="15" fill="#3b2a55"/><ellipse cx="100" cy="132" rx="7" ry="6" fill="#ff6b8a"/>';
+  else mouth = '<path d="M76 116 Q100 146 124 116 Z" fill="#3b2a55"/><path d="M88 130 Q100 140 112 130 Q100 126 88 130Z" fill="#ff6b8a"/>';
+  const pupilColor = color.hex === '#222222' ? '#3b2a55' : '#2a1d3d';
+  return `
+  <svg class="blob ${cls}" viewBox="0 0 200 200" aria-hidden="true">
+    <ellipse cx="100" cy="186" rx="56" ry="9" fill="rgba(0,0,0,.12)"/>
+    <path d="M100 12 C122 48 168 78 168 122 C168 160 138 182 100 182 C62 182 32 160 32 122 C32 78 78 48 100 12 Z"
+          fill="${color.hex}" stroke="${stroke}" stroke-width="4"/>
+    <ellipse cx="70" cy="92" rx="11" ry="20" fill="rgba(255,255,255,.45)" transform="rotate(25 70 92)"/>
+    <g>
+      <ellipse cx="78" cy="100" rx="14" ry="16" fill="#fff"/>
+      <ellipse cx="122" cy="100" rx="14" ry="16" fill="#fff"/>
+      <circle cx="${mood === 'sad' ? 78 : 81}" cy="${mood === 'sad' ? 106 : 102}" r="8" fill="${pupilColor}"/>
+      <circle cx="${mood === 'sad' ? 122 : 125}" cy="${mood === 'sad' ? 106 : 102}" r="8" fill="${pupilColor}"/>
+      <circle cx="84" cy="98" r="3" fill="#fff"/><circle cx="128" cy="98" r="3" fill="#fff"/>
+    </g>
+    <ellipse cx="60" cy="122" rx="9" ry="6" fill="#ff6b8a" opacity=".45"/>
+    <ellipse cx="140" cy="122" rx="9" ry="6" fill="#ff6b8a" opacity=".45"/>
+    ${mouth}
+  </svg>`;
+}
+
+// ---------- sound ----------
+let actx = null;
+function audio() {
+  if (!actx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) actx = new AC();
+  }
+  if (actx && actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function tone(freq, start, dur, type = 'sine', vol = .18) {
+  const a = audio(); if (!a) return;
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq, a.currentTime + start);
+  g.gain.setValueAtTime(0, a.currentTime + start);
+  g.gain.linearRampToValueAtTime(vol, a.currentTime + start + .02);
+  g.gain.exponentialRampToValueAtTime(.001, a.currentTime + start + dur);
+  o.connect(g).connect(a.destination);
+  o.start(a.currentTime + start); o.stop(a.currentTime + start + dur + .05);
+}
+const sfx = {
+  pop()  { tone(520, 0, .12, 'triangle'); tone(780, .06, .12, 'triangle'); },
+  good() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * .09, .22, 'triangle')); },
+  bad()  { tone(220, 0, .18, 'sawtooth', .1); tone(180, .15, .25, 'sawtooth', .1); },
+  win()  { [523, 659, 784, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * .12, .3, 'triangle')); },
+};
+
+// ---------- speech ----------
+let arVoice = null;
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return;
+  const vs = speechSynthesis.getVoices();
+  arVoice = vs.find(v => /^ar/i.test(v.lang)) || null;
+}
+if ('speechSynthesis' in window) {
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+function say(text) {
+  if (!('speechSynthesis' in window)) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ar-SA'; u.rate = .85; u.pitch = 1.15;
+    if (arVoice) u.voice = arVoice;
+    speechSynthesis.speak(u);
+  } catch (e) { /* no voice, that's fine */ }
+}
+
+// ---------- confetti ----------
+const cv = document.getElementById('confetti'), cx = cv.getContext('2d');
+let bits = [], confettiOn = false;
+function resize() { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; }
+addEventListener('resize', resize); resize();
+function burst(n = 60, hex) {
+  for (let i = 0; i < n; i++) {
+    const c = hex || COLORS[(Math.random() * COLORS.length) | 0].hex;
+    bits.push({
+      x: innerWidth / 2, y: innerHeight * .45,
+      vx: (Math.random() - .5) * 12, vy: -Math.random() * 12 - 4,
+      r: Math.random() * 6 + 4, c, rot: Math.random() * 6, life: 90,
+    });
+  }
+  if (!confettiOn) { confettiOn = true; requestAnimationFrame(drawConfetti); }
+}
+function drawConfetti() {
+  cx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  cx.clearRect(0, 0, innerWidth, innerHeight);
+  bits.forEach(b => {
+    b.vy += .35; b.x += b.vx; b.y += b.vy; b.rot += .2; b.life--;
+    cx.save(); cx.translate(b.x, b.y); cx.rotate(b.rot);
+    cx.fillStyle = b.c; cx.strokeStyle = 'rgba(0,0,0,.15)';
+    cx.fillRect(-b.r, -b.r / 2, b.r * 2, b.r); cx.strokeRect(-b.r, -b.r / 2, b.r * 2, b.r);
+    cx.restore();
+  });
+  bits = bits.filter(b => b.life > 0 && b.y < innerHeight + 20);
+  if (bits.length) requestAnimationFrame(drawConfetti);
+  else { confettiOn = false; cx.clearRect(0, 0, innerWidth, innerHeight); }
+}
+
+// ---------- screens ----------
+const $ = id => document.getElementById(id);
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+}
+function animate(el, cls) {
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+}
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+$('startBlobs').innerHTML = [0, 1, 2, 3].map(i => blobSVG(COLORS[i], 'happy', 'small')).join('');
+$('startBlobs').querySelectorAll('.blob').forEach((b, i) => { b.style.width = '70px'; b.style.height = '70px'; b.style.animation = `bob 1.6s ${i * .2}s ease-in-out infinite`; });
+
+$('startBtn').onclick = () => { audio(); sfx.pop(); goMenu(); say('هيا نتعلم الألوان'); };
+function goMenu() {
+  const c = COLORS[(Math.random() * COLORS.length) | 0];
+  $('menuBlob').innerHTML = blobSVG(c);
+  show('menu');
+}
+document.querySelectorAll('[data-home]').forEach(b => b.onclick = () => { sfx.pop(); goMenu(); });
+$('learnBtn').onclick = () => { sfx.pop(); learnIdx = 0; renderLearn(); show('learn'); };
+$('playBtn').onclick = () => { sfx.pop(); startQuiz(); };
+$('againBtn').onclick = () => { sfx.pop(); startQuiz(); };
+
+// ---------- learn ----------
+let learnIdx = 0;
+$('dots').innerHTML = COLORS.map((c, i) => `<span class="dot" data-i="${i}" style="background:${c.hex}"></span>`).join('');
+$('dots').querySelectorAll('.dot').forEach(d => d.onclick = () => { learnIdx = +d.dataset.i; sfx.pop(); renderLearn(); });
+function renderLearn() {
+  const c = COLORS[learnIdx];
+  $('learnBlob').innerHTML = blobSVG(c, 'wow');
+  $('learnName').textContent = c.name;
+  $('learnName').style.color = c.hex === '#ffffff' ? '#b8b0c8' : c.hex;
+  $('learnName').style.textShadow = c.hex === '#ffffff' ? '0 0 2px #776' : 'none';
+  $('learnExample').innerHTML = `<b>${c.emoji}</b> ${c.ex}`;
+  $('dots').querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('cur', i === learnIdx));
+  const blob = $('learnBlob').querySelector('.blob');
+  blob.onclick = () => { animate(blob, 'bounce'); sfx.pop(); say(c.name); };
+  animate(blob, 'bounce');
+  say(c.name);
+}
+$('learnSpeak').onclick = () => { const c = COLORS[learnIdx]; say(c.name + '، ' + c.ex); animate($('learnBlob').querySelector('.blob'), 'bounce'); };
+// right-to-left: → goes forward
+$('nextBtn').onclick = () => { learnIdx = (learnIdx + 1) % COLORS.length; sfx.pop(); renderLearn(); };
+$('prevBtn').onclick = () => { learnIdx = (learnIdx - 1 + COLORS.length) % COLORS.length; sfx.pop(); renderLearn(); };
+
+// ---------- quiz ----------
+const ROUNDS = 10;
+let round = 0, score = 0, target = null, locked = false, triedWrong = false, order = [];
+function startQuiz() {
+  round = 0; score = 0;
+  order = shuffle(COLORS).concat(shuffle(COLORS)).slice(0, ROUNDS);
+  show('quiz'); nextQuestion();
+}
+function nextQuestion() {
+  round++; locked = false; triedWrong = false;
+  target = order[round - 1];
+  $('score').textContent = score; $('round').textContent = round;
+  $('qName').textContent = target.name;
+  const others = shuffle(COLORS.filter(c => c !== target)).slice(0, 3);
+  const choices = shuffle([target, ...others]);
+  const grid = $('grid');
+  grid.innerHTML = choices.map((c, i) => `<div class="choice" data-i="${i}">${blobSVG(c, 'happy', 'small')}</div>`).join('');
+  grid.querySelectorAll('.choice').forEach((el, i) => el.onclick = () => pick(el, choices[i]));
+  setTimeout(() => say('أين اللون ' + target.name), 250);
+}
+$('qSpeak').onclick = () => say('أين اللون ' + target.name);
+function pick(el, c) {
+  if (locked) return;
+  const blob = el.querySelector('.blob');
+  if (c === target) {
+    locked = true;
+    if (!triedWrong) score++;
+    $('score').textContent = score;
+    el.classList.add('right');
+    el.innerHTML = blobSVG(c, 'wow', 'small bounce');
+    sfx.good(); burst(50, c.hex === '#ffffff' ? null : c.hex);
+    say(['أحسنت', 'رائع', 'ممتاز', 'شاطر'][(Math.random() * 4) | 0] + '! ' + c.name);
+    setTimeout(() => round >= ROUNDS ? endQuiz() : nextQuestion(), 1500);
+  } else {
+    triedWrong = true;
+    el.classList.add('wrong');
+    el.innerHTML = blobSVG(c, 'sad', 'small shake');
+    sfx.bad();
+    say('هذا ' + c.name + '. حاول مرة أخرى');
+    el.onclick = null;
+  }
+}
+function endQuiz() {
+  const n = score >= 9 ? 3 : score >= 6 ? 2 : 1;
+  $('endStars').textContent = '⭐'.repeat(n) + '☆'.repeat(3 - n);
+  $('endTitle').textContent = n === 3 ? 'بطل الألوان! 🏆' : n === 2 ? 'أحسنت!' : 'جيد! تدرّب أكثر';
+  $('endText').textContent = `عرفت ${score} من ${ROUNDS} من أول مرة`;
+  $('endBlob').innerHTML = blobSVG(COLORS[(Math.random() * COLORS.length) | 0], 'wow', 'bounce');
+  show('end'); sfx.win(); burst(120);
+  say($('endTitle').textContent.replace(/[🏆]/g, ''));
+}
+</script>
+</body>
+</html>

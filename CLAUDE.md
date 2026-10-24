@@ -8,6 +8,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | Game | File | Play link (never changes) |
 |---|---|---|
 | عالم الألوان (Arabic colors) | `arabic-colors.html` | https://claude.ai/artifact/WgJDPdkMmw2MBJbLH14UjG |
+| لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
 
 Add a row here for every new game.
 

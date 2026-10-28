@@ -267,6 +267,41 @@ h1,h2,h3{text-wrap:balance;line-height:1.25;font-weight:800}
 @keyframes toastin{from{transform:translateY(20px);opacity:0}}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
 @media (prefers-reduced-motion:reduce){.eyes,.mic.on,.msg{animation:none!important}}
+
+/* free-talk feedback */
+.evbox{margin-top:10px;padding:12px;border-radius:16px;background:#f7fbff;border:2.5px solid var(--line);text-align:center}
+.evbox.good{background:#e3f8ea;border-color:#9fdcb8}
+.evbox.mid{background:#fff6dc;border-color:#ffd77a}
+.evbox.bad{background:#ffece6;border-color:#ffc2b0}
+.evbox.tip{background:#fff6dc;border:2.5px dashed var(--sun)}
+.heardline{font-weight:700;line-height:1.5}
+.heardline .en{font-size:19px;font-weight:500}
+.evstars .stars{font-size:30px;letter-spacing:4px}
+.crits{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0}
+.crit{font-size:13px;font-weight:800;padding:3px 10px;border-radius:99px;background:#ffe1d9;color:#a43a22}
+.crit.ok{background:#d4f3df;color:#1a7a4c}
+.praise{font-weight:800;margin-top:4px}
+.model{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:6px 8px 6px 12px;border-radius:12px;background:#fff;box-shadow:0 2px 0 var(--line);direction:ltr;max-width:100%}
+.model span{font-family:var(--f-en);font-size:19px;font-weight:500;text-align:left;min-width:0}
+.say .model span{font-size:clamp(20px,6vw,28px)}
+.turnbar{justify-content:center;margin-top:10px}
+.typed{display:flex;gap:8px;margin-top:10px}
+.typed .inp{flex:1;min-width:0}
+.michelp{background:#fff4d6;border:2.5px dashed var(--sun);border-radius:18px;padding:12px 14px;margin:12px 0;text-align:start}
+.michelp h3{font-size:17px;margin-bottom:6px}
+.michelp ol{margin:0 0 10px;padding-inline-start:22px;display:grid;gap:4px;font-size:15px}
+.linkbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:12px;padding:8px 10px;margin:0 0 10px}
+.linkbox .en{font-size:13px;word-break:break-all;flex:1 1 180px;min-width:0;user-select:all;text-align:left}
+.linkbox a.btn{text-decoration:none}
+.report{max-height:38vh;overflow:auto;text-align:start;display:grid;gap:8px;margin:4px 0 14px}
+.rep{background:#f7fbff;border-radius:14px;padding:8px 10px;direction:ltr;text-align:left}
+.rep .rq{font-family:var(--f-en);font-size:14px;color:var(--ink-2)}
+.rep .ra{font-family:var(--f-en);font-size:17px}
+.rep .ra .stars{font-size:13px}
+.rep .rm{font-family:var(--f-en);font-size:14px;color:#1a7a4c}
+.diag{list-style:none;padding:0;margin:0 0 6px;display:grid;gap:6px;font-weight:600}
+.msg.me .bub .badge-sp{display:block}
+.heardtxt{display:block;direction:ltr;text-align:center;font-size:20px;margin-top:2px}
 </style>
 </head><body>
 <div class="hdr"><div class="hdr-in">
@@ -298,132 +333,6 @@ const STREETS=[
   {en:'Fun Avenue',ar:'شارع المرح',scenes:['weather','hobbies','routine','phone']},
   {en:'Hero Hill',ar:'تلّة الأبطال',scenes:['doctor','directions','birthday','airport']}
 ];
-const SCENES={
- hello:{en:'Hello!',ar:'مرحباً!',ch:'lily',sign:'👋',color:'#FF8FAB',steps:[
-  ["Hi! I'm Lily. What's your name?","مرحباً! أنا ليلي. ما اسمك؟",[["My name is {name}.","اسمي {name}."],["I'm {name}.","أنا {name}."]]],
-  ["Nice to meet you, {name}!","سعيدة بلقائك يا {name}!",[["Nice to meet you too!","وأنا سعيد بلقائك أيضاً!"]]],
-  ["How are you today?","كيف حالك اليوم؟",[["I'm fine, thank you.","أنا بخير، شكراً.","Great! Me too.","رائع! وأنا أيضاً."],["I'm very happy!","أنا سعيد جداً!","Yay! Happy days are the best.","يا سلام! الأيام السعيدة هي الأجمل."],["I'm a little tired.","أنا متعب قليلاً.","Oh no! Get some rest later.","يا للأسف! خذ قسطاً من الراحة لاحقاً."]]],
-  ["How old are you?","كم عمرك؟",[["I'm eight years old.","عمري ثماني سنوات."],["I'm nine years old.","عمري تسع سنوات."],["I'm ten years old.","عمري عشر سنوات."]],"Cool! You are a big kid now.","رائع! أصبحت كبيراً."],
-  ["Where are you from?","من أين أنت؟",[["I'm from Saudi Arabia.","أنا من السعودية."],["I'm from Kuwait.","أنا من الكويت."],["I'm from Egypt.","أنا من مصر."]],"Wow, that's a beautiful country!","واو، إنها بلد جميلة!"],
-  ["It was fun to talk. Goodbye!","كان الحديث ممتعاً. مع السلامة!",[["Goodbye! See you later.","مع السلامة! أراك لاحقاً."],["Bye, Lily!","وداعاً يا ليلي!"]]]
- ]},
- family:{en:'My Family',ar:'عائلتي',ch:'max',sign:'🏠',color:'#7CC6FE',steps:[
-  ["Hi {name}! Look at my family photo. Do you have brothers or sisters?","مرحباً يا {name}! انظر إلى صورة عائلتي. هل عندك إخوة أو أخوات؟",[["Yes, I have one brother.","نعم، عندي أخ واحد."],["Yes, I have two sisters.","نعم، عندي أختان."],["No, I don't.","لا، ليس عندي."]]],
-  ["Who do you play with at home?","مع من تلعب في البيت؟",[["I play with my brother.","ألعب مع أخي."],["I play with my sister.","ألعب مع أختي."],["I play with my cousins.","ألعب مع أبناء عمي."]]],
-  ["What does your mom like to do?","ماذا تحب أمك أن تفعل؟",[["She likes cooking.","تحب الطبخ."],["She likes reading.","تحب القراءة."],["She likes drawing.","تحب الرسم."]]],
-  ["And your dad?","ووالدك؟",[["He likes football.","يحب كرة القدم."],["He likes cars.","يحب السيارات."],["He likes coffee.","يحب القهوة.","Ha ha! My dad loves coffee too.","ها ها! أبي يحب القهوة أيضاً."]]],
-  ["Do you love your family?","هل تحب عائلتك؟",[["Yes! I love my family very much.","نعم! أحب عائلتي كثيراً."]]],
-  ["That's so sweet. Bye for now!","هذا لطيف جداً. إلى اللقاء!",[["Bye, Max!","وداعاً يا ماكس!"]]]
- ]},
- feelings:{en:'Feelings',ar:'المشاعر',ch:'robo',sign:'💛',color:'#B9A3FF',steps:[
-  ["Beep boop! I'm Robo. I want to learn about feelings. How do you feel now?","بيب بوب! أنا روبو. أريد أن أتعلم عن المشاعر. بماذا تشعر الآن؟",[["I feel happy.","أشعر بالسعادة."],["I feel excited.","أشعر بالحماس."],["I feel sleepy.","أشعر بالنعاس."]]],
-  ["What makes you happy?","ما الذي يسعدك؟",[["Playing with my friends makes me happy.","اللعب مع أصدقائي يسعدني."],["Ice cream makes me happy.","الآيس كريم يسعدني."],["Holidays make me happy.","الإجازات تسعدني."]]],
-  ["What do you do when you are sad?","ماذا تفعل عندما تكون حزيناً؟",[["I talk to my mom.","أتحدث مع أمي."],["I hug my teddy bear.","أحضن دبدوبي."],["I draw a picture.","أرسم صورة."]]],
-  ["Are you scared of the dark?","هل تخاف من الظلام؟",[["Yes, a little.","نعم، قليلاً.","That's okay. Everybody is scared sometimes.","لا بأس. كل الناس يخافون أحياناً."],["No, I'm brave!","لا، أنا شجاع!","Wow! You are a hero.","واو! أنت بطل."]]],
-  ["Thank you! Now I know feelings. I feel... happy! Beep!","شكراً! الآن عرفت المشاعر. أشعر... بالسعادة! بيب!",[["You're welcome, Robo!","على الرحب يا روبو!"]]]
- ]},
- favorites:{en:'My Favorites',ar:'أشيائي المفضلة',ch:'lily',sign:'⭐',color:'#FFC93C',steps:[
-  ["Hello {name}! What's your favorite color?","أهلاً يا {name}! ما لونك المفضل؟",[["My favorite color is blue.","لوني المفضل الأزرق."],["My favorite color is red.","لوني المفضل الأحمر."],["My favorite color is green.","لوني المفضل الأخضر."]]],
-  ["What's your favorite animal?","ما حيوانك المفضل؟",[["I like cats.","أحب القطط."],["I like lions.","أحب الأسود."],["I like horses.","أحب الخيول."]]],
-  ["What's your favorite food?","ما أكلتك المفضلة؟",[["I love pizza.","أحب البيتزا."],["I love chicken and rice.","أحب الدجاج والرز."],["I love pasta.","أحب المعكرونة."]]],
-  ["What's your favorite game?","ما لعبتك المفضلة؟",[["I like football.","أحب كرة القدم."],["I like video games.","أحب ألعاب الفيديو."],["I like hide and seek.","أحب الغميضة."]]],
-  ["We like a lot of things! Let's play together soon.","نحن نحب أشياء كثيرة! لنلعب معاً قريباً.",[["Okay! That sounds fun.","حسناً! يبدو هذا ممتعاً."]]]
- ]},
- cafe:{en:'At the Café',ar:'في المطعم',ch:'chef',sign:'🍔',color:'#FF8A5B',steps:[
-  ["Welcome to Pip's Café! Can I help you?","أهلاً بك في مطعم بِب! كيف أساعدك؟",[["Yes, please. I'm hungry.","نعم من فضلك. أنا جائع."],["Can I see the menu, please?","هل أستطيع رؤية القائمة من فضلك؟"]]],
-  ["Sure! What would you like to eat?","بالتأكيد! ماذا تريد أن تأكل؟",[["I'd like a cheese sandwich, please.","أريد شطيرة جبن من فضلك."],["I'd like a burger, please.","أريد برغر من فضلك."],["I'd like pancakes, please.","أريد فطائر بان كيك من فضلك."]]],
-  ["Yummy choice! What would you like to drink?","اختيار لذيذ! ماذا تريد أن تشرب؟",[["Orange juice, please.","عصير برتقال من فضلك."],["Water, please.","ماء من فضلك."],["Milk, please.","حليب من فضلك."]]],
-  ["Anything else?","هل تريد شيئاً آخر؟",[["No, thank you.","لا، شكراً."],["Yes, a chocolate cookie, please.","نعم، بسكويتة شوكولاتة من فضلك."]]],
-  ["Here you are. Enjoy your meal!","تفضّل. بالهناء والشفاء!",[["Thank you very much!","شكراً جزيلاً!"]]],
-  ["How is the food?","كيف الطعام؟",[["It's delicious!","إنه لذيذ!"],["It's very good, thank you.","جيد جداً، شكراً."]],"I'm so glad! Come again soon.","يسعدني ذلك! عُد إلينا قريباً."]
- ]},
- shop:{en:'Toy Shop',ar:'محل الألعاب',ch:'sam',sign:'🧸',color:'#5BD1A5',steps:[
-  ["Hello! Welcome to the toy shop. What are you looking for?","مرحباً! أهلاً بك في محل الألعاب. عمّ تبحث؟",[["I'm looking for a ball.","أبحث عن كرة."],["I'm looking for a teddy bear.","أبحث عن دبدوب."],["I'm looking for a puzzle.","أبحث عن لعبة تركيب."]]],
-  ["We have red ones and blue ones. Which one do you want?","عندنا أحمر وأزرق. أيهما تريد؟",[["The red one, please.","الأحمر من فضلك."],["The blue one, please.","الأزرق من فضلك."]]],
-  ["Do you want a big one or a small one?","تريد كبيراً أم صغيراً؟",[["A big one, please.","كبيراً من فضلك."],["A small one, please.","صغيراً من فضلك."]]],
-  ["Here it is!","ها هو!",[["How much is it?","بكم هذا؟"]]],
-  ["It's ten riyals.","سعره عشرة ريالات.",[["Here you are.","تفضّل."]]],
-  ["Thank you! Have a nice day!","شكراً! أتمنى لك يوماً سعيداً!",[["Thank you! You too.","شكراً! ولك أيضاً."]]]
- ]},
- school:{en:'At School',ar:'في المدرسة',ch:'rose',sign:'📚',color:'#FF6B6B',steps:[
-  ["Good morning, {name}!","صباح الخير يا {name}!",[["Good morning, Ms. Rose!","صباح الخير يا معلمة روز!"]]],
-  ["Do you have your pencil and your book?","هل معك قلمك وكتابك؟",[["Yes, I do.","نعم، معي."],["Oh no! I forgot my pencil.","يا إلهي! نسيت قلمي.","Don't worry. You can borrow one.","لا تقلق. يمكنك أن تستعير واحداً."]]],
-  ["What's your favorite subject?","ما مادتك المفضلة؟",[["I like math.","أحب الرياضيات."],["I like science.","أحب العلوم."],["I like art.","أحب الفنون."]]],
-  ["Can you count to five in English?","هل تستطيع العد إلى خمسة بالإنجليزية؟",[["One, two, three, four, five!","واحد، اثنان، ثلاثة، أربعة، خمسة!"]],"Excellent!","ممتاز!"],
-  ["What do you say when you need help?","ماذا تقول عندما تحتاج مساعدة؟",[["Can you help me, please?","هل يمكنك مساعدتي من فضلك؟"],["Excuse me, I have a question.","عفواً، عندي سؤال."]]],
-  ["Perfect! Class is over. See you tomorrow!","ممتاز! انتهى الدرس. أراك غداً!",[["See you tomorrow!","أراك غداً!"]]]
- ]},
- zoo:{en:'The Zoo',ar:'حديقة الحيوان',ch:'momo',sign:'🦁',color:'#F4A259',steps:[
-  ["Ooh ooh! Welcome to the zoo! I'm Momo. Which animal do you want to see?","أوه أوه! أهلاً بك في حديقة الحيوان! أنا مومو. أي حيوان تريد أن ترى؟",[["I want to see the lions.","أريد أن أرى الأسود."],["I want to see the elephants.","أريد أن أرى الفيلة."],["I want to see the giraffes.","أريد أن أرى الزرافات."]]],
-  ["Look over there! What can you see?","انظر هناك! ماذا ترى؟",[["I can see a big elephant.","أرى فيلاً كبيراً."],["I can see a tall giraffe.","أرى زرافة طويلة."],["I can see a funny monkey!","أرى قرداً مضحكاً!","Hey, that's me! Ooh ooh!","هيه، هذا أنا! أوه أوه!"]]],
-  ["Do you know what monkeys eat?","هل تعرف ماذا تأكل القرود؟",[["Monkeys eat bananas!","القرود تأكل الموز!"],["I don't know.","لا أعرف.","We eat bananas! Yum!","نحن نأكل الموز! لذيذ!"]]],
-  ["Can you make an animal sound?","هل تستطيع تقليد صوت حيوان؟",[["Roar! I'm a lion!","زئير! أنا أسد!"],["Meow! I'm a cat!","مياو! أنا قطة!"],["Moo! I'm a cow!","مووو! أنا بقرة!"]],"Ha ha! You're so funny.","ها ها! أنت مضحك جداً."],
-  ["Do you like the zoo?","هل تحب حديقة الحيوان؟",[["Yes, I love the zoo!","نعم، أحب حديقة الحيوان!"],["It's amazing!","إنها مدهشة!"]]],
-  ["Come back soon. Bye bye!","عُد قريباً. باي باي!",[["Bye, Momo!","وداعاً يا مومو!"]]]
- ]},
- weather:{en:'Weather',ar:'الطقس',ch:'lily',sign:'🌦️',color:'#6EC6FF',steps:[
-  ["Hi {name}! Let's go outside. What's the weather like today?","مرحباً يا {name}! لنخرج. كيف الجو اليوم؟",[["It's sunny.","الجو مشمس."],["It's rainy.","الجو ممطر."],["It's cold.","الجو بارد."],["It's hot.","الجو حار."]]],
-  ["What should I wear?","ماذا ألبس؟",[["Wear a hat and sunglasses.","البسي قبعة ونظارة شمسية."],["Wear a raincoat.","البسي معطف المطر."],["Wear a warm jacket.","البسي جاكيت دافئة."]]],
-  ["Do you like rain?","هل تحب المطر؟",[["Yes, I like jumping in puddles!","نعم، أحب القفز في البِرك!"],["No, I like sunny days.","لا، أحب الأيام المشمسة."]]],
-  ["What's your favorite season?","ما فصلك المفضل؟",[["I like winter.","أحب الشتاء."],["I like summer.","أحب الصيف."],["I like spring.","أحب الربيع."]]],
-  ["Great! Let's go play!","رائع! لنذهب ونلعب!",[["Let's go!","هيا بنا!"]]]
- ]},
- hobbies:{en:'Hobbies',ar:'الهوايات',ch:'max',sign:'⚽',color:'#8AD86E',steps:[
-  ["Hey {name}! What do you like to do after school?","هاي يا {name}! ماذا تحب أن تفعل بعد المدرسة؟",[["I like to play football.","أحب لعب كرة القدم."],["I like to draw.","أحب الرسم."],["I like to read stories.","أحب قراءة القصص."]]],
-  ["Can you swim?","هل تستطيع السباحة؟",[["Yes, I can swim.","نعم، أستطيع السباحة."],["No, I can't swim yet.","لا، لا أستطيع السباحة بعد."]]],
-  ["Can you ride a bike?","هل تستطيع ركوب الدراجة؟",[["Yes, I can!","نعم، أستطيع!"],["No, but I want to learn.","لا، لكني أريد أن أتعلم."]]],
-  ["Do you want to play with me on Saturday?","هل تريد أن تلعب معي يوم السبت؟",[["Yes, I'd love to!","نعم، يسعدني ذلك!"],["Sorry, I'm busy.","آسف، أنا مشغول.","That's okay. Maybe next week!","لا بأس. ربما الأسبوع القادم!"]]],
-  ["Awesome! See you soon.","رائع! أراك قريباً.",[["See you!","أراك!"]]]
- ]},
- routine:{en:'My Day',ar:'يومي',ch:'robo',sign:'⏰',color:'#A0C4FF',steps:[
-  ["Beep! I want to learn about humans. What time do you wake up?","بيب! أريد أن أتعلم عن البشر. متى تستيقظ؟",[["I wake up at six o'clock.","أستيقظ الساعة السادسة."],["I wake up at seven o'clock.","أستيقظ الساعة السابعة."]]],
-  ["What do you do in the morning?","ماذا تفعل في الصباح؟",[["I brush my teeth.","أفرّش أسناني."],["I wash my face.","أغسل وجهي."],["I eat breakfast.","آكل الفطور."]]],
-  ["What do you eat for breakfast?","ماذا تأكل في الفطور؟",[["I eat eggs and bread.","آكل البيض والخبز."],["I eat cereal with milk.","آكل حبوب الإفطار مع الحليب."],["I eat cheese and olives.","آكل الجبن والزيتون."]]],
-  ["What do you do in the evening?","ماذا تفعل في المساء؟",[["I do my homework.","أحل واجباتي."],["I watch TV.","أشاهد التلفاز."],["I play with my family.","ألعب مع عائلتي."]]],
-  ["What time do you go to bed?","متى تذهب إلى النوم؟",[["I go to bed at eight o'clock.","أنام الساعة الثامنة."],["I go to bed at nine o'clock.","أنام الساعة التاسعة."]]],
-  ["Beep! I charge my battery at night. Good night!","بيب! أنا أشحن بطاريتي في الليل. تصبح على خير!",[["Good night, Robo!","تصبح على خير يا روبو!"]]]
- ]},
- phone:{en:'Phone Call',ar:'مكالمة هاتفية',ch:'max',sign:'📞',color:'#FFB3C6',steps:[
-  ["Ring ring! Hello, is this {name}?","رن رن! ألو، هل هذا {name}؟",[["Yes, speaking. Who's this?","نعم، أنا. من المتكلم؟"]]],
-  ["It's Max! What are you doing?","أنا ماكس! ماذا تفعل؟",[["I'm doing my homework.","أحل واجبي."],["I'm watching a cartoon.","أشاهد رسوماً متحركة."],["I'm eating dinner.","آكل العشاء."]]],
-  ["Can you come to the park tomorrow?","هل تستطيع المجيء إلى الحديقة غداً؟",[["Yes! What time?","نعم! في أي ساعة؟"]]],
-  ["At four o'clock. Is that okay?","الساعة الرابعة. هل يناسبك؟",[["Yes, that's perfect!","نعم، هذا ممتاز!"],["Can we meet at five?","هل نلتقي الساعة الخامسة؟","Sure, five is fine!","بالتأكيد، الخامسة مناسبة!"]]],
-  ["Great! Don't forget your ball.","رائع! لا تنسَ كرتك.",[["I won't forget!","لن أنسى!"]]],
-  ["Okay, bye!","حسناً، باي!",[["Bye! Talk to you later.","باي! نتحدث لاحقاً."]]]
- ]},
- doctor:{en:'The Doctor',ar:'عند الطبيب',ch:'owl',sign:'🩺',color:'#64DFDF',steps:[
-  ["Hello, {name}. I'm Doctor Owl. What's the matter?","مرحباً يا {name}. أنا الدكتورة بومة. ما المشكلة؟",[["I have a headache.","رأسي يؤلمني."],["I have a stomachache.","بطني يؤلمني."],["I have a cough.","عندي كحة."]]],
-  ["Oh, I'm sorry. Since when?","أوه، سلامتك. منذ متى؟",[["Since yesterday.","منذ أمس."],["Since this morning.","منذ الصباح."]]],
-  ["Let me check. Open your mouth and say ahh.","دعني أفحصك. افتح فمك وقل آآه.",[["Ahh!","آآه!"]]],
-  ["You need to rest and drink water. Okay?","تحتاج إلى الراحة وشرب الماء. حسناً؟",[["Okay, I will.","حسناً، سأفعل."]]],
-  ["And take this medicine two times a day.","وخذ هذا الدواء مرتين في اليوم.",[["Thank you, doctor.","شكراً يا دكتورة."]]],
-  ["Feel better soon!","أتمنى لك الشفاء العاجل!",[["Thank you! Goodbye.","شكراً! مع السلامة."]]]
- ]},
- directions:{en:'Directions',ar:'الاتجاهات',ch:'sam',sign:'🧭',color:'#C3A6FF',steps:[
-  ["Excuse me! I'm new here. Where is the park?","عفواً! أنا جديد هنا. أين الحديقة؟",[["Go straight.","امشِ إلى الأمام."],["Turn left.","انعطف يساراً."],["Turn right.","انعطف يميناً."]]],
-  ["Is it far?","هل هي بعيدة؟",[["No, it's near.","لا، إنها قريبة."],["Yes, it's a little far.","نعم، إنها بعيدة قليلاً."]]],
-  ["Is the park next to the library?","هل الحديقة بجانب المكتبة؟",[["Yes, it's next to the library.","نعم، إنها بجانب المكتبة."],["No, it's behind the school.","لا، إنها خلف المدرسة."]]],
-  ["Thank you so much!","شكراً جزيلاً!",[["You're welcome!","على الرحب والسعة!"]]],
-  ["Do you want to come to the park with me?","هل تريد أن تأتي معي إلى الحديقة؟",[["Sure! Let's go together.","بالتأكيد! لنذهب معاً."],["Maybe next time.","ربما في المرة القادمة."]]]
- ]},
- birthday:{en:'Birthday Party',ar:'حفلة عيد الميلاد',ch:'lily',sign:'🎂',color:'#FF9CEE',steps:[
-  ["Hi {name}! Welcome to my birthday party!","مرحباً يا {name}! أهلاً بك في حفلة عيد ميلادي!",[["Happy birthday, Lily!","عيد ميلاد سعيد يا ليلي!"]]],
-  ["Thank you! Oh, is this for me?","شكراً! أوه، هل هذه لي؟",[["Yes, this is a present for you.","نعم، هذه هدية لك."]]],
-  ["Wow, thank you! Would you like some cake?","واو، شكراً! هل تريد بعض الكعك؟",[["Yes, please!","نعم، من فضلك!"],["No, thank you. I'm full.","لا، شكراً. أنا شبعان."]]],
-  ["Chocolate or strawberry?","شوكولاتة أم فراولة؟",[["Chocolate, please.","شوكولاتة من فضلك."],["Strawberry, please.","فراولة من فضلك."]]],
-  ["Let's play a game! Hide and seek or tag?","لنلعب لعبة! الغميضة أم المطاردة؟",[["Let's play hide and seek!","لنلعب الغميضة!"],["Let's play tag!","لنلعب المطاردة!"]]],
-  ["This is the best party ever. Thanks for coming!","هذه أجمل حفلة. شكراً لحضورك!",[["Thank you for inviting me!","شكراً لدعوتي!"]]]
- ]},
- airport:{en:'The Airplane',ar:'في الطائرة',ch:'zed',sign:'✈️',color:'#4EA8DE',steps:[
-  ["Good afternoon! Welcome aboard. Can I see your ticket, please?","مساء الخير! مرحباً بك على متن الطائرة. هل أرى تذكرتك من فضلك؟",[["Here you are.","تفضّل."]]],
-  ["Thank you. Where are you flying to today?","شكراً. إلى أين تسافر اليوم؟",[["I'm flying to London.","أسافر إلى لندن."],["I'm flying to Paris.","أسافر إلى باريس."],["I'm flying to Tokyo.","أسافر إلى طوكيو."]]],
-  ["Wonderful! Is this your first time on a plane?","رائع! هل هذه أول مرة تركب فيها الطائرة؟",[["Yes, it is!","نعم!"],["No, I flew before.","لا، سافرت من قبل."]]],
-  ["Would you like a window seat?","هل تريد مقعداً بجانب النافذة؟",[["Yes, please! I want to see the clouds.","نعم من فضلك! أريد أن أرى الغيوم."],["No, thank you.","لا، شكراً."]]],
-  ["Please fasten your seatbelt.","من فضلك اربط حزام الأمان.",[["Okay. My seatbelt is on.","حسناً. ربطت حزامي."]]],
-  ["We are ready to fly. Have a nice trip!","نحن جاهزون للطيران. رحلة سعيدة!",[["Thank you, Captain!","شكراً يا كابتن!"]]]
- ]}
-};
-
 const WORDS={
  animals:{en:'Animals',ar:'الحيوانات',icon:'🐾',items:[['cat','🐱','قطة'],['dog','🐶','كلب'],['lion','🦁','أسد'],['elephant','🐘','فيل'],['monkey','🐵','قرد'],['giraffe','🦒','زرافة'],['horse','🐴','حصان'],['cow','🐮','بقرة'],['rabbit','🐰','أرنب'],['fish','🐟','سمكة'],['bird','🐦','عصفور'],['bear','🐻','دب']]},
  food:{en:'Food',ar:'الطعام',icon:'🍎',items:[['apple','🍎','تفاحة'],['banana','🍌','موزة'],['bread','🍞','خبز'],['cheese','🧀','جبن'],['egg','🥚','بيضة'],['pizza','🍕','بيتزا'],['cake','🎂','كعكة'],['milk','🥛','حليب'],['water','💧','ماء'],['rice','🍚','رز'],['chicken','🍗','دجاج'],['carrot','🥕','جزر']]},
@@ -435,6 +344,171 @@ const WORDS={
  school:{en:'School',ar:'المدرسة',icon:'🎒',items:[['book','📕','كتاب'],['pencil','✏️','قلم رصاص'],['bag','🎒','حقيبة'],['ruler','📏','مسطرة'],['scissors','✂️','مقص'],['computer','💻','حاسوب'],['teacher','🧑‍🏫','معلم'],['school','🏫','مدرسة'],['clock','⏰','ساعة'],['paint','🎨','ألوان']]},
  numbers:{en:'Numbers',ar:'الأرقام',icon:'🔢',items:[['one','1','واحد'],['two','2','اثنان'],['three','3','ثلاثة'],['four','4','أربعة'],['five','5','خمسة'],['six','6','ستة'],['seven','7','سبعة'],['eight','8','ثمانية'],['nine','9','تسعة'],['ten','10','عشرة'],['eleven','11','أحد عشر'],['twelve','12','اثنا عشر']]},
  actions:{en:'Actions',ar:'الأفعال',icon:'🏃',items:[['run','🏃','يركض'],['jump','🦘','يقفز'],['swim','🏊','يسبح'],['eat','🍽️','يأكل'],['sleep','😴','ينام'],['read','📖','يقرأ'],['write','✍️','يكتب'],['walk','🚶','يمشي'],['climb','🧗','يتسلّق'],['play','⚽','يلعب'],['drink','🥤','يشرب'],['laugh','😂','يضحك']]}
+};
+</script>
+<script>/* ===== Free-talk conversations =====
+   Each step: q / qa = the question (EN / AR)
+   cat  = word groups that count as a good answer (comma list from CATS)
+   re   = other words or phrases that count as a good answer
+   tpl  = a full model sentence built from the child's own word ({x}, {X}, {a})
+   ex / exa = an example answer (shown only when the child asks for help)
+   react = [[pattern, EN, AR]] replies to specific answers
+   after = [EN, AR] reply to any good answer
+   min  = words needed for a "full sentence" (default 3) */
+const CATS={
+ colors:'red|blue|green|yellow|orange|purple|pink|black|white|brown|gray|grey|gold|silver|light blue|dark blue',
+ animals:'cat|dog|lion|tiger|elephant|monkey|giraffe|horse|cow|rabbit|bunny|fish|bird|bear|camel|panda|zebra|fox|snake|shark|dolphin|penguin|duck|chicken|sheep|goat|owl|turtle|frog|wolf|deer|kangaroo|koala|parrot|hippo|crocodile|cheetah|leopard|eagle|falcon|whale|octopus|butterfly|bee|puppy|kitten|gorilla|squirrel|mouse|hamster',
+ foods:'pizza|burger|hamburger|sandwich|pasta|spaghetti|rice|chicken|fish|meat|cake|cookie|pancake|egg|bread|cheese|salad|soup|french fries|fries|apple|banana|ice cream|kabsa|dates|chocolate|noodles|cereal|olives|fruit|vegetables|hot dog|shawarma|falafel|hummus|steak|potato|carrot|grapes|watermelon|strawberry|orange|mango|yogurt|honey|sweets|candy|donut|waffle|popcorn|nuggets|beans|biryani|toast|croissant|muffin|cupcake|sushi|tacos|kebab|lasagna|cheeseburger|mandi|jareesh',
+ drinks:'water|orange juice|apple juice|mango juice|juice|milk|tea|coffee|lemonade|hot chocolate|chocolate milk|laban|smoothie|milkshake|soda',
+ games:'football|soccer|basketball|volleyball|tennis|video games|computer games|games|chess|hide and seek|tag|swimming|running|cycling|puzzles|cards|board games|tablet|ipad|racing|karate|baseball|bowling|ping pong',
+ activity:'cooking|cook|reading|read|drawing|draw|painting|paint|shopping|walking|walk|swimming|swim|baking|bake|gardening|coffee|tea|sleeping|sleep|working|work|writing|sewing|playing|play|watching tv|watch tv|tv|movies|cars|football|news|phone|computer|running|helping|travel|traveling|fishing|camping|riding|ride|games|video games|homework|cartoons',
+ country:'saudi arabia|saudi|kuwait|egypt|uae|emirates|united arab emirates|qatar|bahrain|oman|jordan|morocco|iraq|syria|lebanon|palestine|yemen|sudan|tunisia|algeria|libya|america|usa|united states|england|britain|uk|france|turkey|india|pakistan|indonesia|malaysia|canada|germany|spain|italy|china|japan|korea|somalia|mauritania|australia|brazil',
+ cities:'london|paris|tokyo|dubai|riyadh|jeddah|mecca|makkah|medina|madinah|cairo|new york|istanbul|rome|madrid|abu dhabi|doha|kuwait city|amman|muscat|manama|beirut|casablanca|tunis|kuala lumpur|bali|los angeles|barcelona|berlin|moscow|beijing|sydney|dammam|abha|taif',
+ num:'one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty',
+ family:'brother|sister|cousin|mom|mother|mum|mommy|dad|father|daddy|grandma|grandmother|grandpa|grandfather|baby|friend|uncle|aunt|family|twin',
+ feel:'happy|sad|tired|sleepy|excited|good|fine|great|okay|ok|bored|angry|hungry|scared|well|amazing|awesome|super|very good|not bad|sick|cold|hot',
+ subjects:'math|maths|mathematics|science|art|english|arabic|reading|history|geography|pe|sports|computer|religion|quran|islamic|writing|spelling|drawing|french',
+ weather:'sunny|rainy|cold|hot|windy|cloudy|snowy|warm|cool|nice|foggy|stormy|dusty|raining|snowing|sun|rain|wind|clouds',
+ seasons:'winter|summer|spring|autumn|fall',
+ clothes:'hat|cap|jacket|coat|raincoat|sunglasses|boots|umbrella|scarf|gloves|shorts|t shirt|shirt|sweater|hoodie|jeans|dress|shoes|socks|thobe|abaya',
+ toys:'ball|teddy bear|teddy|puzzle|car|doll|robot|kite|train|game|blocks|plane|truck|bike|bicycle|scooter|dinosaur|yo yo|toy|airplane|drone|skateboard|book',
+ sizes:'big|small|large|little|medium|huge|tiny',
+ problems:'headache|stomachache|stomach ache|tummy ache|cough|fever|cold|sore throat|toothache|earache|runny nose|flu|back ache|pain',
+ dirs:'straight|left|right|go straight|turn left|turn right|behind|next to|near|over there|that way',
+ flavors:'chocolate|strawberry|vanilla|both|lemon|banana|caramel'
+};
+/* words that take no "a/an" */
+const NOART='sunglasses|boots|gloves|shorts|jeans|shoes|socks|pancakes|fries|french fries|cookies|grapes|noodles|olives|dates|vegetables|rice|pasta|spaghetti|water|juice|orange juice|apple juice|mango juice|milk|tea|coffee|bread|cheese|soup|chocolate|meat|honey|yogurt|popcorn|candy|sweets|cereal|lemonade|hot chocolate|chocolate milk|laban|toast|hummus|falafel|blocks|fruit|ice cream|kabsa|chicken|fish|salad|biryani|sushi|tacos|nuggets|beans|mandi|jareesh|pizza|flu|pain';
+const PROPER={usa:'the USA',uk:'the UK',uae:'the UAE',emirates:'the Emirates','united states':'the United States','united arab emirates':'the United Arab Emirates',saudi:'Saudi Arabia'};
+
+const SCENES={
+ hello:{en:'Hello!',ar:'مرحباً!',ch:'lily',sign:'👋',color:'#FF8FAB',steps:[
+  {q:"Hi! I'm Lily. What's your name?",qa:'مرحباً! أنا ليلي. ما اسمك؟',re:'my name is|my name|i am|name|call me|{name}',ex:'My name is {name}.',exa:'اسمي {name}.'},
+  {q:"Nice to meet you, {name}!",qa:'سعيدة بلقائك يا {name}!',re:'nice to meet you|nice|meet|too|thank|thanks|hello|hi',ex:'Nice to meet you too!',exa:'وأنا سعيد بلقائك أيضاً!'},
+  {q:'How are you today?',qa:'كيف حالك اليوم؟',cat:'feel',tpl:'I am {x}, thank you.',ex:"I'm fine, thank you.",exa:'أنا بخير، شكراً.',
+   react:[['tired|sleepy','Oh no! Get some rest later.','يا للأسف! خذ قسطاً من الراحة لاحقاً.'],['sad|angry|bored|sick|not good','Oh, I hope you feel better soon!','أتمنى أن تتحسن قريباً!'],['happy|great|excited|amazing|awesome|super','Yay! Happy days are the best.','يا سلام! الأيام السعيدة هي الأجمل.']],after:['Great! Me too.','رائع! وأنا أيضاً.']},
+  {q:'How old are you?',qa:'كم عمرك؟',cat:'num',re:'years|old',tpl:'I am {x} years old.',ex:"I'm nine years old.",exa:'عمري تسع سنوات.',after:['Cool! You are a big kid now.','رائع! أصبحت كبيراً.']},
+  {q:'Where are you from?',qa:'من أين أنت؟',cat:'country',re:'from',tpl:'I am from {X}.',ex:"I'm from Saudi Arabia.",exa:'أنا من السعودية.',after:["Wow, that's a beautiful country!",'واو، إنها بلد جميلة!']},
+  {q:'It was fun to talk. Goodbye!',qa:'كان الحديث ممتعاً. مع السلامة!',re:'bye|goodbye|see you|later|take care',ex:'Goodbye! See you later.',exa:'مع السلامة! أراك لاحقاً.',min:2}
+ ]},
+ family:{en:'My Family',ar:'عائلتي',ch:'max',sign:'🏠',color:'#7CC6FE',steps:[
+  {q:'Hi {name}! Do you have brothers or sisters?',qa:'مرحباً يا {name}! هل عندك إخوة أو أخوات؟',cat:'family',re:'yes|no|have|only child|i do|do not',ex:'Yes, I have one brother.',exa:'نعم، عندي أخ واحد.',
+   react:[['no|only child|do not','That is okay! You can play with your friends.','لا بأس! يمكنك اللعب مع أصدقائك.']],after:['Cool!','رائع!']},
+  {q:'Who do you play with at home?',qa:'مع من تلعب في البيت؟',cat:'family',re:'alone|myself|nobody|no one',tpl:'I play with my {x}.',ex:'I play with my brother.',exa:'ألعب مع أخي.'},
+  {q:'What does your mom like to do?',qa:'ماذا تحب أمك أن تفعل؟',cat:'activity',re:'she likes|she loves|likes|loves',ex:'She likes cooking.',exa:'تحب الطبخ.'},
+  {q:'And your dad? What does he like?',qa:'ووالدك؟ ماذا يحب؟',cat:'activity,games',re:'he likes|he loves|likes|loves',ex:'He likes football.',exa:'يحب كرة القدم.',react:[['coffee','Ha ha! My dad loves coffee too.','ها ها! أبي يحب القهوة أيضاً.']]},
+  {q:'Do you love your family?',qa:'هل تحب عائلتك؟',re:'yes|love|of course|very much|sure',ex:'Yes! I love my family very much.',exa:'نعم! أحب عائلتي كثيراً.',after:["That's so sweet!",'هذا لطيف جداً!']},
+  {q:'Bye for now!',qa:'إلى اللقاء!',re:'bye|goodbye|see you|later',ex:'Bye, Max! See you later.',exa:'وداعاً يا ماكس! أراك لاحقاً.',min:2}
+ ]},
+ feelings:{en:'Feelings',ar:'المشاعر',ch:'robo',sign:'💛',color:'#B9A3FF',steps:[
+  {q:"Beep boop! I'm Robo. I want to learn about feelings. How do you feel now?",qa:'بيب بوب! أنا روبو. أريد أن أتعلم عن المشاعر. بماذا تشعر الآن؟',cat:'feel',re:'feel',tpl:'I feel {x}.',ex:'I feel happy.',exa:'أشعر بالسعادة.'},
+  {q:'What makes you happy?',qa:'ما الذي يسعدك؟',cat:'foods,games,family,toys,animals,activity',re:'makes me happy|happy|holiday|holidays|friends|school|presents|gifts|trips|park|beach',ex:'Playing with my friends makes me happy.',exa:'اللعب مع أصدقائي يسعدني.'},
+  {q:'What do you do when you are sad?',qa:'ماذا تفعل عندما تكون حزيناً؟',cat:'family,activity',re:'talk|hug|cry|sleep|pray|eat|sit|think|rest|tell',ex:'I talk to my mom.',exa:'أتحدث مع أمي.'},
+  {q:'Are you scared of the dark?',qa:'هل تخاف من الظلام؟',re:'yes|no|little|brave|not|scared|afraid|sometimes',ex:"No, I'm brave!",exa:'لا، أنا شجاع!',min:2,
+   react:[['not scared|not afraid|no|brave','Wow! You are a hero.','واو! أنت بطل.'],['yes|little|scared|afraid|sometimes',"That's okay. Everybody is scared sometimes.",'لا بأس. كل الناس يخافون أحياناً.']]},
+  {q:'Thank you! Now I know feelings. I feel... happy! Beep!',qa:'شكراً! الآن عرفت المشاعر. أشعر... بالسعادة! بيب!',re:'welcome|you are welcome|bye|you too|good|great|thank|me too|yay',ex:"You're welcome, Robo!",exa:'على الرحب يا روبو!',min:2}
+ ]},
+ favorites:{en:'My Favorites',ar:'أشيائي المفضلة',ch:'lily',sign:'⭐',color:'#FFC93C',steps:[
+  {q:"Hello {name}! What's your favorite color?",qa:'أهلاً يا {name}! ما لونك المفضل؟',cat:'colors',tpl:'My favorite color is {x}.',ex:'My favorite color is blue.',exa:'لوني المفضل الأزرق.',after:['{X} is a beautiful color!','إنه لون جميل!']},
+  {q:"What's your favorite animal?",qa:'ما حيوانك المفضل؟',cat:'animals',tpl:'My favorite animal is the {x}.',ex:'My favorite animal is the lion.',exa:'حيواني المفضل الأسد.',after:['I like {xs} too!','وأنا أيضاً أحبها!']},
+  {q:"What's your favorite food?",qa:'ما أكلتك المفضلة؟',cat:'foods',tpl:'My favorite food is {x}.',ex:'I love pizza.',exa:'أحب البيتزا.',after:['Yummy! I love it too.','لذيذ! وأنا أحبه أيضاً.']},
+  {q:"What's your favorite game?",qa:'ما لعبتك المفضلة؟',cat:'games',tpl:'My favorite game is {x}.',ex:'I like football.',exa:'أحب كرة القدم.'},
+  {q:"We like a lot of things! Let's play together soon.",qa:'نحن نحب أشياء كثيرة! لنلعب معاً قريباً.',re:'ok|okay|yes|sure|fun|great|good|let us|cool|yay|of course',ex:'Okay! That sounds fun.',exa:'حسناً! يبدو هذا ممتعاً.',min:2}
+ ]},
+ cafe:{en:'At the Café',ar:'في المطعم',ch:'chef',sign:'🍔',color:'#FF8A5B',steps:[
+  {q:"Welcome to Pip's Café! Can I help you?",qa:'أهلاً بك في مطعم بِب! كيف أساعدك؟',re:'yes|please|hungry|menu|want|like|would|thank',ex:"Yes, please. I'm hungry.",exa:'نعم من فضلك. أنا جائع.'},
+  {q:'Sure! What would you like to eat?',qa:'بالتأكيد! ماذا تريد أن تأكل؟',cat:'foods',tpl:'I would like {a} {x}, please.',ex:"I'd like a cheese sandwich, please.",exa:'أريد شطيرة جبن من فضلك.'},
+  {q:'Yummy choice! What would you like to drink?',qa:'اختيار لذيذ! ماذا تريد أن تشرب؟',cat:'drinks',tpl:'I would like {x}, please.',ex:'Orange juice, please.',exa:'عصير برتقال من فضلك.',min:2},
+  {q:'Anything else?',qa:'هل تريد شيئاً آخر؟',cat:'foods,drinks',re:'no|yes|thank|nothing|that is all|please|that is it',ex:'No, thank you.',exa:'لا، شكراً.',min:2},
+  {q:'Here you are. Enjoy your meal!',qa:'تفضّل. بالهناء والشفاء!',re:'thank|thanks',ex:'Thank you very much!',exa:'شكراً جزيلاً!',min:2},
+  {q:'How is the food?',qa:'كيف الطعام؟',re:'delicious|good|yummy|tasty|great|nice|amazing|ok|okay|perfect|awesome|bad|not good',ex:"It's delicious!",exa:'إنه لذيذ!',min:2,after:["I'm so glad! Come again soon.",'يسعدني ذلك! عُد إلينا قريباً.']}
+ ]},
+ shop:{en:'Toy Shop',ar:'محل الألعاب',ch:'sam',sign:'🧸',color:'#5BD1A5',steps:[
+  {q:'Hello! Welcome to the toy shop. What are you looking for?',qa:'مرحباً! أهلاً بك في محل الألعاب. عمّ تبحث؟',cat:'toys',re:'looking for',tpl:'I am looking for {a} {x}.',ex:"I'm looking for a ball.",exa:'أبحث عن كرة.'},
+  {q:'We have red ones and blue ones. Which one do you want?',qa:'عندنا أحمر وأزرق. أيهما تريد؟',cat:'colors',re:'both',tpl:'The {x} one, please.',ex:'The red one, please.',exa:'الأحمر من فضلك.'},
+  {q:'Do you want a big one or a small one?',qa:'تريد كبيراً أم صغيراً؟',cat:'sizes',tpl:'A {x} one, please.',ex:'A big one, please.',exa:'كبيراً من فضلك.'},
+  {q:'Here it is! Do you want to know the price?',qa:'ها هو! هل تريد أن تعرف السعر؟',re:'yes|how much|price|cost|please|sure',ex:'Yes, please. How much is it?',exa:'نعم من فضلك. بكم هذا؟'},
+  {q:"It's ten riyals.",qa:'سعره عشرة ريالات.',re:'here|you are|ok|okay|take|thank|riyal|money|pay|fine|good',ex:'Here you are.',exa:'تفضّل.',min:2},
+  {q:'Thank you! Have a nice day!',qa:'شكراً! أتمنى لك يوماً سعيداً!',re:'thank|you too|bye|same|goodbye',ex:'Thank you! You too.',exa:'شكراً! ولك أيضاً.',min:2}
+ ]},
+ school:{en:'At School',ar:'في المدرسة',ch:'rose',sign:'📚',color:'#FF6B6B',steps:[
+  {q:'Good morning, {name}!',qa:'صباح الخير يا {name}!',re:'good morning|morning|hello|hi',ex:'Good morning, Ms. Rose!',exa:'صباح الخير يا معلمة روز!',min:2},
+  {q:'Do you have your pencil and your book?',qa:'هل معك قلمك وكتابك؟',re:'yes|no|have|forgot|i do|do not',ex:'Yes, I do.',exa:'نعم، معي.',min:2,react:[['no|forgot|not',"Don't worry. You can borrow one.",'لا تقلق. يمكنك أن تستعير واحداً.']]},
+  {q:"What's your favorite subject?",qa:'ما مادتك المفضلة؟',cat:'subjects',tpl:'My favorite subject is {X}.',ex:'My favorite subject is math.',exa:'مادتي المفضلة الرياضيات.'},
+  {q:'Can you count to five in English?',qa:'هل تستطيع العد إلى خمسة بالإنجليزية؟',re:'one two three|two three four|three four five',ex:'One, two, three, four, five!',exa:'واحد، اثنان، ثلاثة، أربعة، خمسة!',min:5,after:['Excellent!','ممتاز!']},
+  {q:'What do you say when you need help?',qa:'ماذا تقول عندما تحتاج مساعدة؟',re:'help|excuse me|question|please',ex:'Can you help me, please?',exa:'هل يمكنك مساعدتي من فضلك؟'},
+  {q:'Perfect! Class is over. See you tomorrow!',qa:'ممتاز! انتهى الدرس. أراك غداً!',re:'see you|tomorrow|bye|goodbye|thank',ex:'See you tomorrow!',exa:'أراك غداً!',min:2}
+ ]},
+ zoo:{en:'The Zoo',ar:'حديقة الحيوان',ch:'momo',sign:'🦁',color:'#F4A259',steps:[
+  {q:"Ooh ooh! Welcome to the zoo! I'm Momo. Which animal do you want to see?",qa:'أوه أوه! أهلاً بك في حديقة الحيوان! أنا مومو. أي حيوان تريد أن ترى؟',cat:'animals',tpl:'I want to see the {x}.',ex:'I want to see the lions.',exa:'أريد أن أرى الأسود.'},
+  {q:'Look over there! What can you see?',qa:'انظر هناك! ماذا ترى؟',cat:'animals',re:'see|tree|trees|water|people',tpl:'I can see {a} {x}.',ex:'I can see a big elephant.',exa:'أرى فيلاً كبيراً.',react:[['monkey',"Hey, that's me! Ooh ooh!",'هيه، هذا أنا! أوه أوه!']]},
+  {q:'Do you know what monkeys eat?',qa:'هل تعرف ماذا تأكل القرود؟',cat:'foods',re:'know|no|not|leaves|insects',ex:'Monkeys eat bananas!',exa:'القرود تأكل الموز!',
+   react:[['banana','Yes! We love bananas! Yum!','نعم! نحن نحب الموز! لذيذ!'],['know|no|not','We eat bananas! Yum!','نحن نأكل الموز! لذيذ!']]},
+  {q:'Can you make an animal sound?',qa:'هل تستطيع تقليد صوت حيوان؟',re:'roar|meow|moo|woof|baa|quack|oink|hiss|tweet|neigh|ooh|bark|ha|grr|ribbit|hoo|cluck|yes',ex:"Roar! I'm a lion!",exa:'زئير! أنا أسد!',min:1,after:["Ha ha! You're so funny.",'ها ها! أنت مضحك جداً.']},
+  {q:'Do you like the zoo?',qa:'هل تحب حديقة الحيوان؟',re:'yes|love|like|amazing|fun|no|great',ex:'Yes, I love the zoo!',exa:'نعم، أحب حديقة الحيوان!'},
+  {q:'Come back soon. Bye bye!',qa:'عُد قريباً. باي باي!',re:'bye|goodbye|see you',ex:'Bye, Momo!',exa:'وداعاً يا مومو!',min:2}
+ ]},
+ weather:{en:'Weather',ar:'الطقس',ch:'lily',sign:'🌦️',color:'#6EC6FF',steps:[
+  {q:"Hi {name}! Let's go outside. What's the weather like today?",qa:'مرحباً يا {name}! لنخرج. كيف الجو اليوم؟',cat:'weather',tpl:'It is {x} today.',ex:"It's sunny.",exa:'الجو مشمس.'},
+  {q:'What should I wear?',qa:'ماذا ألبس؟',cat:'clothes',re:'wear',tpl:'You should wear {a} {x}.',ex:'Wear a hat and sunglasses.',exa:'البسي قبعة ونظارة شمسية.'},
+  {q:'Do you like rain?',qa:'هل تحب المطر؟',re:'yes|no|like|love|puddle|sunny|not',ex:'Yes, I like jumping in puddles!',exa:'نعم، أحب القفز في البِرك!'},
+  {q:"What's your favorite season?",qa:'ما فصلك المفضل؟',cat:'seasons',tpl:'My favorite season is {x}.',ex:'I like winter.',exa:'أحب الشتاء.'},
+  {q:"Great! Let's go play!",qa:'رائع! لنذهب ونلعب!',re:'let us|go|okay|ok|yes|come on|great|yay|sure',ex:"Let's go!",exa:'هيا بنا!',min:2}
+ ]},
+ hobbies:{en:'Hobbies',ar:'الهوايات',ch:'max',sign:'⚽',color:'#8AD86E',steps:[
+  {q:'Hey {name}! What do you like to do after school?',qa:'هاي يا {name}! ماذا تحب أن تفعل بعد المدرسة؟',cat:'activity,games',re:'like to|i like',ex:'I like to play football.',exa:'أحب لعب كرة القدم.'},
+  {q:'Can you swim?',qa:'هل تستطيع السباحة؟',re:'yes|no|can|swim|not',ex:'Yes, I can swim.',exa:'نعم، أستطيع السباحة.',react:[['not|no','You can learn! It is fun.','يمكنك أن تتعلم! إنها ممتعة.']]},
+  {q:'Can you ride a bike?',qa:'هل تستطيع ركوب الدراجة؟',re:'yes|no|can|ride|learn|not',ex:'Yes, I can!',exa:'نعم، أستطيع!'},
+  {q:'Do you want to play with me on Saturday?',qa:'هل تريد أن تلعب معي يوم السبت؟',re:'yes|sure|love|okay|ok|no|sorry|busy|of course',ex:"Yes, I'd love to!",exa:'نعم، يسعدني ذلك!',react:[['sorry|busy|no|not',"That's okay. Maybe next week!",'لا بأس. ربما الأسبوع القادم!']]},
+  {q:'Awesome! See you soon.',qa:'رائع! أراك قريباً.',re:'see you|bye|ok|okay|soon|later',ex:'See you!',exa:'أراك!',min:2}
+ ]},
+ routine:{en:'My Day',ar:'يومي',ch:'robo',sign:'⏰',color:'#A0C4FF',steps:[
+  {q:'Beep! I want to learn about humans. What time do you wake up?',qa:'بيب! أريد أن أتعلم عن البشر. متى تستيقظ؟',cat:'num',re:'wake|clock|morning|early',tpl:"I wake up at {x} o'clock.",ex:"I wake up at six o'clock.",exa:'أستيقظ الساعة السادسة.'},
+  {q:'What do you do in the morning?',qa:'ماذا تفعل في الصباح؟',re:'brush|wash|eat|breakfast|pray|dress|shower|school|teeth|face|wake|drink',ex:'I brush my teeth.',exa:'أفرّش أسناني.'},
+  {q:'What do you eat for breakfast?',qa:'ماذا تأكل في الفطور؟',cat:'foods,drinks',tpl:'I eat {x} for breakfast.',ex:'I eat eggs and bread.',exa:'آكل البيض والخبز.'},
+  {q:'What do you do in the evening?',qa:'ماذا تفعل في المساء؟',cat:'activity',re:'homework|watch|play|read|family|dinner|eat|sleep|games|pray|bath',ex:'I do my homework.',exa:'أحل واجباتي.'},
+  {q:'What time do you go to bed?',qa:'متى تذهب إلى النوم؟',cat:'num',re:'bed|sleep|clock|night',tpl:"I go to bed at {x} o'clock.",ex:"I go to bed at nine o'clock.",exa:'أنام الساعة التاسعة.'},
+  {q:'Beep! I charge my battery at night. Good night!',qa:'بيب! أنا أشحن بطاريتي في الليل. تصبح على خير!',re:'good night|night|bye|sleep well|sweet dreams',ex:'Good night, Robo!',exa:'تصبح على خير يا روبو!',min:2}
+ ]},
+ phone:{en:'Phone Call',ar:'مكالمة هاتفية',ch:'max',sign:'📞',color:'#FFB3C6',steps:[
+  {q:'Ring ring! Hello, is this {name}?',qa:'رن رن! ألو، هل هذا {name}؟',re:'yes|speaking|hello|hi|this is|it is|i am|{name}',ex:"Yes, speaking. Who's this?",exa:'نعم، أنا. من المتكلم؟',min:2},
+  {q:"It's Max! What are you doing?",qa:'أنا ماكس! ماذا تفعل؟',cat:'activity',re:'doing|watching|eating|playing|reading|nothing|drawing|sleeping|cartoon|dinner|lunch|talking',ex:"I'm doing my homework.",exa:'أحل واجبي.'},
+  {q:'Can you come to the park tomorrow?',qa:'هل تستطيع المجيء إلى الحديقة غداً؟',re:'yes|sure|ok|okay|no|time|maybe|can|of course|not',ex:'Yes! What time?',exa:'نعم! في أي ساعة؟',min:2},
+  {q:"At four o'clock. Is that okay?",qa:'الساعة الرابعة. هل يناسبك؟',re:'yes|perfect|ok|okay|fine|no|five|six|three|seven|later|good|great',ex:"Yes, that's perfect!",exa:'نعم، هذا ممتاز!',min:2,react:[['five|six|seven|later','Sure, that time is fine!','بالتأكيد، هذا الوقت مناسب!']]},
+  {q:"Great! Don't forget your ball.",qa:'رائع! لا تنسَ كرتك.',re:'not forget|wo not|will not|okay|ok|remember|sure|will|bring|yes',ex:"I won't forget!",exa:'لن أنسى!',min:2},
+  {q:'Okay, bye!',qa:'حسناً، باي!',re:'bye|later|see you|goodbye',ex:'Bye! Talk to you later.',exa:'باي! نتحدث لاحقاً.',min:2}
+ ]},
+ doctor:{en:'The Doctor',ar:'عند الطبيب',ch:'owl',sign:'🩺',color:'#64DFDF',steps:[
+  {q:"Hello, {name}. I'm Doctor Owl. What's the matter?",qa:'مرحباً يا {name}. أنا الدكتورة بومة. ما المشكلة؟',cat:'problems',re:'hurts|hurt|sick|ache|tired|not feel',tpl:'I have {a} {x}.',ex:'I have a headache.',exa:'رأسي يؤلمني.'},
+  {q:"Oh, I'm sorry. Since when?",qa:'أوه، سلامتك. منذ متى؟',re:'yesterday|morning|today|night|days|day|week|since|last|ago|hours|two|three',ex:'Since yesterday.',exa:'منذ أمس.',min:2},
+  {q:'Let me check. Open your mouth and say ahh.',qa:'دعني أفحصك. افتح فمك وقل آآه.',re:'a+h*|aw+|ah+|aah+|ha+|o+h+',ex:'Ahh!',exa:'آآه!',min:1},
+  {q:'You need to rest and drink water. Okay?',qa:'تحتاج إلى الراحة وشرب الماء. حسناً؟',re:'ok|okay|yes|will|sure|thank',ex:'Okay, I will.',exa:'حسناً، سأفعل.',min:2},
+  {q:'And take this medicine two times a day.',qa:'وخذ هذا الدواء مرتين في اليوم.',re:'thank|okay|ok|will|yes|sure',ex:'Thank you, doctor.',exa:'شكراً يا دكتورة.',min:2},
+  {q:'Feel better soon!',qa:'أتمنى لك الشفاء العاجل!',re:'thank|bye|goodbye',ex:'Thank you! Goodbye.',exa:'شكراً! مع السلامة.',min:2}
+ ]},
+ directions:{en:'Directions',ar:'الاتجاهات',ch:'sam',sign:'🧭',color:'#C3A6FF',steps:[
+  {q:"Excuse me! I'm new here. Where is the park?",qa:'عفواً! أنا جديد هنا. أين الحديقة؟',cat:'dirs',re:'go|turn|there|next|front|corner|end|know',ex:'Go straight, then turn left.',exa:'امشِ إلى الأمام، ثم انعطف يساراً.'},
+  {q:'Is it far?',qa:'هل هي بعيدة؟',re:'no|yes|near|far|close|little|not|minutes',ex:"No, it's near.",exa:'لا، إنها قريبة.',min:2},
+  {q:'Is the park next to the library?',qa:'هل الحديقة بجانب المكتبة؟',re:'yes|no|next|behind|near|front|opposite|between|beside|not',ex:"Yes, it's next to the library.",exa:'نعم، إنها بجانب المكتبة.'},
+  {q:'Thank you so much!',qa:'شكراً جزيلاً!',re:'welcome|no problem|anytime|pleasure|okay|ok',ex:"You're welcome!",exa:'على الرحب والسعة!',min:2},
+  {q:'Do you want to come to the park with me?',qa:'هل تريد أن تأتي معي إلى الحديقة؟',re:'yes|sure|ok|okay|maybe|no|sorry|let us|of course|not',ex:"Sure! Let's go together.",exa:'بالتأكيد! لنذهب معاً.',min:2}
+ ]},
+ birthday:{en:'Birthday Party',ar:'حفلة عيد الميلاد',ch:'lily',sign:'🎂',color:'#FF9CEE',steps:[
+  {q:'Hi {name}! Welcome to my birthday party!',qa:'مرحباً يا {name}! أهلاً بك في حفلة عيد ميلادي!',re:'happy birthday|birthday|happy|thank',ex:'Happy birthday, Lily!',exa:'عيد ميلاد سعيد يا ليلي!',min:2},
+  {q:'Thank you! Oh, is this for me?',qa:'شكراً! أوه، هل هذه لي؟',re:'yes|present|gift|for you|of course',ex:'Yes, this is a present for you.',exa:'نعم، هذه هدية لك.'},
+  {q:'Wow, thank you! Would you like some cake?',qa:'واو، شكراً! هل تريد بعض الكعك؟',re:'yes|please|no|thank|full|love|sure',ex:'Yes, please!',exa:'نعم، من فضلك!',min:2},
+  {q:'Chocolate or strawberry?',qa:'شوكولاتة أم فراولة؟',cat:'flavors',tpl:'{X}, please.',ex:'Chocolate, please.',exa:'شوكولاتة من فضلك.',min:2},
+  {q:"Let's play a game! Hide and seek or tag?",qa:'لنلعب لعبة! الغميضة أم المطاردة؟',re:'hide|seek|tag|both',ex:"Let's play hide and seek!",exa:'لنلعب الغميضة!'},
+  {q:'This is the best party ever. Thanks for coming!',qa:'هذه أجمل حفلة. شكراً لحضورك!',re:'thank|invit\\w*|welcome|fun|great|pleasure',ex:'Thank you for inviting me!',exa:'شكراً لدعوتي!'}
+ ]},
+ airport:{en:'The Airplane',ar:'في الطائرة',ch:'zed',sign:'✈️',color:'#4EA8DE',steps:[
+  {q:'Good afternoon! Welcome aboard. Can I see your ticket, please?',qa:'مساء الخير! مرحباً بك على متن الطائرة. هل أرى تذكرتك من فضلك؟',re:'here|yes|sure|ticket|of course|you are|okay|ok',ex:'Here you are.',exa:'تفضّل.',min:2},
+  {q:'Thank you. Where are you flying to today?',qa:'شكراً. إلى أين تسافر اليوم؟',cat:'cities,country',tpl:'I am flying to {X}.',ex:"I'm flying to London.",exa:'أسافر إلى لندن.'},
+  {q:'Wonderful! Is this your first time on a plane?',qa:'رائع! هل هذه أول مرة تركب فيها الطائرة؟',re:'yes|no|first|before|flew|second|many|not',ex:'No, I flew before.',exa:'لا، سافرت من قبل.',min:2},
+  {q:'Would you like a window seat?',qa:'هل تريد مقعداً بجانب النافذة؟',re:'yes|no|please|thank|window|clouds|sure',ex:'Yes, please! I want to see the clouds.',exa:'نعم من فضلك! أريد أن أرى الغيوم.',min:2},
+  {q:'Please fasten your seatbelt.',qa:'من فضلك اربط حزام الأمان.',re:'ok|okay|done|on|yes|sure|fastened|seatbelt|seat belt',ex:'Okay. My seatbelt is on.',exa:'حسناً. ربطت حزامي.',min:2},
+  {q:'We are ready to fly. Have a nice trip!',qa:'نحن جاهزون للطيران. رحلة سعيدة!',re:'thank|captain|you too|bye',ex:'Thank you, Captain!',exa:'شكراً يا كابتن!',min:2}
+ ]}
 };
 </script>
 <script>(function(){
@@ -487,20 +561,60 @@ const kidVoice=(t,o={})=>say(t,Object.assign({pitch:1.45,rate:.92},o));
 
 /* ================= speech in ================= */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-const micAvail=()=>!!SR&&!S.micOff;
-let rec=null;
-function listen({onLive,onDone,onFail}){
-  stopListen();
-  let alts=[],got=false;
-  try{rec=new SR();}catch(e){onFail&&onFail('none');return;}
-  rec.lang='en-US';rec.interimResults=true;rec.maxAlternatives=5;rec.continuous=false;
-  rec.onresult=e=>{let live='';for(let i=e.resultIndex;i<e.results.length;i++){const r=e.results[i];live+=r[0].transcript;
-      if(r.isFinal){got=true;for(let k=0;k<r.length;k++)alts.push(r[k].transcript);}}onLive&&onLive(live);};
-  rec.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed'||e.error==='audio-capture'){S.micOff=true;save();onFail&&onFail('blocked');}};
-  rec.onend=()=>{const r=rec;rec=null;if(S.micOff&&!got)return;onDone&&onDone(alts);};
-  try{rec.start();sfx.start();}catch(e){onFail&&onFail('none');}
+const UA=navigator.userAgent||'';
+const IOS=/iPad|iPhone|iPod/.test(UA)||(/Macintosh/.test(UA)&&navigator.maxTouchPoints>1);
+const ANDROID=/Android/i.test(UA);
+const STANDALONE=window.navigator.standalone===true||(!!window.matchMedia&&matchMedia('(display-mode: standalone)').matches);
+const EMBEDDED=(()=>{try{return window.top!==window.self;}catch(e){return true;}})()&&!/github\.io$/.test(location.hostname);
+const GH_URL='https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html';
+let micState=!SR?'none':EMBEDDED?'embedded':'ready';
+let rec=null,recStop=null,listenTok=0;
+/* Listen once. Never switches the mic off for good: every press tries again. */
+function listen({onLive,onDone,onError}){
+  abortListen();
+  if(!SR){onError&&onError('none');return;}
+  let r;try{r=new SR();}catch(e){onError&&onError('none');return;}
+  const tok=++listenTok;rec=r;let text='',alts=[],conf=0,err='',done=false,hard=null;
+  r.lang='en-US';r.interimResults=true;r.continuous=false;try{r.maxAlternatives=3;}catch(e){}
+  r.onresult=e=>{const res=Array.from(e.results);text=res.map(x=>x[0].transcript).join(' ').replace(/\s+/g,' ').trim();
+    const last=res[res.length-1];conf=(last&&last[0].confidence)||0;const pre=res.slice(0,-1).map(x=>x[0].transcript).join(' ');
+    alts=last?Array.from(last).map(a=>(pre+' '+a.transcript).replace(/\s+/g,' ').trim()).filter(Boolean):[text];
+    if(tok===listenTok&&onLive)onLive(text);};
+  r.onerror=e=>{err=e.error||'error';};
+  const finish=()=>{if(done)return;done=true;clearTimeout(hard);if(rec===r){rec=null;recStop=null;}if(tok!==listenTok)return;
+    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text],conf});}
+    else if(err&&err!=='no-speech'&&err!=='aborted'){onError&&onError(err);}
+    else onDone&&onDone({text:'',alts:[],conf:0});};
+  r.onend=finish;
+  recStop=()=>{try{r.stop();}catch(e){}setTimeout(finish,1600);};
+  hard=setTimeout(()=>{if(recStop)recStop();},12000);
+  try{r.start();}catch(e){err='start';setTimeout(finish,0);}
 }
-function stopListen(){if(rec){try{rec.stop();}catch(e){}}}
+function stopListen(){if(recStop)recStop();}
+function abortListen(){listenTok++;if(rec){try{rec.abort();}catch(e){}}rec=null;recStop=null;}
+
+/* help card in plain words, by the reason the mic failed */
+function micHelp(code){
+  let title='الميكروفون لم يعمل',steps=[],link=false;
+  if(code==='embedded'||(EMBEDDED&&/not-allowed/.test(code))){title='الميكروفون لا يعمل داخل هذه الصفحة';steps=['افتح البرنامج من رابط GitHub، فهناك يعمل الميكروفون ويقيّم كلامك:'];link=true;}
+  else if(code==='none'){title='هذا المتصفح لا يفهم الكلام';steps=[IOS?'افتح رابط البرنامج في متصفح Safari.':'افتح رابط البرنامج في متصفح Google Chrome.'];link=true;}
+  else if(code==='not-allowed'){steps=IOS?['اسمح لـ Safari بالميكروفون: الإعدادات ← Safari ← الميكروفون ← «اسمح».','أغلق الصفحة وافتحها من جديد، ثم اضغط «اسمح» عندما يسألك.']
+      :ANDROID?['اضغط رمز القفل 🔒 بجانب عنوان الصفحة في الأعلى.','اختر «الأذونات» ← «الميكروفون» ← «سماح».','أعد تحميل الصفحة وجرّب مرة أخرى.']
+      :['اضغط رمز القفل 🔒 بجانب عنوان الصفحة واسمح بالميكروفون، ثم أعد تحميل الصفحة.'];}
+  else if(code==='service-not-allowed'){steps=IOS?['شغّل الإملاء: الإعدادات ← عام ← لوحة المفاتيح ← «تفعيل الإملاء».','تأكد أن Siri والإملاء غير ممنوعين في «مدة استخدام الجهاز».',STANDALONE?'إذا لم يعمل من أيقونة الشاشة الرئيسية، افتح الرابط في Safari مباشرة.':'ثم أغلق الصفحة وافتحها من جديد.']
+      :ANDROID?['تأكد أن تطبيق Google مثبّت ومحدّث، وأن «الكتابة بالصوت» مفعّلة.','اسمح لـ Chrome بالميكروفون من إعدادات الهاتف ← التطبيقات ← Chrome ← الأذونات.']
+      :['اسمح للمتصفح بالميكروفون، ثم أعد تحميل الصفحة. يعمل أفضل في Google Chrome.'];}
+  else if(code==='network'){steps=['فهم الكلام يحتاج إلى الإنترنت. تأكد من الاتصال ثم حاول مرة أخرى.'];}
+  else if(code==='audio-capture'){steps=['لم أجد ميكروفوناً يعمل. أغلق أي مكالمة أو تطبيق يستخدم الميكروفون، ثم حاول.'];}
+  else{steps=['حدث خطأ بسيط. اضغط الميكروفون مرة أخرى.'];}
+  return `<div class="michelp"><h3>🎤 ${title}</h3><ol>${steps.filter(Boolean).map(s=>`<li>${s}</li>`).join('')}</ol>
+    ${link?`<div class="linkbox"><span class="en">${GH_URL}</span><button class="btn sm" data-copy>📋 نسخ</button><a class="btn green sm" href="${GH_URL}" target="_blank" rel="noopener">افتح ↗</a></div>`:''}
+    <button class="btn ghost sm" data-mt>🔧 اختبار الميكروفون</button></div>`;
+}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-mt],[data-copy]');if(!t)return;
+  if(t.hasAttribute('data-mt')){go('mictest');return;}
+  const sel=()=>{const s=t.parentElement.querySelector('.en');if(!s)return;const r=document.createRange();r.selectNodeContents(s);const g=getSelection();g.removeAllRanges();g.addRange(r);toast('الرابط محدّد، انسخه 📋');};
+  try{navigator.clipboard.writeText(GH_URL).then(()=>toast('تم نسخ الرابط ✅'),sel);}catch(err){sel();}});
 
 /* ---- matching what was heard with what was expected ---- */
 const NUMW={0:'zero',1:'one',2:'two',3:'three',4:'four',5:'five',6:'six',7:'seven',8:'eight',9:'nine',10:'ten',11:'eleven',12:'twelve'};
@@ -524,6 +638,38 @@ function bestOf(target,alts){let b={s:0,words:target.split(/\s+/).map(w=>({w,ok:
   alts.forEach(a=>{const r=score(target,a);if(r.s>b.s)b={...r,heard:a};});return b;}
 const heardHTML=words=>`<span class="heard en">${words.map(x=>`<span class="w ${x.ok?'ok':'miss'}">${esc(fill(x.w))}</span>`).join(' ')}</span>`;
 
+/* ---- judging a free answer ---- */
+const NUMW2=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'];
+function normS(t){return String(t||'').toLowerCase().replace(/[’‘`]/g,"'").replace(/(\d+)(am|pm)\b/g,'$1 $2')
+  .replace(/\b(\d{3,6})\b/g,m=>m.split('').join(' ')).replace(/\b(\d+)\b/g,(m,d)=>NUMW2[+d]||d)
+  .replace(/n't\b/g,' not').replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'s\b/g,' is').replace(/'d\b/g,' would').replace(/'ll\b/g,' will').replace(/'ve\b/g,' have')
+  .replace(/\bwo not\b/g,'will not').replace(/\bca not\b/g,'can not').replace(/\bcannot\b/g,'can not').replace(/\blet is\b/g,'let us')
+  .replace(/[^a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
+const CATRE={};Object.entries(CATS).forEach(([k,v])=>{CATRE[k]=v.split('|').sort((a,b)=>b.length-a.length).map(w=>({w,re:new RegExp('\\b'+w.replace(/ /g,'\\s+')+'(?:s|es)?\\b')}));});
+const NOARTS=new Set(NOART.split('|'));
+const art=x=>NOARTS.has(x)?'':/^[aeiou]/.test(x)?'an':'a';
+const cap=x=>PROPER[x]||x.replace(/\b[a-z]/g,c=>c.toUpperCase());
+const IRR={fish:'fish',sheep:'sheep',mouse:'mice',deer:'deer',fox:'foxes',wolf:'wolves',butterfly:'butterflies',puppy:'puppies',bunny:'bunnies',octopus:'octopuses',bee:'bees'};
+const plural=x=>IRR[x]||(/(s|sh|ch|x)$/.test(x)?x+'es':x+'s');
+function catFind(cats,t){for(const c of cats.split(',')){for(const e of (CATRE[c]||[]))if(e.re.test(t))return e.w;}return'';}
+function relevant(st,t){const x=st.cat?catFind(st.cat,t):'';let ok=!!x;
+  if(!ok&&st.re){const n=normS(S.name||'');ok=new RegExp('\\b(?:'+st.re.replace(/\{name\}/g,n||'zzzz')+')\\b').test(t);}return{ok,x};}
+const subst=(s,x)=>s.replace(/\{X\}/g,cap(x)).replace(/\{xs\}/g,plural(x)).replace(/\{x\}/g,x);
+function modelOf(st,x){if(st.tpl&&x)return subst(st.tpl.replace(/\{a\}\s*/g,()=>{const a=art(x);return a?a+' ':'';}),x);return fill(st.ex);}
+const GENERIC=[['Great!','رائع!'],['Cool!','جميل!'],['Nice!','حلو!'],['Awesome!','مدهش!'],['Good answer!','جواب جيد!']];
+function react(st,t,x){for(const [p,en,ar] of (st.react||[]))if(new RegExp('\\b(?:'+p+')\\b').test(t))return[en,ar];
+  if(st.after){if(/\{(X|x|xs)\}/.test(st.after[0])&&!x)return pick(GENERIC);return[subst(st.after[0],x),st.after[1]];}return pick(GENERIC);}
+/* stars: 1 = spoke English, 2 = answered the question, 3 = in a full sentence */
+function evaluate(st,res,target){
+  const alts=(res.alts&&res.alts.length?res.alts:[res.text]).filter(Boolean);
+  if(target){const r=bestOf(target,alts.length?alts:['']);const spoke=normS(res.text).length>0,ok=r.s>=.6;
+    return{stars:spoke?(ok?2:1):0,spoke,rel:{ok,x:''},full:ok,words:r.words,raw:r.heard||res.text,model:target,repeat:true,norm:normS(r.heard||res.text),x:''};}
+  let best=alts[0]||'',rel={ok:false,x:''};
+  for(const a of alts){const r=relevant(st,normS(a));if(r.ok){best=a;rel=r;break;}}
+  const t=normS(best),n=t?t.split(' ').length:0,spoke=n>0,full=n>=(st.min||3);
+  return{stars:spoke?1+(rel.ok?1:0)+(rel.ok&&full?1:0):0,spoke,rel,full,raw:best,x:rel.x,model:modelOf(st,rel.x),norm:t};
+}
+
 /* ================= progress ================= */
 const LEVELS=[[0,'Starter','مبتدئ'],[60,'Little Talker','متحدث صغير'],[180,'Chatterbox','ثرثار لطيف'],[400,'Good Speaker','متحدث جيد'],[700,'Super Speaker','متحدث رائع'],[1100,'English Star','نجم الإنجليزية'],[1600,'English Hero','بطل الإنجليزية']];
 function level(){let i=0;LEVELS.forEach((l,k)=>{if(S.xp>=l[0])i=k;});const c=LEVELS[i],n=LEVELS[i+1];return{i,en:c[1],ar:c[2],next:n?n[0]:null,nextAr:n?n[2]:'',pct:n?Math.round((S.xp-c[0])/(n[0]-c[0])*100):100};}
@@ -539,7 +685,7 @@ const BADGES=[
  {id:'sp300',i:'🏆',t:'ملك الكلام',d:'قل ٣٠٠ جملة بصوتك',c:()=>S.spoken>=300},
  {id:'words50',i:'🔤',t:'جامع الكلمات',d:'استمع إلى ٥٠ كلمة',c:()=>Object.keys(S.heardWords).length>=50},
  {id:'listen',i:'🎧',t:'الأذن الذهبية',d:'١٠ من ١٠ في اسمع واختر',c:()=>(S.best.listen||0)>=10},
- {id:'reply',i:'💡',t:'الرد الذكي',d:'٨ من ٨ في الرد المناسب',c:()=>(S.best.reply||0)>=8},
+ {id:'reply',i:'💬',t:'الجواب السريع',d:'٢٠ نجمة في الأسئلة السريعة',c:()=>(S.best.quick||0)>=20},
  {id:'build',i:'🧱',t:'بنّاء الجمل',d:'٨ من ٨ في ركّب الجملة',c:()=>(S.best.build||0)>=8},
  {id:'speak',i:'🗣️',t:'نطق ممتاز',d:'٨ من ٨ في تحدي النطق',c:()=>(S.best.speak||0)>=8},
  {id:'streak3',i:'🔥',t:'٣ أيام',d:'تدرّب ٣ أيام متتالية',c:()=>streak()>=3},
@@ -586,7 +732,7 @@ function buildingSVG(color,sign,kind){
 /* ================= shell ================= */
 const view=$('#view');let cur=null,stack=[],cleanups=[];
 const onClean=f=>cleanups.push(f);
-function clean(){cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];stopListen();if(TTS)try{speechSynthesis.cancel();}catch(e){}sayTok++;$$('.ov').forEach(o=>o.remove());}
+function clean(){cleanups.forEach(f=>{try{f();}catch(e){}});cleanups=[];abortListen();if(TTS)try{speechSynthesis.cancel();}catch(e){}sayTok++;$$('.ov').forEach(o=>o.remove());}
 function go(name,arg,push=true){if(push&&cur)stack.push(cur);clean();cur={name,arg};render();}
 function back(){clean();cur=stack.pop()||{name:'town'};render();}
 function rerender(){clean();render();}
@@ -603,19 +749,18 @@ function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)re
   const cols=['#ff6b4a','#ffc93c','#43b97f','#2f6bff','#ff8fab','#8e6cff'];
   const P=[...Array(130)].map(()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,s:5+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.3,col:pick(cols)}));
   let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.06;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.col;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore();});if(++t<160)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height);})();}
-function result({title,stars=null,score=null,lines=[],good=true,face=null,extra=null}){
+function result({title,stars=null,score=null,lines=[],good=true,face=null,extra=null,report=''}){
   const ov=document.createElement('div');ov.className='ov';
   ov.innerHTML=`<div class="res" role="dialog" aria-modal="true">${face?`<div class="face" style="--c:${face.c}">${charSVG(face.id)}</div>`:''}<h2>${title}</h2>
    ${stars!==null?`<div class="bigs">${[0,1,2].map(i=>`<span style="color:${i<stars?'var(--sun)':'#d7e3f1'}">★</span>`).join('')}</div>`:''}
-   ${score!==null?`<div class="score">${score}</div>`:''}<ul>${lines.filter(Boolean).map(l=>`<li>${l}</li>`).join('')}</ul>
+   ${score!==null?`<div class="score">${score}</div>`:''}<ul>${lines.filter(Boolean).map(l=>`<li>${l}</li>`).join('')}</ul>${report}
    <div class="btns">${extra?`<button class="btn green" data-r="extra">${extra.label}</button>`:''}<button class="btn ${extra?'ghost':''}" data-r="again">🔁 مرة أخرى</button><button class="btn ghost sm" data-r="back">رجوع</button></div></div>`;
   document.body.appendChild(ov);if(good){sfx.win();confetti();}
   ov.querySelector('[data-r="again"]').onclick=()=>{ov.remove();rerender();};
   ov.querySelector('[data-r="back"]').onclick=()=>{ov.remove();back();};
   if(extra)ov.querySelector('[data-r="extra"]').onclick=()=>{ov.remove();extra.fn();};
 }
-const micNote=()=>!SR?`<div class="micnote">🎤 هذا المتصفح لا يسمح بالتحدث مع البرنامج بالميكروفون. لا بأس! اضغط على الجملة لتسمعها، ثم قلها بصوت عالٍ واضغط «قلتها ✓». (الميكروفون يعمل في Chrome على أندرويد والكمبيوتر، وفي Safari على الآيفون)</div>`
-  :S.micOff?`<div class="micnote">🎤 الميكروفون متوقف. يمكنك تشغيله من «أنا» ← الإعدادات، والسماح للمتصفح باستخدامه.</div>`:'';
+const micNote=()=>micState==='embedded'||micState==='none'?micHelp(micState):'';
 
 /* ================= screens ================= */
 const SCREENS={};
@@ -652,105 +797,111 @@ def('town',()=>{
   $$('.bld').forEach(b=>b.onclick=()=>{sfx.tap();go('scene',b.dataset.s);});
 },true);
 
+/* ---------- one speaking turn: listen → judge → feedback ---------- */
+function turnUI(box,st,{onDone}){
+  let tries=0,fails=0,repeat=false,best=null,typeOk=micState==='none'||micState==='embedded',alive=true,finished=false;
+  onClean(()=>{alive=false;});
+  const ex=()=>fill(st.ex);
+  const crit=(ok,t)=>`<span class="crit ${ok?'ok':''}">${ok?'✓':'✗'} ${t}</span>`;
+  const modelLine=m=>`<div class="model"><span>${esc(m)}</span><button class="ic" data-x="say" data-t="${esc(m)}" aria-label="استمع">🔊</button></div>`;
+  function paint(){
+    if(!alive)return;box.hidden=false;const target=repeat?best.model:'';
+    box.innerHTML=`<div class="turn">${repeat?'🔁 اسمع الجملة وقلها بعدي:':'🗣️ دورك! أجب بالإنجليزية بكلماتك أنت'}</div>
+      ${repeat?`<div class="say">${modelLine(target)}</div>`:''}
+      <div class="micwrap"><button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وتكلّم</span><div class="live" id="live"></div></div>
+      <div id="ev"></div>
+      <div class="row turnbar">${repeat?'':'<button class="btn sun sm" data-x="help">💡 ساعدني</button>'}<button class="btn ghost sm" data-x="type" ${typeOk?'':'hidden'}>⌨️ اكتب جوابك</button><button class="btn ghost sm" data-x="skip" hidden>تخطَّ ←</button></div>
+      <form class="typed" hidden><input class="inp en" autocomplete="off" autocapitalize="sentences" enterkeyhint="send" placeholder="Type your answer in English"><button class="btn green sm" type="submit">أرسل ✓</button></form>`;
+    if(repeat)kidVoice(target);
+    const mic=$('#mic',box),mh=$('#mh',box),live=$('#live',box),ev=$('#ev',box);
+    mic.onclick=()=>{
+      if(mic.classList.contains('on')){stopListen();mh.textContent='لحظة…';return;}
+      if(TTS)try{speechSynthesis.cancel();}catch(e){}
+      mic.classList.add('on');mh.textContent='أنا أسمعك… تكلّم الآن';live.textContent='';ev.innerHTML='';
+      listen({onLive:t=>{live.textContent=t;},
+        onError:code=>{if(!alive)return;mic.classList.remove('on');mh.textContent='اضغط وتكلّم';fails++;typeOk=true;ev.innerHTML=micHelp(code);showBar();},
+        onDone:res=>{if(!alive)return;mic.classList.remove('on');mh.textContent='اضغط وتكلّم';live.textContent='';handle(res,false);}});
+    };
+    box.onclick=e=>{const b=e.target.closest('[data-x]');if(!b||!box.contains(b))return;const x=b.dataset.x;
+      if(x==='say')kidVoice(b.dataset.t);
+      else if(x==='help'){ev.innerHTML=`<div class="evbox tip">💡 مثال تستطيع أن تقوله:${modelLine(ex())}${S.showAr&&st.exa?`<div class="muted" style="font-size:13px">${esc(fill(st.exa))}</div>`:''}<div style="font-size:14px;font-weight:700;margin-top:4px">والآن اضغط 🎤 وقل جوابك أنت!</div></div>`;kidVoice(ex());}
+      else if(x==='type'){const f=$('form',box);f.hidden=false;$('input',f).focus();}
+      else if(x==='next')finish();
+      else if(x==='skip'){if(!best)best={stars:0,spoke:false,rel:{ok:false,x:''},full:false,raw:'—',model:ex(),norm:'',x:''};finish();}};
+    $('form',box).onsubmit=e=>{e.preventDefault();const v=$('input',box).value.trim();if(!v)return;$('input',box).value='';handle({text:v,alts:[v],conf:0},true);};
+    showBar();
+  }
+  function showBar(){const sk=$('[data-x="skip"]',box);if(sk)sk.hidden=!(fails>=2||tries>=3);const ty=$('[data-x="type"]',box);if(ty)ty.hidden=!typeOk;}
+  function handle(res,typed){
+    const ev=$('#ev',box);
+    if(!res.text){fails++;ev.innerHTML=`<div class="evbox bad">🙉 لم أسمع شيئاً. قرّب الهاتف من فمك، اضغط 🎤 وتكلّم بصوت واضح.</div>`;showBar();return;}
+    const r=evaluate(st,res,repeat?best.model:null);r.typed=typed;tries++;
+    if(!best||r.stars>=best.stars)best=r;
+    const head=`<div class="heardline">${typed?'⌨️ كتبت:':'👂 سمعتك تقول:'}<span class="en heardtxt">${esc(r.raw)}</span></div><div class="evstars">${starsHTML(r.stars)}</div>`;
+    let body='',btns='';
+    if(r.repeat){
+      body=`<div class="crits">${crit(r.spoke,'تكلّمت بالإنجليزية')}${crit(r.rel.ok,'كرّرت الجملة')}</div>`+(r.rel.ok?`<p class="praise">👏 أحسنت! نطقت الجملة.</p>`:`<p>${heardHTML(r.words)}</p><p class="praise">الكلمات الحمراء تحتاج تدريباً. اسمعها 🔊 ثم اضغط 🎤 مرة أخرى.</p>`);
+      if(r.rel.ok||tries>=5)btns='<button class="btn green" data-x="next">التالي ←</button>';
+    }else{
+      body=`<div class="crits">${crit(r.spoke,'تكلّمت بالإنجليزية')}${crit(r.rel.ok,'جواب مناسب')}${crit(r.rel.ok&&r.full,'جملة كاملة')}</div>`;
+      if(r.stars>=3){body+=`<p class="praise">🌟 ممتاز! جواب رائع.</p>`;if(normS(r.model)!==r.norm)body+=`<div class="muted" style="font-size:13px">ويمكنك أن تقول أيضاً:</div>${modelLine(r.model)}`;btns='<button class="btn green" data-x="next">التالي ←</button>';}
+      else if(r.stars===2){body+=`<p class="praise">👍 جواب صحيح! والآن قله في جملة كاملة، اضغط 🎤 وقل:</p>${modelLine(r.model)}`;btns='<button class="btn ghost sm" data-x="next">التالي ←</button>';}
+      else{if(tries<2){body+=`<p class="praise">🤔 لم أفهم جوابك عن السؤال. اسمع السؤال مرة أخرى، ثم اضغط 🎤 وأجب. أو اضغط 💡 للمساعدة.</p>`;}
+        else{repeat=true;best.model=modelOf(st,'');tries=0;paint();return;}}
+    }
+    ev.innerHTML=`<div class="evbox ${r.stars>=3?'good':r.stars===2?'mid':'bad'}">${head}${body}${btns?`<div class="row" style="justify-content:center;margin-top:8px">${btns}</div>`:''}</div>`;
+    showBar();
+    if(r.stars>=3&&!r.repeat)kidVoice(pick(['Great job!','Excellent!','Well done!','Perfect!']));
+  }
+  function finish(){if(finished)return;finished=true;box.hidden=true;box.innerHTML='';onDone(best);}
+  paint();
+}
+
 /* ---------- conversation ---------- */
 def('scene',(id)=>{
   const sc=SCENES[id],ch=CHARS[sc.ch],steps=sc.steps;
   setTitle(`<span class="en">${sc.en}</span> · ${sc.ar}`,true);
-  let step=0,spokenN=0,alive=true;const spokenSteps=[];
+  let step=0,alive=true;const turns=[];
   onClean(()=>{alive=false;});
   view.innerHTML=`<div style="--c:${sc.color}">
     <div class="who"><div class="face" id="face">${charSVG(sc.ch)}</div><div style="min-width:0">
       <h2>${ch.name}</h2><p class="muted" style="font-size:14px">${ch.ar} · ${sc.ar}</p><div class="prog" id="prog">${steps.map(()=>'<i></i>').join('')}</div></div></div>
     ${micNote()}<div class="chat" id="chat"></div><div class="reply" id="reply" hidden></div></div>`;
   const chat=$('#chat'),reply=$('#reply'),face=$('#face');
-  const prog=()=>$$('#prog i').forEach((i,k)=>{i.className=k<step?(spokenSteps[k]?'sp':'on'):'';});
+  const prog=()=>$$('#prog i').forEach((i,k)=>{i.className=k<step?((turns[k]&&turns[k].stars>=3)?'sp':'on'):'';});
   const scrollEnd=()=>setTimeout(()=>{(reply.hidden?chat.lastElementChild:reply)?.scrollIntoView({behavior:'smooth',block:'end'});},60);
-
   function bot(en,ar,then){
     if(!alive)return;const m=document.createElement('div');m.className='msg bot';
     m.innerHTML=`<div class="mini">${charSVG(sc.ch)}</div><div class="bub"><span class="en">${esc(fill(en))}</span><span class="ar" ${S.showAr?'':'hidden'}>${esc(fill(ar))}</span>
       <div class="tools"><button class="ic" data-a="play" aria-label="استمع">🔊</button><button class="ic" data-a="slow" aria-label="ببطء">🐢</button><button class="ic" data-a="tr" aria-label="الترجمة">ع</button></div></div>`;
     chat.appendChild(m);scrollEnd();
-    const mini=m.querySelector('.mini');
-    const play=(slow,cb)=>{say(fill(en),{pitch:ch.pitch,rate:ch.rate*(slow?.7:1),el:face,onend:cb});mini.classList.add('talking');setTimeout(()=>mini.classList.remove('talking'),1200+en.length*60);};
+    const play=(slow,cb)=>say(fill(en),{pitch:ch.pitch,rate:ch.rate*(slow?.7:1),el:face,onend:cb});
     m.querySelector('[data-a="play"]').onclick=()=>play(false);
     m.querySelector('[data-a="slow"]').onclick=()=>play(true);
     m.querySelector('[data-a="tr"]').onclick=()=>{const a=m.querySelector('.ar');a.hidden=!a.hidden;};
     play(false,()=>{if(alive&&then)then();});
   }
-  function me(text,spoken,heardWords){
-    const m=document.createElement('div');m.className='msg me';
-    m.innerHTML=`<div class="mini" style="background:#fff">${S.avatar}</div><div class="bub">${heardWords?heardHTML(heardWords):`<span class="en">${esc(fill(text))}</span>`}
-      ${spoken?'<span class="badge-sp">🎤 قلتها بصوتك! +١٠</span>':''}</div>`;
-    chat.appendChild(m);scrollEnd();
-  }
-  function ask(){
-    if(!alive)return;const st=steps[step];const opts=st[2];let fails=0;
-    reply.hidden=false;
-    reply.innerHTML=`<div class="turn">🗣️ دورك! ${micAvail()?'اضغط الميكروفون وتكلّم، أو اختر جملة':'اختر جملة واسمعها ثم قلها بصوتك'}</div>
-      ${micAvail()?`<div class="micwrap"><button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وتكلّم</span><div class="live" id="live"></div><div class="fb" id="fb"></div></div>`:''}
-      <div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="num">${k+1}</span><span class="txt"><span class="en">${esc(fill(o[0]))}</span><span class="ar" ${S.showAr?'':'hidden'}>${esc(fill(o[1]))}</span></span><span class="ic">🔊</span></button>`).join('')}</div>`;
-    scrollEnd();
-    $$('.opt',reply).forEach(b=>b.onclick=()=>{sfx.tap();practice(+b.dataset.k);});
-    if(micAvail()){
-      const mic=$('#mic');
-      mic.onclick=()=>{
-        if(mic.classList.contains('on')){stopListen();return;}
-        if(TTS)speechSynthesis.cancel();
-        mic.classList.add('on');$('#mh').textContent='أنا أسمعك… تكلّم الآن';$('#live').textContent='';$('#fb').textContent='';
-        listen({onLive:t=>{$('#live').textContent=t;},
-          onFail:()=>{mic.classList.remove('on');toast('🎤 الميكروفون غير مسموح. اختر جملة بدلاً من ذلك');ask();},
-          onDone:alts=>{mic.classList.remove('on');sfx.stop();$('#mh').textContent='اضغط وتكلّم';
-            if(!alts.length){$('#fb').className='fb bad';$('#fb').textContent='لم أسمع شيئاً. اضغط وتكلّم بصوت أعلى 🙂';return;}
-            let best=null,bk=-1;opts.forEach((o,k)=>{const r=bestOf(o[0],alts);if(!best||r.s>best.s){best=r;bk=k;}});
-            if(best.s>=.55){sfx.ok();done(bk,true,best.words);}
-            else{fails++;sfx.bad();$('#fb').className='fb bad';$('#fb').innerHTML=`سمعت: «<span class="en">${esc(best.heard)}</span>». حاول مرة أخرى! ${fails>=2?'أو اضغط على الجملة لتسمعها 👇':''}`;}
-          }});
-      };
-    }
-  }
-  function practice(k){
-    const o=steps[step][2][k];
-    reply.innerHTML=`<div class="say"><p class="muted" style="font-weight:800;margin-bottom:6px">🎧 اسمع ثم قلها بصوتك:</p><div class="en">${esc(fill(o[0]))}</div><div class="ar">${esc(fill(o[1]))}</div></div>
-      <div class="micwrap" style="margin-top:10px">${micAvail()?`<button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وقلها</span><div class="live" id="live"></div>`:''}<div class="fb" id="fb"></div></div>
-      <div class="row" style="justify-content:center"><button class="btn sun sm" id="again">🔊 اسمع</button><button class="btn sun sm" id="slow">🐢 ببطء</button>${micAvail()?'':'<button class="btn green" id="said">✓ قلتها</button>'}<button class="btn ghost sm" id="other">↩ جملة أخرى</button></div>`;
-    scrollEnd();
-    kidVoice(fill(o[0]));
-    $('#again').onclick=()=>kidVoice(fill(o[0]));
-    $('#slow').onclick=()=>kidVoice(fill(o[0]),{rate:.62});
-    $('#other').onclick=()=>{sfx.tap();ask();};
-    if(!micAvail())$('#said').onclick=()=>{sfx.ok();done(k,true);};
-    else{const mic=$('#mic');let fails=0;
-      mic.onclick=()=>{if(mic.classList.contains('on')){stopListen();return;}if(TTS)speechSynthesis.cancel();mic.classList.add('on');$('#mh').textContent='تكلّم الآن…';$('#live').textContent='';
-        listen({onLive:t=>{$('#live').textContent=t;},onFail:()=>{mic.classList.remove('on');practice(k);},
-          onDone:alts=>{mic.classList.remove('on');sfx.stop();$('#mh').textContent='اضغط وقلها';
-            if(!alts.length){$('#fb').className='fb bad';$('#fb').textContent='لم أسمع شيئاً، حاول مرة أخرى';return;}
-            const r=bestOf(o[0],alts);
-            if(r.s>=.6){sfx.ok();done(k,true,r.words);}
-            else{fails++;sfx.bad();$('#fb').className='fb bad';$('#fb').innerHTML=`${heardHTML(r.words)}<br>الكلمات الحمراء تحتاج تدريباً. حاول مرة أخرى!`;
-              if(fails>=2&&!$('#skip')){const s=document.createElement('button');s.className='btn ghost sm';s.id='skip';s.textContent='تخطَّ ←';s.onclick=()=>done(k,false);$('#fb').after(s);}}
-          }});};}
-  }
-  function done(k,spoken,words){
-    const st=steps[step],o=st[2][k];reply.hidden=true;reply.innerHTML='';
-    me(o[0],spoken,words);spokenSteps[step]=spoken;
-    if(spoken){spokenN++;S.spoken++;addXP(10);}else addXP(2);
-    save();step++;prog();checkBadges();
-    const go2=()=>{if(step<steps.length)setTimeout(()=>bot(steps[step][0],steps[step][1],ask),350);else finish();};
-    setTimeout(()=>{
-      if(o[2])bot(o[2],o[3],()=>{if(st[3])bot(st[3],st[4],go2);else go2();});
-      else if(st[3])bot(st[3],st[4],go2);else go2();
-    },450);
-  }
+  function me(ev){const m=document.createElement('div');m.className='msg me';
+    m.innerHTML=`<div class="mini" style="background:#fff">${S.avatar}</div><div class="bub"><span class="en">${esc(ev.raw)}</span><span class="badge-sp">${ev.typed?'⌨️':'🎤'} ${starsHTML(ev.stars)}</span></div>`;
+    chat.appendChild(m);scrollEnd();}
+  function ask(){if(!alive)return;const st=steps[step];
+    turnUI(reply,st,{onDone:ev=>{
+      me(ev);turns[step]={q:fill(st.q),a:ev.raw,stars:ev.stars,model:ev.model};
+      if(ev.spoke&&!ev.typed)S.spoken++;addXP(ev.stars*3);save();step++;prog();checkBadges();
+      const r=ev.rel&&ev.rel.ok?react(st,ev.norm,ev.x):['Okay! Let\'s keep going.','حسناً! لنكمل.'];
+      setTimeout(()=>bot(r[0],r[1],()=>setTimeout(next,250)),350);}});
+    scrollEnd();}
+  function next(){if(!alive)return;if(step<steps.length)bot(steps[step].q,steps[step].qa,ask);else finish();}
   function finish(){
-    const r=spokenN/steps.length,stars=r>=.9?3:r>=.5?2:1,old=S.scenes[id]||0;
+    const got=turns.reduce((a,t)=>a+t.stars,0),max=steps.length*3,pct=got/max,stars=pct>=.85?3:pct>=.6?2:1,old=S.scenes[id]||0;
     if(stars>old)S.scenes[id]=stars;addXP(20+(stars>old?(stars-old)*10:0));save();checkBadges();
     const nx=ALLSCENES[ALLSCENES.indexOf(id)+1];
-    setTimeout(()=>result({title:stars===3?'Amazing! رائع جداً':'Well done! أحسنت',stars,face:{id:sc.ch,c:sc.color},
-      lines:[`قلت ${N(spokenN)} من ${N(steps.length)} جمل بصوتك 🎤`,stars<3?'قل كل الجمل بصوتك لتحصل على ٣ نجوم':'أنت متحدث رائع! 🌟'],
-      extra:nx?{label:`التالي: ${SCENES[nx].ar} ←`,fn:()=>go('scene',nx,false)}:null}),600);
+    const report=`<div class="report">${turns.map(t=>`<div class="rep"><div class="rq">${esc(t.q)}</div><div class="ra">🗣️ ${esc(t.a)} ${starsHTML(t.stars)}</div>${t.stars<3?`<div class="rm">💡 ${esc(t.model)}</div>`:''}</div>`).join('')}</div>`;
+    setTimeout(()=>result({title:stars===3?'Amazing! متحدث رائع':stars===2?'Well done! أحسنت':'Good try! محاولة جيدة',stars,face:{id:sc.ch,c:sc.color},
+      score:`${N(Math.round(pct*100))}٪`,lines:[`تقييم كلامك: ${N(got)} من ${N(max)} نجمة`,stars<3?'أجب بجمل كاملة لتحصل على ٣ نجوم':'تكلّمت بجمل كاملة ومناسبة 🌟'],report,
+      extra:nx?{label:`التالي: ${SCENES[nx].ar} ←`,fn:()=>go('scene',nx,false)}:null}),500);
   }
-  prog();setTimeout(()=>bot(steps[0][0],steps[0][1],ask),400);
+  prog();setTimeout(next,400);
 });
 
 /* ---------- words ---------- */
@@ -775,8 +926,8 @@ def('wordcat',(k)=>{
 def('games',()=>{
   setTitle('🎮 الألعاب · <span class="en">Games</span>',false);const B=S.best;
   view.innerHTML=`<div class="games">
+   <button class="game" style="--c:#2f6bff" data-g="quick"><span class="gi">💬</span><div><h3>أسئلة سريعة</h3><p>شخصيات المدينة تسألك، وأنت تجيب بصوتك وبكلماتك</p></div><span class="best">الأفضل<br>${N(B.quick||0)}/${N(24)}</span></button>
    <button class="game" style="--c:#ffc93c" data-g="listen"><span class="gi">🎧</span><div><h3>اسمع واختر</h3><p>اسمع الكلمة واختر صورتها</p></div><span class="best">الأفضل<br>${N(B.listen||0)}/${N(10)}</span></button>
-   <button class="game" style="--c:#2f6bff" data-g="reply"><span class="gi">💡</span><div><h3>الرد المناسب</h3><p>اسمع السؤال واختر أفضل جواب</p></div><span class="best">الأفضل<br>${N(B.reply||0)}/${N(8)}</span></button>
    <button class="game" style="--c:#43b97f" data-g="build"><span class="gi">🧱</span><div><h3>ركّب الجملة</h3><p>رتّب الكلمات لتصنع جملة صحيحة</p></div><span class="best">الأفضل<br>${N(B.build||0)}/${N(8)}</span></button>
    <button class="game" style="--c:#ff6b4a" data-g="speak"><span class="gi">🗣️</span><div><h3>تحدي النطق</h3><p>قل الجمل بصوتك، والبرنامج يقيّم نطقك</p></div><span class="best">الأفضل<br>${N(B.speak||0)}/${N(8)}</span></button>
    <button class="game" style="--c:#8e6cff" data-g="picture"><span class="gi">🖼️</span><div><h3>قل اسم الصورة</h3><p>انظر إلى الصورة وقل اسمها بالإنجليزية</p></div><span class="best">الأفضل<br>${N(B.picture||0)}/${N(10)}</span></button>
@@ -808,35 +959,33 @@ def('listen',(cat)=>{
   next();
 });
 
-/* best reply */
-function allSteps(){const out=[];ALLSCENES.forEach(s=>SCENES[s].steps.forEach(st=>{if(st[2].length)out.push({s,st});}));return out;}
-def('reply',()=>{
-  setTitle('💡 الرد المناسب',true);
-  const R=8,all=allSteps().filter(x=>!/^(Okay, bye|Here it is|Thank you so much)/.test(x.st[0]));const qs=shuffle(all.slice()).slice(0,R);let i=0,sc=0,lock=false;
-  view.innerHTML=`<div class="gtop"><span id="gi"></span><span>✅ <span id="gs">${N(0)}</span></span></div>
-   <div class="stage" id="stage"><div class="face" id="fc" style="margin:0 auto 8px;--c:#ffc93c"></div><div class="qline" id="q"></div><p class="muted" id="qa" style="font-size:14px"></p>
-   <div class="row" style="justify-content:center;margin-top:8px"><button class="btn sun sm" id="pl">🔊 اسمع السؤال</button></div><div class="fb" id="fb"></div></div>
-   <div class="choices one" id="ch"></div>`;
-  let alive=true;onClean(()=>{alive=false;});
-  function next(){if(!alive)return;if(i>=R){const nb=saveBest('reply',sc);addXP(sc*3);return result({title:sc===R?'Perfect! ممتاز':'Nice work! أحسنت',score:`${N(sc)}/${N(R)}`,good:sc>=5,lines:[nb?'🏆 أفضل نتيجة جديدة!':'',`+${N(sc*3)} نقطة`]});}
-    lock=false;const {s,st}=qs[i],sc0=SCENES[s];$('#gi').textContent=`${N(i+1)} / ${N(R)}`;$('#fb').textContent='';
-    $('#fc').style.setProperty('--c',sc0.color);$('#fc').innerHTML=charSVG(sc0.ch);
-    $('#q').textContent=fill(st[0]);$('#qa').textContent=S.showAr?fill(st[1]):'';
-    const right=pick(st[2]);const wrong=shuffle(all.filter(x=>x.s!==s).flatMap(x=>x.st[2])).filter(o=>o[0]!==right[0]).slice(0,2);
-    const opts=shuffle([right,...wrong]);
-    $('#ch').innerHTML=opts.map(o=>`<button class="choice txt" data-ok="${o===right}">${esc(fill(o[0]))}</button>`).join('');
-    const ch=CHARS[sc0.ch];const speakQ=()=>say(fill(st[0]),{pitch:ch.pitch,rate:ch.rate,el:$('#fc')});speakQ();$('#pl').onclick=speakQ;
-    $$('.choice').forEach(b=>b.onclick=()=>{if(lock)return;lock=true;const ok=b.dataset.ok==='true';const stg=$('#stage');stg.classList.remove('ok','bad');void stg.offsetWidth;
-      if(ok){sc++;sfx.ok();b.classList.add('ok');stg.classList.add('ok');$('#fb').className='fb ok';$('#fb').textContent='صحيح! 🎉';}
-      else{sfx.bad();b.classList.add('bad');stg.classList.add('bad');$('.choice[data-ok="true"]').classList.add('ok');$('#fb').className='fb bad';$('#fb').textContent='الجواب الأخضر هو الأنسب';}
-      $('#gs').textContent=N(sc);i++;kidVoice(fill(right[0]),{onend:()=>setTimeout(next,500)});});}
+/* quick questions: characters ask, the child answers by voice */
+const ALLEX=ALLSCENES.flatMap(s=>SCENES[s].steps.map(st=>[st.ex,st.exa])).filter(x=>!/\{name\}/.test(x[0]));
+def('quick',()=>{
+  setTitle('💬 أسئلة سريعة',true);
+  const pool=ALLSCENES.flatMap(s=>SCENES[s].steps.filter(st=>/\?$/.test(st.q)&&!/\{name\}/.test(st.q)).map(st=>({s,st})));
+  const R=8,qs=shuffle(pool.slice()).slice(0,R);let i=0,sc=0,alive=true;onClean(()=>{alive=false;});
+  view.innerHTML=`${micNote()}<div class="gtop"><span id="gi"></span><span>⭐ <span id="gs">${N(0)}</span></span></div>
+   <div class="stage"><div class="face" id="fc" style="margin:0 auto 8px"></div><div class="qline" id="q"></div><p class="muted" id="qa" style="font-size:14px"></p>
+   <div class="row" style="justify-content:center;margin-top:8px"><button class="btn sun sm" id="pl">🔊 اسمع السؤال</button></div></div>
+   <div class="reply" id="turn" style="margin-top:12px"></div>`;
+  function next(){if(!alive)return;
+    if(i>=R){const max=R*3,st=sc>=max*.85?3:sc>=max*.6?2:1,nb=saveBest('quick',sc);addXP(sc*2);
+      return result({title:st===3?'Super speaker! متحدث رائع':'Well done! أحسنت',stars:st,score:`${N(sc)}/${N(max)}`,good:true,lines:[nb?'🏆 أفضل نتيجة جديدة!':'',`+${N(sc*2)} نقطة`]});}
+    const {s,st}=qs[i],sc0=SCENES[s],ch=CHARS[sc0.ch];$('#gi').textContent=`${N(i+1)} / ${N(R)}`;
+    $('#fc').style.setProperty('--c',sc0.color);$('#fc').innerHTML=charSVG(sc0.ch);$('#q').textContent=st.q;$('#qa').textContent=S.showAr?st.qa:'';
+    const speakQ=()=>say(st.q,{pitch:ch.pitch,rate:ch.rate,el:$('#fc')});speakQ();$('#pl').onclick=speakQ;
+    $('#turn').style.setProperty('--c',sc0.color);
+    turnUI($('#turn'),st,{onDone:ev=>{sc+=ev.stars;$('#gs').textContent=N(sc);if(ev.spoke&&!ev.typed)S.spoken++;save();checkBadges();i++;
+      if(ev.rel&&ev.rel.ok){const r=react(st,ev.norm,ev.x);say(r[0],{pitch:ch.pitch,rate:ch.rate,el:$('#fc'),onend:()=>setTimeout(next,300)});}else setTimeout(next,300);}});
+  }
   next();
 });
 
 /* sentence builder */
 def('build',()=>{
   setTitle('🧱 ركّب الجملة',true);
-  const R=8;const pool=allSteps().flatMap(x=>x.st[2]).filter(o=>{const n=o[0].split(/\s+/).length;return n>=3&&n<=7&&!/\{name\}/.test(o[0]);});
+  const R=8;const pool=ALLEX.filter(o=>{const n=o[0].split(/\s+/).length;return n>=3&&n<=7&&!/\{name\}/.test(o[0]);});
   const qs=shuffle(pool.slice()).slice(0,R);let i=0,sc=0,placed=[],words=[],target='';
   view.innerHTML=`<div class="gtop"><span id="gi"></span><span>✅ <span id="gs">${N(0)}</span></span></div>
    <div class="stage" id="stage"><p class="muted" style="font-weight:800">رتّب الكلمات لتصنع هذه الجملة:</p><p id="ar" style="font-size:20px;font-weight:800;margin:6px 0"></p>
@@ -860,35 +1009,35 @@ def('build',()=>{
   next();
 });
 
-/* speak challenge: phrases or picture words */
+/* speak challenge: say the sentence or name the picture */
 def('speak',(o)=>{
   const words=o.mode==='words';const R=words?10:8;const key=words?'picture':'speak';
   setTitle(words?'🖼️ قل اسم الصورة':'🗣️ تحدي النطق',true);
-  let pool;if(words){pool=(o.cat?WORDS[o.cat].items:Object.values(WORDS).flatMap(c=>c.items)).map(i=>({en:i[0],ar:i[2],face:wordFace(i)}));}
-  else pool=allSteps().flatMap(x=>x.st[2]).filter(x=>!/\{name\}/.test(x[0])).map(x=>({en:x[0],ar:x[1]}));
-  const qs=shuffle(pool.slice()).slice(0,Math.min(R,pool.length));const T=qs.length;let i=0,sc=0,tries=0;
+  const pool=words?(o.cat?WORDS[o.cat].items:Object.values(WORDS).flatMap(c=>c.items)).map(i=>({en:i[0],ar:i[2],face:wordFace(i)})):ALLEX.map(x=>({en:x[0],ar:x[1]}));
+  const qs=shuffle(pool.slice()).slice(0,Math.min(R,pool.length));const T=qs.length;let i=0,sc=0,tries=0,alive=true;onClean(()=>{alive=false;});
   view.innerHTML=`${micNote()}<div class="gtop"><span id="gi"></span><span>✅ <span id="gs">${N(0)}</span></span></div>
    <div class="stage" id="stage"><div id="q"></div>
-    <div class="micwrap" style="margin-top:12px">${micAvail()?`<button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وتكلّم</span><div class="live" id="live"></div>`:''}<div class="fb" id="fb"></div></div>
-    <div class="row" style="justify-content:center"><button class="btn sun sm" id="hear">🔊 ${words?'ساعدني':'اسمع'}</button>${micAvail()?'':'<button class="btn green" id="said">✓ قلتها</button>'}<button class="btn ghost sm" id="skip">تخطَّ ←</button></div></div>`;
+    <div class="micwrap" style="margin-top:12px"><button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وتكلّم</span><div class="live" id="live"></div></div><div class="fb" id="fb"></div>
+    <div class="row" style="justify-content:center;margin-top:8px"><button class="btn sun sm" id="hear">🔊 ${words?'ساعدني':'اسمع'}</button><button class="btn ghost sm" id="skip">تخطَّ ←</button></div></div>`;
   const cur=()=>qs[i];
-  let alive=true;onClean(()=>{alive=false;});
   function show(){if(!alive)return;if(i>=T){const nb=saveBest(key,sc);addXP(sc*4);return result({title:sc>=T-1?'Super speaker! نطق رائع':'Keep going! استمر',score:`${N(sc)}/${N(T)}`,good:sc>=T/2,lines:[nb?'🏆 أفضل نتيجة جديدة!':'',`+${N(sc*4)} نقطة`]});}
-    tries=0;const q=cur();$('#gi').textContent=`${N(i+1)} / ${N(T)}`;$('#fb').innerHTML='';if($('#live'))$('#live').textContent='';
+    tries=0;const q=cur();$('#gi').textContent=`${N(i+1)} / ${N(T)}`;$('#fb').innerHTML='';$('#live').textContent='';
     $('#q').innerHTML=words?`<div style="font-size:84px;line-height:1.2">${q.face}</div><p class="muted" style="font-weight:800">ما اسم هذه بالإنجليزية؟ <span id="ans" hidden>— <span class="en">${q.en}</span> (${q.ar})</span></p>`
       :`<div class="say"><div class="en">${esc(q.en)}</div><div class="ar">${esc(q.ar)}</div></div>`;
     if(!words)kidVoice(q.en);}
-  function next(ok){if(!alive)return;if(ok){sc++;S.spoken++;}$('#gs').textContent=N(sc);save();checkBadges();i++;setTimeout(show,ok?900:300);}
-  $('#hear').onclick=()=>{const q=cur();if(!q)return;if(words){$('#ans').hidden=false;}kidVoice(q.en,{rate:words?.85:1});};
-  $('#skip').onclick=()=>{sfx.tap();next(false);};
-  if(!micAvail())$('#said').onclick=()=>{sfx.ok();if(words){$('#ans').hidden=false;}say(cur().en);next(true);};
-  else{const mic=$('#mic');mic.onclick=()=>{if(mic.classList.contains('on')){stopListen();return;}if(TTS)speechSynthesis.cancel();mic.classList.add('on');$('#mh').textContent='تكلّم الآن…';$('#live').textContent='';
-    listen({onLive:t=>{$('#live').textContent=t;},onFail:()=>{mic.classList.remove('on');rerender();},
-      onDone:alts=>{mic.classList.remove('on');sfx.stop();$('#mh').textContent='اضغط وتكلّم';const q=cur();
-        if(!alts.length){$('#fb').className='fb bad';$('#fb').textContent='لم أسمع شيئاً، تكلّم بصوت أعلى';return;}
-        const r=bestOf(q.en,alts);const stg=$('#stage');stg.classList.remove('ok','bad');void stg.offsetWidth;
-        if(r.s>=.75){sfx.ok();stg.classList.add('ok');$('#fb').className='fb ok';$('#fb').innerHTML=`${heardHTML(r.words)}<br>${r.s>=.99?'نطق ممتاز! 🌟':'جيد جداً! 👏'}`;addXP(3);next(true);}
-        else{tries++;sfx.bad();stg.classList.add('bad');$('#fb').className='fb bad';$('#fb').innerHTML=`${heardHTML(r.words)}<br>${tries>=2?'اضغط 🔊 لتسمع، ثم حاول':'حاول مرة أخرى!'}`;}}});};}
+  function next(ok){if(!alive)return;if(ok){sc++;S.spoken++;}$('#gs').textContent=N(sc);save();checkBadges();i++;setTimeout(show,ok?1100:300);}
+  $('#hear').onclick=()=>{const q=cur();if(!q)return;if(words)$('#ans').hidden=false;kidVoice(q.en,{rate:words?.85:1});};
+  $('#skip').onclick=()=>next(false);
+  const mic=$('#mic');
+  mic.onclick=()=>{if(mic.classList.contains('on')){stopListen();return;}if(TTS)try{speechSynthesis.cancel();}catch(e){}
+    mic.classList.add('on');$('#mh').textContent='تكلّم الآن…';$('#live').textContent='';$('#fb').innerHTML='';
+    listen({onLive:t=>{$('#live').textContent=t;},
+      onError:code=>{if(!alive)return;mic.classList.remove('on');$('#mh').textContent='اضغط وتكلّم';$('#fb').innerHTML=micHelp(code);},
+      onDone:res=>{if(!alive)return;mic.classList.remove('on');$('#mh').textContent='اضغط وتكلّم';const q=cur();
+        if(!res.text){$('#fb').className='fb bad';$('#fb').textContent='لم أسمع شيئاً، تكلّم بصوت أعلى';return;}
+        const r=bestOf(q.en,res.alts);const stg=$('#stage');stg.classList.remove('ok','bad');void stg.offsetWidth;
+        if(r.s>=.75){stg.classList.add('ok');$('#fb').className='fb ok';$('#fb').innerHTML=`${heardHTML(r.words)}<br>${r.s>=.99?'نطق ممتاز! 🌟':'جيد جداً! 👏'}`;addXP(3);next(true);}
+        else{tries++;stg.classList.add('bad');$('#fb').className='fb bad';$('#fb').innerHTML=`${heardHTML(r.words)}<br>${tries>=2?'اضغط 🔊 لتسمع، ثم حاول':'حاول مرة أخرى!'}`;}}});};
   show();
 });
 
@@ -910,7 +1059,7 @@ def('me',()=>{
     <div class="field"><label>الشخصية</label><div class="avs">${AVATARS.map(a=>`<button class="avb ${a===S.avatar?'on':''}" data-a="${a}">${a}</button>`).join('')}</div></div>
     <div class="field"><label>سرعة الكلام</label><div class="seg"><button data-r=".75" class="${S.rate===.75?'on':''}">🐢 بطيء</button><button data-r="1" class="${S.rate===1?'on':''}">🙂 عادي</button></div></div>
     <div class="field"><label>الترجمة العربية</label><div class="seg"><button data-t="1" class="${S.showAr?'on':''}">ظاهرة</button><button data-t="0" class="${!S.showAr?'on':''}">مخفية (تحدٍّ)</button></div></div>
-    ${SR?`<div class="field"><label>الميكروفون</label><div class="seg"><button data-m="1" class="${!S.micOff?'on':''}">🎤 أتكلم</button><button data-m="0" class="${S.micOff?'on':''}">👆 أختار فقط</button></div></div>`:''}
+    <div class="field"><label>الميكروفون</label><button class="btn ghost sm" data-mt style="justify-self:start">🔧 اختبار الميكروفون</button></div>
     <button class="btn wide" id="sv">💾 حفظ الاسم</button></div>
    <h2 class="sec">البدء من جديد</h2>
    <div class="card"><p class="muted" style="margin-bottom:10px">يمسح النجوم والنقاط والأوسمة من هذا الجهاز.</p><button class="btn ghost sm" id="rs">🗑️ مسح التقدم</button>
@@ -918,11 +1067,32 @@ def('me',()=>{
   $$('.avb').forEach(b=>b.onclick=()=>{sfx.tap();S.avatar=b.dataset.a;save();$$('.avb').forEach(x=>x.classList.toggle('on',x===b));});
   $$('[data-r]').forEach(b=>b.onclick=()=>{S.rate=+b.dataset.r;save();say('This is my voice.');rerender();});
   $$('[data-t]').forEach(b=>b.onclick=()=>{S.showAr=b.dataset.t==='1';save();rerender();});
-  $$('[data-m]').forEach(b=>b.onclick=()=>{S.micOff=b.dataset.m==='0';save();rerender();});
   $('#sv').onclick=()=>{S.name=$('#nm').value.replace(/[^A-Za-z؀-ۿ]/g,'').trim().slice(0,14)||S.name;save();toast('تم الحفظ ✅');sfx.ok();};
   $('#rs').onclick=()=>{$('#cf').hidden=false;};$('#no').onclick=()=>{$('#cf').hidden=true;};
   $('#yes').onclick=()=>{const k={name:S.name,avatar:S.avatar,rate:S.rate,showAr:S.showAr,sound:S.sound,micOff:S.micOff};S=Object.assign(defaults(),k);save();toast('بدأنا من جديد 🌱');tab('town');};
 },true);
+
+/* ---------- mic check ---------- */
+def('mictest',()=>{
+  setTitle('🔧 اختبار الميكروفون',true);
+  const yes=b=>b?'✅':'❌';
+  view.innerHTML=`<div class="card" style="text-align:center"><p style="font-weight:800;margin-bottom:6px">اضغط الميكروفون وقل بالإنجليزية:</p><p class="en" style="font-size:24px;font-weight:600">Hello, my name is ${esc(nm())}.</p>
+    <div class="micwrap" style="margin-top:12px"><button class="mic" id="mic" aria-label="تكلّم">🎤</button><span class="hint" id="mh">اضغط وتكلّم</span><div class="live" id="live"></div></div><div id="ev"></div></div>
+    <h2 class="sec">معلومات الجهاز</h2><div class="card"><ul class="diag">
+     <li>${yes(!!SR)} المتصفح يستطيع فهم الكلام</li>
+     <li>${yes(!EMBEDDED)} الصفحة مفتوحة من رابط GitHub</li>
+     <li>📱 الجهاز: ${IOS?'آيفون / آيباد (استخدم Safari)':ANDROID?'أندرويد (استخدم Chrome)':'كمبيوتر (استخدم Chrome)'}</li>
+     ${IOS&&STANDALONE?'<li>🏠 مفتوح من أيقونة الشاشة الرئيسية. إذا لم يعمل الميكروفون، افتح الرابط في Safari.</li>':''}
+    </ul>${EMBEDDED||!SR?micHelp(EMBEDDED?'embedded':'none'):''}</div>`;
+  const mic=$('#mic');
+  mic.onclick=()=>{if(mic.classList.contains('on')){stopListen();return;}if(TTS)try{speechSynthesis.cancel();}catch(e){}
+    mic.classList.add('on');$('#mh').textContent='أنا أسمعك…';$('#live').textContent='';$('#ev').innerHTML='';
+    listen({onLive:t=>{$('#live').textContent=t;},
+      onError:code=>{mic.classList.remove('on');$('#mh').textContent='اضغط وتكلّم';$('#ev').innerHTML=micHelp(code);},
+      onDone:res=>{mic.classList.remove('on');$('#mh').textContent='اضغط وتكلّم';
+        $('#ev').innerHTML=res.text?`<div class="evbox good"><p class="praise">✅ الميكروفون يعمل!</p><div class="heardline">👂 سمعتك تقول:<span class="en heardtxt">${esc(res.text)}</span></div></div>`
+          :`<div class="evbox bad">🙉 الميكروفون يعمل لكني لم أسمع كلاماً. قرّب الهاتف وتكلّم بصوت أعلى.</div>`;}});};
+});
 
 /* ================= start ================= */
 checkBadges();

@@ -10,6 +10,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | عالم الألوان (Arabic colors) | `arabic-colors.html` | https://claude.ai/artifact/WgJDPdkMmw2MBJbLH14UjG |
 | لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
 | أبطال جدول الضرب (times tables 1–12: secrets, games, challenges) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
+| مدينة الكلام Talk Town (English speaking: conversations, mic, words, games) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
 
 Add a row here for every new game.
 

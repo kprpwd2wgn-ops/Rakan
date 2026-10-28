@@ -1,0 +1,31 @@
+{
+ "name": "مدينة الكلام Talk Town",
+ "short_name": "Talk Town",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html",
+ "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
+ "display": "standalone",
+ "background_color": "#dff1ff",
+ "theme_color": "#2f6bff",
+ "icons": [
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

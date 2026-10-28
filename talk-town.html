@@ -411,7 +411,7 @@ const SCENES={
   ["Thank you! Oh, is this for me?","شكراً! أوه، هل هذه لي؟",[["Yes, this is a present for you.","نعم، هذه هدية لك."]]],
   ["Wow, thank you! Would you like some cake?","واو، شكراً! هل تريد بعض الكعك؟",[["Yes, please!","نعم، من فضلك!"],["No, thank you. I'm full.","لا، شكراً. أنا شبعان."]]],
   ["Chocolate or strawberry?","شوكولاتة أم فراولة؟",[["Chocolate, please.","شوكولاتة من فضلك."],["Strawberry, please.","فراولة من فضلك."]]],
-  ["Let's play a game! Musical chairs or tag?","لنلعب لعبة! الكراسي الموسيقية أم المطاردة؟",[["Let's play musical chairs!","لنلعب الكراسي الموسيقية!"],["Let's play tag!","لنلعب المطاردة!"]]],
+  ["Let's play a game! Hide and seek or tag?","لنلعب لعبة! الغميضة أم المطاردة؟",[["Let's play hide and seek!","لنلعب الغميضة!"],["Let's play tag!","لنلعب المطاردة!"]]],
   ["This is the best party ever. Thanks for coming!","هذه أجمل حفلة. شكراً لحضورك!",[["Thank you for inviting me!","شكراً لدعوتي!"]]]
  ]},
  airport:{en:'The Airplane',ar:'في الطائرة',ch:'zed',sign:'✈️',color:'#4EA8DE',steps:[
@@ -434,7 +434,7 @@ const WORDS={
  weather:{en:'Weather',ar:'الطقس',icon:'☀️',items:[['sun','☀️','شمس'],['rain','🌧️','مطر'],['snow','❄️','ثلج'],['cloud','☁️','غيمة'],['wind','💨','رياح'],['rainbow','🌈','قوس قزح'],['hot','🥵','حار'],['cold','🥶','بارد'],['moon','🌙','قمر'],['star','⭐','نجمة']]},
  school:{en:'School',ar:'المدرسة',icon:'🎒',items:[['book','📕','كتاب'],['pencil','✏️','قلم رصاص'],['bag','🎒','حقيبة'],['ruler','📏','مسطرة'],['scissors','✂️','مقص'],['computer','💻','حاسوب'],['teacher','🧑‍🏫','معلم'],['school','🏫','مدرسة'],['clock','⏰','ساعة'],['paint','🎨','ألوان']]},
  numbers:{en:'Numbers',ar:'الأرقام',icon:'🔢',items:[['one','1','واحد'],['two','2','اثنان'],['three','3','ثلاثة'],['four','4','أربعة'],['five','5','خمسة'],['six','6','ستة'],['seven','7','سبعة'],['eight','8','ثمانية'],['nine','9','تسعة'],['ten','10','عشرة'],['eleven','11','أحد عشر'],['twelve','12','اثنا عشر']]},
- actions:{en:'Actions',ar:'الأفعال',icon:'🏃',items:[['run','🏃','يركض'],['jump','🦘','يقفز'],['swim','🏊','يسبح'],['eat','🍽️','يأكل'],['sleep','😴','ينام'],['read','📖','يقرأ'],['write','✍️','يكتب'],['sing','🎤','يغني'],['dance','💃','يرقص'],['play','⚽','يلعب'],['drink','🥤','يشرب'],['laugh','😂','يضحك']]}
+ actions:{en:'Actions',ar:'الأفعال',icon:'🏃',items:[['run','🏃','يركض'],['jump','🦘','يقفز'],['swim','🏊','يسبح'],['eat','🍽️','يأكل'],['sleep','😴','ينام'],['read','📖','يقرأ'],['write','✍️','يكتب'],['walk','🚶','يمشي'],['climb','🧗','يتسلّق'],['play','⚽','يلعب'],['drink','🥤','يشرب'],['laugh','😂','يضحك']]}
 };
 </script>
 <script>(function(){
@@ -461,14 +461,9 @@ const fill=t=>t.replace(/\{name\}/g,nm());
 function streak(){let n=0;const d=new Date();for(;;){if(S.days.includes(dkey(d))){n++;d.setDate(d.getDate()-1);}else break;}return n;}
 
 /* ================= sound ================= */
-let ac=null;
-function audio(){if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
-function tone(f,d=.12,type='sine',vol=.13,delay=0){if(!S.sound)return;const c=audio();if(!c)return;const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain();
-  o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.03);}
-const sfx={ok(){tone(660,.1,'triangle');tone(990,.16,'triangle',.13,.08);},bad(){tone(200,.22,'sawtooth',.06);},tap(){tone(560,.035,'sine',.05);},
-  win(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,.22,'triangle',.12,i*.1));},pop(){tone(880,.05,'square',.04);},
-  start(){tone(700,.07,'sine',.1);tone(1050,.09,'sine',.1,.07);},stop(){tone(1050,.07,'sine',.1);tone(700,.09,'sine',.1,.07);}};
-document.addEventListener('pointerdown',()=>{audio();try{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
+/* لا موسيقى ولا نغمات: كل المؤثرات صامتة، والصوت الوحيد هو النطق */
+const sfx=new Proxy({},{get:()=>()=>{}});
+document.addEventListener('pointerdown',()=>{try{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
 /* ================= speech out ================= */
 const TTS='speechSynthesis' in window;
@@ -915,7 +910,6 @@ def('me',()=>{
     <div class="field"><label>الشخصية</label><div class="avs">${AVATARS.map(a=>`<button class="avb ${a===S.avatar?'on':''}" data-a="${a}">${a}</button>`).join('')}</div></div>
     <div class="field"><label>سرعة الكلام</label><div class="seg"><button data-r=".75" class="${S.rate===.75?'on':''}">🐢 بطيء</button><button data-r="1" class="${S.rate===1?'on':''}">🙂 عادي</button></div></div>
     <div class="field"><label>الترجمة العربية</label><div class="seg"><button data-t="1" class="${S.showAr?'on':''}">ظاهرة</button><button data-t="0" class="${!S.showAr?'on':''}">مخفية (تحدٍّ)</button></div></div>
-    <div class="field"><label>المؤثرات الصوتية</label><div class="seg"><button data-s="1" class="${S.sound?'on':''}">🔊 تشغيل</button><button data-s="0" class="${!S.sound?'on':''}">🔇 إيقاف</button></div></div>
     ${SR?`<div class="field"><label>الميكروفون</label><div class="seg"><button data-m="1" class="${!S.micOff?'on':''}">🎤 أتكلم</button><button data-m="0" class="${S.micOff?'on':''}">👆 أختار فقط</button></div></div>`:''}
     <button class="btn wide" id="sv">💾 حفظ الاسم</button></div>
    <h2 class="sec">البدء من جديد</h2>
@@ -924,7 +918,6 @@ def('me',()=>{
   $$('.avb').forEach(b=>b.onclick=()=>{sfx.tap();S.avatar=b.dataset.a;save();$$('.avb').forEach(x=>x.classList.toggle('on',x===b));});
   $$('[data-r]').forEach(b=>b.onclick=()=>{S.rate=+b.dataset.r;save();say('This is my voice.');rerender();});
   $$('[data-t]').forEach(b=>b.onclick=()=>{S.showAr=b.dataset.t==='1';save();rerender();});
-  $$('[data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();rerender();sfx.ok();});
   $$('[data-m]').forEach(b=>b.onclick=()=>{S.micOff=b.dataset.m==='0';save();rerender();});
   $('#sv').onclick=()=>{S.name=$('#nm').value.replace(/[^A-Za-z؀-ۿ]/g,'').trim().slice(0,14)||S.name;save();toast('تم الحفظ ✅');sfx.ok();};
   $('#rs').onclick=()=>{$('#cf').hidden=false;};$('#no').onclick=()=>{$('#cf').hidden=true;};

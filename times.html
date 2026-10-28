@@ -473,27 +473,9 @@ const toNum=s=>+String(s).replace(/[٠-٩]/g,d=>AR.indexOf(d));
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();};
 
 /* ================= الصوت والنطق ================= */
-let ac=null;
-function audio(){if(!ac){try{ac=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac;}
-function tone(f,d=.12,type='sine',vol=.15,delay=0){
-  if(!S.sound)return;const c=audio();if(!c)return;
-  const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain();
-  o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);
-  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.03);
-}
-const sfx={
-  ok(){tone(660,.1,'triangle');tone(990,.16,'triangle',.15,.08);},
-  bad(){tone(196,.28,'sawtooth',.07);},
-  pop(){tone(880,.05,'square',.05);tone(420,.08,'triangle',.1,.03);},
-  win(){[523,659,784,1047,1319].forEach((f,i)=>tone(f,.24,'triangle',.13,i*.1));},
-  tap(){tone(520,.035,'sine',.05);},
-  hit(){tone(240,.1,'square',.09);tone(120,.18,'square',.07,.05);},
-  coin(){tone(1250,.06,'square',.04);tone(1660,.12,'square',.04,.06);},
-  jump(i){tone(392+i*45,.12,'triangle',.1);},
-  flip(){tone(700,.04,'sine',.05);}
-};
+/* لا موسيقى ولا نغمات: كل المؤثرات صامتة، والصوت الوحيد هو النطق */
+const sfx=new Proxy({},{get:()=>()=>{}});
 function speak(t){try{if(!S.sound)return;const u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.85;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
-document.addEventListener('pointerdown',()=>audio(),{once:true});
 
 /* ================= الإحصاءات والتقدم ================= */
 const fk=(a,b)=>Math.min(a,b)+'x'+Math.max(a,b);
@@ -759,7 +741,7 @@ function learnTab(box,n){
   $('#jump').onclick=()=>{
     timers.forEach(clearTimeout);timers=[];
     const sp=$$('#jumps span');sp.forEach(s=>s.classList.remove('lit'));
-    sp.forEach((s,i)=>timers.push(setTimeout(()=>{s.classList.add('lit');sfx.jump(i);},i*420)));
+    sp.forEach((s,i)=>timers.push(setTimeout(()=>{s.classList.add('lit');},i*420)));
   };
 }
 
@@ -1159,7 +1141,7 @@ SCREENS.settings=()=>{
     <div class="field"><label for="nm">الاسم</label><input class="inp" id="nm" maxlength="20" value="${esc(S.name)}"></div>
     <div class="field"><label>الشخصية</label><div class="avs">${AVATARS.map(a=>`<button class="avb ${a===S.avatar?'on':''}" data-a="${a}">${a}</button>`).join('')}</div></div>
     <div class="field"><label>شكل الأرقام</label><div class="seg"><button data-d="ar" class="${S.digits==='ar'?'on':''}">١٢٣</button><button data-d="en" class="${S.digits==='en'?'on':''}">123</button></div></div>
-    <div class="field"><label>الأصوات</label><div class="seg"><button data-s="1" class="${S.sound?'on':''}">🔊 تشغيل</button><button data-s="0" class="${!S.sound?'on':''}">🔇 إيقاف</button></div></div>
+    <div class="field"><label>نطق الجدول بصوت مسموع</label><div class="seg"><button data-s="1" class="${S.sound?'on':''}">🔊 تشغيل</button><button data-s="0" class="${!S.sound?'on':''}">🔇 إيقاف</button></div></div>
     <button class="btn wide" id="sv">💾 حفظ</button></div>
    <h2 class="sec">إعادة البدء</h2>
    <div class="card"><p class="muted" style="margin-bottom:10px">يمسح كل النجوم والعملات والأوسمة من هذا الجهاز.</p>
@@ -1167,7 +1149,7 @@ SCREENS.settings=()=>{
     <div id="cf" hidden style="margin-top:12px"><p style="font-weight:800;margin-bottom:8px">هل أنت متأكد؟ لا يمكن التراجع.</p><div class="row"><button class="btn bad sm" id="yes">نعم، امسح كل شيء</button><button class="btn ghost sm" id="no">إلغاء</button></div></div></div>`;
   $$('.avb').forEach(b=>b.onclick=()=>{sfx.tap();S.avatar=b.dataset.a;save();$$('.avb').forEach(x=>x.classList.toggle('on',x===b));});
   $$('[data-d]').forEach(b=>b.onclick=()=>{S.digits=b.dataset.d;save();rerender();});
-  $$('[data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();rerender();sfx.ok();});
+  $$('[data-s]').forEach(b=>b.onclick=()=>{S.sound=b.dataset.s==='1';save();rerender();});
   $('#sv').onclick=()=>{S.name=$('#nm').value.trim()||S.name;save();toast('تم الحفظ ✅');sfx.ok();};
   $('#rs').onclick=()=>{$('#cf').hidden=false;};$('#no').onclick=()=>{$('#cf').hidden=true;};
   $('#yes').onclick=()=>{const keep={name:S.name,avatar:S.avatar,digits:S.digits,sound:S.sound};S=Object.assign(defaults(),keep);save();toast('بدأنا من جديد 🌱');home();};

@@ -1,0 +1,31 @@
+{
+ "name": "أبطال القسمة",
+ "short_name": "القسمة",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/division.html",
+ "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
+ "display": "standalone",
+ "background_color": "#e8f6f0",
+ "theme_color": "#e8505b",
+ "icons": [
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/division-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/division-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/division-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

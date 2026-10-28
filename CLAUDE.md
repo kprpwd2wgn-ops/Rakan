@@ -11,11 +11,17 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
 | أبطال جدول الضرب (times tables 1–12: secrets, games, challenges) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
 | مدينة الكلام Talk Town (English speaking: conversations, mic, words, games) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
+| أبطال القسمة (division 1–12: cookie-sharing lessons, secrets, games, challenges) | `division.html` (icon `division-icon-v2.png`) | https://claude.ai/artifact/KxUGqCXTyvSjDuDXns71mK |
 
 Add a row here for every new game.
 
 Each game is one standalone HTML file in the repo root: a full `<!DOCTYPE html>` document with all
 its CSS and JavaScript inline, made for phone screens and touch, with a start button.
+
+## No music
+
+She asked for no music at all, in every game: no background music, melodies, jingles or musical tones.
+Spoken voices (speech) are fine. Avoid music-themed content too (songs, singing, dancing, musical chairs).
 
 ## Making a new game
 

@@ -9,7 +9,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 |---|---|---|
 | عالم الألوان (Arabic colors) | `arabic-colors.html` | https://claude.ai/artifact/WgJDPdkMmw2MBJbLH14UjG |
 | لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
-| أبطال جدول الضرب (times tables 1–12: secrets, games, challenges) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
+| أبطال جدول الضرب (times tables 1–12: secrets, 14 mixed question styles, moles/maze/bingo/car race/rectangles/fruit catcher games) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
 | مدينة الكلام Talk Town (English speaking: conversations, mic, words, games) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
 | أبطال القسمة (division 1–12: cookie-sharing lessons, secrets, games, challenges) | `division.html` (icon `division-icon-v2.png`) | https://claude.ai/artifact/KxUGqCXTyvSjDuDXns71mK |
 | صاروخ القراءة Reading Rocket (English reading: letters, blending, sight words, sentences, stories, read aloud) | `reading-rocket.html` (icon `reading-rocket-icon-v2.png`) | https://claude.ai/artifact/KQ8qtJN2HdDmqH6fGvqY6d |

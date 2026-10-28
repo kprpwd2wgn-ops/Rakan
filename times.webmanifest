@@ -1,0 +1,31 @@
+{
+ "name": "أبطال جدول الضرب",
+ "short_name": "جدول الضرب",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/times.html",
+ "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
+ "display": "standalone",
+ "background_color": "#1d4a39",
+ "theme_color": "#8a5526",
+ "icons": [
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/times-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/times-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "https://kprpwd2wgn-ops.github.io/Rakan/times-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

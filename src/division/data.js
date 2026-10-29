@@ -15,6 +15,8 @@ const ISLANDS=[
  {d:7,name:'جزيرة القطط',mate:'بسبوسة',fem:1,crew:'cat',col:'#d946ef',sky:['#f3d1fd','#fdf4ff'],sea:'#3a7bd5',hill:'#9bd37c',boss:'shanbo'},
  {d:12,name:'جزيرة الساعة',mate:'بومبو',crew:'owl',col:'#4f46e5',sky:['#22306a','#56689f'],sea:'#16306b',hill:'#2c3d78',boss:'kraken'}
 ];
+/* أسماء الطاقم كما يقرؤها الصوت الإنجليزي */
+const MATE_EN={1:'Noori',2:'Karkoor',10:'Mozzo',5:'Najma',3:'Farfoor',4:'Salhoof',11:'Follo',9:'Fakkoom',6:'Asoola',8:'Aktoob',7:'Basbousa',12:'Bombo'};
 const ISL_OF={};ISLANDS.forEach((l,i)=>ISL_OF[l.d]=i);
 /* العُقد على الخريطة */
 const NODES=[];

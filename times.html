@@ -381,24 +381,36 @@ function centerOf(el){const r=el.getBoundingClientRect();return[r.left+r.width/2
 
 /* ===== الصوت: النطق (بلا موسيقى) والاستماع ===== */
 const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null};
+/* أصوات طبيعية فقط: لا أصوات آلية ولا أصوات «مضحكة» تغنّي */
+const NATURAL=/Natural|Neural|Premium|Enhanced|Wavenet|Studio/i;
+const NOVELTY=/Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Princess|Eddy|\bFlo\b|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley/i;
+function enScore(v){const n=v.name||'';if(NOVELTY.test(n))return 0;let s=1;
+  if(/^en[-_]US/i.test(v.lang))s+=4;else if(/^en[-_](GB|AU|CA|IE|NZ)/i.test(v.lang))s+=2;
+  if(NATURAL.test(n))s+=8;
+  if(/Samantha|Ava\b|Allison|Susan|Zoe|Nicky|Evan|Nathan|Alex\b|Aria|Jenny|Michelle|Google US English|Karen|Moira|Tessa|Serena|Kate\b/i.test(n))s+=3;
+  return s;}
 function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();
-  const pref=[/Samantha/i,/Google US English/i,/Aria/i,/Jenny/i,/Microsoft.*(Zira|Ana)/i,/en[-_]US/i,/Karen|Moira|Tessa/i,/en[-_]GB/i];
-  const en=vs.filter(v=>/^en/i.test(v.lang));VOICE.en=null;for(const p of pref){const v=en.find(v=>p.test(v.name)||p.test(v.lang));if(v){VOICE.en=v;break;}}if(!VOICE.en)VOICE.en=en[0]||null;
-  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
+  const en=vs.filter(v=>/^en/i.test(v.lang)).map(v=>[enScore(v),v]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);VOICE.en=en.length?en[0][1]:null;
+  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>NATURAL.test(v.name))||ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
 if(TTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
+/* سرعة هادئة تناسب طفلاً يتعلّم: كل الكلام الإنجليزي أبطأ، ويمكن تغييرها من خزانة البطل */
+const PACE={en:.8,ar:.92};
 let sayTok=0;
 function speak(text,o={}){
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
   const lang=o.lang||'en';
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
-    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;u.rate=(o.rate||(lang==='ar'?.95:.92))*(lang==='en'?(World.p.rate||1):1);u.pitch=o.pitch||1.05;
+    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
+    u.rate=Math.max(.5,Math.min(1.3,(o.rate||.92)*(lang==='en'?PACE.en:PACE.ar)*(World.p.rate||1)));u.pitch=o.pitch||1.05;
     u.onstart=()=>{if(o.el&&tok===sayTok)o.el.classList.add('talking');};
     if(o.onboundary)u.onboundary=e=>{if(tok===sayTok&&e.name!=='sentence')o.onboundary(e.charIndex);};
     u.onend=u.onerror=end;speechSynthesis.speak(u);setTimeout(end,1800+String(text).length*90/u.rate);
   }catch(e){end();}
 }
-const sayAr=(t,o={})=>speak(t,Object.assign({lang:'ar'},o));
+/* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
+function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
 function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
@@ -417,13 +429,15 @@ function listen({onLive,onDone,onError}){
   let r;try{r=new SR();}catch(e){onError&&onError('none');return;}
   const tok=++listenTok;rec=r;let text='',alts=[],err='',done=false,hard=null;
   r.lang='en-US';r.interimResults=true;r.continuous=false;try{r.maxAlternatives=3;}catch(e){}
+  let conf=0;
   r.onresult=e=>{const res=Array.from(e.results);text=res.map(x=>x[0].transcript).join(' ').replace(/\s+/g,' ').trim();
+    const cs=res.filter(x=>x.isFinal).map(x=>x[0].confidence||0).filter(c=>c>0);conf=cs.length?cs.reduce((a,b)=>a+b,0)/cs.length:0;
     const last=res[res.length-1];const pre=res.slice(0,-1).map(x=>x[0].transcript).join(' ');
     alts=last?Array.from(last).map(a=>(pre+' '+a.transcript).replace(/\s+/g,' ').trim()).filter(Boolean):[text];
     if(tok===listenTok&&onLive)onLive(text);};
   r.onerror=e=>{err=e.error||'error';};
   const finish=()=>{if(done)return;done=true;clearTimeout(hard);if(rec===r){rec=null;recStop=null;}if(tok!==listenTok)return;
-    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text]});}
+    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text],conf});}
     else if(err&&err!=='no-speech'&&err!=='aborted'){onError&&onError(err);}
     else onDone&&onDone({text:'',alts:[]});};
   r.onend=finish;
@@ -605,11 +619,15 @@ def('closet',(tab)=>{
       body.innerHTML=`<div class="card">${row('لون البشرة','skin',SKIN,true)}${row('الشعر','hair',[0,1,2,3,4],false,['✂️','⚡','🌀','💇','🦁'])}${row('لون الشعر','hairC',HAIRC,true)}${row('لون القميص','shirt',SHIRT,true)}
         <div class="mrow"><span>الاسم</span><input class="inp" id="cn" maxlength="14" value="${esc(World.p.name)}"></div>
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
-        <div class="mrow"><span>صوت الإرشادات</span><div class="seg"><button data-va="1" class="${World.p.voiceAr?'on':''}">🔈 يعمل</button><button data-va="0" class="${!World.p.voiceAr?'on':''}">🔇 صامت</button></div></div></div>`;
+        <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
+          return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
+        <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{World.p.voiceAr=b.dataset.va==='1';World.save();draw();});}
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+      $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});
         return `<button class="item ${tryOn===it.id?'sel':''} ${h[it.slot]===it.id?'worn':''}" data-i="${it.id}">${it.land===APP.land?'<span class="itag">⭐ من هنا</span>':''}<div class="ipic">${heroSVG(p,{face:'smile',head:it.slot==='hat'||it.slot==='acc'})}</div><b>${it.name}</b><span class="iprice">${World.owns(it.id)?'✔ لك':`💎 ${D(it.price)}`}</span></button>`;}).join('')}</div>`;
@@ -662,6 +680,8 @@ const LANDS=[
 ];
 const LAND_OF={};LANDS.forEach((l,i)=>LAND_OF[l.t]=i);
 const DNAME={1:'لولو',2:'زوزو',3:'تريكو',4:'فورا',5:'خمّوش',6:'سادو',7:'سبعو',8:'ثمّورة',9:'تيسو',10:'عشّور',11:'توأمو',12:'دزّو'};
+/* أسماء التنانين كما يقرؤها الصوت الإنجليزي */
+const DNAME_EN={1:'Lulu',2:'Zuzu',3:'Treeko',4:'Fora',5:'Hamoosh',6:'Sadoo',7:'Sabo',8:'Thamoora',9:'Teeso',10:'Ashoor',11:'Tawamo',12:'Dazzo'};
 /* العُقد على الخريطة */
 const NODES=[];
 LANDS.forEach((l,li)=>{if(l.t===1)NODES.push({id:'1-0',li,t:1,kind:'tutorial'});
@@ -896,13 +916,13 @@ def('map',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[['🏰','قلعتك في خطر!','جيوش من الوحوش اللطيفة الشقيّة تقترب من القلعة.'],
-    ['👾','تأتي في صفوف وأعمدة','كل جيش مرتّب مثل الشبكة: صفوف وأعمدة. عُدّ الصفوف والأعمدة، ثم اضرب!'],
-    ['✨','سحرك يجب أن يكون دقيقاً','اكتب عدد الوحوش بالضبط. أقلّ من اللازم لا يكفي، وأكثر من اللازم يتبدّد في الهواء!'],
-    ['🐉','وفي كل مملكة تنين','اهزم زعيم كل مملكة ليفقس تنينها، ويصبح صديقك ويعلّمك أسرار جدوله.']];
+  const P=[['🏰','قلعتك في خطر!','جيوش من الوحوش اللطيفة الشقيّة تقترب من القلعة.','Your castle is in danger! Armies of cute, naughty monsters are coming to the castle.'],
+    ['👾','تأتي في صفوف وأعمدة','كل جيش مرتّب مثل الشبكة: صفوف وأعمدة. عُدّ الصفوف والأعمدة، ثم اضرب!','They come in rows and columns. Count the rows, count the columns, and then multiply!'],
+    ['✨','سحرك يجب أن يكون دقيقاً','اكتب عدد الوحوش بالضبط. أقلّ من اللازم لا يكفي، وأكثر من اللازم يتبدّد في الهواء!','Your magic must be just right. Type the exact number of monsters. Too few is not enough, and too many floats away!'],
+    ['🐉','وفي كل مملكة تنين','اهزم زعيم كل مملكة ليفقس تنينها، ويصبح صديقك ويعلّمك أسرار جدوله.','Every kingdom has a dragon. Beat the boss of a kingdom, and its dragon will hatch. It will be your friend and teach you the secrets of its table.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cbig">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'⚔️ لنبدأ!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }
@@ -916,7 +936,7 @@ function hatchOv(n,done){
       eg.innerHTML=dragonSVG(n,Math.max(1,dragonStage(n)),{cls:'bob'});eg.disabled=true;
       $('#hr',ov).innerHTML=`<p class="hname">${DNAME[n]}، تنين جدول ×${D(n)}، انضم إليك! 🎉</p><p class="muted">قوته السرية: <b>${TABLES[n].secrets[0].t}</b></p>
         <div class="btns"><button class="btn gold" id="hc">🐉 اجعله رفيقي في المعارك</button><button class="btn ghost" id="hk">رائع!</button></div>`;
-      sayAr(`${DNAME[n]} انضم إليك!`);
+      guide(`${DNAME[n]} انضم إليك!`,`Hooray! ${DNAME_EN[n]} the dragon joined you!`);
       $('#hc',ov).onclick=()=>{G.comp=n;gsave();ov.remove();done&&done();};$('#hk',ov).onclick=()=>{ov.remove();done&&done();};}};
 }
 
@@ -948,7 +968,7 @@ def('learn',n=>{
     <div class="arrbox"><div class="arr" style="grid-template-columns:repeat(${sel},1fr)">${monCV(l.mon,l.col,30).repeat(n*sel)}</div>
       <p class="arrcap">${D(n)} × ${D(sel)} = <b>${D(n*sel)}</b></p><p class="small">${n===1?'صف واحد':n===2?'صفّان':n<=10?D(n)+' صفوف':D(n)+' صفاً'}، وفي كل صف ${D(sel)}</p></div>
     <div class="trows">${[...Array(12)].map((_,i)=>`<button class="trow ${i+1===sel?'on':''}" data-k="${i+1}"><span>${D(n)} × ${D(i+1)}</span><b>${D(n*(i+1))}</b></button>`).join('')}</div></div>`;
-    fillIcons($('#view'));$$('.trow').forEach(b=>b.onclick=()=>{sel=+b.dataset.k;draw();sayAr(`${n} في ${sel} يساوي ${n*sel}`);});};
+    fillIcons($('#view'));$$('.trow').forEach(b=>b.onclick=()=>{sel=+b.dataset.k;draw();guide(`${n} في ${sel} يساوي ${n*sel}`,`${n} times ${sel} is ${n*sel}.`);});};
   draw();
 });
 

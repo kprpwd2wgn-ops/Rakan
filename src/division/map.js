@@ -35,13 +35,13 @@ def('map',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.'],
-    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!'],
-    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه'],
-    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.']];
+  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.','You are a ship captain now! Your crew of kind pirates is waiting for your orders, and the islands are full of treasure.'],
+    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!','A good captain is fair. When we find treasure, we share it equally. Every pirate gets the same number. That is division!'],
+    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه','And I am Koko the parrot! If something is left in the chest, and there is not enough for everyone, it is mine! Ha ha!'],
+    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.','Watch out for Captain Shanbo and the giant octopus! Beat them with the right answers, and the animal of each island will join your crew.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'⚓ لنبحر!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }
@@ -52,7 +52,7 @@ function joinOv(d,done){
   ov.innerHTML=`<div class="res"><div class="jpic bob">${mateSVG(l.crew,l.col)}</div><h2>${l.mate} ${joinWord(l)} إلى طاقمك! 🎉</h2>
     <p class="muted">${D(T.why)}</p><p>سرّ القسمة على ${D(d)}: <b>${T.secrets[0].t}</b></p>
     <div class="btns"><button class="btn gold" id="jc">⭐ ${makeWord(l)} رفيقي في الرحلات</button><button class="btn ghost" id="jk">رائع!</button></div></div>`;
-  document.body.appendChild(ov);FX.confetti();buzz(40);sayAr(`${l.mate} ${joinWord(l)} إلى طاقمك!`);
+  document.body.appendChild(ov);FX.confetti();buzz(40);guide(`${l.mate} ${joinWord(l)} إلى طاقمك!`,`Hooray! ${MATE_EN[d]} the ${l.crew} joined your crew!`);
   $('#jc',ov).onclick=()=>{G.mate=d;gsave();ov.remove();done&&done();};$('#jk',ov).onclick=()=>{ov.remove();done&&done();};
 }
 
@@ -86,7 +86,7 @@ def('learn',d=>{
     <div class="sharebox"><div class="srow">${[...Array(d)].map((_,i)=>`<div class="sp">${pirSVG(i,'happy')}<div class="coins">${'<i></i>'.repeat(q)}</div><b>${D(q)}</b></div>`).join('')}</div>
       <p class="arrcap">${D(N)} ÷ ${D(d)} = <b>${D(q)}</b></p><p class="small">${nn(d,W_PIR,false)}، وكل واحد يأخذ ${D(q)}، لأن ${D(d)} × ${D(q)} = ${D(N)}</p></div>
     <div class="trows">${[...Array(12)].map((_,i)=>`<button class="trow ${i+1===q?'on':''}" data-k="${i+1}"><span>${D(d*(i+1))} ÷ ${D(d)}</span><b>${D(i+1)}</b></button>`).join('')}</div></div>`;
-    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();sayAr(`${d*q} تقسيم ${d} يساوي ${q}`);});};
+    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();guide(`${d*q} تقسيم ${d} يساوي ${q}`,`${d*q} divided by ${d} is ${q}.`);});};
   draw();
 });
 

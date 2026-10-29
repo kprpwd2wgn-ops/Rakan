@@ -405,24 +405,36 @@ function centerOf(el){const r=el.getBoundingClientRect();return[r.left+r.width/2
 
 /* ===== الصوت: النطق (بلا موسيقى) والاستماع ===== */
 const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null};
+/* أصوات طبيعية فقط: لا أصوات آلية ولا أصوات «مضحكة» تغنّي */
+const NATURAL=/Natural|Neural|Premium|Enhanced|Wavenet|Studio/i;
+const NOVELTY=/Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Princess|Eddy|\bFlo\b|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley/i;
+function enScore(v){const n=v.name||'';if(NOVELTY.test(n))return 0;let s=1;
+  if(/^en[-_]US/i.test(v.lang))s+=4;else if(/^en[-_](GB|AU|CA|IE|NZ)/i.test(v.lang))s+=2;
+  if(NATURAL.test(n))s+=8;
+  if(/Samantha|Ava\b|Allison|Susan|Zoe|Nicky|Evan|Nathan|Alex\b|Aria|Jenny|Michelle|Google US English|Karen|Moira|Tessa|Serena|Kate\b/i.test(n))s+=3;
+  return s;}
 function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();
-  const pref=[/Samantha/i,/Google US English/i,/Aria/i,/Jenny/i,/Microsoft.*(Zira|Ana)/i,/en[-_]US/i,/Karen|Moira|Tessa/i,/en[-_]GB/i];
-  const en=vs.filter(v=>/^en/i.test(v.lang));VOICE.en=null;for(const p of pref){const v=en.find(v=>p.test(v.name)||p.test(v.lang));if(v){VOICE.en=v;break;}}if(!VOICE.en)VOICE.en=en[0]||null;
-  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
+  const en=vs.filter(v=>/^en/i.test(v.lang)).map(v=>[enScore(v),v]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);VOICE.en=en.length?en[0][1]:null;
+  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>NATURAL.test(v.name))||ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
 if(TTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
+/* سرعة هادئة تناسب طفلاً يتعلّم: كل الكلام الإنجليزي أبطأ، ويمكن تغييرها من خزانة البطل */
+const PACE={en:.8,ar:.92};
 let sayTok=0;
 function speak(text,o={}){
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
   const lang=o.lang||'en';
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
-    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;u.rate=(o.rate||(lang==='ar'?.95:.92))*(lang==='en'?(World.p.rate||1):1);u.pitch=o.pitch||1.05;
+    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
+    u.rate=Math.max(.5,Math.min(1.3,(o.rate||.92)*(lang==='en'?PACE.en:PACE.ar)*(World.p.rate||1)));u.pitch=o.pitch||1.05;
     u.onstart=()=>{if(o.el&&tok===sayTok)o.el.classList.add('talking');};
     if(o.onboundary)u.onboundary=e=>{if(tok===sayTok&&e.name!=='sentence')o.onboundary(e.charIndex);};
     u.onend=u.onerror=end;speechSynthesis.speak(u);setTimeout(end,1800+String(text).length*90/u.rate);
   }catch(e){end();}
 }
-const sayAr=(t,o={})=>speak(t,Object.assign({lang:'ar'},o));
+/* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
+function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
 function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
@@ -441,13 +453,15 @@ function listen({onLive,onDone,onError}){
   let r;try{r=new SR();}catch(e){onError&&onError('none');return;}
   const tok=++listenTok;rec=r;let text='',alts=[],err='',done=false,hard=null;
   r.lang='en-US';r.interimResults=true;r.continuous=false;try{r.maxAlternatives=3;}catch(e){}
+  let conf=0;
   r.onresult=e=>{const res=Array.from(e.results);text=res.map(x=>x[0].transcript).join(' ').replace(/\s+/g,' ').trim();
+    const cs=res.filter(x=>x.isFinal).map(x=>x[0].confidence||0).filter(c=>c>0);conf=cs.length?cs.reduce((a,b)=>a+b,0)/cs.length:0;
     const last=res[res.length-1];const pre=res.slice(0,-1).map(x=>x[0].transcript).join(' ');
     alts=last?Array.from(last).map(a=>(pre+' '+a.transcript).replace(/\s+/g,' ').trim()).filter(Boolean):[text];
     if(tok===listenTok&&onLive)onLive(text);};
   r.onerror=e=>{err=e.error||'error';};
   const finish=()=>{if(done)return;done=true;clearTimeout(hard);if(rec===r){rec=null;recStop=null;}if(tok!==listenTok)return;
-    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text]});}
+    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text],conf});}
     else if(err&&err!=='no-speech'&&err!=='aborted'){onError&&onError(err);}
     else onDone&&onDone({text:'',alts:[]});};
   r.onend=finish;
@@ -629,11 +643,15 @@ def('closet',(tab)=>{
       body.innerHTML=`<div class="card">${row('لون البشرة','skin',SKIN,true)}${row('الشعر','hair',[0,1,2,3,4],false,['✂️','⚡','🌀','💇','🦁'])}${row('لون الشعر','hairC',HAIRC,true)}${row('لون القميص','shirt',SHIRT,true)}
         <div class="mrow"><span>الاسم</span><input class="inp" id="cn" maxlength="14" value="${esc(World.p.name)}"></div>
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
-        <div class="mrow"><span>صوت الإرشادات</span><div class="seg"><button data-va="1" class="${World.p.voiceAr?'on':''}">🔈 يعمل</button><button data-va="0" class="${!World.p.voiceAr?'on':''}">🔇 صامت</button></div></div></div>`;
+        <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
+          return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
+        <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{World.p.voiceAr=b.dataset.va==='1';World.save();draw();});}
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+      $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});
         return `<button class="item ${tryOn===it.id?'sel':''} ${h[it.slot]===it.id?'worn':''}" data-i="${it.id}">${it.land===APP.land?'<span class="itag">⭐ من هنا</span>':''}<div class="ipic">${heroSVG(p,{face:'smile',head:it.slot==='hat'||it.slot==='acc'})}</div><b>${it.name}</b><span class="iprice">${World.owns(it.id)?'✔ لك':`💎 ${D(it.price)}`}</span></button>`;}).join('')}</div>`;
@@ -685,6 +703,8 @@ const ISLANDS=[
  {d:7,name:'جزيرة القطط',mate:'بسبوسة',fem:1,crew:'cat',col:'#d946ef',sky:['#f3d1fd','#fdf4ff'],sea:'#3a7bd5',hill:'#9bd37c',boss:'shanbo'},
  {d:12,name:'جزيرة الساعة',mate:'بومبو',crew:'owl',col:'#4f46e5',sky:['#22306a','#56689f'],sea:'#16306b',hill:'#2c3d78',boss:'kraken'}
 ];
+/* أسماء الطاقم كما يقرؤها الصوت الإنجليزي */
+const MATE_EN={1:'Noori',2:'Karkoor',10:'Mozzo',5:'Najma',3:'Farfoor',4:'Salhoof',11:'Follo',9:'Fakkoom',6:'Asoola',8:'Aktoob',7:'Basbousa',12:'Bombo'};
 const ISL_OF={};ISLANDS.forEach((l,i)=>ISL_OF[l.d]=i);
 /* العُقد على الخريطة */
 const NODES=[];
@@ -1107,13 +1127,13 @@ def('map',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.'],
-    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!'],
-    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه'],
-    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.']];
+  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.','You are a ship captain now! Your crew of kind pirates is waiting for your orders, and the islands are full of treasure.'],
+    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!','A good captain is fair. When we find treasure, we share it equally. Every pirate gets the same number. That is division!'],
+    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه','And I am Koko the parrot! If something is left in the chest, and there is not enough for everyone, it is mine! Ha ha!'],
+    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.','Watch out for Captain Shanbo and the giant octopus! Beat them with the right answers, and the animal of each island will join your crew.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'⚓ لنبحر!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }
@@ -1124,7 +1144,7 @@ function joinOv(d,done){
   ov.innerHTML=`<div class="res"><div class="jpic bob">${mateSVG(l.crew,l.col)}</div><h2>${l.mate} ${joinWord(l)} إلى طاقمك! 🎉</h2>
     <p class="muted">${D(T.why)}</p><p>سرّ القسمة على ${D(d)}: <b>${T.secrets[0].t}</b></p>
     <div class="btns"><button class="btn gold" id="jc">⭐ ${makeWord(l)} رفيقي في الرحلات</button><button class="btn ghost" id="jk">رائع!</button></div></div>`;
-  document.body.appendChild(ov);FX.confetti();buzz(40);sayAr(`${l.mate} ${joinWord(l)} إلى طاقمك!`);
+  document.body.appendChild(ov);FX.confetti();buzz(40);guide(`${l.mate} ${joinWord(l)} إلى طاقمك!`,`Hooray! ${MATE_EN[d]} the ${l.crew} joined your crew!`);
   $('#jc',ov).onclick=()=>{G.mate=d;gsave();ov.remove();done&&done();};$('#jk',ov).onclick=()=>{ov.remove();done&&done();};
 }
 
@@ -1158,7 +1178,7 @@ def('learn',d=>{
     <div class="sharebox"><div class="srow">${[...Array(d)].map((_,i)=>`<div class="sp">${pirSVG(i,'happy')}<div class="coins">${'<i></i>'.repeat(q)}</div><b>${D(q)}</b></div>`).join('')}</div>
       <p class="arrcap">${D(N)} ÷ ${D(d)} = <b>${D(q)}</b></p><p class="small">${nn(d,W_PIR,false)}، وكل واحد يأخذ ${D(q)}، لأن ${D(d)} × ${D(q)} = ${D(N)}</p></div>
     <div class="trows">${[...Array(12)].map((_,i)=>`<button class="trow ${i+1===q?'on':''}" data-k="${i+1}"><span>${D(d*(i+1))} ÷ ${D(d)}</span><b>${D(i+1)}</b></button>`).join('')}</div></div>`;
-    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();sayAr(`${d*q} تقسيم ${d} يساوي ${q}`);});};
+    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();guide(`${d*q} تقسيم ${d} يساوي ${q}`,`${d*q} divided by ${d} is ${q}.`);});};
   draw();
 });
 
@@ -1191,7 +1211,7 @@ const mkPack=(d,q,item)=>({type:'pack',d,q,N:d*q,item:item||pick(['fish','fish',
 const mkParrot=(d,q,r)=>{r=r||rint(1,Math.max(1,d-1));return{type:'parrot',d,q,rem:r,N:d*q+r,loot:pick(LOOTS)};};
 const mkMap=(d,q)=>({type:'map',d,q,N:d*q,rev:Math.random()<.35});
 const mkGold=(d,q)=>({type:'gold',d,q,N:d*q});
-const mkBottle=(d,q)=>({type:'bottle',d,q,N:d*q,tpl:rint(0,BOTTLES.length-1)});
+const mkBottle=(d,q)=>{q=Math.max(2,q);return{type:'bottle',d,q,N:d*q,tpl:rint(0,BOTTLES.length-1)};};
 const BOTTLES=[
   (N,d)=>`وجد القبطان كنزاً فيه ${N} من قطع الذهب، وقسمه بالعدل على ${d} من القراصنة. كم قطعة يأخذ كل قرصان؟`,
   (N,d)=>`في مخزن السفينة ${N} من الموز، والقرد يأكل ${d} كل يوم. كم يوماً يكفي الموز؟`,
@@ -1200,6 +1220,17 @@ const BOTTLES=[
   (N,d)=>`عند الببغاء ${N} من الحبوب، ويأكل ${d} كل ساعة. بعد كم ساعة تنتهي الحبوب؟`,
   (N,d)=>`عند الطاهي ${N} من البيض، ويطبخ ${d} في كل وجبة. كم وجبة يطبخ؟`,
   (N,d)=>`في الصندوق ${N} من الخرائط، وكل قرصان يأخذ ${d}. كم قرصاناً أخذ خرائط؟`
+];
+/* القصص نفسها كما يقرؤها الصوت الإنجليزي */
+const nEn=(n,w,ws)=>`${n} ${n===1?w:(ws||w+'s')}`;
+const BOTTLES_EN=[
+  (N,d)=>`The captain found a treasure with ${nEn(N,'gold coin')}. He shared it fairly ${d===1?'with just 1 pirate':`between ${d} pirates`}. How many coins does each pirate get?`,
+  (N,d)=>`There are ${nEn(N,'banana')} on the ship. The monkey eats ${d} every day. How many days will the bananas last?`,
+  (N,d)=>`The crew caught ${nEn(N,'fish','fish')}. They put ${d} in each basket. How many baskets are full?`,
+  (N,d)=>`${nEn(N,'pirate')} want to go to the island. Each boat carries ${d}. How many boats do we need?`,
+  (N,d)=>`The parrot has ${nEn(N,'seed')}. It eats ${d} every hour. After how many hours are all the seeds gone?`,
+  (N,d)=>`The cook has ${nEn(N,'egg')}. He cooks ${d} for each meal. How many meals can he cook?`,
+  (N,d)=>`There are ${nEn(N,'map')} in the chest. Each pirate takes ${d}. How many pirates took maps?`
 ];
 function planFor(mode,d){
   if(mode==='tutorial')return[Object.assign(mkShare(2,3,'coin'),{tut:0}),Object.assign(mkShare(2,4,'coin'),{tut:1}),Object.assign(mkShare(3,4,'gem'),{tut:2}),
@@ -1310,16 +1341,17 @@ def('voyage',arg=>{
     else if(r.type==='parrot')coach(`🦜 نقسم ${nn(r.N,lw)} على ${nn(r.d,W_PIR)}، وما يبقى فهو لي!`,null,4200);
     else if(r.type==='map')coach(`🗺️ خريطة كنز ممزّقة! أكمل الرقم الناقص لتعرف مكان الكنز.`,null,4200);
     else if(r.type==='gold')coach(`✨ سفينة الذهب تمرّ! أجب بسرعة لتربح ${D(3)} جواهر.`,null,3500);
-    else if(r.type==='bottle'){coach('🍾 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
-    banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'🍾 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
+    else if(r.type==='bottle'){coach('📜 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
+    banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'📜 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
   }
   function openScroll(){const r=R;if(!alive||!r||r.type!=='bottle'||r.done)return;const t=D(BOTTLES[r.tpl](r.N,r.d));const s=$('#vscroll');
-    s.innerHTML=`<p>${t}</p><button class="btn sm ghost" id="vsay">🔊 اسمعها</button>`;s.hidden=false;$('#vsay').onclick=()=>sayAr(BOTTLES[r.tpl](r.N,r.d));}
+    s.innerHTML=`<p>${t}</p>${World.p.voiceAr?`<button class="btn sm ghost" id="vsay">🔊 ${guideLang()==='en'?'اسمعها بالإنجليزية':'اسمعها'}</button>`:''}`;s.hidden=false;
+    if($('#vsay'))$('#vsay').onclick=()=>guide(BOTTLES[r.tpl](r.N,r.d),BOTTLES_EN[r.tpl](r.N,r.d));}
 
   /* ---------- المساعد والرسائل ---------- */
   let coachT=0;
   const coachDef=()=>{if(boss)return '💥 أجب بسرعة لتطلق المدفع!';const r=R;if(!r)return '';
-    return r.type==='share'?'💰 كم يأخذ كل قرصان؟ اكتب، أو وزّع بنفسك 🤲':r.type==='pack'?`🛢️ كل برميل يتسع لـ ${D(r.d)}. كم برميلاً؟`:r.type==='parrot'?(r.stage==='rem'?'🦜 كم بقي في الصندوق لي؟':'🦜 قسّم بالعدل، وما يبقى فهو لي!'):r.type==='map'?'🗺️ ما الرقم الممزّق؟':r.type==='gold'?'✨ أسرع قبل أن تبتعد سفينة الذهب!':'🍾 اقرأ الرسالة وأجب';};
+    return r.type==='share'?'💰 كم يأخذ كل قرصان؟ اكتب، أو وزّع بنفسك 🤲':r.type==='pack'?`🛢️ كل برميل يتسع لـ ${D(r.d)}. كم برميلاً؟`:r.type==='parrot'?(r.stage==='rem'?'🦜 كم بقي في الصندوق لي؟':'🦜 قسّم بالعدل، وما يبقى فهو لي!'):r.type==='map'?'🗺️ ما الرقم الممزّق؟':r.type==='gold'?'✨ أسرع قبل أن تبتعد سفينة الذهب!':'📜 اقرأ الرسالة وأجب';};
   function coach(html,key,ms,face){const c=$('#coach');c.classList.remove('idle');c.innerHTML=`<span class="cdr">${face||parrotSVG('talk')}</span><span>${html}</span>`;
     $$('.k.hint').forEach(k=>k.classList.remove('hint'));if(key){$$(key.split(',').map(k=>`.k[data-k="${k}"]`).join(',')).forEach(k=>k.classList.add('hint'));$('.k.go').classList.add('hint');}
     clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);}

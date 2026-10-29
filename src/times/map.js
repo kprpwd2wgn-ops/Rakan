@@ -35,13 +35,13 @@ def('map',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[['🏰','قلعتك في خطر!','جيوش من الوحوش اللطيفة الشقيّة تقترب من القلعة.'],
-    ['👾','تأتي في صفوف وأعمدة','كل جيش مرتّب مثل الشبكة: صفوف وأعمدة. عُدّ الصفوف والأعمدة، ثم اضرب!'],
-    ['✨','سحرك يجب أن يكون دقيقاً','اكتب عدد الوحوش بالضبط. أقلّ من اللازم لا يكفي، وأكثر من اللازم يتبدّد في الهواء!'],
-    ['🐉','وفي كل مملكة تنين','اهزم زعيم كل مملكة ليفقس تنينها، ويصبح صديقك ويعلّمك أسرار جدوله.']];
+  const P=[['🏰','قلعتك في خطر!','جيوش من الوحوش اللطيفة الشقيّة تقترب من القلعة.','Your castle is in danger! Armies of cute, naughty monsters are coming to the castle.'],
+    ['👾','تأتي في صفوف وأعمدة','كل جيش مرتّب مثل الشبكة: صفوف وأعمدة. عُدّ الصفوف والأعمدة، ثم اضرب!','They come in rows and columns. Count the rows, count the columns, and then multiply!'],
+    ['✨','سحرك يجب أن يكون دقيقاً','اكتب عدد الوحوش بالضبط. أقلّ من اللازم لا يكفي، وأكثر من اللازم يتبدّد في الهواء!','Your magic must be just right. Type the exact number of monsters. Too few is not enough, and too many floats away!'],
+    ['🐉','وفي كل مملكة تنين','اهزم زعيم كل مملكة ليفقس تنينها، ويصبح صديقك ويعلّمك أسرار جدوله.','Every kingdom has a dragon. Beat the boss of a kingdom, and its dragon will hatch. It will be your friend and teach you the secrets of its table.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cbig">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'⚔️ لنبدأ!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }
@@ -55,7 +55,7 @@ function hatchOv(n,done){
       eg.innerHTML=dragonSVG(n,Math.max(1,dragonStage(n)),{cls:'bob'});eg.disabled=true;
       $('#hr',ov).innerHTML=`<p class="hname">${DNAME[n]}، تنين جدول ×${D(n)}، انضم إليك! 🎉</p><p class="muted">قوته السرية: <b>${TABLES[n].secrets[0].t}</b></p>
         <div class="btns"><button class="btn gold" id="hc">🐉 اجعله رفيقي في المعارك</button><button class="btn ghost" id="hk">رائع!</button></div>`;
-      sayAr(`${DNAME[n]} انضم إليك!`);
+      guide(`${DNAME[n]} انضم إليك!`,`Hooray! ${DNAME_EN[n]} the dragon joined you!`);
       $('#hc',ov).onclick=()=>{G.comp=n;gsave();ov.remove();done&&done();};$('#hk',ov).onclick=()=>{ov.remove();done&&done();};}};
 }
 
@@ -87,6 +87,6 @@ def('learn',n=>{
     <div class="arrbox"><div class="arr" style="grid-template-columns:repeat(${sel},1fr)">${monCV(l.mon,l.col,30).repeat(n*sel)}</div>
       <p class="arrcap">${D(n)} × ${D(sel)} = <b>${D(n*sel)}</b></p><p class="small">${n===1?'صف واحد':n===2?'صفّان':n<=10?D(n)+' صفوف':D(n)+' صفاً'}، وفي كل صف ${D(sel)}</p></div>
     <div class="trows">${[...Array(12)].map((_,i)=>`<button class="trow ${i+1===sel?'on':''}" data-k="${i+1}"><span>${D(n)} × ${D(i+1)}</span><b>${D(n*(i+1))}</b></button>`).join('')}</div></div>`;
-    fillIcons($('#view'));$$('.trow').forEach(b=>b.onclick=()=>{sel=+b.dataset.k;draw();sayAr(`${n} في ${sel} يساوي ${n*sel}`);});};
+    fillIcons($('#view'));$$('.trow').forEach(b=>b.onclick=()=>{sel=+b.dataset.k;draw();guide(`${n} في ${sel} يساوي ${n*sel}`,`${n} times ${sel} is ${n*sel}.`);});};
   draw();
 });

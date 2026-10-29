@@ -142,11 +142,15 @@ def('closet',(tab)=>{
       body.innerHTML=`<div class="card">${row('لون البشرة','skin',SKIN,true)}${row('الشعر','hair',[0,1,2,3,4],false,['✂️','⚡','🌀','💇','🦁'])}${row('لون الشعر','hairC',HAIRC,true)}${row('لون القميص','shirt',SHIRT,true)}
         <div class="mrow"><span>الاسم</span><input class="inp" id="cn" maxlength="14" value="${esc(World.p.name)}"></div>
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
-        <div class="mrow"><span>صوت الإرشادات</span><div class="seg"><button data-va="1" class="${World.p.voiceAr?'on':''}">🔈 يعمل</button><button data-va="0" class="${!World.p.voiceAr?'on':''}">🔇 صامت</button></div></div></div>`;
+        <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
+          return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
+        <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{World.p.voiceAr=b.dataset.va==='1';World.save();draw();});}
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+      $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});
         return `<button class="item ${tryOn===it.id?'sel':''} ${h[it.slot]===it.id?'worn':''}" data-i="${it.id}">${it.land===APP.land?'<span class="itag">⭐ من هنا</span>':''}<div class="ipic">${heroSVG(p,{face:'smile',head:it.slot==='hat'||it.slot==='acc'})}</div><b>${it.name}</b><span class="iprice">${World.owns(it.id)?'✔ لك':`💎 ${D(it.price)}`}</span></button>`;}).join('')}</div>`;

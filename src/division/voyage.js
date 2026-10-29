@@ -7,7 +7,7 @@ const mkPack=(d,q,item)=>({type:'pack',d,q,N:d*q,item:item||pick(['fish','fish',
 const mkParrot=(d,q,r)=>{r=r||rint(1,Math.max(1,d-1));return{type:'parrot',d,q,rem:r,N:d*q+r,loot:pick(LOOTS)};};
 const mkMap=(d,q)=>({type:'map',d,q,N:d*q,rev:Math.random()<.35});
 const mkGold=(d,q)=>({type:'gold',d,q,N:d*q});
-const mkBottle=(d,q)=>({type:'bottle',d,q,N:d*q,tpl:rint(0,BOTTLES.length-1)});
+const mkBottle=(d,q)=>{q=Math.max(2,q);return{type:'bottle',d,q,N:d*q,tpl:rint(0,BOTTLES.length-1)};};
 const BOTTLES=[
   (N,d)=>`وجد القبطان كنزاً فيه ${N} من قطع الذهب، وقسمه بالعدل على ${d} من القراصنة. كم قطعة يأخذ كل قرصان؟`,
   (N,d)=>`في مخزن السفينة ${N} من الموز، والقرد يأكل ${d} كل يوم. كم يوماً يكفي الموز؟`,
@@ -16,6 +16,17 @@ const BOTTLES=[
   (N,d)=>`عند الببغاء ${N} من الحبوب، ويأكل ${d} كل ساعة. بعد كم ساعة تنتهي الحبوب؟`,
   (N,d)=>`عند الطاهي ${N} من البيض، ويطبخ ${d} في كل وجبة. كم وجبة يطبخ؟`,
   (N,d)=>`في الصندوق ${N} من الخرائط، وكل قرصان يأخذ ${d}. كم قرصاناً أخذ خرائط؟`
+];
+/* القصص نفسها كما يقرؤها الصوت الإنجليزي */
+const nEn=(n,w,ws)=>`${n} ${n===1?w:(ws||w+'s')}`;
+const BOTTLES_EN=[
+  (N,d)=>`The captain found a treasure with ${nEn(N,'gold coin')}. He shared it fairly ${d===1?'with just 1 pirate':`between ${d} pirates`}. How many coins does each pirate get?`,
+  (N,d)=>`There are ${nEn(N,'banana')} on the ship. The monkey eats ${d} every day. How many days will the bananas last?`,
+  (N,d)=>`The crew caught ${nEn(N,'fish','fish')}. They put ${d} in each basket. How many baskets are full?`,
+  (N,d)=>`${nEn(N,'pirate')} want to go to the island. Each boat carries ${d}. How many boats do we need?`,
+  (N,d)=>`The parrot has ${nEn(N,'seed')}. It eats ${d} every hour. After how many hours are all the seeds gone?`,
+  (N,d)=>`The cook has ${nEn(N,'egg')}. He cooks ${d} for each meal. How many meals can he cook?`,
+  (N,d)=>`There are ${nEn(N,'map')} in the chest. Each pirate takes ${d}. How many pirates took maps?`
 ];
 function planFor(mode,d){
   if(mode==='tutorial')return[Object.assign(mkShare(2,3,'coin'),{tut:0}),Object.assign(mkShare(2,4,'coin'),{tut:1}),Object.assign(mkShare(3,4,'gem'),{tut:2}),
@@ -126,16 +137,17 @@ def('voyage',arg=>{
     else if(r.type==='parrot')coach(`🦜 نقسم ${nn(r.N,lw)} على ${nn(r.d,W_PIR)}، وما يبقى فهو لي!`,null,4200);
     else if(r.type==='map')coach(`🗺️ خريطة كنز ممزّقة! أكمل الرقم الناقص لتعرف مكان الكنز.`,null,4200);
     else if(r.type==='gold')coach(`✨ سفينة الذهب تمرّ! أجب بسرعة لتربح ${D(3)} جواهر.`,null,3500);
-    else if(r.type==='bottle'){coach('🍾 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
-    banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'🍾 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
+    else if(r.type==='bottle'){coach('📜 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
+    banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'📜 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
   }
   function openScroll(){const r=R;if(!alive||!r||r.type!=='bottle'||r.done)return;const t=D(BOTTLES[r.tpl](r.N,r.d));const s=$('#vscroll');
-    s.innerHTML=`<p>${t}</p><button class="btn sm ghost" id="vsay">🔊 اسمعها</button>`;s.hidden=false;$('#vsay').onclick=()=>sayAr(BOTTLES[r.tpl](r.N,r.d));}
+    s.innerHTML=`<p>${t}</p>${World.p.voiceAr?`<button class="btn sm ghost" id="vsay">🔊 ${guideLang()==='en'?'اسمعها بالإنجليزية':'اسمعها'}</button>`:''}`;s.hidden=false;
+    if($('#vsay'))$('#vsay').onclick=()=>guide(BOTTLES[r.tpl](r.N,r.d),BOTTLES_EN[r.tpl](r.N,r.d));}
 
   /* ---------- المساعد والرسائل ---------- */
   let coachT=0;
   const coachDef=()=>{if(boss)return '💥 أجب بسرعة لتطلق المدفع!';const r=R;if(!r)return '';
-    return r.type==='share'?'💰 كم يأخذ كل قرصان؟ اكتب، أو وزّع بنفسك 🤲':r.type==='pack'?`🛢️ كل برميل يتسع لـ ${D(r.d)}. كم برميلاً؟`:r.type==='parrot'?(r.stage==='rem'?'🦜 كم بقي في الصندوق لي؟':'🦜 قسّم بالعدل، وما يبقى فهو لي!'):r.type==='map'?'🗺️ ما الرقم الممزّق؟':r.type==='gold'?'✨ أسرع قبل أن تبتعد سفينة الذهب!':'🍾 اقرأ الرسالة وأجب';};
+    return r.type==='share'?'💰 كم يأخذ كل قرصان؟ اكتب، أو وزّع بنفسك 🤲':r.type==='pack'?`🛢️ كل برميل يتسع لـ ${D(r.d)}. كم برميلاً؟`:r.type==='parrot'?(r.stage==='rem'?'🦜 كم بقي في الصندوق لي؟':'🦜 قسّم بالعدل، وما يبقى فهو لي!'):r.type==='map'?'🗺️ ما الرقم الممزّق؟':r.type==='gold'?'✨ أسرع قبل أن تبتعد سفينة الذهب!':'📜 اقرأ الرسالة وأجب';};
   function coach(html,key,ms,face){const c=$('#coach');c.classList.remove('idle');c.innerHTML=`<span class="cdr">${face||parrotSVG('talk')}</span><span>${html}</span>`;
     $$('.k.hint').forEach(k=>k.classList.remove('hint'));if(key){$$(key.split(',').map(k=>`.k[data-k="${k}"]`).join(',')).forEach(k=>k.classList.add('hint'));$('.k.go').classList.add('hint');}
     clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);}

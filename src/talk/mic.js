@@ -29,5 +29,5 @@ function micBar(root,o){
 /* نجوم الجواب: ١ تكلّمت بالإنجليزية، ٢ أجبت، ٣ بجملة كاملة */
 const starRow=(n,max=3)=>`<span class="srow">${[...Array(max)].map((_,i)=>`<i class="${i<n?'on':''}">★</i>`).join('')}</span>`;
 function sayEn(text,o={}){speak(text,Object.assign({lang:'en'},o));}
-const roboSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.6,rate:1.02},o));
-const zibSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.45,rate:.9},o));
+const roboSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.35,rate:.95},o));
+const zibSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.3,rate:.9},o));

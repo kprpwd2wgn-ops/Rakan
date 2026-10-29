@@ -51,12 +51,12 @@ def('words',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[[roboSVG('happy'),'أهلاً بك في مدينة الكلام!','هنا صوتك يحرّك كل شيء: تكلّم بالإنجليزية، وشاهد ما يحدث!'],
-    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وليو الفضائي يريد أن يعرف كل شيء عن الأرض.'],
-    [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.']];
+  const P=[[roboSVG('happy'),'أهلاً بك في مدينة الكلام!','هنا صوتك يحرّك كل شيء: تكلّم بالإنجليزية، وشاهد ما يحدث!','Welcome to Talk Town! Here, your voice moves everything. Speak in English, and see what happens!'],
+    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وليو الفضائي يريد أن يعرف كل شيء عن الأرض.','Your friends are waiting. Robo walks when you tell him. Mister Brush paints what you say. And Leo the alien wants to know everything about Earth.'],
+    [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.','Tap the microphone and talk. Say what you want, all by yourself! If the microphone does not work, you can type in English.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🎤 لنبدأ!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{T.intro=true;tsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }

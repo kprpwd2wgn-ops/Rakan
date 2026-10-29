@@ -41,12 +41,12 @@ def('rlevels',k=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[['<div class="cbig">🚀</div>','أهلاً بك في صاروخ القراءة!','في الفضاء مهمات كثيرة، وكل مهمة تحتاج إلى قارئ ذكي مثلك.'],
-    ['<div class="cbig">👾🕵️</div>','اقرأ لتنتصر','اضرب وحوش الكلمات، واقرأ أدلة المحقق لتكشف اللص، واقرأ الرسائل لتهرب من الغرف.'],
-    ['<div class="cbig">👆</div>','كلمة صعبة؟','اضغط أي كلمة إنجليزية، فتسمعها وتعرف معناها بالعربية.']];
+  const P=[['<div class="cbig">🚀</div>','أهلاً بك في صاروخ القراءة!','في الفضاء مهمات كثيرة، وكل مهمة تحتاج إلى قارئ ذكي مثلك.','Welcome to Reading Rocket! There are many missions in space, and every mission needs a smart reader like you.'],
+    ['<div class="cbig">👾🕵️</div>','اقرأ لتنتصر','اضرب وحوش الكلمات، واقرأ أدلة المحقق لتكشف اللص، واقرأ الرسائل لتهرب من الغرف.','Read to win! Zap the word monsters, read the clues to catch the thief, and read the notes to escape from the rooms.'],
+    ['<div class="cbig">👆</div>','كلمة صعبة؟','اضغط أي كلمة إنجليزية، فتسمعها وتعرف معناها بالعربية.','A hard word? Tap any English word to hear it, and see what it means in Arabic.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic">${p[0]}<h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🚀 لننطلق!'}</button></div>`;
-    sayAr(p[1]+'. '+p[2]);
+    guide(p[1]+'. '+p[2],p[3]);
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{RS.intro=true;rsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }

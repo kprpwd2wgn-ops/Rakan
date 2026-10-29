@@ -1,13 +1,13 @@
 {
- "name": "أبطال القسمة",
+ "name": "قراصنة القسمة",
  "short_name": "القسمة",
  "lang": "ar",
  "dir": "rtl",
  "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/division.html",
  "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
  "display": "standalone",
- "background_color": "#e8f6f0",
- "theme_color": "#e8505b",
+ "background_color": "#d3eefa",
+ "theme_color": "#0f4c75",
  "icons": [
   {
    "src": "https://kprpwd2wgn-ops.github.io/Rakan/division-icon-192.png",

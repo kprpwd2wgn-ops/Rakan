@@ -5,6 +5,9 @@ APPS={
  'times':dict(file='times',title='أبطال جدول الضرب',short='جدول الضرب',theme='#3b2a78',bg='#f5ead2',
    fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@500;600',
    js=['times/data.js','times/tables.js','times/draw.js','times/map.js','times/battle.js','times/main.js'],css=['times/style.css']),
+ 'division':dict(file='division',title='قراصنة القسمة',short='قراصنة القسمة',theme='#0f4c75',bg='#d3eefa',
+   fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@500;600',
+   js=['division/data.js','division/secrets.js','division/draw.js','division/map.js','division/voyage.js','division/main.js'],css=['division/style.css']),
 }
 def build(name):
     a=APPS[name];rd=lambda f:open(os.path.join(R,f),encoding='utf-8').read()

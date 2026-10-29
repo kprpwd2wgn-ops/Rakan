@@ -11,7 +11,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
 | أبطال جدول الضرب: حرس القلعة (times tables 1–12 as castle defense: 12 kingdoms, monster armies in rows × columns, fog/train/gold waves, bosses, 12 dragons that teach each table's secrets, endless tower; shared hero and shop) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
 | مدينة الكلام Talk Town (English speaking: conversations, mic, words, games) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
-| أبطال القسمة (division 1–12: cookie-sharing lessons, secrets, games, challenges) | `division.html` (icon `division-icon-v2.png`) | https://claude.ai/artifact/KxUGqCXTyvSjDuDXns71mK |
+| قراصنة القسمة (division 1–12 as a pirate voyage: share treasure fairly with the crew, pack barrels, Koko the parrot takes the remainder, torn maps, message bottles, gold ship, kraken and Captain Shanbo bosses, 12 crew animals that teach each number's secrets, shipyard, stormy sea; shared hero and shop) | `division.html` (icon `division-icon-v2.png`) | https://claude.ai/artifact/KxUGqCXTyvSjDuDXns71mK |
 | صاروخ القراءة Reading Rocket (English reading: letters, blending, sight words, sentences, stories, read aloud) | `reading-rocket.html` (icon `reading-rocket-icon-v2.png`) | https://claude.ai/artifact/KQ8qtJN2HdDmqH6fGvqY6d |
 
 Add a row here for every new game.

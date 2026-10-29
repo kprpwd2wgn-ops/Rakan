@@ -6,8 +6,8 @@
  "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html",
  "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
  "display": "standalone",
- "background_color": "#dff1ff",
- "theme_color": "#2f6bff",
+ "background_color": "#fff4e4",
+ "theme_color": "#3b3f9e",
  "icons": [
   {
    "src": "https://kprpwd2wgn-ops.github.io/Rakan/talk-town-icon-192.png",

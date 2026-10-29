@@ -36,13 +36,15 @@ function listen({onLive,onDone,onError}){
   let r;try{r=new SR();}catch(e){onError&&onError('none');return;}
   const tok=++listenTok;rec=r;let text='',alts=[],err='',done=false,hard=null;
   r.lang='en-US';r.interimResults=true;r.continuous=false;try{r.maxAlternatives=3;}catch(e){}
+  let conf=0;
   r.onresult=e=>{const res=Array.from(e.results);text=res.map(x=>x[0].transcript).join(' ').replace(/\s+/g,' ').trim();
+    const cs=res.filter(x=>x.isFinal).map(x=>x[0].confidence||0).filter(c=>c>0);conf=cs.length?cs.reduce((a,b)=>a+b,0)/cs.length:0;
     const last=res[res.length-1];const pre=res.slice(0,-1).map(x=>x[0].transcript).join(' ');
     alts=last?Array.from(last).map(a=>(pre+' '+a.transcript).replace(/\s+/g,' ').trim()).filter(Boolean):[text];
     if(tok===listenTok&&onLive)onLive(text);};
   r.onerror=e=>{err=e.error||'error';};
   const finish=()=>{if(done)return;done=true;clearTimeout(hard);if(rec===r){rec=null;recStop=null;}if(tok!==listenTok)return;
-    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text]});}
+    if(text){if(micState!=='embedded')micState='ok';onDone&&onDone({text,alts:alts.length?alts:[text],conf});}
     else if(err&&err!=='no-speech'&&err!=='aborted'){onError&&onError(err);}
     else onDone&&onDone({text:'',alts:[]});};
   r.onend=finish;

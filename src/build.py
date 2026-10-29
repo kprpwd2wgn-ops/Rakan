@@ -8,6 +8,9 @@ APPS={
  'division':dict(file='division',title='قراصنة القسمة',short='قراصنة القسمة',theme='#0f4c75',bg='#d3eefa',
    fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@500;600',
    js=['division/data.js','division/secrets.js','division/draw.js','division/map.js','division/voyage.js','division/main.js'],css=['division/style.css']),
+ 'talk':dict(file='talk-town',title='مدينة الكلام',short='مدينة الكلام',theme='#3b3f9e',bg='#fff4e4',
+   fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@500;600',
+   js=['talk/data.js','talk/mazes.js','talk/mazecore.js','talk/visits.js','talk/draw.js','talk/mic.js','talk/hub.js','talk/maze.js','talk/paint.js','talk/alien.js','talk/main.js'],css=['talk/style.css']),
 }
 def build(name):
     a=APPS[name];rd=lambda f:open(os.path.join(R,f),encoding='utf-8').read()

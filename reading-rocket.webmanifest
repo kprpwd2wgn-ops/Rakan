@@ -6,8 +6,8 @@
  "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html",
  "scope": "https://kprpwd2wgn-ops.github.io/Rakan/",
  "display": "standalone",
- "background_color": "#131a3a",
- "theme_color": "#1c2554",
+ "background_color": "#eef0ff",
+ "theme_color": "#1e1b4b",
  "icons": [
   {
    "src": "https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket-icon-192.png",

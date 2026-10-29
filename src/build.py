@@ -11,6 +11,9 @@ APPS={
  'talk':dict(file='talk-town',title='مدينة الكلام',short='مدينة الكلام',theme='#3b3f9e',bg='#fff4e4',
    fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@500;600',
    js=['talk/data.js','talk/mazes.js','talk/mazecore.js','talk/visits.js','talk/draw.js','talk/mic.js','talk/hub.js','talk/maze.js','talk/paint.js','talk/alien.js','talk/main.js'],css=['talk/style.css']),
+ 'reading':dict(file='reading-rocket',title='صاروخ القراءة',short='صاروخ القراءة',theme='#1e1b4b',bg='#eef0ff',
+   fonts='family=Baloo+Bhaijaan+2:wght@400;600;800&family=Lalezar&family=Fredoka:wght@400;500;600',
+   js=['reading/words.js','reading/data.js','reading/tales.js','reading/rooms.js','reading/draw.js','reading/reader.js','reading/hub.js','reading/monsters.js','reading/detective.js','reading/escape.js','reading/story.js','reading/main.js'],css=['reading/style.css']),
 }
 def build(name):
     a=APPS[name];rd=lambda f:open(os.path.join(R,f),encoding='utf-8').read()

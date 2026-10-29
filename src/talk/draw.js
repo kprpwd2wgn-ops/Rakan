@@ -1,4 +1,4 @@
-/* ===== الرسم: روبو، زِب، السيد فرشاة، المتاهة، وأشياء الرسّام ===== */
+/* ===== الرسم: روبو، ليو، السيد فرشاة، المتاهة، وأشياء الرسّام ===== */
 const INK='#1d2433';
 const svgDoc=(inner,vb,w,h)=>`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="${w}" height="${h}">${inner}</svg>`;
 const IMGC={};
@@ -35,7 +35,7 @@ function roboInner(mood){
 const roboSVG=(mood='idle',cls='')=>`<svg class="robo ${cls}" viewBox="0 0 100 110" aria-hidden="true">${roboInner(mood)}</svg>`;
 const roboBmp=(mood,w)=>svgBitmap('r'+mood,svgDoc(roboInner(mood).replace(/<text[^]*?<\/text>/g,''),'0 0 100 110',100,110),w,w*1.1);
 
-/* ---------- زِب الفضائي ---------- */
+/* ---------- ليو الفضائي ---------- */
 function zibSVG(o={}){
   const col=o.col||'#a3e635',m=o.mood||'happy',dk=shade(col.length===7?col:'#a3e635',-40),lt=shade(col.length===7?col:'#a3e635',50);
   let s=`<ellipse cx="60" cy="134" rx="30" ry="5" fill="rgba(0,0,0,.2)"/>`;

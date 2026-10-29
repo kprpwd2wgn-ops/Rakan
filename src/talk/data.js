@@ -6,7 +6,7 @@ function tsave(){saveJSON(TKEY,T);}
 /* كل كلمة إنجليزية يقولها الطفل وتفهمها اللعبة تُحفظ في «كلماتي» */
 function learnWords(list){let fresh=0;list.forEach(w=>{if(!w)return;if(!T.words[w]){T.words[w]=0;fresh++;}T.words[w]++;});tsave();return fresh;}
 
-/* ---------- مجموعات الكلمات (للفضائي زِب) ---------- */
+/* ---------- مجموعات الكلمات (للفضائي ليو) ---------- */
 const CATS={
  colors:'red|blue|green|yellow|orange|purple|pink|black|white|brown|gray|grey|gold|silver',
  animals:'cat|dog|lion|tiger|elephant|monkey|giraffe|horse|cow|rabbit|bunny|fish|bird|bear|camel|panda|zebra|fox|snake|shark|dolphin|penguin|duck|chicken|sheep|goat|owl|turtle|frog|wolf|deer|kangaroo|koala|parrot|hippo|crocodile|cheetah|leopard|eagle|falcon|whale|octopus|butterfly|bee|puppy|kitten|gorilla|squirrel|mouse|hamster|bat|ant|spider|dinosaur|unicorn|dragon',

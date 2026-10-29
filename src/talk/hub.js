@@ -18,7 +18,7 @@ def('hub',()=>{
    <div class="town">
      ${card('maze','b-robo',roboSVG('happy'),'مختبر روبو','قُد روبو في المتاهة بأوامر من صوتك')}
      ${card('paint','b-paint',brushSVG('#f472b6'),'مرسم الألوان','صِف ما تريد، والسيد فرشاة يرسمه!')}
-     ${card('alien','b-space',zibSVG({col:T.zcol||'#a3e635'}),'محطة الفضاء','زِب من كوكب زووم يسألك عن الأرض')}
+     ${card('alien','b-space',zibSVG({col:T.zcol||'#a3e635'}),'محطة الفضاء','ليو من كوكب زووم يسألك عن الأرض')}
    </div>
    <p class="muted small cen">⭐ تكلّمت بالإنجليزية · ⭐⭐ فهمتك اللعبة · ⭐⭐⭐ بجملة كاملة</p>`;
   $$('.bld').forEach(b=>b.onclick=()=>go('levels',b.dataset.k));
@@ -30,7 +30,7 @@ def('levels',k=>{
   const M=MODES[k],st=M.store();setTitle(M.title);
   const next=(()=>{for(let i=0;i<M.n;i++)if(!st[i])return i;return 0;})();
   $('#view').innerHTML=`${k==='paint'?`<button class="btn big wide gold" id="free">🖌️ الرسم الحر: ارسم ما تريد!</button><h3 class="sec">🖼️ تحدّي: انسخ اللوحة</h3>`:''}
-    ${k==='alien'?'<p class="muted lead">في كل زيارة يسألك زِب أسئلة. أجب بجملة كاملة لتحصل على ٣ نجوم، وشاهد ماذا يحدث له!</p>':''}
+    ${k==='alien'?'<p class="muted lead">في كل زيارة يسألك ليو أسئلة. أجب بجملة كاملة لتحصل على ٣ نجوم، وشاهد ماذا يحدث له!</p>':''}
     ${k==='maze'?'<p class="muted lead">قل لروبو إلى أين يذهب: up, down, left, right. أقل عدد من الأوامر = نجوم أكثر!</p>':''}
     <div class="lvls">${[...Array(M.n)].map((_,i)=>{const s=st[i]||0,un=i===0||st[i-1]||st[i];
       return `<button class="lv ${s?'done':''} ${i===next?'here':''}" data-i="${i}" ${un?'':'disabled'}><span class="lvi">${un?M.icon(i):'🔒'}</span>${k==='alien'?`<span class="lvt">${VISITS[i].ar}</span>`:''}${starsHTML(s)}</button>`;}).join('')}</div>`;
@@ -44,7 +44,7 @@ def('words',()=>{
   $('#view').innerHTML=`<div class="wtop"><b>${D(n)}</b><span>كلمة إنجليزية قلتها في المدينة!</span></div>
     <div class="bar"><i style="width:${Math.min(100,n/g*100)}%"></i></div><p class="small muted">الهدف التالي: ${D(g)} كلمة 🏆</p>
     <p class="muted small">اضغط أي كلمة لتسمعها.</p>
-    <div class="wchips">${ws.length?ws.map(([w,c])=>`<button class="wchip en" data-w="${esc(w)}">${esc(w)}${c>2?' <small>×'+D(c)+'</small>':''}</button>`).join(''):'<p class="muted">لم تقل أي كلمة بعد. اذهب إلى روبو أو زِب وتكلّم! 🎤</p>'}</div>
+    <div class="wchips">${ws.length?ws.map(([w,c])=>`<button class="wchip en" data-w="${esc(w)}">${esc(w)}${c>2?' <small>×'+D(c)+'</small>':''}</button>`).join(''):'<p class="muted">لم تقل أي كلمة بعد. اذهب إلى روبو أو ليو وتكلّم! 🎤</p>'}</div>
     <div class="row cen" style="margin-top:12px"><span class="chipbtn">🎤 جمل بصوتك: ${D(T.spoken)}</span><span class="chipbtn">🗣️ جمل كاملة: ${D(T.full)}</span></div>`;
   $$('.wchip').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.8}));
 });
@@ -52,7 +52,7 @@ def('words',()=>{
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
   const P=[[roboSVG('happy'),'أهلاً بك في مدينة الكلام!','هنا صوتك يحرّك كل شيء: تكلّم بالإنجليزية، وشاهد ما يحدث!'],
-    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وزِب الفضائي يريد أن يعرف كل شيء عن الأرض.'],
+    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وليو الفضائي يريد أن يعرف كل شيء عن الأرض.'],
     [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🎤 لنبدأ!'}</button></div>`;

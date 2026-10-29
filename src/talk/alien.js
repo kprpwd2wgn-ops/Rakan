@@ -1,4 +1,4 @@
-/* ===== محطة الفضاء: زِب يسأل، وأنت تجيب بكلامك ===== */
+/* ===== محطة الفضاء: ليو يسأل، وأنت تجيب بكلامك ===== */
 const CATRE={};Object.entries(CATS).forEach(([k,v])=>{CATRE[k]=v.split('|').sort((a,b)=>b.length-a.length).map(w=>({w,re:new RegExp('\\b'+w.replace(/ /g,'\\s+')+'(?:s|es)?\\b')}));});
 const NOARTS=new Set(NOART.split('|'));
 const art=x=>NOARTS.has(x)?'':/^[aeiou]/.test(x)?'an':'a';
@@ -65,7 +65,7 @@ def('alien',vi=>{
       case 'party':FX.confetti();particles(['🎈','🎉','🎊'],'rise',14);break;
       case 'night':stg.classList.add('night');break;
       case 'jump':{const z=$('#zw');z.classList.remove('jump');void z.offsetWidth;z.classList.add('jump');setMood('laugh',1800);break;}
-      case 'coin':World.add(5);{const [cx,cy]=centerOf($('#zw'));FX.burst(cx,cy,{n:20,emoji:['💎'],speed:240,size:4});}toast('💎 +٥ هدية من زِب!');break;
+      case 'coin':World.add(5);{const [cx,cy]=centerOf($('#zw'));FX.burst(cx,cy,{n:20,emoji:['💎'],speed:240,size:4});}toast('💎 +٥ هدية من ليو!');break;
       case 'weather':weather(arg||x||e.norm);break;}}
   function ask(){const st=V.steps[si];tries=0;bonusFor=-1;$('#ans').hidden=true;
     $('#qen').textContent=fillN(st.q);$('#qar').textContent=fillN(st.qa);dots();setMood('talk');busy=false;mic.lock(false);
@@ -86,7 +86,7 @@ def('alien',vi=>{
       else{zibSay(e.model,{rate:.85});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
     if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');return;}
     if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);
-      if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم زِب. قلها مرة أخرى بطريقة أخرى!');}
+      if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم ليو. قلها مرة أخرى بطريقة أخرى!');}
       else{zibSay('Try like this: '+fillN(st.ex),{rate:.85});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
     const stars=e.rel.ok?e.stars:1;scores[si]=Math.max(scores[si]||0,stars);
     if(e.rel.ok&&e.full){fulls++;T.full++;}
@@ -97,10 +97,10 @@ def('alien',vi=>{
   function finish(){busy=true;mic.lock(true);const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
     T.alien[vi]=Math.max(T.alien[vi]||0,stars);tsave();zibSay('Thank you, my Earth friend!');
     const hasNext=vi+1<VISITS.length;
-    resultOv({title:'👽 زِب سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,
+    resultOv({title:'👽 ليو سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,
       lines:[`🌟 جمل كاملة: ${D(fulls)} من ${D(N)}`,fresh?`📚 كلمات جديدة: ${D(fresh)}`:'',stars<3?'أجب بجمل كاملة لتحصل على ٣ نجوم':'متحدث رائع! 👑'],
       btns:[...(hasNext?[{label:'الزيارة التالية ←',cls:'gold big',fn:()=>go('alien',vi+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});}
-  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب زِب بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85});
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب ليو بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85});
     showAns({raw:'…',x:'',rel:{ok:false},full:false,model:''},false,`💡 مثال: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small><br>قلها بكلماتك أنت!`);}});
   $('#qs').onclick=()=>{const st=V.steps[si];if(st)zibSay(fillN(st.q),{rate:.82});};
   zib();setTimeout(()=>{if(alive)ask();},350);

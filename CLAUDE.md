@@ -18,7 +18,8 @@ Add a row here for every new game.
 
 Shared hero: the games share one hero and one gem wallet (browser storage key `rakan-world-v1`). This only
 works on the GitHub Pages links, where all games live on the same site; each play link keeps its own copy.
-The source for the redesigned games is built from `/home/claude/v2` (kit + one folder per game) into the repo root.
+Some games are built from `src/` (a shared kit plus one folder per game): for those, step 1 of "Changing a game"
+means editing the files in `src/` and then running `python3 src/build.py <game>`, which rewrites `<game>.html`.
 
 Each game is one standalone HTML file in the repo root: a full `<!DOCTYPE html>` document with all
 its CSS and JavaScript inline, made for phone screens and touch, with a start button.

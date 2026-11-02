@@ -68,6 +68,9 @@ These steps are the routine: do all of them, every time, without stopping to ask
 
 - Write so it can be read out to a 9-year-old: short sentences, simple words, no code or tech terms.
 - Say what changed in one to three short bullet points, then suggest two or three fun ideas to try next.
+- End every reply, even one that changed no game, with the GitHub Pages link that opens the game page
+  itself (`https://<owner>.github.io/<repo>/<file>`, for the game being talked about or the one changed most
+  recently), never a link to the code on GitHub.
 - Be encouraging. If something can't be done, say why in simple words and offer the closest thing that can.
 - Keep everything kid-friendly: cartoon action is fine; no gore, horror, bad language, or real brands and logos.
 - Don't ask for personal details such as the boy's full name, school or address.

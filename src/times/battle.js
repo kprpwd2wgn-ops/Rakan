@@ -68,22 +68,21 @@ def('battle',arg=>{
     $('#sq').textContent=w.type==='fog'?'كم عموداً في الضباب؟':w.type==='train'?'ما العدد المختبئ؟':'كم وحشاً؟';
     kp.reset();kp.lock(false);
     $('#bw').textContent=tower?`الموجة ${D(idx+1)}`:`${D(idx+1)} / ${D(total)}`;
-    coachOff();coachQ=true;
+    coachOff();
     if(w.tut!=null){const tt=[`صف واحد فيه ${D(3)} وحوش. اكتب <b>${D(3)}</b> ثم اضغط 🔥`,`صف واحد × ${D(5)} وحوش = ؟`,`صفّان، وفي كل صف ${D(3)}. <b>${D(2)} × ${D(3)}</b> = ؟`,`صفّان × ${D(5)} = ؟ (${D(5)} + ${D(5)})`,`الآن وحدك! ${D(3)} صفوف × ${D(2)} أعمدة 💪`][w.tut];coach(tt,w.tut===0?'k3':null);}
     else if(w.type==='fog')coach(`☁️ الضباب يخفي الأعمدة! المجموع <b>${D(w.R*w.C)}</b> وعدد الصفوف <b>${D(w.R)}</b>. كم عموداً؟`);
     else if(w.type==='train')coach(`🚂 قطار الوحوش يقفز <b>${D(w.t)}</b> في كل مرة. ما العدد المختبئ؟`);
     else if(w.type==='gold')coach(`🌟 جيش ذهبي! اهزمه بسرعة لتربح ${D(3)} جواهر!`);
     else if(idx===0&&!boss)coach(`👾 ${D(w.R)} ${w.R===1?'صف':w.R===2?'صفّان':'صفوف'} و${D(w.C)} ${w.C===1?'عمود':w.C===2?'عمودان':'أعمدة'}. اضرب لتعرف عددهم!`,null,3500);
-    coachQ=false;
     banner(tower?`الموجة ${D(idx+1)}`:w.type==='gold'?'🌟 جيش ذهبي':`الموجة ${D(idx+1)}`);
   }
   const answerOf=w=>w.type==='fog'?w.C:w.type==='train'?w.t*w.k:w.R*w.C;
   function setInput(v){input=v;const sv=$('#sv');sv.textContent=v===''?'؟':D(v);sv.classList.toggle('empty',v==='');}
-  let coachT=0,coachQ=false;
+  let coachT=0;
   const coachDef=()=>boss?'💥 اكتب ناتج الضرب لتضرب الزعيم!':!wave?'':wave.type==='fog'?'☁️ كم عموداً يختبئ في الضباب؟':wave.type==='train'?`🐛 كل قفزة +${D(wave.t)}. ما العدد المختبئ؟`:'👾 عُدّ الصفوف والأعمدة، واكتب عدد الوحوش ثم اضغط 🔥';
   function coach(html,key,ms){const c=$('#coach');c.classList.remove('idle');c.innerHTML=`${comp?`<span class="cdr">${dragonSVG(comp,Math.max(1,dragonStage(comp)))}</span>`:'<span class="cdr">🧙</span>'}<span>${html}</span>`;c.hidden=false;
     $$('.k.hint').forEach(k=>k.classList.remove('hint'));if(key){const k=$(`.k[data-k="${key.slice(1)}"]`);if(k)k.classList.add('hint');$('.k.go').classList.add('hint');}
-    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);sayLine(html,{queue:coachQ});}
+    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);}
   function coachOff(){const c=$('#coach');if(!c)return;c.classList.add('idle');c.innerHTML=`<span class="cdr">${comp?dragonSVG(comp,Math.max(1,dragonStage(comp))):'🧙'}</span><span>${coachDef()}</span>`;$$('.k.hint').forEach(k=>k.classList.remove('hint'));}
   function banner(t){const b=$('#banner');b.textContent=t;b.hidden=false;b.classList.remove('in');void b.offsetWidth;b.classList.add('in');setTimeout(()=>{if(alive)b.hidden=true;},1100);}
   function bhud(){$('#bh').innerHTML=[0,1,2].map(i=>i<hearts?'❤️':'🖤').join('');$('#bpc').textContent=D(power);$('#bp').disabled=power<=0;}
@@ -109,7 +108,6 @@ def('battle',arg=>{
   function recW(w,ok){if(w.type==='train')record(w.t,w.k,ok);else record(w.R,w.C,ok);}
   function success(w){
     w.busy=true;kp.lock(true);const fast=(now-w.born)<5.5;const perfect=w.tries===0;
-    {const [a,b]=w.type==='train'?[w.t,w.k]:[w.R,w.C];guide(`${a} في ${b} يساوي ${a*b}`,`${a} times ${b} is ${a*b}.`);}
     if(perfect){recW(w,true);perfects++;}if(fast&&perfect)fasts++;
     const [hx,hy]=[W/2,wallY-8];const tx=w.type==='train'?W/2:w.x0+w.fw/2,ty=w.y+w.fh/2;
     proj={x:hx,y:hy,sx:hx,sy:hy,tx,ty,t:0,dur:.28,col:w.type==='gold'?'#fde047':'#ff9f43'};
@@ -143,11 +141,11 @@ def('battle',arg=>{
   /* الزعيم */
   function bossStart(){const ks=bagK(T0,[4,5,6,7,8,9,10,11,12],8);const hp=ks.slice(0,6).reduce((s,k)=>s+T0*k,0);
     bossO={ks,i:0,hp,max:hp,charge:0,rate:1/(12+T0*.4),hit:0,angry:false,size:Math.min(W*.42,170),y:0,tries:0,wrongRec:false,born:now};bossRune();
-    banner('👑 الزعيم!');coachQ=true;coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);coachQ=false;}
+    banner('👑 الزعيم!');coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);}
   function bossRune(){const b=bossO;const k=b.ks[b.i%b.ks.length];b.a=Math.random()<.5?T0:k;b.b=b.a===T0?k:T0;b.tries=0;b.wrongRec=false;b.born=now;
     $('#sq').innerHTML=`${D(b.a)} × ${D(b.b)} =`;kp.reset();}
   function bossAnswer(v){const b=bossO;if(!b||b.busy)return;const p=b.a*b.b;
-    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}guide(`${b.a} في ${b.b} يساوي ${p}`,`${b.a} times ${b.b} is ${p}.`);const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
+    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
       $('#bhero').innerHTML=heroSVG(World.p.hero,{face:'happy',pose:'cast',pet:false});
       setTimeout(()=>{if(!alive)return;b.hp=Math.max(0,b.hp-p);b.hit=.5;const r=cv.getBoundingClientRect();FX.text(r.left+tx,r.top+ty,`−${D(p)}`,'#fff7c2',38);FX.burst(r.left+tx,r.top+ty,{n:26,speed:300});buzz(40);
         b.charge=Math.max(0,b.charge-.5);$('#bhero').innerHTML=heroSVG(World.p.hero,{face:'smile',pet:false});
@@ -157,7 +155,7 @@ def('battle',arg=>{
     b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.98,b.charge+.22);if(!b.wrongRec){b.wrongRec=true;record(b.a,b.b,false);}
     coach(b.tries>=3?`💡 ${D(b.a)} × ${D(b.b)} = <b>${D(p)}</b>. اكتبه!`:b.tries>=2?`🐉 ${D(hintFor(b.a,b.b))}`:`😆 الزعيم يضحك! ${D(v)} ليس صحيحاً.`,null,3500);kp.reset();}
   function bossAttack(){const b=bossO;b.charge=0;hearts--;bhud();shakeT=.45;buzz(120);const r=cv.getBoundingClientRect();FX.burst(r.left+W/2,r.top+wallY,{n:30,colors:['#ff6b6b','#ffb86b','#fff']});
-    if(!b.wrongRec){record(b.a,b.b,false);}coach(`💥 الزعيم ضرب القلعة! ${D(b.a)} × ${D(b.b)} = ${D(b.a*b.b)}`,null,2600);if(!canSayAr())guide(null,`${b.a} times ${b.b} is ${b.a*b.b}.`);if(hearts<=0)return defeat();b.i++;bossRune();}
+    if(!b.wrongRec){record(b.a,b.b,false);}coach(`💥 الزعيم ضرب القلعة! ${D(b.a)} × ${D(b.b)} = ${D(b.a*b.b)}`,null,2600);if(hearts<=0)return defeat();b.i++;bossRune();}
 
   /* الحلقة */
   function update(dt){
@@ -179,7 +177,6 @@ def('battle',arg=>{
     if(mode==='tutorial'){coach(`💡 كانوا ${D(N)}: ${D(w.R)} × ${D(w.C)} = ${D(N)}. لنجرّب مرة أخرى!`,null,2600);setTimeout(()=>{if(!alive)return;startWave();},1400);return;}
     hearts--;bhud();shakeT=.45;buzz(140);
     coach(`💥 الجيش وصل إلى السور! ${w.type==='train'?`العدد كان ${D(ans)}`:w.type==='fog'?`${D(w.R)} × ${D(w.C)} = ${D(N)}`:`${D(w.R)} × ${D(w.C)} = ${D(N)}`}`,null,2600);
-    if(!canSayAr())guide(null,w.type==='train'?`The hidden number was ${ans}.`:`${w.R} times ${w.C} is ${N}.`);
     if(hearts<=0){setTimeout(()=>{if(alive)defeat();},700);return;}
     setTimeout(()=>{if(alive)nextWave();},1300);}
   function posOf(w,i){if(w.type==='train')return[w.x0+i*w.gap,w.y+w.r];const r=Math.floor(i/w.C),c=i%w.C;return[w.x0+c*w.s+w.s/2,w.y+r*w.s+w.s/2];}

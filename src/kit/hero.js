@@ -144,15 +144,12 @@ def('closet',(tab)=>{
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
         <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
           return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
-        ${canSayAr()&&arVoices().length>1?`<div class="mrow"><span>اختر الصوت العربي</span><div class="vlist">${arVoices().slice(0,8).map((v,i)=>`<button class="vbtn ${VOICE.ar&&v.name===VOICE.ar.name&&v.voiceURI===VOICE.ar.voiceURI?'on':''}" data-av="${i}">▶ ${esc(String(v.name).replace(/^Microsoft\s+/,'').replace(/\s*-\s*Arabic.*$/i,'').replace(/\s*Online\s*\(Natural\)/i,''))}${arTag(v)}</button>`).join('')}</div></div>`:''}
         <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.glang=v;World.save();draw();
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
         if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
-      $$('[data-av]',body).forEach(b=>b.onclick=()=>{const v=arVoices()[+b.dataset.av];if(!v)return;World.p.arVoice=v.voiceURI||v.name;World.p.glang='ar';World.save();pickVoices();draw();
-        speak('مرحباً! أنا صوتك العربي.',{lang:'ar'});});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});

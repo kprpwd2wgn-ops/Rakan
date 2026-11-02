@@ -40,9 +40,6 @@ function stormRound(i,divs){const d=pick(divs),q=rint(2,12);const t=i%7===6?'gol
   return t==='share'?mkShare(d,q):t==='pack'?mkPack(d,q):t==='map'?mkMap(d,q):t==='parrot'?mkParrot(d,rint(2,10)):t==='gold'?mkGold(d,q):mkBottle(d,q);}
 const HAPPY=['عدل! 👍','شكراً يا كابتن!','يا سلام!','قبطان عادل!','هيييه!'],ANGRY=['ليس عدلاً!','أين حصتي؟','هذا لا يكفي!'],WANT=['ما زال في الصندوق!','الصندوق لم يفرغ!','أعطنا المزيد!'],KOKO=['لي! لي! 🦜','شكراً يا كابتن!','الباقي لذيذ!','كوكو يحب الباقي!'];
 function shade(h,a){const n=parseInt(h.slice(1),16),c=v=>clamp(v+a,0,255);return'#'+((1<<24)+(c(n>>16)<<16)+(c((n>>8)&255)<<8)+c(n&255)).toString(16).slice(1);}
-/* الحقيقة كما يقولها الصوت */
-const factAr=r=>r.type==='parrot'?`${r.N} تقسيم ${r.d} يساوي ${r.q}، والباقي ${r.rem}`:r.type==='map'&&!r.rev?`${r.d} في ${r.q} يساوي ${r.N}`:`${r.N} تقسيم ${r.d} يساوي ${r.q}`;
-const factEn=r=>r.type==='parrot'?`${r.N} divided by ${r.d} is ${r.q}, and ${r.rem} ${r.rem===1?'is':'are'} left over.`:r.type==='map'&&!r.rev?`${r.d} times ${r.q} is ${r.N}.`:`${r.N} divided by ${r.d} is ${r.q}.`;
 const eqText=r=>r.type==='parrot'?`${D(r.N)} ÷ ${D(r.d)} = ${D(r.q)}، والباقي ${D(r.rem)}`:r.type==='map'&&!r.rev?`${D(r.d)} × ${D(r.q)} = ${D(r.N)}`:`${D(r.N)} ÷ ${D(r.d)} = ${D(r.q)}`;
 
 def('voyage',arg=>{
@@ -128,7 +125,7 @@ def('voyage',arg=>{
     $('#vw').textContent=storm?`الموجة ${D(idx+1)}`:`${D(idx+1)} / ${D(total)}`;
     const dl=$('#vdeal');dl.hidden=!(r.type==='share'||r.type==='pack'||r.type==='parrot');dl.classList.toggle('pulse',r.tut===0);
     $('#vscroll').hidden=true;coachOff();
-    const lw=LOOTW[r.loot]||W_COIN;coachQ=true;
+    const lw=LOOTW[r.loot]||W_COIN;
     if(r.tut!=null)coach([`👋 وجدنا ${D(6)} قطع! نقسمها بالعدل على قرصانين. اضغط <b>🤲 وزّع بنفسي</b> لتعطي كل قرصان قطعة في كل مرة.`,
       `💰 ${D(8)} قطع لقرصانين. كم يأخذ كل واحد؟ اكتب الجواب واضغط ✓، أو وزّع بنفسك.`,
       `💎 نقسم ${D(12)} جوهرة على ${D(3)} قراصنة. كم يأخذ كل واحد؟`,
@@ -141,7 +138,6 @@ def('voyage',arg=>{
     else if(r.type==='map')coach(`🗺️ خريطة كنز ممزّقة! أكمل الرقم الناقص لتعرف مكان الكنز.`,null,4200);
     else if(r.type==='gold')coach(`✨ سفينة الذهب تمرّ! أجب بسرعة لتربح ${D(3)} جواهر.`,null,3500);
     else if(r.type==='bottle'){coach('📜 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
-    coachQ=false;
     banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'📜 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
   }
   function openScroll(){const r=R;if(!alive||!r||r.type!=='bottle'||r.done)return;const t=D(BOTTLES[r.tpl](r.N,r.d));const s=$('#vscroll');
@@ -149,12 +145,12 @@ def('voyage',arg=>{
     if($('#vsay'))$('#vsay').onclick=()=>guide(BOTTLES[r.tpl](r.N,r.d),BOTTLES_EN[r.tpl](r.N,r.d));}
 
   /* ---------- المساعد والرسائل ---------- */
-  let coachT=0,coachQ=false;
+  let coachT=0;
   const coachDef=()=>{if(boss)return '💥 أجب بسرعة لتطلق المدفع!';const r=R;if(!r)return '';
     return r.type==='share'?'💰 كم يأخذ كل قرصان؟ اكتب، أو وزّع بنفسك 🤲':r.type==='pack'?`🛢️ كل برميل يتسع لـ ${D(r.d)}. كم برميلاً؟`:r.type==='parrot'?(r.stage==='rem'?'🦜 كم بقي في الصندوق لي؟':'🦜 قسّم بالعدل، وما يبقى فهو لي!'):r.type==='map'?'🗺️ ما الرقم الممزّق؟':r.type==='gold'?'✨ أسرع قبل أن تبتعد سفينة الذهب!':'📜 اقرأ الرسالة وأجب';};
   function coach(html,key,ms,face){const c=$('#coach');c.classList.remove('idle');c.innerHTML=`<span class="cdr">${face||parrotSVG('talk')}</span><span>${html}</span>`;
     $$('.k.hint').forEach(k=>k.classList.remove('hint'));if(key){$$(key.split(',').map(k=>`.k[data-k="${k}"]`).join(',')).forEach(k=>k.classList.add('hint'));$('.k.go').classList.add('hint');}
-    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);sayLine(html,{queue:coachQ,pitch:face?1.05:1.2});}
+    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);}
   function coachOff(){const c=$('#coach');if(!c||!alive)return;c.classList.add('idle');c.innerHTML=`<span class="cdr">${parrotSVG()}</span><span>${coachDef()}</span>`;$$('.k.hint').forEach(k=>k.classList.remove('hint'));}
   function banner(t){const b=$('#banner');b.textContent=t;b.hidden=false;b.classList.remove('in');void b.offsetWidth;b.classList.add('in');setTimeout(()=>{if(alive)b.hidden=true;},1100);}
   function bhud(){$('#vh').innerHTML=[0,1,2].map(i=>i<hearts?'❤️':'🖤').join('');$('#vpc').textContent=D(power);$('#vp').disabled=power<=0;}
@@ -251,7 +247,7 @@ def('voyage',arg=>{
   /* ---------- النجاح والفشل والوقت ---------- */
   function success(fromKoko){const r=R;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;
     const perfect=r.tries===0&&!r.manualAny&&!r.firstTries,fast=perfect&&((r.ansAt||now)-r.born)<(r.type==='gold'?5:8);
-    if(perfect){record(r.d,r.q,true);perfects++;}if(fast)fasts++;guide(factAr(r),factEn(r));
+    if(perfect){record(r.d,r.q,true);perfects++;}if(fast)fasts++;
     if(r.type==='share'||r.type==='parrot'){r.mood=r.mood.map(()=>'happy');r.bub={p:rint(0,r.d-1),txt:pick(HAPPY)};}
     heroCheer();const rc=cv.getBoundingClientRect();const [tx,ty]=focus(r);
     FX.text(rc.left+tx,rc.top+ty,eqText(r),'#fff7c2',r.type==='parrot'?22:28);
@@ -265,7 +261,7 @@ def('voyage',arg=>{
   function timeout(){const r=R;if(r.done||r.busy)return;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;if(!r.wrongRec){r.wrongRec=true;record(r.d,r.q,false);}
     hearts--;bhud();shakeT=.4;buzz(140);hero('sad');
     if(r.type==='share'||r.type==='parrot'){r.mood=r.mood.map(()=>'sad');r.bub={p:0,txt:'تعبنا من الانتظار…'};}
-    coach(`⏳ الطاقم ملّ الانتظار! ${eqText(r)}`,null,2800);if(!canSayAr())guide(null,factEn(r));$('#vscroll').hidden=true;
+    coach(`⏳ الطاقم ملّ الانتظار! ${eqText(r)}`,null,2800);$('#vscroll').hidden=true;
     if(hearts<=0){at(1.4,defeat);return;}at(2.4,next);}
   function next(){if(!alive)return;idx++;if(!storm&&idx>=plan.length)return victory();
     if(!tut&&Math.random()<.14){dolphin={t0:now,x:W*(.2+Math.random()*.4)};at(.7,()=>{gold+=1;const rc=cv.getBoundingClientRect();FX.text(rc.left+dolphin.x,rc.top+seaTop+10,'🐬 💎 +١','#c4f1ff',20);});at(1.2,startRound);}
@@ -289,8 +285,8 @@ def('voyage',arg=>{
   function bossStart(){const qs=bagQ(D0,[2,3,4,5,6,7,8,9,10,11,12],10);
     bossO={kind:isl.boss,qs,i:0,hp:6,max:6,charge:0,rate:1/(14+D0*.2),hit:0,tries:0,wrongRec:false,born:now,busy:false,dead:0,laugh:0,
       ten:[...Array(6)].map((_,i)=>({dying:0,gone:false,ph:i*1.3})),holes:[],away:0,mood:'smug',moodT:0};
-    bossQ();banner(isl.boss==='kraken'?'🐙 الأخطبوط العملاق!':'⛵ القبطان شنبو!');coachQ=true;
-    coach(isl.boss==='kraken'?`🐙 الأخطبوط العملاق أمسك السفينة! كل جواب صحيح يطلق المدفع على ذراع من أذرعه. أسرع قبل أن يعصر السفينة!`:`⛵ القبطان شنبو يريد كنزنا! كل جواب صحيح يطلق المدفع على سفينته. أسرع قبل أن يطلق مدفعه!`,null,5200);coachQ=false;}
+    bossQ();banner(isl.boss==='kraken'?'🐙 الأخطبوط العملاق!':'⛵ القبطان شنبو!');
+    coach(isl.boss==='kraken'?`🐙 الأخطبوط العملاق أمسك السفينة! كل جواب صحيح يطلق المدفع على ذراع من أذرعه. أسرع قبل أن يعصر السفينة!`:`⛵ القبطان شنبو يريد كنزنا! كل جواب صحيح يطلق المدفع على سفينته. أسرع قبل أن يطلق مدفعه!`,null,5200);}
   function bossQ(){const b=bossO,q=b.qs[b.i%b.qs.length],N=D0*q,f=Math.random();b.q=q;b.N=N;b.form=f<.2?'rev':f<.34?'miss':'div';b.ans=b.form==='rev'?N:q;
     $('#sq').innerHTML=b.form==='rev'?`؟ ÷ ${D(D0)} = ${D(q)}`:b.form==='miss'?`${D(D0)} × ؟ = ${D(N)}`:`${D(N)} ÷ ${D(D0)} =`;b.tries=0;b.wrongRec=false;b.born=now;kp.reset();}
   const cannonAt=()=>[W/2,H-20];
@@ -298,7 +294,6 @@ def('voyage',arg=>{
     const s=shipGeo();return[s.x,s.y+s.h*.3,-1];}
   function bossAnswer(v){const b=bossO;if(!b||b.busy||b.dead)return;
     if(v===b.ans){b.busy=true;kp.lock(true);if(!b.tries){record(D0,b.q,true);perfects++;if(now-b.born<6)fasts++;}heroCheer();
-      if(b.form==='miss')guide(`${D0} في ${b.q} يساوي ${b.N}`,`${D0} times ${b.q} is ${b.N}.`);else guide(`${b.N} تقسيم ${D0} يساوي ${b.q}`,`${b.N} divided by ${D0} is ${b.q}.`);
       const [sx,sy]=cannonAt();let [tx,ty,ti]=bossTarget();if(ti<0)tx+=(Math.random()-.5)*shipGeo().w*.4;
       proj.push({sx,sy:sy-18,tx,ty,t0:now,dur:.42,col:'#1f2937',onHit:()=>{const rc=cv.getBoundingClientRect();if(ti>=0)b.ten[ti].dying=.001;FX.burst(rc.left+tx,rc.top+ty,{n:26,speed:300,colors:['#fde68a','#fb923c','#fff']});
         FX.text(rc.left+tx,rc.top+ty-20,b.form==='div'?`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`:b.form==='rev'?`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`:`${D(D0)} × ${D(b.q)} = ${D(b.N)}`,'#fff7c2',24);buzz(40);
@@ -311,7 +306,6 @@ def('voyage',arg=>{
   function bossAttack(){const b=bossO;b.charge=0;if(!b.wrongRec)record(D0,b.q,false);
     const hit=()=>{hearts--;bhud();shakeT=.5;buzz(130);hero('sad');heroT=now+1.4;const rc=cv.getBoundingClientRect();FX.burst(rc.left+W*.42,rc.top+H*.8,{n:26,colors:['#7dd3fc','#e0f2fe','#fff']});
       coach(`${b.kind==='kraken'?'😵 الأخطبوط عصر السفينة!':'💦 قذيفة شنبو أصابتنا!'} ${b.form==='miss'?`${D(D0)} × ${D(b.q)} = ${D(b.N)}`:`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`}`,null,3000);
-      if(!canSayAr())guide(null,b.form==='miss'?`${D0} times ${b.q} is ${b.N}.`:`${b.N} divided by ${D0} is ${b.q}.`);
       b.busy=false;if(hearts<=0){kp.lock(true);setTimeout(()=>{if(alive)defeat();},900);return;}kp.lock(false);b.i++;bossQ();};
     if(b.kind==='kraken'){b.squeeze=now;hit();}else{b.busy=true;kp.lock(true);const s=shipGeo();proj.push({sx:s.x-s.w*.42,sy:s.y+s.h*.1,tx:W*.42,ty:H*.82,t0:now,dur:.6,col:'#1f2937',enemy:1,onHit:hit});}}
   function tenGeo(i){const b=bossO,t=b.ten[i],side=i<3?-1:1,bx=W*(.1+i*.16),by=H*.53;const cx=bx+side*-16+Math.sin(now*2+t.ph)*8,cy=railY-(H-railY)*.75;

@@ -68,16 +68,15 @@ def('nest',()=>{
 });
 
 def('dragon',n=>{
-  const st=dragonStage(n),m=Math.round(tableMastery(n)*12),T=TABLES[n],l=LANDS[LAND_OF[n]];const say=canSayAr();
+  const st=dragonStage(n),m=Math.round(tableMastery(n)*12),T=TABLES[n],l=LANDS[LAND_OF[n]];
   setTitle(`${DNAME[n]} · ×${D(n)}`);
   $('#view').innerHTML=`<div class="dpage" style="--lc:${l.col}">
     <div class="dtop"><div class="dbig bob">${dragonSVG(n,st)}</div><div><h2>${DNAME[n]}</h2><p class="lt">تنين جدول ×${D(n)} · ${['','صغير','يافع','كبير'][st]}</p>
       <div class="bar"><i style="width:${m/12*100}%"></i></div><p class="small muted">أتقنت ${D(m)} من ${D(12)} حقيقة. ${st<3?'أتقن المزيد ليكبر!':'وصل إلى أكبر حجم! 👑'}</p></div></div>
     <div class="row cen">${G.comp===n?'<span class="chipbtn on">✓ رفيقي في المعارك</span>':'<button class="btn gold sm" id="dc">🐉 اجعله رفيقي</button>'}<button class="btn sm" id="dp">⚔️ تدريب مع ${DNAME[n]}</button><button class="btn ghost sm" id="dl">📖 الجدول كاملاً</button></div>
     <h3 class="sec">✨ قوته السرية: ${T.nick}</h3>
-    ${T.secrets.map((s,i)=>`<div class="secret">${say?`<button class="ssay" data-s="${i}" aria-label="اسمع">🔊</button>`:''}<h4>🗝️ ${D(s.t)}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
-    <div class="secret fact">${say?'<button class="ssay" data-s="f" aria-label="اسمع">🔊</button>':''}<h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
-  $$('.ssay').forEach(b=>b.onclick=()=>{const k=b.dataset.s,x=T.secrets[+k];sayLine(k==='f'?`هل تعلم؟ ${T.fact}`:`${x.t}. ${x.d}. ${x.ex}`);});
+    ${T.secrets.map(s=>`<div class="secret"><h4>🗝️ ${s.t}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
+    <div class="secret fact"><h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
   if($('#dc'))$('#dc').onclick=()=>{G.comp=n;gsave();toast(`🐉 ${DNAME[n]} سيرافقك!`);rerender();};
   $('#dp').onclick=()=>go('battle',{practice:n});$('#dl').onclick=()=>go('learn',n);
 });

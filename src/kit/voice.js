@@ -1,57 +1,35 @@
 /* ===== الصوت: النطق (بلا موسيقى) والاستماع ===== */
-const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null,ready:false};
+const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null};
 /* أصوات طبيعية فقط: لا أصوات آلية ولا أصوات «مضحكة» تغنّي */
 const NATURAL=/Natural|Neural|Premium|Enhanced|Wavenet|Studio/i;
 const NOVELTY=/Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Princess|Eddy|\bFlo\b|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley/i;
-const vid=v=>(v.name||'')+' '+(v.voiceURI||'');
 function enScore(v){const n=v.name||'';if(NOVELTY.test(n))return 0;let s=1;
   if(/^en[-_]US/i.test(v.lang))s+=4;else if(/^en[-_](GB|AU|CA|IE|NZ)/i.test(v.lang))s+=2;
-  if(NATURAL.test(vid(v)))s+=8;
+  if(NATURAL.test(n))s+=8;
   if(/Samantha|Ava\b|Allison|Susan|Zoe|Nicky|Evan|Nathan|Alex\b|Aria|Jenny|Michelle|Google US English|Karen|Moira|Tessa|Serena|Kate\b/i.test(n))s+=3;
   return s;}
-/* الأصوات العربية: القديمة المضغوطة (مثل Maged) تبدو آلية، والجديدة المحسّنة طبيعية */
-const ROBO_AR=/compact|Maged|Naayf|Hoda|espeak/i;
-function arScore(v){const id=vid(v);let s=2;
-  if(/premium/i.test(id))s+=10;else if(NATURAL.test(id)||/network|Online/i.test(id))s+=8;
-  else if(ROBO_AR.test(id))s-=4;
-  if(v.localService===false)s+=1;if(/^ar[-_]SA/i.test(v.lang))s+=1;return s;}
-const arTag=v=>{const id=vid(v);return /premium/i.test(id)?' ⭐⭐':NATURAL.test(id)||/network|Online/i.test(id)?' ⭐':'';};
-function arVoices(){if(!TTS)return[];try{return speechSynthesis.getVoices().filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));}catch(e){return[];}}
-function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();let pref=null;
-  try{pref=World.p.arVoice;VOICE.ready=vs.length>0;}catch(e){}
+function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();
   const en=vs.filter(v=>/^en/i.test(v.lang)).map(v=>[enScore(v),v]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);VOICE.en=en.length?en[0][1]:null;
-  const ar=vs.filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));
-  VOICE.ar=(pref&&ar.find(v=>v.voiceURI===pref||v.name===pref))||ar[0]||null;}
+  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>NATURAL.test(v.name))||ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
 if(TTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
-/* سرعة هادئة تناسب طفلاً يتعلّم، ويمكن تغييرها من خزانة البطل */
+/* سرعة هادئة تناسب طفلاً يتعلّم: كل الكلام الإنجليزي أبطأ، ويمكن تغييرها من خزانة البطل */
 const PACE={en:.8,ar:.92};
 let sayTok=0;
 function speak(text,o={}){
-  if(TTS&&!VOICE.ready)pickVoices();
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
-  const lang=o.lang||'en',v=o.voice||VOICE[lang];
-  if(!TTS||(lang==='ar'&&(!v||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
-  try{let busy=false;try{busy=speechSynthesis.speaking&&!speechSynthesis.pending;}catch(e){}
-    if(!(o.queue&&busy))speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}]/gu,''));
-    u.lang=v&&v.lang?v.lang:lang==='ar'?'ar-SA':'en-US';if(v)u.voice=v;
+  const lang=o.lang||'en';
+  if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
+    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
     u.rate=Math.max(.5,Math.min(1.3,(o.rate||.92)*(lang==='en'?PACE.en:PACE.ar)*(World.p.rate||1)));u.pitch=o.pitch||1.05;
     u.onstart=()=>{if(o.el&&tok===sayTok)o.el.classList.add('talking');};
     if(o.onboundary)u.onboundary=e=>{if(tok===sayTok&&e.name!=='sentence')o.onboundary(e.charIndex);};
     u.onend=u.onerror=end;speechSynthesis.speak(u);setTimeout(end,1800+String(text).length*90/u.rate);
   }catch(e){end();}
 }
-/* الإرشادات: بالعربية إذا كان في الجهاز صوت عربي جيد (أو اختارت الأم العربية)، وإلا فبالإنجليزية حتى لا يتكلم «رجل آلي» */
-function arGood(){return !!(VOICE.ar&&arScore(VOICE.ar)>=2);}
-function guideLang(){if(TTS&&!VOICE.ready)pickVoices();const g=World.p.glang;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return arGood()?'ar':'en';}
-const canSayAr=()=>!!(World.p.voiceAr&&guideLang()==='ar');
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;const L=guideLang(),t=L==='ar'?ar:en;if(!t)return;
-  speak(L==='ar'?arSpeech(t):t,Object.assign({},o,{lang:L}));}
-/* نص عربي للنطق: بلا وسوم، والرموز تُقرأ كلمات */
-const arSpeech=h=>String(h).replace(/<[^>]+>/g,' ').replace(/(اضغط)\s*🔥/g,'$1 زر النار').replace(/(اضغط)\s*✓/g,'$1 زر الصح').replace(/([!?؟])\. /g,'$1 ').replace(/×/g,' في ').replace(/÷/g,' تقسيم ').replace(/=/g,' يساوي ').replace(/\+/g,' زائد ').replace(/[−]/g,' ناقص ')
-  .replace(/←|→/g,'، ').replace(/[✓✔✗✖]/g,'').replace(/\.\.\.|…/g,'، ').replace(/\s+/g,' ').trim();
-/* جملة عربية فقط (كلام المدرّب والأسرار): تُقال حين يكون الصوت العربي مختاراً */
-function sayLine(ar,o={}){if(canSayAr())speak(arSpeech(ar),Object.assign({},o,{lang:'ar'}));}
+/* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
+function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
 function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 

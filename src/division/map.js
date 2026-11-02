@@ -65,7 +65,7 @@ def('crew',()=>{
 });
 
 def('mate',d=>{
-  const l=ISLANDS[ISL_OF[d]],T=DIVS[d],m=mateMastery(d),rk=rankOf(d);const say=canSayAr();
+  const l=ISLANDS[ISL_OF[d]],T=DIVS[d],m=mateMastery(d),rk=rankOf(d);
   setTitle(`${l.mate} · ÷${D(d)}`);
   $('#view').innerHTML=`<div class="dpage" style="--lc:${l.col}">
     <div class="dtop"><div class="dbig bob">${mateSVG(l.crew,l.col)}</div><div><h2>${l.mate}</h2><p class="lt">${RANKS[rk]} · القسمة على ${D(d)}</p>
@@ -73,9 +73,8 @@ def('mate',d=>{
     <p class="why">💡 ${D(T.why)}</p>
     <div class="row cen">${G.mate===d?'<span class="chipbtn on">✓ رفيقي في الرحلات</span>':`<button class="btn gold sm" id="dc">⭐ ${makeWord(l)} رفيقي</button>`}<button class="btn sm" id="dp">⚓ تدريب مع ${l.mate}</button><button class="btn ghost sm" id="dl">📖 افهم القسمة</button></div>
     <h3 class="sec">🗝️ أسرار القسمة على ${D(d)}: ${T.nick}</h3>
-    ${T.secrets.map((s,i)=>`<div class="secret">${say?`<button class="ssay" data-s="${i}" aria-label="اسمع">🔊</button>`:''}<h4>🗝️ ${D(s.t)}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
-    <div class="secret fact">${say?'<button class="ssay" data-s="f" aria-label="اسمع">🔊</button>':''}<h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
-  $$('.ssay').forEach(b=>b.onclick=()=>{const k=b.dataset.s,x=T.secrets[+k];sayLine(k==='f'?`هل تعلم؟ ${T.fact}`:`${x.t}. ${x.d}. ${x.ex}`);});
+    ${T.secrets.map(s=>`<div class="secret"><h4>🗝️ ${s.t}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
+    <div class="secret fact"><h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
   if($('#dc'))$('#dc').onclick=()=>{G.mate=d;gsave();toast(`⭐ ${l.mate} ${l.fem?'سترافقك':'سيرافقك'}!`);rerender();};
   $('#dp').onclick=()=>go('voyage',{practice:d});$('#dl').onclick=()=>go('learn',d);
 });

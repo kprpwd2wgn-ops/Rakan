@@ -154,6 +154,10 @@ it after listening to it, Gemini and the device's own voice. Lines are generated
 `tools/game-voices.py` and shipped as MP3 files next to the game, so games work offline, cost nothing per
 player and never hold the key. Never call Azure from a page: anyone who opens it could take the key.
 
+The owner wants this voice only: every game and story that speaks uses these Azure clips, never the
+device's own voice (speechSynthesis). New games are built that way, and older games move over to it one
+at a time, each after the owner has checked its vowelled lines.
+
 ## Writing the lines
 
 - Full tashkeel on every word. Azure follows the diacritics it is given and guesses the rest, and its

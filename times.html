@@ -164,6 +164,15 @@ body.full .hdr{margin-bottom:8px}
 .linkbox .en{font-size:13px;word-break:break-all;flex:1 1 180px;min-width:0;user-select:all;text-align:left}
 @media (prefers-reduced-motion:reduce){.bob,.hero .eyes{animation:none}}
 
+/* اختيار الصوت العربي، وأزرار سماع الأسرار */
+.vlist{display:flex;flex-wrap:wrap;gap:6px}
+.vbtn{min-height:40px;padding:0 12px;border-radius:12px;background:var(--chip);font-weight:800;font-size:14px;direction:ltr;unicode-bidi:isolate}
+.vbtn.on{background:var(--accent);color:var(--accent-ink,#fff)}
+.secret{position:relative}
+.ssay{position:absolute;left:10px;top:10px;width:40px;height:40px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:19px;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.ssay:active{transform:translateY(2px);box-shadow:none}
+.secret:has(.ssay) h4{padding-left:48px}
+
 /* Castle storybook: parchment pages under a royal-purple banner; each land is a coloured card on a winding road; battles happen on a painted canvas. Single committed light look. */
 :root{
   --bg:#f5ead2;--card:#fffaf0;--ink:#2a1d4d;--ink2:#6e5f92;--line:#e4d3ad;--chip:#f1e3c2;
@@ -380,37 +389,59 @@ function buzz(ms=30){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function centerOf(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/2];}
 
 /* ===== الصوت: النطق (بلا موسيقى) والاستماع ===== */
-const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null};
+const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null,ready:false};
 /* أصوات طبيعية فقط: لا أصوات آلية ولا أصوات «مضحكة» تغنّي */
 const NATURAL=/Natural|Neural|Premium|Enhanced|Wavenet|Studio/i;
 const NOVELTY=/Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Princess|Eddy|\bFlo\b|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley/i;
+const vid=v=>(v.name||'')+' '+(v.voiceURI||'');
 function enScore(v){const n=v.name||'';if(NOVELTY.test(n))return 0;let s=1;
   if(/^en[-_]US/i.test(v.lang))s+=4;else if(/^en[-_](GB|AU|CA|IE|NZ)/i.test(v.lang))s+=2;
-  if(NATURAL.test(n))s+=8;
+  if(NATURAL.test(vid(v)))s+=8;
   if(/Samantha|Ava\b|Allison|Susan|Zoe|Nicky|Evan|Nathan|Alex\b|Aria|Jenny|Michelle|Google US English|Karen|Moira|Tessa|Serena|Kate\b/i.test(n))s+=3;
   return s;}
-function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();
+/* الأصوات العربية: القديمة المضغوطة (مثل Maged) تبدو آلية، والجديدة المحسّنة طبيعية */
+const ROBO_AR=/compact|Maged|Naayf|Hoda|espeak/i;
+function arScore(v){const id=vid(v);let s=2;
+  if(/premium/i.test(id))s+=10;else if(NATURAL.test(id)||/network|Online/i.test(id))s+=8;
+  else if(ROBO_AR.test(id))s-=4;
+  if(v.localService===false)s+=1;if(/^ar[-_]SA/i.test(v.lang))s+=1;return s;}
+const arTag=v=>{const id=vid(v);return /premium/i.test(id)?' ⭐⭐':NATURAL.test(id)||/network|Online/i.test(id)?' ⭐':'';};
+function arVoices(){if(!TTS)return[];try{return speechSynthesis.getVoices().filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));}catch(e){return[];}}
+function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();let pref=null;
+  try{pref=World.p.arVoice;VOICE.ready=vs.length>0;}catch(e){}
   const en=vs.filter(v=>/^en/i.test(v.lang)).map(v=>[enScore(v),v]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);VOICE.en=en.length?en[0][1]:null;
-  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>NATURAL.test(v.name))||ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
+  const ar=vs.filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));
+  VOICE.ar=(pref&&ar.find(v=>v.voiceURI===pref||v.name===pref))||ar[0]||null;}
 if(TTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
-/* سرعة هادئة تناسب طفلاً يتعلّم: كل الكلام الإنجليزي أبطأ، ويمكن تغييرها من خزانة البطل */
+/* سرعة هادئة تناسب طفلاً يتعلّم، ويمكن تغييرها من خزانة البطل */
 const PACE={en:.8,ar:.92};
 let sayTok=0;
 function speak(text,o={}){
+  if(TTS&&!VOICE.ready)pickVoices();
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
-  const lang=o.lang||'en';
-  if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
-  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
-    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
+  const lang=o.lang||'en',v=o.voice||VOICE[lang];
+  if(!TTS||(lang==='ar'&&(!v||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
+  try{let busy=false;try{busy=speechSynthesis.speaking&&!speechSynthesis.pending;}catch(e){}
+    if(!(o.queue&&busy))speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}]/gu,''));
+    u.lang=v&&v.lang?v.lang:lang==='ar'?'ar-SA':'en-US';if(v)u.voice=v;
     u.rate=Math.max(.5,Math.min(1.3,(o.rate||.92)*(lang==='en'?PACE.en:PACE.ar)*(World.p.rate||1)));u.pitch=o.pitch||1.05;
     u.onstart=()=>{if(o.el&&tok===sayTok)o.el.classList.add('talking');};
     if(o.onboundary)u.onboundary=e=>{if(tok===sayTok&&e.name!=='sentence')o.onboundary(e.charIndex);};
     u.onend=u.onerror=end;speechSynthesis.speak(u);setTimeout(end,1800+String(text).length*90/u.rate);
   }catch(e){end();}
 }
-/* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
-function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+/* الإرشادات: بالعربية إذا كان في الجهاز صوت عربي جيد (أو اختارت الأم العربية)، وإلا فبالإنجليزية حتى لا يتكلم «رجل آلي» */
+function arGood(){return !!(VOICE.ar&&arScore(VOICE.ar)>=2);}
+function guideLang(){if(TTS&&!VOICE.ready)pickVoices();const g=World.p.glang;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return arGood()?'ar':'en';}
+const canSayAr=()=>!!(World.p.voiceAr&&guideLang()==='ar');
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;const L=guideLang(),t=L==='ar'?ar:en;if(!t)return;
+  speak(L==='ar'?arSpeech(t):t,Object.assign({},o,{lang:L}));}
+/* نص عربي للنطق: بلا وسوم، والرموز تُقرأ كلمات */
+const arSpeech=h=>String(h).replace(/<[^>]+>/g,' ').replace(/(اضغط)\s*🔥/g,'$1 زر النار').replace(/(اضغط)\s*✓/g,'$1 زر الصح').replace(/([!?؟])\. /g,'$1 ').replace(/×/g,' في ').replace(/÷/g,' تقسيم ').replace(/=/g,' يساوي ').replace(/\+/g,' زائد ').replace(/[−]/g,' ناقص ')
+  .replace(/←|→/g,'، ').replace(/[✓✔✗✖]/g,'').replace(/\.\.\.|…/g,'، ').replace(/\s+/g,' ').trim();
+/* جملة عربية فقط (كلام المدرّب والأسرار): تُقال حين يكون الصوت العربي مختاراً */
+function sayLine(ar,o={}){if(canSayAr())speak(arSpeech(ar),Object.assign({},o,{lang:'ar'}));}
 function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
@@ -621,12 +652,15 @@ def('closet',(tab)=>{
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
         <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
           return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
+        ${canSayAr()&&arVoices().length>1?`<div class="mrow"><span>اختر الصوت العربي</span><div class="vlist">${arVoices().slice(0,8).map((v,i)=>`<button class="vbtn ${VOICE.ar&&v.name===VOICE.ar.name&&v.voiceURI===VOICE.ar.voiceURI?'on':''}" data-av="${i}">▶ ${esc(String(v.name).replace(/^Microsoft\s+/,'').replace(/\s*-\s*Arabic.*$/i,'').replace(/\s*Online\s*\(Natural\)/i,''))}${arTag(v)}</button>`).join('')}</div></div>`:''}
         <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.glang=v;World.save();draw();
         if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+      $$('[data-av]',body).forEach(b=>b.onclick=()=>{const v=arVoices()[+b.dataset.av];if(!v)return;World.p.arVoice=v.voiceURI||v.name;World.p.glang='ar';World.save();pickVoices();draw();
+        speak('مرحباً! أنا صوتك العربي.',{lang:'ar'});});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});
@@ -949,15 +983,16 @@ def('nest',()=>{
 });
 
 def('dragon',n=>{
-  const st=dragonStage(n),m=Math.round(tableMastery(n)*12),T=TABLES[n],l=LANDS[LAND_OF[n]];
+  const st=dragonStage(n),m=Math.round(tableMastery(n)*12),T=TABLES[n],l=LANDS[LAND_OF[n]];const say=canSayAr();
   setTitle(`${DNAME[n]} · ×${D(n)}`);
   $('#view').innerHTML=`<div class="dpage" style="--lc:${l.col}">
     <div class="dtop"><div class="dbig bob">${dragonSVG(n,st)}</div><div><h2>${DNAME[n]}</h2><p class="lt">تنين جدول ×${D(n)} · ${['','صغير','يافع','كبير'][st]}</p>
       <div class="bar"><i style="width:${m/12*100}%"></i></div><p class="small muted">أتقنت ${D(m)} من ${D(12)} حقيقة. ${st<3?'أتقن المزيد ليكبر!':'وصل إلى أكبر حجم! 👑'}</p></div></div>
     <div class="row cen">${G.comp===n?'<span class="chipbtn on">✓ رفيقي في المعارك</span>':'<button class="btn gold sm" id="dc">🐉 اجعله رفيقي</button>'}<button class="btn sm" id="dp">⚔️ تدريب مع ${DNAME[n]}</button><button class="btn ghost sm" id="dl">📖 الجدول كاملاً</button></div>
     <h3 class="sec">✨ قوته السرية: ${T.nick}</h3>
-    ${T.secrets.map(s=>`<div class="secret"><h4>🗝️ ${s.t}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
-    <div class="secret fact"><h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
+    ${T.secrets.map((s,i)=>`<div class="secret">${say?`<button class="ssay" data-s="${i}" aria-label="اسمع">🔊</button>`:''}<h4>🗝️ ${D(s.t)}</h4><p>${D(s.d)}</p><span class="ex">${D(s.ex)}</span></div>`).join('')}
+    <div class="secret fact">${say?'<button class="ssay" data-s="f" aria-label="اسمع">🔊</button>':''}<h4>🤔 هل تعلم؟</h4><p>${D(T.fact)}</p></div></div>`;
+  $$('.ssay').forEach(b=>b.onclick=()=>{const k=b.dataset.s,x=T.secrets[+k];sayLine(k==='f'?`هل تعلم؟ ${T.fact}`:`${x.t}. ${x.d}. ${x.ex}`);});
   if($('#dc'))$('#dc').onclick=()=>{G.comp=n;gsave();toast(`🐉 ${DNAME[n]} سيرافقك!`);rerender();};
   $('#dp').onclick=()=>go('battle',{practice:n});$('#dl').onclick=()=>go('learn',n);
 });
@@ -1042,21 +1077,22 @@ def('battle',arg=>{
     $('#sq').textContent=w.type==='fog'?'كم عموداً في الضباب؟':w.type==='train'?'ما العدد المختبئ؟':'كم وحشاً؟';
     kp.reset();kp.lock(false);
     $('#bw').textContent=tower?`الموجة ${D(idx+1)}`:`${D(idx+1)} / ${D(total)}`;
-    coachOff();
+    coachOff();coachQ=true;
     if(w.tut!=null){const tt=[`صف واحد فيه ${D(3)} وحوش. اكتب <b>${D(3)}</b> ثم اضغط 🔥`,`صف واحد × ${D(5)} وحوش = ؟`,`صفّان، وفي كل صف ${D(3)}. <b>${D(2)} × ${D(3)}</b> = ؟`,`صفّان × ${D(5)} = ؟ (${D(5)} + ${D(5)})`,`الآن وحدك! ${D(3)} صفوف × ${D(2)} أعمدة 💪`][w.tut];coach(tt,w.tut===0?'k3':null);}
     else if(w.type==='fog')coach(`☁️ الضباب يخفي الأعمدة! المجموع <b>${D(w.R*w.C)}</b> وعدد الصفوف <b>${D(w.R)}</b>. كم عموداً؟`);
     else if(w.type==='train')coach(`🚂 قطار الوحوش يقفز <b>${D(w.t)}</b> في كل مرة. ما العدد المختبئ؟`);
     else if(w.type==='gold')coach(`🌟 جيش ذهبي! اهزمه بسرعة لتربح ${D(3)} جواهر!`);
     else if(idx===0&&!boss)coach(`👾 ${D(w.R)} ${w.R===1?'صف':w.R===2?'صفّان':'صفوف'} و${D(w.C)} ${w.C===1?'عمود':w.C===2?'عمودان':'أعمدة'}. اضرب لتعرف عددهم!`,null,3500);
+    coachQ=false;
     banner(tower?`الموجة ${D(idx+1)}`:w.type==='gold'?'🌟 جيش ذهبي':`الموجة ${D(idx+1)}`);
   }
   const answerOf=w=>w.type==='fog'?w.C:w.type==='train'?w.t*w.k:w.R*w.C;
   function setInput(v){input=v;const sv=$('#sv');sv.textContent=v===''?'؟':D(v);sv.classList.toggle('empty',v==='');}
-  let coachT=0;
+  let coachT=0,coachQ=false;
   const coachDef=()=>boss?'💥 اكتب ناتج الضرب لتضرب الزعيم!':!wave?'':wave.type==='fog'?'☁️ كم عموداً يختبئ في الضباب؟':wave.type==='train'?`🐛 كل قفزة +${D(wave.t)}. ما العدد المختبئ؟`:'👾 عُدّ الصفوف والأعمدة، واكتب عدد الوحوش ثم اضغط 🔥';
   function coach(html,key,ms){const c=$('#coach');c.classList.remove('idle');c.innerHTML=`${comp?`<span class="cdr">${dragonSVG(comp,Math.max(1,dragonStage(comp)))}</span>`:'<span class="cdr">🧙</span>'}<span>${html}</span>`;c.hidden=false;
     $$('.k.hint').forEach(k=>k.classList.remove('hint'));if(key){const k=$(`.k[data-k="${key.slice(1)}"]`);if(k)k.classList.add('hint');$('.k.go').classList.add('hint');}
-    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);}
+    clearTimeout(coachT);if(ms)coachT=setTimeout(coachOff,ms);sayLine(html,{queue:coachQ});}
   function coachOff(){const c=$('#coach');if(!c)return;c.classList.add('idle');c.innerHTML=`<span class="cdr">${comp?dragonSVG(comp,Math.max(1,dragonStage(comp))):'🧙'}</span><span>${coachDef()}</span>`;$$('.k.hint').forEach(k=>k.classList.remove('hint'));}
   function banner(t){const b=$('#banner');b.textContent=t;b.hidden=false;b.classList.remove('in');void b.offsetWidth;b.classList.add('in');setTimeout(()=>{if(alive)b.hidden=true;},1100);}
   function bhud(){$('#bh').innerHTML=[0,1,2].map(i=>i<hearts?'❤️':'🖤').join('');$('#bpc').textContent=D(power);$('#bp').disabled=power<=0;}
@@ -1082,6 +1118,7 @@ def('battle',arg=>{
   function recW(w,ok){if(w.type==='train')record(w.t,w.k,ok);else record(w.R,w.C,ok);}
   function success(w){
     w.busy=true;kp.lock(true);const fast=(now-w.born)<5.5;const perfect=w.tries===0;
+    {const [a,b]=w.type==='train'?[w.t,w.k]:[w.R,w.C];guide(`${a} في ${b} يساوي ${a*b}`,`${a} times ${b} is ${a*b}.`);}
     if(perfect){recW(w,true);perfects++;}if(fast&&perfect)fasts++;
     const [hx,hy]=[W/2,wallY-8];const tx=w.type==='train'?W/2:w.x0+w.fw/2,ty=w.y+w.fh/2;
     proj={x:hx,y:hy,sx:hx,sy:hy,tx,ty,t:0,dur:.28,col:w.type==='gold'?'#fde047':'#ff9f43'};
@@ -1115,11 +1152,11 @@ def('battle',arg=>{
   /* الزعيم */
   function bossStart(){const ks=bagK(T0,[4,5,6,7,8,9,10,11,12],8);const hp=ks.slice(0,6).reduce((s,k)=>s+T0*k,0);
     bossO={ks,i:0,hp,max:hp,charge:0,rate:1/(12+T0*.4),hit:0,angry:false,size:Math.min(W*.42,170),y:0,tries:0,wrongRec:false,born:now};bossRune();
-    banner('👑 الزعيم!');coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);}
+    banner('👑 الزعيم!');coachQ=true;coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);coachQ=false;}
   function bossRune(){const b=bossO;const k=b.ks[b.i%b.ks.length];b.a=Math.random()<.5?T0:k;b.b=b.a===T0?k:T0;b.tries=0;b.wrongRec=false;b.born=now;
     $('#sq').innerHTML=`${D(b.a)} × ${D(b.b)} =`;kp.reset();}
   function bossAnswer(v){const b=bossO;if(!b||b.busy)return;const p=b.a*b.b;
-    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
+    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}guide(`${b.a} في ${b.b} يساوي ${p}`,`${b.a} times ${b.b} is ${p}.`);const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
       $('#bhero').innerHTML=heroSVG(World.p.hero,{face:'happy',pose:'cast',pet:false});
       setTimeout(()=>{if(!alive)return;b.hp=Math.max(0,b.hp-p);b.hit=.5;const r=cv.getBoundingClientRect();FX.text(r.left+tx,r.top+ty,`−${D(p)}`,'#fff7c2',38);FX.burst(r.left+tx,r.top+ty,{n:26,speed:300});buzz(40);
         b.charge=Math.max(0,b.charge-.5);$('#bhero').innerHTML=heroSVG(World.p.hero,{face:'smile',pet:false});
@@ -1129,7 +1166,7 @@ def('battle',arg=>{
     b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.98,b.charge+.22);if(!b.wrongRec){b.wrongRec=true;record(b.a,b.b,false);}
     coach(b.tries>=3?`💡 ${D(b.a)} × ${D(b.b)} = <b>${D(p)}</b>. اكتبه!`:b.tries>=2?`🐉 ${D(hintFor(b.a,b.b))}`:`😆 الزعيم يضحك! ${D(v)} ليس صحيحاً.`,null,3500);kp.reset();}
   function bossAttack(){const b=bossO;b.charge=0;hearts--;bhud();shakeT=.45;buzz(120);const r=cv.getBoundingClientRect();FX.burst(r.left+W/2,r.top+wallY,{n:30,colors:['#ff6b6b','#ffb86b','#fff']});
-    if(!b.wrongRec){record(b.a,b.b,false);}coach(`💥 الزعيم ضرب القلعة! ${D(b.a)} × ${D(b.b)} = ${D(b.a*b.b)}`,null,2600);if(hearts<=0)return defeat();b.i++;bossRune();}
+    if(!b.wrongRec){record(b.a,b.b,false);}coach(`💥 الزعيم ضرب القلعة! ${D(b.a)} × ${D(b.b)} = ${D(b.a*b.b)}`,null,2600);if(!canSayAr())guide(null,`${b.a} times ${b.b} is ${b.a*b.b}.`);if(hearts<=0)return defeat();b.i++;bossRune();}
 
   /* الحلقة */
   function update(dt){
@@ -1151,6 +1188,7 @@ def('battle',arg=>{
     if(mode==='tutorial'){coach(`💡 كانوا ${D(N)}: ${D(w.R)} × ${D(w.C)} = ${D(N)}. لنجرّب مرة أخرى!`,null,2600);setTimeout(()=>{if(!alive)return;startWave();},1400);return;}
     hearts--;bhud();shakeT=.45;buzz(140);
     coach(`💥 الجيش وصل إلى السور! ${w.type==='train'?`العدد كان ${D(ans)}`:w.type==='fog'?`${D(w.R)} × ${D(w.C)} = ${D(N)}`:`${D(w.R)} × ${D(w.C)} = ${D(N)}`}`,null,2600);
+    if(!canSayAr())guide(null,w.type==='train'?`The hidden number was ${ans}.`:`${w.R} times ${w.C} is ${N}.`);
     if(hearts<=0){setTimeout(()=>{if(alive)defeat();},700);return;}
     setTimeout(()=>{if(alive)nextWave();},1300);}
   function posOf(w,i){if(w.type==='train')return[w.x0+i*w.gap,w.y+w.r];const r=Math.floor(i/w.C),c=i%w.C;return[w.x0+c*w.s+w.s/2,w.y+r*w.s+w.s/2];}

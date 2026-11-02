@@ -141,3 +141,12 @@ body.full .hdr{margin-bottom:8px}
 .linkbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--card);border-radius:12px;padding:8px 10px}
 .linkbox .en{font-size:13px;word-break:break-all;flex:1 1 180px;min-width:0;user-select:all;text-align:left}
 @media (prefers-reduced-motion:reduce){.bob,.hero .eyes{animation:none}}
+
+/* اختيار الصوت العربي، وأزرار سماع الأسرار */
+.vlist{display:flex;flex-wrap:wrap;gap:6px}
+.vbtn{min-height:40px;padding:0 12px;border-radius:12px;background:var(--chip);font-weight:800;font-size:14px;direction:ltr;unicode-bidi:isolate}
+.vbtn.on{background:var(--accent);color:var(--accent-ink,#fff)}
+.secret{position:relative}
+.ssay{position:absolute;left:10px;top:10px;width:40px;height:40px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:19px;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.ssay:active{transform:translateY(2px);box-shadow:none}
+.secret:has(.ssay) h4{padding-left:48px}

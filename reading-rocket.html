@@ -164,6 +164,15 @@ body.full .hdr{margin-bottom:8px}
 .linkbox .en{font-size:13px;word-break:break-all;flex:1 1 180px;min-width:0;user-select:all;text-align:left}
 @media (prefers-reduced-motion:reduce){.bob,.hero .eyes{animation:none}}
 
+/* اختيار الصوت العربي، وأزرار سماع الأسرار */
+.vlist{display:flex;flex-wrap:wrap;gap:6px}
+.vbtn{min-height:40px;padding:0 12px;border-radius:12px;background:var(--chip);font-weight:800;font-size:14px;direction:ltr;unicode-bidi:isolate}
+.vbtn.on{background:var(--accent);color:var(--accent-ink,#fff)}
+.secret{position:relative}
+.ssay{position:absolute;left:10px;top:10px;width:40px;height:40px;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:19px;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.ssay:active{transform:translateY(2px);box-shadow:none}
+.secret:has(.ssay) h4{padding-left:48px}
+
 /* Reading Rocket: a night-sky mission board. Four planet cards glow on deep blue; reading text always sits on bright paper cards so letters stay crisp. Single committed light-on-dark header, light pages. */
 :root{
   --bg:#eef0ff;--card:#ffffff;--ink:#1f2148;--ink2:#5d6191;--line:#d6daf5;--chip:#e9ebff;
@@ -378,37 +387,59 @@ function buzz(ms=30){try{if(navigator.vibrate)navigator.vibrate(ms);}catch(e){}}
 function centerOf(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/2];}
 
 /* ===== الصوت: النطق (بلا موسيقى) والاستماع ===== */
-const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null};
+const TTS='speechSynthesis' in window;let VOICE={en:null,ar:null,ready:false};
 /* أصوات طبيعية فقط: لا أصوات آلية ولا أصوات «مضحكة» تغنّي */
 const NATURAL=/Natural|Neural|Premium|Enhanced|Wavenet|Studio/i;
 const NOVELTY=/Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Deranged|Good News|Hysterical|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Kathy|Ralph|Princess|Eddy|\bFlo\b|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley/i;
+const vid=v=>(v.name||'')+' '+(v.voiceURI||'');
 function enScore(v){const n=v.name||'';if(NOVELTY.test(n))return 0;let s=1;
   if(/^en[-_]US/i.test(v.lang))s+=4;else if(/^en[-_](GB|AU|CA|IE|NZ)/i.test(v.lang))s+=2;
-  if(NATURAL.test(n))s+=8;
+  if(NATURAL.test(vid(v)))s+=8;
   if(/Samantha|Ava\b|Allison|Susan|Zoe|Nicky|Evan|Nathan|Alex\b|Aria|Jenny|Michelle|Google US English|Karen|Moira|Tessa|Serena|Kate\b/i.test(n))s+=3;
   return s;}
-function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();
+/* الأصوات العربية: القديمة المضغوطة (مثل Maged) تبدو آلية، والجديدة المحسّنة طبيعية */
+const ROBO_AR=/compact|Maged|Naayf|Hoda|espeak/i;
+function arScore(v){const id=vid(v);let s=2;
+  if(/premium/i.test(id))s+=10;else if(NATURAL.test(id)||/network|Online/i.test(id))s+=8;
+  else if(ROBO_AR.test(id))s-=4;
+  if(v.localService===false)s+=1;if(/^ar[-_]SA/i.test(v.lang))s+=1;return s;}
+const arTag=v=>{const id=vid(v);return /premium/i.test(id)?' ⭐⭐':NATURAL.test(id)||/network|Online/i.test(id)?' ⭐':'';};
+function arVoices(){if(!TTS)return[];try{return speechSynthesis.getVoices().filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));}catch(e){return[];}}
+function pickVoices(){if(!TTS)return;const vs=speechSynthesis.getVoices();let pref=null;
+  try{pref=World.p.arVoice;VOICE.ready=vs.length>0;}catch(e){}
   const en=vs.filter(v=>/^en/i.test(v.lang)).map(v=>[enScore(v),v]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);VOICE.en=en.length?en[0][1]:null;
-  const ar=vs.filter(v=>/^ar/i.test(v.lang));VOICE.ar=ar.find(v=>NATURAL.test(v.name))||ar.find(v=>/SA|Maged|Tarik|Hamed|Zariyah/i.test(v.name+v.lang))||ar[0]||null;}
+  const ar=vs.filter(v=>/^ar/i.test(v.lang)).sort((a,b)=>arScore(b)-arScore(a));
+  VOICE.ar=(pref&&ar.find(v=>v.voiceURI===pref||v.name===pref))||ar[0]||null;}
 if(TTS){pickVoices();speechSynthesis.onvoiceschanged=pickVoices;}
-/* سرعة هادئة تناسب طفلاً يتعلّم: كل الكلام الإنجليزي أبطأ، ويمكن تغييرها من خزانة البطل */
+/* سرعة هادئة تناسب طفلاً يتعلّم، ويمكن تغييرها من خزانة البطل */
 const PACE={en:.8,ar:.92};
 let sayTok=0;
 function speak(text,o={}){
+  if(TTS&&!VOICE.ready)pickVoices();
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
-  const lang=o.lang||'en';
-  if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
-  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
-    u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
+  const lang=o.lang||'en',v=o.voice||VOICE[lang];
+  if(!TTS||(lang==='ar'&&(!v||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
+  try{let busy=false;try{busy=speechSynthesis.speaking&&!speechSynthesis.pending;}catch(e){}
+    if(!(o.queue&&busy))speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F000}-\u{1FAFF}\u{2300}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}]/gu,''));
+    u.lang=v&&v.lang?v.lang:lang==='ar'?'ar-SA':'en-US';if(v)u.voice=v;
     u.rate=Math.max(.5,Math.min(1.3,(o.rate||.92)*(lang==='en'?PACE.en:PACE.ar)*(World.p.rate||1)));u.pitch=o.pitch||1.05;
     u.onstart=()=>{if(o.el&&tok===sayTok)o.el.classList.add('talking');};
     if(o.onboundary)u.onboundary=e=>{if(tok===sayTok&&e.name!=='sentence')o.onboundary(e.charIndex);};
     u.onend=u.onerror=end;speechSynthesis.speak(u);setTimeout(end,1800+String(text).length*90/u.rate);
   }catch(e){end();}
 }
-/* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
-function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+/* الإرشادات: بالعربية إذا كان في الجهاز صوت عربي جيد (أو اختارت الأم العربية)، وإلا فبالإنجليزية حتى لا يتكلم «رجل آلي» */
+function arGood(){return !!(VOICE.ar&&arScore(VOICE.ar)>=2);}
+function guideLang(){if(TTS&&!VOICE.ready)pickVoices();const g=World.p.glang;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return arGood()?'ar':'en';}
+const canSayAr=()=>!!(World.p.voiceAr&&guideLang()==='ar');
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;const L=guideLang(),t=L==='ar'?ar:en;if(!t)return;
+  speak(L==='ar'?arSpeech(t):t,Object.assign({},o,{lang:L}));}
+/* نص عربي للنطق: بلا وسوم، والرموز تُقرأ كلمات */
+const arSpeech=h=>String(h).replace(/<[^>]+>/g,' ').replace(/(اضغط)\s*🔥/g,'$1 زر النار').replace(/(اضغط)\s*✓/g,'$1 زر الصح').replace(/([!?؟])\. /g,'$1 ').replace(/×/g,' في ').replace(/÷/g,' تقسيم ').replace(/=/g,' يساوي ').replace(/\+/g,' زائد ').replace(/[−]/g,' ناقص ')
+  .replace(/←|→/g,'، ').replace(/[✓✔✗✖]/g,'').replace(/\.\.\.|…/g,'، ').replace(/\s+/g,' ').trim();
+/* جملة عربية فقط (كلام المدرّب والأسرار): تُقال حين يكون الصوت العربي مختاراً */
+function sayLine(ar,o={}){if(canSayAr())speak(arSpeech(ar),Object.assign({},o,{lang:'ar'}));}
 function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
@@ -619,12 +650,15 @@ def('closet',(tab)=>{
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
         <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
           return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
+        ${canSayAr()&&arVoices().length>1?`<div class="mrow"><span>اختر الصوت العربي</span><div class="vlist">${arVoices().slice(0,8).map((v,i)=>`<button class="vbtn ${VOICE.ar&&v.name===VOICE.ar.name&&v.voiceURI===VOICE.ar.voiceURI?'on':''}" data-av="${i}">▶ ${esc(String(v.name).replace(/^Microsoft\s+/,'').replace(/\s*-\s*Arabic.*$/i,'').replace(/\s*Online\s*\(Natural\)/i,''))}${arTag(v)}</button>`).join('')}</div></div>`:''}
         <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.glang=v;World.save();draw();
         if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+      $$('[data-av]',body).forEach(b=>b.onclick=()=>{const v=arVoices()[+b.dataset.av];if(!v)return;World.p.arVoice=v.voiceURI||v.name;World.p.glang='ar';World.save();pickVoices();draw();
+        speak('مرحباً! أنا صوتك العربي.',{lang:'ar'});});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});

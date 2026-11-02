@@ -1,5 +1,5 @@
 /* ===== قراصنة القسمة: البيانات ===== */
-const APP={id:'division',land:'division',title:'قراصنة القسمة',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/division.html'};
+const APP={id:'division',land:'division',title:'قراصنة القسمة',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/division.html',voices:'division/voices'};
 /* الجزر بترتيب التعلّم: لكل جزيرة رقم تقسم عليه، وحيوان ينضم إلى طاقمك */
 const ISLANDS=[
  {d:1,name:'خليج البداية',mate:'نوري',crew:'narwhal',col:'#60a5fa',sky:['#8fd3ff','#e3f6ff'],sea:'#2f9bd6',hill:'#6cc463',boss:null},
@@ -16,7 +16,6 @@ const ISLANDS=[
  {d:12,name:'جزيرة الساعة',mate:'بومبو',crew:'owl',col:'#4f46e5',sky:['#22306a','#56689f'],sea:'#16306b',hill:'#2c3d78',boss:'kraken'}
 ];
 /* أسماء الطاقم كما يقرؤها الصوت الإنجليزي */
-const MATE_EN={1:'Noori',2:'Karkoor',10:'Mozzo',5:'Najma',3:'Farfoor',4:'Salhoof',11:'Follo',9:'Fakkoom',6:'Asoola',8:'Aktoob',7:'Basbousa',12:'Bombo'};
 const ISL_OF={};ISLANDS.forEach((l,i)=>ISL_OF[l.d]=i);
 /* العُقد على الخريطة */
 const NODES=[];

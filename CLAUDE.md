@@ -225,11 +225,14 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
 - Times tables (`times.html`) and Division (`division.html`): every line is drafted in `times-lines.json`
   and `division-lines.json`. They are built by `python3 src/voices/make-lines.py`, so fix the script, not the JSON;
   the facts are made from its number words. Sent to the owner for the tashkeel check on 2 Nov 2026.
-  After she approves: generate into `times/voices` and `division/voices`, play the clips from `src/times/` and
-  `src/division/`, and take those two games off the device voice (`sayAr`/`speak` in `src/kit/voice.js`).
+  Both games already play these clips and no longer use the device voice (`src/kit/clips.js`, `CLIPS.say(id)`;
+  it loads `times/voices/manifest.json` or `division/voices/manifest.json` and stays silent until they exist).
   Each line id says when it is spoken: `intro-N` on the intro pages, `tut-N` in the first lesson,
   `m-A-B` / `d-D-Q` after every answer and on the learn pages, `dragon-N` / `mate-N` when a friend joins,
   and the rest for waves, rounds, bosses, wins and losses.
+  What is left, once she approves: run `tools/game-voices.py` for both files into `times/voices` and
+  `division/voices`, commit the clips, and republish both games with their clips in `files`
+  (e.g. `"times/voices/m-3-4.mp3": "times/voices/m-3-4.mp3"` for every clip, plus the manifest).
 
 ## Setup and limits
 

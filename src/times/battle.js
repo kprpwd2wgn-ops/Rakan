@@ -74,8 +74,11 @@ def('battle',arg=>{
     else if(w.type==='train')coach(`🚂 قطار الوحوش يقفز <b>${D(w.t)}</b> في كل مرة. ما العدد المختبئ؟`);
     else if(w.type==='gold')coach(`🌟 جيش ذهبي! اهزمه بسرعة لتربح ${D(3)} جواهر!`);
     else if(idx===0&&!boss)coach(`👾 ${D(w.R)} ${w.R===1?'صف':w.R===2?'صفّان':'صفوف'} و${D(w.C)} ${w.C===1?'عمود':w.C===2?'عمودان':'أعمدة'}. اضرب لتعرف عددهم!`,null,3500);
+    CLIPS.say(w.tut!=null?'tut-'+w.tut:w.type==='fog'?'wave-fog':w.type==='train'?'wave-train':w.type==='gold'?'wave-gold':idx===0&&!boss?'wave-first':null,{queue:true});
+    CLIPS.warm(factOf(w));
     banner(tower?`الموجة ${D(idx+1)}`:w.type==='gold'?'🌟 جيش ذهبي':`الموجة ${D(idx+1)}`);
   }
+  const factOf=w=>w.type==='train'?`m-${w.t}-${w.k}`:`m-${w.R}-${w.C}`;
   const answerOf=w=>w.type==='fog'?w.C:w.type==='train'?w.t*w.k:w.R*w.C;
   function setInput(v){input=v;const sv=$('#sv');sv.textContent=v===''?'؟':D(v);sv.classList.toggle('empty',v==='');}
   let coachT=0;
@@ -103,11 +106,12 @@ def('battle',arg=>{
     w.born-=0;w.T*=.93;
     if(w.tries>=2)applyHint(w,true);
     if(w.tries>=3)coach(`💡 الجواب: ${w.type==='fog'?`${D(w.R)} × <b>${D(w.C)}</b> = ${D(N)}`:w.type==='train'?`<b>${D(ans)}</b>`:`${D(w.R)} × ${D(w.C)} = <b>${D(N)}</b>`}. اكتبه الآن!`);
+    CLIPS.say(w.tries>=3?'show':(w.type==='grid'||w.type==='gold')?(v<N?'low':'high'):'wrong');
     kp.reset();
   }
   function recW(w,ok){if(w.type==='train')record(w.t,w.k,ok);else record(w.R,w.C,ok);}
   function success(w){
-    w.busy=true;kp.lock(true);const fast=(now-w.born)<5.5;const perfect=w.tries===0;
+    w.busy=true;kp.lock(true);const fast=(now-w.born)<5.5;const perfect=w.tries===0;CLIPS.say(factOf(w));
     if(perfect){recW(w,true);perfects++;}if(fast&&perfect)fasts++;
     const [hx,hy]=[W/2,wallY-8];const tx=w.type==='train'?W/2:w.x0+w.fw/2,ty=w.y+w.fh/2;
     proj={x:hx,y:hy,sx:hx,sy:hy,tx,ty,t:0,dur:.28,col:w.type==='gold'?'#fde047':'#ff9f43'};
@@ -141,20 +145,20 @@ def('battle',arg=>{
   /* الزعيم */
   function bossStart(){const ks=bagK(T0,[4,5,6,7,8,9,10,11,12],8);const hp=ks.slice(0,6).reduce((s,k)=>s+T0*k,0);
     bossO={ks,i:0,hp,max:hp,charge:0,rate:1/(12+T0*.4),hit:0,angry:false,size:Math.min(W*.42,170),y:0,tries:0,wrongRec:false,born:now};bossRune();
-    banner('👑 الزعيم!');coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);}
-  function bossRune(){const b=bossO;const k=b.ks[b.i%b.ks.length];b.a=Math.random()<.5?T0:k;b.b=b.a===T0?k:T0;b.tries=0;b.wrongRec=false;b.born=now;
+    banner('👑 الزعيم!');CLIPS.say('boss',{queue:true});coach(`👑 زعيم ${land.name} يهاجم! كل ضربة صحيحة تؤذيه بقدر الناتج، فالأعداد الكبيرة أقوى! 💥`,null,4200);}
+  function bossRune(){const b=bossO;const k=b.ks[b.i%b.ks.length];b.a=Math.random()<.5?T0:k;b.b=b.a===T0?k:T0;CLIPS.warm(`m-${b.a}-${b.b}`);b.tries=0;b.wrongRec=false;b.born=now;
     $('#sq').innerHTML=`${D(b.a)} × ${D(b.b)} =`;kp.reset();}
   function bossAnswer(v){const b=bossO;if(!b||b.busy)return;const p=b.a*b.b;
-    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
+    if(v===p){b.busy=true;kp.lock(true);if(!b.tries){record(b.a,b.b,true);perfects++;}CLIPS.say(`m-${b.a}-${b.b}`);const tx=W/2,ty=b.y;proj={x:W/2,y:wallY-8,sx:W/2,sy:wallY-8,tx,ty,t:0,dur:.3,col:'#ff9f43'};
       $('#bhero').innerHTML=heroSVG(World.p.hero,{face:'happy',pose:'cast',pet:false});
       setTimeout(()=>{if(!alive)return;b.hp=Math.max(0,b.hp-p);b.hit=.5;const r=cv.getBoundingClientRect();FX.text(r.left+tx,r.top+ty,`−${D(p)}`,'#fff7c2',38);FX.burst(r.left+tx,r.top+ty,{n:26,speed:300});buzz(40);
         b.charge=Math.max(0,b.charge-.5);$('#bhero').innerHTML=heroSVG(World.p.hero,{face:'smile',pet:false});
-        if(b.hp<=0){setTimeout(()=>{const r2=cv.getBoundingClientRect();FX.burst(r2.left+W/2,r2.top+b.y,{n:80,speed:460});FX.confetti();b.dead=true;setTimeout(()=>victory(),1100);},300);return;}
-        if(!b.angry&&b.hp<b.max/2){b.angry=true;b.rate*=1.18;coach('😠 الزعيم غضب! أسرع!',null,1800);}
+        if(b.hp<=0){CLIPS.say('boss-down',{queue:true});setTimeout(()=>{const r2=cv.getBoundingClientRect();FX.burst(r2.left+W/2,r2.top+b.y,{n:80,speed:460});FX.confetti();b.dead=true;setTimeout(()=>victory(),1100);},300);return;}
+        if(!b.angry&&b.hp<b.max/2){b.angry=true;b.rate*=1.18;coach('😠 الزعيم غضب! أسرع!',null,1800);CLIPS.say('boss-angry',{queue:true});}
         b.i++;b.busy=false;kp.lock(false);bossRune();},300);return;}
-    b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.98,b.charge+.22);if(!b.wrongRec){b.wrongRec=true;record(b.a,b.b,false);}
+    b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.98,b.charge+.22);CLIPS.say(b.tries>=3?'show':'boss-laugh');if(!b.wrongRec){b.wrongRec=true;record(b.a,b.b,false);}
     coach(b.tries>=3?`💡 ${D(b.a)} × ${D(b.b)} = <b>${D(p)}</b>. اكتبه!`:b.tries>=2?`🐉 ${D(hintFor(b.a,b.b))}`:`😆 الزعيم يضحك! ${D(v)} ليس صحيحاً.`,null,3500);kp.reset();}
-  function bossAttack(){const b=bossO;b.charge=0;hearts--;bhud();shakeT=.45;buzz(120);const r=cv.getBoundingClientRect();FX.burst(r.left+W/2,r.top+wallY,{n:30,colors:['#ff6b6b','#ffb86b','#fff']});
+  function bossAttack(){const b=bossO;b.charge=0;hearts--;bhud();shakeT=.45;buzz(120);CLIPS.say('boss-hit');CLIPS.say(`m-${b.a}-${b.b}`,{queue:true});const r=cv.getBoundingClientRect();FX.burst(r.left+W/2,r.top+wallY,{n:30,colors:['#ff6b6b','#ffb86b','#fff']});
     if(!b.wrongRec){record(b.a,b.b,false);}coach(`💥 الزعيم ضرب القلعة! ${D(b.a)} × ${D(b.b)} = ${D(b.a*b.b)}`,null,2600);if(hearts<=0)return defeat();b.i++;bossRune();}
 
   /* الحلقة */
@@ -174,8 +178,8 @@ def('battle',arg=>{
     const r=cv.getBoundingClientRect();FX.burst(r.left+W/2,r.top+wallY,{n:34,colors:['#ff6b6b','#ffb86b','#ffffff',w.col]});
     if(!w.wrongRec)recW(w,false);
     const N=w.R*w.C,ans=answerOf(w);
-    if(mode==='tutorial'){coach(`💡 كانوا ${D(N)}: ${D(w.R)} × ${D(w.C)} = ${D(N)}. لنجرّب مرة أخرى!`,null,2600);setTimeout(()=>{if(!alive)return;startWave();},1400);return;}
-    hearts--;bhud();shakeT=.45;buzz(140);
+    if(mode==='tutorial'){coach(`💡 كانوا ${D(N)}: ${D(w.R)} × ${D(w.C)} = ${D(N)}. لنجرّب مرة أخرى!`,null,2600);CLIPS.say(factOf(w));setTimeout(()=>{if(!alive)return;startWave();},1400);return;}
+    hearts--;bhud();shakeT=.45;buzz(140);CLIPS.say('wall');CLIPS.say(factOf(w),{queue:true});
     coach(`💥 الجيش وصل إلى السور! ${w.type==='train'?`العدد كان ${D(ans)}`:w.type==='fog'?`${D(w.R)} × ${D(w.C)} = ${D(N)}`:`${D(w.R)} × ${D(w.C)} = ${D(N)}`}`,null,2600);
     if(hearts<=0){setTimeout(()=>{if(alive)defeat();},700);return;}
     setTimeout(()=>{if(alive)nextWave();},1300);}
@@ -230,7 +234,7 @@ def('battle',arg=>{
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;if(!paused){now+=dt;update(dt);}draw();raf=requestAnimationFrame(loop);}
 
   /* النهاية */
-  function victory(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);
+  function victory(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);CLIPS.say('win',{queue:true});
     const stars=mode==='tutorial'?3:Math.max(1,hearts);const gems=perfects+fasts+gold+stars*4+(boss?15:0);G.plays++;
     let first=false;if(node){first=!G.stars[node.id];G.stars[node.id]=Math.max(G.stars[node.id]||0,stars);}gsave();
     const nextI=node?NODE_I[node.id]+1:-1;const hasNext=nextI>0&&nextI<NODES.length;
@@ -239,7 +243,7 @@ def('battle',arg=>{
       chest:boss||Math.random()<.3?{min:10,max:30,itemChance:boss?.6:.3}:null,
       btns:[...(hasNext?[{label:'التالي ⚔️',cls:'gold big',fn:()=>go('battle',{node:nextI},false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🗺️ الخريطة',cls:'ghost',fn:()=>home()}]});
     if((boss||mode==='tutorial')&&!G.eggs[T0])setTimeout(()=>hatchOv(T0,show),500);else setTimeout(show,400);}
-  function defeat(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);
+  function defeat(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);CLIPS.say('lose',{queue:true});
     if(tower){const best=G.best||0;if(cleared>best){G.best=cleared;}gsave();
       return resultOv({title:'🗼 انتهى الصمود!',big:`${D(cleared)} موجة`,gems:perfects+Math.floor(cleared/2),mood:'smile',lines:[cleared>best?'🏆 رقم قياسي جديد!':`أطول صمود: ${D(best)} موجة`],btns:[{label:'🔁 مرة أخرى',cls:'gold big',fn:()=>rerender()},{label:'🗺️ الخريطة',cls:'ghost',fn:()=>home()}]});}
     resultOv({title:'الوحوش دخلت القلعة! 😮',stars:0,mood:'sad',gems:perfects,lines:['لا بأس، كل بطل يتدرّب!','💡 استخدم قوة التنين حين تحتاج مساعدة'],

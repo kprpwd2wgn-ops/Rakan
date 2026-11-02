@@ -1,5 +1,5 @@
 /* ===== حرس القلعة: البيانات ===== */
-const APP={id:'times',land:'times',title:'أبطال جدول الضرب',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/times.html'};
+const APP={id:'times',land:'times',title:'أبطال جدول الضرب',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/times.html',voices:'times/voices'};
 const LANDS=[
  {t:1,name:'قرية البداية',mon:'slime',col:'#9be15d',sky:['#7cc8f5','#d6f1ff'],hill:'#7fc6a4',grass:'#6cc463'},
  {t:2,name:'غابة الفطر',mon:'mushroom',col:'#ff8fb1',sky:['#8fd6a8','#e3f9e9'],hill:'#4f9f6e',grass:'#4caf50'},
@@ -17,7 +17,6 @@ const LANDS=[
 const LAND_OF={};LANDS.forEach((l,i)=>LAND_OF[l.t]=i);
 const DNAME={1:'لولو',2:'زوزو',3:'تريكو',4:'فورا',5:'خمّوش',6:'سادو',7:'سبعو',8:'ثمّورة',9:'تيسو',10:'عشّور',11:'توأمو',12:'دزّو'};
 /* أسماء التنانين كما يقرؤها الصوت الإنجليزي */
-const DNAME_EN={1:'Lulu',2:'Zuzu',3:'Treeko',4:'Fora',5:'Hamoosh',6:'Sadoo',7:'Sabo',8:'Thamoora',9:'Teeso',10:'Ashoor',11:'Tawamo',12:'Dazzo'};
 /* العُقد على الخريطة */
 const NODES=[];
 LANDS.forEach((l,li)=>{if(l.t===1)NODES.push({id:'1-0',li,t:1,kind:'tutorial'});

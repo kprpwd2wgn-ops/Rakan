@@ -643,13 +643,15 @@ def('closet',(tab)=>{
       body.innerHTML=`<div class="card">${row('لون البشرة','skin',SKIN,true)}${row('الشعر','hair',[0,1,2,3,4],false,['✂️','⚡','🌀','💇','🦁'])}${row('لون الشعر','hairC',HAIRC,true)}${row('لون القميص','shirt',SHIRT,true)}
         <div class="mrow"><span>الاسم</span><input class="inp" id="cn" maxlength="14" value="${esc(World.p.name)}"></div>
         <div class="mrow"><span>الأرقام</span><div class="seg"><button data-d="ar" class="${World.p.digits!=='en'?'on':''}">١٢٣</button><button data-d="en" class="${World.p.digits==='en'?'on':''}">123</button></div></div>
+        ${APP.voices?`<div class="mrow"><span>الصوت</span><div class="seg"><button data-va="on" class="${World.p.voiceAr?'on':''}">🔈 يعمل</button><button data-va="off" class="${!World.p.voiceAr?'on':''}">🔇 صامت</button></div></div></div>`:`
         <div class="mrow"><span>صوت الإرشادات</span><div class="seg">${(()=>{const L=World.p.voiceAr?guideLang():'off';
           return `<button data-va="en" class="${L==='en'?'on':''}">🔈 English</button>${VOICE.ar?`<button data-va="ar" class="${L==='ar'?'on':''}">🔈 عربي</button>`:''}<button data-va="off" class="${L==='off'?'on':''}">🔇 صامت</button>`;})()}</div></div>
-        <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`;
+        <div class="mrow"><span>سرعة الكلام</span><div class="seg">${[[.8,'🐢 أبطأ'],[1,'🙂 هادئة'],[1.2,'🐇 أسرع']].map(([r,t])=>`<button data-rt="${r}" class="${Math.abs((World.p.rate||1)-r)<.05?'on':''}">${t}</button>`).join('')}</div></div></div>`}`;
       $$('.mo',body).forEach(b=>b.onclick=()=>{h[b.dataset.k]=+b.dataset.v;World.save();hud();draw();});
       $('#cn').onchange=()=>{World.p.name=$('#cn').value.trim().slice(0,14)||World.p.name;World.save();};
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
-      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off')World.p.guide=v;World.save();draw();
+      $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off'&&v!=='on')World.p.guide=v;World.save();draw();
+        if(APP.voices){if(v==='off')CLIPS.stop();return;}
         if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
@@ -687,7 +689,7 @@ function dailyChestReady(){return World.p.lastDaily!==dayKey();}
 function claimDaily(onClose){World.p.lastDaily=dayKey();World.save();openChest({title:'صندوق اليوم! 🎁',min:15,max:30,itemChance:.4,onClose});}
 
 /* ===== قراصنة القسمة: البيانات ===== */
-const APP={id:'division',land:'division',title:'قراصنة القسمة',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/division.html'};
+const APP={id:'division',land:'division',title:'قراصنة القسمة',home:'map',gh:'https://kprpwd2wgn-ops.github.io/Rakan/division.html',voices:'division/voices'};
 /* الجزر بترتيب التعلّم: لكل جزيرة رقم تقسم عليه، وحيوان ينضم إلى طاقمك */
 const ISLANDS=[
  {d:1,name:'خليج البداية',mate:'نوري',crew:'narwhal',col:'#60a5fa',sky:['#8fd3ff','#e3f6ff'],sea:'#2f9bd6',hill:'#6cc463',boss:null},
@@ -704,7 +706,6 @@ const ISLANDS=[
  {d:12,name:'جزيرة الساعة',mate:'بومبو',crew:'owl',col:'#4f46e5',sky:['#22306a','#56689f'],sea:'#16306b',hill:'#2c3d78',boss:'kraken'}
 ];
 /* أسماء الطاقم كما يقرؤها الصوت الإنجليزي */
-const MATE_EN={1:'Noori',2:'Karkoor',10:'Mozzo',5:'Najma',3:'Farfoor',4:'Salhoof',11:'Follo',9:'Fakkoom',6:'Asoola',8:'Aktoob',7:'Basbousa',12:'Bombo'};
 const ISL_OF={};ISLANDS.forEach((l,i)=>ISL_OF[l.d]=i);
 /* العُقد على الخريطة */
 const NODES=[];
@@ -740,6 +741,38 @@ const W_COIN=['قطعة واحدة','قطعتان','قطعتين','قطع','قط
 /* acc: بعد حرف جر أو مفعول به (قرصانين)، وإلا (قرصانان) */
 function nn(n,w,acc=true){return n===1?w[0]:n===2?(acc?w[2]:w[1]):n<=10?`${D(n)} ${w[3]}`:`${D(n)} ${w[4]}`;}
 const LOOTW={coin:W_COIN,gem:W_GEM,pearl:W_PEARL},ITEMW={fish:W_FISH,banana:W_BAN,ball:W_BALL};
+
+/* ===== الصوت العربي الجديد: جمل مسجّلة مسبقاً بصوت Azure، تُشغَّل من ملفات بجانب اللعبة =====
+   لا صوت للجهاز في هذه اللعبة. الملفات في APP.voices (manifest.json + ملف mp3 لكل جملة).
+   CLIPS.say('m-3-4') يقطع ما قبله ويقول الجملة، و CLIPS.say(id,{queue:true}) ينتظر انتهاء الجملة الحالية. */
+const CLIPS={ctx:null,ready:null,files:null,buf:{},order:[],cur:null,queue:[],tok:0,busy:false,
+  unlock(){
+    if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      try{this.ctx=new AC();}catch(e){return;}
+      this.ready=fetch(APP.voices+'/manifest.json').then(r=>r.ok?r.json():null).then(m=>{
+        if(m&&m.lines){this.files={};m.lines.forEach(l=>{this.files[l.id]=l.file;});}}).catch(()=>{});}
+    if(this.ctx.state==='suspended')this.ctx.resume();},
+  async get(id){if(this.buf[id])return this.buf[id];if(!this.ctx)return null;await this.ready;
+    if(!this.files||!this.files[id])return null;
+    try{const data=await (await fetch(APP.voices+'/'+this.files[id])).arrayBuffer();
+      const b=await new Promise((ok,no)=>{const p=this.ctx.decodeAudioData(data,ok,no);if(p&&p.then)p.then(ok,no);});
+      this.buf[id]=b;this.order.push(id);if(this.order.length>40)delete this.buf[this.order.shift()];return b;}catch(e){return null;}},
+  warm(id){if(this.ctx)this.get(id);},
+  has(id){return !!(this.files&&this.files[id]);},
+  stop(){this.tok++;this.queue=[];this.busy=false;if(this.cur){const c=this.cur;this.cur=null;c.onended=null;try{c.stop();}catch(e){}}},
+  say(id,o={}){if(!id||!World.p.voiceAr||!this.ctx)return;
+    if(o.queue&&(this.cur||this.busy)){this.queue.push(id);return;}
+    if(!o.queue)this.stop();
+    this.play(id);},
+  async play(id){const tok=++this.tok;this.busy=true;const b=await this.get(id);if(tok!==this.tok)return;this.busy=false;
+    if(!b){this.next();return;}
+    if(this.ctx.state==='suspended')this.ctx.resume();
+    const s=this.ctx.createBufferSource();s.buffer=b;s.connect(this.ctx.destination);
+    s.onended=()=>{if(this.cur===s){this.cur=null;this.next();}};this.cur=s;s.start();},
+  next(){const id=this.queue.shift();if(id)this.play(id);}
+};
+/* على الآيفون يبدأ الصوت فقط من لمسة: أول لمسة تفتحه */
+['pointerdown','touchend','click'].forEach(ev=>document.addEventListener(ev,()=>CLIPS.unlock(),true));
 
 /* ===== أسرار القسمة: كل حيوان في الطاقم يعلّمك سرّ رقمه ===== */
 const DIVS={
@@ -1127,14 +1160,14 @@ def('map',()=>{
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
-  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.','You are a ship captain now! Your crew of kind pirates is waiting for your orders, and the islands are full of treasure.'],
-    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!','A good captain is fair. When we find treasure, we share it equally. Every pirate gets the same number. That is division!'],
-    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه','And I am Koko the parrot! If something is left in the chest, and there is not enough for everyone, it is mine! Ha ha!'],
-    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.','Watch out for Captain Shanbo and the giant octopus! Beat them with the right answers, and the animal of each island will join your crew.']];
+  const P=[[shipSVG(),'أنت الآن قبطان سفينة!','طاقمك من القراصنة الطيبين ينتظر أوامرك، والجزر مليئة بالكنوز.'],
+    ['<div class="cbig">💰</div>','القبطان الجيد عادل','عندما نجد كنزاً نقسمه بالتساوي: كل قرصان يأخذ العدد نفسه. وهذه هي القسمة!'],
+    [parrotSVG('happy'),'وأنا كوكو الببغاء!','وإذا بقي في الصندوق شيء لا يكفي للجميع… فهو لي! هههه'],
+    [shanboSVG('smug'),'احذر القبطان شنبو والأخطبوط!','اهزمهم بالقسمة الصحيحة، ليصبح حيوان كل جزيرة صديقاً في طاقمك.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'⚓ لنبحر!'}</button></div>`;
-    guide(p[1]+'. '+p[2],p[3]);
-    $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();stopSpeak();done();}};};
+    CLIPS.say('intro-'+(i+1));
+    $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{G.intro=true;gsave();ov.remove();CLIPS.stop();done();}};};
   document.body.appendChild(ov);draw();
 }
 
@@ -1144,7 +1177,7 @@ function joinOv(d,done){
   ov.innerHTML=`<div class="res"><div class="jpic bob">${mateSVG(l.crew,l.col)}</div><h2>${l.mate} ${joinWord(l)} إلى طاقمك! 🎉</h2>
     <p class="muted">${D(T.why)}</p><p>سرّ القسمة على ${D(d)}: <b>${T.secrets[0].t}</b></p>
     <div class="btns"><button class="btn gold" id="jc">⭐ ${makeWord(l)} رفيقي في الرحلات</button><button class="btn ghost" id="jk">رائع!</button></div></div>`;
-  document.body.appendChild(ov);FX.confetti();buzz(40);guide(`${l.mate} ${joinWord(l)} إلى طاقمك!`,`Hooray! ${MATE_EN[d]} the ${l.crew} joined your crew!`);
+  document.body.appendChild(ov);FX.confetti();buzz(40);CLIPS.say('mate-'+d);
   $('#jc',ov).onclick=()=>{G.mate=d;gsave();ov.remove();done&&done();};$('#jk',ov).onclick=()=>{ov.remove();done&&done();};
 }
 
@@ -1178,7 +1211,7 @@ def('learn',d=>{
     <div class="sharebox"><div class="srow">${[...Array(d)].map((_,i)=>`<div class="sp">${pirSVG(i,'happy')}<div class="coins">${'<i></i>'.repeat(q)}</div><b>${D(q)}</b></div>`).join('')}</div>
       <p class="arrcap">${D(N)} ÷ ${D(d)} = <b>${D(q)}</b></p><p class="small">${nn(d,W_PIR,false)}، وكل واحد يأخذ ${D(q)}، لأن ${D(d)} × ${D(q)} = ${D(N)}</p></div>
     <div class="trows">${[...Array(12)].map((_,i)=>`<button class="trow ${i+1===q?'on':''}" data-k="${i+1}"><span>${D(d*(i+1))} ÷ ${D(d)}</span><b>${D(i+1)}</b></button>`).join('')}</div></div>`;
-    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();guide(`${d*q} تقسيم ${d} يساوي ${q}`,`${d*q} divided by ${d} is ${q}.`);});};
+    $$('.trow').forEach(b=>b.onclick=()=>{q=+b.dataset.k;draw();CLIPS.say(`d-${d}-${q}`);});};
   draw();
 });
 
@@ -1221,17 +1254,6 @@ const BOTTLES=[
   (N,d)=>`عند الطاهي ${N} من البيض، ويطبخ ${d} في كل وجبة. كم وجبة يطبخ؟`,
   (N,d)=>`في الصندوق ${N} من الخرائط، وكل قرصان يأخذ ${d}. كم قرصاناً أخذ خرائط؟`
 ];
-/* القصص نفسها كما يقرؤها الصوت الإنجليزي */
-const nEn=(n,w,ws)=>`${n} ${n===1?w:(ws||w+'s')}`;
-const BOTTLES_EN=[
-  (N,d)=>`The captain found a treasure with ${nEn(N,'gold coin')}. He shared it fairly ${d===1?'with just 1 pirate':`between ${d} pirates`}. How many coins does each pirate get?`,
-  (N,d)=>`There are ${nEn(N,'banana')} on the ship. The monkey eats ${d} every day. How many days will the bananas last?`,
-  (N,d)=>`The crew caught ${nEn(N,'fish','fish')}. They put ${d} in each basket. How many baskets are full?`,
-  (N,d)=>`${nEn(N,'pirate')} want to go to the island. Each boat carries ${d}. How many boats do we need?`,
-  (N,d)=>`The parrot has ${nEn(N,'seed')}. It eats ${d} every hour. After how many hours are all the seeds gone?`,
-  (N,d)=>`The cook has ${nEn(N,'egg')}. He cooks ${d} for each meal. How many meals can he cook?`,
-  (N,d)=>`There are ${nEn(N,'map')} in the chest. Each pirate takes ${d}. How many pirates took maps?`
-];
 function planFor(mode,d){
   if(mode==='tutorial')return[Object.assign(mkShare(2,3,'coin'),{tut:0}),Object.assign(mkShare(2,4,'coin'),{tut:1}),Object.assign(mkShare(3,4,'gem'),{tut:2}),
     Object.assign(mkShare(1,5,'pearl'),{tut:3}),Object.assign(mkPack(2,5,'fish'),{tut:4}),Object.assign(mkParrot(2,3,1),{tut:5,loot:'coin'})];
@@ -1244,6 +1266,8 @@ function stormRound(i,divs){const d=pick(divs),q=rint(2,12);const t=i%7===6?'gol
   return t==='share'?mkShare(d,q):t==='pack'?mkPack(d,q):t==='map'?mkMap(d,q):t==='parrot'?mkParrot(d,rint(2,10)):t==='gold'?mkGold(d,q):mkBottle(d,q);}
 const HAPPY=['عدل! 👍','شكراً يا كابتن!','يا سلام!','قبطان عادل!','هيييه!'],ANGRY=['ليس عدلاً!','أين حصتي؟','هذا لا يكفي!'],WANT=['ما زال في الصندوق!','الصندوق لم يفرغ!','أعطنا المزيد!'],KOKO=['لي! لي! 🦜','شكراً يا كابتن!','الباقي لذيذ!','كوكو يحب الباقي!'];
 function shade(h,a){const n=parseInt(h.slice(1),16),c=v=>clamp(v+a,0,255);return'#'+((1<<24)+(c(n>>16)<<16)+(c((n>>8)&255)<<8)+c(n&255)).toString(16).slice(1);}
+/* جملة الحقيقة المسجّلة لهذه الجولة (في جولة الببغاء يبقى باقٍ، فلا جملة لها) */
+const factId=r=>r.type==='parrot'?null:`d-${r.d}-${r.q}`;
 const eqText=r=>r.type==='parrot'?`${D(r.N)} ÷ ${D(r.d)} = ${D(r.q)}، والباقي ${D(r.rem)}`:r.type==='map'&&!r.rev?`${D(r.d)} × ${D(r.q)} = ${D(r.N)}`:`${D(r.N)} ÷ ${D(r.d)} = ${D(r.q)}`;
 
 def('voyage',arg=>{
@@ -1342,11 +1366,11 @@ def('voyage',arg=>{
     else if(r.type==='map')coach(`🗺️ خريطة كنز ممزّقة! أكمل الرقم الناقص لتعرف مكان الكنز.`,null,4200);
     else if(r.type==='gold')coach(`✨ سفينة الذهب تمرّ! أجب بسرعة لتربح ${D(3)} جواهر.`,null,3500);
     else if(r.type==='bottle'){coach('📜 رسالة في زجاجة! اقرأها وأجب.',null,3000);at(.9,openScroll);}
+    CLIPS.say(r.tut!=null?'tut-'+r.tut:'round-'+r.type,{queue:true});CLIPS.warm(factId(r));
     banner(r.type==='gold'?'✨ سفينة الذهب':r.type==='bottle'?'📜 رسالة':r.type==='map'?'🗺️ خريطة':r.type==='parrot'?'🦜 كنز الببغاء':r.type==='pack'?'🛢️ البراميل':`💰 الكنز ${D(idx+1)}`);
   }
   function openScroll(){const r=R;if(!alive||!r||r.type!=='bottle'||r.done)return;const t=D(BOTTLES[r.tpl](r.N,r.d));const s=$('#vscroll');
-    s.innerHTML=`<p>${t}</p>${World.p.voiceAr?`<button class="btn sm ghost" id="vsay">🔊 ${guideLang()==='en'?'اسمعها بالإنجليزية':'اسمعها'}</button>`:''}`;s.hidden=false;
-    if($('#vsay'))$('#vsay').onclick=()=>guide(BOTTLES[r.tpl](r.N,r.d),BOTTLES_EN[r.tpl](r.N,r.d));}
+    s.innerHTML=`<p>${t}</p>`;s.hidden=false;}
 
   /* ---------- المساعد والرسائل ---------- */
   let coachT=0;
@@ -1377,7 +1401,7 @@ def('voyage',arg=>{
     if(r.tries>=3)coach(`💡 الجواب: <b>${D(ans)}</b>، لأن ${eqText(r)}. اكتبه الآن!`);
     kp.reset();
   }
-  function wrongBook(){const r=R;r.tries++;mistakes++;buzz(60);shake($('#spell'));if(!r.wrongRec){r.wrongRec=true;record(r.d,r.q,false);}
+  function wrongBook(){const r=R;r.tries++;mistakes++;buzz(60);shake($('#spell'));if(!r.wrongRec){r.wrongRec=true;record(r.d,r.q,false);}CLIPS.say(r.tries>=3?'show':'wrong');
     if(r.type!=='gold')r.pat=Math.max(.15,r.pat-.15);hero('sad');heroT=now+1.4;}
   /* بعد خطأ في التوزيع: نعرض النتيجة، ثم نعيد الكنز إلى الصندوق */
   function wrongDeal(msg){const r=R;wrongBook();coach(msg,null,4600);
@@ -1395,8 +1419,8 @@ def('voyage',arg=>{
   function settle(fn){const r=R;const chk=()=>{if(!alive||R!==r)return;if(r.fly.length)at(.08,chk);else fn();};chk();}
   function dealTyped(v){const r=R,q=Math.floor(r.N/r.d);
     if(r.manualDone&&r.got.every(g=>g===v)&&v===q)return r.type==='parrot'?remStage():success();
-    if(v===0){wrongBook();coach('😅 صفر؟ لن يأخذ أحد شيئاً، والصندوق مليء!',null,3000);kp.reset();return;}
-    if(v>40){wrongBook();coach(`😮 ${D(v)} لكل واحد؟ هذا كثير جداً! في الصندوق ${D(r.N)} فقط.`,null,3200);kp.reset();return;}
+    if(v===0){wrongBook();CLIPS.say('zero');coach('😅 صفر؟ لن يأخذ أحد شيئاً، والصندوق مليء!',null,3000);kp.reset();return;}
+    if(v>40){wrongBook();CLIPS.say('too-big');coach(`😮 ${D(v)} لكل واحد؟ هذا كثير جداً! في الصندوق ${D(r.N)} فقط.`,null,3200);kp.reset();return;}
     r.busy=true;kp.lock(true);$('#vdeal').hidden=true;resetDeal();
     const rounds=Math.min(v,q+1),step=clamp(1.5/rounds,.13,.42);let k=0;
     const go=()=>{if(!alive||R!==r)return;dealOne();k++;if(k<rounds)at(step,go);else at(.3,()=>settle(()=>evalDeal(v)));};go();}
@@ -1421,12 +1445,12 @@ def('voyage',arg=>{
   /* ---------- الببغاء يأخذ الباقي ---------- */
   function remStage(){const r=R;r.stage='rem';r.busy=false;kp.reset();kp.lock(false);$('#sq').textContent='كم بقي لكوكو؟';$('#vdeal').hidden=true;
     r.mood=r.mood.map(()=>'happy');r.bub={p:0,txt:'عدل! 👍'};r.born=now;r.firstTries=r.tries;r.tries=0;heroCheer();
-    coach(`🦜 رائع! كل قرصان أخذ ${D(r.got[0])}. وما بقي في الصندوق لا يكفي لجولة أخرى… كم بقي لي؟`);}
+    coach(`🦜 رائع! كل قرصان أخذ ${D(r.got[0])}. وما بقي في الصندوق لا يكفي لجولة أخرى… كم بقي لي؟`);CLIPS.say('koko-rem');}
   function remAnswer(v){const r=R;
     if(v===r.pile){r.busy=true;kp.lock(true);const pr=perch();koko.fly={t0:now,dur:1.5,sx:pr[0],sy:pr[1],tx:r.cx,ty:r.cy-r.cw*.55};
       at(.75,()=>{r.pile=0;koko.mood='eat';const rc=cv.getBoundingClientRect();FX.burst(rc.left+r.cx,rc.top+r.cy-r.cw*.4,{n:12,colors:['#fbbf24','#fde68a']});});
       at(1.5,()=>{koko.mood='happy';koko.bub=pick(KOKO);koko.bubT=now+1.6;success(true);});return;}
-    r.tries++;mistakes++;buzz(60);shake($('#spell'));koko.mood='talk';
+    r.tries++;mistakes++;buzz(60);shake($('#spell'));koko.mood='talk';CLIPS.say('wrong');
     coach(r.tries>=2?`🦜 عُدّها معي: في الصندوق <b>${D(r.pile)}</b>. اكتب ${D(r.pile)}!`:`🦜 لا! عُدّ ما بقي في الصندوق جيداً.`,null,3600);kp.reset();}
 
   /* ---------- البراميل ---------- */
@@ -1435,7 +1459,7 @@ def('voyage',arg=>{
   function packTyped(v){const r=R,q=r.N/r.d;
     if(r.manualDone&&v===r.bar.length&&v===q)return success();
     if(v===0){wrongBook();coach('😅 بلا براميل؟ أين نضع الحمولة؟',null,3000);kp.reset();return;}
-    if(v>24){wrongBook();coach(`😮 ${D(v)} برميلاً؟ هذا كثير جداً! عندنا ${D(r.N)} فقط، وكل برميل يتسع لـ ${D(r.d)}.`,null,3400);kp.reset();return;}
+    if(v>24){wrongBook();CLIPS.say('too-big');coach(`😮 ${D(v)} برميلاً؟ هذا كثير جداً! عندنا ${D(r.N)} فقط، وكل برميل يتسع لـ ${D(r.d)}.`,null,3400);kp.reset();return;}
     r.busy=true;kp.lock(true);$('#vdeal').hidden=true;r.bar=[];r.pile=r.N;r.fly=[];r.manual=false;r.manualDone=false;
     for(let i=0;i<v;i++)r.bar.push({fill:0,roll:now+i*.05});barLayout(r);
     let b=0;const step=clamp(1.3/v,.14,.4);
@@ -1449,7 +1473,7 @@ def('voyage',arg=>{
     settle(()=>{if(r.pile<r.d){r.manualDone=true;$('#vdeal').hidden=true;const n=r.bar.length;coach(`👏 ملأنا ${D(n)} من البراميل! اكتب ${D(n)} واضغط ✓`,String(n).split('').join(','));}});}
 
   /* ---------- النجاح والفشل والوقت ---------- */
-  function success(fromKoko){const r=R;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;
+  function success(fromKoko){const r=R;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;CLIPS.say(r.type==='parrot'?'koko-mine':factId(r));
     const perfect=r.tries===0&&!r.manualAny&&!r.firstTries,fast=perfect&&((r.ansAt||now)-r.born)<(r.type==='gold'?5:8);
     if(perfect){record(r.d,r.q,true);perfects++;}if(fast)fasts++;
     if(r.type==='share'||r.type==='parrot'){r.mood=r.mood.map(()=>'happy');r.bub={p:rint(0,r.d-1),txt:pick(HAPPY)};}
@@ -1462,7 +1486,7 @@ def('voyage',arg=>{
     if(r.type==='bottle')$('#vscroll').hidden=true;
     cleared++;at(fromKoko?.9:1.6,next);}
   function focus(r){if(r.type==='share'||r.type==='parrot')return[r.cx,r.cy-r.cw*.6];if(r.type==='pack')return[W/2,railY+(H-railY)*.45];if(r.type==='gold')return[W/2,railY-20];return[W*.58,railY+(H-railY)*.4];}
-  function timeout(){const r=R;if(r.done||r.busy)return;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;if(!r.wrongRec){r.wrongRec=true;record(r.d,r.q,false);}
+  function timeout(){const r=R;if(r.done||r.busy)return;r.done=true;r.busy=true;kp.lock(true);$('#vdeal').hidden=true;CLIPS.say('timeout');CLIPS.say(factId(r),{queue:true});if(!r.wrongRec){r.wrongRec=true;record(r.d,r.q,false);}
     hearts--;bhud();shakeT=.4;buzz(140);hero('sad');
     if(r.type==='share'||r.type==='parrot'){r.mood=r.mood.map(()=>'sad');r.bub={p:0,txt:'تعبنا من الانتظار…'};}
     coach(`⏳ الطاقم ملّ الانتظار! ${eqText(r)}`,null,2800);$('#vscroll').hidden=true;
@@ -1489,26 +1513,26 @@ def('voyage',arg=>{
   function bossStart(){const qs=bagQ(D0,[2,3,4,5,6,7,8,9,10,11,12],10);
     bossO={kind:isl.boss,qs,i:0,hp:6,max:6,charge:0,rate:1/(14+D0*.2),hit:0,tries:0,wrongRec:false,born:now,busy:false,dead:0,laugh:0,
       ten:[...Array(6)].map((_,i)=>({dying:0,gone:false,ph:i*1.3})),holes:[],away:0,mood:'smug',moodT:0};
-    bossQ();banner(isl.boss==='kraken'?'🐙 الأخطبوط العملاق!':'⛵ القبطان شنبو!');
+    bossQ();banner(isl.boss==='kraken'?'🐙 الأخطبوط العملاق!':'⛵ القبطان شنبو!');CLIPS.say(isl.boss,{queue:true});
     coach(isl.boss==='kraken'?`🐙 الأخطبوط العملاق أمسك السفينة! كل جواب صحيح يطلق المدفع على ذراع من أذرعه. أسرع قبل أن يعصر السفينة!`:`⛵ القبطان شنبو يريد كنزنا! كل جواب صحيح يطلق المدفع على سفينته. أسرع قبل أن يطلق مدفعه!`,null,5200);}
-  function bossQ(){const b=bossO,q=b.qs[b.i%b.qs.length],N=D0*q,f=Math.random();b.q=q;b.N=N;b.form=f<.2?'rev':f<.34?'miss':'div';b.ans=b.form==='rev'?N:q;
+  function bossQ(){const b=bossO,q=b.qs[b.i%b.qs.length],N=D0*q,f=Math.random();b.q=q;b.N=N;b.form=f<.2?'rev':f<.34?'miss':'div';b.ans=b.form==='rev'?N:q;CLIPS.warm(`d-${D0}-${q}`);
     $('#sq').innerHTML=b.form==='rev'?`؟ ÷ ${D(D0)} = ${D(q)}`:b.form==='miss'?`${D(D0)} × ؟ = ${D(N)}`:`${D(N)} ÷ ${D(D0)} =`;b.tries=0;b.wrongRec=false;b.born=now;kp.reset();}
   const cannonAt=()=>[W/2,H-20];
   function bossTarget(){const b=bossO;if(b.kind==='kraken'){const i=Math.max(0,b.ten.findIndex(t=>!t.dying&&!t.gone)),g=tenGeo(i);return[.25*g.bx+.5*g.cx+.25*g.tx,.25*g.by+.5*g.cy+.25*g.ty,i];}
     const s=shipGeo();return[s.x,s.y+s.h*.3,-1];}
   function bossAnswer(v){const b=bossO;if(!b||b.busy||b.dead)return;
-    if(v===b.ans){b.busy=true;kp.lock(true);if(!b.tries){record(D0,b.q,true);perfects++;if(now-b.born<6)fasts++;}heroCheer();
+    if(v===b.ans){b.busy=true;kp.lock(true);if(!b.tries){record(D0,b.q,true);perfects++;if(now-b.born<6)fasts++;}heroCheer();CLIPS.say(`d-${D0}-${b.q}`);
       const [sx,sy]=cannonAt();let [tx,ty,ti]=bossTarget();if(ti<0)tx+=(Math.random()-.5)*shipGeo().w*.4;
       proj.push({sx,sy:sy-18,tx,ty,t0:now,dur:.42,col:'#1f2937',onHit:()=>{const rc=cv.getBoundingClientRect();if(ti>=0)b.ten[ti].dying=.001;FX.burst(rc.left+tx,rc.top+ty,{n:26,speed:300,colors:['#fde68a','#fb923c','#fff']});
         FX.text(rc.left+tx,rc.top+ty-20,b.form==='div'?`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`:b.form==='rev'?`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`:`${D(D0)} × ${D(b.q)} = ${D(b.N)}`,'#fff7c2',24);buzz(40);
         b.hp--;b.hit=.45;b.charge=Math.max(0,b.charge-.4);if(b.kind!=='kraken'){b.holes.push([Math.random()*.7-.35,Math.random()*.3]);b.mood='oops';b.moodT=now+1;}
-        if(b.hp<=0){b.dead=now;b.mood='give';kp.lock(true);coach(b.kind==='kraken'?'🐙 الأخطبوط ترك السفينة وهرب! 🎉':'🏳️ القبطان شنبو رفع العلم الأبيض! 🎉');FX.confetti();setTimeout(()=>{if(alive)victory();},1900);return;}
+        if(b.hp<=0){b.dead=now;b.mood='give';kp.lock(true);CLIPS.say(b.kind+'-down',{queue:true});coach(b.kind==='kraken'?'🐙 الأخطبوط ترك السفينة وهرب! 🎉':'🏳️ القبطان شنبو رفع العلم الأبيض! 🎉');FX.confetti();setTimeout(()=>{if(alive)victory();},1900);return;}
         b.i++;b.busy=false;kp.lock(false);bossQ();}});return;}
-    b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.97,b.charge+.2);b.laugh=now+1.2;if(!b.wrongRec){b.wrongRec=true;record(D0,b.q,false);}
+    b.tries++;mistakes++;buzz(60);shake($('#spell'));b.charge=Math.min(.97,b.charge+.2);CLIPS.say(b.tries>=3?'show':b.kind+'-laugh');b.laugh=now+1.2;if(!b.wrongRec){b.wrongRec=true;record(D0,b.q,false);}
     if(b.kind!=='kraken'){b.mood='smug';}
     coach(b.tries>=3?`💡 الجواب: <b>${D(b.ans)}</b>. اكتبه!`:b.tries>=2?`🐾 ${D(hintFor(b.N,D0))}`:b.kind==='kraken'?`😆 الأخطبوط يضحك! ${D(v)} ليس صحيحاً.`:`😏 شنبو يضحك: ${D(v)}؟ خطأ!`,null,3600);kp.reset();}
   function bossAttack(){const b=bossO;b.charge=0;if(!b.wrongRec)record(D0,b.q,false);
-    const hit=()=>{hearts--;bhud();shakeT=.5;buzz(130);hero('sad');heroT=now+1.4;const rc=cv.getBoundingClientRect();FX.burst(rc.left+W*.42,rc.top+H*.8,{n:26,colors:['#7dd3fc','#e0f2fe','#fff']});
+    const hit=()=>{hearts--;bhud();shakeT=.5;buzz(130);CLIPS.say(b.kind+'-hit');CLIPS.say(`d-${D0}-${b.q}`,{queue:true});hero('sad');heroT=now+1.4;const rc=cv.getBoundingClientRect();FX.burst(rc.left+W*.42,rc.top+H*.8,{n:26,colors:['#7dd3fc','#e0f2fe','#fff']});
       coach(`${b.kind==='kraken'?'😵 الأخطبوط عصر السفينة!':'💦 قذيفة شنبو أصابتنا!'} ${b.form==='miss'?`${D(D0)} × ${D(b.q)} = ${D(b.N)}`:`${D(b.N)} ÷ ${D(D0)} = ${D(b.q)}`}`,null,3000);
       b.busy=false;if(hearts<=0){kp.lock(true);setTimeout(()=>{if(alive)defeat();},900);return;}kp.lock(false);b.i++;bossQ();};
     if(b.kind==='kraken'){b.squeeze=now;hit();}else{b.busy=true;kp.lock(true);const s=shipGeo();proj.push({sx:s.x-s.w*.42,sy:s.y+s.h*.1,tx:W*.42,ty:H*.82,t0:now,dur:.6,col:'#1f2937',enemy:1,onHit:hit});}}
@@ -1659,7 +1683,7 @@ def('voyage',arg=>{
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;if(!paused){now+=dt;update(dt);}draw();raf=requestAnimationFrame(loop);}
 
   /* ---------- النهاية ---------- */
-  function victory(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);
+  function victory(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);CLIPS.say('win',{queue:true});
     const stars=tut?3:Math.max(1,hearts),gems=perfects+fasts+gold+stars*4+(boss?15:0);G.plays++;
     if(node)G.stars[node.id]=Math.max(G.stars[node.id]||0,stars);gsave();
     const nextI=node?NODE_I[node.id]+1:-1,hasNext=nextI>0&&nextI<NODES.length;
@@ -1669,7 +1693,7 @@ def('voyage',arg=>{
       chest:boss||Math.random()<.3?{min:10,max:30,itemChance:boss?.6:.3}:null,
       btns:[...(hasNext?[{label:`التالي ${nodeIcon(NODES[nextI])}`,cls:'gold big',fn:()=>go('voyage',{node:nextI},false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🗺️ الخريطة',cls:'ghost',fn:()=>home()}]});
     if((boss||tut)&&!G.crew[D0])setTimeout(()=>joinOv(D0,show),600);else setTimeout(show,500);}
-  function defeat(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);
+  function defeat(){if(!alive)return;alive=false;cancelAnimationFrame(raf);kp.lock(true);CLIPS.say('lose',{queue:true});
     if(storm){const best=G.best||0;if(cleared>best)G.best=cleared;gsave();
       return resultOv({title:'🌊 انتهت العاصفة!',big:`${D(cleared)} موجة`,gems:perfects+Math.floor(cleared/2),mood:'smile',lines:[cleared>best?'🏆 رقم قياسي جديد!':`أطول رحلة: ${D(best)} موجة`],btns:[{label:'🔁 مرة أخرى',cls:'gold big',fn:()=>rerender()},{label:'🗺️ الخريطة',cls:'ghost',fn:()=>home()}]});}
     resultOv({title:'الطاقم تعب! 😮',stars:0,mood:'sad',gems:perfects,lines:['لا بأس، كل قبطان يتدرّب!','💡 استخدم «🤲 وزّع بنفسي» أو مساعدة الطاقم حين تحتاج'],

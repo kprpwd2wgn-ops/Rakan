@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>النجمة الصغيرة</title>
+<style>
+  :root { --ink:#fff8e6; --gold:#ffd23f; --night:#0d1440; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; height:100%; background:var(--night); color:var(--ink);
+    font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif; overflow:hidden; }
+  #app { display:flex; flex-direction:column; height:100%; max-width:560px; margin:0 auto; }
+  canvas { width:100%; flex:1 1 auto; min-height:0; display:block; }
+  #panel { padding:14px 16px calc(16px + env(safe-area-inset-bottom)); background:linear-gradient(#0d144000,#070b26 30%); }
+  #line { font-size:clamp(22px,6vw,30px); line-height:1.9; text-align:center; min-height:3.9em;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; transition:opacity .3s; }
+  #dots { display:flex; justify-content:center; gap:7px; margin:8px 0 12px; direction:rtl; }
+  #dots i { width:10px; height:10px; border-radius:50%; background:#ffffff33; transition:.3s; }
+  #dots i.on { background:var(--gold); transform:scale(1.3); box-shadow:0 0 8px var(--gold); }
+  #ctrl { display:flex; justify-content:center; gap:14px; }
+  button { font:inherit; border:0; border-radius:20px; background:#2a3580; color:var(--ink);
+    font-size:26px; width:64px; height:58px; box-shadow:0 4px 0 #161d52; }
+  button:active { transform:translateY(3px); box-shadow:0 1px 0 #161d52; }
+  #play { background:var(--gold); color:#4a3200; box-shadow:0 4px 0 #b88a00; width:84px; }
+  #start { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:22px; background:radial-gradient(circle at 50% 35%,#24307a,#0d1440 70%); z-index:5; text-align:center; padding:20px; }
+  #start h1 { margin:0; font-size:clamp(34px,10vw,48px); color:var(--gold); text-shadow:0 0 18px #ffd23f88; }
+  #start p { margin:0; font-size:20px; opacity:.85; }
+  #go { width:auto; height:auto; padding:16px 38px; font-size:28px; background:var(--gold); color:#4a3200;
+    box-shadow:0 6px 0 #b88a00; border-radius:30px; }
+  #startStar { width:150px; height:150px; }
+  #loading { font-size:18px; opacity:.8; display:none; }
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="c"></canvas>
+  <div id="panel">
+    <div id="line"></div>
+    <div id="dots"></div>
+    <div id="ctrl">
+      <button id="prev" aria-label="السابق">▶︎</button>
+      <button id="play" aria-label="تشغيل">⏸</button>
+      <button id="next" aria-label="التالي">◀︎</button>
+      <button id="again" aria-label="من البداية">🔁</button>
+    </div>
+  </div>
+</div>
+<div id="start">
+  <svg id="startStar" viewBox="-60 -60 120 120">
+    <path d="M0,-50 L14,-16 50,-15 22,8 32,44 0,24 -32,44 -22,8 -50,-15 -14,-16Z" fill="#ffd23f" stroke="#ffb000" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="-11" cy="-2" r="5" fill="#3b2a00"/><circle cx="11" cy="-2" r="5" fill="#3b2a00"/>
+    <path d="M-10,10 Q0,19 10,10" stroke="#3b2a00" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="-20" cy="8" r="5" fill="#ff8fa3" opacity=".7"/><circle cx="20" cy="8" r="5" fill="#ff8fa3" opacity=".7"/>
+  </svg>
+  <h1>النَّجْمَةُ الصَّغِيرَةُ</h1>
+  <p>قِصَّةٌ قَصِيرَةٌ تُقْرَأُ لَكَ</p>
+  <button id="go">▶︎ اسْمَعِ الْقِصَّةَ</button>
+  <div id="loading">لَحْظَةً…</div>
+</div>
+<script>
+const LINES = [
+  'النَّجْمَةُ الصَّغِيرَةُ',
+  'فِي لَيْلَةٍ هَادِئَةٍ، سَقَطَتْ نَجْمَةٌ صَغِيرَةٌ مِنَ السَّمَاءِ فِي حَدِيقَةِ الْبَيْتِ.',
+  'رَآهَا بَطَلُنَا الصَّغِيرُ مِنَ النَّافِذَةِ، فَخَرَجَ يَرْكُضُ إِلَيْهَا.',
+  'قَالَتِ النَّجْمَةُ وَهِيَ تَبْكِي: «ضَلَلْتُ طَرِيقِي، وَأُمِّي تَنْتَظِرُنِي فِي السَّمَاءِ.»',
+  'فَكَّرَ الْبَطَلُ قَلِيلًا، ثُمَّ قَالَ: «لَا تَخَافِي، سَأُسَاعِدُكِ!»',
+  'صَنَعَ طَائِرَةً مِنَ الْوَرَقِ، وَوَضَعَ النَّجْمَةَ فَوْقَهَا بِلُطْفٍ.',
+  'ثُمَّ نَفَخَ نَفْخَةً قَوِيَّةً، فَطَارَتِ الطَّائِرَةُ عَالِيًا عَالِيًا.',
+  'وَصَلَتِ النَّجْمَةُ إِلَى أُمِّهَا، فَلَمَعَتَا مَعًا، وَأَضَاءَتَا السَّمَاءَ كُلَّهَا.',
+  'وَمُنْذُ تِلْكَ اللَّيْلَةِ، كُلَّمَا نَظَرَ الْبَطَلُ إِلَى السَّمَاءِ، غَمَزَتْ لَهُ النَّجْمَةُ الصَّغِيرَةُ.',
+  'النِّهَايَةُ ⭐',
+];
+
+// ---------- voices (Azure clips shipped beside the page) ----------
+const voices = {
+  ctx: null, out: null, buf: {}, cur: null,
+  async start(dir = 'little-star/voices'){
+    if (this.ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    this.ctx = AC ? new AC() : null;
+    if (!this.ctx) return;
+    this.out = this.ctx.destination;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    try {
+      const m = await (await fetch(dir + '/manifest.json')).json();
+      await Promise.all(m.lines.map(async l => {
+        this.buf[l.id] = await this.ctx.decodeAudioData(await (await fetch(dir + '/' + l.file)).arrayBuffer());
+      }));
+    } catch (e) { console.warn('voices not loaded', e); }
+  },
+  stop(){ if (this.cur){ this.cur.onended = null; try { this.cur.stop(); } catch(e){} this.cur = null; } },
+  say(id){
+    this.stop();
+    const b = this.buf[id];
+    if (!b) return new Promise(r => setTimeout(r, 2500));
+    return new Promise(r => {
+      const s = this.ctx.createBufferSource();
+      s.buffer = b; s.connect(this.out); s.onended = () => { if (this.cur === s) this.cur = null; r(); };
+      this.cur = s; s.start();
+    });
+  },
+};
+
+// ---------- story flow ----------
+const $ = id => document.getElementById(id);
+let idx = 0, playing = true, sceneT0 = performance.now(), token = 0;
+LINES.forEach(() => $('dots').appendChild(document.createElement('i')));
+
+function show(i){
+  idx = Math.max(0, Math.min(LINES.length - 1, i));
+  sceneT0 = performance.now();
+  $('line').textContent = LINES[idx];
+  [...$('dots').children].forEach((d, k) => d.classList.toggle('on', k === idx));
+}
+async function run(){
+  const my = ++token;
+  while (playing && my === token){
+    await voices.say('s' + idx);
+    if (my !== token || !playing) return;
+    if (idx >= LINES.length - 1){ setPlaying(false); return; }
+    await new Promise(r => setTimeout(r, 700));
+    if (my !== token || !playing) return;
+    show(idx + 1);
+  }
+}
+function setPlaying(p){
+  playing = p; $('play').textContent = p ? '⏸' : '▶︎';
+  if (p) run(); else { token++; voices.stop(); }
+}
+function jump(i){ token++; voices.stop(); show(i); if (playing) run(); else voices.say('s' + idx); }
+
+$('go').onclick = async () => {
+  $('go').style.display = 'none'; $('loading').style.display = 'block';
+  await voices.start();
+  $('start').style.display = 'none';
+  show(0); setPlaying(true);
+};
+$('play').onclick = () => {
+  if (!playing && idx >= LINES.length - 1) show(0);
+  setPlaying(!playing);
+};
+$('next').onclick = () => jump(idx + 1);
+$('prev').onclick = () => jump(idx - 1);
+$('again').onclick = () => { show(0); token++; voices.stop(); setPlaying(true); };
+$('line').onclick = () => { token++; voices.say('s' + idx); };
+
+// ---------- drawing ----------
+const cv = $('c'), g = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W * DPR; cv.height = H * DPR;
+}
+addEventListener('resize', resize);
+const SKY = Array.from({length: 70}, () => ({x: Math.random(), y: Math.random() * .7, r: Math.random() * 1.6 + .4, p: Math.random() * 6}));
+const ease = t => t < 0 ? 0 : t > 1 ? 1 : 1 - Math.pow(1 - t, 3);
+const lerp = (a, b, t) => a + (b - a) * t;
+
+function star(x, y, R, o = {}){
+  const {mood = 'smile', wink = false, glow = 0.5, tilt = 0} = o;
+  g.save(); g.translate(x, y); g.rotate(tilt);
+  if (glow){ const gr = g.createRadialGradient(0,0,R*.3,0,0,R*2.4); gr.addColorStop(0,`rgba(255,220,90,${glow})`); gr.addColorStop(1,'rgba(255,220,90,0)'); g.fillStyle = gr; g.beginPath(); g.arc(0,0,R*2.4,0,7); g.fill(); }
+  g.beginPath();
+  for (let k = 0; k < 10; k++){ const a = -Math.PI/2 + k*Math.PI/5, r = k % 2 ? R*.45 : R; g.lineTo(Math.cos(a)*r, Math.sin(a)*r); }
+  g.closePath(); g.fillStyle = '#ffd23f'; g.fill(); g.lineJoin = 'round'; g.lineWidth = R*.08; g.strokeStyle = '#ffae00'; g.stroke();
+  g.fillStyle = '#3b2a00'; g.strokeStyle = '#3b2a00'; g.lineCap = 'round'; g.lineWidth = R*.08;
+  const e = R*.22, ey = -R*.04;
+  g.beginPath(); g.arc(-e, ey, R*.09, 0, 7); g.fill();
+  if (wink){ g.beginPath(); g.moveTo(e-R*.1, ey); g.lineTo(e+R*.1, ey); g.stroke(); }
+  else { g.beginPath(); g.arc(e, ey, R*.09, 0, 7); g.fill(); }
+  g.beginPath();
+  if (mood === 'sad') g.arc(0, R*.32, R*.14, Math.PI*1.15, Math.PI*1.85);
+  else g.arc(0, R*.12, R*.16, Math.PI*.15, Math.PI*.85);
+  g.stroke();
+  g.fillStyle = 'rgba(255,120,150,.55)';
+  g.beginPath(); g.arc(-R*.38, R*.14, R*.09, 0, 7); g.arc(R*.38, R*.14, R*.09, 0, 7); g.fill();
+  g.restore();
+}
+function tear(x, y, t){
+  const k = (t % 1); g.fillStyle = `rgba(120,200,255,${1-k})`;
+  g.beginPath(); g.arc(x, y + k*22, 3.5, 0, 7); g.fill();
+}
+function boy(x, y, s, o = {}){
+  const {run = 0, look = 0, think = false, blow = false, t = 0} = o;
+  g.save(); g.translate(x, y); g.scale(s, s);
+  const sw = Math.sin(run) * 0.6;
+  g.lineCap = 'round'; g.lineWidth = 9; g.strokeStyle = '#2f4ea8';
+  g.beginPath(); g.moveTo(-6, -30); g.lineTo(-6 - sw*14, 0); g.moveTo(6, -30); g.lineTo(6 + sw*14, 0); g.stroke();
+  g.fillStyle = '#ff6b4a'; g.beginPath(); g.roundRect ? g.roundRect(-17,-72,34,46,12) : g.rect(-17,-72,34,46); g.fill();
+  g.strokeStyle = '#f2b98a'; g.lineWidth = 8;
+  g.beginPath(); g.moveTo(-15,-64); g.lineTo(-24 + sw*10, -40); g.moveTo(15,-64);
+  if (think) g.lineTo(6, -84); else g.lineTo(24 - sw*10, -40);
+  g.stroke();
+  const hy = -92 - look*4;
+  g.fillStyle = '#f2b98a'; g.beginPath(); g.arc(0, hy, 22, 0, 7); g.fill();
+  g.fillStyle = '#3a2414'; g.beginPath(); g.arc(0, hy-6, 22, Math.PI*1.05, Math.PI*1.95); g.fill();
+  g.beginPath(); g.ellipse(-4, hy-21, 12, 6, -.3, 0, 7); g.fill();
+  g.fillStyle = '#222'; const ey = hy - 2 - look*4;
+  g.beginPath(); g.arc(-8, ey, 2.8, 0, 7); g.arc(8, ey, 2.8, 0, 7); g.fill();
+  g.strokeStyle = '#7a3b22'; g.lineWidth = 2.5;
+  if (blow){ g.fillStyle = '#7a3b22'; g.beginPath(); g.arc(0, hy+10, 4, 0, 7); g.fill(); }
+  else { g.beginPath(); g.arc(0, hy+6, 7, .2, Math.PI-.2); g.stroke(); }
+  g.restore();
+  if (think){
+    g.fillStyle = '#ffffffdd';
+    [[22,-130,5],[34,-146,8],[54,-172,26]].forEach(([dx,dy,r]) => { g.beginPath(); g.arc(x+dx*s, y+dy*s, r*s, 0, 7); g.fill(); });
+    g.font = `${26*s}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(Math.floor(t*2) % 2 ? '💡' : '🤔', x+54*s, y-172*s);
+  }
+}
+function plane(x, y, s, tilt){
+  g.save(); g.translate(x, y); g.rotate(tilt); g.scale(s, s);
+  g.fillStyle = '#ffffff'; g.strokeStyle = '#9fb3d9'; g.lineWidth = 2; g.lineJoin = 'round';
+  g.beginPath(); g.moveTo(40,0); g.lineTo(-34,-16); g.lineTo(-20,0); g.lineTo(-34,12); g.closePath(); g.fill(); g.stroke();
+  g.fillStyle = '#dfe8f7'; g.beginPath(); g.moveTo(40,0); g.lineTo(-20,0); g.lineTo(-34,12); g.closePath(); g.fill(); g.stroke();
+  g.restore();
+}
+function house(x, gy, lit){
+  g.fillStyle = '#3d2d6b'; g.fillRect(x-60, gy-100, 120, 100);
+  g.fillStyle = '#5b3f8f'; g.beginPath(); g.moveTo(x-74, gy-98); g.lineTo(x, gy-160); g.lineTo(x+74, gy-98); g.fill();
+  g.fillStyle = lit ? '#ffe28a' : '#7d6fb0'; g.fillRect(x-38, gy-78, 32, 30);
+  g.fillStyle = '#2a1f4d'; g.fillRect(x+10, gy-58, 28, 58);
+}
+function scene(now){
+  const t = (now - sceneT0) / 1000, T = now / 1000, s = Math.min(W / 400, H / 420);
+  const gy = H * .82;
+  const bright = idx >= 7 ? Math.min(1, idx === 7 ? t / 2 : 1) : 0;
+  const sky = g.createLinearGradient(0, 0, 0, H);
+  sky.addColorStop(0, `rgb(${lerp(13,40,bright)},${lerp(20,52,bright)},${lerp(64,130,bright)})`);
+  sky.addColorStop(1, `rgb(${lerp(42,90,bright)},${lerp(38,70,bright)},${lerp(110,170,bright)})`);
+  g.fillStyle = sky; g.fillRect(0, 0, W, H);
+  SKY.forEach(p => { g.globalAlpha = .4 + .6 * Math.abs(Math.sin(T*1.5 + p.p)); g.fillStyle = '#fff'; g.beginPath(); g.arc(p.x*W, p.y*H, p.r*(1+bright*.6), 0, 7); g.fill(); });
+  g.globalAlpha = 1;
+  g.fillStyle = '#fff5c9'; g.beginPath(); g.arc(W*.15, H*.14, 26*s, 0, 7); g.fill();
+  g.fillStyle = sky; g.beginPath(); g.arc(W*.15+12*s, H*.12, 24*s, 0, 7); g.fill();
+  g.fillStyle = '#1f6b4a'; g.beginPath(); g.moveTo(0, gy); g.quadraticCurveTo(W*.5, gy-26*s, W, gy); g.lineTo(W, H); g.lineTo(0, H); g.fill();
+  g.fillStyle = '#2b8a5e'; for (let k = 0; k < 14; k++){ const bx = (k+.5)*W/14; g.beginPath(); g.arc(bx, gy+6*s, 9*s, Math.PI, 0); g.fill(); }
+  g.save(); g.translate(W*.82, gy); g.scale(s, s); house(0, 0, idx >= 2 && idx <= 2 ? true : idx < 2); g.restore();
+
+  const sx = W*.42, sy = gy - 24*s, R = 26*s;
+  const bob = Math.sin(T*3) * 3 * s;
+  if (idx === 0){
+    star(W/2, H*.4 + bob, 60*s, {glow:.7});
+  } else if (idx === 1){
+    const k = ease(t / 2.4);
+    star(lerp(W*.75, sx, k), lerp(-40, sy, k), R, {tilt: (1-k)*6, glow:.8});
+    if (k < 1){ g.strokeStyle = 'rgba(255,220,100,.5)'; g.lineWidth = 6*s; g.beginPath(); g.moveTo(lerp(W*.75, sx, k), lerp(-40, sy, k)); g.lineTo(lerp(W*.75, sx, Math.max(0,k-.25)), lerp(-40, sy, Math.max(0,k-.25))); g.stroke(); }
+  } else if (idx === 2){
+    star(sx, sy + bob*.3, R, {mood:'sad'});
+    const k = ease((t - .8) / 2.6);
+    boy(lerp(W*.82+10*s, sx + 70*s, k), gy+6*s, s*.9, {run: k < 1 ? t*12 : 0});
+  } else if (idx === 3){
+    star(sx, sy, R*1.2, {mood:'sad'});
+    tear(sx - R*.3, sy, T*1.2); tear(sx + R*.3, sy, T*1.2 + .5);
+    boy(sx + 80*s, gy+6*s, s*.9, {look: -.5});
+  } else if (idx === 4){
+    star(sx, sy, R*1.2, {mood: t > 2.4 ? 'smile' : 'sad'});
+    boy(sx + 80*s, gy+6*s, s*.9, {think: t < 2.6, t});
+  } else if (idx === 5){
+    const k = ease(t / 1.6);
+    plane(sx, gy - 6*s, s*k, 0);
+    star(sx, lerp(sy, gy - 34*s, ease((t-1.6)/1)), R*.8);
+    boy(sx + 90*s, gy+6*s, s*.9, {});
+  } else if (idx === 6){
+    const k = ease((t - .6) / 3.5);
+    const px = lerp(sx, W*.62, k), py = lerp(gy - 6*s, H*.12, k);
+    plane(px, py, s, -0.5*k);
+    star(px, py - 28*s, R*.8, {glow:.7});
+    boy(sx + 90*s, gy+6*s, s*.9, {blow: t < 1.4, look: 1});
+  } else if (idx === 7){
+    const k = ease(t / 2);
+    star(W*.6, H*.2 + bob, 44*s, {glow: .9});
+    star(lerp(W*.62, W*.42, k), lerp(H*.14, H*.24, k) + bob, 22*s, {glow: .9});
+  } else if (idx === 8){
+    star(W*.6, H*.2 + bob, 40*s, {glow:.6});
+    star(W*.42, H*.25 + bob, 20*s, {glow:.8, wink: (T % 2.4) < .5});
+    boy(W*.3, gy+6*s, s, {look: 1});
+  } else {
+    star(W*.5, H*.42 + bob, 54*s, {glow:.8, wink: (T % 2) < .4});
+    for (let k = 0; k < 6; k++){ const a = T*.6 + k*Math.PI/3; star(W*.5 + Math.cos(a)*110*s, H*.42 + Math.sin(a)*90*s, 10*s, {glow:.4}); }
+  }
+}
+function loop(now){
+  g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  if (W && H) scene(now);
+  requestAnimationFrame(loop);
+}
+resize(); show(0); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

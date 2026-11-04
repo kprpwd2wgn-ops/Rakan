@@ -233,6 +233,14 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   She approved the lines on 3 Nov 2026; the clips are in `times/voices` and `division/voices` and both games are
   published with them. After changing a line, rerun `tools/game-voices.py` for that file (only changed lines are
   remade) and republish the game with every clip and the manifest in `files`.
+- Ollie English parts (`2.html` … `7.html`, parts 1–6, uploaded by the owner; GitHub Pages only, no play link):
+  English, so the voice is `en-US-AvaNeural` and there is no tashkeel check. They say about 8,000 different
+  sentences and words, recorded in batches by `tools/english-voices.py` from `ollie-lines.json` into the shared
+  folder `ollie/voices/<hash>.mp3` (plus `-slow` copies for the listening and reading passages). Each part loads
+  `ollie/voices/part<N>.json`, which maps its sentences (`s`) and lowercase words (`w`) to clip ids; `say()`
+  splits text into sentences and plays each clip, and a line with no clip stays silent. After changing a part's
+  text, rebuild `ollie-lines.json` and the part's json from the part's `LV` data, then rerun the script (it records
+  only missing clips).
 
 ## Setup and limits
 

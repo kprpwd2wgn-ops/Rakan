@@ -251,7 +251,7 @@ const V=L=>L.v.split(';').map(s=>{const[en,ar,em]=s.split('|');return{en,ar,em}}
 const ctx={l:0,i:0};
 const cur=()=>LV[ctx.l].lessons[ctx.i];
 let RUN=0;
-function stopAll(){RUN++;clearTimeout(spkT);try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel()}catch(e){}}
+function stopAll(){RUN++;stopVoice()}
 
 const IC={
  back:'<path d="M9 5l7 7-7 7"/>',
@@ -270,24 +270,28 @@ function setLv(lv){const r=document.documentElement.style;if(!lv){r.removeProper
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2600)}
 
 /* speech */
-let voice=null;
-function pickVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));voice=vs.find(v=>/en-US/i.test(v.lang)&&v.localService&&/Samantha|Ava|Allison|Susan|Zoe|Nicky/i.test(v.name))||vs.find(v=>/en-US/i.test(v.lang)&&/Samantha|Google|Aria|Jenny|Ava/i.test(v.name))||vs.find(v=>/en-US/i.test(v.lang))||vs[0]||null}catch(e){}}
-try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
-const SPEECH=('speechSynthesis' in window)&&('SpeechSynthesisUtterance' in window);
-let spkQ=[],spkT=0,unlocked=false;
-function unlockSpeech(){if(unlocked||!SPEECH)return;unlocked=true;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;u.lang='en-US';speechSynthesis.speak(u)}catch(e){}}
+/* ---------- voice: Ollie's lines recorded ahead of time (Azure, en-US-AvaNeural), one MP3 per sentence or word ---------- */
+const VDIR='ollie/voices';
+const VO={ctx:null,man:null,buf:{},tok:0,src:null};
+const SPEECH=!!(window.AudioContext||window.webkitAudioContext);
+if(location.protocol!=='file:')fetch(VDIR+'/part'+PART+'.json').then(r=>r.ok?r.json():null).then(m=>{VO.man=m}).catch(()=>{});
+function unlockSpeech(){if(!SPEECH)return;try{if(!VO.ctx)VO.ctx=new(window.AudioContext||window.webkitAudioContext)();if(VO.ctx.state==='suspended')VO.ctx.resume()}catch(e){}}
 ['pointerdown','touchend','keydown'].forEach(ev=>document.addEventListener(ev,unlockSpeech,{capture:true,passive:true}));
+function clipFor(t,slow){const m=VO.man;if(!m)return null;let id=m.s[t]||m.w[t.toLowerCase()]||m.w[t.replace(/[^A-Za-z0-9' -]/g,'').trim().toLowerCase()];
+ if(!id)return null;return slow&&m.slow.includes(id)?id+'-slow':id}
+async function clipBuf(id){if(VO.buf[id])return VO.buf[id];const a=await(await fetch(VDIR+'/'+id+'.mp3')).arrayBuffer();
+ const b=await new Promise((ok,no)=>{const p=VO.ctx.decodeAudioData(a,ok,no);if(p&&p.then)p.then(ok,no)});VO.buf[id]=b;return b}
+function stopVoice(){VO.tok++;if(VO.src){const s=VO.src;VO.src=null;s.onended=null;try{s.stop()}catch(e){}}}
 function say(text,o={}){
  if(!SPEECH){toast('الصوت غير مدعوم في هذا المتصفح. جرّب Safari أو Chrome.');return}
- const S=speechSynthesis;if(!voice)pickVoice();
- const parts=(String(text).match(/[^.!?]+[.!?]*['"]?/g)||[String(text)]).map(x=>x.trim()).filter(Boolean);
- const rate=o.rate||(LV[ctx.l]&&LV[ctx.l].rate)||.9;
- const go=()=>{spkQ=parts.map(t=>{const u=new SpeechSynthesisUtterance(t);u.lang='en-US';if(voice)u.voice=voice;u.rate=rate;u.pitch=o.pitch||1;u.volume=1;return u});
-  spkQ.forEach(u=>{try{S.speak(u)}catch(e){}});try{if(S.paused)S.resume()}catch(e){}};
- clearTimeout(spkT);
- try{if(S.speaking||S.pending){S.cancel();spkT=setTimeout(go,120)}else go()}catch(e){}
+ unlockSpeech();stopVoice();const tok=VO.tok;
+ const slow=(o.rate||1)<.8;
+ const ids=(String(text).match(/[^.!?]+[.!?]*['"]?/g)||[String(text)]).map(x=>x.trim()).filter(Boolean).map(t=>clipFor(t,slow)).filter(Boolean);
+ const bufs=ids.map(id=>clipBuf(id).catch(()=>null));
+ (async()=>{for(const p of bufs){const b=await p;if(tok!==VO.tok)return;if(!b)continue;
+  await new Promise(done=>{const s=VO.ctx.createBufferSource();s.buffer=b;s.connect(VO.ctx.destination);s.onended=()=>{if(VO.src===s)VO.src=null;done()};VO.src=s;s.start()});
+  if(tok!==VO.tok)return;await new Promise(r=>setTimeout(r,180))}})();
 }
-setInterval(()=>{try{if(SPEECH&&speechSynthesis.speaking&&speechSynthesis.paused)speechSynthesis.resume()}catch(e){}},3000);
 document.addEventListener('click',e=>{const t=e.target.closest('[data-say]');if(t)say(t.dataset.say,{pitch:t.dataset.pitch?+t.dataset.pitch:1})});
 
 /* sound effects */
@@ -577,7 +581,7 @@ function finish(a,stars,score){
   ${a==='boss'?`<p class="muted">أجبت عن ${score} من 12</p>`:''}
   ${stars>prev&&prev?`<p class="muted">رقم قياسي جديد!</p>`:''}
   ${got?`<p class="gift">🎉 جمعت 10 نجوم! اطلب من أهلك نجمة في لوحة النجوم.</p>`:''}
-  ${a==='boss'&&stars&&ctx.l===LV.length-1?`<p style="font-weight:800">أنهيت الجزء 2 كله. أنت بطل الإنجليزية! 🏆</p><a class="go" href="part3.html">انتقل إلى الجزء 3</a>`:''}
+  ${a==='boss'&&stars&&ctx.l===LV.length-1?`<p style="font-weight:800">أنهيت الجزء 2 كله. أنت بطل الإنجليزية! 🏆</p><a class="go" href="4.html">انتقل إلى الجزء 3</a>`:''}
   <div class="btns">${nextFn?`<button class="go" id="nx">${nextLbl}</button>`:''}<button class="ghost" id="again">أعد المحاولة</button><button class="ghost" id="bk">رجوع</button></div></div>`);
  say(msg[1],{rate:.9,pitch:1.2});
  if(nextFn)$('#nx').onclick=()=>{stopAll();nextFn()};
@@ -620,7 +624,7 @@ function parents(){
  const gvb=$('#gvb');if(gvb)gvb.onclick=()=>{const n=readyBoard();if(gvb.dataset.armed){P.given=earned();save();toast(`سُجّلت ${n} ${n===1?'نجمة':'نجوم'} كمُعطاة`);parents()}else{gvb.dataset.armed='1';gvb.textContent=`تأكيد: أعطيته ${n}`;gvb.className='go'}};
  $('#tst').onclick=()=>{say("Hello! I am Ollie. Let's learn English together!",{rate:.9});const m=$('#tsm');
   if(!SPEECH){m.textContent='هذا المتصفح لا يدعم الصوت. افتح الرابط في Safari أو Chrome.';return}
-  const en=(speechSynthesis.getVoices()||[]).filter(v=>/^en/i.test(v.lang)).length;
+  m.textContent='إذا لم تسمع شيئًا: أطفئ الوضع الصامت في الآيفون وارفع صوت الوسائط.';
   m.textContent=en?'إذا لم تسمع شيئًا: أطفئ الوضع الصامت في الآيفون وارفع صوت الوسائط.':'لم أجد صوتًا إنجليزيًا في الجهاز بعد. انتظر ثواني وجرّب مرة ثانية، أو أضف صوتًا إنجليزيًا من إعدادات الجهاز (تسهيلات الاستخدام ← المحتوى المنطوق ← الأصوات).'};
  $('#rs').onclick=()=>{$('#rz').innerHTML=`<p>هل أنت متأكد؟ ستُمسح كل النجوم.</p><div class="btns"><button class="go" id="yes" style="background:var(--bad);box-shadow:0 5px 0 #8f2226">نعم، امسح</button><button class="ghost" id="no">إلغاء</button></div>`;
   $('#yes').onclick=()=>{P.s={};P.given=0;save();toast('تم مسح التقدم');parents()};$('#no').onclick=parents};

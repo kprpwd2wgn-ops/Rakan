@@ -52,4 +52,66 @@ def build(name):
 '''
     open(os.path.join(O,N+'.html'),'w',encoding='utf-8').write(html)
     print('built',N,len(html))
-for n in (sys.argv[1:] or APPS): build(n)
+
+# ---- Ollie English parts: python3 src/build.py ollie  ->  2.html ... 7.html (part N is file N+1) ----
+# One engine and one stylesheet for the six parts; each part has its own lessons (src/ollie/data/part<N>.js)
+# and its own home-screen icon (src/ollie/icons/part<N>.png). Unlike the games above they do not use the kit.
+OLLIE_PARTS=6
+OLLIE_PAGE='''<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أولي · الجزء @N@</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="أولي @N@">
+<meta name="theme-color" content="#EDF4F9">
+
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,@ICON@">
+<link rel="icon" type="image/png" sizes="180x180" href="data:image/png;base64,@ICON@">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+Bhaijaan+2:wght@500;600;700;800&display=swap">
+<style>
+@CSS@</style>
+
+<div id="app"></div>
+<div id="toast" hidden></div>
+<canvas id="fx"></canvas>
+
+<script>
+/* Built by `python3 src/build.py ollie` from src/ollie/. Change the files there, not this page. */
+@DATA@
+@ENGINE@</script>
+</body>
+</html>
+'''
+def ollie_says(engine):
+    """Sentences Ollie says outside the lessons (the SAY block of the engine), split the way the page splits them."""
+    import re
+    block=engine[engine.index('/*SAY-START*/'):engine.index('/*SAY-END*/')]
+    out=[]
+    for line in re.findall(r'"((?:[^"\\]|\\.)*)"',block):
+        out+= [x.strip() for x in re.findall(r"[^.!?]+[.!?]*['\"]?",line) if x.strip()] or [line]
+    return out
+def build_ollie():
+    import base64,hashlib
+    S=os.path.join(R,'ollie');rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
+    css,engine=rd('style.css'),rd('engine.js');says=ollie_says(engine);V=os.path.join(O,'ollie','voices')
+    for n in range(1,OLLIE_PARTS+1):
+        # Ollie's own lines must be in this part's clip map; a line recorded for another part is added here
+        mp=os.path.join(V,f'part{n}.json');m=json.load(open(mp,encoding='utf-8'));added=[]
+        for t in says:
+            if t in m['s']: continue
+            cid=hashlib.sha1(t.encode()).hexdigest()[:12]
+            if not os.path.exists(os.path.join(V,cid+'.mp3')): sys.exit(f'ollie: no recorded clip for "{t}". Add it to ollie-lines.json and run tools/english-voices.py first.')
+            m['s'][t]=cid;added.append(t)
+        if added: open(mp,'w',encoding='utf-8').write(json.dumps(m,ensure_ascii=False,separators=(',',':')))
+        icon=base64.b64encode(open(os.path.join(S,'icons',f'part{n}.png'),'rb').read()).decode()
+        html=OLLIE_PAGE.replace('@N@',str(n)).replace('@ICON@',icon).replace('@CSS@',css).replace('@DATA@',rd(f'data/part{n}.js')).replace('@ENGINE@',engine)
+        open(os.path.join(O,f'{n+1}.html'),'w',encoding='utf-8').write(html)
+        print('built',f'{n+1}.html','(Ollie part %d)'%n,len(html),('· clip map +%d lines'%len(added)) if added else '')
+for n in (sys.argv[1:] or list(APPS)+['ollie']): build_ollie() if n=='ollie' else build(n)

@@ -16,6 +16,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | عالم الأبطال الصغار (behavior program for parents and kids: daily missions with stars and real rewards, a star-sprout friend that hatches and grows, 7 mini games, 7 choose-your-path stories plus Claude-written ones, calm corner with breathing, badges and certificate, protected parent area with approvals, behavior tracking, reports and tips; its own stars and gems, not the shared hero) | `little-heroes.html` | https://claude.ai/artifact/8vPtRDZAXhNvkq1EyfuakR |
 | النجمة الصغيرة (short illustrated story read aloud sentence by sentence with the Azure voice, clips in `little-star/voices/`) | `little-star.html` | https://claude.ai/artifact/5WGrZYdLs2hk3EVd8cxjAA |
 | My English Gap ماي إنجلش قاب (English speaking practice for the owner: the tutor asks in Arabic, you answer in English by mic or typing, it corrects in English with highlighted fixes and saves your mistakes; calls the Claude API with a key the user pastes into its settings, kept in that browser only; mic uses the browser's speech recognition, so no device voice is used; no listen buttons, since live corrections can't be pre-recorded with Azure) | `my-english-gap.html` | GitHub Pages only (the mic and API calls don't work inside a play link). In-Claude version without mic: https://claude.ai/artifact/UcquNcYuwX4hxZKwB1Vbtq |
+| أولي Ollie (English course in six parts, beginner to upper intermediate; each part has 5 worlds × 6 lessons, and a lesson is a conversation, a listening text, a reading text and a game; 13 word games, 6 of them new on 10 Nov 2026: true or false, hide and seek, missing word, Ollie's balloons, word search, Ollie's flight; a timed challenge per world, a daily challenge with a day streak, a sticker album, tricky-words practice, a picture dictionary and a parents corner; its own stars, which parents trade for star-board stars, not the shared hero) | `2.html` … `7.html` (part N is file N+1; built from `src/ollie/`, never edited by hand) | GitHub Pages only: https://kprpwd2wgn-ops.github.io/Rakan/2.html (its recorded voice is about 9,700 clips, too many for a play link) |
 
 Add a row here for every new game.
 
@@ -23,6 +24,10 @@ Shared hero: the games share one hero and one gem wallet (browser storage key `r
 works on the GitHub Pages links, where all games live on the same site; each play link keeps its own copy.
 Some games are built from `src/` (a shared kit plus one folder per game): for those, step 1 of "Changing a game"
 means editing the files in `src/` and then running `python3 src/build.py <game>`, which rewrites `<game>.html`.
+The six Ollie parts are built the same way from `src/ollie/` (their own engine, not the kit):
+`python3 src/build.py ollie` rewrites `2.html` … `7.html`. For them, step 2 is `node tools/ollie-check.js`
+(every game playable, every spoken line recorded) and `node tools/ollie-play.js <part>` (plays the part in a browser),
+and step 3 is skipped, since they have no play link.
 
 Each game is one standalone HTML file in the repo root: a full `<!DOCTYPE html>` document with all
 its CSS and JavaScript inline, made for phone screens and touch, with a start button.
@@ -242,6 +247,17 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   splits text into sentences and plays each clip, and a line with no clip stays silent. After changing a part's
   text, rebuild `ollie-lines.json` and the part's json from the part's `LV` data, then rerun the script (it records
   only missing clips).
+  Since 10 Nov 2026 the six pages are built from one source, `src/ollie/`: `engine.js` and `style.css` are shared,
+  `data/part<N>.js` holds a part's lessons (`PART` and `LV`) and `icons/part<N>.png` its home-screen icon.
+  Everything new that day (six games, daily challenge, sticker album, tricky words) reuses lines that were already
+  recorded, so nothing had to be recorded; the session had no Azure key. Keep to that rule when there is no key:
+  a new game may speak only a lesson's words (`v`) and its sentences (`c` answers, `l`, `r`), and Ollie's own
+  remarks come from the `SAY` block at the top of `engine.js`, where each line must already be a clip
+  (`src/build.py ollie` adds such a line to every part's json, or stops and names the line if no clip exists).
+  Arabic meanings, pictures and wrong answers are never spoken, so they can be changed freely.
+  Sound effects are short noise bursts made in the page (`sfx()`), with no notes or tunes, to keep the no-music rule.
+  A part's progress lives in that browser under `ollie-english-part<N>`: `s` lesson stars (the only ones that count
+  for the star board), `x` stars of extra games, `m` tricky words, `d` the daily challenge day, streak and count.
 
 ## Setup and limits
 

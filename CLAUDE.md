@@ -273,7 +273,9 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   older phones show as an empty box or as two symbols: keep to emoji from 2021 or earlier. Sentences cut inside a quotation are kept out of the two sentence games.
   The word search now accepts a word wherever its letters are found (AGREE inside DISAGREE used to count as a miss).
   The owner's lesson texts mention drums, singing or songs in a few places (part 2 "Sounds and Rhythm" most of all);
-  they are recorded, so replacing them needs the key. She was told on 10 Nov 2026 and has not answered yet.
+  they are recorded, so replacing them needs the key. She said yes to replacing them on 10 Nov 2026, but that session
+  had no key and no way to reach Azure, so it is still to do: about 55 sentences and 8 lesson words (sing, drum, rhythm,
+  rhyme, clap, whistle) across the six parts. Do it in the first session that has `AZURE_SPEECH_KEY`.
 
 ## Setup and limits
 

@@ -1,6 +1,7 @@
-// Plays an Ollie English part in headless Chromium the way a child would: all 13 games on a few lessons,
+// Plays an Ollie English part in headless Chromium the way a child would: all 19 games on a few lessons,
 // then a whole lesson (conversation, listening, reading, game), a world challenge, the daily challenge,
-// the album, the dictionary and the parents corner. Reports script errors and clips that failed to load.
+// the album, the dictionary, the parents corner, the flashcards, the library, the one-minute rush and the wardrobe.
+// Reports script errors and clips that failed to load.
 // The page is served from a small local server, because the recorded voice does not load from file://.
 // usage: node tools/ollie-play.js [part 1-6, default 1] [games|flow|all, default all] [folder for screenshots]
 const http = require('http');
@@ -38,6 +39,9 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
   });
   await page.goto(base + (part + 1) + '.html');
   await page.waitForSelector('.world');
+  // what Ollie was asked to say, in order (the "remember the order" bot reads the words back from here)
+  const listen = () => page.evaluate(() => { window.__said = []; const real = say; window.say = function (t, o) { window.__said.push(t); return real(t, o); }; });
+  await listen();
   const log = (...a) => console.log(`[part ${part}]`, ...a);
   const shot = async name => { if (shots) await page.screenshot({ path: path.join(shots, `part${part}-${name}.png`) }); };
   const done = () => page.waitForSelector('.result', { timeout: 25000 });
@@ -126,6 +130,44 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
         await page.fill('#sp', (await wordOf()).toUpperCase()); await page.click('#ck');
       }
     },
+    async seq() {
+      for (let r = 0; r < 5; r++) {
+        await round(r, `!document.querySelector('#sg').classList.contains('wait') && !document.querySelector('#sd .sdot.on')`);
+        const n = await page.locator('#sd .sdot').count();
+        const ems = await page.evaluate(n => window.__said.slice(-n).map(en => V(GL).find(v => v.en === en).em), n);
+        if (r === 0) {                                                                     // a wrong picture first: Ollie says the words again
+          await page.evaluate(em => [...document.querySelectorAll('#sg .tile')].find(t => t.textContent !== em).click(), ems[0]);
+          await sleep(900); await page.waitForFunction(() => !document.querySelector('#sg').classList.contains('wait'), null, { timeout: 20000 });
+        }
+        for (const em of ems) await page.evaluate(em => [...document.querySelectorAll('#sg .tile')].find(t => t.textContent === em).click(), em);
+      }
+    },
+    async bingo() {
+      for (let k = 0; k < 60 && !await page.locator('.result').count(); k++) {
+        await page.evaluate(() => { const p = document.querySelector('#bp'), en = p && p.dataset.say; if (!en) return; const v = V(GL).find(v => v.en === en), t = [...document.querySelectorAll('#bg .bt:not(.on)')].find(t => t.textContent === v.em || t.textContent === v.en); if (t) t.click(); });
+        await sleep(300);
+      }
+    },
+    async race() { for (let k = 0; k < 80 && !await page.locator('.result').count(); k++) { await answer().catch(() => {}); await sleep(200); } },
+    async letter() {
+      for (let r = 0; r < await page.evaluate(() => Math.min(6, wordsFor.letter(GL).length)); r++) {
+        await round(r, `!document.querySelector('#sl.ok')`);
+        const word = (await wordOf()).toLowerCase();
+        for (let k = 0; k < 2; k++) {
+          const at = await page.evaluate(() => [...document.querySelectorAll('#sl .slot')].findIndex(s => s.classList.contains('now')));
+          if (at < 0) break;
+          await page.click(`#tl .ltr[data-c="${word[at]}"]`);
+        }
+      }
+    },
+    async hear() { for (let r = 0; r < 5; r++) { await round(r, `!document.querySelector('#g .opt.right')`); await page.click('#g .opt[data-ok="1"]'); } },
+    async order() {
+      for (let r = 0; r < await page.evaluate(() => orderSets(GL).length); r++) {
+        await round(r, `!document.querySelector('#ol.ok')`);
+        if (r === 0) { for (const n of [1, 0, 2, 3]) await page.click(`#ol .oc[data-n="${n}"]`); await sleep(900); }   // a wrong order first
+        for (let n = 0; n < 4; n++) if (!await page.locator(`#ol .oc.in[data-n="${n}"]`).count()) await page.click(`#ol .oc[data-n="${n}"]`);
+      }
+    },
     async sentence() {
       for (let r = 0; r < await page.evaluate(() => sentFor(GL).length); r++) {
         await round(r, `!document.querySelector('#sa.ok')`);
@@ -141,6 +183,9 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
   });
   const cards = async n => { for (let k = 0; k < n; k++) { await page.waitForFunction(k => document.querySelector('#bn') && document.querySelector('#bn').textContent.includes(`سؤال ${k + 1} `), k, { timeout: 15000 }); await answer(); } await done(); };
 
+  // a first visit shows what is new, once
+  if (!await page.locator('#nw').count()) errors.push('the "what is new" card did not show on a first visit');
+  else { await shot('news'); await page.click('#nwx'); if (await page.locator('#nw').count() || !await page.evaluate(() => P.nw === VER.n)) errors.push('the "what is new" card did not go away'); }
   await page.evaluate(() => { P.all = true; home(); });
   await shot('home');
   await page.click('#ollie'); await sleep(1500);
@@ -167,7 +212,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
 
   if (mode !== 'games') {
     // a new child: lesson 1 from start to finish
-    await page.evaluate(() => { P.s = {}; P.x = {}; P.m = {}; P.all = false; P.d = { day: '', streak: 0, best: 0, n: 0 }; save(); ctx.l = 0; ctx.i = 0; lesson(); window.GL = cur(); });
+    await page.evaluate(() => { P.s = {}; P.x = {}; P.m = {}; P.all = false; P.d = { day: '', streak: 0, best: 0, n: 0 }; P.hi = 0; P.rd = {}; save(); LOOK.have = {}; LOOK.on = {}; LOOK.fresh = {}; saveLook(); ctx.l = 0; ctx.i = 0; lesson(); window.GL = cur(); });
     await page.click('.act[data-a="c"]');
     for (let t = 0; t < 4; t++) { await page.click('#opts .opt[data-k="0"]'); await page.click('#nx'); }
     await done(); await page.click('#nx'); await sleep(600);                          // listening
@@ -192,11 +237,45 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
     await page.click('#trn'); await sleep(400);
     await page.evaluate(() => parents()); await page.click('#tst'); await sleep(600);
     await page.evaluate(() => home()); await page.click('#toQ'); await sleep(400);
+
+    // flashcards: one word marked for practice comes back once more
+    await page.evaluate(() => { ctx.l = 0; ctx.i = 0; lesson(); }); await page.click('#fcb');
+    for (let k = 0; k < 7; k++) { await page.click('#fc'); await page.click(k === 0 ? '#fno' : '#fok'); }
+    await page.waitForSelector('.result .rushn'); await shot('flashcards-end'); await page.click('#bk');
+
+    // library: the story of the finished lesson, read aloud to its end
+    await page.evaluate(() => { P.all = false; home(); }); await page.click('#toL'); await shot('library');
+    const books = await page.locator('.bk[data-l]').count();
+    if (books !== 1) errors.push(`the library shows ${books} stories after one finished lesson`);
+    await page.click('.bk[data-l]'); await page.click('#rd'); await page.waitForSelector('#tx .sn.on', { timeout: 8000 }); await shot('story');
+    await page.waitForFunction(() => Object.keys(P.rd).length === 1, null, { timeout: 90000 });
+
+    // one-minute rush: the clock is moved so that three seconds are left
+    await page.evaluate(() => { home(); }); await page.click('#toR');
+    await page.evaluate(() => { const real = performance.now.bind(performance); window.__now = performance.now; performance.now = () => real() - 57000; });
+    await page.click('#rgo'); await page.evaluate(() => { performance.now = window.__now; }); await shot('rush');
+    for (let k = 0; k < 40 && !await page.locator('.result').count(); k++) { await answer().catch(() => {}); await sleep(150); }
+    await page.waitForSelector('.result .rushn', { timeout: 15000 });
+    const rush = await page.evaluate(() => ({ shown: +document.querySelector('.rushn').textContent, best: P.hi }));
+    log('one-minute rush:', JSON.stringify(rush));
+    if (!rush.shown || rush.shown !== rush.best) errors.push('the one-minute rush did not keep its score');
+
+    // wardrobe: the cap for the first lesson, the flower for the daily challenge, the crown for the world challenge
+    await page.click('#bk'); await page.click('#toC');
+    const have = await page.evaluate(() => Object.keys(LOOK.have).sort().join(','));
+    if (have !== 'cap,crown,flower') errors.push('wardrobe: expected the cap, the crown and the flower, found ' + have);
+    await page.click('.wr[data-id="cap"]'); await sleep(300); await shot('wardrobe');
+    await page.evaluate(() => home());
+    if (!await page.evaluate(() => LOOK.on.head === 'cap' && document.querySelector('#ollie svg').innerHTML.includes('#E0442E'))) errors.push('Ollie is not wearing his cap on the home screen');
+    await page.click('#toN'); await page.click('#n1'); await sleep(400);
+    if (!await page.evaluate(() => !!document.querySelector('#g') && NEWG.some(g => document.querySelector('.g-head b').textContent.includes(GN[g])))) errors.push('"try a new game" did not open one of the new games');
+
     const before = await page.evaluate(() => ({ stars: totalStars(), tricky: tricky().length, spoken: window.__spoken }));
     await page.reload(); await page.waitForSelector('.world');
-    const after = await page.evaluate(() => ({ stars: totalStars(), tricky: tricky().length, streak: streakNow() }));
+    const after = await page.evaluate(() => ({ stars: totalStars(), tricky: tricky().length, streak: streakNow(), best: P.hi, read: Object.keys(P.rd).length, cap: LOOK.on.head }));
     log('after closing and opening again:', JSON.stringify(after));
     if (after.stars !== before.stars || after.tricky !== before.tricky || after.streak !== 1) errors.push('progress was not kept after a reload');
+    if (after.best !== rush.best || after.read !== 1 || after.cap !== 'cap') errors.push('the rush score, the library or the wardrobe was not kept after a reload');
     log(`clips loaded: ${clips.size}, clips played: ${before.spoken}`);
   }
 

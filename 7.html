@@ -358,6 +358,106 @@ a.go{display:inline-block;text-align:center;text-decoration:none}
 .stk.gold{border-color:var(--sun);box-shadow:0 4px 0 var(--sun-deep);background:#FFF8E1}
 .newst{display:flex;align-items:center;gap:10px;background:var(--paper);border:2px solid var(--sun);border-radius:16px;padding:8px 14px;box-shadow:0 4px 0 var(--sun);animation:pop .5s .3s backwards}
 .newst span{font-size:34px;line-height:1.1}
+
+/* ===== second round, 10 Nov 2026: six more games, wardrobe, library, flashcards, one-minute rush ===== */
+/* Ollie's hats may reach above his own box */
+.owl svg,.av svg,.flyer svg,.bal-o svg,.stage-o svg,.we svg,.run svg{overflow:visible}
+
+/* home: what is new */
+.news{background:var(--paper);border:2px solid var(--lv);border-radius:20px;padding:14px;box-shadow:0 5px 0 var(--lv-deep);display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.news>b{font-size:18px}
+.news ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:3px;font-size:15px}
+.tile4 .dot.best{background:var(--sun);color:var(--ink)}
+
+/* lesson: flashcards */
+.sec-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.sec-row .sec-t{margin:0}
+.mini{font-size:14px;padding:6px 12px;white-space:nowrap}
+.flash{display:block;width:100%;border-radius:24px;background:var(--paper);border:3px solid var(--lv);box-shadow:0 6px 0 var(--lv-deep);padding:18px}
+.flash:active{transform:translateY(3px);box-shadow:0 3px 0 var(--lv-deep)}
+.flash>span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:220px}
+.flash .big-em{font-size:88px}
+.flash b{font-size:30px;line-height:1.3}
+.flash .fb b{font-family:var(--f-en);color:var(--lv-deep);font-size:36px;overflow-wrap:anywhere}
+.flash small{color:var(--muted);font-size:14px}
+.flash .fb{display:none}
+.flash.up{background:var(--lv-soft)}
+.flash.up .ff{display:none}
+.flash.up .fb{display:flex}
+
+/* remember the order */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;transition:opacity .2s}
+.grid3 .tile.em.big{min-height:88px;font-size:42px}
+.grid3.wait{opacity:.5;pointer-events:none}
+.tile.pick{border-color:var(--good);background:var(--good-soft);box-shadow:0 4px 0 var(--good)}
+.seqbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.seqdots{display:flex;gap:6px;flex:1;justify-content:center}
+.sdot{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:2px dashed var(--line);font-weight:800;color:var(--muted);font-size:16px;line-height:1}
+.sdot.on{border-style:solid;border-color:var(--good);background:var(--good-soft);font-size:22px}
+
+/* bingo */
+.target .pill{font-size:17px}
+.bingo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bt{position:relative;aspect-ratio:1;border-radius:16px;background:var(--paper);border:2px solid var(--line);box-shadow:0 4px 0 var(--line);display:grid;place-items:center;font-size:42px;line-height:1;padding:4px;overflow:hidden;min-width:0}
+.bt:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.bt.wd{font-family:var(--f-en);font-size:18px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+.bt.wd.sm{font-size:14px}
+.bt.on{border-color:var(--sun);box-shadow:0 4px 0 var(--sun-deep)}
+.bt.on::after{content:"⭐";position:absolute;inset:0;display:grid;place-items:center;font-size:44px;background:rgba(255,241,204,.85);animation:pop .3s backwards}
+.bt.line{border-color:var(--good);box-shadow:0 4px 0 var(--good)}
+.bt.line::after{background:rgba(221,245,232,.85)}
+
+/* race with the rabbit */
+.track{position:relative;background:linear-gradient(#CDEBFF 0 30%,#BFE8C9 30%);border-radius:18px;border:2px solid var(--line);padding:22px 40px 8px 8px;overflow:hidden}
+.lane{position:relative;height:48px;border-bottom:2px dashed rgba(255,255,255,.95)}
+.lane:nth-child(2){border-bottom:0}
+.run{position:absolute;left:0;bottom:3px;line-height:0;transition:left .4s ease-out}
+#rb{transition:none}
+.flag{position:absolute;right:8px;top:22px;bottom:8px;width:26px;border-left:4px solid #fff;font-style:normal;font-size:20px;line-height:1;padding-left:2px}
+
+/* missing letter */
+.slot.now{background:#FFF1CC;border-bottom-color:var(--sun-deep)}
+
+/* story order */
+.ord{display:flex;flex-direction:column;gap:10px}
+.oc{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:10px 12px;box-shadow:0 4px 0 var(--line);font-family:var(--f-en);font-size:17px;line-height:1.45}
+.oc:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.oc i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:15px;background:var(--bg);color:var(--muted);border:2px dashed var(--line)}
+.oc span{flex:1;min-width:0}
+.oc.in{border-color:var(--lv);background:var(--lv-soft);box-shadow:0 4px 0 var(--lv)}
+.oc.in i{background:var(--lv);color:#fff;border:0}
+.ord.ok .oc{border-color:var(--good);background:var(--good-soft);box-shadow:0 4px 0 var(--good)}
+.ord.ok .oc i{background:var(--good)}
+
+/* one-minute rush */
+.rushn{font-size:84px;font-weight:800;line-height:1.1;color:var(--lv-deep);font-variant-numeric:tabular-nums;animation:pop .5s backwards}
+
+/* library */
+.lib{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bk{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;background:var(--paper);border-radius:16px;padding:10px 12px;border:2px solid var(--line);box-shadow:0 4px 0 var(--line);min-height:96px;min-width:0}
+button.bk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.bk .e{font-size:28px;line-height:1.2}
+.bk b{font-family:var(--f-en);font-size:15px;line-height:1.3}
+.bk small{color:var(--muted);font-size:12px;line-height:1.35}
+.bk i{position:absolute;top:8px;inset-inline-end:10px;font-style:normal;color:var(--good);font-weight:800}
+.bk.locked{border-style:dashed;box-shadow:none}
+
+/* wardrobe */
+.stage{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;background:linear-gradient(#CDEBFF,#F3FBFF);border-radius:24px;border:2px solid var(--line);padding:44px 14px 14px;margin-block:4px 16px}
+.stage-o{line-height:0;filter:drop-shadow(0 6px 0 rgba(23,38,54,.1))}
+.wear{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wr{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;background:var(--paper);border-radius:16px;padding:20px 4px 8px;border:2px solid var(--line);box-shadow:0 4px 0 var(--line);min-width:0}
+.wr:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.we{line-height:0}
+.wr .we{margin-bottom:4px}
+.wr b{font-size:14px;line-height:1.3}
+.wr small{font-size:11px;color:var(--muted);line-height:1.3}
+.wr small.ok{color:#11663C;font-weight:800}
+.wr.on{border-color:var(--good);box-shadow:0 4px 0 var(--good);background:var(--good-soft)}
+.wr.lock .we{filter:grayscale(1);opacity:.45}
+.wr .prog{width:80%}
+.wr .dot{position:absolute;top:-7px;inset-inline-end:-4px;padding:0 7px;height:22px;border-radius:999px;background:var(--bad);color:#fff;font-style:normal;font-weight:800;font-size:11px;line-height:22px}
+.newst.gift2{border-color:var(--lv);box-shadow:0 4px 0 var(--lv);padding-top:16px}
 </style>
 
 <div id="app"></div>
@@ -373,7 +473,7 @@ a.go{display:inline-block;text-align:center;text-decoration:none}
 const PART=6;
 const LV=[
 {en:"Science Academy",ar:"أكاديمية العلوم",sub:"نصوص علمية ومصطلحات أكاديمية",icon:"🔬",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي عميد الأكاديمية",
- games:["tf","unscramble","hide","gap","memory","spell"],
+ games:["tf","unscramble","hide","seq","memory","spell"],
  lessons:[
  {en:"The Scientific Method",ar:"المنهج العلمي",v:"hypothesis|فرضية|💭;variable|متغيّر|🔀;observe|يلاحظ|👁️;conclusion|استنتاج|🏁;data|بيانات|📊;method|منهج|📋",
   c:[["What is a hypothesis?","It's a prediction that can be tested by an experiment.","It's the final answer that never changes.","It's a type of microscope."],["Why should you change only one variable at a time?","So you know exactly what caused the result.","Because changing variables is illegal.","So the experiment takes longer."],["What should a scientist do if the results don't support the hypothesis?","Accept the results and form a new hypothesis.","Hide the results and pretend.","Change the data to match the idea."],["Why do other scientists repeat experiments?","To check that the results are reliable.","Because they have nothing else to do.","To copy the first scientist's glory."]],
@@ -413,7 +513,7 @@ const LV=[
   rq:[["How long is the DNA in one cell if stretched out?","about two meters","two centimeters","two kilometers"],["How does it fit in the nucleus?","It is tightly coiled.","It is cut into pieces.","It is very thin glass."],["How many chemical letters does the DNA code use?","four","twenty-six","two"],["What was completed in 2003?","the Human Genome Project","the first microscope","the first vaccine"]]}
  ]},
 {en:"Space Agency",ar:"وكالة الفضاء",sub:"المهمات الفضائية والماضي التام",icon:"🛰️",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي قائد المهمة",
- games:["search","sentence","fly","balloons","pop","gap"],
+ games:["search","bingo","fly","balloons","pop","race"],
  lessons:[
  {en:"Life on the Space Station",ar:"الحياة في محطة الفضاء",v:"orbit|مدار|🪐;gravity|الجاذبية|⬇️;weightless|عديم الوزن|🎈;crew|طاقم|👩‍🚀;experiment|تجربة|🧪;launch|إطلاق|🚀",
   c:[["How do astronauts sleep in space?","They sleep in sleeping bags that are attached to the wall.","They sleep floating freely and bump into things.","They never sleep in space."],["Why do astronauts exercise for two hours a day?","Because without gravity, their muscles and bones get weaker.","Because they are bored.","Because the station is too small."],["How many times does the station orbit the Earth each day?","About sixteen times.","Once a year.","Never, it stays still."],["Who were the first Saudi astronauts to visit the space station?","Rayyanah Barnawi and Ali AlQarni, in 2023.","Nobody has ever gone.","A famous falcon."]],
@@ -453,7 +553,7 @@ const LV=[
   rq:[["What is one new question about space?","Should companies mine asteroids?","Is the Moon made of cheese?","How old is the Sun?"],["What does the Outer Space Treaty say?","No country can claim the Moon.","Every country owns part of the Moon.","Only companies can use space."],["When was the treaty written?","in 1967","in 2020","in 1800"],["What do many experts believe?","The world needs new agreements.","The old treaty is perfect.","Space should be closed."]]}
  ]},
 {en:"Literature Library",ar:"مكتبة الأدب",sub:"القصص والشعر والتعابير الاصطلاحية",icon:"📚",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي أمين المكتبة",
- games:["spell","hide","gap","unscramble","sentence","tf"],
+ games:["letter","hide","gap","unscramble","order","tf"],
  lessons:[
  {en:"Elements of a Story",ar:"عناصر القصة",v:"character|شخصية|🧑;setting|المكان والزمان|🏞️;plot|الحبكة|🧵;conflict|الصراع|⚔️;climax|الذروة|⛰️;resolution|الحل|🏁",
   c:[["What is the setting of a story?","The time and place where the story happens.","The person who wrote the story.","The price of the book."],["What is the climax?","The most exciting moment, when the conflict reaches its peak.","The first page of the book.","The list of characters."],["Who is your favorite character in a book, and why?","I like Sindbad because he's brave and curious.","I like character because book.","Favorite character is me."],["What usually happens in the resolution?","The conflict is solved and the story ends.","The story starts again from the beginning.","A new book begins."]],
@@ -493,7 +593,7 @@ const LV=[
   rq:[["Who are the main characters?","two cousins, Lama and Saud","a grandfather and his son","two explorers from Europe"],["Where do they find the map?","in their grandfather's house","in a library","in the desert"],["How does the cousins' relationship change?","from arguments to deep trust","from friends to enemies","it doesn't change"],["What is the reviewer's criticism?","Some chapters are predictable.","The descriptions are bad.","It is too long."]]}
  ]},
 {en:"Leaders' Council",ar:"مجلس القادة",sub:"القيادة والخطابة والإقناع",icon:"🏛️",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي رئيس المجلس",
- games:["balloons","gap","search","sentence","fly","spell"],
+ games:["balloons","hear","search","sentence","fly","spell"],
  lessons:[
  {en:"Qualities of a Leader",ar:"صفات القائد",v:"vision|رؤية|🔭;integrity|نزاهة|🧭;empathy|تعاطف|🤗;delegate|يفوّض|📋;inspire|يلهم|✨;accountable|مسؤول|⚖️",
   c:[["What do you think is the most important quality of a leader?","Integrity, because people need to trust their leader.","Being the loudest person.","Leader quality important is."],["What does it mean to delegate?","To give tasks to others and trust them to do them.","To do every task yourself.","To cancel all the tasks."],["How should a leader react when the team fails?","Take responsibility and help the team learn from it.","Blame everyone else.","Pretend nothing happened."],["Have you ever led a group?","Yes, I led my class's charity campaign last year.","Yes, I have lead it last year ago.","Group has led me."]],
@@ -577,24 +677,49 @@ const LV=[
 /* ===================== ENGINE (shared by the six parts; the part file above defines PART and LV) ===================== */
 /* In every question / conversation row, the first answer is the correct one; options are shuffled on screen. */
 const LEVELS=['مبتدئ','مبتدئ متقدم','أساسي','أساسي متقدم','متوسط','متوسط متقدم'];
-const GN={match:"طابق الكلمة بالصورة",memory:"لعبة الذاكرة",listen:"اسمع واختر",hide:"الغميضة",tf:"صح أم خطأ؟",pop:"فقاعات الكلمات",fly:"طيران أولي",unscramble:"رتّب الحروف",balloons:"بالونات أولي",search:"البحث عن الكلمات",gap:"الكلمة الناقصة",spell:"اكتب الكلمة",sentence:"رتّب الجملة"};
-const GE={match:"🧩",memory:"🃏",listen:"👂",hide:"🌳",tf:"✅",pop:"🫧",fly:"🐥",unscramble:"🔤",balloons:"🎈",search:"🔎",gap:"✏️",spell:"⌨️",sentence:"🧱"};
+const GN={match:"طابق الكلمة بالصورة",memory:"لعبة الذاكرة",listen:"اسمع واختر",hide:"الغميضة",tf:"صح أم خطأ؟",pop:"فقاعات الكلمات",fly:"طيران أولي",seq:"تذكّر الترتيب",bingo:"بنغو الكلمات",race:"سباق الأرنب",unscramble:"رتّب الحروف",letter:"الحرف الناقص",balloons:"بالونات أولي",search:"البحث عن الكلمات",gap:"الكلمة الناقصة",hear:"أي جملة سمعت؟",order:"رتّب القصة",spell:"اكتب الكلمة",sentence:"رتّب الجملة"};
+const GE={match:"🧩",memory:"🃏",listen:"👂",hide:"🌳",tf:"✅",pop:"🫧",fly:"🐥",seq:"🧠",bingo:"🎯",race:"🐇",unscramble:"🔤",letter:"🔡",balloons:"🎈",search:"🔎",gap:"✏️",hear:"💬",order:"📚",spell:"⌨️",sentence:"🧱"};
 const GAMES=Object.keys(GN);
 const ACTS=[["c","محادثة","Talk with Ollie","chat"],["l","استماع","Listen & answer","ear"],["r","قراءة","Read & answer","book"],["g","لعبة","Game time","game"]];
 /* Everything Ollie says outside the lessons. Each line must already be a recorded clip (src/build.py checks). */
 /*SAY-START*/
 const SAY={
  hello:["Hello!","Hi!","Nice to meet you!","Let's play!"],
+ morning:"Good morning.",evening:"Good evening.",
  stars:["Try again!","Good try!","Great job!","Excellent!"],
- top:["Excellent!","Congratulations!","Yay!"],
+ top:["Excellent!","Congratulations!","Yay!","That was fun!"],
  daily:["Congratulations!","See you tomorrow!"],
+ hat:["My hat!","Look!","Cool!"],
+ look:["Look!","Cool!","Thank you!","Thanks!"],
+ go:["I'm ready.","You can start.","Let's play!"],
+ cards:["Great!","Great job!"],
+ story:"Listen!",
  test:"Hello! I am Ollie. Let's learn English together!"
 };
 /*SAY-END*/
+/* Shown in the parents corner and in "what is new", so a family can tell which copy their phone is showing. */
+const VER={n:3,day:'10 نوفمبر 2026'};
 const DAILY_ST=['🦉','🦊','🐬','🦄','🐼','🦁','🐯','🐨','🐙','🦋','🐢','🦜','🐳','🦒','🦓','🐘','🦔','🐿️','🦩','🐧','🦥','🦦','🦕','🚀','🌈','🏆','💎','🪁','🧸','🎯'];
 
 /* ===================== HELPERS ===================== */
-const BIRD=(sz=40)=>`<svg width="${sz}" height="${sz}" viewBox="0 0 64 64" aria-hidden="true"><path d="M27 15c-1-6 3-10 8-9-3 2-4 5-3 8z" fill="#F29E1F"/><path d="M33 13c2-5 7-6 10-4-3 1-5 3-6 6z" fill="#F29E1F"/><ellipse cx="31" cy="37" rx="22" ry="20" fill="#FFC23B"/><ellipse cx="33" cy="44" rx="13" ry="10" fill="#FFE7A3"/><path d="M11 36c-6 1-9 6-9 10 6 1 12-2 15-6z" fill="#F29E1F"/><path d="M18 37c3 9 14 12 19 7-4-2-11-9-19-7z" fill="#E8901A"/><circle cx="40" cy="29" r="5" fill="#1A2A3A"/><circle cx="41.8" cy="27.2" r="1.7" fill="#fff"/><path d="M50 31l11 3.5L50 38z" fill="#F0702A"/><circle cx="45" cy="38" r="3.2" fill="#FF8A80" opacity=".55"/><path d="M26 56v5M34 56v5" stroke="#F0702A" stroke-width="2.6" stroke-linecap="round"/></svg>`;
+/* Ollie's clothes, drawn in his own 64-unit box. u: drawn behind him; bare: worn instead of his head feathers */
+const ART={
+ cap:{bare:1,d:'<path d="M15 23.5C15 6 47 6 47 23.5z" fill="#E0442E"/><path d="M44 19.6c8-1.8 14 1 17 6.2-6 .8-12 0-17-1.6z" fill="#B3301E"/><circle cx="31" cy="10.6" r="1.8" fill="#B3301E"/>'},
+ flower:{d:'<g fill="#FF7EB6"><circle cx="21" cy="13.4" r="3.2"/><circle cx="25.4" cy="16.6" r="3.2"/><circle cx="23.7" cy="21.7" r="3.2"/><circle cx="18.3" cy="21.7" r="3.2"/><circle cx="16.6" cy="16.6" r="3.2"/></g><circle cx="21" cy="18" r="2.7" fill="#FFD23F"/>'},
+ phones:{d:'<path d="M24.5 26C22 14 27 9.6 33.5 10" fill="none" stroke="#1F2A37" stroke-width="3.4" stroke-linecap="round"/><circle cx="24.5" cy="30" r="6.6" fill="#1F2A37"/><circle cx="24.5" cy="30" r="3.4" fill="#2B9FE8"/>'},
+ party:{bare:1,d:'<path d="M21 21.5L32-9l11 30.5z" fill="#6447D1"/><path d="M27.6 3h8.8l1.8 5H25.8z" fill="#FFBE2E"/><path d="M24 13h16l1.5 4h-19z" fill="#2DB866"/><ellipse cx="32" cy="21.5" rx="11.6" ry="2.6" fill="#FFBE2E"/><circle cx="32" cy="-9" r="3.5" fill="#DD444A"/>'},
+ crown:{bare:1,d:'<path d="M18.5 22.5l-2-16 8 6.500L31 3l6.5 10 8-6.5-2 16z" fill="#FFE08A" stroke="#B37600" stroke-width="1.4" stroke-linejoin="round"/><circle cx="31" cy="16" r="2.3" fill="#DD444A"/><circle cx="24" cy="17.5" r="1.5" fill="#2B6FCC"/><circle cx="38" cy="17.5" r="1.5" fill="#27A85A"/>'},
+ wizard:{bare:1,d:'<path d="M19 21.5C25 14 27 2 36-10c3 12 5 24 9 31.500z" fill="#5B3FD6"/><ellipse cx="32" cy="21.8" rx="17" ry="3.9" fill="#4630A8"/><circle cx="31" cy="8" r="1.7" fill="#FFE08A"/><circle cx="36.5" cy="15" r="1.3" fill="#FFE08A"/><circle cx="27" cy="15.5" r="1.1" fill="#FFE08A"/>'},
+ glasses:{d:'<circle cx="40" cy="29" r="7.4" fill="#BFE6FF" fill-opacity=".22" stroke="#1F2A37" stroke-width="2.2"/><path d="M32.7 28L21 25.500M47.3 28.300l3.2.8" fill="none" stroke="#1F2A37" stroke-width="2.2" stroke-linecap="round"/>'},
+ shades:{d:'<path d="M32.5 23.500H48v4a7 7 0 0 1-7 7h-1.500a7 7 0 0 1-7-7z" fill="#1F2A37"/><path d="M36 26.500h4.5" stroke="#fff" stroke-opacity=".55" stroke-width="1.5" stroke-linecap="round"/><path d="M33 25.500L21 23.5" stroke="#1F2A37" stroke-width="2.4" stroke-linecap="round"/>'},
+ bow:{d:'<path d="M45 48l-9-5.500v11zM45 48l9-5.500v11z" fill="#DD444A"/><circle cx="45" cy="48" r="2.7" fill="#A82B31"/>'},
+ scarf:{d:'<path d="M11 39.500c10 7 29 8 40 2l1 5c-11 7-30 6-41.5-1.500z" fill="#2B6FCC"/><path d="M19 47.500l-2.5 12.5 7 1 2-12z" fill="#2460B0"/><path d="M17.3 55.500l7 1" stroke="#FFE08A" stroke-width="1.6"/>'},
+ medal:{d:'<path d="M27 38l6 9.5 6-9.5" fill="none" stroke="#DD444A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="33" cy="49.5" r="5.2" fill="#FFE08A" stroke="#B37600" stroke-width="1.3"/><circle cx="33" cy="49.5" r="1.9" fill="#B37600"/>'},
+ cape:{u:1,d:'<path d="M25 22C8 24 0 42-3 60c9-6 17-2 27-7z" fill="#DD444A"/><path d="M-3 60c9-6 17-2 27-7l-1-5c-9 4-17 2-24 6z" fill="#A82B31"/>'}
+};
+const BIRD=(sz=40,on)=>{const w=Object.values(on||LOOK.on).map(id=>ART[id]).filter(Boolean),lay=u=>w.filter(a=>!a.u===!u).map(a=>a.d).join('');
+ return `<svg width="${sz}" height="${sz}" viewBox="0 0 64 64" style="overflow:visible" aria-hidden="true">${lay(1)}${w.some(a=>a.bare)?'':'<path d="M27 15c-1-6 3-10 8-9-3 2-4 5-3 8z" fill="#F29E1F"/><path d="M33 13c2-5 7-6 10-4-3 1-5 3-6 6z" fill="#F29E1F"/>'}<ellipse cx="31" cy="37" rx="22" ry="20" fill="#FFC23B"/><ellipse cx="33" cy="44" rx="13" ry="10" fill="#FFE7A3"/><path d="M11 36c-6 1-9 6-9 10 6 1 12-2 15-6z" fill="#F29E1F"/><path d="M18 37c3 9 14 12 19 7-4-2-11-9-19-7z" fill="#E8901A"/><circle cx="40" cy="29" r="5" fill="#1A2A3A"/><circle cx="41.8" cy="27.2" r="1.7" fill="#fff"/><path d="M50 31l11 3.5L50 38z" fill="#F0702A"/><circle cx="45" cy="38" r="3.2" fill="#FF8A80" opacity=".55"/><path d="M26 56v5M34 56v5" stroke="#F0702A" stroke-width="2.6" stroke-linecap="round"/>${lay(0)}</svg>`};
+const RABBIT=`<svg width="46" height="40" viewBox="0 0 64 56" aria-hidden="true"><g stroke="#B9AE9F" stroke-width="1.2"><circle cx="8.5" cy="35" r="6" fill="#fff"/><path d="M41 20c-4-11-3-18 1-19.5 4 .5 6 9 4 20z" fill="#F4F1EC"/><path d="M47 20c0-11 4-17 8-16 3 2 1 11-3 18z" fill="#fff"/><ellipse cx="28" cy="38" rx="20" ry="13" fill="#fff"/><circle cx="47" cy="29" r="11" fill="#fff"/><ellipse cx="17" cy="50" rx="9" ry="4" fill="#F4F1EC"/><ellipse cx="40" cy="50.5" rx="6" ry="3.5" fill="#F4F1EC"/></g><path d="M49 18c1-6 3-10 5-11 1 2 0 7-2 12z" fill="#F7B8C4"/><circle cx="51" cy="27" r="2.3" fill="#1A2A3A"/><circle cx="57.6" cy="31.5" r="1.9" fill="#F28CA0"/></svg>`;
 const BUSH=`<svg class="bush-art" viewBox="0 0 100 64" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="46" rx="48" ry="20" fill="#1F8F4E"/><circle cx="24" cy="34" r="20" fill="#27A85A"/><circle cx="52" cy="26" r="24" fill="#2DB866"/><circle cx="78" cy="36" r="19" fill="#27A85A"/><ellipse cx="50" cy="58" rx="50" ry="12" fill="#17733C"/><circle cx="38" cy="30" r="3" fill="#FF8A80"/><circle cx="66" cy="40" r="3" fill="#FFE7A3"/></svg>`;
 const BALLOON=c=>`<svg viewBox="0 0 30 56" aria-hidden="true"><path d="M15 36c-3 6 3 10 0 19" fill="none" stroke="#8795A1" stroke-width="1.4"/><ellipse cx="15" cy="18" rx="13" ry="17" fill="${c}"/><path d="M12 36h6l-3-4z" fill="${c}"/><ellipse cx="10" cy="11" rx="3" ry="5" fill="#fff" opacity=".45"/></svg>`;
 const BCOL=['#DD444A','#2B6FCC','#27A85A','#FFBE2E','#6447D1','#E0702A'];
@@ -604,6 +729,12 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const pick=a=>a[Math.random()*a.length|0];
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
+/* Ollie's wardrobe is one for the six parts: they live on the same site, so they share this key. */
+const LKEY='ollie-english-look';
+let LOOK={have:{},on:{},fresh:{}};
+try{const raw=localStorage.getItem(LKEY);if(raw)LOOK=Object.assign(LOOK,JSON.parse(raw))}catch(e){}
+['have','on','fresh'].forEach(k=>{if(!LOOK[k]||typeof LOOK[k]!=='object')LOOK[k]={}});
+function saveLook(){try{localStorage.setItem(LKEY,JSON.stringify(LOOK))}catch(e){}}
 
 /*PURE-START*/
 /* No page needed for these: tools/ollie-check.js runs them over every lesson. */
@@ -640,10 +771,21 @@ function gapItems(L){
  }
  return [...voc,...rest];
 }
+wordsFor.letter=L=>V(L).filter(v=>/^[a-z]{3,10}$/i.test(v.en));
+/* sentences of a lesson that a child can tell apart by ear: its answers and the sentences of its two texts */
+/* quotation marks in a piece of text (apostrophes inside words are not counted): an odd number means it was cut inside a quotation */
+const quoteMarks=s=>(s.match(/(^|[^A-Za-z])'|'(?![A-Za-z])|"/g)||[]).length;
+const hearPool=L=>!L.c||!L.l||!L.r?[]:[...new Set([...L.c.map(c=>c[1]),...splitS(L.l),...splitS(L.r)])].filter(s=>{const n=s.split(' ').length;return n>=3&&n<=14&&quoteMarks(s)%2===0});
+/* the lesson's story (then its listening text) cut into runs of four sentences in a row, two runs at most */
+const orderSets=L=>{const out=[];for(const t of [L.r,L.l]){const ss=splitS(t||'');
+ for(let k=0;k+4<=ss.length&&out.length<2;){const run=ss.slice(k,k+4);if(new Set(run).size===4&&run.every(s=>s.split(' ').length<=20&&quoteMarks(s)%2===0)){out.push(run);k+=4}else k++}}return out};
 function canPlay(g,L){switch(g){
- case'unscramble':case'spell':case'balloons':case'search':return wordsFor[g](L).length>=3;
+ case'unscramble':case'spell':case'balloons':case'search':case'letter':return wordsFor[g](L).length>=3;
  case'sentence':return sentFor(L).length>=2;
  case'gap':return gapItems(L).length>=4;
+ case'hear':return hearPool(L).length>=5;
+ case'order':return orderSets(L).length>=1;
+ case'bingo':return V(L).length>=5;
  default:return V(L).length>=4}}
 /*PURE-END*/
 
@@ -763,10 +905,10 @@ const ding=()=>sfx('ok'),buzz=()=>sfx('no');
 
 /* ---------- progress ---------- */
 const KEY='ollie-english-part'+PART;
-let P={s:{},all:false,name:'',given:0,x:{},m:{},d:{day:'',streak:0,best:0,n:0}};
+let P={s:{},all:false,name:'',given:0,x:{},m:{},d:{day:'',streak:0,best:0,n:0},hi:0,rd:{},nw:0};
 try{const raw=localStorage.getItem(KEY);if(raw)P=Object.assign(P,JSON.parse(raw))}catch(e){}
 delete P.tr;
-if(!P.x||typeof P.x!=='object')P.x={};if(!P.m||typeof P.m!=='object')P.m={};
+if(!P.x||typeof P.x!=='object')P.x={};if(!P.m||typeof P.m!=='object')P.m={};if(!P.rd||typeof P.rd!=='object')P.rd={};
 P.d=Object.assign({day:'',streak:0,best:0,n:0},P.d||{});
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
 let st0;const saveSoon=()=>{clearTimeout(st0);st0=setTimeout(save,700)};
@@ -794,6 +936,25 @@ const dayGap=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))
 const doneToday=()=>P.d.day===dayStr();
 const streakNow=()=>P.d.day&&dayGap(P.d.day,dayStr())<=1?P.d.streak:0;
 const daysAr=n=>n===1?'يوم واحد':n===2?'يومان':n<=10?`${n} أيام`:`${n} يومًا`;
+/* wardrobe: each piece is a present for reaching `goal` in `get()`; `slot` is where Ollie wears it (one piece per slot) */
+const lessonsDone=()=>LV.reduce((t,lv,l)=>t+lv.lessons.filter((_,i)=>lessonDone(l,i)).length,0);
+const WEAR=[
+ {id:'cap',slot:'head',ar:'قبعة',need:'أكمل درسًا واحدًا',goal:1,get:lessonsDone},
+ {id:'flower',slot:'head',ar:'زهرة',need:'أنهِ تحدي اليوم مرة',goal:1,get:()=>P.d.n},
+ {id:'bow',slot:'neck',ar:'ربطة عنق',need:'اجمع 20 نجمة',goal:20,get:()=>totalStars()},
+ {id:'glasses',slot:'eyes',ar:'نظارة',need:'جرّب 6 ألعاب مختلفة من «ألعاب أكثر»',goal:6,get:()=>new Set(Object.keys(P.x).map(k=>k.split('-')[2])).size},
+ {id:'phones',slot:'head',ar:'سماعات',need:'خذ 3 نجوم في 3 أنشطة استماع',goal:3,get:()=>Object.keys(P.s).filter(k=>/-l$/.test(k)&&P.s[k]===3).length},
+ {id:'scarf',slot:'neck',ar:'وشاح',need:'أكمل 5 دروس',goal:5,get:lessonsDone},
+ {id:'party',slot:'head',ar:'قبعة الحفلة',need:'العب تحدي اليوم 3 أيام متتالية',goal:3,get:()=>P.d.best||0},
+ {id:'medal',slot:'neck',ar:'ميدالية',need:'أجب عن 12 سؤالًا في تحدي الدقيقة',goal:12,get:()=>P.hi||0},
+ {id:'shades',slot:'eyes',ar:'نظارة شمسية',need:'اجمع 80 نجمة',goal:80,get:()=>totalStars()},
+ {id:'crown',slot:'head',ar:'تاج',need:'فُز بتحدي عالم',goal:1,get:()=>LV.filter((_,l)=>P.s[bossKey(l)]>0).length},
+ {id:'cape',slot:'back',ar:'رداء البطل',need:'العب تحدي اليوم 7 أيام متتالية',goal:7,get:()=>P.d.best||0},
+ {id:'wizard',slot:'head',ar:'قبعة الساحر',need:'اجمع نجوم 3 دروس كاملة (12 من 12)',goal:3,get:()=>LV.reduce((t,lv,l)=>t+lv.lessons.filter((_,i)=>lessonStars(l,i)===12).length,0)}
+];
+/* hands over every piece just earned and returns them */
+function newWear(){const got=WEAR.filter(w=>!LOOK.have[w.id]&&w.get()>=w.goal);got.forEach(w=>{LOOK.have[w.id]=1;LOOK.fresh[w.id]=1});if(got.length)saveLook();return got}
+const giftLine=()=>{const g=newWear();return g.length?`<div class="newst gift2"><span class="we">${BIRD(40,{[g[0].slot]:g[0].id})}</span><b>هدية لخزانة أولي: ${g[0].ar}!</b></div>`:''};
 
 function h(title,back,html){
  app.innerHTML=`<header class="bar">${back?`<button class="iconbtn" id="back" aria-label="رجوع">${icon('back')}</button>`:'<span class="iconbtn ph"></span>'}<div class="bar-t">${title}</div><div class="pill">${icon('star',1)}<span>${totalStars()}</span></div></header>`+html;
@@ -805,14 +966,19 @@ function h(title,back,html){
 function home(){
  stopAll();setLv(null);
  const nm=P.name||'';const hi=nm?`أهلًا يا ${esc(nm)}!`:'أهلًا يا بطل!';
- const sk=streakNow(),dn=doneToday(),tr=tricky().length;
+ const sk=streakNow(),dn=doneToday(),tr=tricky().length;newWear();const fr=Object.keys(LOOK.fresh).length;
  h('أولي · الجزء '+PART,null,`
- <section class="hero"><button class="owl" id="ollie" aria-label="اضغط على أولي ليكلمك">${BIRD(70)}</button><div><p class="hello">${hi}</p><h1 dir="ltr">I'm Ollie. Let's learn English together!</h1><p class="partb">الجزء ${PART} · المستوى: ${LEVELS[PART-1]}</p><p class="muted">٥ عوالم · ٣٠ درسًا · ١٣ لعبة · ٥ تحديات كبرى</p></div></section>
+ <section class="hero"><button class="owl" id="ollie" aria-label="اضغط على أولي ليكلمك">${BIRD(70)}</button><div><p class="hello">${hi}</p><h1 dir="ltr">I'm Ollie. Let's learn English together!</h1><p class="partb">الجزء ${PART} · المستوى: ${LEVELS[PART-1]}</p><p class="muted">٥ عوالم · ٣٠ درسًا · ${String(GAMES.length).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])} لعبة · ٥ تحديات كبرى</p></div></section>
+ ${P.nw===VER.n?'':`<div class="news" id="nw"><b>🎁 جديد في أولي</b><ul>${NEWS.slice(0,4).map(x=>`<li>${x}</li>`).join('')}</ul><div class="btns"><button class="go" id="nwm">أرني كل الجديد</button><button class="ghost" id="nwx">فهمت</button></div></div>`}
  <button class="daily ${dn?'done':''}" id="toD"><span class="d-ic">${dn?'✅':'🔥'}</span><span class="d-t"><b>تحدي اليوم</b><small>${dn?'أنجزته اليوم! عُد غدًا لتكبر سلسلتك.':'٨ أسئلة سريعة، وتكسب ملصقًا جديدًا.'}</small></span><span class="d-n"><b>${sk}</b><small>سلسلة الأيام</small></span></button>
  <div class="tiles4">
   <button class="tile4" id="toQ"><span>🎲</span><b>لعبة سريعة</b></button>
+  <button class="tile4" id="toR"><span>⏱️</span><b>تحدي الدقيقة</b>${P.hi?`<i class="dot best" aria-label="أفضل رقم">${P.hi}</i>`:''}</button>
+  <button class="tile4" id="toL"><span>📚</span><b>مكتبة القصص</b></button>
+  <button class="tile4" id="toC"><span>🎩</span><b>خزانة أولي</b>${fr?`<i class="dot" aria-label="قطع جديدة">${fr}</i>`:''}</button>
   <button class="tile4" id="toA"><span>🏅</span><b>ملصقاتي</b></button>
   <button class="tile4" id="toW"><span>📖</span><b>قاموسي</b>${tr?`<i class="dot" aria-label="كلمات للتدريب">${tr}</i>`:''}</button>
+  <button class="tile4" id="toN"><span>🎁</span><b>ما الجديد</b></button>
   <button class="tile4" id="toP"><span>👪</span><b>الوالدان</b></button>
  </div>
  ${(()=>{const r=readyBoard(),pts=totalStars()%10;return `<div class="link"><span class="big">${r}</span><div style="flex:1;min-width:0"><b>${r?(r===1?'نجمة جاهزة للوحة النجوم!':'نجوم جاهزة للوحة النجوم!'):'نجوم لوحة البطل'}</b><small>${r?'أرِ أهلك هذه الشاشة ليضعوا لك النجوم في لوحتك. ':''}كل 10 نجوم هنا = نجمة في لوحتك. معك ${pts} من 10 للنجمة التالية.</small><span class="prog sun"><span style="width:${pts*10}%"></span></span></div></div>`})()}
@@ -826,8 +992,11 @@ function home(){
    <small>${done} من 6 دروس · ${s} نجمة${boss?' · فاز بالتحدي 👑':''}</small></span>${un?'':icon('lock')}</button>`}).join('')}</div>
  <nav class="parts" aria-label="أجزاء أولي"><span>أجزاء أولي</span>${LEVELS.map((_,k)=>k+1===PART?`<b aria-current="page">${k+1}</b>`:`<a href="${k+2}.html">${k+1}</a>`).join('')}</nav>`);
  $$('.world').forEach(b=>b.onclick=()=>{const l=+b.dataset.l;if(!levelUnlocked(l))return toast('اهزم تحدي العالم السابق لفتح هذا العالم');ctx.l=l;level()});
- $('#ollie').onclick=()=>{const o=$('#ollie');o.classList.remove('hop');void o.offsetWidth;o.classList.add('hop');say(pick(SAY.hello))};
+ $('#ollie').onclick=()=>{const o=$('#ollie'),hr=new Date().getHours();o.classList.remove('hop');void o.offsetWidth;o.classList.add('hop');
+  say(pick([...SAY.hello,...(hr>=5&&hr<12?[SAY.morning,SAY.morning]:hr>=18&&hr<22?[SAY.evening,SAY.evening]:[])]))};
  $('#toD').onclick=dailyIntro;$('#toQ').onclick=quick;$('#toA').onclick=album;$('#toW').onclick=words;$('#toP').onclick=parents;
+ $('#toR').onclick=rushIntro;$('#toL').onclick=library;$('#toC').onclick=wardrobe;$('#toN').onclick=whatsNew;
+ if($('#nw')){$('#nwx').onclick=()=>{P.nw=VER.n;save();$('#nw').remove()};$('#nwm').onclick=()=>{P.nw=VER.n;save();whatsNew()}}
 }
 
 function level(){
@@ -847,13 +1016,13 @@ function lesson(){
  stopAll();const lv=LV[ctx.l],L=cur(),main=gameOf(ctx.l,ctx.i);setLv(lv);
  h(`الدرس ${ctx.i+1}`,level,`
  <div class="les-h"><p class="muted">${lv.ar} · الدرس ${ctx.i+1}</p><h1 dir="ltr">${esc(L.en)}</h1><p>${esc(L.ar)}</p></div>
- <p class="sec-t">كلمات الدرس · اضغط لتسمع</p>
+ <div class="sec-row"><p class="sec-t">كلمات الدرس · اضغط لتسمع</p><button class="ghost mini" id="fcb">🃏 بطاقات الكلمات</button></div>
  <div class="vocab">${V(L).map(v=>`<button class="vw" data-say="${esc(v.en)}"><span class="e">${v.em}</span><b>${esc(v.en)}</b><small>${esc(v.ar)}</small></button>`).join('')}</div>
  <p class="sec-t">الأنشطة</p>
  <div class="acts">${ACTS.map(([a,ar,en,ic])=>`<button class="act" data-a="${a}"><span class="ai">${icon(ic)}</span><b>${a==='g'?GN[main]:ar}</b><small>${en}</small>${starRow(st(ctx.l,ctx.i,a))}</button>`).join('')}</div>
  <p class="sec-t">ألعاب أكثر بكلمات هذا الدرس</p>
  <div class="xg">${GAMES.filter(g=>g!==main&&canPlay(g,L)).map(g=>{const s=P.x[`${ctx.l}-${ctx.i}-${g}`]||0;return `<button class="xb" data-g="${g}"><span class="xe">${GE[g]}</span><b>${GN[g]}</b>${s?starRow(s):''}</button>`}).join('')}</div>`);
- $$('.act').forEach(b=>b.onclick=()=>startAct(b.dataset.a));
+ $$('.act').forEach(b=>b.onclick=()=>startAct(b.dataset.a));$('#fcb').onclick=flash;
  $$('.xb').forEach(b=>b.onclick=()=>playX(b.dataset.g,L,lesson,`${ctx.l}-${ctx.i}-${b.dataset.g}`));
  warm([...V(L).map(v=>v.en),...L.c.flatMap(c=>[c[0],c[1]])]);
 }
@@ -915,10 +1084,12 @@ function actListen(){
  setTimeout(()=>token===RUN&&readAloud(L.l,tx,false,$('#pl')),400);
 }
 
+/* a text whose every word can be tapped to hear it, one .sn span per sentence */
+const tapText=t=>splitS(t).map(s=>`<span class="sn">${s.split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:`<span class="w" data-say="${esc(w.replace(/[^A-Za-z0-9'-]/g,''))}">${esc(w)}</span>`).join('')}</span>`).join(' ');
 /* ---------- reading ---------- */
 function actRead(){
  const L=cur(),token=RUN;
- const words=splitS(L.r).map(s=>`<span class="sn">${s.split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:`<span class="w" data-say="${esc(w.replace(/[^A-Za-z0-9'-]/g,''))}">${esc(w)}</span>`).join('')}</span>`).join(' ');
+ const words=tapText(L.r);
  h(actTitle('قراءة'),lesson,`<div class="pane">
   <p class="tip">اقرأ القطعة. اضغط على أي كلمة لا تعرفها لتسمعها.</p>
   <div class="text" id="tx" dir="ltr">${words}</div>
@@ -942,7 +1113,7 @@ function runGame(g,L,o){
 function actGame(){runGame(gameOf(ctx.l,ctx.i),cur(),{title:actTitle('لعبة'),back:lesson,done:s=>finish('g',s)})}
 /* a game outside the four lesson activities: its stars are kept apart (P.x) and do not count for the star board */
 function playX(g,L,back,key){runGame(g,L,{title:`${esc(L.en)} · ${GN[g]}`,back,done:s=>finishX(g,L,s,back,key)})}
-function quick(){const x=pick(openLessons());ctx.l=x.l;ctx.i=x.i;setLv(LV[x.l]);const g=pick(GAMES.filter(g=>canPlay(g,x.L)));playX(g,x.L,home,`${x.l}-${x.i}-${g}`)}
+function quick(only){const x=pick(openLessons());ctx.l=x.l;ctx.i=x.i;setLv(LV[x.l]);const g=pick((Array.isArray(only)?only:GAMES).filter(g=>canPlay(g,x.L)));playX(g,x.L,home,`${x.l}-${x.i}-${g}`)}
 const G=html=>{$('#g').innerHTML=html};
 
 function gMatch(L,done){
@@ -1145,8 +1316,10 @@ function gSearch(L,done,token){
  const line=(p,q)=>{const dr=q.r-p.r,dc=q.c-p.c;if(dr&&dc)return[p];const n=Math.abs(dr||dc),sr=Math.sign(dr),sc=Math.sign(dc);return Array.from({length:n+1},(_,k)=>({r:p.r+sr*k,c:p.c+sc*k}))};
  const paint=()=>{$$('#wg .sel').forEach(x=>x.classList.remove('sel'));sel.forEach(p=>cell(p).classList.add('sel'))};
  const same=(x,y)=>x.length===y.length&&x.every((p,k)=>p.r===y[k].r&&p.c===y[k].c);
- function commit(){const got=put.find(p=>!p.found&&(same(p.cs,sel)||same(p.cs,[...sel].reverse())));
-  if(got){got.found=true;got.cs.forEach(p=>cell(p).classList.add('fd','f'+put.indexOf(got)));ding();hit(got.v.en);say(got.v.en);list();
+ function commit(){const str=sel.map(p=>grid[p.r][p.c]).join(''),rev=[...str].reverse().join('');
+  /* a word counts wherever its letters are found, also inside a longer one (AGREE in DISAGREE) or spelled by chance */
+  const got=put.find(p=>!p.found&&(same(p.cs,sel)||same(p.cs,[...sel].reverse())))||put.find(p=>!p.found&&(p.w===str||p.w===rev));
+  if(got){got.found=true;got.cs=[...sel];got.cs.forEach(p=>cell(p).classList.add('fd','f'+put.indexOf(got)));ding();hit(got.v.en);say(got.v.en);list();
    if(put.every(p=>p.found)){over=true;setTimeout(()=>{if(token===RUN)done(starsFrom(mis,1,4))},1100)}}
   else if(sel.length>1){mis++;buzz();wg.classList.add('shake');setTimeout(()=>wg.classList.remove('shake'),400)}
   sel=[];a=null;armed=false;paint()}
@@ -1185,7 +1358,119 @@ function gFly(L,done,token){
    requestAnimationFrame(step)})(last);}
  round();
 }
-const GFN={match:gMatch,memory:gMemory,listen:gListen,hide:gHide,tf:gTF,pop:gPop,fly:gFly,unscramble:gUnscr,balloons:gBalloons,search:gSearch,gap:gGap,spell:gSpell,sentence:gSentence};
+/* remember the order: Ollie says a few words, then you tap their pictures in the same order */
+function gSeq(L,done,token){
+ const all=V(L),lens=(hardMode()?[2,3,3,4,4]:[2,2,3,3,4]).map(n=>Math.min(n,all.length-1));let r=0,mis=0;
+ function round(){if(token!==RUN)return;const seq=shuffle(all).slice(0,lens[r]),cells=shuffle(all);let at=0,fails=0,busy=true,over=false;
+  G(`<p class="tip">اسمع كلمات أولي، ثم اضغط صورها بالترتيب نفسه. (${r+1} من ${lens.length})</p>
+   <div class="seqbar"><button class="play" id="sq">${icon('spk')}<span>اسمع</span></button><div class="seqdots" id="sd" dir="ltr"></div></div>
+   <div class="grid3 wait" id="sg">${cells.map((v,k)=>`<button class="tile em big" data-k="${k}">${v.em}</button>`).join('')}</div><p class="fixline" id="sm" dir="ltr"></p>`);
+  const sg=$('#sg'),sq=$('#sq'),words=()=>{$('#sm').textContent=seq.map(x=>x.en).join('  →  ')};
+  const dots=()=>{$('#sd').innerHTML=seq.map((v,k)=>`<span class="sdot${k<at?' on':''}">${k<at?v.em:k+1}</span>`).join('')};
+  async function tell(){busy=true;sg.classList.add('wait');sq.classList.add('speaking');let heard=false;
+   for(const v of seq){if(await say(v.en))heard=true;if(token!==RUN||!sg.isConnected)return;await wait(240);if(token!==RUN||!sg.isConnected)return}
+   sq.classList.remove('speaking');sg.classList.remove('wait');busy=false;if(!heard)words()}   /* no sound: the words are shown instead */
+  $$('#sg .tile').forEach(b=>b.onclick=()=>{if(busy||over)return;
+   if(cells[+b.dataset.k]===seq[at]){at++;sfx('tap');b.classList.add('pick');setTimeout(()=>b.classList.remove('pick'),260);dots();
+    if(at===seq.length){over=true;ding();seq.forEach(x=>hit(x.en));setTimeout(()=>{if(token!==RUN)return;++r<lens.length?round():done(starsFrom(mis,0,2))},850)}}
+   else{mis++;fails++;miss(seq[at].en);buzz();b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400);at=0;dots();
+    if(fails>=2)words();   /* missed twice: the words stay on the screen */
+    busy=true;setTimeout(()=>{if(token===RUN&&!over&&sg.isConnected)tell()},750)}});
+  sq.onclick=()=>{if(busy||over)return;at=0;dots();tell()};
+  dots();setTimeout(()=>{if(token===RUN&&sg.isConnected)tell()},400);}
+ round();
+}
+
+/* bingo: nine tiles, pictures and written words; tap what Ollie calls; two full lines win */
+function gBingo(L,done,token){
+ const all=V(L),hard=hardMode(),a=shuffle(all).map(v=>({v,w:hard?1:0})),b=shuffle(all).map(v=>({v,w:hard?0:1}));
+ const tiles=shuffle([...a,...b.slice(0,9-a.length)]),LINES=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];let mis=0,now=null,lock=true,over=false;
+ G(`<p class="tip">بنغو! اسمع الكلمة واضغط صورتها أو اسمها المكتوب. أكمل خطّين لتفوز.</p>
+  <div class="target"><button class="play" id="bp">${icon('spk')}<span>اسمع الكلمة</span></button><span class="pill" id="bl"></span></div>
+  <div class="bingo" id="bg">${tiles.map((t,k)=>`<button class="bt ${t.w?'wd':'em'}${t.w&&t.v.en.length>9?' sm':''}" data-k="${k}" ${t.w?'dir="ltr"':''}>${t.w?esc(t.v.en):t.v.em}</button>`).join('')}</div>`);
+ const cells=$$('#bg .bt'),lines=()=>LINES.filter(l=>l.every(k=>tiles[k].on)),show=()=>{$('#bl').textContent=`⭐ ${Math.min(2,lines().length)} / 2`};
+ function call(){if(token!==RUN||over)return;const left=tiles.filter(t=>!t.on),other=left.filter(t=>t.v!==now);
+  now=pick(other.length?other:left).v;$('#bp').dataset.say=now.en;lock=false;say(now.en)}
+ cells.forEach((c,k)=>c.onclick=()=>{if(lock||over||tiles[k].on)return;
+  if(tiles[k].v===now){lock=true;tiles[k].on=1;c.classList.add('on');ding();hit(now.en);const ls=lines();ls.flat().forEach(i=>cells[i].classList.add('line'));show();
+   if(ls.length>=2||tiles.every(t=>t.on)){over=true;return setTimeout(()=>{if(token===RUN)done(starsFrom(mis,0,2))},1000)}
+   setTimeout(call,650)}
+  else{mis++;miss(now.en);buzz();c.classList.add('shake');setTimeout(()=>c.classList.remove('shake'),400)}});
+ show();setTimeout(call,400);
+}
+
+/* race: every right answer moves Ollie one step; the rabbit never stops running */
+function gRace(L,done,token){
+ const all=V(L),N=8,qs=[...shuffle(all),...shuffle(all)].slice(0,N),T=((hardMode()?52:66)-ctx.l*2)*1000,t0=performance.now()+1500;let n=0,mis=0,over=false;
+ G(`<p class="tip">سابق الأرنب! كل إجابة صحيحة تدفع أولي خطوة نحو خط النهاية.</p>
+  <div class="track" dir="ltr"><div class="lane"><span class="run" id="rb">${RABBIT}</span></div><div class="lane"><span class="run" id="ro">${BIRD(40)}</span></div><i class="flag">🏁</i></div>
+  <div id="bq" class="pane"></div>`);
+ const rb=$('#rb'),ro=$('#ro'),at=(el,p)=>{el.style.left=`calc(${p} * (100% - 46px))`};
+ function end(win){over=true;if(!win){buzz();toast('وصل الأرنب أولًا! حاول مرة أخرى.')}
+  setTimeout(()=>{if(token===RUN)done(win?(mis<=1?3:2):1)},win?700:1500)}
+ function ask(){if(token!==RUN||over)return;const v=qs[n];let lock=false;
+  askCard($('#bq'),v,all,n%2).forEach((b,_,btns)=>b.onclick=()=>{if(over||lock)return;
+   if(b.dataset.en===v.en){lock=true;b.classList.add('right');ding();hit(v.en);at(ro,++n/N);if(n>=N)return end(true);setTimeout(ask,380)}
+   else if(!b.classList.contains('wrong')){b.classList.add('wrong');mis++;miss(v.en);buzz()}});}
+ (function step(now){if(token!==RUN||over)return;const p=Math.max(0,Math.min(1,(now-t0)/T));at(rb,p);if(p>=1)return end(false);requestAnimationFrame(step)})(performance.now());
+ ask();
+}
+
+/* missing letter: one letter of the word is gone (two in the harder mode) */
+function gLetter(L,done,token){
+ const ws=shuffle(wordsFor.letter(L)).slice(0,6),hard=hardMode(),VOW='aeiou',CON='bcdfghjklmnprstvwy';let r=0,mis=0;
+ function round(){if(token!==RUN)return;const v=ws[r],word=v.en.toLowerCase();
+  const holes=shuffle(word.split('').map((_,k)=>k)).slice(0,hard&&word.length>=5?2:1).sort((x,y)=>x-y);let h=0,over=false;
+  G(`<p class="tip">أي حرف ينقص الكلمة؟ (${r+1} من ${ws.length})</p><div class="clue"><span class="big-em">${v.em}</span><span>${esc(v.ar)}</span><button class="spk" aria-label="استمع" data-say="${esc(v.en)}">${icon('spk')}</button></div>
+   <div class="slots" dir="ltr" id="sl"></div><div class="tiles" dir="ltr" id="tl"></div>`);
+  $('#sl').classList.toggle('long',word.length>7);
+  function draw(){const open=holes.slice(h),ok=word[open[0]];
+   $('#sl').innerHTML=word.split('').map((ch,k)=>`<span class="slot${k===open[0]?' now':''}">${open.includes(k)?'':ch}</span>`).join('');
+   if(over){$('#tl').innerHTML='';return}
+   $('#tl').innerHTML=shuffle([ok,...shuffle((VOW.includes(ok)?VOW:CON).split('').filter(c=>c!==ok)).slice(0,3)]).map(c=>`<button class="ltr" data-c="${c}">${c}</button>`).join('');
+   $$('#tl .ltr').forEach(b=>b.onclick=()=>{if(over||b.disabled)return;
+    if(b.dataset.c===ok){h++;sfx('tap');
+     if(h===holes.length){over=true;draw();ding();hit(v.en);say(v.en);$('#sl').classList.add('ok');setTimeout(()=>{if(token!==RUN)return;++r<ws.length?round():done(starsFrom(mis,0,2))},900)}else draw()}
+    else{b.disabled=true;mis++;miss(v.en);buzz()}})}
+  draw();if(!hard)setTimeout(()=>token===RUN&&!over&&say(v.en),300);}
+ round();
+}
+
+/* which sentence did you hear? */
+function gHear(L,done,token){
+ const pool=hearPool(L),rounds=shuffle(pool).slice(0,5),hard=hardMode();let r=0,mis=0;
+ function round(){if(token!==RUN)return;const s=rounds[r],len=x=>Math.abs(x.split(' ').length-s.split(' ').length);let over=false;
+  const opts=shuffle([s,...shuffle(pool.filter(x=>x!==s)).sort((x,y)=>len(x)-len(y)).slice(0,hard?3:2)]);   /* wrong choices of about the same length */
+  G(`<p class="tip">اسمع أولي جيدًا، ثم اختر الجملة التي قالها. (${r+1} من ${rounds.length})</p>
+   <button class="play" data-say="${esc(s)}">${icon('spk')}<span>اسمع الجملة</span></button>
+   <div class="q-o" dir="ltr">${opts.map(o=>`<button class="opt" data-ok="${o===s?1:0}">${esc(o)}</button>`).join('')}</div>`);
+  setTimeout(()=>token===RUN&&!over&&say(s),300);
+  $$('#g .opt').forEach(b=>b.onclick=()=>{if(over)return;
+   if(b.dataset.ok==='1'){over=true;b.classList.add('right');ding();setTimeout(()=>{if(token!==RUN)return;++r<rounds.length?round():done(starsFrom(mis,0,2))},800)}
+   else if(!b.classList.contains('wrong')){b.classList.add('wrong');mis++;buzz()}});}
+ round();
+}
+
+/* story order: four sentences of the lesson's story, to put back in the order Ollie reads them */
+function gOrder(L,done,token){
+ const sets=orderSets(L),hard=hardMode();let r=0,mis=0;
+ function round(){if(token!==RUN)return;const run=sets[r],text=run.join(' ');let order,tries=0,ans=[],over=false;
+  do{order=shuffle(run.map((_,n)=>n))}while(order.every((n,k)=>n===k)&&++tries<8);
+  G(`<p class="tip">${hard?'رتّب جمل القصة. إذا احترت فاسمعها.':'اسمع القصة جيدًا، ثم اضغط الجمل بترتيبها.'} (${r+1} من ${sets.length})</p>
+   <button class="play" data-say="${esc(text)}">${icon('spk')}<span>اسمع القصة</span></button>
+   <div class="ord" id="ol" dir="ltr"></div><div class="btns"><button class="ghost" id="clr">ابدأ من جديد</button></div>`);
+  const ol=$('#ol');
+  function draw(){ol.innerHTML=order.map(n=>{const p=ans.indexOf(n);return `<button class="oc${p>=0?' in':''}" data-n="${n}"><i>${p>=0?p+1:''}</i><span>${esc(run[n])}</span></button>`}).join('');
+   $$('#ol .oc').forEach(b=>b.onclick=()=>{if(over)return;const n=+b.dataset.n,p=ans.indexOf(n);if(p>=0)ans.splice(p);else{ans.push(n);sfx('tap')}draw();if(ans.length===run.length)check()})}
+  function check(){
+   if(ans.every((n,k)=>n===k)){over=true;order=run.map((_,n)=>n);draw();ol.classList.add('ok');ding();setTimeout(()=>{if(token!==RUN)return;++r<sets.length?round():done(starsFrom(mis,0,2))},1300)}
+   else{over=true;buzz();mis++;ol.classList.add('shake');setTimeout(()=>{if(token!==RUN||!ol.isConnected)return;ol.classList.remove('shake');let k=0;while(ans[k]===k)k++;ans=ans.slice(0,k);over=false;draw()},650)}}   /* the right start stays */
+  $('#clr').onclick=()=>{if(over)return;ans=[];draw()};
+  draw();if(!hard)setTimeout(()=>token===RUN&&!over&&say(text),350);}
+ round();
+}
+const GFN={match:gMatch,memory:gMemory,listen:gListen,hide:gHide,tf:gTF,pop:gPop,fly:gFly,seq:gSeq,bingo:gBingo,race:gRace,unscramble:gUnscr,letter:gLetter,balloons:gBalloons,search:gSearch,gap:gGap,hear:gHear,order:gOrder,spell:gSpell,sentence:gSentence};
+const NEWG=['seq','bingo','race','letter','hear','order'];
 
 /* ---------- question card shared by the world challenge and the daily challenge ---------- */
 /* type 0: picture → English word, 1: hear → picture, 2: Arabic → English word, 3: English word → Arabic */
@@ -1264,6 +1549,7 @@ function dailyEnd(score,total){
   <div class="bigstars">${Array.from({length:3},(_,k)=>`<svg class="ico fill${k<stars?' on':''}" viewBox="0 0 24 24">${IC.star}</svg>`).join('')}</div>
   <h2>${stars>=2?'رائع!':'أحسنت!'}</h2><p class="muted">أجبت عن ${score} من ${total}</p>
   ${first?`<div class="newst"><span>${sticker}</span><b>ملصق جديد في ألبومك!</b></div><p class="gift">🔥 سلسلتك الآن: ${daysAr(P.d.streak)}</p>`:'<p class="muted">تدريب إضافي جميل. الملصق القادم غدًا.</p>'}
+  ${giftLine()}
   <div class="btns"><button class="go" id="al">افتح الألبوم</button><button class="ghost" id="bk">الرئيسية</button></div></div>`);
  say(first?SAY.daily[0]:SAY.daily[1]);
  $('#al').onclick=album;$('#bk').onclick=home;
@@ -1295,6 +1581,7 @@ function finish(a,stars,score){
   ${a==='boss'?`<p class="muted">أجبت عن ${score} من 12</p>`:''}
   ${stars>prev&&prev?`<p class="muted">رقم قياسي جديد!</p>`:''}
   ${newSt?`<div class="newst"><span>${a==='boss'?'👑':V(cur())[0].em}</span><b>ملصق جديد في ألبومك!</b></div>`:''}
+  ${giftLine()}
   ${got?`<p class="gift">🎉 جمعت 10 نجوم! اطلب من أهلك نجمة في لوحة النجوم.</p>`:''}
   ${a==='boss'&&stars&&ctx.l===LV.length-1?`<p style="font-weight:800">أنهيت الجزء ${PART} كله. أنت بطل الإنجليزية! 🏆</p>${PART<LEVELS.length?`<a class="go" href="${PART+2}.html">انتقل إلى الجزء ${PART+1}</a>`:''}`:''}
   <div class="btns">${nextFn?`<button class="go" id="nx">${nextLbl}</button>`:''}<button class="ghost" id="again">أعد المحاولة</button><button class="ghost" id="bk">رجوع</button></div></div>`);
@@ -1309,6 +1596,7 @@ function finishX(g,L,stars,back,key){
  h(`${esc(L.en)} · ${GN[g]}`,back,`<div class="result">${resultHead(stars,msg)}
   ${key&&stars>prev&&prev?`<p class="muted">رقم قياسي جديد!</p>`:''}
   <p class="muted">هذه لعبة للمتعة والتدريب، ونجومها لا تُحسب في لوحة النجوم.</p>
+  ${giftLine()}
   <div class="btns"><button class="go" id="again">العب مرة أخرى</button><button class="ghost" id="other">لعبة أخرى 🎲</button><button class="ghost" id="bk">رجوع</button></div></div>`);
  const line=cheer(stars);if(stars===3)$('.result p[dir=ltr]').textContent=line;
  $('#again').onclick=()=>playX(g,L,back,key);
@@ -1323,9 +1611,9 @@ function words(){
  ${tr.length?`<div class="panel"><h3>💪 كلمات تحتاج تدريبًا</h3><p class="muted">هذه كلمات أخطأت فيها. تدرّب عليها حتى تختفي من هنا.</p><div class="wl" style="margin:0">${tr.slice(0,12).map(v=>`<button class="vw" data-say="${esc(v.en)}"><span class="e">${v.em}</span><b>${esc(v.en)}</b><small>${esc(v.ar)}</small></button>`).join('')}</div><button class="go" id="trn">تدرّب عليها الآن</button></div>`:''}
  ${LV.map((lv,l)=>`<h2 style="font-size:20px;margin-bottom:10px">${lv.icon} ${lv.ar}</h2><div class="wl ${levelUnlocked(l)?'':'locked'}">${lv.lessons.flatMap(V).map(v=>levelUnlocked(l)?`<button class="vw" data-say="${esc(v.en)}"><span class="e">${v.em}</span><b>${esc(v.en)}</b><small>${esc(v.ar)}</small></button>`:`<span class="vw"><span class="e">${v.em}</span><small>؟؟؟</small></span>`).join('')}</div>`).join('')}`);
  const b=$('#trn');if(b)b.onclick=()=>{
-  const mine=tricky().slice(0,6),fill=shuffle(openWords().filter(v=>!mine.some(m=>m.en===v.en||m.em===v.em))).slice(0,Math.max(0,6-mine.length));
+  const mine=tricky().filter((v,k,a)=>a.findIndex(x=>x.em===v.em)===k).slice(0,6),fill=shuffle(openWords().filter(v=>!mine.some(m=>m.en===v.en||m.em===v.em))).slice(0,Math.max(0,6-mine.length));
   const L={en:'My tricky words',ar:'كلماتي الصعبة',vs:shuffle([...mine,...fill])};
-  playX(pick(['listen','match','tf','hide','pop','fly'].filter(g=>canPlay(g,L))),L,words,null)};
+  playX(pick(['listen','match','tf','hide','pop','fly','seq','bingo','race','letter'].filter(g=>canPlay(g,L))),L,words,null)};
 }
 
 /* ---------- sticker album ---------- */
@@ -1348,6 +1636,7 @@ function parents(){
  h('ركن الوالدين',home,`
  <div class="panel"><h3>التقدم</h3><p>${allLessons} من 30 درسًا مكتملة · ${bosses} من 5 تحديات · ${totalStars()} نجمة</p>
   <p class="muted">تحدي اليوم · السلسلة الآن: ${sk} · أطول سلسلة: ${P.d.best||0} · مرات الإنجاز: ${P.d.n}</p>
+  <p class="muted">تحدي الدقيقة · أفضل رقم: ${P.hi||0} · قصص استمع إليها في المكتبة: ${Object.keys(P.rd).length} · قطع خزانة أولي: ${WEAR.filter(w=>LOOK.have[w.id]).length} من ${WEAR.length}</p>
   ${tr.length?`<p class="muted">كلمات يخطئ فيها الآن: <span dir="ltr">${tr.slice(0,10).map(v=>esc(v.en)).join(', ')}</span></p>`:''}</div>
  <div class="panel"><h3>نجوم لوحة البطل</h3><p>كل 10 نجوم في أولي = نجمة تضعها أنت في لوحة النجوم.</p>
   <p style="font-size:20px;font-weight:800">جاهز الآن: <span style="color:var(--sun-deep)">${readyBoard()}</span> ${readyBoard()===1?'نجمة':'نجوم'}</p>
@@ -1360,14 +1649,17 @@ function parents(){
   <li>في المحادثة، اجلس بجانبه: اقرأ أنت سؤال أولي بصوتك، وهو يجيب ويردد الجملة.</li>
   <li>كل درس فيه 4 أنشطة. يُفتح الدرس التالي بعد إنهاء الأربعة، ويُفتح العالم التالي بعد الفوز بتحديه.</li>
   <li>النجوم: 3 بلا أخطاء، 2 لأخطاء قليلة، 1 للمحاولة. يمكن إعادة أي نشاط لرفع النجوم.</li>
-  <li>«ألعاب أكثر» و«لعبة سريعة» و«تحدي اليوم» للتدريب والمتعة: نجومها لا تدخل في حساب لوحة النجوم.</li>
+  <li>«ألعاب أكثر» و«لعبة سريعة» و«تحدي اليوم» و«تحدي الدقيقة» للتدريب والمتعة: نجومها لا تدخل في حساب لوحة النجوم.</li>
+  <li>«بطاقات الكلمات» في أول كل درس مراجعة هادئة قبل اللعب، و«مكتبة القصص» تصلح للاستماع قبل النوم.</li>
+  <li>«خزانة أولي» هدايا للمواظبة: قطعة ملابس لأولي عند كل إنجاز، وهي مشتركة بين الأجزاء الستة.</li>
   <li>الكلمات التي يخطئ فيها تُجمع في «قاموسي المصوّر» ليتدرب عليها، وتختفي كلما أجاب عنها صحيحًا.</li>
   <li>${PART===1?'من العالم الثالث تبدأ تحديات أصعب: ساعة للعب، وإخفاء نص الاستماع، وكتابة الكلمات والجمل.':'في هذا الجزء التحديات مفعّلة من البداية: ساعة للعب، وإخفاء نص الاستماع، ووقت أقصر في تحدي كل عالم.'}</li>
   <li>كل جزء من أولي مستقل، وتقدّمه محفوظ وحده على هذا الجهاز وهذا المتصفح فقط.</li>
   <li>صوت أولي مسجّل مسبقًا ويُحمَّل من الإنترنت. إذا لم تسمع شيئًا، ارفع صوت الوسائط وتأكد من الاتصال.</li></ul></div>
  <div class="panel"><div class="switch"><span>فتح كل العوالم والدروس</span><button class="ghost" id="ua">${P.all?'مفتوحة · أقفلها':'افتحها'}</button></div><p class="muted">${PART===1?'مفيد إذا كان طفلك يعرف المستوى الأول ويريد البدء من مستوى أعلى.':'مفيد إذا كان طفلك يعرف أول هذا الجزء ويريد البدء من عالم أعلى.'}</p></div>
+ <div class="panel"><h3>عن هذه النسخة</h3><p>الإصدار ${VER.n} · آخر تحديث ${VER.day}</p><p class="muted">إذا رأيت رقمًا أقدم على جهاز آخر فأغلق الصفحة وافتحها من جديد لتصلك آخر نسخة.</p><button class="ghost" id="pnw">ما الجديد؟</button></div>
  <div class="panel"><h3>البدء من جديد</h3><div id="rz"><button class="ghost danger" id="rs">مسح كل التقدم</button></div></div>`);
- $('#svn').onclick=()=>{P.name=$('#nm').value.trim().slice(0,24);save();toast('تم الحفظ')};
+ $('#svn').onclick=()=>{P.name=$('#nm').value.trim().slice(0,24);save();toast('تم الحفظ')};$('#pnw').onclick=whatsNew;
  $('#ua').onclick=()=>{P.all=!P.all;save();parents()};
  const gvb=$('#gvb');if(gvb)gvb.onclick=()=>{const n=readyBoard();if(gvb.dataset.armed){P.given=earned();save();toast(`سُجّلت ${n} ${n===1?'نجمة':'نجوم'} كمُعطاة`);parents()}else{gvb.dataset.armed='1';gvb.textContent=`تأكيد: أعطيته ${n}`;gvb.className='go'}};
  $('#tst').onclick=()=>{const m=$('#tsm');
@@ -1375,7 +1667,117 @@ function parents(){
   m.textContent='جارٍ تشغيل صوت أولي…';
   say(SAY.test).then(ok=>{if(m.isConnected)m.textContent=ok?'إذا لم تسمع شيئًا: ارفع صوت الوسائط في الجهاز، وأطفئ الوضع الصامت في الآيفون.':'لم يُحمَّل الصوت. تأكد من الإنترنت، وافتح الصفحة من رابطها، ثم جرّب مرة ثانية.'})};
  $('#rs').onclick=()=>{$('#rz').innerHTML=`<p>هل أنت متأكد؟ ستُمسح كل النجوم والملصقات.</p><div class="btns"><button class="go" id="yes" style="background:var(--bad);box-shadow:0 5px 0 #8f2226">نعم، امسح</button><button class="ghost" id="no">إلغاء</button></div>`;
-  $('#yes').onclick=()=>{P.s={};P.x={};P.m={};P.d={day:'',streak:0,best:0,n:0};P.given=0;save();toast('تم مسح التقدم');parents()};$('#no').onclick=parents};
+  $('#yes').onclick=()=>{P.s={};P.x={};P.m={};P.d={day:'',streak:0,best:0,n:0};P.given=0;P.hi=0;P.rd={};save();toast('تم مسح التقدم');parents()};$('#no').onclick=parents};
+}
+
+/* ---------- one-minute rush: as many right answers as you can in 60 seconds ---------- */
+function rushIntro(){
+ stopAll();setLv(null);
+ h('تحدي الدقيقة',home,`<div class="pane"><div class="intro"><div class="boss-head"><span style="font-size:30px">⏱️</span><b style="flex:1">تحدي الدقيقة</b><span class="pill">🏆 ${P.hi||0}</span></div>
+ <ul><li>معك 60 ثانية فقط.</li><li>أجب عن أكبر عدد من الأسئلة من الكلمات التي تعلمتها.</li><li>${P.hi?`رقمك القياسي ${P.hi}. هل تحطّمه؟`:'سجّل أول رقم قياسي لك!'}</li></ul>
+ <button class="go" id="rgo">ابدأ!</button></div></div>`);
+ $('#rgo').onclick=rush;warm(shuffle(openWords()).map(v=>v.en));
+}
+function rush(){
+ stopAll();const token=RUN,pool=openWords(),T=60000,t0=performance.now();let score=0,n=0,over=false,bag=[];
+ h('تحدي الدقيقة',home,`<div class="pane"><div class="boss-head"><b id="bn"></b><span id="bs" class="pill">✔ 0</span></div><div class="timer"><span id="tb"></span></div><div id="bq" class="pane"></div></div>`);
+ say(pick(SAY.go));
+ function q(){
+  if(token!==RUN||over)return;if(!bag.length)bag=shuffle(pool);const v=bag.pop();let lock=false;
+  const btns=askCard($('#bq'),v,pool,[0,2,0,3][n++%4]);
+  btns.forEach(b=>b.onclick=()=>{if(over||lock)return;lock=true;
+   if(b.dataset.en===v.en){b.classList.add('right');$('#bs').textContent=`✔ ${++score}`;ding();hit(v.en);setTimeout(q,230)}
+   else{b.classList.add('wrong');buzz();miss(v.en);btns.forEach(x=>{if(x.dataset.en===v.en)x.classList.add('right')});setTimeout(q,1100)}});
+ }
+ (function tick(now){if(token!==RUN)return;const left=Math.max(0,T-(now-t0));$('#tb').style.width=left/T*100+'%';$('#bn').textContent=`⏱ ${Math.ceil(left/1000)}`;
+  if(left<=0){over=true;return rushEnd(score)}requestAnimationFrame(tick)})(t0);
+ q();
+}
+function rushEnd(score){
+ stopAll();const best=P.hi||0,rec=score>best;if(rec){P.hi=score;save()}
+ h('تحدي الدقيقة',home,`<div class="result"><div class="rushn">${score}</div><h2>${rec&&best?'رقم قياسي جديد!':score>=12?'سريع كالبرق!':score>=6?'رائع!':'أحسنت!'}</h2>
+  <p class="muted">${score===1?'إجابة صحيحة':'إجابات صحيحة'} في دقيقة واحدة · أفضل رقم لك: ${Math.max(best,score)}</p>
+  ${giftLine()}
+  <div class="btns"><button class="go" id="again">حاول مرة أخرى</button><button class="ghost" id="bk">الرئيسية</button></div></div>`);
+ say(rec?pick(SAY.top):SAY.stars[score>=6?2:1]);if(rec){confetti();sfx('win')}
+ $('#again').onclick=rush;$('#bk').onclick=home;
+}
+
+/* ---------- Ollie's library: the stories of the lessons whose reading is done ---------- */
+const storyOpen=(l,i)=>P.all||st(l,i,'r')>0;
+function library(){
+ stopAll();setLv(null);const n=LV.reduce((t,lv,l)=>t+lv.lessons.filter((_,i)=>storyOpen(l,i)).length,0);
+ h('مكتبة القصص',home,`<p class="tip" style="margin-block:6px 16px">${n?`في مكتبتك ${n} من 30 قصة. اضغط أي قصة ليقرأها لك أولي متى شئت.`:'مكتبتك تنتظر أول قصة! أنهِ نشاط «قراءة» في أي درس لتُحفظ قصته هنا.'}</p>
+ ${LV.map((lv,l)=>`<h2 class="alb-t">${lv.icon} ${lv.ar} <small>${lv.lessons.filter((_,i)=>storyOpen(l,i)).length} من 6</small></h2>
+ <div class="lib">${lv.lessons.map((L,i)=>storyOpen(l,i)?`<button class="bk" data-l="${l}" data-i="${i}"><span class="e">${V(L)[0].em}</span><b dir="ltr">${esc(L.en)}</b><small>${esc(L.ar)}</small>${P.rd[`${l}-${i}`]?'<i aria-label="استمعت إليها">✔</i>':''}</button>`:`<span class="bk locked"><span class="e">🔒</span><small>الدرس ${i+1}: ${esc(L.ar)}</small></span>`).join('')}</div>`).join('')}`);
+ $$('.bk[data-l]').forEach(b=>b.onclick=()=>story(+b.dataset.l,+b.dataset.i));
+}
+function story(l,i){
+ stopAll();const lv=LV[l],L=lv.lessons[i],key=`${l}-${i}`;setLv(lv);
+ const open=LV.flatMap((w,a)=>w.lessons.map((_,b)=>[a,b])).filter(([a,b])=>storyOpen(a,b)),at=open.findIndex(([a,b])=>a===l&&b===i),more=P.all||st(l,i,'l')>0;
+ h(esc(L.en),library,`<div class="pane"><div class="les-h" style="padding-bottom:0"><p class="muted">${lv.ar} · ${esc(L.ar)}</p><h1 dir="ltr">${V(L)[0].em} ${esc(L.en)}</h1></div>
+  <div class="btns"><button class="go" id="rd">🔊 اقرأها لي</button><button class="ghost" id="rs">🐢 ببطء</button></div>
+  <div class="text" id="tx" dir="ltr">${tapText(L.r)}</div>
+  ${more?`<p class="sec-t">واسمع أيضًا</p><div class="text" id="tl" dir="ltr" style="font-size:18px">${tapText(L.l)}</div><div class="btns"><button class="ghost" id="ld">🎧 اسمعها</button></div>`:''}
+  <div class="btns">${at>0?'<button class="ghost" id="pv">القصة السابقة</button>':''}${at>=0&&at<open.length-1?'<button class="ghost" id="nx">القصة التالية</button>':''}</div></div>`);
+ const read=(slow,btn)=>readAloud(L.r,$('#tx'),slow,btn).then(ok=>{if(ok&&!P.rd[key]){P.rd[key]=1;save()}});
+ $('#rd').onclick=()=>read(false,$('#rd'));$('#rs').onclick=()=>read(true,$('#rs'));
+ if(more)$('#ld').onclick=()=>readAloud(L.l,$('#tl'),false,$('#ld'));
+ if($('#pv'))$('#pv').onclick=()=>story(...open[at-1]);if($('#nx'))$('#nx').onclick=()=>story(...open[at+1]);
+ warm([L.r]);
+}
+
+/* ---------- flashcards: look, say the word, then flip the card ---------- */
+function flash(){
+ stopAll();const L=cur(),token=RUN,deck=shuffle(V(L)),n0=deck.length,title=`${esc(L.en)} · بطاقات`;let k=0,again=0;
+ function card(){
+  if(token!==RUN)return;if(k>=deck.length)return end();const v=deck[k];
+  h(title,lesson,`<div class="pane"><p class="tip">انظر إلى الصورة وقل اسمها بالإنجليزية، ثم اقلب البطاقة لتتأكد. (${k+1} من ${deck.length})</p>
+   <button class="flash" id="fc"><span class="ff"><span class="big-em">${v.em}</span><b>${esc(v.ar)}</b><small>اضغط لتقلب البطاقة</small></span><span class="fb"><span class="big-em">${v.em}</span><b dir="ltr">${esc(v.en)}</b><small>${esc(v.ar)} · اضغط لتسمعها مرة أخرى</small></span></button>
+   <div class="btns" id="fbt" hidden><button class="ghost" id="fno">↻ أحتاج تدريبًا</button><button class="go" id="fok">✔ أعرفها</button></div></div>`);
+  $('#fc').onclick=()=>{$('#fc').classList.add('up');$('#fbt').hidden=false;say(v.en)};
+  $('#fok').onclick=()=>{hit(v.en);k++;card()};
+  $('#fno').onclick=()=>{miss(v.en);again++;if(deck.length<n0*2)deck.push(v);k++;card()};
+ }
+ function end(){
+  h(title,lesson,`<div class="result"><div class="rushn">🃏</div><h2>أنهيت البطاقات!</h2>
+   <p class="muted">${again?'الكلمات التي احتاجت تدريبًا تنتظرك في «قاموسي» لتتدرب عليها.':'عرفت كل الكلمات من أول مرة. رائع!'}</p>
+   <div class="btns"><button class="go" id="bk">العب بكلمات الدرس</button><button class="ghost" id="again">البطاقات مرة أخرى</button></div></div>`);
+  say(pick(SAY.cards));$('#bk').onclick=lesson;$('#again').onclick=flash;
+ }
+ card();
+}
+
+/* ---------- Ollie's wardrobe ---------- */
+function wardrobe(){
+ stopAll();setLv(null);newWear();const fresh=LOOK.fresh;LOOK.fresh={};saveLook();
+ const n=WEAR.filter(w=>LOOK.have[w.id]).length;
+ h('خزانة أولي',home,`<section class="stage"><div class="stage-o" id="wo">${BIRD(120)}</div><p class="muted">معك ${n} من ${WEAR.length} قطعة. اضغط القطعة ليلبسها أولي، واضغطها مرة ثانية ليخلعها.</p></section>
+ <div class="wear">${WEAR.map(w=>{const has=LOOK.have[w.id],on=LOOK.on[w.slot]===w.id;
+  return `<button class="wr${has?'':' lock'}${on?' on':''}" data-id="${w.id}"><span class="we">${BIRD(46,{[w.slot]:w.id})}</span><b>${w.ar}</b>${has?(on?'<small class="ok">يلبسها الآن ✔</small>':'<small>اضغط ليلبسها</small>'):`<small>${w.need}</small><span class="prog sun"><span style="width:${Math.min(w.get(),w.goal)/w.goal*100}%"></span></span>`}${fresh[w.id]?'<i class="dot">جديد</i>':''}</button>`}).join('')}</div>
+ <p class="muted" style="text-align:center;margin-top:14px">خزانة واحدة لأجزاء أولي الستة كلها.</p>`);
+ $$('.wr').forEach(b=>b.onclick=()=>{const w=WEAR.find(x=>x.id===b.dataset.id);
+  if(!LOOK.have[w.id])return toast('لتحصل عليها: '+w.need);
+  const put=LOOK.on[w.slot]!==w.id;LOOK.on[w.slot]=put?w.id:'';saveLook();const y=window.scrollY;wardrobe();window.scrollTo(0,y);
+  if(put){sfx('pop');say(pick(w.slot==='head'?SAY.hat:SAY.look))}});
+}
+
+/* ---------- what is new ---------- */
+const NEWS=[
+ '6 ألعاب جديدة: تذكّر الترتيب، بنغو الكلمات، سباق الأرنب، الحرف الناقص، أي جملة سمعت؟، رتّب القصة.',
+ 'خزانة أولي: اكسب قبعات ونظارات ورداء البطل، وألبِسها لأولي.',
+ 'تحدي الدقيقة: كم كلمة تعرف في 60 ثانية؟ حطّم رقمك القياسي.',
+ 'مكتبة القصص: كل قصة قرأتها تُحفظ ليقرأها لك أولي متى شئت.',
+ 'بطاقات الكلمات في كل درس: انظر، قل الكلمة، ثم اقلب البطاقة.',
+ 'صور أوضح لبعض الكلمات، وأولي يحيّيك في الصباح والمساء.'
+];
+function whatsNew(){
+ stopAll();setLv(null);if(P.nw!==VER.n){P.nw=VER.n;save()}
+ h('ما الجديد',home,`<div class="pane"><div class="intro"><div class="boss-head"><span style="font-size:30px">🎁</span><b style="flex:1">جديد في أولي</b></div>
+ <ul>${NEWS.map(x=>`<li>${x}</li>`).join('')}</ul>
+ <p class="muted">الإصدار ${VER.n} · آخر تحديث ${VER.day}</p>
+ <div class="btns"><button class="go" id="n1">جرّب لعبة جديدة 🎲</button><button class="ghost" id="n2">افتح خزانة أولي</button></div></div></div>`);
+ $('#n1').onclick=()=>quick(NEWG);$('#n2').onclick=wardrobe;
 }
 
 /* ---------- confetti ---------- */

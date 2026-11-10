@@ -5,7 +5,7 @@
 const PART=3;
 const LV=[
 {en:"Desert Caravan",ar:"قافلة الصحراء",sub:"الخطط والمستقبل: going to",icon:"🐪",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي قائد القافلة",
- games:["match","tf","hide","unscramble","memory","fly"],
+ games:["match","tf","hide","unscramble","memory","seq"],
  lessons:[
  {en:"Desert Life",ar:"الحياة في الصحراء",v:"sand|رمل|🏜️;dune|كثيب رملي|⛰️;oasis|واحة|🌴;tent|خيمة|⛺;thirsty|عطشان|🥵;shade|ظل|⛱️",
   c:[["What is an oasis?","It's a green place with water in the desert.","It's a snow in the desert.","An oasis is a kind of camel shoe."],["Why do people wear loose clothes in the desert?","Because loose clothes keep them cool.","Because the desert is very cold always.","Because clothes are thirsty."],["What should you take on a desert trip?","Lots of water, a hat and sunscreen.","Only a heavy coat and ice.","Nothing, the desert brings everything."],["What do you like most about the desert?","I love the stars at night.","I love the desert is many rain.","The desert likes me most."]],
@@ -45,7 +45,7 @@ const LV=[
   rq:[["Why is water a challenge in Saudi Arabia?","There are no rivers.","It rains every day.","There is too much snow."],["Where does most drinking water come from today?","the sea","rivers","the mountains"],["What do desalination plants do?","remove salt from seawater","make juice","build wells"]]}
  ]},
 {en:"Jungle Quest",ar:"مغامرة الأدغال",sub:"الأكبر والأسرع والأفضل",icon:"🌴",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي ملك الأدغال",
- games:["listen","search","pop","balloons","gap","sentence"],
+ games:["listen","bingo","pop","letter","gap","sentence"],
  lessons:[
  {en:"The Biggest and the Best",ar:"الأكبر والأفضل",v:"biggest|الأكبر|🐋;fastest|الأسرع|🐆;highest|الأعلى|🏔️;longest|الأطول|🐍;best|الأفضل|🥇;worst|الأسوأ|👎",
   c:[["What is the biggest animal in the world?","The blue whale is the biggest.","The blue whale is the most big.","The biggest is a mouse."],["Who is the best player in your team?","Saad is the best player.","Saad is the goodest player.","Best is the team."],["What is the longest river in the world?","The Nile is one of the longest.","The Nile is the more long.","Rivers are the shortest cars."],["Which was the worst day of your holiday?","The day I was sick was the worst.","The day was the baddest.","Worst is a holiday."]],
@@ -59,7 +59,7 @@ const LV=[
   lq:[["What is the largest rainforest?","the Amazon","the Sahara","the Nile"],["Where is it?","in South America","in Asia","in Europe"],["How many animal and plant types live in rainforests?","more than half","only a few","none"]],
   r:"The poison dart frog is tiny, about the size of a paperclip, but it is one of the most dangerous animals in the rainforest. Its bright colors, like blue, yellow and red, are a warning: 'Don't eat me!' Interestingly, these frogs are not dangerous when they live in zoos, because their poison comes from the insects they eat in the wild. Scientists are studying them to make new medicines.",
   rq:[["How big is the poison dart frog?","about the size of a paperclip","as big as a cat","as big as a car"],["What do its bright colors mean?","a warning","it is happy","it is sleeping"],["Why aren't zoo frogs dangerous?","Their poison comes from wild insects.","They are sleeping.","They are painted."]]},
- {en:"Amazing Insects",ar:"حشرات مدهشة",v:"ant|نملة|🐜;bee|نحلة|🐝;butterfly|فراشة|🦋;wing|جناح|🪽;honey|عسل|🍯;hive|خلية|🏠",
+ {en:"Amazing Insects",ar:"حشرات مدهشة",v:"ant|نملة|🐜;bee|نحلة|🐝;butterfly|فراشة|🦋;wing|جناح|🕊️;honey|عسل|🍯;hive|خلية|🏠",
   c:[["How many legs does an insect have?","All insects have six legs.","All insects have eight legs.","Insects have many cars."],["What do bees make?","Bees make honey and wax.","Bees make milk and cheese.","Bees make paper."],["Was a butterfly always a butterfly?","No, it was a caterpillar first.","Yes, it was born with wings.","A butterfly was a fish."],["Why are ants strong?","They can carry things much heavier than themselves.","Because they eat burgers.","Ants are not strong ever."]],
   l:"A bee visits hundreds of flowers every day. It collects nectar and takes it back to the hive. The bees work together to make honey.",
   lq:[["How many flowers does a bee visit?","hundreds every day","one a week","none"],["Where does it take the nectar?","back to the hive","to the river","to the tree"],["How do the bees make honey?","They work together.","One bee works alone.","They buy it."]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["Why do turtles eat plastic bags?","They look like jellyfish.","They taste good.","They are hungry for plastic."],["What confuses baby turtles?","bright lights on beaches","the sound of waves","the sand"],["How do volunteers help?","They clean beaches and turn off lights.","They catch the turtles.","They feed them plastic."]]}
  ]},
 {en:"Sports Arena",ar:"ملعب الأبطال",sub:"القواعد: must وmustn't والفريق",icon:"🏟️",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي بطل الملعب",
- games:["unscramble","fly","memory","gap","spell","hide"],
+ games:["unscramble","fly","memory","race","spell","hide"],
  lessons:[
  {en:"Football Match",ar:"مباراة كرة قدم",v:"goal|هدف|🥅;referee|حكم|🧑‍⚖️;score|نتيجة|🔢;kick|يركل|🦵;team|فريق|👥;cheer|يشجع|📣",
   c:[["What was the score?","It was two-one to our team.","It were two one score was.","Score is a referee."],["Who scored the winning goal?","Salem scored it in the last minute.","Salem scoring goal minute last.","The goal scored Salem."],["Why did the referee stop the game?","Because a player was hurt.","Because the ball was hungry.","Referees always sleep."],["Do you play football at school?","Yes, we play every Tuesday.","Yes, we plays every Tuesday.","School plays me."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["Why must a rider stay calm?","Horses can feel nervousness.","Horses like noise.","To go faster."],["How do you control a horse?","with the reins and your legs","by shouting","with a whistle"],["What is the secret of a great rider?","respect","speed","a big saddle"]]}
  ]},
 {en:"Snow Kingdom",ar:"مملكة الثلج",sub:"توقعات بـ will وكم مرة تفعل؟",icon:"❄️",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي ملكة الثلج",
- games:["search","sentence","tf","balloons","pop","spell"],
+ games:["search","hear","tf","balloons","pop","spell"],
  lessons:[
  {en:"Weather Forecast",ar:"نشرة الطقس",v:"forecast|توقع|📡;temperature|درجة الحرارة|🌡️;storm|عاصفة|⛈️;snow|ثلج|❄️;foggy|ضبابي|🌫️;degrees|درجات|🔢",
   c:[["What will the weather be like tomorrow?","It will be cloudy and cool.","It will is cloudy.","Tomorrow will weather me."],["Will it snow in Riyadh?","Probably not. It rarely snows there.","Yes, it will snows every day.","Riyadh is a snowman."],["What's the temperature today?","It's about thirty-five degrees.","It's thirty-five kilometers.","Temperature is a forecast."],["Should we cancel the picnic?","Yes, a storm is coming this afternoon.","No, storms are fun picnics.","The picnic will cancel us."]],
@@ -165,7 +165,7 @@ const LV=[
   rq:[["What are the three states of water?","solid, liquid and gas","hot, warm and cold","big, medium and small"],["What happens when vapor cools in the sky?","It forms clouds.","It becomes ice cream.","It disappears forever."],["What is the journey of water called?","the water cycle","the ice road","the rain race"]]}
  ]},
 {en:"Tech Lab",ar:"مختبر التقنية",sub:"الحاسوب والإنترنت والاختراعات",icon:"💻",c:"#6447D1",d:"#3E2896",s:"#ECE7FB",boss:"تحدي مهندس المختبر",
- games:["gap","spell","fly","sentence","search","balloons"],
+ games:["gap","order","fly","sentence","search","balloons"],
  lessons:[
  {en:"Computers",ar:"الحاسوب",v:"keyboard|لوحة المفاتيح|⌨️;mouse|فأرة|🖱️;click|ينقر|👆;type|يكتب|🔤;save|يحفظ|💾;printer|طابعة|🖨️",
   c:[["What do you use the keyboard for?","I use it to type words.","I use it to eat crisps.","Keyboard uses me."],["How do I open the file?","Double-click on it with the mouse.","Kick the screen twice.","The file opens you."],["Did you save your work?","Yes, I saved it before I closed the program.","Yes, I saving it tomorrow.","Work saved me."],["The printer isn't working. What should I do?","Check if it has paper and ink.","Throw it out of the window.","Printers don't need anything."]],

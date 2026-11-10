@@ -5,7 +5,7 @@
 const PART=4;
 const LV=[
 {en:"Ocean Deep",ar:"أعماق المحيط",sub:"هل جربت من قبل؟ المضارع التام",icon:"🐠",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي حارس الشعاب",
- games:["tf","unscramble","hide","gap","memory","spell"],
+ games:["tf","unscramble","hide","seq","memory","spell"],
  lessons:[
  {en:"Have You Ever?",ar:"هل سبق لك؟",v:"ever|من قبل|❓;never|أبدًا|🚫;already|بالفعل|✔️;yet|بعد|⏳;tried|جرّب|🧪;been|ذهب إلى|🧳",
   c:[["Have you ever seen a dolphin?","Yes, I've seen dolphins in the Red Sea.","Yes, I have saw dolphins.","Yes, I seen dolphins yesterday ago."],["Have you ever tried snorkeling?","No, I've never tried it, but I'd love to.","No, I never have try it.","Snorkeling has tried me."],["Have you finished your homework yet?","Yes, I've already finished it.","Yes, I already finish it tomorrow.","Homework has finished me yet."],["How many countries have you been to?","I've been to three countries.","I have go to three countries.","Countries have been me."]],
@@ -25,7 +25,7 @@ const LV=[
   lq:[["What should you check before diving?","your equipment","the weather only","your phone"],["How should you go down?","slowly","very fast","head first"],["What should you never do with a tank?","hold your breath","breathe","look around"]],
   r:"Before oil was discovered, pearl diving was one of the most important jobs in the Gulf. Divers went to sea for four months in the hot summer. They had no tanks or masks. A diver held his breath for one or two minutes, went down to the seabed with a stone tied to his foot, and collected oysters. A rope connected him to a man on the boat, who pulled him up. The work was very hard and dangerous, but the pearls of the Gulf were famous around the world.",
   rq:[["When did pearl divers go to sea?","in the summer","in the winter","every evening"],["How long did a diver hold his breath?","one or two minutes","ten minutes","ten seconds"],["Why was there a stone tied to his foot?","to go down quickly","to catch fish","to sell it"],["Who pulled the diver up?","a man on the boat","a dolphin","nobody"]]},
- {en:"Sea Turtles",ar:"السلاحف البحرية",v:"hatch|يفقس|🐣;nest|عش|🪺;beach|شاطئ|🏖;journey|رحلة|🧭;survive|ينجو|🛟;plastic|بلاستيك|🛍️",
+ {en:"Sea Turtles",ar:"السلاحف البحرية",v:"hatch|يفقس|🐣;nest|عش|🪺;beach|شاطئ|🏖️;journey|رحلة|🧭;survive|ينجو|🛟;plastic|بلاستيك|🛍️",
   c:[["Where do sea turtles lay their eggs?","On sandy beaches, in nests they dig.","In the trees near the sea.","Inside shells on the moon."],["What happens when the babies hatch?","They run to the sea as fast as they can.","They stay on the beach for years.","They fly to their mother."],["If we leave plastic on the beach, what will happen?","Turtles might eat it and get sick.","Turtles will use it as a hat.","Nothing will happen, plastic is food."],["What should we do if we see a turtle nest?","We should leave it alone and tell the rangers.","We should dig it up.","We should sit on it."]],
   l:"A mother turtle comes to the beach at night. She digs a hole and lays about one hundred eggs. After about two months, the baby turtles hatch and walk to the sea.",
   lq:[["When does the mother come to the beach?","at night","at noon","in the morning"],["How many eggs does she lay?","about one hundred","two","one thousand"],["When do the babies hatch?","after about two months","after one day","after one year"]],
@@ -45,7 +45,7 @@ const LV=[
   rq:[["What did the crew find in most oysters?","nothing","a large pearl","a small fish"],["Who sold the pearls to merchants?","the captain, called the nokhada","the divers","the children"],["Who earned the least money?","the divers","the merchants","the captain"],["What are the fijiri?","the divers' songs","a type of pearl","the boats"]]}
  ]},
 {en:"History Castle",ar:"قلعة التاريخ",sub:"حضارات وعلماء وأحداث من الماضي",icon:"🏰",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي حارس القلعة",
- games:["search","sentence","fly","balloons","pop","gap"],
+ games:["bingo","sentence","fly","balloons","pop","race"],
  lessons:[
  {en:"Ancient Egypt",ar:"مصر القديمة",v:"pyramid|هرم|🔺;pharaoh|فرعون|👑;tomb|مقبرة|⚰️;ancient|قديم جدًا|🏺;hieroglyphs|الكتابة الهيروغليفية|𓂀;Nile|النيل|🏞️",
   c:[["What were the pyramids built for?","They were built as tombs for the pharaohs.","They were built as shopping malls.","They were built for camels to sleep in."],["How did the ancient Egyptians write?","They used pictures called hieroglyphs.","They used computers.","They didn't write anything."],["Why was the Nile important?","It gave water for farming and travel.","It was a big desert.","It was a famous pharaoh."],["Have you ever visited Egypt?","Not yet, but I'd love to see the pyramids.","Yes, I have visit it tomorrow.","Egypt has visited me."]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["What do modern museums use?","technology","only old books","nothing"],["What can virtual reality glasses do?","let you walk through an ancient city","fix vases","sell tickets"],["What can children do in workshops?","make pottery","drive cars","sleep"],["What does a good museum help us understand?","who we are today","how to cook","how to dive"]]}
  ]},
 {en:"Health Heroes",ar:"أبطال الصحة",sub:"النصائح: should وshouldn't",icon:"🏥",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي طبيب المدينة",
- games:["spell","hide","gap","unscramble","sentence","tf"],
+ games:["letter","hide","gap","unscramble","sentence","tf"],
  lessons:[
  {en:"Healthy Habits",ar:"عادات صحية",v:"habit|عادة|🔁;balanced|متوازن|⚖️;vitamin|فيتامين|🍊;junk food|أطعمة غير صحية|🍟;sleep|نوم|😴;hydrated|مرتوٍ|💧",
   c:[["I'm always tired in the morning. What should I do?","You should go to bed earlier and avoid screens at night.","You should drink more fizzy drinks.","You should sleep in the bathroom."],["Should I eat junk food every day?","No, you shouldn't. It's fine only sometimes.","Yes, you should eat it at every meal.","Junk food should eat you."],["How can I get more vitamins?","You should eat more fruit and vegetables.","You should eat more candy.","You should eat vitamins from the floor."],["Why should we drink water often?","To stay hydrated, especially in hot weather.","To make our hair blue.","Water is bad for us."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["Why did Dana feel lonely?","She moved to a new school.","She lost her book.","She was sick."],["What did Dana do at break time?","She sat alone and pretended to read.","She played football.","She went home."],["What did Dana and Jood both love?","drawing","swimming","cooking"],["What is the message of the story?","A simple act of kindness can help a lot.","Reading is boring.","New schools are bad."]]}
  ]},
 {en:"Mystery Mansion",ar:"القصر الغامض",sub:"ماذا كان يحدث؟ والجمل الشرطية",icon:"🕵️",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي المحقق الكبير",
- games:["balloons","gap","search","sentence","fly","spell"],
+ games:["balloons","hear","search","order","fly","spell"],
  lessons:[
  {en:"While I Was...",ar:"بينما كنت...",v:"while|بينما|⏳;suddenly|فجأة|⚡;noise|ضجيج|🔊;was doing|كان يفعل|🔄;interrupted|قاطع|✋;happened|حدث|❗",
   c:[["What were you doing when the lights went out?","I was reading in my room.","I read was in my room.","Lights were doing me."],["What happened while you were walking home?","It suddenly started to rain.","It suddenly start rain was.","Home was walking me."],["Were you sleeping when I called?","Yes, sorry. I was taking a nap.","Yes, I sleeping was nap.","Called was sleeping."],["What was everyone doing at eight o'clock?","Dad was cooking and the kids were doing homework.","Dad cooking kids homework were.","Eight o'clock was everyone."]],
@@ -167,7 +167,7 @@ const LV=[
 {en:"Green Planet",ar:"الكوكب الأخضر",sub:"البيئة والطاقة وتغيّر المناخ",icon:"🌍",c:"#6447D1",d:"#3E2896",s:"#ECE7FB",boss:"تحدي حارس الأرض",
  games:["sentence","spell","gap","balloons","search","memory"],
  lessons:[
- {en:"Recycling",ar:"إعادة التدوير",v:"recycle|يعيد التدوير|♻️;reduce|يقلل|📉;reuse|يعيد الاستخدام|🔁;bin|سلة|🗑️;glass|زجاج|🍾;cardboard|كرتون|📦",
+ {en:"Recycling",ar:"إعادة التدوير",v:"recycle|يعيد التدوير|♻️;reduce|يقلل|📉;reuse|يعيد الاستخدام|🔁;bin|سلة|🗑️;glass|زجاج|🥛;cardboard|كرتون|📦",
   c:[["What are the three Rs?","Reduce, reuse and recycle.","Run, read and rest.","Red, rose and rain."],["Which bin should this bottle go in?","The plastic recycling bin.","The food bin.","In the river."],["Have you ever reused something instead of throwing it away?","Yes, I've used old jars to keep my pencils.","Yes, I have reuse a jar it.","Reused has me."],["If we recycle more, what will happen?","We will need less new material and there will be less rubbish.","We will have more rubbish.","Nothing will happen."]],
   l:"Recycling one aluminum can saves enough energy to run a TV for about three hours. Aluminum can be recycled again and again, forever, without losing its quality.",
   lq:[["What does recycling one can save energy for?","running a TV for about three hours","a car for a year","nothing"],["How many times can aluminum be recycled?","again and again, forever","only once","twice"],["Does it lose quality?","No.","Yes, a lot.","Only a little."]],

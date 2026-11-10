@@ -16,7 +16,7 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | عالم الأبطال الصغار (behavior program for parents and kids: daily missions with stars and real rewards, a star-sprout friend that hatches and grows, 7 mini games, 7 choose-your-path stories plus Claude-written ones, calm corner with breathing, badges and certificate, protected parent area with approvals, behavior tracking, reports and tips; its own stars and gems, not the shared hero) | `little-heroes.html` | https://claude.ai/artifact/8vPtRDZAXhNvkq1EyfuakR |
 | النجمة الصغيرة (short illustrated story read aloud sentence by sentence with the Azure voice, clips in `little-star/voices/`) | `little-star.html` | https://claude.ai/artifact/5WGrZYdLs2hk3EVd8cxjAA |
 | My English Gap ماي إنجلش قاب (English speaking practice for the owner: the tutor asks in Arabic, you answer in English by mic or typing, it corrects in English with highlighted fixes and saves your mistakes; calls the Claude API with a key the user pastes into its settings, kept in that browser only; mic uses the browser's speech recognition, so no device voice is used; no listen buttons, since live corrections can't be pre-recorded with Azure) | `my-english-gap.html` | GitHub Pages only (the mic and API calls don't work inside a play link). In-Claude version without mic: https://claude.ai/artifact/UcquNcYuwX4hxZKwB1Vbtq |
-| أولي Ollie (English course in six parts, beginner to upper intermediate; each part has 5 worlds × 6 lessons, and a lesson is a conversation, a listening text, a reading text and a game; 13 word games, 6 of them new on 10 Nov 2026: true or false, hide and seek, missing word, Ollie's balloons, word search, Ollie's flight; a timed challenge per world, a daily challenge with a day streak, a sticker album, tricky-words practice, a picture dictionary and a parents corner; its own stars, which parents trade for star-board stars, not the shared hero) | `2.html` … `7.html` (part N is file N+1; built from `src/ollie/`, never edited by hand) | GitHub Pages only: https://kprpwd2wgn-ops.github.io/Rakan/2.html (its recorded voice is about 9,700 clips, too many for a play link) |
+| أولي Ollie (English course in six parts, beginner to upper intermediate; each part has 5 worlds × 6 lessons, and a lesson is a conversation, a listening text, a reading text and a game; 19 word games, 12 of them added on 10 Nov 2026 in two rounds: true or false, hide and seek, missing word, Ollie's balloons, word search, Ollie's flight, then remember the order, word bingo, the rabbit race, missing letter, which sentence did you hear, story order; a timed challenge per world, a daily challenge with a day streak, a one-minute rush with a best score, a sticker album, Ollie's wardrobe of 12 clothes earned by progress and shared by the six parts, a story library, flashcards in every lesson, tricky-words practice, a picture dictionary, a "what is new" page and a parents corner; its own stars, which parents trade for star-board stars, not the shared hero) | `2.html` … `7.html` (part N is file N+1; built from `src/ollie/`, never edited by hand) | GitHub Pages only: https://kprpwd2wgn-ops.github.io/Rakan/2.html (its recorded voice is about 9,700 clips, too many for a play link) |
 
 Add a row here for every new game.
 
@@ -257,7 +257,23 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   Arabic meanings, pictures and wrong answers are never spoken, so they can be changed freely.
   Sound effects are short noise bursts made in the page (`sfx()`), with no notes or tunes, to keep the no-music rule.
   A part's progress lives in that browser under `ollie-english-part<N>`: `s` lesson stars (the only ones that count
-  for the star board), `x` stars of extra games, `m` tricky words, `d` the daily challenge day, streak and count.
+  for the star board), `x` stars of extra games, `m` tricky words, `d` the daily challenge day, streak and count,
+  `hi` the best one-minute rush, `rd` the library stories heard to the end, `nw` the last "what is new" seen.
+  Ollie's wardrobe is the one thing the six parts share: `ollie-english-look` (`have` the clothes earned, `on` the
+  piece worn in each of the slots head, eyes, neck and back, `fresh` the ones not looked at yet). The clothes are
+  drawn in `ART` in the bird's own 64-unit box, and `WEAR` says what earns each one.
+  The second round that day (the six later games, wardrobe, library, flashcards, one-minute rush) again recorded
+  nothing: the owner asked once more for "the new voice", and Ollie has had it since 4 Nov (Azure, `en-US-AvaNeural`;
+  Little Star's Hamed is an Arabic voice). She was told so, and that another English speaker means recording again
+  with the key. `VER` in `engine.js` is the version shown in the parents corner and on the "what is new" page, so a
+  family can tell which copy a phone is showing: raise `VER.n`, set `VER.day` and rewrite `NEWS` with every update.
+  `tools/ollie-play.js` now takes about ten minutes a part; run two parts at a time at most, because its bots are
+  timed, and do not rebuild while it runs (it reloads the page near the end).
+  Six pictures were corrected (crow, wing, sugar, swing, beach, glass). Two of them were emoji from 2022, which
+  older phones show as an empty box or as two symbols: keep to emoji from 2021 or earlier. Sentences cut inside a quotation are kept out of the two sentence games.
+  The word search now accepts a word wherever its letters are found (AGREE inside DISAGREE used to count as a miss).
+  The owner's lesson texts mention drums, singing or songs in a few places (part 2 "Sounds and Rhythm" most of all);
+  they are recorded, so replacing them needs the key. She was told on 10 Nov 2026 and has not answered yet.
 
 ## Setup and limits
 

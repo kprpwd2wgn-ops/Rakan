@@ -45,7 +45,7 @@ const LV=[
   rq:[["Where is Sara?","at the shop","at school","at the zoo"],["What does Sara want too?","a banana","a cat","water"],["What does Mom say?","Yes, of course!","No!","Goodbye!"]]}
  ]},
 {en:"Explorer Forest",ar:"غابة المستكشفين",sub:"جمل أطول وكلمات من حياتك اليومية",icon:"🌲",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي حارس الغابة",
- games:["unscramble","hide","fly","match","balloons","memory"],
+ games:["unscramble","seq","fly","match","balloons","bingo"],
  lessons:[
  {en:"My Body",ar:"جسمي",v:"eye|عين|👁️;ear|أذن|👂;nose|أنف|👃;mouth|فم|👄;hand|يد|✋;foot|قدم|🦶",
   c:[["What do you see with?","I see with my eyes.","I see with my nose.","I see with my foot."],["What do you hear with?","I hear with my ears.","I hear with my hands.","I hear with bread."],["Touch your nose!","OK! I touch my nose.","I am a nose.","Goodbye, nose."],["How many feet do you have?","I have two feet.","I have six feet.","I have a mouth."]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["How many pieces does the puzzle have?","one hundred","ten","fifty"],["What is the picture?","a castle","a car","a cat"],["Who helps Lina?","her brother","her mom","her teacher"]]}
  ]},
 {en:"Adventure Mountains",ar:"جبال المغامرة",sub:"تكلّم عن يومك ومدينتك ومشاعرك",icon:"⛰️",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي نسر القمة",
- games:["gap","search","pop","tf","unscramble","spell"],
+ games:["gap","race","pop","tf","unscramble","spell"],
  lessons:[
  {en:"My Day",ar:"يومي",v:"wake up|يستيقظ|⏰;brush|يفرّش|🪥;breakfast|فطور|🥞;shower|استحمام|🚿;homework|واجب|📝;sleep|ينام|😴",
   c:[["What time do you wake up?","I wake up at six o'clock.","I wake up at the kitchen.","I wake up a banana."],["What do you do after you wake up?","I brush my teeth and wash my face.","I sleep again in the garden.","I wear my teeth."],["When do you do your homework?","I do my homework after lunch.","I do my homework in my dream only.","Homework is a bird."],["What time do you go to bed?","I go to bed at eight thirty.","I go to bed at the zoo.","Bed is a color."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["What does Ahmad do at ten?","He visits his grandpa.","He eats lunch.","He goes to bed."],["When does the family eat lunch?","at one o'clock","at eight o'clock","at nine o'clock"],["What do they watch in the evening?","a football match","a cartoon","the stars"]]}
  ]},
 {en:"Story Ocean",ar:"محيط الحكايات",sub:"الماضي والقصص والمواقف الحقيقية",icon:"🌊",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي حوت الأعماق",
- games:["sentence","balloons","fly","gap","search","memory"],
+ games:["sentence","letter","fly","hear","search","memory"],
  lessons:[
  {en:"Last Weekend",ar:"عطلة نهاية الأسبوع",v:"went|ذهب|🚶;played|لعب|🎮;ate|أكل|🍽️;saw|رأى|👀;visited|زار|🏡;bought|اشترى|🛍️",
   c:[["What did you do last weekend?","I visited my grandparents.","I visit tomorrow yesterday.","I am a weekend."],["What did you eat there?","We ate kabsa. It was delicious!","We eat a car next year.","Ate is a color."],["Did you play any games?","Yes, I played hide and seek with my cousins.","Yes, I played the kitchen.","No, games are sad milk."],["Sounds like a great weekend!","It was! I had a lot of fun.","No, weekends are angry.","I bought a cloud."]],
@@ -157,7 +157,7 @@ const LV=[
   lq:[["Where is the flight going?","to Cairo","to London","to Dubai"],["Which gate is it?","gate twelve","gate two","gate seven"],["What should passengers have ready?","boarding pass and passport","food and water","a map"]],
   r:"Last summer, Huda's family traveled to Turkey. They stayed in a hotel near the sea. They visited old mosques and a busy market. Huda's favorite part was a boat trip, where she saw dolphins jumping out of the water. She took many photos and made an album when she came home.",
   rq:[["Where did the family travel?","to Turkey","to Egypt","to Japan"],["What was Huda's favorite part?","a boat trip","the hotel","the market"],["What animals did she see?","dolphins","elephants","lions"]]},
- {en:"Story Time",ar:"وقت الحكاية",v:"fox|ثعلب|🦊;crow|غراب|🐦‍⬛;cheese|جبن|🧀;clever|ذكي|🧠;proud|مغرور|🦚;lesson|درس|📜",
+ {en:"Story Time",ar:"وقت الحكاية",v:"fox|ثعلب|🦊;crow|غراب|🐦;cheese|جبن|🧀;clever|ذكي|🧠;proud|مغرور|🦚;lesson|درس|📜",
   c:[["Do you know the story of the fox and the crow?","No, I don't. Please tell me!","Yes, the fox is my teacher's car.","Stories are cold socks."],["The crow had a piece of cheese in its beak.","What happened next?","The cheese flew to the moon.","I had a crow for breakfast."],["The fox said, 'Sing for me, beautiful crow!' The crow sang, and the cheese fell.","Oh no! The fox took the cheese!","Yay! The crow became a pilot.","The fox is cold milk."],["What is the lesson of the story?","Be careful of people who praise you to trick you.","Always eat cheese at night.","Foxes can fly airplanes."]],
   l:"Once upon a time, a slow tortoise and a fast rabbit had a race. The rabbit ran fast, then stopped to sleep under a tree. The tortoise kept walking slowly. When the rabbit woke up, the tortoise had already won!",
   lq:[["Who was fast?","the rabbit","the tortoise","the tree"],["What did the rabbit do during the race?","He slept under a tree.","He ate cheese.","He went home."],["Who won the race?","the tortoise","the rabbit","nobody"]],
@@ -165,7 +165,7 @@ const LV=[
   rq:[["What was the crow's problem?","Its beak could not reach the water.","It had no wings.","It was too cold."],["What did the crow drop into the jug?","small stones","cheese","leaves"],["Which word describes the crow?","clever","lazy","proud"]]}
  ]},
 {en:"Space Station",ar:"محطة الفضاء",sub:"علوم وأفكار كبيرة وحوار متقدم",icon:"🚀",c:"#6447D1",d:"#3E2896",s:"#ECE7FB",boss:"التحدي الأخير: قائد المحطة",
- games:["spell","sentence","hide","gap","balloons","search"],
+ games:["spell","order","hide","gap","balloons","search"],
  lessons:[
  {en:"Into Space",ar:"الفضاء",v:"planet|كوكب|🪐;star|نجمة|⭐;moon|قمر|🌕;rocket|صاروخ|🚀;astronaut|رائد فضاء|🧑‍🚀;Earth|الأرض|🌍",
   c:[["If you could visit any planet, which one would you choose?","I would choose Saturn because of its rings.","I would choose my sandwich planet.","Planets are under my bed."],["How would you get there?","I would fly in a big rocket.","I would walk with my bike.","I would swim in milk."],["What would you need in space?","I would need a space suit and oxygen.","I would need flip-flops and a kite.","I would need a fever."],["Astronauts must study hard for years.","Then I will start studying today!","No, astronauts sleep all the time.","Study is a cold moon."]],

@@ -5,7 +5,7 @@
 const PART=6;
 const LV=[
 {en:"Science Academy",ar:"أكاديمية العلوم",sub:"نصوص علمية ومصطلحات أكاديمية",icon:"🔬",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي عميد الأكاديمية",
- games:["tf","unscramble","hide","gap","memory","spell"],
+ games:["tf","unscramble","hide","seq","memory","spell"],
  lessons:[
  {en:"The Scientific Method",ar:"المنهج العلمي",v:"hypothesis|فرضية|💭;variable|متغيّر|🔀;observe|يلاحظ|👁️;conclusion|استنتاج|🏁;data|بيانات|📊;method|منهج|📋",
   c:[["What is a hypothesis?","It's a prediction that can be tested by an experiment.","It's the final answer that never changes.","It's a type of microscope."],["Why should you change only one variable at a time?","So you know exactly what caused the result.","Because changing variables is illegal.","So the experiment takes longer."],["What should a scientist do if the results don't support the hypothesis?","Accept the results and form a new hypothesis.","Hide the results and pretend.","Change the data to match the idea."],["Why do other scientists repeat experiments?","To check that the results are reliable.","Because they have nothing else to do.","To copy the first scientist's glory."]],
@@ -45,7 +45,7 @@ const LV=[
   rq:[["How long is the DNA in one cell if stretched out?","about two meters","two centimeters","two kilometers"],["How does it fit in the nucleus?","It is tightly coiled.","It is cut into pieces.","It is very thin glass."],["How many chemical letters does the DNA code use?","four","twenty-six","two"],["What was completed in 2003?","the Human Genome Project","the first microscope","the first vaccine"]]}
  ]},
 {en:"Space Agency",ar:"وكالة الفضاء",sub:"المهمات الفضائية والماضي التام",icon:"🛰️",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي قائد المهمة",
- games:["search","sentence","fly","balloons","pop","gap"],
+ games:["search","bingo","fly","balloons","pop","race"],
  lessons:[
  {en:"Life on the Space Station",ar:"الحياة في محطة الفضاء",v:"orbit|مدار|🪐;gravity|الجاذبية|⬇️;weightless|عديم الوزن|🎈;crew|طاقم|👩‍🚀;experiment|تجربة|🧪;launch|إطلاق|🚀",
   c:[["How do astronauts sleep in space?","They sleep in sleeping bags that are attached to the wall.","They sleep floating freely and bump into things.","They never sleep in space."],["Why do astronauts exercise for two hours a day?","Because without gravity, their muscles and bones get weaker.","Because they are bored.","Because the station is too small."],["How many times does the station orbit the Earth each day?","About sixteen times.","Once a year.","Never, it stays still."],["Who were the first Saudi astronauts to visit the space station?","Rayyanah Barnawi and Ali AlQarni, in 2023.","Nobody has ever gone.","A famous falcon."]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["What is one new question about space?","Should companies mine asteroids?","Is the Moon made of cheese?","How old is the Sun?"],["What does the Outer Space Treaty say?","No country can claim the Moon.","Every country owns part of the Moon.","Only companies can use space."],["When was the treaty written?","in 1967","in 2020","in 1800"],["What do many experts believe?","The world needs new agreements.","The old treaty is perfect.","Space should be closed."]]}
  ]},
 {en:"Literature Library",ar:"مكتبة الأدب",sub:"القصص والشعر والتعابير الاصطلاحية",icon:"📚",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي أمين المكتبة",
- games:["spell","hide","gap","unscramble","sentence","tf"],
+ games:["letter","hide","gap","unscramble","order","tf"],
  lessons:[
  {en:"Elements of a Story",ar:"عناصر القصة",v:"character|شخصية|🧑;setting|المكان والزمان|🏞️;plot|الحبكة|🧵;conflict|الصراع|⚔️;climax|الذروة|⛰️;resolution|الحل|🏁",
   c:[["What is the setting of a story?","The time and place where the story happens.","The person who wrote the story.","The price of the book."],["What is the climax?","The most exciting moment, when the conflict reaches its peak.","The first page of the book.","The list of characters."],["Who is your favorite character in a book, and why?","I like Sindbad because he's brave and curious.","I like character because book.","Favorite character is me."],["What usually happens in the resolution?","The conflict is solved and the story ends.","The story starts again from the beginning.","A new book begins."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["Who are the main characters?","two cousins, Lama and Saud","a grandfather and his son","two explorers from Europe"],["Where do they find the map?","in their grandfather's house","in a library","in the desert"],["How does the cousins' relationship change?","from arguments to deep trust","from friends to enemies","it doesn't change"],["What is the reviewer's criticism?","Some chapters are predictable.","The descriptions are bad.","It is too long."]]}
  ]},
 {en:"Leaders' Council",ar:"مجلس القادة",sub:"القيادة والخطابة والإقناع",icon:"🏛️",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي رئيس المجلس",
- games:["balloons","gap","search","sentence","fly","spell"],
+ games:["balloons","hear","search","sentence","fly","spell"],
  lessons:[
  {en:"Qualities of a Leader",ar:"صفات القائد",v:"vision|رؤية|🔭;integrity|نزاهة|🧭;empathy|تعاطف|🤗;delegate|يفوّض|📋;inspire|يلهم|✨;accountable|مسؤول|⚖️",
   c:[["What do you think is the most important quality of a leader?","Integrity, because people need to trust their leader.","Being the loudest person.","Leader quality important is."],["What does it mean to delegate?","To give tasks to others and trust them to do them.","To do every task yourself.","To cancel all the tasks."],["How should a leader react when the team fails?","Take responsibility and help the team learn from it.","Blame everyone else.","Pretend nothing happened."],["Have you ever led a group?","Yes, I led my class's charity campaign last year.","Yes, I have lead it last year ago.","Group has led me."]],

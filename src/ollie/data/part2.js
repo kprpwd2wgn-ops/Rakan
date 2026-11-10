@@ -5,7 +5,7 @@
 const PART=2;
 const LV=[
 {en:"Sunny Town",ar:"مدينة الشمس",sub:"عاداتك اليومية والأيام والشهور",icon:"🏘️",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي عمدة المدينة",
- games:["match","tf","hide","unscramble","memory","fly"],
+ games:["match","tf","hide","unscramble","memory","seq"],
  lessons:[
  {en:"My Morning",ar:"صباحي",v:"get up|ينهض|🛏️;wash|يغسل|🧼;comb|يمشط|💇;dress|يرتدي ملابسه|👕;pack|يحزم|🎒;leave|يغادر|🚪",
   c:[["What do you do every morning?","I get up, wash my face and pray.","I get up yesterday.","Morning is a cat."],["Do you eat breakfast at home?","Yes, I eat breakfast with my family.","Yes, I eats breakfast.","No, breakfast is blue."],["How do you go to school?","My father drives me to school.","I go to school by banana.","School goes to me."],["What time do you leave home?","I leave home at half past six.","I leave home at the kitchen.","I am leave."]],
@@ -37,7 +37,7 @@ const LV=[
   lq:[["What color is the rabbit?","white","brown","black"],["What does Snow eat?","carrots","fish","bread"],["When does Lina clean the cage?","on Saturday","every day","on Monday"]],
   r:"A pet is a friend, but it needs a lot of care. You must give it food and clean water every day. Some pets, like dogs, need a walk. Others, like fish, need a clean tank. When a pet is sick, take it to the vet. And remember, pets need love too. Play with your pet and talk to it kindly.",
   rq:[["What does a pet need every day?","food and clean water","a new toy","a bath"],["Which pet needs a walk?","a dog","a fish","a turtle"],["Where do you take a sick pet?","to the vet","to school","to the park"]]},
- {en:"Shopping List",ar:"قائمة التسوق",v:"rice|أرز|🍚;sugar|سكر|🧂;juice|عصير|🧃;cheese|جبن|🧀;tomato|طماطم|🍅;bottle|زجاجة|🍼",
+ {en:"Shopping List",ar:"قائمة التسوق",v:"rice|أرز|🍚;sugar|سكر|🍬;juice|عصير|🧃;cheese|جبن|🧀;tomato|طماطم|🍅;bottle|زجاجة|🍼",
   c:[["What do we need from the shop?","We need rice, sugar and tomatoes.","We need a rice tomato yesterday.","Shop is my need."],["How much is the juice?","It is five riyals.","It is green riyals.","Juice is my friend."],["Do you want a big bottle or a small one?","A big bottle, please.","A bottle is my brother.","I am a big."],["Is there any cheese at home?","No, there isn't any cheese.","Yes, there are cheese a lot.","Cheese is sleeping."]],
   l:"Here is my shopping list: two bottles of water, one bag of rice, six eggs and some tomatoes. Don't forget the orange juice!",
   lq:[["How many eggs are on the list?","six","two","ten"],["How many bottles of water?","two","one","six"],["What juice is on the list?","orange juice","apple juice","mango juice"]],
@@ -45,7 +45,7 @@ const LV=[
   rq:[["What fruit do they buy?","apples, bananas and grapes","only apples","oranges"],["What does Omar want?","a chocolate cake","a toy","juice"],["What will they do at home?","make a cake together","sleep","watch TV"]]}
  ]},
 {en:"Rainbow Farm",ar:"مزرعة قوس قزح",sub:"ماذا يحدث الآن؟ الأفعال المستمرة",icon:"🚜",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي المزارع الكبير",
- games:["listen","search","pop","balloons","gap","sentence"],
+ games:["listen","bingo","pop","letter","gap","sentence"],
  lessons:[
  {en:"What Are You Doing?",ar:"ماذا تفعل الآن؟",v:"reading|يقرأ|📖;eating|يأكل|🍽️;playing|يلعب|⚽;sleeping|ينام|😴;writing|يكتب|✍️;watching|يشاهد|📺",
   c:[["What are you doing now?","I am reading a story.","I reading a story.","I am a story."],["What is your brother doing?","He is playing football outside.","He are playing.","He is a football."],["Is the baby sleeping?","Yes, she is sleeping in her bed.","Yes, she sleeping bed.","The baby is a bed."],["Are you watching TV?","No, I'm not. I'm doing my homework.","No, I not watching.","TV is watching me."]],
@@ -65,7 +65,7 @@ const LV=[
   lq:[["What are they growing?","tomatoes, carrots and onions","apples and grapes","rice"],["Who is watering the plants?","the little brother","the mother","the farmer"],["When can they eat the vegetables?","next month","today","next year"]],
   r:"Mona and her mom are making a fruit salad. Mona is cutting bananas and apples into small pieces. Her mom is washing the grapes. They are adding some pomegranate seeds because they are red and beautiful. At the end, they put a little honey on top. The whole family loves Mona's colorful fruit salad.",
   rq:[["What is Mona cutting?","bananas and apples","grapes","carrots"],["Why do they add pomegranate seeds?","They are red and beautiful.","They are sour.","They are big."],["What do they put on top?","honey","salt","chocolate"]]},
- {en:"At the Park",ar:"في الحديقة",v:"swing|أرجوحة|🛝;slide|زحليقة|🎢;bench|مقعد|🪑;fountain|نافورة|⛲;grass|عشب|🌱;kite|طائرة ورقية|🪁",
+ {en:"At the Park",ar:"في الحديقة",v:"swing|أرجوحة|🎠;slide|زحليقة|🎢;bench|مقعد|🪑;fountain|نافورة|⛲;grass|عشب|🌱;kite|طائرة ورقية|🪁",
   c:[["Where are the children playing?","They are playing on the swings.","They is playing swing.","The swing is playing them."],["What is that man doing on the bench?","He is reading a book.","He reading bench.","The bench is a man."],["Can we feed the ducks?","Yes, but only with special food.","Yes, give them shoes.","Ducks are bananas."],["It's getting dark. Let's go home.","OK, let's go. I had fun!","No, dark is my friend.","Home is a kite."]],
   l:"It is a windy day at the park. Some children are flying kites. Two girls are going down the slide. A grandfather is sitting on a bench near the fountain.",
   lq:[["What is the weather like?","windy","rainy","snowy"],["What are some children flying?","kites","planes","balls"],["Where is the grandfather sitting?","on a bench near the fountain","on the slide","on the grass"]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["When does the family clean the house?","before Eid","after school","every night"],["What does Hamad do?","vacuums the carpet","dusts the shelves","cooks"],["What does Mom give them?","a sweet","money","a toy"]]}
  ]},
 {en:"Pirate Bay",ar:"خليج القراصنة",sub:"أين الأشياء؟ صفات ووصف وملكية",icon:"🏴‍☠️",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي قبطان السفينة",
- games:["unscramble","fly","memory","gap","spell","hide"],
+ games:["unscramble","fly","memory","race","spell","hide"],
  lessons:[
  {en:"Where Is It?",ar:"أين هو؟",v:"in|في|📥;on|على|🔝;under|تحت|⬇️;behind|خلف|🔙;between|بين|↔️;in front of|أمام|⏩",
   c:[["Where is my pencil?","It's under your chair.","It's under is pencil.","Pencil is where."],["Where is the cat?","It's behind the sofa.","It's behind is sofa cat.","The cat is a sofa."],["Is the book on the table?","No, it's in your bag.","Yes, the table is a book.","No, it in bag."],["Where do you sit in class?","I sit between Ali and Majed.","I sit between in on.","Class sits on me."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["Who was the captain?","Yousef","Laila","Adam"],["What was Adam?","the parrot","the captain","the map reader"],["What was the treasure?","a box of cookies","gold","a toy ship"]]}
  ]},
 {en:"Dino Valley",ar:"وادي الديناصورات",sub:"الماضي البسيط: ماذا حدث أمس؟",icon:"🦕",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي الديناصور العملاق",
- games:["search","sentence","tf","balloons","pop","spell"],
+ games:["search","hear","tf","balloons","pop","spell"],
  lessons:[
  {en:"Yesterday",ar:"الأمس",v:"was|كان|⏪;were|كانوا|👥;played|لعب|⚽;visited|زار|🏡;watched|شاهد|📺;cooked|طبخ|🍲",
   c:[["Where were you yesterday?","I was at my aunt's house.","I am at yesterday.","Yesterday was my aunt."],["What did you do there?","I played with my cousins.","I play with yesterday.","I did a cousin."],["Was the weather nice?","Yes, it was sunny and warm.","Yes, it is be sunny.","Weather was a cake."],["Did you watch a film?","Yes, we watched a funny film.","Yes, we watch film yesterday tomorrow.","A film watched me."]],
@@ -165,7 +165,7 @@ const LV=[
   rq:[["Where did Reem lose her bear?","at the airport","at school","at the park"],["What did the bear wear?","a red scarf","a blue hat","glasses"],["Where did someone find it?","near gate five","on the plane","in a shop"]]}
  ]},
 {en:"Robot City",ar:"مدينة الروبوتات",sub:"أسئلة وطلبات مهذبة ومقارنات",icon:"🤖",c:"#6447D1",d:"#3E2896",s:"#ECE7FB",boss:"تحدي الروبوت الذكي",
- games:["gap","spell","fly","sentence","search","balloons"],
+ games:["gap","order","fly","sentence","search","balloons"],
  lessons:[
  {en:"Question Words",ar:"كلمات السؤال",v:"who|من|🧑;what|ماذا|❔;where|أين|📍;when|متى|⏰;why|لماذا|🤔;how|كيف|🛠️",
   c:[["Who is your best friend?","My best friend is Turki.","Who is a friend best.","Best is who."],["Where do you live?","I live in Riyadh.","I live in where.","Where lives me."],["Why are you happy today?","Because I got a good mark in the test.","Because why happy.","Today is because."],["How do you make tea?","Boil the water, then add the tea leaves.","How is tea yesterday.","Tea makes me."]],

@@ -5,7 +5,7 @@
 const PART=5;
 const LV=[
 {en:"Inventors' Workshop",ar:"ورشة المخترعين",sub:"المبني للمجهول: كيف صُنع؟",icon:"🛠️",c:"#27A85A",d:"#17733C",s:"#DFF4E7",boss:"تحدي كبير المخترعين",
- games:["tf","unscramble","hide","gap","memory","spell"],
+ games:["tf","unscramble","hide","seq","memory","spell"],
  lessons:[
  {en:"How Is It Made?",ar:"كيف يُصنع؟",v:"is made|يُصنع|🏭;factory|مصنع|🏗️;material|مادة خام|🧱;process|عملية|⚙️;melted|مُذاب|🔥;shaped|مُشكَّل|🔷",
   c:[["How is glass made?","It is made by melting sand at very high temperatures.","It makes by sand melting.","Glass is making me."],["Where are most phones produced?","Most of them are produced in factories in Asia.","Most of them produce in Asia by itself.","Phones are produce me."],["What is paper made from?","It's usually made from wood pulp.","It's made from ice and salt.","Paper is made of paper made."],["Was this chair made by hand?","Yes, it was carved by a local carpenter.","Yes, it was carve by hand yesterday.","The chair made the carpenter."]],
@@ -45,7 +45,7 @@ const LV=[
   rq:[["Who can smart technology especially help?","elderly people and people with disabilities","only children","only athletes"],["What can sensors detect?","if an elderly person has fallen","the color of clothes","bad dreams"],["What do experts warn about?","smart devices collect personal information","they are too cheap","they are too slow"],["What advice is given?","choose trusted companies and use strong passwords","never use technology","share all information"]]}
  ]},
 {en:"World Explorers",ar:"مستكشفو العالم",sub:"ثقافات وقارات وأشخاص الذين...",icon:"🧭",c:"#0F9488",d:"#086158",s:"#DBF3F0",boss:"تحدي الرحالة العظيم",
- games:["search","sentence","fly","balloons","pop","gap"],
+ games:["bingo","sentence","fly","balloons","pop","race"],
  lessons:[
  {en:"Continents and Oceans",ar:"القارات والمحيطات",v:"continent|قارة|🌍;ocean|محيط|🌊;equator|خط الاستواء|〰️;population|عدد السكان|👨‍👩‍👧‍👦;border|حدود|🚧;climate zone|منطقة مناخية|🌡️",
   c:[["How many continents are there?","There are seven continents.","There are seven oceans continents.","Continents are how many."],["Which is the largest ocean?","The Pacific Ocean, which covers about a third of the Earth.","The Pacific, who is the big.","Ocean largest is me."],["Which continent is Saudi Arabia in?","It's in Asia, in the region that is called the Middle East.","It's in Europe, near the North Pole.","Saudi Arabia is a continent."],["What's the weather like near the equator?","It's usually hot and often rainy.","It's always snowy and frozen.","The equator has no weather."]],
@@ -85,7 +85,7 @@ const LV=[
   rq:[["Why is Hind writing?","to complain about her trip","to thank the airline","to book a flight"],["How long was the flight delayed?","six hours","nine hours","one hour"],["What happened when she arrived?","One of her bags had been lost.","Her passport was taken.","Her friend was waiting."],["What does she want?","her bag returned and compensation","a new passport","a free holiday"]]}
  ]},
 {en:"News Studio",ar:"استوديو الأخبار",sub:"الكلام المنقول: قال إنّ...",icon:"📰",c:"#E0702A",d:"#9E4614",s:"#FCE9DC",boss:"تحدي رئيس التحرير",
- games:["spell","hide","gap","unscramble","sentence","tf"],
+ games:["letter","hide","gap","unscramble","sentence","tf"],
  lessons:[
  {en:"Reported Speech",ar:"الكلام المنقول",v:"said|قال|💬;told|أخبر|🗣️;asked|سأل|❓;explained|شرح|📋;promised|وعد|🤞;announced|أعلن|📢",
   c:[["What did the teacher say?","She said that the test would be on Monday.","She said the test is be Monday.","The teacher said me test."],["What did your friend ask you?","He asked me if I wanted to play chess.","He asked me do you want chess.","Friend asked chess me."],["What did your father promise?","He promised that he would take us to the beach.","He promised he take us beach will.","Promise was father."],["What did the news announce?","It announced that schools would be closed because of the storm.","It announces schools closed was.","News announced me."]],
@@ -125,7 +125,7 @@ const LV=[
   rq:[["What are the best sports stories about?","people","only scores","the weather"],["Why do reporters interview players?","to understand how they felt","to sell tickets","to change the score"],["What are comeback stories about?","teams that were losing but never gave up","teams that always win","teams that quit"],["Why do readers love these stories?","They teach lessons beyond sport.","They are short.","They are about money."]]}
  ]},
 {en:"Money Market",ar:"سوق المال",sub:"الادخار والإنفاق والتجارة الصغيرة",icon:"💰",c:"#2B6FCC",d:"#174788",s:"#DFEAFA",boss:"تحدي رجل الأعمال الصغير",
- games:["balloons","gap","search","sentence","fly","spell"],
+ games:["balloons","hear","search","order","fly","spell"],
  lessons:[
  {en:"Saving and Spending",ar:"الادخار والإنفاق",v:"save|يدخر|🐷;spend|ينفق|💸;budget|ميزانية|📊;goal|هدف|🎯;afford|يستطيع تحمل التكلفة|✅;pocket money|مصروف|🪙",
   c:[["What do you do with your pocket money?","I save half of it and spend the rest.","I spend it yesterday tomorrow.","Pocket money does me."],["What are you saving for?","I'm saving for a new bike that costs six hundred riyals.","I saving bike for six.","Saving is for me."],["If you saved twenty riyals a week, how long would it take?","It would take thirty weeks.","It will take thirty weak.","Twenty would take me."],["Why is a budget useful?","It helps you plan your money so you don't run out.","It makes you spend everything quickly.","A budget is a kind of bird."]],

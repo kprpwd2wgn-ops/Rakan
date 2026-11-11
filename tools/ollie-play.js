@@ -3,7 +3,7 @@
 // the album, the dictionary, the parents corner, the flashcards, the library, the one-minute rush and the wardrobe.
 // Reports script errors and clips that failed to load.
 // The page is served from a small local server, because the recorded voice does not load from file://.
-// usage: node tools/ollie-play.js [part 1-6, default 1] [games|flow|all, default all] [folder for screenshots]
+// usage: node tools/ollie-play.js [part 1-12, default 1] [games|flow|all, default all] [folder for screenshots]
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -37,7 +37,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
     const start = AudioBufferSourceNode.prototype.start;
     AudioBufferSourceNode.prototype.start = function (...a) { if (typeof VO !== 'undefined' && this.buffer !== VO.noise) window.__spoken++; return start.apply(this, a); };
   });
-  await page.goto(base + (part + 1) + '.html');
+  await page.goto(base + (part <= 6 ? (part + 1) + '.html' : 'ollie-' + part + '.html'));
   await page.waitForSelector('.world');
   // what Ollie was asked to say, in order (the "remember the order" bot reads the words back from here)
   const listen = () => page.evaluate(() => { window.__said = []; const real = say; window.say = function (t, o) { window.__said.push(t); return real(t, o); }; });
@@ -193,7 +193,7 @@ const TYPES = { '.html': 'text/html; charset=utf-8', '.json': 'application/json'
   if (!await page.evaluate(() => window.__spoken)) errors.push('Ollie did not speak when tapped');
 
   if (mode !== 'flow') {
-    const where = { 1: [[0, 0], [2, 0], [4, 5]], 2: [[2, 0], [4, 1]], 3: [[1, 0], [3, 3]], 4: [[0, 4], [3, 2]], 5: [[2, 1], [4, 2]], 6: [[2, 1], [4, 4]] }[part];
+    const where = { 1: [[0, 0], [2, 0], [4, 5]], 2: [[2, 0], [4, 1]], 3: [[1, 0], [3, 3]], 4: [[0, 4], [3, 2]], 5: [[2, 1], [4, 2]], 6: [[2, 1], [4, 4]] }[part] || [[0, 0], [2, 3], [4, 5]];
     for (const [l, i] of where) {
       await page.evaluate(([l, i]) => { ctx.l = l; ctx.i = i; lesson(); window.GL = cur(); }, [l, i]);
       const name = await page.evaluate(() => cur().en), played = [];

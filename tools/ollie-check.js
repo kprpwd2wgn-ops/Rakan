@@ -13,7 +13,10 @@ const sayBlock = engine.slice(engine.indexOf('/*SAY-START*/'), engine.indexOf('/
 const clips = new Set(fs.readdirSync(path.join(root, 'ollie/voices')).filter(f => f.endsWith('.mp3')).map(f => f.slice(0, -4)));
 let bad = 0;
 
-for (let part = 1; part <= 6; part++) {
+// every part that has both its lessons and its clip map
+let parts = 0;
+while (fs.existsSync(path.join(root, `src/ollie/data/part${parts + 1}.js`)) && fs.existsSync(path.join(root, `ollie/voices/part${parts + 1}.json`))) parts++;
+for (let part = 1; part <= parts; part++) {
   const box = {};
   vm.createContext(box);
   vm.runInContext(fs.readFileSync(path.join(root, `src/ollie/data/part${part}.js`), 'utf8') + pure + sayBlock +

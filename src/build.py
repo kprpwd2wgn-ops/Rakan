@@ -53,10 +53,15 @@ def build(name):
     open(os.path.join(O,N+'.html'),'w',encoding='utf-8').write(html)
     print('built',N,len(html))
 
-# ---- Ollie English parts: python3 src/build.py ollie  ->  2.html ... 7.html (part N is file N+1) ----
+# ---- Ollie English parts: python3 src/build.py ollie  ->  2.html ... 7.html (parts 1-6) and ollie-7.html ... (parts 7-12) ----
+# A part is built once it has both its lessons (src/ollie/data/part<N>.js) and its clip map (ollie/voices/part<N>.json).
 # One engine and one stylesheet for the six parts; each part has its own lessons (src/ollie/data/part<N>.js)
 # and its own home-screen icon (src/ollie/icons/part<N>.png). Unlike the games above they do not use the kit.
-OLLIE_PARTS=6
+def ollie_parts():
+    n=0
+    while os.path.exists(os.path.join(R,'ollie','data',f'part{n+1}.js')) and os.path.exists(os.path.join(O,'ollie','voices',f'part{n+1}.json')): n+=1
+    return n
+def ollie_page(n): return f'{n+1}.html' if n<=6 else f'ollie-{n}.html'
 OLLIE_PAGE='''<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
@@ -101,7 +106,8 @@ def build_ollie():
     import base64,hashlib
     S=os.path.join(R,'ollie');rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
     css,engine=rd('style.css'),rd('engine.js');says=ollie_says(engine);V=os.path.join(O,'ollie','voices')
-    for n in range(1,OLLIE_PARTS+1):
+    parts=ollie_parts()
+    for n in range(1,parts+1):
         # Ollie's own lines must be in this part's clip map; a line recorded for another part is added here
         mp=os.path.join(V,f'part{n}.json');m=json.load(open(mp,encoding='utf-8'));added=[]
         for t in says:
@@ -111,7 +117,7 @@ def build_ollie():
             m['s'][t]=cid;added.append(t)
         if added: open(mp,'w',encoding='utf-8').write(json.dumps(m,ensure_ascii=False,separators=(',',':')))
         icon=base64.b64encode(open(os.path.join(S,'icons',f'part{n}.png'),'rb').read()).decode()
-        html=OLLIE_PAGE.replace('@N@',str(n)).replace('@ICON@',icon).replace('@CSS@',css).replace('@DATA@',rd(f'data/part{n}.js')).replace('@ENGINE@',engine)
-        open(os.path.join(O,f'{n+1}.html'),'w',encoding='utf-8').write(html)
-        print('built',f'{n+1}.html','(Ollie part %d)'%n,len(html),('· clip map +%d lines'%len(added)) if added else '')
+        html=OLLIE_PAGE.replace('@N@',str(n)).replace('@ICON@',icon).replace('@CSS@',css).replace('@DATA@',f'const PARTS={parts};\n'+rd(f'data/part{n}.js')).replace('@ENGINE@',engine)
+        open(os.path.join(O,ollie_page(n)),'w',encoding='utf-8').write(html)
+        print('built',ollie_page(n),'(Ollie part %d)'%n,len(html),('· clip map +%d lines'%len(added)) if added else '')
 for n in (sys.argv[1:] or list(APPS)+['ollie']): build_ollie() if n=='ollie' else build(n)

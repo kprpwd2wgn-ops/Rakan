@@ -477,6 +477,7 @@ button.bk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
 
 <script>
 /* Built by `python3 src/build.py ollie` from src/ollie/. Change the files there, not this page. */
+const PARTS=9;
 /* Ollie, part 3 (أساسي): 5 worlds x 6 lessons.
    v = the lesson's words as english|arabic|picture; c = conversation rows; l / lq = listening text and questions;
    r / rq = reading text and questions. In every row the first answer is the correct one.
@@ -687,7 +688,11 @@ const LV=[
 
 /* ===================== ENGINE (shared by the six parts; the part file above defines PART and LV) ===================== */
 /* In every question / conversation row, the first answer is the correct one; options are shuffled on screen. */
-const LEVELS=['مبتدئ','مبتدئ متقدم','أساسي','أساسي متقدم','متوسط','متوسط متقدم'];
+const LEVEL1=['مبتدئ','مبتدئ متقدم','أساسي','أساسي متقدم','متوسط','متوسط متقدم'];
+const LEVELS=[...LEVEL1,...LEVEL1.map(x=>x+' · السلسلة ٢')];  /* parts 7-12 are a second course at the levels of 1-6 */
+/* parts 1-6 are 2.html ... 7.html; 9.html is another page, so parts 7-12 are ollie-7.html ... ollie-12.html.
+   PARTS (how many parts are built) is set by src/build.py above the part's data. */
+const PAGE=n=>n<=6?(n+1)+'.html':'ollie-'+n+'.html';
 const GN={match:"طابق الكلمة بالصورة",memory:"لعبة الذاكرة",listen:"اسمع واختر",hide:"الغميضة",tf:"صح أم خطأ؟",pop:"فقاعات الكلمات",fly:"طيران أولي",seq:"تذكّر الترتيب",bingo:"بنغو الكلمات",race:"سباق الأرنب",unscramble:"رتّب الحروف",letter:"الحرف الناقص",balloons:"بالونات أولي",search:"البحث عن الكلمات",gap:"الكلمة الناقصة",hear:"أي جملة سمعت؟",order:"رتّب القصة",spell:"اكتب الكلمة",sentence:"رتّب الجملة"};
 const GE={match:"🧩",memory:"🃏",listen:"👂",hide:"🌳",tf:"✅",pop:"🫧",fly:"🐥",seq:"🧠",bingo:"🎯",race:"🐇",unscramble:"🔤",letter:"🔡",balloons:"🎈",search:"🔎",gap:"✏️",hear:"💬",order:"📚",spell:"⌨️",sentence:"🧱"};
 const GAMES=Object.keys(GN);
@@ -709,7 +714,7 @@ const SAY={
 };
 /*SAY-END*/
 /* Shown in the parents corner and in "what is new", so a family can tell which copy their phone is showing. */
-const VER={n:5,day:'11 نوفمبر 2026'};
+const VER={n:6,day:'11 نوفمبر 2026'};
 const DAILY_ST=['🦉','🦊','🐬','🦄','🐼','🦁','🐯','🐨','🐙','🦋','🐢','🦜','🐳','🦒','🦓','🐘','🦔','🐿️','🦩','🐧','🦥','🦦','🦕','🚀','🌈','🏆','💎','🪁','🧸','🎯'];
 
 /* ===================== HELPERS ===================== */
@@ -1001,7 +1006,7 @@ function home(){
    <span class="w-txt"><span class="muted">العالم ${l+1}</span><b>${lv.ar}</b><i dir="ltr">${lv.en}</i>
    <span class="prog"><span style="width:${done/6*100}%"></span></span>
    <small>${done} من 6 دروس · ${s} نجمة${boss?' · فاز بالتحدي 👑':''}</small></span>${un?'':icon('lock')}</button>`}).join('')}</div>
- <nav class="parts" aria-label="أجزاء أولي"><span>أجزاء أولي</span>${LEVELS.map((_,k)=>k+1===PART?`<b aria-current="page">${k+1}</b>`:`<a href="${k+2}.html">${k+1}</a>`).join('')}</nav>`);
+ <nav class="parts" aria-label="أجزاء أولي"><span>أجزاء أولي</span>${Array.from({length:PARTS},(_,k)=>k+1===PART?`<b aria-current="page">${k+1}</b>`:`<a href="${PAGE(k+1)}">${k+1}</a>`).join('')}</nav>`);
  $$('.world').forEach(b=>b.onclick=()=>{const l=+b.dataset.l;if(!levelUnlocked(l))return toast('اهزم تحدي العالم السابق لفتح هذا العالم');ctx.l=l;level()});
  $('#ollie').onclick=()=>{const o=$('#ollie'),hr=new Date().getHours();o.classList.remove('hop');void o.offsetWidth;o.classList.add('hop');
   say(pick([...SAY.hello,...(hr>=5&&hr<12?[SAY.morning,SAY.morning]:hr>=18&&hr<22?[SAY.evening,SAY.evening]:[])]))};
@@ -1622,7 +1627,7 @@ function finish(a,stars,score){
   ${newSt?`<div class="newst"><span>${a==='boss'?'👑':V(cur())[0].em}</span><b>ملصق جديد في ألبومك!</b></div>`:''}
   ${giftLine()}
   ${got?`<p class="gift">🎉 جمعت 10 نجوم! اطلب من أهلك نجمة في لوحة النجوم.</p>`:''}
-  ${a==='boss'&&stars&&ctx.l===LV.length-1?`<p style="font-weight:800">أنهيت الجزء ${PART} كله. أنت بطل الإنجليزية! 🏆</p>${PART<LEVELS.length?`<a class="go" href="${PART+2}.html">انتقل إلى الجزء ${PART+1}</a>`:''}`:''}
+  ${a==='boss'&&stars&&ctx.l===LV.length-1?`<p style="font-weight:800">أنهيت الجزء ${PART} كله. أنت بطل الإنجليزية! 🏆</p>${PART<PARTS?`<a class="go" href="${PAGE(PART+1)}">انتقل إلى الجزء ${PART+1}</a>`:''}`:''}
   <div class="btns">${nextFn?`<button class="go" id="nx">${nextLbl}</button>`:''}<button class="ghost" id="again">أعد المحاولة</button><button class="ghost" id="bk">رجوع</button></div></div>`);
  const line=cheer(stars);if(stars===3)$('.result p[dir=ltr]').textContent=line;
  if(nextFn)$('#nx').onclick=()=>{stopAll();nextFn()};
@@ -1690,7 +1695,7 @@ function parents(){
   <li>النجوم: 3 بلا أخطاء، 2 لأخطاء قليلة، 1 للمحاولة. يمكن إعادة أي نشاط لرفع النجوم.</li>
   <li>«ألعاب أكثر» و«لعبة سريعة» و«تحدي اليوم» و«تحدي الدقيقة» للتدريب والمتعة: نجومها لا تدخل في حساب لوحة النجوم.</li>
   <li>«بطاقات الكلمات» في أول كل درس مراجعة هادئة قبل اللعب، و«مكتبة القصص» تصلح للاستماع قبل النوم.</li>
-  <li>«خزانة أولي» هدايا للمواظبة: قطعة ملابس لأولي عند كل إنجاز، وهي مشتركة بين الأجزاء الستة.</li>
+  <li>«خزانة أولي» هدايا للمواظبة: قطعة ملابس لأولي عند كل إنجاز، وهي مشتركة بين أجزاء أولي كلها.</li>
   <li>الكلمات التي يخطئ فيها تُجمع في «قاموسي المصوّر» ليتدرب عليها، وتختفي كلما أجاب عنها صحيحًا.</li>
   <li>${PART===1?'من العالم الثالث تبدأ تحديات أصعب: ساعة للعب، وإخفاء نص الاستماع، وكتابة الكلمات والجمل.':'في هذا الجزء التحديات مفعّلة من البداية: ساعة للعب، وإخفاء نص الاستماع، ووقت أقصر في تحدي كل عالم.'}</li>
   <li>كل جزء من أولي مستقل، وتقدّمه محفوظ وحده على هذا الجهاز وهذا المتصفح فقط.</li>
@@ -1794,7 +1799,7 @@ function wardrobe(){
  h('خزانة أولي',home,`<section class="stage"><div class="stage-o" id="wo">${BIRD(120)}</div><p class="muted">معك ${n} من ${WEAR.length} قطعة. اضغط القطعة ليلبسها أولي، واضغطها مرة ثانية ليخلعها.</p></section>
  <div class="wear">${WEAR.map(w=>{const has=LOOK.have[w.id],on=LOOK.on[w.slot]===w.id;
   return `<button class="wr${has?'':' lock'}${on?' on':''}" data-id="${w.id}"><span class="we">${BIRD(46,{[w.slot]:w.id})}</span><b>${w.ar}</b>${has?(on?'<small class="ok">يلبسها الآن ✔</small>':'<small>اضغط ليلبسها</small>'):`<small>${w.need}</small><span class="prog sun"><span style="width:${Math.min(w.get(),w.goal)/w.goal*100}%"></span></span>`}${fresh[w.id]?'<i class="dot">جديد</i>':''}</button>`}).join('')}</div>
- <p class="muted" style="text-align:center;margin-top:14px">خزانة واحدة لأجزاء أولي الستة كلها.</p>`);
+ <p class="muted" style="text-align:center;margin-top:14px">خزانة واحدة لأجزاء أولي كلها.</p>`);
  $$('.wr').forEach(b=>b.onclick=()=>{const w=WEAR.find(x=>x.id===b.dataset.id);
   if(!LOOK.have[w.id])return toast('لتحصل عليها: '+w.need);
   const put=LOOK.on[w.slot]!==w.id;LOOK.on[w.slot]=put?w.id:'';saveLook();const y=window.scrollY;wardrobe();window.scrollTo(0,y);
@@ -1803,6 +1808,7 @@ function wardrobe(){
 
 /* ---------- what is new ---------- */
 const NEWS=[
+ 'أجزاء جديدة: 7 و8 و9، فيها 90 درسًا جديدًا عن البيت والطقس والرياضة والمهن والبحر والفضاء والآلات وحكايات الصحراء، وكلها بصوت أولي.',
  'ميكروفون في المحادثة: اضغط 🎤 وقل الرد بصوتك، وأولي يخبرك هل سمعك.',
  'دروس بلا طبل ولا غناء: درس جديد «Loud and Quiet» في الجزء 2، وتعديلات صغيرة في دروس أخرى.',
  '6 ألعاب جديدة: تذكّر الترتيب، بنغو الكلمات، سباق الأرنب، الحرف الناقص، أي جملة سمعت؟، رتّب القصة.',

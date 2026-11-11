@@ -1,7 +1,7 @@
-/* Ollie, part 7 (مبتدئ، مثل الجزء 1): 5 worlds x 6 lessons. Written on 11 Nov 2026, NOT RECORDED YET and not built:
-   see src/ollie/plan-parts-7-12.md. Same format as part 1:
+/* Ollie, part 7 (مبتدئ، السلسلة ٢، بمستوى الجزء 1): 5 worlds x 6 lessons. Written and recorded on 11 Nov 2026.
    v = the lesson's words as english|arabic|picture; c = conversation rows; l / lq = listening text and questions;
-   r / rq = reading text and questions. In every row the first answer is the correct one. */
+   r / rq = reading text and questions. In every row the first answer is the correct one.
+   Every English sentence and word here is a recorded clip: after changing one, run tools/ollie-voice-map.js 7 (see CLAUDE.md). */
 const PART=7;
 const LV=[
 {en:"My Room",ar:"غرفتي",sub:"كلمات عن غرفتك وأشيائك",icon:"🛏️",c:"#2B6FCC",d:"#1B4C91",s:"#E0ECFB",boss:"تحدي حارس الغرفة",

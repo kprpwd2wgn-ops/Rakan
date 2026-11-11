@@ -272,10 +272,13 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   Six pictures were corrected (crow, wing, sugar, swing, beach, glass). Two of them were emoji from 2022, which
   older phones show as an empty box or as two symbols: keep to emoji from 2021 or earlier. Sentences cut inside a quotation are kept out of the two sentence games.
   The word search now accepts a word wherever its letters are found (AGREE inside DISAGREE used to count as a miss).
-  The owner's lesson texts mention drums, singing or songs in a few places (part 2 "Sounds and Rhythm" most of all);
-  they are recorded, so replacing them needs the key. She said yes to replacing them on 10 Nov 2026, but that session
-  had no key and no way to reach Azure, so it is still to do: about 55 sentences and 8 lesson words (sing, drum, rhythm,
-  rhyme, clap, whistle) across the six parts. Do it in the first session that has `AZURE_SPEECH_KEY`.
+  Music in the owner's lesson texts was taken out on 11 Nov 2026 without recording anything: sentences were dropped
+  or swapped for ones already recorded (`ollie/voices/part2.json` got seven such lines by hand), wrong answers and
+  pictures were changed, and part 2's "Sounds and Rhythm" became "Loud and Quiet". Left on purpose: clapping hands,
+  the referee's whistle, oud perfume, birds singing in a tree, rhyme and rhythm as words of the poetry lesson.
+  She also asked for six more parts (7–12) and 12 links, and said not to ask her questions. They are planned in
+  `src/ollie/plan-parts-7-12.md` but not built: about 8,000 new lines need the Azure key, and a silent Ollie would
+  break her own voice rule. Build them part by part in the first session that has `AZURE_SPEECH_KEY`.
 
 ## Setup and limits
 

@@ -145,7 +145,7 @@ const LV=[
   lq:[["What color is the rabbit?","brown","white","black"],["What does he eat every day?","a carrot","an apple","bread"],["Where does he hide?","in a hole","in a tree","in the house"]],
   r:"A little rabbit lives in a garden. He loves carrots. One day he sees a big dog. The rabbit is afraid. He hops very fast and hides in his hole. The dog goes away. The rabbit is safe.",
   rq:[["What does the rabbit love?","carrots","fish","bread"],["What does he see one day?","a big dog","a small cat","a bird"],["Where does he hide?","in his hole","under a car","in the house"]]},
- {en:"The Fish Bowl",ar:"حوض السمك",v:"fish|سمكة|🐠;bowl|حوض|🫧;gold|ذهبي|🥇;bubble|فقاعة|⚪;round|دائري|⭕;watch|يراقب|👀",
+ {en:"The Fish Bowl",ar:"حوض السمك",v:"fish|سمكة|🐠;bowl|حوض|🥣;gold|ذهبي|🥇;bubble|فقاعة|⚪;round|دائري|⭕;watch|يراقب|👀",
   c:[["How many fish do you have?","I have two fish.","I have two o'clock.","It is round."],["What color are they?","They are gold.","They are a bubble.","They are Monday."],["Is the bowl round?","Yes, it is round.","Yes, it is watch.","Five."],["Do you like to watch them?","Yes, I watch them every day.","Yes, I fish them every bowl is.","Hello."]],
   l:"I have a round fish bowl. Two gold fish live in it. They swim all day. They make small bubbles. I like to watch them.",
   lq:[["What shape is the bowl?","round","square","long"],["How many fish are there?","two","three","five"],["What do the fish make?","small bubbles","big waves","a nest"]],

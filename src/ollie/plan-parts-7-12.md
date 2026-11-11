@@ -1,6 +1,6 @@
 # Ollie parts 7–12: the plan
 
-Asked for by the owner on 11 Nov 2026. Parts 7 to 11 are built and recorded (11 Nov 2026); every new sentence is recorded
+Asked for by the owner on 11 Nov 2026. All six parts, 7 to 12, are built and recorded (11 Nov 2026); every new sentence is recorded
 in Ollie's voice (`en-US-AvaNeural`) before a part is built.
 
 ## What they are

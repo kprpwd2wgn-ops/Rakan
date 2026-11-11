@@ -477,7 +477,7 @@ button.bk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
 
 <script>
 /* Built by `python3 src/build.py ollie` from src/ollie/. Change the files there, not this page. */
-const PARTS=11;
+const PARTS=12;
 /* Ollie, part 10 (أساسي متقدم، السلسلة ٢، بمستوى الجزء 4): 5 worlds x 6 lessons. Written and recorded on 11 Nov 2026.
    v = the lesson's words as english|arabic|picture; c = conversation rows; l / lq = listening text and questions;
    r / rq = reading text and questions. In every row the first answer is the correct one.
@@ -686,7 +686,7 @@ const LV=[
  ]}
 ];
 
-/* ===================== ENGINE (shared by the six parts; the part file above defines PART and LV) ===================== */
+/* ===================== ENGINE (shared by all the parts; the part file above defines PART and LV) ===================== */
 /* In every question / conversation row, the first answer is the correct one; options are shuffled on screen. */
 const LEVEL1=['مبتدئ','مبتدئ متقدم','أساسي','أساسي متقدم','متوسط','متوسط متقدم'];
 const LEVELS=[...LEVEL1,...LEVEL1.map(x=>x+' · السلسلة ٢')];  /* parts 7-12 are a second course at the levels of 1-6 */
@@ -1808,7 +1808,7 @@ function wardrobe(){
 
 /* ---------- what is new ---------- */
 const NEWS=[
- 'أجزاء جديدة من 7 إلى 11: 150 درسًا جديدًا عن البيت والطقس والبحر والفضاء والرحلات والألغاز وكوكبنا والاختراعات والمال وعظماء التاريخ، وكلها بصوت أولي.',
+ 'ستة أجزاء جديدة من 7 إلى 12: 180 درسًا جديدًا، من غرفتك والحديقة إلى الفضاء والألغاز والاختراعات ومدن المستقبل والأسئلة الكبيرة، وكلها بصوت أولي.',
  'ميكروفون في المحادثة: اضغط 🎤 وقل الرد بصوتك، وأولي يخبرك هل سمعك.',
  'دروس بلا طبل ولا غناء: درس جديد «Loud and Quiet» في الجزء 2، وتعديلات صغيرة في دروس أخرى.',
  '6 ألعاب جديدة: تذكّر الترتيب، بنغو الكلمات، سباق الأرنب، الحرف الناقص، أي جملة سمعت؟، رتّب القصة.',

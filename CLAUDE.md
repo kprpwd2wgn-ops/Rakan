@@ -290,7 +290,7 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   `icons/part<N>.png`), run `node tools/ollie-voice-map.js <N> <scratch>/pN.json` (writes the clip map, lists only the
   lines without a clip and adds them to `ollie-lines.json`), then `python3 tools/english-voices.py <scratch>/pN.json
   --out ollie/voices`, then build, `ollie-check` and `ollie-play <N>`. A part costs about 20,000-45,000 Azure characters,
-  since many words are already recorded. Built and recorded so far (11 Nov 2026): parts 7 to 11.
+  since many words are already recorded. All six (7-12) were built and recorded on 11 Nov 2026.
 
 ## Setup and limits
 

@@ -477,7 +477,7 @@ button.bk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
 
 <script>
 /* Built by `python3 src/build.py ollie` from src/ollie/. Change the files there, not this page. */
-const PARTS=11;
+const PARTS=12;
 /* Ollie, part 7 (مبتدئ، السلسلة ٢، بمستوى الجزء 1): 5 worlds x 6 lessons. Written and recorded on 11 Nov 2026.
    v = the lesson's words as english|arabic|picture; c = conversation rows; l / lq = listening text and questions;
    r / rq = reading text and questions. In every row the first answer is the correct one.
@@ -625,7 +625,7 @@ const LV=[
   lq:[["What color is the rabbit?","brown","white","black"],["What does he eat every day?","a carrot","an apple","bread"],["Where does he hide?","in a hole","in a tree","in the house"]],
   r:"A little rabbit lives in a garden. He loves carrots. One day he sees a big dog. The rabbit is afraid. He hops very fast and hides in his hole. The dog goes away. The rabbit is safe.",
   rq:[["What does the rabbit love?","carrots","fish","bread"],["What does he see one day?","a big dog","a small cat","a bird"],["Where does he hide?","in his hole","under a car","in the house"]]},
- {en:"The Fish Bowl",ar:"حوض السمك",v:"fish|سمكة|🐠;bowl|حوض|🫧;gold|ذهبي|🥇;bubble|فقاعة|⚪;round|دائري|⭕;watch|يراقب|👀",
+ {en:"The Fish Bowl",ar:"حوض السمك",v:"fish|سمكة|🐠;bowl|حوض|🥣;gold|ذهبي|🥇;bubble|فقاعة|⚪;round|دائري|⭕;watch|يراقب|👀",
   c:[["How many fish do you have?","I have two fish.","I have two o'clock.","It is round."],["What color are they?","They are gold.","They are a bubble.","They are Monday."],["Is the bowl round?","Yes, it is round.","Yes, it is watch.","Five."],["Do you like to watch them?","Yes, I watch them every day.","Yes, I fish them every bowl is.","Hello."]],
   l:"I have a round fish bowl. Two gold fish live in it. They swim all day. They make small bubbles. I like to watch them.",
   lq:[["What shape is the bowl?","round","square","long"],["How many fish are there?","two","three","five"],["What do the fish make?","small bubbles","big waves","a nest"]],
@@ -686,7 +686,7 @@ const LV=[
  ]}
 ];
 
-/* ===================== ENGINE (shared by the six parts; the part file above defines PART and LV) ===================== */
+/* ===================== ENGINE (shared by all the parts; the part file above defines PART and LV) ===================== */
 /* In every question / conversation row, the first answer is the correct one; options are shuffled on screen. */
 const LEVEL1=['مبتدئ','مبتدئ متقدم','أساسي','أساسي متقدم','متوسط','متوسط متقدم'];
 const LEVELS=[...LEVEL1,...LEVEL1.map(x=>x+' · السلسلة ٢')];  /* parts 7-12 are a second course at the levels of 1-6 */
@@ -1808,7 +1808,7 @@ function wardrobe(){
 
 /* ---------- what is new ---------- */
 const NEWS=[
- 'أجزاء جديدة من 7 إلى 11: 150 درسًا جديدًا عن البيت والطقس والبحر والفضاء والرحلات والألغاز وكوكبنا والاختراعات والمال وعظماء التاريخ، وكلها بصوت أولي.',
+ 'ستة أجزاء جديدة من 7 إلى 12: 180 درسًا جديدًا، من غرفتك والحديقة إلى الفضاء والألغاز والاختراعات ومدن المستقبل والأسئلة الكبيرة، وكلها بصوت أولي.',
  'ميكروفون في المحادثة: اضغط 🎤 وقل الرد بصوتك، وأولي يخبرك هل سمعك.',
  'دروس بلا طبل ولا غناء: درس جديد «Loud and Quiet» في الجزء 2، وتعديلات صغيرة في دروس أخرى.',
  '6 ألعاب جديدة: تذكّر الترتيب، بنغو الكلمات، سباق الأرنب، الحرف الناقص، أي جملة سمعت؟، رتّب القصة.',

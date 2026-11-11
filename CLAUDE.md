@@ -279,7 +279,7 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   She also asked for six more parts (7–12) and 12 links, and said not to ask her questions. They are planned in
   `src/ollie/plan-parts-7-12.md` but not built: about 8,000 new lines need the Azure key, and a silent Ollie would
   break her own voice rule. Build them part by part in the first session that has `AZURE_SPEECH_KEY`.
-  Part 7's 30 lessons are already written in `src/ollie/data/part7.js` (checked for shape, about 1,900 lines to
+  Part 7's 30 lessons are already written in `src/ollie/data/part7.js` (checked for shape, about 1,550 lines to
   record); it is not wired into `src/build.py` yet. That session: record it, make `ollie/voices/part7.json`, build
   `ollie-7.html`, link it from the other parts, then write part 8.
 

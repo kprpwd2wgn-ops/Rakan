@@ -439,3 +439,14 @@ button.bk:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
 .wr .prog{width:80%}
 .wr .dot{position:absolute;top:-7px;inset-inline-end:-4px;padding:0 7px;height:22px;border-radius:999px;background:var(--bad);color:#fff;font-style:normal;font-weight:800;font-size:11px;line-height:22px}
 .newst.gift2{border-color:var(--lv);box-shadow:0 4px 0 var(--lv);padding-top:16px}
+
+/* conversation: the microphone */
+.micb{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:10px;padding:14px;border-radius:18px;background:var(--lv);color:#fff;border:0;box-shadow:0 5px 0 var(--lv-deep);font-size:18px}
+.micb span{font-size:26px;line-height:1}
+.micb:active{transform:translateY(3px);box-shadow:0 2px 0 var(--lv-deep)}
+.micb.on{background:var(--bad);box-shadow:0 5px 0 #8f2328;animation:micp 1s ease-in-out infinite}
+@keyframes micp{50%{transform:scale(1.03)}}
+.heard{margin:10px 0 0;padding:10px 12px;border-radius:14px;background:var(--bg);font-size:15px;line-height:1.6}
+.heard.ok{background:var(--good-soft);color:#11663C;font-weight:700}
+.heard.again{background:#FFF1CC}
+.heard span{font-family:var(--f-en);font-weight:700}

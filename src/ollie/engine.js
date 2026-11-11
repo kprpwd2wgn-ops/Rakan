@@ -22,7 +22,7 @@ const SAY={
 };
 /*SAY-END*/
 /* Shown in the parents corner and in "what is new", so a family can tell which copy their phone is showing. */
-const VER={n:4,day:'11 نوفمبر 2026'};
+const VER={n:5,day:'11 نوفمبر 2026'};
 const DAILY_ST=['🦉','🦊','🐬','🦄','🐼','🦁','🐯','🐨','🐙','🦋','🐢','🦜','🐳','🦒','🦓','🐘','🦔','🐿️','🦩','🐧','🦥','🦦','🦕','🚀','🌈','🏆','💎','🪁','🧸','🎯'];
 
 /* ===================== HELPERS ===================== */
@@ -118,7 +118,7 @@ const cur=()=>LV[ctx.l].lessons[ctx.i];
 const hardMode=()=>PART>1||ctx.l>=2;
 const gameOf=(l,i)=>{const g=LV[l].games[i];return canPlay(g,LV[l].lessons[i])?g:'match'};
 let RUN=0;
-function stopAll(){RUN++;stopVoice()}
+function stopAll(){micOff();RUN++;stopVoice()}
 
 const IC={
  back:'<path d="M9 5l7 7-7 7"/>',
@@ -357,7 +357,7 @@ const actTitle=n=>`${esc(cur().en)} · ${n}`;
 /* ---------- conversation ---------- */
 function actConv(){
  const L=cur(),token=RUN;let t=0,mis=0;
- h(actTitle('محادثة'),lesson,`<div class="pane"><p class="tip">استمع إلى أولي، اختر الرد الصحيح، ثم قله بصوتك.</p><div class="chat" id="chat" dir="ltr"></div><div class="opts" id="opts" dir="ltr"></div></div>`);
+ h(actTitle('محادثة'),lesson,`<div class="pane"><p class="tip">استمع إلى أولي، اختر الرد الصحيح، ثم ${SR?'اضغط الميكروفون وقله بصوتك':'قله بصوتك'}.</p><div class="chat" id="chat" dir="ltr"></div><div class="opts" id="opts" dir="ltr"></div></div>`);
  const chat=$('#chat'),opts=$('#opts');
  function bubble(who,text){const d=document.createElement('div');d.className='bub '+who;
   d.innerHTML=`<span class="av">${who==='bot'?BIRD(36):'🧒'}</span><p>${esc(text)}</p><button class="spk sm" aria-label="استمع" data-say="${esc(text)}">${icon('spk')}</button>`;
@@ -367,13 +367,41 @@ function actConv(){
   opts.innerHTML=shuffle(o.map((x,k)=>({x,k}))).map(z=>`<button class="opt" data-k="${z.k}">${esc(z.x)}</button>`).join('');
   opts.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
    if(b.dataset.k==='0'){ding();bubble('kid',o[0]);say(o[0]);
-    opts.innerHTML=`<div class="repeat" dir="rtl"><p>🎤 الآن قلها بصوتك:</p><p dir="ltr" style="font-size:19px;font-weight:700">${esc(o[0])}</p><div class="btns"><button class="ghost" data-say="${esc(o[0])}">اسمعها مرة أخرى</button><button class="go" id="nx">${t<L.c.length-1?'قلتها! التالي':'قلتها! إنهاء'}</button></div></div>`;
+    opts.innerHTML=`<div class="repeat" dir="rtl"><p>🎤 الآن قلها بصوتك:</p><p dir="ltr" style="font-size:19px;font-weight:700">${esc(o[0])}</p>${SR?'<button class="micb" id="mic"><span>🎤</span><b>اضغط وتكلّم</b></button><p class="heard" id="hr" hidden></p>':''}<div class="btns"><button class="ghost" data-say="${esc(o[0])}">اسمعها مرة أخرى</button><button class="${SR?'ghost':'go'}" id="nx">${t<L.c.length-1?'قلتها! التالي':'قلتها! إنهاء'}</button></div></div>`;
     opts.scrollIntoView({behavior:'smooth',block:'end'});
+    if(SR){const mic=$('#mic'),hr=$('#hr');mic.onclick=()=>{
+     if(mic.classList.contains('on'))return micOff(),mic.classList.remove('on'),void(mic.querySelector('b').textContent='اضغط وتكلّم');
+     mic.classList.add('on');mic.querySelector('b').textContent='أسمعك... تكلّم الآن';hr.hidden=true;
+     micListen(o[0],(res,said)=>{if(token!==RUN||!mic.isConnected)return;mic.classList.remove('on');mic.querySelector('b').textContent='اضغط وتكلّم';hr.hidden=false;hr.className='heard '+res;
+      if(res==='ok'){ding();hr.innerHTML=`⭐ أحسنت! سمعتك تقول: <span dir="ltr">${esc(said)}</span>`;$('#nx').className='go';$('#nx').textContent=t<L.c.length-1?'التالي':'إنهاء'}
+      else if(res==='again')hr.innerHTML=`سمعت: <span dir="ltr">${esc(said)}</span><br>قريب! اسمع الجملة وحاول مرة أخرى.`;
+      else if(res==='silent')hr.textContent='لم أسمع شيئًا. اضغط الميكروفون وتكلّم بصوت واضح.';
+      else if(res==='blocked')hr.textContent='الميكروفون غير مسموح به. اسمح له من إعدادات المتصفح، أو اضغط «قلتها!».';
+      else hr.textContent='الميكروفون لا يعمل الآن. قل الجملة ثم اضغط «قلتها!».';
+      hr.scrollIntoView({behavior:'smooth',block:'nearest'})})}}
     $('#nx').onclick=()=>{t++;t<L.c.length?turn():finish('c',starsFrom(mis,0,1))};
    }else if(!b.classList.contains('wrong')){b.classList.add('wrong');mis++;buzz()}
   });
  }
  turn();
+}
+
+/* ---------- microphone: the child says the reply and the browser writes down what it heard ----------
+   The browser's own speech recognition, only on a tap of the mic button; nothing is kept or sent by this page. */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let MIC=null;
+function micOff(){if(MIC){const m=MIC;MIC=null;try{m.onresult=m.onerror=m.onend=null;m.abort()}catch(e){}}}
+const spokenWords=t=>t.toLowerCase().replace(/[^a-z0-9' ]/g,' ').split(/\s+/).filter(Boolean);
+/* how much of the wanted sentence was heard, 0 to 1 */
+const heardScore=(said,want)=>{const w=spokenWords(want),s=spokenWords(said);return w.length?w.filter(x=>s.includes(x)).length/w.length:0};
+/* listens once; calls back with ('ok'|'again'|'silent'|'blocked'|'error', what was heard) */
+function micListen(want,done){
+ micOff();stopVoice();let got=false;const rec=new SR();MIC=rec;rec.lang='en-US';rec.interimResults=false;rec.maxAlternatives=4;
+ rec.onresult=e=>{got=true;const alts=[...e.results[0]].map(a=>a.transcript),best=alts.sort((a,b)=>heardScore(b,want)-heardScore(a,want))[0]||'';
+  done(heardScore(best,want)>=.6?'ok':'again',best)};
+ rec.onerror=e=>{if(got)return;got=true;done(e.error==='not-allowed'||e.error==='service-not-allowed'?'blocked':e.error==='no-speech'?'silent':'error','')};
+ rec.onend=()=>{if(MIC===rec)MIC=null;if(!got)done('silent','')};
+ try{rec.start()}catch(e){MIC=null;done('error','')}
 }
 
 /* ---------- shared quiz ---------- */
@@ -1088,6 +1116,7 @@ function wardrobe(){
 
 /* ---------- what is new ---------- */
 const NEWS=[
+ 'ميكروفون في المحادثة: اضغط 🎤 وقل الرد بصوتك، وأولي يخبرك هل سمعك.',
  'دروس بلا طبل ولا غناء: درس جديد «Loud and Quiet» في الجزء 2، وتعديلات صغيرة في دروس أخرى.',
  '6 ألعاب جديدة: تذكّر الترتيب، بنغو الكلمات، سباق الأرنب، الحرف الناقص، أي جملة سمعت؟، رتّب القصة.',
  'خزانة أولي: اكسب قبعات ونظارات ورداء البطل، وألبِسها لأولي.',

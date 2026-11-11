@@ -1,7 +1,7 @@
 # Ollie parts 7–12: the plan
 
-Asked for by the owner on 11 Nov 2026. Parts 7, 8 and 9 are built and recorded (11 Nov 2026); every new sentence has to be recorded
-in Ollie's voice first (`en-US-AvaNeural`), and that session had no Azure key.
+Asked for by the owner on 11 Nov 2026. Parts 7, 8, 9 and 10 are built and recorded (11 Nov 2026); every new sentence is recorded
+in Ollie's voice (`en-US-AvaNeural`) before a part is built.
 
 ## What they are
 

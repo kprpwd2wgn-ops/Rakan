@@ -246,7 +246,8 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   with the key: `python3 tools/english-voices.py reading-rocket-en-lines.json --out ollie/voices`, the same for
   `talk-town-en-lines.json`, then `node tools/en-lines.js reading --slow` and `... talk --slow` (rewrites the maps, makes the
   slow copies), build both, check, publish, push. A new spoken line in either game must be added to `tools/en-lines.js`,
-  or it stays in the device voice. The play links do not carry the clips (about 900 and 1,800 files), so they still use
+  or it stays in the device voice. Recorded on 17 Nov 2026 in a later session: every line of both games now has a clip
+  (`en-lines.js` reports 0 to record), so on GitHub Pages they speak only in Ollie's voice. The play links do not carry the clips (about 900 and 1,800 files), so they still use
   the device voice; the GitHub Pages links are the ones with the new voice.
   Their drawn objects (`src/kit/things.js`) and noise-only sound effects (`src/kit/sfx.js`, switched off with the 🔊
   button on the home screen, kept under `rakan-sfx`) are shared by the two. The Arabic intro guides still use the device

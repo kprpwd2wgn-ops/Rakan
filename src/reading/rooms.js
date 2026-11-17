@@ -3,35 +3,35 @@
 const PREPAR={on:'على',under:'تحت',in:'داخل',behind:'خلف',next:'بجانب',between:'بين'};
 const PREPEN={on:'on',under:'under',in:'in',behind:'behind',next:'next to',between:'between'};
 const ROOMS=[
- {en:'The Bedroom',ar:'غرفة النوم',wall:'#c7d2fe',floor:'#8b7fd6',objs:[
+ {en:'The Bedroom',e:'🛏️',ar:'غرفة النوم',wall:'#c7d2fe',floor:'#8b7fd6',objs:[
    {id:'bed',k:'bed',x:18,y:128,w:150,h:84,col:'#60a5fa',en:'the bed',ar:'السرير'},
    {id:'box',k:'box',x:206,y:170,w:58,h:46,col:'#ef4444',en:'the box',ar:'الصندوق'},
    {id:'lamp',k:'lamp',x:190,y:70,w:34,h:70,en:'the lamp',ar:'المصباح'},
    {id:'pic',k:'picture',x:40,y:40,w:70,h:52,en:'the picture',ar:'الصورة'},
    {id:'rug',k:'rug',x:120,y:232,w:120,h:30,col:'#f59e0b',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Look under the bed.',ar:'ابحث تحت السرير.',spot:'bed:under',get:'📜'},{en:'The key is in the box.',ar:'المفتاح في الصندوق.',spot:'box:in',get:'🔑'}]},
- {en:'The Kitchen',ar:'المطبخ',wall:'#fde68a',floor:'#d6a46a',objs:[
+ {en:'The Kitchen',e:'🍳',ar:'المطبخ',wall:'#fde68a',floor:'#d6a46a',objs:[
    {id:'tab',k:'table',x:30,y:150,w:130,h:64,en:'the table',ar:'الطاولة'},
-   {id:'cup',k:'cupboard',x:250,y:60,w:70,h:150,en:'the cupboard',ar:'الخزانة'},
+   {id:'cup',k:'cupboard',x:232,y:60,w:60,h:150,en:'the cupboard',ar:'الخزانة'},
    {id:'rbox',k:'box',x:180,y:178,w:50,h:40,col:'#ef4444',en:'the red box',ar:'الصندوق الأحمر'},
    {id:'bbox',k:'box',x:186,y:236,w:50,h:40,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
    {id:'plant',k:'plant',x:60,y:68,w:44,h:70,en:'the plant',ar:'النبتة'}],
   steps:[{en:'Look on the table.',ar:'انظر على الطاولة.',spot:'tab:on',get:'📜'},{en:'The key is in the blue box.',ar:'المفتاح في الصندوق الأزرق.',spot:'bbox:in',get:'🔑'}]},
- {en:'The Robot Lab',ar:'مختبر الروبوتات',wall:'#bae6fd',floor:'#64748b',objs:[
+ {en:'The Robot Lab',e:'🤖',ar:'مختبر الروبوتات',wall:'#bae6fd',floor:'#64748b',objs:[
    {id:'clock',k:'clock',x:150,y:30,w:48,h:48,en:'the clock',ar:'الساعة'},
    {id:'robot',k:'robot',x:40,y:150,w:56,h:74,en:'the robot',ar:'الروبوت'},
    {id:'books',k:'books',x:200,y:180,w:60,h:40,en:'the books',ar:'الكتب'},
    {id:'chair',k:'chair',x:130,y:150,w:50,h:78,en:'the chair',ar:'الكرسي'},
    {id:'rug',k:'rug',x:60,y:236,w:150,h:30,col:'#22c55e',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Look behind the clock.',ar:'ابحث خلف الساعة.',spot:'clock:behind',get:'📜'},{en:'Look next to the robot.',ar:'ابحث بجانب الروبوت.',spot:'robot:next',get:'📜'},{en:'The key is under the rug.',ar:'المفتاح تحت السجادة.',spot:'rug:under',get:'🔑'}]},
- {en:'The Garden Dome',ar:'قبة الحديقة',wall:'#bbf7d0',floor:'#65a30d',objs:[
+ {en:'The Garden Dome',e:'🌿',ar:'قبة الحديقة',wall:'#bbf7d0',floor:'#65a30d',objs:[
    {id:'bigp',k:'plant',x:30,y:90,w:70,h:130,big:1,en:'the big plant',ar:'النبتة الكبيرة'},
    {id:'smp',k:'plant',x:130,y:160,w:40,h:62,en:'the small plant',ar:'النبتة الصغيرة'},
    {id:'rrug',k:'rug',x:20,y:238,w:110,h:28,col:'#ef4444',en:'the red rug',ar:'السجادة الحمراء'},
    {id:'brug',k:'rug',x:150,y:238,w:110,h:28,col:'#3b82f6',en:'the blue rug',ar:'السجادة الزرقاء'},
    {id:'box',k:'box',x:200,y:180,w:56,h:44,col:'#a855f7',en:'the box',ar:'الصندوق'}],
   steps:[{en:'Look behind the small plant.',ar:'ابحث خلف النبتة الصغيرة.',spot:'smp:behind',get:'📜'},{en:'The key is under the blue rug.',ar:'المفتاح تحت السجادة الزرقاء.',spot:'brug:under',get:'🔑'}]},
- {en:'The Library',ar:'المكتبة',wall:'#fecaca',floor:'#9a6b3f',objs:[
+ {en:'The Library',e:'📚',ar:'المكتبة',wall:'#fecaca',floor:'#9a6b3f',objs:[
    {id:'tab',k:'table',x:20,y:160,w:120,h:60,en:'the table',ar:'الطاولة'},
    {id:'lamp',k:'lamp',x:150,y:140,w:34,h:80,en:'the lamp',ar:'المصباح'},
    {id:'clock',k:'clock',x:240,y:150,w:44,h:44,floor:1,en:'the clock',ar:'الساعة'},
@@ -39,27 +39,58 @@ const ROOMS=[
    {id:'books',k:'books',x:30,y:236,w:70,h:34,en:'the books',ar:'الكتب'}],
   between:[{id:'lc',a:'lamp',b:'clock',x:188,y:150,w:50,h:70,en:'between the lamp and the clock',ar:'بين المصباح والساعة'}],
   steps:[{en:'Look under the table.',ar:'ابحث تحت الطاولة.',spot:'tab:under',get:'📜'},{en:'Look between the lamp and the clock.',ar:'ابحث بين المصباح والساعة.',spot:'lc:between',get:'📜'},{en:'The key is in the cupboard.',ar:'المفتاح في الخزانة.',spot:'cup:in',get:'🔑'}]},
- {en:'The Toy Room',ar:'غرفة الألعاب',wall:'#fbcfe8',floor:'#c084fc',objs:[
+ {en:'The Toy Room',e:'🧸',ar:'غرفة الألعاب',wall:'#fbcfe8',floor:'#c084fc',objs:[
    {id:'rbox',k:'box',x:20,y:184,w:52,h:42,col:'#ef4444',en:'the red box',ar:'الصندوق الأحمر'},
    {id:'bbox',k:'box',x:84,y:184,w:52,h:42,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
    {id:'ybox',k:'box',x:148,y:184,w:52,h:42,col:'#facc15',en:'the yellow box',ar:'الصندوق الأصفر'},
    {id:'teddy',k:'teddy',x:200,y:110,w:60,h:70,en:'the teddy',ar:'الدبدوب'},
    {id:'chair',k:'chair',x:50,y:90,w:50,h:80,en:'the chair',ar:'الكرسي'}],
   steps:[{en:'Look in the yellow box.',ar:'ابحث في الصندوق الأصفر.',spot:'ybox:in',get:'📜'},{en:'Look behind the teddy.',ar:'ابحث خلف الدبدوب.',spot:'teddy:behind',get:'📜'},{en:'The key is on the chair.',ar:'المفتاح على الكرسي.',spot:'chair:on',get:'🔑'}]},
- {en:'The Control Room',ar:'غرفة التحكم',wall:'#a5b4fc',floor:'#475569',objs:[
+ {en:'The Control Room',e:'🎛️',ar:'غرفة التحكم',wall:'#a5b4fc',floor:'#475569',objs:[
    {id:'tab',k:'table',x:30,y:150,w:140,h:64,en:'the table',ar:'الطاولة'},
    {id:'pic',k:'picture',x:60,y:40,w:90,h:60,screen:1,en:'the picture',ar:'الصورة'},
    {id:'box',k:'box',x:200,y:176,w:56,h:44,col:'#f97316',en:'the box',ar:'الصندوق'},
    {id:'lamp',k:'lamp',x:200,y:60,w:34,h:70,en:'the lamp',ar:'المصباح'},
    {id:'rug',k:'rug',x:40,y:236,w:150,h:30,col:'#06b6d4',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Go to the table. Look under it.',ar:'اذهب إلى الطاولة. ابحث تحتها.',spot:'tab:under',get:'📜'},{en:'The key is not in the box. It is behind the picture.',ar:'المفتاح ليس في الصندوق. إنه خلف الصورة.',spot:'pic:behind',get:'🔑'}]},
- {en:"The Captain's Room",ar:'غرفة القبطان',wall:'#fef3c7',floor:'#7c5a3a',objs:[
+ {en:"The Captain's Room",e:'🧭',ar:'غرفة القبطان',wall:'#fef3c7',floor:'#7c5a3a',objs:[
    {id:'bed',k:'bed',x:16,y:130,w:140,h:80,col:'#ef4444',en:'the bed',ar:'السرير'},
    {id:'srug',k:'rug',x:170,y:240,w:70,h:26,col:'#22c55e',en:'the small rug',ar:'السجادة الصغيرة'},
    {id:'brug',k:'rug',x:20,y:236,w:140,h:32,col:'#3b82f6',en:'the big rug',ar:'السجادة الكبيرة'},
    {id:'clock',k:'clock',x:170,y:36,w:46,h:46,en:'the clock',ar:'الساعة'},
    {id:'teddy',k:'teddy',x:190,y:150,w:56,h:66,en:'the teddy',ar:'الدبدوب'}],
-  steps:[{en:'Look on the bed.',ar:'انظر على السرير.',spot:'bed:on',get:'📜'},{en:'Look under the small rug.',ar:'ابحث تحت السجادة الصغيرة.',spot:'srug:under',get:'📜'},{en:'Look next to the teddy… no! Look behind the clock.',ar:'ابحث بجانب الدبدوب… لا! ابحث خلف الساعة.',spot:'clock:behind',get:'🔑'}]}
+  steps:[{en:'Look on the bed.',ar:'انظر على السرير.',spot:'bed:on',get:'📜'},{en:'Look under the small rug.',ar:'ابحث تحت السجادة الصغيرة.',spot:'srug:under',get:'📜'},{en:'Look next to the teddy… no! Look behind the clock.',ar:'ابحث بجانب الدبدوب… لا! ابحث خلف الساعة.',spot:'clock:behind',get:'🔑'}]},
+ {en:'The Living Room',e:'🛋️',ar:'غرفة الجلوس',wall:'#ddd6fe',floor:'#a78b6d',objs:[
+   {id:'sofa',k:'sofa',x:24,y:132,w:150,h:78,col:'#0d9488',en:'the sofa',ar:'الكنبة'},
+   {id:'lamp',k:'lamp',x:196,y:118,w:34,h:96,en:'the lamp',ar:'المصباح'},
+   {id:'pic',k:'picture',x:56,y:36,w:80,h:56,en:'the picture',ar:'الصورة'},
+   {id:'rug',k:'rug',x:60,y:236,w:150,h:30,col:'#f97316',en:'the rug',ar:'السجادة'},
+   {id:'box',k:'box',x:238,y:174,w:46,h:40,col:'#ef4444',en:'the box',ar:'الصندوق'}],
+  steps:[{en:'Look under the sofa.',ar:'ابحث تحت الكنبة.',spot:'sofa:under',get:'📜'},{en:'Look behind the picture.',ar:'ابحث خلف الصورة.',spot:'pic:behind',get:'📜'},{en:'The key is on the box.',ar:'المفتاح على الصندوق.',spot:'box:on',get:'🔑'}]},
+ {en:'The Space Garage',e:'🔧',ar:'مرآب الصواريخ',wall:'#cbd5e1',floor:'#475569',objs:[
+   {id:'robot',k:'robot',x:20,y:140,w:56,h:74,en:'the robot',ar:'الروبوت'},
+   {id:'tab',k:'table',x:118,y:156,w:110,h:58,en:'the table',ar:'الطاولة'},
+   {id:'bbox',k:'box',x:240,y:176,w:46,h:40,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
+   {id:'ybox',k:'box',x:120,y:236,w:50,h:38,col:'#facc15',en:'the yellow box',ar:'الصندوق الأصفر'},
+   {id:'clock',k:'clock',x:150,y:40,w:46,h:46,en:'the clock',ar:'الساعة'}],
+  steps:[{en:'Look next to the robot.',ar:'ابحث بجانب الروبوت.',spot:'robot:next',get:'📜'},{en:'Look under the table.',ar:'ابحث تحت الطاولة.',spot:'tab:under',get:'📜'},{en:'The key is not in the blue box. It is in the yellow box.',ar:'المفتاح ليس في الصندوق الأزرق. إنه في الصندوق الأصفر.',spot:'ybox:in',get:'🔑'}]},
+ {en:'The Art Room',e:'🎨',ar:'غرفة الرسم',wall:'#fde68a',floor:'#b7794a',objs:[
+   {id:'tab',k:'table',x:20,y:150,w:120,h:62,en:'the table',ar:'الطاولة'},
+   {id:'chair',k:'chair',x:150,y:128,w:48,h:84,en:'the chair',ar:'الكرسي'},
+   {id:'plant',k:'plant',x:244,y:140,w:44,h:74,en:'the plant',ar:'النبتة'},
+   {id:'pic',k:'picture',x:150,y:30,w:90,h:60,en:'the picture',ar:'الصورة'},
+   {id:'books',k:'books',x:40,y:236,w:70,h:34,en:'the books',ar:'الكتب'}],
+  between:[{id:'cp',a:'chair',b:'plant',x:200,y:146,w:42,h:68,en:'between the chair and the plant',ar:'بين الكرسي والنبتة'}],
+  steps:[{en:'Look on the table.',ar:'انظر على الطاولة.',spot:'tab:on',get:'📜'},{en:'Look between the chair and the plant.',ar:'ابحث بين الكرسي والنبتة.',spot:'cp:between',get:'📜'},{en:'The key is under the books.',ar:'المفتاح تحت الكتب.',spot:'books:under',get:'🔑'}]},
+ {en:'The Treasure Room',e:'💰',ar:'غرفة الكنز',wall:'#fef9c3',floor:'#92400e',objs:[
+   {id:'bigb',k:'box',x:20,y:148,w:82,h:66,col:'#a855f7',en:'the big box',ar:'الصندوق الكبير'},
+   {id:'smb',k:'box',x:152,y:182,w:44,h:34,col:'#f59e0b',en:'the small box',ar:'الصندوق الصغير'},
+   {id:'teddy',k:'teddy',x:222,y:140,w:56,h:70,en:'the teddy',ar:'الدبدوب'},
+   {id:'clock',k:'clock',x:120,y:40,w:46,h:46,en:'the clock',ar:'الساعة'},
+   {id:'grug',k:'rug',x:20,y:238,w:120,h:28,col:'#22c55e',en:'the green rug',ar:'السجادة الخضراء'},
+   {id:'rrug',k:'rug',x:160,y:238,w:120,h:28,col:'#ef4444',en:'the red rug',ar:'السجادة الحمراء'}],
+  between:[{id:'bb',a:'bigb',b:'smb',x:106,y:166,w:42,h:50,en:'between the big box and the small box',ar:'بين الصندوق الكبير والصندوق الصغير'}],
+  steps:[{en:'Look under the green rug.',ar:'ابحث تحت السجادة الخضراء.',spot:'grug:under',get:'📜'},{en:'Look behind the clock.',ar:'ابحث خلف الساعة.',spot:'clock:behind',get:'📜'},{en:'Look between the big box and the small box.',ar:'ابحث بين الصندوق الكبير والصندوق الصغير.',spot:'bb:between',get:'📜'},{en:'The key is in the small box.',ar:'المفتاح في الصندوق الصغير.',spot:'smb:in',get:'🔑'}]}
 ];
 /* أماكن كل شيء (مستطيلات بالنسبة إلى حدوده) */
 function spotsOf(o){const {x,y,w,h}=o,S={};
@@ -76,7 +107,8 @@ function spotsOf(o){const {x,y,w,h}=o,S={};
     case 'teddy':S.behind=[x,y,w,h];break;
     case 'robot':S.next=[x+w,y,30,h];S.behind=[x,y,w,h];break;
     case 'books':S.on=[x,y-14,w,14];S.under=[x,y,w,h];break;
-    case 'clock':S.behind=[x,y,w,h];break;}
+    case 'clock':S.behind=[x,y,w,h];break;
+    case 'sofa':S.on=[x+12,y+h*.28,w-24,h*.22];S.under=[x+8,y+h*.76,w-16,h*.24+8];S.behind=[x+6,y-14,w-12,h*.3];break;}
   return S;}
 function roomSVG(R,o={}){
   const I='#1d2433';let s=`<rect width="360" height="280" fill="${R.wall}"/><rect y="200" width="360" height="80" fill="${R.floor}"/><rect y="196" width="360" height="6" fill="rgba(0,0,0,.18)"/>`;
@@ -109,5 +141,9 @@ function objSVG(b,I){const {x,y,w,h}=b,c=b.col||'#94a3b8';
    case 'robot':return `<rect x="${x+w*.15}" y="${y+h*.35}" width="${w*.7}" height="${h*.5}" rx="6" fill="#7dd3fc" stroke="${I}" stroke-width="2.5"/><rect x="${x+w*.1}" y="${y+h*.05}" width="${w*.8}" height="${h*.32}" rx="7" fill="#e2e8f0" stroke="${I}" stroke-width="2.5"/>
      <circle cx="${x+w*.35}" cy="${y+h*.21}" r="4" fill="#22d3ee"/><circle cx="${x+w*.65}" cy="${y+h*.21}" r="4" fill="#22d3ee"/><rect x="${x+w*.2}" y="${y+h*.85}" width="${w*.2}" height="${h*.15}" fill="#334155"/><rect x="${x+w*.6}" y="${y+h*.85}" width="${w*.2}" height="${h*.15}" fill="#334155"/>`;
    case 'books':return `<rect x="${x}" y="${y+h*.66}" width="${w}" height="${h*.34}" rx="2" fill="#ef4444" stroke="${I}" stroke-width="2"/><rect x="${x+4}" y="${y+h*.33}" width="${w-8}" height="${h*.33}" rx="2" fill="#3b82f6" stroke="${I}" stroke-width="2"/><rect x="${x+8}" y="${y}" width="${w-16}" height="${h*.33}" rx="2" fill="#22c55e" stroke="${I}" stroke-width="2"/>`;
+   case 'sofa':return `<rect x="${x+8}" y="${y+h*.8}" width="8" height="${h*.2}" fill="#4b2e14"/><rect x="${x+w-16}" y="${y+h*.8}" width="8" height="${h*.2}" fill="#4b2e14"/>
+     <rect x="${x+6}" y="${y}" width="${w-12}" height="${h*.55}" rx="12" fill="${c}" stroke="${I}" stroke-width="2.5"/><rect x="${x}" y="${y+h*.45}" width="${w}" height="${h*.36}" rx="9" fill="${c}" stroke="${I}" stroke-width="2.5"/>
+     <rect x="${x+12}" y="${y+h*.4}" width="${w/2-14}" height="${h*.16}" rx="6" fill="rgba(255,255,255,.25)"/><rect x="${x+w/2+2}" y="${y+h*.4}" width="${w/2-14}" height="${h*.16}" rx="6" fill="rgba(255,255,255,.25)"/>
+     <rect x="${x-6}" y="${y+h*.3}" width="18" height="${h*.52}" rx="8" fill="${c}" stroke="${I}" stroke-width="2.5"/><rect x="${x+w-12}" y="${y+h*.3}" width="18" height="${h*.52}" rx="8" fill="${c}" stroke="${I}" stroke-width="2.5"/>`;
    case 'clock':return `<circle cx="${x+w/2}" cy="${y+h/2}" r="${w/2}" fill="#fff" stroke="${I}" stroke-width="3"/><path d="M${x+w/2} ${y+h/2} V${y+h*.22} M${x+w/2} ${y+h/2} L${x+w*.72} ${y+h*.6}" stroke="${I}" stroke-width="2.5" stroke-linecap="round"/><circle cx="${x+w/2}" cy="${y+h/2}" r="2.5" fill="#ef4444"/>`;
   }return '';}

@@ -81,20 +81,20 @@ def('alien',vi=>{
     a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85});if($('#anext'))$('#anext').onclick=next;}
   function next(){stopSpeak();si++;if(si>=N)return finish();ask();}
   function onText(r){if(busy)return;const st=V.steps[si],e=evalAns(st,r);
-    if(bonusFor===si){if(e.rel.ok&&e.full){scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
+    if(bonusFor===si){if(e.rel.ok&&e.full){sfx('win');scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
         showAns(e,true,'⭐ رائع! جملة كاملة.',['Perfect sentence!','جملة ممتازة!']);}
       else{zibSay(e.model,{rate:.85});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
-    if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');return;}
-    if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);
+    if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');sfx('no');return;}
+    if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);sfx('no');
       if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم ليو. قلها مرة أخرى بطريقة أخرى!');}
       else{zibSay('Try like this: '+fillN(st.ex),{rate:.85});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
     const stars=e.rel.ok?e.stars:1;scores[si]=Math.max(scores[si]||0,stars);
     if(e.rel.ok&&e.full){fulls++;T.full++;}
     fresh+=learnWords(e.x&&e.x.includes(' ')?e.norm.replace(e.x,' ').split(' ').filter(w=>ALLW.has(w)).concat([e.x]):e.norm.split(' ').filter(w=>ALLW.has(w)));
-    if(e.rel.ok)fx(st,e);
+    if(e.rel.ok){fx(st,e);sfx(e.full?'ok':'pop');}
     const rep=e.rel.ok?reactOf(st,e.norm,e.x):["Okay! Let's go on.",'حسناً! لنكمل.'];
     zibSay(rep[0]);showAns(e,true,null,rep);if(e.rel.ok&&!e.full)bonusFor=si;}
-  function finish(){busy=true;mic.lock(true);const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
+  function finish(){busy=true;mic.lock(true);sfx('win');const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
     T.alien[vi]=Math.max(T.alien[vi]||0,stars);tsave();zibSay('Thank you, my Earth friend!');
     const hasNext=vi+1<VISITS.length;
     resultOv({title:'👽 ليو سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,

@@ -15,6 +15,12 @@ function parsePaint(text){const t=normS(text);if(!t)return{items:[]};const w=t.s
 function phraseOf(it){const c=it.c||PNOUNS[it.n].c,adj=[it.z,it.n==='rainbow'?null:c].filter(Boolean).join(' ');
   return `${it.k===1?(/^[aeiou]/.test(adj||it.n)?'an':'a'):NUMW[it.k]||it.k} ${adj?adj+' ':''}${it.k===1?it.n:pluralN(it.n)}`;}
 const ZONE={sky:[.1,.36],mid:[.3,.52],ground:[.64,.84],water:[.84,.92]};
+function paintScene(x,w,h,water){const g=x.createLinearGradient(0,0,0,h*.6);g.addColorStop(0,'#bae6fd');g.addColorStop(1,'#e0f2fe');x.fillStyle=g;x.fillRect(0,0,w,h*.6);
+  const gg=x.createLinearGradient(0,h*.58,0,h);gg.addColorStop(0,'#86efac');gg.addColorStop(1,'#4ade80');x.fillStyle=gg;x.beginPath();x.moveTo(0,h*.6);x.quadraticCurveTo(w*.3,h*.54,w*.6,h*.6);x.quadraticCurveTo(w*.85,h*.65,w,h*.58);x.lineTo(w,h);x.lineTo(0,h);x.fill();
+  if(water){x.fillStyle='#60a5fa';x.strokeStyle='#1d4ed8';x.lineWidth=2;x.beginPath();x.ellipse(w*.8,h*.9,w*.22,h*.09,0,0,7);x.fill();x.stroke();}}
+/* لوحة محفوظة في المعرض: الأماكن والأحجام نسبةً إلى ارتفاع اللوحة وعرضها */
+function drawSaved(x,w,h,P){paintScene(x,w,h,P.items.some(o=>PNOUNS[o.n]&&PNOUNS[o.n].z==='water'));
+  P.items.forEach(o=>o.p.forEach(p=>paintThing(x,o.n,p[0]*w,p[1]*h,o.s*h,o.c,0)));}
 
 def('paint',arg=>{
   const free=!!arg.free,li=arg.i||0,tgt=free?null:PTARGETS[li].map(x=>Object.assign({done:false},x));
@@ -24,7 +30,7 @@ def('paint',arg=>{
       :`<p class="tip">🎨 قل ما تريد أن يرسمه السيد فرشاة. مثلاً: <span class="en nw">three red apples</span></p>`}
     <div class="rbub" id="pb"><b class="en">…</b><span></span></div>
     <div class="pstage" id="ps"><canvas id="pc"></canvas><div class="pbr" id="pbr">${brushSVG('#f472b6')}</div></div>
-    ${free?'<div class="row cen ptools"><button class="chipbtn" id="pundo">↶ تراجع</button><button class="chipbtn" id="pclr">🧽 صفحة جديدة</button></div>':''}
+    ${free?'<div class="row cen ptools"><button class="chipbtn" id="pundo">↶ تراجع</button><button class="chipbtn" id="pclr">🧽 صفحة جديدة</button><button class="chipbtn gold" id="psave">💾 احفظ في معرضي</button></div>':''}
     <div class="wscroll"><span class="wct">أرسم:</span>${Object.keys(PNOUNS).map(n=>`<button class="wc en" data-w="${n}">${n}</button>`).join('')}</div>
     <div class="wscroll">${Object.keys(COLHEX).filter(c=>!['grey','gold','silver'].includes(c)).map(c=>`<button class="cdot" data-w="${c}" style="--c:${COLHEX[c]}" aria-label="${c}"></button>`).join('')}<button class="wc en" data-w="big">big</button><button class="wc en" data-w="small">small</button></div>
     <div id="mic"></div></div>`;
@@ -43,7 +49,7 @@ def('paint',arg=>{
       pts.push(best);}
     if(it.n==='rainbow')pts.splice(0,pts.length,...[...Array(it.k)].map((_,k)=>[W*(.3+k*.25),H*.34]));
     return pts;}
-  function addItem(it,o={}){const z=it.z==='big'?1.45:it.z==='small'?.65:1,sc=it.n==='rainbow'?2:1;
+  function addItem(it,o={}){sfx(o.temp?'thud':'pop');const z=it.z==='big'?1.45:it.z==='small'?.65:1,sc=it.n==='rainbow'?2:1;
     const obj={n:it.n,c:it.c||PNOUNS[it.n].c,s:S*z*sc*(it.k>4?.8:1),born:now,temp:o.temp||0,pts:[]};obj.pts=place(it,obj.s);items.push(obj);brushCol=COLHEX[obj.c]||'#f472b6';return obj;}
   /* اللوحة المطلوبة */
   function drawTarget(){const c=$('#ptc');if(!c)return;const w=132,h=96,d=Math.min(2,window.devicePixelRatio||1);c.width=w*d;c.height=h*d;c.style.width=w+'px';c.style.height=h+'px';const x=c.getContext('2d');x.scale(d,d);
@@ -53,18 +59,16 @@ def('paint',arg=>{
         paintThing(x,t.n,w*fx,h*fy,s*z*(t.n==='rainbow'?2:1)*(t.k>4?.8:1),t.c,0);}
       if(t.done){x.fillStyle='rgba(34,197,94,.85)';x.beginPath();x.arc(10+ti*16,10,7,0,7);x.fill();x.fillStyle='#fff';x.font='bold 10px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('✓',10+ti*16,10.5);}});
     $('#ptl').innerHTML=`${D(tgt.filter(t=>t.done).length)} / ${D(tgt.length)} ✓`;}
-  function scene(x,w,h,water){const g=x.createLinearGradient(0,0,0,h*.6);g.addColorStop(0,'#bae6fd');g.addColorStop(1,'#e0f2fe');x.fillStyle=g;x.fillRect(0,0,w,h*.6);
-    const gg=x.createLinearGradient(0,h*.58,0,h);gg.addColorStop(0,'#86efac');gg.addColorStop(1,'#4ade80');x.fillStyle=gg;x.beginPath();x.moveTo(0,h*.6);x.quadraticCurveTo(w*.3,h*.54,w*.6,h*.6);x.quadraticCurveTo(w*.85,h*.65,w,h*.58);x.lineTo(w,h);x.lineTo(0,h);x.fill();
-    if(water){x.fillStyle='#60a5fa';x.strokeStyle='#1d4ed8';x.lineWidth=2;x.beginPath();x.ellipse(w*.8,h*.9,w*.22,h*.09,0,0,7);x.fill();x.stroke();}}
+  const scene=paintScene;
   function draw(){ctx.clearRect(0,0,W,H);scene(ctx,W,H,items.some(o=>PNOUNS[o.n].z==='water'));
     items.forEach(o=>{const t=clamp((now-o.born)/.35,0,1),e=t<1?1-Math.pow(1-t,3)*(1+Math.sin(t*9)*.0):1,fade=o.temp?clamp((o.temp-now)/.6,0,1):1;if(o.temp&&now>o.temp)return;
       ctx.globalAlpha=fade*(o.temp?.85:1);o.pts.forEach((p,k)=>{const bob=['bird','butterfly','balloon','kite'].includes(o.n)?Math.sin(now*2+k)*3:0;paintThing(ctx,o.n,p[0],p[1]+bob,o.s*Math.max(.01,e),o.c,now);});ctx.globalAlpha=1;
       if(o.temp&&fade>0){o.pts.forEach(p=>{ctx.strokeStyle='rgba(239,68,68,.8)';ctx.lineWidth=3;ctx.setLineDash([5,4]);ctx.beginPath();ctx.arc(p[0],p[1],o.s*.42,0,7);ctx.stroke();ctx.setLineDash([]);});}});
     items=items.filter(o=>!o.temp||now<o.temp+.1);}
   function onText(r){if(busy||won)return;let P={items:[]};for(const a of r.alts){P=parsePaint(a);if(P.items.length||P.clear||P.undo)break;}
-    if(P.clear&&free){items=[];bubble('A clean page!','صفحة جديدة نظيفة!');return;}
+    if(P.clear&&free){items=[];sfx('whoosh');bubble('A clean page!','صفحة جديدة نظيفة!');return;}
     if(P.undo&&free){items.pop();bubble('Okay, I took it away.','حسناً، أزلته.');return;}
-    if(!P.items.length){bubble('Hmm? What should I paint?',`ماذا أرسم؟ قل مثلاً: <span class="en">a red ball</span>`,true);return;}
+    if(!P.items.length){sfx('no');bubble('Hmm? What should I paint?',`ماذا أرسم؟ قل مثلاً: <span class="en">a red ball</span>`,true);return;}
     const ws=[];P.items.forEach(it=>{ws.push(it.n);if(it.c)ws.push(it.c);if(it.z)ws.push(it.z);if(it.said.k&&it.k>1)ws.push(NUMW[it.k]);});learnWords(ws);
     if(normS(r.text).split(' ').length>=3)T.full++;
     if(free)return freeDraw(P.items);
@@ -85,7 +89,7 @@ def('paint',arg=>{
     if(tgt.every(t=>t.done))return finish();
     if(good)bubble(`Yes! ${list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ')}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟');
     else if(hint)bubble(hint[0],hint[1],true);}
-  function finish(){won=true;busy=true;mic.lock(true);FX.confetti();bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
+  function finish(){won=true;busy=true;mic.lock(true);FX.confetti();sfx('win');bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
     const n=tgt.length,stars=tries<=n?3:tries<=n+2?2:1;T.paint[li]=Math.max(T.paint[li]||0,stars);tsave();
     setTimeout(()=>{if(!alive)return;const hasNext=li+1<PTARGETS.length;resultOv({title:'🖼️ لوحة رائعة!',stars,gems:stars*3,
       lines:[`🗣️ عدد جملك: ${D(tries)}`,stars<3?'قل كل شيء بجملة واحدة دقيقة لتحصل على ٣ نجوم':'وصف دقيق! 👑'],
@@ -94,9 +98,32 @@ def('paint',arg=>{
     if(free)bubble('Try: a big yellow sun!','جرّب أن تقول: a big yellow sun');
     else{const t=tgt.find(t=>!t.done);bubble('Look at the small picture.',`انظر إلى ${NOUNAR[t.n]}: كم عددها؟ وما لونها؟`,true);}}});
   $$('.wc,.cdot').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.85}));
-  if(free){$('#pundo').onclick=()=>{items.pop();};$('#pclr').onclick=()=>{items=[];};}
+  if(free){$('#pundo').onclick=()=>{items.pop();sfx('tap');};$('#pclr').onclick=()=>{items=[];sfx('whoosh');};
+    $('#psave').onclick=()=>{const keep=items.filter(o=>!o.temp);if(!keep.length){bubble('Paint something first!','ارسم شيئاً أولاً، ثم احفظه! 🎨',true);return;}
+      T.gal.unshift({a:+(H/W).toFixed(3),d:dayKey(),items:keep.map(o=>({n:o.n,c:o.c,s:+(o.s/H).toFixed(3),p:o.pts.map(p=>[+(p[0]/W).toFixed(3),+(p[1]/H).toFixed(3)])}))});
+      const cut=T.gal.length>12;T.gal=T.gal.slice(0,12);tsave();sfx('win');FX.confetti();
+      bubble('What a beautiful picture! I put it in your gallery.',`حفظتُ اللوحة في معرضك! 🖼️${cut?' (المعرض يتسع لـ ١٢ لوحة، فأزلتُ أقدمها)':''}`);};}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;now+=dt;draw();raf=requestAnimationFrame(loop);}
   size();addEventListener('resize',size);if(tgt)drawTarget();
   setTimeout(()=>{if(alive)bubble(free?'Hello! What should I paint today?':'Can you tell me what is in this picture?',free?'أهلاً! ماذا أرسم اليوم؟':'هل تستطيع أن تقول لي ماذا في هذه اللوحة؟');},400);
   raf=requestAnimationFrame(t=>{last=t;loop(t);});
+});
+
+/* ---------- معرضي: اللوحات المحفوظة من الرسم الحر ---------- */
+def('gallery',()=>{
+  setTitle('🖼️ معرضي');
+  const G=T.gal;
+  $('#view').innerHTML=G.length?`<p class="muted lead">لوحاتك التي رسمها السيد فرشاة من كلامك. اضغط لوحة لتراها كبيرة. (حتى ${D(12)} لوحة)</p>
+    <div class="gal">${G.map((P,i)=>`<button class="gpic" data-i="${i}"><div class="pframe"><canvas></canvas></div></button>`).join('')}</div>`
+    :`<div class="card cen"><div style="font-size:60px">🖼️</div><h3>المعرض فارغ</h3><p class="muted">ارسم في «الرسم الحر» ثم اضغط 💾 احفظ في معرضي.</p><button class="btn gold big" id="gfree" style="margin-top:12px">🖌️ لنرسم!</button></div>`;
+  const d=Math.min(2,window.devicePixelRatio||1);
+  $$('.gpic').forEach(b=>{const P=G[+b.dataset.i],c=$('canvas',b),w=Math.max(120,Math.floor(b.clientWidth-14)),h=Math.round(w*P.a);c.width=w*d;c.height=h*d;c.style.width=w+'px';c.style.height=h+'px';
+    const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);drawSaved(x,w,h,P);
+    b.onclick=()=>{sfx('tap');const ov=document.createElement('div');ov.className='ov';
+      ov.innerHTML=`<div class="res"><div class="pframe big"><canvas></canvas></div><div class="btns" style="margin-top:12px"><button class="btn gold" id="gok">رائعة! 🎨</button><button class="btn ghost" id="gdel">🗑️ احذفها</button></div></div>`;
+      document.body.appendChild(ov);const cv=$('canvas',ov),W=Math.min(380,innerWidth-80),H=Math.round(W*P.a);cv.width=W*d;cv.height=H*d;cv.style.width=W+'px';cv.style.height=H+'px';
+      const x2=cv.getContext('2d');x2.setTransform(d,0,0,d,0,0);drawSaved(x2,W,H,P);
+      $('#gok',ov).onclick=()=>ov.remove();
+      $('#gdel',ov).onclick=()=>{T.gal.splice(+b.dataset.i,1);tsave();ov.remove();sfx('whoosh');rerender();};};});
+  if($('#gfree'))$('#gfree').onclick=()=>go('paint',{free:true},false);
 });

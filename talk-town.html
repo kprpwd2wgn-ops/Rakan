@@ -344,6 +344,55 @@ body{background-color:var(--bg);background-image:radial-gradient(circle at 1px 1
 .better{background:#fff7c2;border-radius:12px;padding:6px 10px;font-weight:700;font-size:14px;line-height:1.6}
 .better .en{font-size:17px}
 @media (max-height:700px){.astage{height:210px}.mic{width:72px;height:72px}.zw{width:110px}}
+/* الرتبة */
+.rank{display:flex;align-items:center;gap:10px;width:100%;text-align:start;background:linear-gradient(135deg,#3b3f9e,#6d28d9);color:#fff;border-radius:22px;padding:10px 14px;margin-bottom:12px;box-shadow:0 5px 0 #272a73}
+.rk-e{font-size:40px;line-height:1;flex:none;filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
+.rk-t{flex:1;min-width:0;display:grid;gap:3px}.rk-t b{font-family:var(--f-display);font-weight:400;font-size:20px}.rk-t small{font-weight:700;font-size:13px;color:#ede9fe}
+.bbar.dark{background:rgba(255,255,255,.2)}.bbar.dark i{background:linear-gradient(90deg,var(--gold),#fde68a)}
+.rklist{display:grid;gap:6px;margin:10px 0 14px}
+.rkrow{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:14px;background:var(--chip);text-align:start}
+.rkrow span{font-size:26px}.rkrow b{flex:1}.rkrow small{font-weight:800;color:var(--ink2)}
+.rkrow.on{background:var(--gold);color:#3b2a00;box-shadow:0 3px 0 var(--gold2)}.rkrow.on small{color:#3b2a00}
+.rkrow.lock{opacity:.55}
+/* مبنى الاستوديو */
+.b-studio{background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.35) 0 2px,transparent 2.5px),linear-gradient(135deg,#be123c,#f97316);background-size:40px 40px,100% 100%}
+.bstud{position:relative;width:84px}.bstud svg{width:84px;height:84px}.bstud span{position:absolute;bottom:-2px;left:-6px;font-size:34px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+.st{display:grid;gap:8px}
+.sstage{position:relative;height:226px;border-radius:24px;overflow:hidden;box-shadow:0 5px 0 var(--line);transition:background .6s;
+  background:radial-gradient(ellipse at 30% 0%,rgba(255,255,220,.45),transparent 45%),radial-gradient(ellipse at 75% 0%,rgba(255,255,220,.4),transparent 45%),linear-gradient(180deg,#312e81 0 62%,#7c2d12 62% 100%)}
+.sstage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 2px,transparent 2px 40px)}
+.sstage.night{background:radial-gradient(circle at 80% 18%,#fef9c3 0 14px,transparent 15px),linear-gradient(180deg,#0f172a 0 62%,#3b1d0b 62% 100%)}
+.sonair{position:absolute;top:10px;left:12px;z-index:3;background:#dc2626;color:#fff;font-family:var(--f-en);font-weight:600;font-size:13px;letter-spacing:1px;padding:2px 10px;border-radius:8px;box-shadow:0 0 14px rgba(239,68,68,.9);animation:onair 1.6s ease-in-out infinite;direction:ltr}
+@keyframes onair{50%{box-shadow:0 0 4px rgba(239,68,68,.4);opacity:.8}}
+.slights{position:absolute;top:0;left:10%;right:10%;height:10px;background:repeating-linear-gradient(90deg,#fde68a 0 14px,transparent 14px 46px);opacity:.8}
+.scouch{position:absolute;bottom:14px;left:38%;width:56%;z-index:1}.scouch svg{width:100%;height:auto;display:block}
+.sstage .zw{bottom:44px;left:auto;right:12%;margin-left:0;width:112px;z-index:2;transition:opacity .4s}
+.sstage .zw.ghost{opacity:.08}
+.shost{position:absolute;bottom:8px;left:12px;width:84px;z-index:2}.shost svg{width:100%;height:auto}
+.smic{position:absolute;right:-6px;top:46%;font-size:30px;transform:rotate(-20deg);filter:drop-shadow(0 2px 0 rgba(0,0,0,.3))}
+.scam{position:absolute;top:30px;right:12px;font-size:30px;z-index:1;transform:scaleX(-1)}
+.sstage .asign{left:26%;top:12px;font-size:22px}
+.scard{display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:10px 14px;border:3px dashed #be123c;box-shadow:0 4px 0 rgba(0,0,0,.08)}
+.scard.pop{animation:boing .35s}
+.sce{font-size:44px;line-height:1;flex:none}
+.sct{display:grid;gap:1px;flex:1;min-width:0}.sct small{font-weight:800;color:#be123c;font-size:13px}.sct b{font-family:var(--f-display);font-weight:400;font-size:24px;line-height:1.3}.sct span{font-size:13px;font-weight:700;color:var(--ink2)}
+.zrep.sans{display:flex;gap:8px;align-items:center;background:#f5f3ff;border-radius:14px;padding:6px 10px}.zrep.sans>div{display:grid;gap:1px}
+/* المرسم والمعرض */
+.prow{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:560px){.gal{grid-template-columns:repeat(3,1fr)}}
+.gpic{background:var(--card);border-radius:18px;padding:6px;box-shadow:0 4px 0 var(--line)}
+.gpic .pframe{display:grid;place-items:center}
+.pframe.big{display:inline-block}
+/* كلماتي */
+.wtop span{display:grid}.wtop small{font-weight:700;color:var(--ink2);font-size:13px}
+.wchips{direction:rtl}
+.wchip{position:relative;display:inline-grid;justify-items:center;gap:0;padding:6px 10px;min-width:64px;border-radius:16px}
+.wchip span{font-size:22px;line-height:1.2}.wchip b{font-size:17px;font-weight:600}.wchip small{font-size:11px;font-weight:700;color:var(--ink2)}
+.wchip i{position:absolute;top:2px;left:5px;font-style:normal;font-size:10px;font-weight:800;color:var(--accent)}
+.wchip.pop{animation:pop .4s}
+.sec small{font-family:var(--f-body);font-size:13px;font-weight:800}
+.wchip i{top:-7px;left:-5px;background:var(--accent);color:#fff;border-radius:99px;padding:0 5px;line-height:16px;box-shadow:0 2px 0 var(--accent2)}
 </style>
 </head><body>
 <header class="hdr"><div class="hdr-in"><button class="back" id="back" aria-label="رجوع" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><div class="ttl" id="ttl"></div><button class="gems" id="hgems" aria-label="جواهري"></button><button class="mini" id="hhero" aria-label="بطلي"></button></div></header>
@@ -724,10 +773,116 @@ function openChest(o={}){
 function dailyChestReady(){return World.p.lastDaily!==dayKey();}
 function claimDaily(onClose){World.p.lastDaily=dayKey();World.save();openChest({title:'صندوق اليوم! 🎁',min:15,max:30,itemChance:.4,onClose});}
 
+/* ===== أشياء مرسومة على الكانفاس (مشتركة بين مدينة الكلام وصاروخ القراءة) =====
+   paintThing(ctx, اسم الشيء, x, y, الحجم, اللون, الوقت) يرسم الشيء ومركزه عند x,y. */
+const TINK='#1d2433';
+const THING_HEX={red:'#ef4444',blue:'#3b82f6',green:'#22c55e',yellow:'#facc15',orange:'#fb923c',purple:'#a855f7',pink:'#f472b6',black:'#1f2937',white:'#f8fafc',brown:'#92400e',gray:'#9ca3af',grey:'#9ca3af',gold:'#f5b82e',silver:'#cbd5e1'};
+function shade(h,a){const n=parseInt(h.slice(1),16),c=v=>clamp(v+a,0,255);return'#'+((1<<24)+(c(n>>16)<<16)+(c((n>>8)&255)<<8)+c(n&255)).toString(16).slice(1);}
+function drawStar(x,cx,cy,r,fill,stroke=TINK){x.save();x.fillStyle=fill;x.strokeStyle=stroke;x.lineWidth=Math.max(1.5,r*.14);x.lineJoin='round';x.beginPath();
+  for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;x.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}x.closePath();x.fill();x.stroke();x.restore();}
+/* أسفل كل شيء بالنسبة إلى مركزه (لكي يقف على الأرض أو فوق شيء آخر) */
+const THING_FOOT={cat:.23,dog:.24,ball:.25,apple:.28,bird:.18,duck:.24,teddy:.3,star:.38,balloon:.3,car:.3,flower:.42,tree:.4,heart:.3,fish:.16,box:.3,table:.4,chair:.4,house:.4,boat:.22,kite:.34,butterfly:.24,sun:.5,moon:.32,cloud:.21,rainbow:.3};
+function paintThing(x,n,cx,cy,s,col,t=0){
+  const C=col?THING_HEX[col]||col:null;x.save();x.translate(cx,cy);x.lineJoin='round';x.lineCap='round';x.strokeStyle=TINK;x.lineWidth=Math.max(1.6,s*.05);
+  const INK=TINK,F=(c)=>{x.fillStyle=c;x.fill();x.stroke();};
+  switch(n){
+  case 'sun':{x.strokeStyle=C;x.lineWidth=s*.07;for(let i=0;i<10;i++){const a=i*Math.PI/5+t*.4;x.beginPath();x.moveTo(Math.cos(a)*s*.36,Math.sin(a)*s*.36);x.lineTo(Math.cos(a)*s*.5,Math.sin(a)*s*.5);x.stroke();}
+    x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.05);x.beginPath();x.arc(0,0,s*.3,0,7);F(C);
+    x.fillStyle=INK;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.04,s*.03,0,7);x.fill();});x.beginPath();x.arc(0,s*.05,s*.1,.2,Math.PI-.2);x.stroke();break;}
+  case 'moon':{const R=s*.32,d=R*.55,r2=R*.82,ix=(d*d+R*R-r2*r2)/(2*d),iy=Math.sqrt(Math.max(0,R*R-ix*ix)),t1=Math.atan2(iy,ix);x.rotate(-.35);
+    x.beginPath();x.arc(0,0,R,t1,Math.PI*2-t1,false);x.arc(d,0,r2,Math.atan2(-iy,ix-d),Math.atan2(iy,ix-d),true);x.closePath();F(C);
+    x.fillStyle=INK;x.beginPath();x.arc(-R*.45,-R*.1,R*.07,0,7);x.fill();x.beginPath();x.arc(-R*.38,R*.22,R*.14,.2,Math.PI-.6);x.stroke();break;}
+  case 'star':drawStar(x,0,0,s*.38,C);break;
+  case 'cloud':x.beginPath();x.arc(-s*.2,s*.04,s*.17,Math.PI*.5,Math.PI*1.5);x.arc(0,-s*.08,s*.22,Math.PI,0);x.arc(s*.22,s*.04,s*.16,Math.PI*1.5,Math.PI*.5);x.closePath();F(C);break;
+  case 'bird':{const f=Math.sin(t*10)*s*.08;x.beginPath();x.ellipse(0,0,s*.24,s*.18,0,0,7);F(C);x.beginPath();x.moveTo(-s*.06,-s*.04);x.quadraticCurveTo(-s*.2,-s*.3-f,s*.08,-s*.12);F(shade(C,-30));
+    x.beginPath();x.moveTo(s*.22,-s*.02);x.lineTo(s*.36,s*.03);x.lineTo(s*.22,s*.08);F('#f59e0b');x.fillStyle=INK;x.beginPath();x.arc(s*.12,-s*.05,s*.03,0,7);x.fill();break;}
+  case 'balloon':x.beginPath();x.moveTo(0,s*.3);x.quadraticCurveTo(s*.06,s*.42,-s*.02,s*.55);x.stroke();x.beginPath();x.ellipse(0,0,s*.22,s*.28,0,0,7);F(C);
+    x.beginPath();x.moveTo(-s*.04,s*.27);x.lineTo(s*.04,s*.27);x.lineTo(0,s*.32);F(C);x.fillStyle='rgba(255,255,255,.55)';x.beginPath();x.ellipse(-s*.08,-s*.1,s*.04,s*.08,-.4,0,7);x.fill();break;
+  case 'kite':x.beginPath();x.moveTo(0,-s*.34);x.lineTo(s*.24,0);x.lineTo(0,s*.34);x.lineTo(-s*.24,0);x.closePath();F(C);x.beginPath();x.moveTo(0,-s*.34);x.lineTo(0,s*.34);x.moveTo(-s*.24,0);x.lineTo(s*.24,0);x.stroke();
+    x.beginPath();x.moveTo(0,s*.34);x.quadraticCurveTo(s*.12,s*.48,0,s*.6);x.quadraticCurveTo(-s*.1,s*.7,s*.05,s*.8);x.stroke();break;
+  case 'butterfly':{const f=Math.abs(Math.sin(t*6))*.4+.6;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.16*f,-s*.08,s*.17*f,s*.2,d*.3,0,7);F(C);x.beginPath();x.ellipse(d*s*.12*f,s*.14,s*.11*f,s*.13,-d*.3,0,7);F(shade(C,30));});
+    x.beginPath();x.ellipse(0,0,s*.04,s*.24,0,0,7);F(INK);x.beginPath();x.moveTo(0,-s*.22);x.lineTo(-s*.08,-s*.34);x.moveTo(0,-s*.22);x.lineTo(s*.08,-s*.34);x.stroke();break;}
+  case 'rainbow':['#ef4444','#fb923c','#facc15','#22c55e','#3b82f6','#a855f7'].forEach((c,i)=>{x.strokeStyle=c;x.lineWidth=s*.07;x.beginPath();x.arc(0,s*.3,s*(.56-i*.07),Math.PI,0);x.stroke();});
+    x.fillStyle='#fff';x.strokeStyle=INK;x.lineWidth=1.5;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.42,s*.3,s*.1,0,7);x.arc(d*s*.33,s*.32,s*.08,0,7);x.fill();});break;
+  case 'heart':x.beginPath();x.moveTo(0,s*.3);x.bezierCurveTo(-s*.45,0,-s*.25,-s*.36,0,-s*.12);x.bezierCurveTo(s*.25,-s*.36,s*.45,0,0,s*.3);F(C);x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.15,-s*.12,s*.05,0,7);x.fill();break;
+  case 'tree':x.beginPath();x.roundRect(-s*.07,-s*.05,s*.14,s*.45,s*.03);F('#92400e');x.beginPath();x.arc(0,-s*.18,s*.27,0,7);x.arc(-s*.2,-s*.02,s*.17,0,7);x.arc(s*.2,-s*.02,s*.17,0,7);F(C);
+    x.fillStyle='rgba(255,255,255,.25)';x.beginPath();x.arc(-s*.08,-s*.28,s*.07,0,7);x.fill();break;
+  case 'flower':x.beginPath();x.moveTo(0,0);x.quadraticCurveTo(s*.04,s*.25,0,s*.42);x.strokeStyle='#16a34a';x.lineWidth=s*.05;x.stroke();x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.04);
+    x.fillStyle='#22c55e';x.beginPath();x.ellipse(s*.1,s*.24,s*.09,s*.04,-.5,0,7);x.fill();x.stroke();
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;x.beginPath();x.ellipse(Math.cos(a)*s*.13,-s*.05+Math.sin(a)*s*.13,s*.1,s*.07,a,0,7);F(C);}x.beginPath();x.arc(0,-s*.05,s*.08,0,7);F('#facc15');break;
+  case 'house':x.beginPath();x.rect(-s*.32,-s*.1,s*.64,s*.5);F(C);x.beginPath();x.moveTo(-s*.42,-s*.08);x.lineTo(0,-s*.45);x.lineTo(s*.42,-s*.08);x.closePath();F('#7c2d12');
+    x.beginPath();x.roundRect(-s*.08,s*.12,s*.16,s*.28,s*.04);F('#fde68a');x.beginPath();x.rect(s*.12,0,s*.14,s*.13);F('#bae6fd');x.beginPath();x.rect(-s*.26,0,s*.14,s*.13);F('#bae6fd');break;
+  case 'car':x.beginPath();x.roundRect(-s*.42,-s*.05,s*.84,s*.24,s*.08);F(C);x.beginPath();x.moveTo(-s*.22,-s*.05);x.lineTo(-s*.12,-s*.24);x.lineTo(s*.16,-s*.24);x.lineTo(s*.26,-s*.05);x.closePath();F(C);
+    x.beginPath();x.moveTo(-s*.16,-s*.07);x.lineTo(-s*.09,-s*.2);x.lineTo(s*.02,-s*.2);x.lineTo(s*.02,-s*.07);x.closePath();F('#bae6fd');x.beginPath();x.moveTo(s*.06,-s*.07);x.lineTo(s*.06,-s*.2);x.lineTo(s*.14,-s*.2);x.lineTo(s*.2,-s*.07);x.closePath();F('#bae6fd');
+    [-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.24,s*.2,s*.1,0,7);F('#1f2937');x.beginPath();x.arc(d*s*.24,s*.2,s*.04,0,7);F('#cbd5e1');});break;
+  case 'ball':x.beginPath();x.arc(0,0,s*.25,0,7);F(C);x.beginPath();x.arc(0,0,s*.25,-.3,.3);x.moveTo(-s*.25,0);x.quadraticCurveTo(0,s*.12,s*.25,0);x.stroke();x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.09,-s*.1,s*.05,0,7);x.fill();break;
+  case 'cat':{const dark=col==='black'||col==='brown'||col==='purple'||col==='blue';
+    x.beginPath();x.moveTo(-s*.24,-s*.06);x.lineTo(-s*.2,-s*.34);x.lineTo(-s*.06,-s*.2);x.closePath();F(C);x.beginPath();x.moveTo(s*.24,-s*.06);x.lineTo(s*.2,-s*.34);x.lineTo(s*.06,-s*.2);x.closePath();F(C);
+    x.beginPath();x.ellipse(0,0,s*.27,s*.22,0,0,7);F(C);x.fillStyle=col==='black'?'#fde047':INK;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.1,-s*.02,s*.035,s*.05,0,0,7);x.fill();});
+    x.fillStyle='#f472b6';x.beginPath();x.moveTo(-s*.03,s*.05);x.lineTo(s*.03,s*.05);x.lineTo(0,s*.09);x.fill();x.strokeStyle=dark?'#e5e7eb':INK;x.lineWidth=1.4;[-1,1].forEach(d=>{x.beginPath();x.moveTo(d*s*.08,s*.08);x.lineTo(d*s*.3,s*.04);x.moveTo(d*s*.08,s*.1);x.lineTo(d*s*.3,s*.12);x.stroke();});break;}
+  case 'dog':x.beginPath();x.ellipse(0,0,s*.25,s*.22,0,0,7);F(C);[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.25,s*.02,s*.08,s*.16,d*.3,0,7);F(shade(C,-30));});
+    x.beginPath();x.ellipse(0,s*.08,s*.12,s*.09,0,0,7);F(shade(C,40));x.fillStyle=INK;x.beginPath();x.ellipse(0,s*.04,s*.04,s*.03,0,0,7);x.fill();[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.06,s*.035,0,7);x.fill();});
+    x.fillStyle='#f87171';x.beginPath();x.ellipse(0,s*.16,s*.035,s*.05,0,0,7);x.fill();break;
+  case 'apple':x.beginPath();x.moveTo(0,-s*.16);x.bezierCurveTo(-s*.32,-s*.3,-s*.38,s*.16,-s*.12,s*.26);x.quadraticCurveTo(0,s*.3,s*.12,s*.26);x.bezierCurveTo(s*.38,s*.16,s*.32,-s*.3,0,-s*.16);F(C);
+    x.beginPath();x.moveTo(0,-s*.16);x.lineTo(s*.03,-s*.28);x.stroke();x.beginPath();x.ellipse(s*.1,-s*.26,s*.08,s*.04,-.5,0,7);F('#22c55e');x.fillStyle='rgba(255,255,255,.45)';x.beginPath();x.ellipse(-s*.12,-s*.04,s*.04,s*.08,.3,0,7);x.fill();break;
+  case 'fish':x.beginPath();x.ellipse(0,0,s*.26,s*.16,0,0,7);F(C);x.beginPath();x.moveTo(s*.22,0);x.lineTo(s*.4,-s*.14);x.lineTo(s*.4,s*.14);x.closePath();F(C);x.fillStyle=INK;x.beginPath();x.arc(-s*.13,-s*.03,s*.03,0,7);x.fill();
+    x.strokeStyle='rgba(0,0,0,.25)';x.beginPath();x.arc(-s*.02,0,s*.12,-1,1);x.stroke();break;
+  case 'boat':x.beginPath();x.moveTo(-s*.38,s*.04);x.lineTo(s*.38,s*.04);x.lineTo(s*.26,s*.22);x.lineTo(-s*.26,s*.22);x.closePath();F('#92400e');x.beginPath();x.moveTo(0,s*.04);x.lineTo(0,-s*.4);x.stroke();
+    x.beginPath();x.moveTo(s*.02,-s*.38);x.lineTo(s*.3,-s*.02);x.lineTo(s*.02,-s*.02);x.closePath();F(C);break;
+  case 'duck':x.beginPath();x.ellipse(0,s*.06,s*.26,s*.18,0,0,7);F(C);x.beginPath();x.arc(-s*.14,-s*.14,s*.13,0,7);F(C);
+    x.beginPath();x.moveTo(-s*.26,-s*.15);x.lineTo(-s*.4,-s*.1);x.lineTo(-s*.26,-s*.07);x.closePath();F('#f59e0b');x.fillStyle=INK;x.beginPath();x.arc(-s*.17,-s*.17,s*.025,0,7);x.fill();
+    x.beginPath();x.moveTo(s*.02,s*.02);x.quadraticCurveTo(s*.14,-s*.06,s*.2,s*.06);x.stroke();break;
+  case 'teddy':{const B=C||'#b45309';[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.15,-s*.28,s*.07,0,7);F(B);});x.beginPath();x.ellipse(0,s*.12,s*.2,s*.18,0,0,7);F(B);
+    x.beginPath();x.arc(0,-s*.14,s*.17,0,7);F(shade(B,20));x.beginPath();x.ellipse(0,-s*.09,s*.07,s*.05,0,0,7);F('#fde68a');x.fillStyle=INK;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.06,-s*.17,s*.022,0,7);x.fill();});
+    x.beginPath();x.arc(0,-s*.1,s*.022,0,7);x.fill();break;}
+  /* أثاث: صندوق، طاولة، كرسي */
+  case 'box':{const B=C||'#c68a4e';x.beginPath();x.rect(-s*.4,-s*.22,s*.8,s*.52);F(B);x.beginPath();x.roundRect(-s*.45,-s*.32,s*.9,s*.13,s*.03);F(shade(B,15));
+    x.strokeStyle='rgba(0,0,0,.25)';x.lineWidth=s*.05;x.beginPath();x.moveTo(0,-s*.19);x.lineTo(0,s*.3);x.stroke();break;}
+  case 'boxback':{const B=C||'#c68a4e';x.beginPath();x.moveTo(-s*.4,-s*.18);x.lineTo(-s*.32,-s*.34);x.lineTo(s*.32,-s*.34);x.lineTo(s*.4,-s*.18);x.closePath();F(shade(B,-55));break;}
+  case 'boxfront':{const B=C||'#c68a4e';x.beginPath();x.rect(-s*.4,-s*.18,s*.8,s*.48);F(B);
+    x.beginPath();x.moveTo(-s*.4,-s*.18);x.lineTo(-s*.56,-s*.36);x.lineTo(-s*.4,-s*.32);x.closePath();F(shade(B,15));x.beginPath();x.moveTo(s*.4,-s*.18);x.lineTo(s*.56,-s*.36);x.lineTo(s*.4,-s*.32);x.closePath();F(shade(B,15));
+    x.strokeStyle='rgba(0,0,0,.2)';x.lineWidth=s*.04;x.beginPath();x.moveTo(-s*.3,s*.05);x.lineTo(s*.3,s*.05);x.stroke();break;}
+  case 'table':{const B=C||'#a16207';x.beginPath();x.roundRect(-s*.62,-s*.2,s*1.24,s*.1,s*.03);F(B);[-1,1].forEach(d=>{x.beginPath();x.rect(d*s*.5-s*.04,-s*.1,s*.08,s*.5);F(shade(B,-25));});break;}
+  case 'chair':{const B=C||'#d97706';x.beginPath();x.rect(-s*.3,-s*.62,s*.08,s*.64);F(shade(B,-20));x.beginPath();x.roundRect(-s*.32,-s*.06,s*.64,s*.1,s*.03);F(B);
+    [-1,1].forEach(d=>{x.beginPath();x.rect(d*s*.25-s*.035,s*.04,s*.07,s*.36);F(shade(B,-20));});break;}
+  }
+  x.restore();}
+
+/* ===== مؤثرات صوتية قصيرة من ضجيج مُرشَّح فقط: لا نغمات ولا ألحان (بلا موسيقى) =====
+   SFX.play('ok') بعد أول لمسة. تُطفأ وتُشغَّل من زر 🔊 في الصفحة الرئيسية (تُحفظ في rakan-sfx). */
+const SFX={ctx:null,noise:null,on:(()=>{try{return localStorage.getItem('rakan-sfx')!=='off';}catch(e){return true;}})(),
+  unlock(){if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;try{this.ctx=new AC();}catch(e){return;}}
+    if(this.ctx.state==='suspended')this.ctx.resume();},
+  set(v){this.on=v;try{localStorage.setItem('rakan-sfx',v?'on':'off');}catch(e){}},
+  burst(at,dur,type,freq,q,vol,to){const c=this.ctx;
+    if(!this.noise){const n=c.createBuffer(1,c.sampleRate*.6|0,c.sampleRate),d=n.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;this.noise=n;}
+    const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=this.noise;f.type=type;f.frequency.setValueAtTime(freq,at);f.Q.value=q;
+    if(to)f.frequency.exponentialRampToValueAtTime(to,at+dur);
+    g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(vol,at+.008);g.gain.exponentialRampToValueAtTime(.0001,at+dur);
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start(at,Math.random()*.3);s.stop(at+dur+.03);},
+  play(kind){if(!this.on)return;try{this.unlock();const c=this.ctx;if(!c||c.state!=='running')return;const t=c.currentTime+.01,B=this.burst.bind(this);
+    switch(kind){
+      case 'tap':B(t,.035,'bandpass',1700,1,.35);break;                                   /* نقرة */
+      case 'ok':B(t,.045,'bandpass',1500,1.4,.8);B(t+.08,.07,'bandpass',2300,1.4,.7);break; /* نقرتان لطيفتان */
+      case 'no':B(t,.2,'lowpass',240,.7,1.6);break;                                         /* ارتطام منخفض */
+      case 'pop':B(t,.08,'bandpass',800,1.6,1.4);break;
+      case 'zap':B(t,.16,'bandpass',3200,4,.9,500);break;                                   /* شعاع ليزر من ضجيج */
+      case 'whoosh':B(t,.4,'bandpass',300,1.2,.9,2400);break;
+      case 'thud':B(t,.14,'lowpass',160,.8,2);break;
+      case 'key':B(t,.03,'highpass',4000,1,.5);B(t+.06,.03,'highpass',5000,1,.45);B(t+.12,.05,'highpass',4500,1,.4);break;
+      case 'win':for(let k=0;k<16;k++)B(t+k*.05+Math.random()*.03,.05,'bandpass',1200+Math.random()*1800,1,.45);break; /* مثل التصفيق */
+      case 'sparkle':for(let k=0;k<6;k++)B(t+k*.04,.04,'highpass',5000+Math.random()*3000,2,.3);break;
+    }}catch(e){}}
+};
+['pointerdown','touchend'].forEach(ev=>document.addEventListener(ev,()=>SFX.unlock(),{capture:true,passive:true}));
+const sfx=k=>SFX.play(k);
+function sfxToggleHTML(){return `<button class="chipbtn" id="msfx" aria-label="المؤثرات الصوتية">${SFX.on?'🔊':'🔇'} المؤثرات</button>`;}
+function bindSfxToggle(){const b=$('#msfx');if(b)b.onclick=()=>{SFX.set(!SFX.on);b.innerHTML=`${SFX.on?'🔊':'🔇'} المؤثرات`;if(SFX.on)sfx('ok');};}
+
 /* ===== مدينة الكلام: البيانات ===== */
 const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html'};
 const TKEY='talk-town-v2';
-const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},words:{},spoken:0,typed:0,full:0,drew:{},intro:false}));
+const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}
 /* كل كلمة إنجليزية يقولها الطفل وتفهمها اللعبة تُحفظ في «كلماتي» */
 function learnWords(list){let fresh=0;list.forEach(w=>{if(!w)return;if(!T.words[w]){T.words[w]=0;fresh++;}T.words[w]++;});tsave();return fresh;}
@@ -796,7 +951,13 @@ const PTARGETS=[
  [{n:'star',c:'yellow',k:3},{n:'moon',c:'white',k:1}],
  [{n:'bird',c:'blue',k:3,z:'small'},{n:'sun',c:'orange',k:1,z:'big'}],
  [{n:'car',c:'red',k:1},{n:'ball',c:'blue',k:1},{n:'tree',c:'green',k:2}],
- [{n:'rainbow',c:null,k:1},{n:'balloon',c:'pink',k:4},{n:'cat',c:'black',k:1,z:'small'}]
+ [{n:'rainbow',c:null,k:1},{n:'balloon',c:'pink',k:4},{n:'cat',c:'black',k:1,z:'small'}],
+ [{n:'boat',c:'red',k:1},{n:'fish',c:'orange',k:3}],
+ [{n:'butterfly',c:'purple',k:2},{n:'flower',c:'yellow',k:3}],
+ [{n:'kite',c:'green',k:1,z:'big'},{n:'cloud',c:'white',k:2}],
+ [{n:'dog',c:'brown',k:1,z:'big'},{n:'cat',c:'orange',k:1,z:'small'},{n:'ball',c:'yellow',k:1}],
+ [{n:'heart',c:'pink',k:4},{n:'house',c:'blue',k:1}],
+ [{n:'sun',c:'yellow',k:1},{n:'house',c:'red',k:1,z:'big'},{n:'tree',c:'green',k:2},{n:'bird',c:'black',k:2,z:'small'}]
 ];
 
 /* ===== متاهات روبو =====
@@ -816,7 +977,13 @@ const MAZES=[
  {map:['S.#k..','.##.#.','...*#.','#.###.','ED....'],words:['pick up the key','open the door','go left'],tip:'متاهة طويلة. خطوة خطوة، وابحث عن المفتاح!'},
  {map:['S...r','.####','.R..b','.####','.B..E'],words:['pick up the red key','open the red door','the blue key'],tip:'المفتاح الأحمر يفتح الباب الأحمر، والأزرق يفتح الأزرق.'},
  {map:['S.#....','..#.##.','#...#..','##.##.#','E..*...'],words:['go down and right','go right two and up'],tip:'جرّب أمرين في جملة واحدة: go down and right 🌟'},
- {map:['r..k..S','.######','...R.*b','######B','E.D.*..'],words:['the gold key','the red door','the blue door'],tip:'المتاهة الأخيرة! ثلاثة مفاتيح وثلاثة أبواب بثلاثة ألوان.'}
+ {map:['r..k..S','.######','...R.*b','######B','E.D.*..'],words:['the gold key','the red door','the blue door'],tip:'ثلاثة مفاتيح وثلاثة أبواب بثلاثة ألوان!'},
+ {map:['S..#..E','..#..#.','#...#..','..#...#','*...#.*'],words:['go right one','go down','go up'],tip:'أول خطوة تحتاج رقماً: go right one، ثم انزلق!'},
+ {map:['S...#..','##.##.#','*.....*','.#####.','...E...'],words:['go right two','go left','go down'],tip:'متاهة النجوم! اجمع النجمتين ⭐ قبل أن تصل إلى المخرج.'},
+ {map:['S.....#','####..k','*..D...','##.####','E.....*'],words:['go down one','pick up the key','open the door'],tip:'المفتاح في الزاوية. استخدم الأرقام لتقف حيث تريد!'},
+ {map:['S..#r..','.#.###.','b..B..*','######R','E......'],words:['pick up the blue key','open the blue door','the red key'],tip:'الأزرق أولاً، ثم الأحمر!'},
+ {map:['S.#...k','.##.##.','..#.#E#','r.#.#D.','..R...*'],words:['the red door','the gold key','go right two'],tip:'افتح الباب الأحمر لتصل إلى المفتاح الذهبي.'},
+ {map:['S.k#b..','.#.#.#.','*..D...','######B','E.R...r'],words:['the gold key','the blue door','the red door'],tip:'المتاهة الكبرى! ذهبي، ثم أزرق، ثم أحمر. 🏆'}
 ];
 
 /* ===== منطق المتاهة: الخريطة، الحركة، فهم الأوامر، والحل الأقصر ===== */
@@ -984,7 +1151,6 @@ function svgBitmap(key,svg,w,h){
   if(!e.c[k]){const c=document.createElement('canvas');c.width=cw;c.height=ch;c.getContext('2d').drawImage(e.img,0,0,cw,ch);e.c[k]=c;}
   return e.c[k];
 }
-function shade(h,a){const n=parseInt(h.slice(1),16),c=v=>clamp(v+a,0,255);return'#'+((1<<24)+(c(n>>16)<<16)+(c((n>>8)&255)<<8)+c(n&255)).toString(16).slice(1);}
 
 /* ---------- روبو ---------- */
 function roboInner(mood){
@@ -1058,58 +1224,7 @@ function drawDoor(x,X,Y,s,col,open){x.save();x.strokeStyle=INK;x.lineWidth=2.5;
   x.fillStyle=KEYHEX[col];x.beginPath();x.roundRect(X+3,Y+3,s-6,s-6,7);x.fill();x.stroke();
   x.strokeStyle='rgba(0,0,0,.25)';x.lineWidth=2;x.beginPath();x.moveTo(X+s/2,Y+6);x.lineTo(X+s/2,Y+s-6);x.stroke();
   x.fillStyle=INK;x.beginPath();x.arc(X+s/2,Y+s*.45,s*.08,0,7);x.fill();x.beginPath();x.moveTo(X+s/2-s*.05,Y+s*.47);x.lineTo(X+s/2+s*.05,Y+s*.47);x.lineTo(X+s/2,Y+s*.66);x.closePath();x.fill();x.restore();}
-function drawStar(x,cx,cy,r,fill,stroke=INK){x.save();x.fillStyle=fill;x.strokeStyle=stroke;x.lineWidth=Math.max(1.5,r*.14);x.lineJoin='round';x.beginPath();
-  for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;x.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}x.closePath();x.fill();x.stroke();x.restore();}
-
-/* ---------- أشياء الرسّام ---------- */
-function paintThing(x,n,cx,cy,s,col,t=0){
-  const C=col?COLHEX[col]||col:null;x.save();x.translate(cx,cy);x.lineJoin='round';x.lineCap='round';x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.05);
-  const F=(c)=>{x.fillStyle=c;x.fill();x.stroke();};
-  switch(n){
-  case 'sun':{x.strokeStyle=C;x.lineWidth=s*.07;for(let i=0;i<10;i++){const a=i*Math.PI/5+t*.4;x.beginPath();x.moveTo(Math.cos(a)*s*.36,Math.sin(a)*s*.36);x.lineTo(Math.cos(a)*s*.5,Math.sin(a)*s*.5);x.stroke();}
-    x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.05);x.beginPath();x.arc(0,0,s*.3,0,7);F(C);
-    x.fillStyle=INK;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.04,s*.03,0,7);x.fill();});x.beginPath();x.arc(0,s*.05,s*.1,.2,Math.PI-.2);x.stroke();break;}
-  case 'moon':{const R=s*.32,d=R*.55,r2=R*.82,ix=(d*d+R*R-r2*r2)/(2*d),iy=Math.sqrt(Math.max(0,R*R-ix*ix)),t1=Math.atan2(iy,ix);x.rotate(-.35);
-    x.beginPath();x.arc(0,0,R,t1,Math.PI*2-t1,false);x.arc(d,0,r2,Math.atan2(-iy,ix-d),Math.atan2(iy,ix-d),true);x.closePath();F(C);
-    x.fillStyle=INK;x.beginPath();x.arc(-R*.45,-R*.1,R*.07,0,7);x.fill();x.beginPath();x.arc(-R*.38,R*.22,R*.14,.2,Math.PI-.6);x.stroke();break;}
-  case 'star':drawStar(x,0,0,s*.38,C);break;
-  case 'cloud':x.beginPath();x.arc(-s*.2,s*.04,s*.17,Math.PI*.5,Math.PI*1.5);x.arc(0,-s*.08,s*.22,Math.PI,0);x.arc(s*.22,s*.04,s*.16,Math.PI*1.5,Math.PI*.5);x.closePath();F(C);break;
-  case 'bird':{const f=Math.sin(t*10)*s*.08;x.beginPath();x.ellipse(0,0,s*.24,s*.18,0,0,7);F(C);x.beginPath();x.moveTo(-s*.06,-s*.04);x.quadraticCurveTo(-s*.2,-s*.3-f,s*.08,-s*.12);F(shade(C,-30));
-    x.beginPath();x.moveTo(s*.22,-s*.02);x.lineTo(s*.36,s*.03);x.lineTo(s*.22,s*.08);F('#f59e0b');x.fillStyle=INK;x.beginPath();x.arc(s*.12,-s*.05,s*.03,0,7);x.fill();break;}
-  case 'balloon':x.beginPath();x.moveTo(0,s*.3);x.quadraticCurveTo(s*.06,s*.42,-s*.02,s*.55);x.stroke();x.beginPath();x.ellipse(0,0,s*.22,s*.28,0,0,7);F(C);
-    x.beginPath();x.moveTo(-s*.04,s*.27);x.lineTo(s*.04,s*.27);x.lineTo(0,s*.32);F(C);x.fillStyle='rgba(255,255,255,.55)';x.beginPath();x.ellipse(-s*.08,-s*.1,s*.04,s*.08,-.4,0,7);x.fill();break;
-  case 'kite':x.beginPath();x.moveTo(0,-s*.34);x.lineTo(s*.24,0);x.lineTo(0,s*.34);x.lineTo(-s*.24,0);x.closePath();F(C);x.beginPath();x.moveTo(0,-s*.34);x.lineTo(0,s*.34);x.moveTo(-s*.24,0);x.lineTo(s*.24,0);x.stroke();
-    x.beginPath();x.moveTo(0,s*.34);x.quadraticCurveTo(s*.12,s*.48,0,s*.6);x.quadraticCurveTo(-s*.1,s*.7,s*.05,s*.8);x.stroke();break;
-  case 'butterfly':{const f=Math.abs(Math.sin(t*6))*.4+.6;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.16*f,-s*.08,s*.17*f,s*.2,d*.3,0,7);F(C);x.beginPath();x.ellipse(d*s*.12*f,s*.14,s*.11*f,s*.13,-d*.3,0,7);F(shade(C,30));});
-    x.beginPath();x.ellipse(0,0,s*.04,s*.24,0,0,7);F(INK);x.beginPath();x.moveTo(0,-s*.22);x.lineTo(-s*.08,-s*.34);x.moveTo(0,-s*.22);x.lineTo(s*.08,-s*.34);x.stroke();break;}
-  case 'rainbow':['#ef4444','#fb923c','#facc15','#22c55e','#3b82f6','#a855f7'].forEach((c,i)=>{x.strokeStyle=c;x.lineWidth=s*.07;x.beginPath();x.arc(0,s*.3,s*(.56-i*.07),Math.PI,0);x.stroke();});
-    x.fillStyle='#fff';x.strokeStyle=INK;x.lineWidth=1.5;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.42,s*.3,s*.1,0,7);x.arc(d*s*.33,s*.32,s*.08,0,7);x.fill();});break;
-  case 'heart':x.beginPath();x.moveTo(0,s*.3);x.bezierCurveTo(-s*.45,0,-s*.25,-s*.36,0,-s*.12);x.bezierCurveTo(s*.25,-s*.36,s*.45,0,0,s*.3);F(C);x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.15,-s*.12,s*.05,0,7);x.fill();break;
-  case 'tree':x.beginPath();x.roundRect(-s*.07,-s*.05,s*.14,s*.45,s*.03);F('#92400e');x.beginPath();x.arc(0,-s*.18,s*.27,0,7);x.arc(-s*.2,-s*.02,s*.17,0,7);x.arc(s*.2,-s*.02,s*.17,0,7);F(C);
-    x.fillStyle='rgba(255,255,255,.25)';x.beginPath();x.arc(-s*.08,-s*.28,s*.07,0,7);x.fill();break;
-  case 'flower':x.beginPath();x.moveTo(0,0);x.quadraticCurveTo(s*.04,s*.25,0,s*.42);x.strokeStyle='#16a34a';x.lineWidth=s*.05;x.stroke();x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.04);
-    x.fillStyle='#22c55e';x.beginPath();x.ellipse(s*.1,s*.24,s*.09,s*.04,-.5,0,7);x.fill();x.stroke();
-    for(let i=0;i<6;i++){const a=i*Math.PI/3;x.beginPath();x.ellipse(Math.cos(a)*s*.13,-s*.05+Math.sin(a)*s*.13,s*.1,s*.07,a,0,7);F(C);}x.beginPath();x.arc(0,-s*.05,s*.08,0,7);F('#facc15');break;
-  case 'house':x.beginPath();x.rect(-s*.32,-s*.1,s*.64,s*.5);F(C);x.beginPath();x.moveTo(-s*.42,-s*.08);x.lineTo(0,-s*.45);x.lineTo(s*.42,-s*.08);x.closePath();F('#7c2d12');
-    x.beginPath();x.roundRect(-s*.08,s*.12,s*.16,s*.28,s*.04);F('#fde68a');x.beginPath();x.rect(s*.12,0,s*.14,s*.13);F('#bae6fd');x.beginPath();x.rect(-s*.26,0,s*.14,s*.13);F('#bae6fd');break;
-  case 'car':x.beginPath();x.roundRect(-s*.42,-s*.05,s*.84,s*.24,s*.08);F(C);x.beginPath();x.moveTo(-s*.22,-s*.05);x.lineTo(-s*.12,-s*.24);x.lineTo(s*.16,-s*.24);x.lineTo(s*.26,-s*.05);x.closePath();F(C);
-    x.beginPath();x.moveTo(-s*.16,-s*.07);x.lineTo(-s*.09,-s*.2);x.lineTo(s*.02,-s*.2);x.lineTo(s*.02,-s*.07);x.closePath();F('#bae6fd');x.beginPath();x.moveTo(s*.06,-s*.07);x.lineTo(s*.06,-s*.2);x.lineTo(s*.14,-s*.2);x.lineTo(s*.2,-s*.07);x.closePath();F('#bae6fd');
-    [-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.24,s*.2,s*.1,0,7);F('#1f2937');x.beginPath();x.arc(d*s*.24,s*.2,s*.04,0,7);F('#cbd5e1');});break;
-  case 'ball':x.beginPath();x.arc(0,0,s*.25,0,7);F(C);x.beginPath();x.arc(0,0,s*.25,-.3,.3);x.moveTo(-s*.25,0);x.quadraticCurveTo(0,s*.12,s*.25,0);x.stroke();x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.09,-s*.1,s*.05,0,7);x.fill();break;
-  case 'cat':x.beginPath();x.moveTo(-s*.24,-s*.06);x.lineTo(-s*.2,-s*.34);x.lineTo(-s*.06,-s*.2);x.closePath();F(C);x.beginPath();x.moveTo(s*.24,-s*.06);x.lineTo(s*.2,-s*.34);x.lineTo(s*.06,-s*.2);x.closePath();F(C);
-    x.beginPath();x.ellipse(0,0,s*.27,s*.22,0,0,7);F(C);x.fillStyle=col==='black'?'#fde047':INK;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.1,-s*.02,s*.035,s*.05,0,0,7);x.fill();});
-    x.fillStyle='#f472b6';x.beginPath();x.moveTo(-s*.03,s*.05);x.lineTo(s*.03,s*.05);x.lineTo(0,s*.09);x.fill();x.strokeStyle=col==='black'?'#e5e7eb':INK;x.lineWidth=1.4;[-1,1].forEach(d=>{x.beginPath();x.moveTo(d*s*.08,s*.08);x.lineTo(d*s*.3,s*.04);x.moveTo(d*s*.08,s*.1);x.lineTo(d*s*.3,s*.12);x.stroke();});break;
-  case 'dog':x.beginPath();x.ellipse(0,0,s*.25,s*.22,0,0,7);F(C);[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.25,s*.02,s*.08,s*.16,d*.3,0,7);F(shade(C,-30));});
-    x.beginPath();x.ellipse(0,s*.08,s*.12,s*.09,0,0,7);F(shade(C,40));x.fillStyle=INK;x.beginPath();x.ellipse(0,s*.04,s*.04,s*.03,0,0,7);x.fill();[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.06,s*.035,0,7);x.fill();});
-    x.fillStyle='#f87171';x.beginPath();x.ellipse(0,s*.16,s*.035,s*.05,0,0,7);x.fill();break;
-  case 'apple':x.beginPath();x.moveTo(0,-s*.16);x.bezierCurveTo(-s*.32,-s*.3,-s*.38,s*.16,-s*.12,s*.26);x.quadraticCurveTo(0,s*.3,s*.12,s*.26);x.bezierCurveTo(s*.38,s*.16,s*.32,-s*.3,0,-s*.16);F(C);
-    x.beginPath();x.moveTo(0,-s*.16);x.lineTo(s*.03,-s*.28);x.stroke();x.beginPath();x.ellipse(s*.1,-s*.26,s*.08,s*.04,-.5,0,7);F('#22c55e');x.fillStyle='rgba(255,255,255,.45)';x.beginPath();x.ellipse(-s*.12,-s*.04,s*.04,s*.08,.3,0,7);x.fill();break;
-  case 'fish':x.beginPath();x.ellipse(0,0,s*.26,s*.16,0,0,7);F(C);x.beginPath();x.moveTo(s*.22,0);x.lineTo(s*.4,-s*.14);x.lineTo(s*.4,s*.14);x.closePath();F(C);x.fillStyle=INK;x.beginPath();x.arc(-s*.13,-s*.03,s*.03,0,7);x.fill();
-    x.strokeStyle='rgba(0,0,0,.25)';x.beginPath();x.arc(-s*.02,0,s*.12,-1,1);x.stroke();break;
-  case 'boat':x.beginPath();x.moveTo(-s*.38,s*.04);x.lineTo(s*.38,s*.04);x.lineTo(s*.26,s*.22);x.lineTo(-s*.26,s*.22);x.closePath();F('#92400e');x.beginPath();x.moveTo(0,s*.04);x.lineTo(0,-s*.4);x.stroke();
-    x.beginPath();x.moveTo(s*.02,-s*.38);x.lineTo(s*.3,-s*.02);x.lineTo(s*.02,-s*.02);x.closePath();F(C);break;
-  }
-  x.restore();}
+/* أشياء الرسّام (paintThing) في src/kit/things.js، مشتركة مع صاروخ القراءة */
 
 /* ===== زر الميكروفون: اضغط وتكلّم، أو اكتب إذا لم يعمل ===== */
 const MICI='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
@@ -1125,7 +1240,7 @@ function micBar(root,o){
   const set=s=>{state=s;btn.classList.toggle('on',s==='listen');};
   const showTyped=()=>{$('#mtf',root).hidden=false;};
   function start(){if(locked)return;if(state==='listen'){stopListen();return;}
-    stopSpeak();help.innerHTML='';set('listen');live.innerHTML='<span class="hear">🎧 أسمعك… تكلّم الآن</span>';buzz(15);
+    stopSpeak();sfx('tap');help.innerHTML='';set('listen');live.innerHTML='<span class="hear">🎧 أسمعك… تكلّم الآن</span>';buzz(15);
     listen({onLive:t=>{live.innerHTML=`<span class="en said">${esc(t)}</span>`;},
       onDone:r=>{set('idle');if(!r.text){live.textContent='لم أسمعك جيداً… اضغط 🎤 وتكلّم بصوت أوضح.';return;}
         live.innerHTML=`<span class="en said">“${esc(r.text)}”</span>`;T.spoken++;tsave();o.onText({text:r.text,alts:r.alts,conf:r.conf||0,typed:false});},
@@ -1145,13 +1260,160 @@ function sayEn(text,o={}){speak(text,Object.assign({lang:'en'},o));}
 const roboSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.35,rate:.95},o));
 const zibSay=(t,o={})=>sayEn(t,Object.assign({pitch:1.3,rate:.9},o));
 
-/* ===== المدينة: المباني، قوائم المراحل، كلماتي، والقصة ===== */
+/* ===== استوديو ليو: أنت المذيع، وتسأل ليو أسئلة بالإنجليزية =====
+   كل حلقة ٥ بطاقات. ar: ماذا تسأل (بالعربية فقط، فالطفل يصنع السؤال بنفسه) · re: يكفي لفهم السؤال
+   full: سؤال كامل صحيح (النجمة الثالثة) · model: سؤال نموذجي يظهر للمساعدة · ans: جواب ليو · fx: ماذا يحدث */
+const SHOWS=[
+ {ar:'أول مقابلة',e:'🎙️',q:[
+  {ar:'اسأل ليو عن اسمه',e:'🏷️',re:/\bname\b/,full:/\bwhat is your name\b/,model:'What is your name?',ans:['My name is Leo. Leo from planet Zoom!','اسمي ليو. ليو من كوكب زووم!'],fx:'sign:👋 Leo'},
+  {ar:'اسأله عن عمره',e:'🎂',re:/\bhow old\b|\bage\b/,full:/\bhow old are you\b/,model:'How old are you?',ans:['I am three hundred years old!','عمري ثلاثمئة سنة!'],fx:'sign:🎂 300'},
+  {ar:'اسأله من أين هو',e:'🌍',re:/\bwhere\b.*\b(from|live)\b|\bfrom where\b/,full:/\bwhere are you from\b|\bwhere do you live\b/,model:'Where are you from?',ans:['I am from planet Zoom. It is very far!','أنا من كوكب زووم. إنه بعيد جداً!'],fx:'sign:🪐 Zoom'},
+  {ar:'اسأله عن لونه المفضّل',e:'🎨',re:/\bcolou?r\b/,full:/\bwhat is your favou?rite colou?r\b/,model:'What is your favorite color?',ans:['My favorite color is purple!','لوني المفضّل البنفسجي!'],fx:'color:#a855f7'},
+  {ar:'اسأله: كيف حالك؟',e:'😊',re:/\bhow are you\b|\bhow do you feel\b|\bare you (ok|okay|fine|happy|good)\b/,full:/\bhow are you\b|\bhow do you feel\b/,model:'How are you?',ans:['I am super happy! Thank you for asking.','أنا سعيد جداً! شكراً لسؤالك.'],fx:'jump'}]},
+ {ar:'طعام ليو',e:'🍕',q:[
+  {ar:'اسأله ماذا يأكل',e:'🍽️',re:/\beat\b/,full:/\bwhat do you eat\b/,model:'What do you eat?',ans:['I eat moon rocks and star cheese!','آكل صخور القمر وجبن النجوم!'],fx:'eat:🧀'},
+  {ar:'اسأله: هل تحب البيتزا؟',e:'🍕',re:/\bpizza\b/,full:/\bdo you (like|love) pizza\b/,model:'Do you like pizza?',ans:['Pizza? Yes! I love Earth pizza!','بيتزا؟ نعم! أحب بيتزا الأرض!'],fx:'eat:🍕'},
+  {ar:'اسأله عن أكلته المفضّلة',e:'🍲',re:/\bfood\b/,full:/\bwhat is your favou?rite food\b/,model:'What is your favorite food?',ans:['My favorite food is space soup. It is blue!','أكلتي المفضّلة شوربة الفضاء. إنها زرقاء!'],fx:'show:🍲'},
+  {ar:'اسأله ماذا يشرب',e:'🥤',re:/\bdrink\b/,full:/\bwhat do you drink\b/,model:'What do you drink?',ans:['I drink cloud juice!','أشرب عصير الغيوم!'],fx:'eat:🧃'},
+  {ar:'اسأله: هل أنت جائع؟',e:'😋',re:/\bhungry\b/,full:/\bare you hungry\b/,model:'Are you hungry?',ans:['Yes! I am always hungry. Yum yum!','نعم! أنا جائع دائماً. ممم!'],fx:'jump'}]},
+ {ar:'كوكب زووم',e:'🪐',q:[
+  {ar:'اسأله: هل كوكبك كبير؟',e:'🪐',re:/\bplanet\b.*\b(big|small|large)\b|\b(big|small|large)\b.*\bplanet\b/,full:/\bis your planet (big|small|large)\b/,model:'Is your planet big?',ans:['No, it is very small. I can walk around it in one day!','لا، إنه صغير جداً. أستطيع أن أمشي حوله في يوم واحد!'],fx:'show:🪐'},
+  {ar:'اسأله: هل الجو حار أم بارد هناك؟',e:'🌡️',re:/\b(hot|cold|warm|weather)\b/,full:/\bis it (hot|cold|warm)\b|\bwhat is the weather\b/,model:'Is it hot or cold?',ans:['It is very cold! It snows every day.','الجو بارد جداً! الثلج ينزل كل يوم.'],fx:'snow'},
+  {ar:'اسأله: كم شمساً عندكم؟',e:'☀️',re:/\bsuns?\b/,full:/\bhow many suns\b/,model:'How many suns do you have?',ans:['We have three suns! It is never dark.','عندنا ثلاث شموس! لا يأتي الظلام أبداً.'],fx:'sign:☀️☀️☀️'},
+  {ar:'اسأله: هل عندكم حيوانات؟',e:'🐾',re:/\banimals?\b|\bpets?\b/,full:/\bdo you have (any )?(animals|pets|a pet)\b|\bare there (any )?animals\b/,model:'Do you have animals?',ans:['Yes! We have flying fish and pink cats.','نعم! عندنا سمك طائر وقطط وردية.'],fx:'fly:🐟'},
+  {ar:'اسأله: هل أستطيع زيارة كوكبك؟',e:'🚀',re:/\bvisit\b|\bcome\b|\bgo\b/,full:/\bcan i (visit|come|go)\b/,model:'Can I visit your planet?',ans:['Of course! You are always welcome.','بالتأكيد! أنت مرحّب بك دائماً.'],fx:'party'}]},
+ {ar:'عائلة ليو',e:'🏠',q:[
+  {ar:'اسأله: هل عندك إخوة؟',e:'👦',re:/\b(brothers?|sisters?|siblings?)\b/,full:/\bdo you have (any )?(brothers|sisters|a brother|a sister|siblings)\b/,model:'Do you have brothers or sisters?',ans:['Yes! I have five brothers and one sister.','نعم! عندي خمسة إخوة وأخت واحدة.'],fx:'sign:👽👽👽👽👽👽'},
+  {ar:'اسأله عن اسم أمّه',e:'👩',re:/\b(mom|mother|mum|mommy|mama)\b/,full:/\bwhat is your (mom|mother|mum|mommy|mama)( is)? name\b|\bwhat is the name of your (mom|mother)\b/,model:"What is your mom's name?",ans:['Her name is Lula. She is very kind.','اسمها لولا. إنها طيبة جداً.'],fx:'hearts'},
+  {ar:'اسأله: من صديقك المفضّل؟',e:'🤝',re:/\bfriends?\b/,full:/\bwho is your best friend\b|\bdo you have (a |any )?friends?\b/,model:'Who is your best friend?',ans:['You are my best friend on Earth!','أنت أفضل صديق لي على الأرض!'],fx:'hearts'},
+  {ar:'اسأله: أين تعيش عائلتك؟',e:'🏡',re:/\bwhere\b.*\b(family|live|house|home)\b/,full:/\bwhere does your family live\b|\bwhere do you live\b|\bwhere is your (house|home)\b/,model:'Where does your family live?',ans:['We live in a round house on a big rock.','نعيش في بيت مستدير على صخرة كبيرة.'],fx:'show:🏠'},
+  {ar:'اسأله: هل تحب عائلتك؟',e:'❤️',re:/\b(love|like)\b.*\bfamily\b/,full:/\bdo you (love|like) your family\b/,model:'Do you love your family?',ans:['Yes, very much! Family is the best.','نعم، كثيراً! العائلة هي الأفضل.'],fx:'hearts'}]},
+ {ar:'ماذا يستطيع ليو؟',e:'💪',q:[
+  {ar:'اسأله: هل تستطيع الطيران؟',e:'🕊️',re:/\bfly\b/,full:/\bcan you fly\b/,model:'Can you fly?',ans:['Yes, I can! Look at me!','نعم أستطيع! انظر إليّ!'],fx:'jump'},
+  {ar:'اسأله: هل تستطيع السباحة؟',e:'🏊',re:/\bswim\b/,full:/\bcan you swim\b/,model:'Can you swim?',ans:['No, I can not. The water on Zoom is very cold!','لا، لا أستطيع. الماء في زووم بارد جداً!'],fx:'sad'},
+  {ar:'اسأله: هل تستطيع القراءة؟',e:'📖',re:/\bread\b/,full:/\bcan you read\b/,model:'Can you read?',ans:['Yes! I read space books every night.','نعم! أقرأ كتب الفضاء كل ليلة.'],fx:'show:📚'},
+  {ar:'اسأله: هل تتكلم العربية؟',e:'🗣️',re:/\barabic\b/,full:/\b(can|do) you speak arabic\b/,model:'Can you speak Arabic?',ans:['A little! Marhaba! Shukran!','قليلاً! مرحبا! شكراً!'],fx:'jump'},
+  {ar:'اسأله: هل تستطيع أن تقفز عالياً؟',e:'🦘',re:/\bjump\b/,full:/\bcan you jump\b/,model:'Can you jump high?',ans:['Watch this! Boing, boing!','شاهد هذا! بوينغ، بوينغ!'],fx:'jump'}]},
+ {ar:'يوم ليو',e:'⏰',q:[
+  {ar:'اسأله: متى تستيقظ؟',e:'⏰',re:/\bwake\b|\bget up\b/,full:/\b(what time|when) do you (wake up|get up)\b/,model:'What time do you wake up?',ans:["I wake up at five o'clock. Very early!",'أستيقظ الساعة الخامسة. مبكراً جداً!'],fx:'sign:⏰ 5'},
+  {ar:'اسأله: ماذا تفعل في الصباح؟',e:'🌅',re:/\bmorning\b/,full:/\bwhat do you do in the morning\b/,model:'What do you do in the morning?',ans:['I brush my three teeth and eat breakfast.','أفرّش أسناني الثلاثة وآكل الفطور.'],fx:'show:🪥'},
+  {ar:'اسأله: هل تذهب إلى المدرسة؟',e:'🏫',re:/\bschool\b/,full:/\bdo you go to school\b/,model:'Do you go to school?',ans:['Yes! I go to Space School. I like math.','نعم! أذهب إلى مدرسة الفضاء. أحب الرياضيات.'],fx:'show:🏫'},
+  {ar:'اسأله: ماذا تفعل بعد المدرسة؟',e:'⚽',re:/\bafter school\b/,full:/\bwhat do you do after school\b/,model:'What do you do after school?',ans:['I play moon ball with my friends!','ألعب كرة القمر مع أصدقائي!'],fx:'show:⚽'},
+  {ar:'اسأله: متى تنام؟',e:'😴',re:/\bsleep\b|\bbed\b/,full:/\b(what time|when) do you (go to bed|go to sleep|sleep)\b/,model:'What time do you go to bed?',ans:["At nine o'clock. Good night!",'الساعة التاسعة. تصبح على خير!'],fx:'night'}]},
+ {ar:'سفينة ليو',e:'🛸',q:[
+  {ar:'اسأله: أين سفينتك؟',e:'🛸',re:/\b(spaceship|ship|rocket|ufo)\b/,full:/\bwhere is your (spaceship|ship|rocket|ufo)\b/,model:'Where is your spaceship?',ans:['It is on the roof! Shhh, it is a secret.','إنها على السطح! شششش، هذا سر.'],fx:'ufo'},
+  {ar:'اسأله عن لون سفينته',e:'🎨',re:/\bcolou?r\b/,full:/\bwhat colou?r is (it|your (spaceship|ship|rocket))\b/,model:'What color is it?',ans:['It is silver with green lights.','إنها فضية وفيها أضواء خضراء.'],fx:'sign:🛸✨'},
+  {ar:'اسأله: هل هي سريعة؟',e:'💨',re:/\b(fast|quick|speed)\b/,full:/\bis it fast\b|\bhow fast is it\b/,model:'Is it fast?',ans:['Very fast! Zoom! Faster than light!','سريعة جداً! زووم! أسرع من الضوء!'],fx:'fly:🛸'},
+  {ar:'اسأله: هل أستطيع أن آتي معك؟',e:'🙋',re:/\bcan i\b|\b(ride|come|go)\b/,full:/\bcan i (come|ride|go|fly)\b/,model:'Can I come with you?',ans:['Yes! Put on your space helmet!','نعم! البس خوذة الفضاء!'],fx:'party'},
+  {ar:'اسأله: إلى أين سنذهب؟',e:'🗺️',re:/\bwhere\b/,full:/\bwhere (are we going|do we go|can we go|will we go|are you going)\b/,model:'Where are we going?',ans:["To the moon! Let's have a picnic!",'إلى القمر! لنتنزّه هناك!'],fx:'night'}]},
+ {ar:'أشياء ليو المفضّلة',e:'⭐',q:[
+  {ar:'اسأله عن رياضته المفضّلة',e:'🏀',re:/\bsports?\b/,full:/\bwhat is your favou?rite sport\b/,model:'What is your favorite sport?',ans:['Space football! We play with a little moon.','كرة القدم الفضائية! نلعب بقمر صغير.'],fx:'show:⚽'},
+  {ar:'اسأله عن حيوانه المفضّل',e:'🐱',re:/\banimal\b/,full:/\bwhat is your favou?rite animal\b/,model:'What is your favorite animal?',ans:['I love Earth cats. They say meow!','أحب قطط الأرض. إنها تقول مياو!'],fx:'show:🐱'},
+  {ar:'اسأله: هل تحب الكتب؟',e:'📚',re:/\bbooks?\b|\breading\b/,full:/\bdo you (like|love) (books|reading|to read)\b/,model:'Do you like books?',ans:['Yes! My favorite book is about Earth kids.','نعم! كتابي المفضّل عن أطفال الأرض.'],fx:'show:📘'},
+  {ar:'اسأله عن لعبته المفضّلة',e:'🎲',re:/\b(game|toy)\b/,full:/\bwhat is your favou?rite (game|toy)\b/,model:'What is your favorite game?',ans:['Hide and seek! I always win, because I can be invisible!','الغميضة! أفوز دائماً، لأنني أستطيع أن أختفي!'],fx:'hide'},
+  {ar:'اسأله: ماذا تحب في الأرض؟',e:'🌍',re:/\bearth\b/,full:/\bwhat do you (like|love) (about|on) earth\b/,model:'What do you like about Earth?',ans:['I like the blue sea, the green trees, and you!','أحب البحر الأزرق والأشجار الخضراء، وأحبك أنت!'],fx:'hearts'}]}
+];
+const QWORDS=new Set('what where when who why how which do does did can could is are am you your yours i me my favorite favourite old name like love eat drink have go come visit fly swim read speak jump wake sleep bed school morning after family friend best mom mother brother sister planet big small hot cold many sun suns animals pets food pizza hungry color colour sport animal game toy books earth ship spaceship fast arabic time live from'.split(' '));
+
+def('studio',si=>{
+  const SH=SHOWS[si],N=SH.q.length;let qi=0,tries=0,bonus=false,busy=false,alive=true,scores=[],fulls=0,col='#a3e635',mood='happy',held=null,newW=0;
+  setTitle(`🎙️ ${SH.ar}`);
+  $('#view').innerHTML=`<div class="st">
+    <div class="adots" id="sd"></div>
+    <div class="sstage" id="ss"><div class="sonair" id="son">ON AIR</div><div class="slights"></div>
+      <div class="scouch">${couchSVG()}</div><div class="zw sz" id="zw"></div>
+      <div class="shost">${heroSVG(World.p.hero,{face:'happy'})}<span class="smic">🎤</span></div>
+      <div class="scam">🎥</div><div class="afx" id="afx"></div><div class="asign" id="asg" hidden></div></div>
+    <div class="scard" id="sc"></div>
+    <div class="ans" id="ans" hidden></div>
+    <div id="mic"></div></div>`;
+  onClean(()=>{alive=false;});
+  function zib(){$('#zw').innerHTML=zibSVG({col,mood})+(held?`<span class="zheld">${held}</span>`:'');}
+  let mt=0;function setMood(m,ms){mood=m;zib();clearTimeout(mt);if(ms)mt=setTimeout(()=>{if(alive){mood='happy';zib();}},ms);}
+  function dots(){$('#sd').innerHTML=SH.q.map((_,k)=>`<i class="${k<qi?'done':k===qi?'on':''}">${k<qi?'★':''}</i>`).join('');}
+  function sign(h){const s=$('#asg');s.innerHTML=h;s.hidden=false;s.classList.remove('pop');void s.offsetWidth;s.classList.add('pop');}
+  function particles(list,cls,n=14){const fx=$('#afx');for(let k=0;k<n;k++){const e=document.createElement('span');e.className='ptc '+cls;e.textContent=pick([].concat(list));
+      e.style.left=(Math.random()*92+2)+'%';e.style.animationDelay=(Math.random()*1.2)+'s';e.style.fontSize=(16+Math.random()*16)+'px';fx.appendChild(e);setTimeout(()=>e.remove(),4200);}}
+  function fx(f){const [k,a]=(f||'').split(/:(.*)/);const st=$('#ss');
+    switch(k){
+      case 'sign':sign(esc(a));sfx('sparkle');break;
+      case 'color':col=a;zib();{const [x,y]=centerOf($('#zw'));FX.burst(x,y,{n:30,colors:[a,'#fff',a]});}sfx('sparkle');break;
+      case 'show':held=a;zib();sfx('pop');break;
+      case 'eat':{const e=document.createElement('span');e.className='ptc eat';e.textContent=a;$('#afx').appendChild(e);setTimeout(()=>e.remove(),1300);setTimeout(()=>{if(alive){setMood('chew',1600);sfx('pop');}},900);break;}
+      case 'jump':{const z=$('#zw');z.classList.remove('jump');void z.offsetWidth;z.classList.add('jump');setMood('laugh',1800);sfx('whoosh');break;}
+      case 'hearts':particles(['❤️','💕','💖'],'rise',16);sfx('sparkle');break;
+      case 'party':FX.confetti();particles(['🎈','🎉','⭐'],'rise',14);sfx('win');break;
+      case 'night':st.classList.add('night');sign('🌙');break;
+      case 'snow':particles(['❄️'],'fall',22);break;
+      case 'fly':case 'ufo':{const e=document.createElement('span');e.className='ptc flyby';e.textContent=a||'🛸';$('#afx').appendChild(e);setTimeout(()=>e.remove(),3200);sfx('whoosh');break;}
+      case 'sad':setMood('sad',2200);break;
+      case 'hide':{const z=$('#zw');z.classList.add('ghost');setTimeout(()=>{if(alive)z.classList.remove('ghost');},1800);sfx('whoosh');break;}}}
+  function card(){const c=SH.q[qi];$('#sc').innerHTML=`<span class="sce">${c.e}</span><div class="sct"><small>📝 سؤالك ${D(qi+1)} من ${D(N)}</small><b>${c.ar}</b><span>قلها بالإنجليزية بنفسك! 🎤</span></div>`;
+    $('#sc').classList.remove('pop');void $('#sc').offsetWidth;$('#sc').classList.add('pop');}
+  function ask(){tries=0;bonus=false;busy=false;$('#ans').hidden=true;dots();card();mic.lock(false);held=null;$('#ss').classList.remove('night');$('#asg').hidden=true;zib();}
+  function show(r,stars,note,model,rep){const a=$('#ans');
+    a.innerHTML=`${stars?`<div class="arow">${starRow(stars)}<b>${['','تكلّمت بالإنجليزية 👍','فهم ليو سؤالك! 👏','سؤال كامل! 🌟'][stars]}</b></div>`:''}
+      <p class="en said">“${esc(r)}”</p>
+      ${rep?`<div class="zrep sans"><button class="mini2" id="srep" aria-label="اسمع">🔊</button><div><b class="en">${esc(rep[0])}</b><span>${rep[1]}</span></div></div>`:''}
+      ${note?`<p class="note">${note}</p>`:''}
+      ${model?`<p class="better">✨ اسأله كاملاً: <span class="en">${esc(model)}</span> <button class="mini2" id="bsay" aria-label="اسمع">🔊</button>${stars===2?'<br><small>اضغط 🎤 واسأل السؤال كاملاً لتربح نجمة إضافية!</small>':''}</p>`:''}
+      ${stars?`<button class="btn gold big wide" id="anext">${qi<N-1?'السؤال التالي ←':'🏁 نهاية الحلقة'}</button>`:''}`;
+    a.hidden=false;if($('#srep'))$('#srep').onclick=()=>zibSay(rep[0]);if($('#bsay'))$('#bsay').onclick=()=>sayEn(model,{rate:.85});if($('#anext'))$('#anext').onclick=next;
+    setTimeout(()=>{if(alive&&!a.hidden)a.scrollIntoView({behavior:REDUCED?'auto':'smooth',block:'nearest'});},60);}
+  function next(){stopSpeak();sfx('tap');qi++;if(qi>=N)return finish();ask();}
+  function onText(r){if(busy)return;const c=SH.q[qi];
+    let best=null;for(const a of (r.alts&&r.alts.length?r.alts:[r.text])){const t=normS(a);const m={raw:a,t,rel:c.re.test(t),full:c.full.test(t)};if(!best||(m.full&&!best.full)||(m.rel&&!best.rel))best=m;if(m.full)break;}
+    if(!best||!best.t){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');sfx('no');return;}
+    const ws=best.t.split(' ').filter(w=>QWORDS.has(w)||ALLW.has(w));newW+=learnWords(ws);
+    if(bonus){if(best.full){scores[qi]=3;fulls++;T.full++;tsave();bonus=false;sfx('win');const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('What a great question!');
+        show(best.raw,3,'⭐ رائع! سؤال كامل.',null,['What a great question!','يا له من سؤال رائع!']);}
+      else{sfx('no');zibSay(c.model,{rate:.85});show(best.raw,scores[qi],`حاول أن تقول: <span class="en">${esc(c.model)}</span>`,null,null);}return;}
+    if(!best.rel&&tries<2){tries++;sfx('no');setMood('wow',1800);
+      if(tries===1){zibSay("Hmm? Can you ask me again?");show(best.raw,0,'همم؟ لم يفهم ليو سؤالك. اسأله مرة أخرى بطريقة أخرى!');}
+      else{zibSay('You can ask: '+c.model,{rate:.85});show(best.raw,0,`💡 مثلاً: <span class="en">${esc(c.model)}</span>`);}return;}
+    busy=true;mic.lock(true);const stars=best.rel?(best.full?3:2):1;scores[qi]=stars;if(stars===3){fulls++;T.full++;}tsave();
+    sfx(stars===3?'ok':'pop');setMood('talk');
+    zibSay(c.ans[0],{onend:()=>{if(alive&&mood==='talk')setMood('happy');}});fx(c.fx);
+    show(best.raw,stars,stars===1?'ليو أجاب على أي حال! في المرة القادمة اسأله السؤال نفسه.':null,stars<3?c.model:null,c.ans);
+    if(stars===2){bonus=true;busy=false;mic.lock(false);}}
+  function finish(){busy=true;mic.lock(true);const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
+    T.studio[si]=Math.max(T.studio[si]||0,stars);tsave();zibSay('Thank you for the interview! You are a great reporter!');sfx('win');
+    const hasNext=si+1<SHOWS.length;
+    resultOv({title:'🎙️ مقابلة رائعة!',stars,gems:Math.round(tot/2)+stars*2,
+      lines:[`🌟 أسئلة كاملة: ${D(fulls)} من ${D(N)}`,newW?`📚 كلمات جديدة: ${D(newW)}`:'',stars<3?'اسأل أسئلة كاملة لتحصل على ٣ نجوم':'مذيع رائع! 👑'],
+      btns:[...(hasNext?[{label:'الحلقة التالية ←',cls:'gold big',fn:()=>go('studio',si+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});}
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 واسأل ليو سؤالك بالإنجليزية',onHelp:()=>{const c=SH.q[qi];sayEn(c.model,{rate:.85});
+    show('…',0,`💡 مثال: <span class="en">${esc(c.model)}</span><br>اسأله بصوتك!`);}});
+  zib();ask();setTimeout(()=>{if(alive&&qi===0){setMood('talk');zibSay(si===0?"Hi! Welcome to my TV show! You are the reporter. Ask me anything!":"Hello again, reporter! I am ready for your questions.",{onend:()=>{if(alive&&mood==='talk')setMood('happy');}});}},400);
+});
+function couchSVG(){return `<svg viewBox="0 0 200 80" aria-hidden="true"><rect x="12" y="66" width="10" height="12" fill="#4b2e14"/><rect x="178" y="66" width="10" height="12" fill="#4b2e14"/>
+  <rect x="18" y="8" width="164" height="44" rx="16" fill="#e11d48" stroke="#1d2433" stroke-width="3"/><rect x="8" y="40" width="184" height="30" rx="12" fill="#e11d48" stroke="#1d2433" stroke-width="3"/>
+  <rect x="2" y="26" width="22" height="46" rx="10" fill="#be123c" stroke="#1d2433" stroke-width="3"/><rect x="176" y="26" width="22" height="46" rx="10" fill="#be123c" stroke="#1d2433" stroke-width="3"/>
+  <path d="M30 40 H170" stroke="rgba(255,255,255,.3)" stroke-width="4" stroke-linecap="round"/></svg>`;}
+
+/* ===== المدينة: المباني، قوائم المراحل، كلماتي، الرتب، والقصة ===== */
 const sumStars=o=>Object.values(o).reduce((a,b)=>a+b,0);
 const MODES={
   maze:{n:MAZES.length,title:'🤖 مختبر روبو',go:i=>go('maze',i),icon:i=>D(i+1),store:()=>T.maze},
   paint:{n:PTARGETS.length,title:'🎨 مرسم الألوان',go:i=>go('paint',{i}),icon:i=>D(i+1),store:()=>T.paint},
-  alien:{n:VISITS.length,title:'👽 محطة الفضاء',go:i=>go('alien',i),icon:i=>VISITS[i].sign,store:()=>T.alien}
+  alien:{n:VISITS.length,title:'👽 محطة الفضاء',go:i=>go('alien',i),icon:i=>VISITS[i].sign,store:()=>T.alien},
+  studio:{n:SHOWS.length,title:'🎙️ استوديو ليو',go:i=>go('studio',i),icon:i=>SHOWS[i].e,store:()=>T.studio}
 };
+/* رتب المدينة: تُحسب من كل النجوم */
+const TRANKS=[['🐣','زائر جديد',0],['🗣️','متحدّث صغير',12],['🎤','متحدّث واثق',30],['📣','نجم المدينة',55],['🏅','سفير الكلام',85],['🌟','عمدة المدينة',120],['👑','أسطورة الكلام',150]];
+const allStarsT=()=>sumStars(T.maze)+sumStars(T.paint)+sumStars(T.alien)+sumStars(T.studio);
+const rankIdxT=n=>{let r=0;TRANKS.forEach((x,i)=>{if(n>=x[2])r=i;});return r;};
+function rankHTMLT(){const n=allStarsT(),i=rankIdxT(n),R=TRANKS[i],N=TRANKS[i+1];
+  return `<button class="rank" id="mrank"><span class="rk-e">${R[0]}</span><span class="rk-t"><b>رتبتك: ${R[1]}</b><span class="bbar dark"><i style="width:${N?Math.round((n-R[2])/(N[2]-R[2])*100):100}%"></i></span>
+    <small>${N?`⭐ ${D(n)} · باقي ${D(N[2]-n)} ⭐ لتصبح ${N[1]} ${N[0]}`:`⭐ ${D(n)} · أعلى رتبة في المدينة!`}</small></span></button>`;}
+function rankCheckT(){const i=rankIdxT(allStarsT());if(i<=(T.rank||0))return;T.rank=i;tsave();const R=TRANKS[i];sfx('win');
+  setTimeout(()=>resultOv({title:'🎖️ ترقية!',big:R[0],lines:[`صرت الآن: <b>${R[1]}</b>`,'كل نجمة تجمعها تقرّبك من الرتبة التالية!'],gems:i*15,btns:[{label:'رائع! 🎤',cls:'gold big',fn:()=>{}}]}),400);}
+function ranksOvT(){const n=allStarsT(),cur=rankIdxT(n);const ov=document.createElement('div');ov.className='ov';
+  ov.innerHTML=`<div class="res"><h2>🎖️ رتب المدينة</h2><p class="muted">اجمع النجوم في كل المباني لترتفع رتبتك.</p>
+    <div class="rklist">${TRANKS.map((r,i)=>`<div class="rkrow ${i===cur?'on':''} ${i>cur?'lock':''}"><span>${r[0]}</span><b>${r[1]}</b><small>⭐ ${D(r[2])}</small></div>`).join('')}</div>
+    <div class="btns"><button class="btn gold" id="rkok">حسناً</button></div></div>`;
+  document.body.appendChild(ov);$('#rkok',ov).onclick=()=>ov.remove();}
+
 def('hub',()=>{
   setTitle('',false);const words=Object.keys(T.words).length;
   const card=(k,cls,pic,h,p)=>{const M=MODES[k],st=M.store(),done=Object.keys(st).length;
@@ -1160,46 +1422,67 @@ def('hub',()=>{
   $('#view').innerHTML=`
    <section class="mtop"><button class="mhero" id="mh" aria-label="بطلي"><div class="bob">${heroSVG(World.p.hero,{face:'happy',pose:'cheer'})}</div></button>
      <div class="mtxt"><h1>أهلاً يا ${esc(World.p.name||'بطل')}!</h1><p>في مدينة الكلام، صوتك يحرّك كل شيء! 🎤</p>
-       <div class="row"><button class="chipbtn" id="mw">📚 كلماتي ${D(words)}</button>${dailyChestReady()?'<button class="chipbtn gold" id="mday">🎁 صندوق اليوم</button>':''}<button class="chipbtn" id="mshop">👕 المتجر</button></div></div></section>
+       <div class="row"><button class="chipbtn" id="mw">📚 كلماتي ${D(words)}</button>${dailyChestReady()?'<button class="chipbtn gold" id="mday">🎁 صندوق اليوم</button>':''}<button class="chipbtn" id="mshop">👕 المتجر</button>${sfxToggleHTML()}</div></div></section>
    ${micState==='none'||micState==='embedded'?`<div class="micnote">🎤 <b>تكلّم بصوتك:</b> ${micState==='none'?(IOS?'افتح رابط اللعبة في Safari':'افتح رابط اللعبة في Google Chrome')+'، فهناك يفهم الكلام.':'افتح اللعبة من رابط GitHub، فهناك يعمل الميكروفون.'} وهنا يمكنك أن تكتب بالإنجليزية ⌨️.<div class="linkbox"><span class="en">${APP.gh}</span><button class="btn sm" data-copy>📋 نسخ</button><a class="btn sm ok" href="${APP.gh}" target="_blank" rel="noopener">افتح ↗</a></div></div>`:''}
+   ${rankHTMLT()}
    <div class="town">
      ${card('maze','b-robo',roboSVG('happy'),'مختبر روبو','قُد روبو في المتاهة بأوامر من صوتك')}
      ${card('paint','b-paint',brushSVG('#f472b6'),'مرسم الألوان','صِف ما تريد، والسيد فرشاة يرسمه!')}
      ${card('alien','b-space',zibSVG({col:T.zcol||'#a3e635'}),'محطة الفضاء','ليو من كوكب زووم يسألك عن الأرض')}
+     ${card('studio','b-studio',`<div class="bstud">${zibSVG({col:'#fb7185',mood:'laugh'})}<span>🎙️</span></div>`,'استوديو ليو','أنت المذيع! اسأل ليو أسئلتك بالإنجليزية')}
    </div>
    <p class="muted small cen">⭐ تكلّمت بالإنجليزية · ⭐⭐ فهمتك اللعبة · ⭐⭐⭐ بجملة كاملة</p>`;
-  $$('.bld').forEach(b=>b.onclick=()=>go('levels',b.dataset.k));
-  $('#mh').onclick=()=>go('closet');$('#mshop').onclick=()=>go('closet','hat');$('#mw').onclick=()=>go('words');
+  $$('.bld').forEach(b=>b.onclick=()=>{sfx('whoosh');go('levels',b.dataset.k);});
+  $('#mh').onclick=()=>go('closet');$('#mshop').onclick=()=>go('closet','hat');$('#mw').onclick=()=>go('words');$('#mrank').onclick=ranksOvT;bindSfxToggle();
   if($('#mday'))$('#mday').onclick=()=>claimDaily(()=>rerender());
+  rankCheckT();
 },{home:true});
 
 def('levels',k=>{
   const M=MODES[k],st=M.store();setTitle(M.title);
   const next=(()=>{for(let i=0;i<M.n;i++)if(!st[i])return i;return 0;})();
-  $('#view').innerHTML=`${k==='paint'?`<button class="btn big wide gold" id="free">🖌️ الرسم الحر: ارسم ما تريد!</button><h3 class="sec">🖼️ تحدّي: انسخ اللوحة</h3>`:''}
+  $('#view').innerHTML=`${k==='paint'?`<div class="row prow"><button class="btn big gold" id="free">🖌️ الرسم الحر</button><button class="btn big ghost" id="gal">🖼️ معرضي ${D(T.gal.length)}</button></div><h3 class="sec">🖼️ تحدّي: انسخ اللوحة</h3>`:''}
     ${k==='alien'?'<p class="muted lead">في كل زيارة يسألك ليو أسئلة. أجب بجملة كاملة لتحصل على ٣ نجوم، وشاهد ماذا يحدث له!</p>':''}
+    ${k==='studio'?'<p class="muted lead">أنت المذيع اليوم! 🎙️ في كل حلقة تقرأ ماذا تسأل بالعربية، ثم تسأل ليو بالإنجليزية بنفسك. السؤال الكامل = ٣ نجوم.</p>':''}
     ${k==='maze'?'<p class="muted lead">قل لروبو إلى أين يذهب: up, down, left, right. أقل عدد من الأوامر = نجوم أكثر!</p>':''}
     <div class="lvls">${[...Array(M.n)].map((_,i)=>{const s=st[i]||0,un=i===0||st[i-1]||st[i];
-      return `<button class="lv ${s?'done':''} ${i===next?'here':''}" data-i="${i}" ${un?'':'disabled'}><span class="lvi">${un?M.icon(i):'🔒'}</span>${k==='alien'?`<span class="lvt">${VISITS[i].ar}</span>`:''}${starsHTML(s)}</button>`;}).join('')}</div>`;
-  $$('.lv').forEach(b=>b.onclick=()=>M.go(+b.dataset.i));
+      return `<button class="lv ${s?'done':''} ${i===next?'here':''}" data-i="${i}" ${un?'':'disabled'}><span class="lvi">${un?M.icon(i):'🔒'}</span>${k==='alien'?`<span class="lvt">${VISITS[i].ar}</span>`:k==='studio'?`<span class="lvt">${SHOWS[i].ar}</span>`:''}${starsHTML(s)}</button>`;}).join('')}</div>`;
+  $$('.lv').forEach(b=>b.onclick=()=>{sfx('tap');M.go(+b.dataset.i);});
   if($('#free'))$('#free').onclick=()=>go('paint',{free:true});
+  if($('#gal'))$('#gal').onclick=()=>go('gallery');
 });
 
+/* ---------- كلماتي: مرتّبة في مجموعات، مع صورة ومعنى ---------- */
+const TAR=Object.assign({},COLAR,NOUNAR,{up:'أعلى',down:'أسفل',left:'يسار',right:'يمين',go:'اذهب',pick:'التقط','pick up':'التقط',key:'مفتاح',open:'افتح',door:'باب',and:'و',
+  one:'واحد',two:'اثنان',three:'ثلاثة',four:'أربعة',five:'خمسة',six:'ستة',seven:'سبعة',eight:'ثمانية',nine:'تسعة',ten:'عشرة',big:'كبير',small:'صغير',
+  what:'ماذا / ما',where:'أين',when:'متى',who:'مَن',how:'كيف',why:'لماذا',you:'أنت',your:'ـك',my:'ـي',name:'اسم',like:'يحب',love:'يحب كثيراً',favorite:'المفضّل',have:'عنده',can:'يستطيع',eat:'يأكل',drink:'يشرب',
+  yes:'نعم',no:'لا',please:'من فضلك',thank:'شكراً',thanks:'شكراً',hello:'مرحباً',hi:'أهلاً',bye:'مع السلامة',goodbye:'مع السلامة',
+  lion:'أسد',elephant:'فيل',monkey:'قرد',giraffe:'زرافة',horse:'حصان',rabbit:'أرنب',camel:'جمل',panda:'باندا',penguin:'بطريق',duck:'بطة',owl:'بومة',turtle:'سلحفاة',frog:'ضفدع',shark:'قرش',dolphin:'دلفين',
+  pizza:'بيتزا',burger:'برغر',rice:'أرز',cake:'كعكة',cookie:'بسكويتة',bread:'خبز',cheese:'جبن',banana:'موز',orange:'برتقالي / برتقال',water:'ماء',juice:'عصير',milk:'حليب',tea:'شاي',
+  mom:'أمي',dad:'أبي',brother:'أخ',sister:'أخت',grandma:'جدّة',grandpa:'جدّ',friend:'صديق',family:'عائلة',football:'كرة القدم',swimming:'سباحة',school:'مدرسة',happy:'سعيد',sad:'حزين',tired:'متعب',
+  hot:'حار',cold:'بارد',sunny:'مشمس',rainy:'ممطر',winter:'الشتاء',summer:'الصيف',jacket:'سترة',book:'كتاب',books:'كتب',pencil:'قلم رصاص'});
+const WGROUPS=[['🎨','ألوان','colors'],['🐾','حيوانات','animals'],['🍕','طعام وشراب','foods,drinks'],['⚽','ألعاب وهوايات','games,activity,toys'],['👨‍👩‍👧','العائلة','family'],['🔢','أرقام','num'],['🌦️','الطقس والملابس','weather,seasons,clothes'],
+  ['🤖','أوامر روبو',null,'up down left right go pick key open door and'],['❓','كلمات الأسئلة',null,'what where when who how why you your can have like love favorite name']];
 def('words',()=>{
   setTitle('📚 كلماتي');const ws=Object.entries(T.words).sort((a,b)=>b[1]-a[1]);const n=ws.length;
-  const goals=[10,25,50,100,200],g=goals.find(x=>x>n)||n;
-  $('#view').innerHTML=`<div class="wtop"><b>${D(n)}</b><span>كلمة إنجليزية قلتها في المدينة!</span></div>
-    <div class="bar"><i style="width:${Math.min(100,n/g*100)}%"></i></div><p class="small muted">الهدف التالي: ${D(g)} كلمة 🏆</p>
-    <p class="muted small">اضغط أي كلمة لتسمعها.</p>
-    <div class="wchips">${ws.length?ws.map(([w,c])=>`<button class="wchip en" data-w="${esc(w)}">${esc(w)}${c>2?' <small>×'+D(c)+'</small>':''}</button>`).join(''):'<p class="muted">لم تقل أي كلمة بعد. اذهب إلى روبو أو ليو وتكلّم! 🎤</p>'}</div>
-    <div class="row cen" style="margin-top:12px"><span class="chipbtn">🎤 جمل بصوتك: ${D(T.spoken)}</span><span class="chipbtn">🗣️ جمل كاملة: ${D(T.full)}</span></div>`;
-  $$('.wchip').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.8}));
+  const goals=[10,25,50,100,200,400],g=goals.find(x=>x>n)||n;const used=new Set();
+  const inCat=(w,cats)=>cats.split(',').some(c=>(CATS[c]||'').split('|').includes(w));
+  const groups=WGROUPS.map(([e,ar,cats,list])=>{const items=ws.filter(([w])=>!used.has(w)&&(cats?inCat(w,cats):list.split(' ').includes(w)));items.forEach(([w])=>used.add(w));return[e,ar,items];});
+  groups.push(['✨','كلمات أخرى',ws.filter(([w])=>!used.has(w))]);
+  const chip=([w,c])=>`<button class="wchip" data-w="${esc(w)}">${EMO[w]?`<span>${EMO[w]}</span>`:''}<b class="en">${esc(w)}</b>${TAR[w]?`<small>${esc(TAR[w])}</small>`:''}${c>2?`<i>×${D(c)}</i>`:''}</button>`;
+  $('#view').innerHTML=`<div class="wtop"><b>${D(n)}</b><span>كلمة إنجليزية قلتها في المدينة!<small>الهدف التالي: ${D(g)} كلمة 🏆</small></span></div>
+    <div class="bar"><i style="width:${Math.min(100,n/g*100)}%"></i></div>
+    <div class="row cen" style="margin:8px 0"><span class="chipbtn">🎤 جمل بصوتك: ${D(T.spoken)}</span><span class="chipbtn">🗣️ جمل كاملة: ${D(T.full)}</span></div>
+    ${n?groups.filter(x=>x[2].length).map(([e,ar,items])=>`<h3 class="sec">${e} ${ar} <small class="muted">${D(items.length)}</small></h3><div class="wchips">${items.map(chip).join('')}</div>`).join('')
+      :'<p class="muted cen">لم تقل أي كلمة بعد. اذهب إلى روبو أو ليو وتكلّم! 🎤</p>'}
+    <p class="muted small cen" style="margin-top:10px">اضغط أي كلمة لتسمعها.</p>`;
+  $$('.wchip').forEach(b=>b.onclick=()=>{sfx('tap');sayEn(b.dataset.w,{rate:.8});shake(b,'pop');});
 });
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
   const P=[[roboSVG('happy'),'أهلاً بك في مدينة الكلام!','هنا صوتك يحرّك كل شيء: تكلّم بالإنجليزية، وشاهد ما يحدث!','Welcome to Talk Town! Here, your voice moves everything. Speak in English, and see what happens!'],
-    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وليو الفضائي يريد أن يعرف كل شيء عن الأرض.','Your friends are waiting. Robo walks when you tell him. Mister Brush paints what you say. And Leo the alien wants to know everything about Earth.'],
+    [zibSVG({mood:'laugh'}),'أصدقاء ينتظرونك','روبو يمشي بأوامرك، والسيد فرشاة يرسم ما تقول، وليو الفضائي يسألك… وفي استوديو ليو أنت المذيع وتسأله أنت!','Your friends are waiting. Robo walks when you tell him. Mister Brush paints what you say. Leo the alien asks you questions, and in his studio, you ask him!'],
     [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.','Tap the microphone and talk. Say what you want, all by yourself! If the microphone does not work, you can type in English.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🎤 لنبدأ!'}</button></div>`;
@@ -1236,30 +1519,30 @@ def('maze',i=>{
   async function run(cmds){busy=true;mic.lock(true);
     for(const c of cmds){if(!alive)return;
       if(c.k==='move'){const m=mzMove(M,st,c.dir,c.n);used++;hudUp();
-        if(m.steps){setMood('talk',0);bubble(`Going ${c.dir}${c.n?' '+NUMW[c.n]:''}!`,`أتحرك ${DIRAR[c.dir]}${c.n?` ${D(c.n)} ${c.n===1?'خطوة':c.n===2?'خطوتين':'خطوات'}`:''}!`);
+        if(m.steps){setMood('talk',0);sfx('whoosh');bubble(`Going ${c.dir}${c.n?' '+NUMW[c.n]:''}!`,`أتحرك ${DIRAR[c.dir]}${c.n?` ${D(c.n)} ${c.n===1?'خطوة':c.n===2?'خطوتين':'خطوات'}`:''}!`);
           await walk(m.path);st=Object.assign({},st,{r:m.r,c:m.c});setMood('idle',0);
           if(mzAtExit(M,st))return finish();}
-        if(m.why&&(c.n?m.steps<c.n:(!m.steps||m.why==='door'))){bump={dir:c.dir,t0:now};buzz(40);setMood('bump');
+        if(m.why&&(c.n?m.steps<c.n:(!m.steps||m.why==='door'))){bump={dir:c.dir,t0:now};buzz(40);sfx('thud');setMood('bump');
           if(m.why==='door')bubble('A door! It is closed.','باب! إنه مغلق.');else bubble('Bonk! A wall!','آخ! جدار!');await pause(650);}}
       else if(c.k==='pick'){used++;const p=mzPick(M,st,c.col);
-        if(p.ok){st=p.st;spark(st.r,st.c,KEYHEX[p.col]);setMood('happy');bubble(`Got the ${p.col} key!`,`أخذت المفتاح ${KEYAR[p.col]}!`);buzz(30);}
-        else if(p.why==='color'){setMood('confused');bubble(`Hmm, this key is ${p.col}!`,`همم، هذا المفتاح ${KEYAR[p.col].replace('ال','')}!`);}
-        else{setMood('confused');bubble('There is no key here.','لا يوجد مفتاح هنا.');}await pause(700);}
+        if(p.ok){st=p.st;sfx('key');spark(st.r,st.c,KEYHEX[p.col]);setMood('happy');bubble(`Got the ${p.col} key!`,`أخذت المفتاح ${KEYAR[p.col]}!`);buzz(30);}
+        else if(p.why==='color'){setMood('confused');sfx('no');bubble(`Hmm, this key is ${p.col}!`,`همم، هذا المفتاح ${KEYAR[p.col].replace('ال','')}!`);}
+        else{setMood('confused');sfx('no');bubble('There is no key here.','لا يوجد مفتاح هنا.');}await pause(700);}
       else if(c.k==='open'){used++;const o=mzOpen(M,st,c.col);
-        if(o.ok){st=o.st;const d=M.doors[o.di];spark(d.r,d.c,KEYHEX[o.col]);setMood('happy');bubble('The door is open!','انفتح الباب!');buzz(30);}
+        if(o.ok){st=o.st;sfx('whoosh');const d=M.doors[o.di];spark(d.r,d.c,KEYHEX[o.col]);setMood('happy');bubble('The door is open!','انفتح الباب!');buzz(30);}
         else if(o.why==='locked'){setMood('confused');bubble(`It is locked! I need the ${o.col} key.`,`مقفل! أحتاج المفتاح ${KEYAR[o.col]}.`);}
         else if(o.why==='color'){setMood('confused');bubble('That is not the right color!','اللون غير مناسب!');}
         else{setMood('confused');bubble('There is no door next to me.','لا يوجد باب بجانبي.');}await pause(700);}
       hudUp();}
     busy=false;mic.lock(false);}
   function spark(r,c,col){const rc=cv.getBoundingClientRect();FX.burst(rc.left+ox+c*cell+cell/2,rc.top+oy+r*cell+cell/2,{n:18,colors:[col,'#fff','#fde68a'],speed:220});}
-  function finish(){win=true;setMood('happy',0);bubble('Yay! We did it!','يا سلام! وصلنا!');FX.confetti();
+  function finish(){win=true;setMood('happy',0);sfx('win');bubble('Yay! We did it!','يا سلام! وصلنا!');FX.confetti();
     const stars=used<=opt?3:used<=opt+2?2:1,sg=got.size,gems=stars*3+sg;T.maze[i]=Math.max(T.maze[i]||0,stars);tsave();
     setTimeout(()=>{if(!alive)return;const hasNext=i+1<MAZES.length;resultOv({title:'🎉 روبو وصل إلى المخرج!',stars,gems,
       lines:[`🗣️ عدد أوامرك: ${D(used)} (أفضل حل: ${D(opt)})`,M.stars.length?`⭐ نجوم جمعتها: ${D(sg)} من ${D(M.stars.length)}`:'',stars<3?'استخدم أوامر أقل لتحصل على ٣ نجوم':'أوامر ذكية! 👑'],
       btns:[...(hasNext?[{label:'المتاهة التالية ←',cls:'gold big',fn:()=>go('maze',i+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});},1500);}
   function onText(r){if(busy||win)return;let cmds=[];for(const a of r.alts){cmds=mzCommands(a);if(cmds.length)break;}
-    if(!cmds.length){setMood('confused');bubble("Beep? I don't understand.",`بيب؟ لم أفهم. قل مثلاً: <span class="en nw">${esc(L.words[0])}</span>`);return;}
+    if(!cmds.length){setMood('confused');sfx('no');bubble("Beep? I don't understand.",`بيب؟ لم أفهم. قل مثلاً: <span class="en nw">${esc(L.words[0])}</span>`);return;}
     const ws=[];cmds.forEach(c=>{if(c.k==='move'){ws.push(c.dir);if(c.n)ws.push(NUMW[c.n]);}else if(c.k==='pick')ws.push('pick up','key');else ws.push('open','door');if(c.col)ws.push(c.col);});
     if(cmds.length>1)ws.push('and');learnWords(ws);if(normS(r.text).split(' ').length>=3)T.full++;
     run(cmds);}
@@ -1290,7 +1573,7 @@ def('maze',i=>{
   }
   function update(dt){if(moodT&&now>moodT){moodT=0;mood='idle';}
     if(queue.length){const [tr,tc]=queue[0],sp=dt/.13;const dx=tc-pos[0],dy=tr-pos[1],dist=Math.hypot(dx,dy);
-      if(dist<=sp){pos=[tc,tr];queue.shift();const si=M.stars.findIndex(s=>s.r===tr&&s.c===tc);if(si>=0&&!got.has(si)){got.add(si);spark(tr,tc,'#fde047');World.add(1);}
+      if(dist<=sp){pos=[tc,tr];queue.shift();const si=M.stars.findIndex(s=>s.r===tr&&s.c===tc);if(si>=0&&!got.has(si)){got.add(si);spark(tr,tc,'#fde047');World.add(1);sfx('sparkle');}
         if(!queue.length&&queue.done){const d=queue.done;queue.done=null;d();}}
       else pos=[pos[0]+dx/dist*sp,pos[1]+dy/dist*sp];}}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;now+=dt;update(dt);draw();raf=requestAnimationFrame(loop);}
@@ -1316,6 +1599,12 @@ function parsePaint(text){const t=normS(text);if(!t)return{items:[]};const w=t.s
 function phraseOf(it){const c=it.c||PNOUNS[it.n].c,adj=[it.z,it.n==='rainbow'?null:c].filter(Boolean).join(' ');
   return `${it.k===1?(/^[aeiou]/.test(adj||it.n)?'an':'a'):NUMW[it.k]||it.k} ${adj?adj+' ':''}${it.k===1?it.n:pluralN(it.n)}`;}
 const ZONE={sky:[.1,.36],mid:[.3,.52],ground:[.64,.84],water:[.84,.92]};
+function paintScene(x,w,h,water){const g=x.createLinearGradient(0,0,0,h*.6);g.addColorStop(0,'#bae6fd');g.addColorStop(1,'#e0f2fe');x.fillStyle=g;x.fillRect(0,0,w,h*.6);
+  const gg=x.createLinearGradient(0,h*.58,0,h);gg.addColorStop(0,'#86efac');gg.addColorStop(1,'#4ade80');x.fillStyle=gg;x.beginPath();x.moveTo(0,h*.6);x.quadraticCurveTo(w*.3,h*.54,w*.6,h*.6);x.quadraticCurveTo(w*.85,h*.65,w,h*.58);x.lineTo(w,h);x.lineTo(0,h);x.fill();
+  if(water){x.fillStyle='#60a5fa';x.strokeStyle='#1d4ed8';x.lineWidth=2;x.beginPath();x.ellipse(w*.8,h*.9,w*.22,h*.09,0,0,7);x.fill();x.stroke();}}
+/* لوحة محفوظة في المعرض: الأماكن والأحجام نسبةً إلى ارتفاع اللوحة وعرضها */
+function drawSaved(x,w,h,P){paintScene(x,w,h,P.items.some(o=>PNOUNS[o.n]&&PNOUNS[o.n].z==='water'));
+  P.items.forEach(o=>o.p.forEach(p=>paintThing(x,o.n,p[0]*w,p[1]*h,o.s*h,o.c,0)));}
 
 def('paint',arg=>{
   const free=!!arg.free,li=arg.i||0,tgt=free?null:PTARGETS[li].map(x=>Object.assign({done:false},x));
@@ -1325,7 +1614,7 @@ def('paint',arg=>{
       :`<p class="tip">🎨 قل ما تريد أن يرسمه السيد فرشاة. مثلاً: <span class="en nw">three red apples</span></p>`}
     <div class="rbub" id="pb"><b class="en">…</b><span></span></div>
     <div class="pstage" id="ps"><canvas id="pc"></canvas><div class="pbr" id="pbr">${brushSVG('#f472b6')}</div></div>
-    ${free?'<div class="row cen ptools"><button class="chipbtn" id="pundo">↶ تراجع</button><button class="chipbtn" id="pclr">🧽 صفحة جديدة</button></div>':''}
+    ${free?'<div class="row cen ptools"><button class="chipbtn" id="pundo">↶ تراجع</button><button class="chipbtn" id="pclr">🧽 صفحة جديدة</button><button class="chipbtn gold" id="psave">💾 احفظ في معرضي</button></div>':''}
     <div class="wscroll"><span class="wct">أرسم:</span>${Object.keys(PNOUNS).map(n=>`<button class="wc en" data-w="${n}">${n}</button>`).join('')}</div>
     <div class="wscroll">${Object.keys(COLHEX).filter(c=>!['grey','gold','silver'].includes(c)).map(c=>`<button class="cdot" data-w="${c}" style="--c:${COLHEX[c]}" aria-label="${c}"></button>`).join('')}<button class="wc en" data-w="big">big</button><button class="wc en" data-w="small">small</button></div>
     <div id="mic"></div></div>`;
@@ -1344,7 +1633,7 @@ def('paint',arg=>{
       pts.push(best);}
     if(it.n==='rainbow')pts.splice(0,pts.length,...[...Array(it.k)].map((_,k)=>[W*(.3+k*.25),H*.34]));
     return pts;}
-  function addItem(it,o={}){const z=it.z==='big'?1.45:it.z==='small'?.65:1,sc=it.n==='rainbow'?2:1;
+  function addItem(it,o={}){sfx(o.temp?'thud':'pop');const z=it.z==='big'?1.45:it.z==='small'?.65:1,sc=it.n==='rainbow'?2:1;
     const obj={n:it.n,c:it.c||PNOUNS[it.n].c,s:S*z*sc*(it.k>4?.8:1),born:now,temp:o.temp||0,pts:[]};obj.pts=place(it,obj.s);items.push(obj);brushCol=COLHEX[obj.c]||'#f472b6';return obj;}
   /* اللوحة المطلوبة */
   function drawTarget(){const c=$('#ptc');if(!c)return;const w=132,h=96,d=Math.min(2,window.devicePixelRatio||1);c.width=w*d;c.height=h*d;c.style.width=w+'px';c.style.height=h+'px';const x=c.getContext('2d');x.scale(d,d);
@@ -1354,18 +1643,16 @@ def('paint',arg=>{
         paintThing(x,t.n,w*fx,h*fy,s*z*(t.n==='rainbow'?2:1)*(t.k>4?.8:1),t.c,0);}
       if(t.done){x.fillStyle='rgba(34,197,94,.85)';x.beginPath();x.arc(10+ti*16,10,7,0,7);x.fill();x.fillStyle='#fff';x.font='bold 10px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('✓',10+ti*16,10.5);}});
     $('#ptl').innerHTML=`${D(tgt.filter(t=>t.done).length)} / ${D(tgt.length)} ✓`;}
-  function scene(x,w,h,water){const g=x.createLinearGradient(0,0,0,h*.6);g.addColorStop(0,'#bae6fd');g.addColorStop(1,'#e0f2fe');x.fillStyle=g;x.fillRect(0,0,w,h*.6);
-    const gg=x.createLinearGradient(0,h*.58,0,h);gg.addColorStop(0,'#86efac');gg.addColorStop(1,'#4ade80');x.fillStyle=gg;x.beginPath();x.moveTo(0,h*.6);x.quadraticCurveTo(w*.3,h*.54,w*.6,h*.6);x.quadraticCurveTo(w*.85,h*.65,w,h*.58);x.lineTo(w,h);x.lineTo(0,h);x.fill();
-    if(water){x.fillStyle='#60a5fa';x.strokeStyle='#1d4ed8';x.lineWidth=2;x.beginPath();x.ellipse(w*.8,h*.9,w*.22,h*.09,0,0,7);x.fill();x.stroke();}}
+  const scene=paintScene;
   function draw(){ctx.clearRect(0,0,W,H);scene(ctx,W,H,items.some(o=>PNOUNS[o.n].z==='water'));
     items.forEach(o=>{const t=clamp((now-o.born)/.35,0,1),e=t<1?1-Math.pow(1-t,3)*(1+Math.sin(t*9)*.0):1,fade=o.temp?clamp((o.temp-now)/.6,0,1):1;if(o.temp&&now>o.temp)return;
       ctx.globalAlpha=fade*(o.temp?.85:1);o.pts.forEach((p,k)=>{const bob=['bird','butterfly','balloon','kite'].includes(o.n)?Math.sin(now*2+k)*3:0;paintThing(ctx,o.n,p[0],p[1]+bob,o.s*Math.max(.01,e),o.c,now);});ctx.globalAlpha=1;
       if(o.temp&&fade>0){o.pts.forEach(p=>{ctx.strokeStyle='rgba(239,68,68,.8)';ctx.lineWidth=3;ctx.setLineDash([5,4]);ctx.beginPath();ctx.arc(p[0],p[1],o.s*.42,0,7);ctx.stroke();ctx.setLineDash([]);});}});
     items=items.filter(o=>!o.temp||now<o.temp+.1);}
   function onText(r){if(busy||won)return;let P={items:[]};for(const a of r.alts){P=parsePaint(a);if(P.items.length||P.clear||P.undo)break;}
-    if(P.clear&&free){items=[];bubble('A clean page!','صفحة جديدة نظيفة!');return;}
+    if(P.clear&&free){items=[];sfx('whoosh');bubble('A clean page!','صفحة جديدة نظيفة!');return;}
     if(P.undo&&free){items.pop();bubble('Okay, I took it away.','حسناً، أزلته.');return;}
-    if(!P.items.length){bubble('Hmm? What should I paint?',`ماذا أرسم؟ قل مثلاً: <span class="en">a red ball</span>`,true);return;}
+    if(!P.items.length){sfx('no');bubble('Hmm? What should I paint?',`ماذا أرسم؟ قل مثلاً: <span class="en">a red ball</span>`,true);return;}
     const ws=[];P.items.forEach(it=>{ws.push(it.n);if(it.c)ws.push(it.c);if(it.z)ws.push(it.z);if(it.said.k&&it.k>1)ws.push(NUMW[it.k]);});learnWords(ws);
     if(normS(r.text).split(' ').length>=3)T.full++;
     if(free)return freeDraw(P.items);
@@ -1386,7 +1673,7 @@ def('paint',arg=>{
     if(tgt.every(t=>t.done))return finish();
     if(good)bubble(`Yes! ${list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ')}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟');
     else if(hint)bubble(hint[0],hint[1],true);}
-  function finish(){won=true;busy=true;mic.lock(true);FX.confetti();bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
+  function finish(){won=true;busy=true;mic.lock(true);FX.confetti();sfx('win');bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
     const n=tgt.length,stars=tries<=n?3:tries<=n+2?2:1;T.paint[li]=Math.max(T.paint[li]||0,stars);tsave();
     setTimeout(()=>{if(!alive)return;const hasNext=li+1<PTARGETS.length;resultOv({title:'🖼️ لوحة رائعة!',stars,gems:stars*3,
       lines:[`🗣️ عدد جملك: ${D(tries)}`,stars<3?'قل كل شيء بجملة واحدة دقيقة لتحصل على ٣ نجوم':'وصف دقيق! 👑'],
@@ -1395,11 +1682,34 @@ def('paint',arg=>{
     if(free)bubble('Try: a big yellow sun!','جرّب أن تقول: a big yellow sun');
     else{const t=tgt.find(t=>!t.done);bubble('Look at the small picture.',`انظر إلى ${NOUNAR[t.n]}: كم عددها؟ وما لونها؟`,true);}}});
   $$('.wc,.cdot').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.85}));
-  if(free){$('#pundo').onclick=()=>{items.pop();};$('#pclr').onclick=()=>{items=[];};}
+  if(free){$('#pundo').onclick=()=>{items.pop();sfx('tap');};$('#pclr').onclick=()=>{items=[];sfx('whoosh');};
+    $('#psave').onclick=()=>{const keep=items.filter(o=>!o.temp);if(!keep.length){bubble('Paint something first!','ارسم شيئاً أولاً، ثم احفظه! 🎨',true);return;}
+      T.gal.unshift({a:+(H/W).toFixed(3),d:dayKey(),items:keep.map(o=>({n:o.n,c:o.c,s:+(o.s/H).toFixed(3),p:o.pts.map(p=>[+(p[0]/W).toFixed(3),+(p[1]/H).toFixed(3)])}))});
+      const cut=T.gal.length>12;T.gal=T.gal.slice(0,12);tsave();sfx('win');FX.confetti();
+      bubble('What a beautiful picture! I put it in your gallery.',`حفظتُ اللوحة في معرضك! 🖼️${cut?' (المعرض يتسع لـ ١٢ لوحة، فأزلتُ أقدمها)':''}`);};}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;now+=dt;draw();raf=requestAnimationFrame(loop);}
   size();addEventListener('resize',size);if(tgt)drawTarget();
   setTimeout(()=>{if(alive)bubble(free?'Hello! What should I paint today?':'Can you tell me what is in this picture?',free?'أهلاً! ماذا أرسم اليوم؟':'هل تستطيع أن تقول لي ماذا في هذه اللوحة؟');},400);
   raf=requestAnimationFrame(t=>{last=t;loop(t);});
+});
+
+/* ---------- معرضي: اللوحات المحفوظة من الرسم الحر ---------- */
+def('gallery',()=>{
+  setTitle('🖼️ معرضي');
+  const G=T.gal;
+  $('#view').innerHTML=G.length?`<p class="muted lead">لوحاتك التي رسمها السيد فرشاة من كلامك. اضغط لوحة لتراها كبيرة. (حتى ${D(12)} لوحة)</p>
+    <div class="gal">${G.map((P,i)=>`<button class="gpic" data-i="${i}"><div class="pframe"><canvas></canvas></div></button>`).join('')}</div>`
+    :`<div class="card cen"><div style="font-size:60px">🖼️</div><h3>المعرض فارغ</h3><p class="muted">ارسم في «الرسم الحر» ثم اضغط 💾 احفظ في معرضي.</p><button class="btn gold big" id="gfree" style="margin-top:12px">🖌️ لنرسم!</button></div>`;
+  const d=Math.min(2,window.devicePixelRatio||1);
+  $$('.gpic').forEach(b=>{const P=G[+b.dataset.i],c=$('canvas',b),w=Math.max(120,Math.floor(b.clientWidth-14)),h=Math.round(w*P.a);c.width=w*d;c.height=h*d;c.style.width=w+'px';c.style.height=h+'px';
+    const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);drawSaved(x,w,h,P);
+    b.onclick=()=>{sfx('tap');const ov=document.createElement('div');ov.className='ov';
+      ov.innerHTML=`<div class="res"><div class="pframe big"><canvas></canvas></div><div class="btns" style="margin-top:12px"><button class="btn gold" id="gok">رائعة! 🎨</button><button class="btn ghost" id="gdel">🗑️ احذفها</button></div></div>`;
+      document.body.appendChild(ov);const cv=$('canvas',ov),W=Math.min(380,innerWidth-80),H=Math.round(W*P.a);cv.width=W*d;cv.height=H*d;cv.style.width=W+'px';cv.style.height=H+'px';
+      const x2=cv.getContext('2d');x2.setTransform(d,0,0,d,0,0);drawSaved(x2,W,H,P);
+      $('#gok',ov).onclick=()=>ov.remove();
+      $('#gdel',ov).onclick=()=>{T.gal.splice(+b.dataset.i,1);tsave();ov.remove();sfx('whoosh');rerender();};};});
+  if($('#gfree'))$('#gfree').onclick=()=>go('paint',{free:true},false);
 });
 
 /* ===== محطة الفضاء: ليو يسأل، وأنت تجيب بكلامك ===== */
@@ -1485,20 +1795,20 @@ def('alien',vi=>{
     a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85});if($('#anext'))$('#anext').onclick=next;}
   function next(){stopSpeak();si++;if(si>=N)return finish();ask();}
   function onText(r){if(busy)return;const st=V.steps[si],e=evalAns(st,r);
-    if(bonusFor===si){if(e.rel.ok&&e.full){scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
+    if(bonusFor===si){if(e.rel.ok&&e.full){sfx('win');scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
         showAns(e,true,'⭐ رائع! جملة كاملة.',['Perfect sentence!','جملة ممتازة!']);}
       else{zibSay(e.model,{rate:.85});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
-    if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');return;}
-    if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);
+    if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');sfx('no');return;}
+    if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);sfx('no');
       if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم ليو. قلها مرة أخرى بطريقة أخرى!');}
       else{zibSay('Try like this: '+fillN(st.ex),{rate:.85});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
     const stars=e.rel.ok?e.stars:1;scores[si]=Math.max(scores[si]||0,stars);
     if(e.rel.ok&&e.full){fulls++;T.full++;}
     fresh+=learnWords(e.x&&e.x.includes(' ')?e.norm.replace(e.x,' ').split(' ').filter(w=>ALLW.has(w)).concat([e.x]):e.norm.split(' ').filter(w=>ALLW.has(w)));
-    if(e.rel.ok)fx(st,e);
+    if(e.rel.ok){fx(st,e);sfx(e.full?'ok':'pop');}
     const rep=e.rel.ok?reactOf(st,e.norm,e.x):["Okay! Let's go on.",'حسناً! لنكمل.'];
     zibSay(rep[0]);showAns(e,true,null,rep);if(e.rel.ok&&!e.full)bonusFor=si;}
-  function finish(){busy=true;mic.lock(true);const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
+  function finish(){busy=true;mic.lock(true);sfx('win');const tot=scores.reduce((a,b)=>a+(b||0),0),pct=tot/(3*N),stars=pct>=.85?3:pct>=.6?2:1;
     T.alien[vi]=Math.max(T.alien[vi]||0,stars);tsave();zibSay('Thank you, my Earth friend!');
     const hasNext=vi+1<VISITS.length;
     resultOv({title:'👽 ليو سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,

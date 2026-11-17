@@ -1,7 +1,7 @@
 /* ===== صاروخ القراءة: البيانات ===== */
 const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html'};
 const RKEY='reading-rocket-v2';
-const RS=loadJSON(RKEY,()=>({mon:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{}}));
+const RS=loadJSON(RKEY,()=>({mon:{},pics:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{},zap:{},rank:0}));
 function rsave(){saveJSON(RKEY,RS);}
 
 /* ---------- وحوش الكلمات: المراحل ---------- */
@@ -58,3 +58,14 @@ Object.assign(DICT,{thief:'اللص',has:'يملك / عنده',have:'يملك',n
  leave:'اترك',treasures:'كنوز',photo:'صورة',remember:'يتذكر',mars:'المريخ',path:'طريق',paths:'طرق',wind:'ريح',strong:'قوي',dust:'غبار',storm:'عاصفة',hide:'اختبئ',fly:'يطير',jetpack:'حقيبة طيران',cave:'كهف',walls:'جدران',pictures:'رسوم',
  map:'خريطة',water:'ماء',hidden:'مخبأ',proud:'فخور',crystals:'بلورات',museum:'متحف',magic:'سحري',gone:'اختفى',garden:'حديقة',kitchen:'مطبخ',bird:'عصفور',sitting:'جالس',eggs:'بيض',baby:'صغير / رضيع',wait:'انتظر',another:'آخر',cat:'قطة',playing:'يلعب',
  nicely:'بلطف',ask:'اسأل',waits:'ينتظر',crack:'طق!',come:'يأتي',out:'خارج',away:'بعيداً',back:'رجوع',puts:'يضع',too:'جداً / أيضاً',head:'رأس',everybody:'الجميع',drops:'يُسقط',after:'وراء / بعد',makes:'يصنع',everyone:'الجميع',please:'من فضلك',polite:'مؤدب'});
+/* كلمات القصص والغرف الجديدة، وكلمات كانت بلا معنى في القصص القديمة */
+Object.assign(DICT,{mia:'ميا (اسم)',hear:'يسمع',or:'أو',dog:'كلب',give:'أعطِ / يعطي',something:'شيء ما',woof:'هاو! (نباح)',now:'الآن',new:'جديد',hand:'يد',will:'سوف',bolt:'بولت (اسم)',clink:'طق!',clank:'طاق!',our:'ـنا (لنا)',
+ where:'أين',food:'طعام',take:'خذ / يأخذ',sandwich:'شطيرة',only:'فقط',want:'يريد',oops:'أوه!',ever:'على الإطلاق',zed:'زِد (اسم)',oh:'أوه!',into:'إلى داخل',deeper:'أعمق',past:'مارّاً بـ',phew:'يا للراحة!',sunset:'غروب الشمس',push:'يدفع',circle:'دائرة',
+ land:'يهبط',top:'قمّة / أعلى',ouch:'آخ!',laugh:'يضحك',show:'يُظهر / يبيّن',everything:'كل شيء',full:'مليء / شبعان',leo:'ليو (اسم)',today:'اليوم',me:'ني / لي',your:'ـك (لك)',pop:'بوب!',him:'ـه (هو)',meow:'مياو',what:'ماذا / ما',
+ visit:'يزور',zoo:'حديقة حيوانات',pink:'وردي',elephant:'فيل',six:'ستة',leg:'ساق / رِجل',legs:'أرجل',feed:'أطعِم',say:'يقول',tell:'أخبِر',keeper:'حارس',nut:'حبة مكسّرات',nuts:'مكسّرات',ten:'عشرة',nose:'أنف',more:'أكثر / المزيد',some:'بعض',hug:'عناق',
+ funny:'مضحك',tall:'طويل',card:'بطاقة',longer:'أطول',touch:'يلمس',drink:'يشرب',shower:'دُش',noor:'نور (اسم)',fell:'سقط',from:'من',bread:'خبز',ladder:'سلّم',climb:'اصعد / يتسلّق',cloud:'غيمة',pull:'يسحب',way:'طريق / اتجاه',tweet:'تويت (صوت العصفور)',
+ shine:'يلمع',bright:'ساطع',over:'فوق',house:'بيت',soft:'ناعم',like:'مثل / يحب',fall:'يقع',asleep:'نائم',good:'جيد',night:'ليل',chef:'طبّاخ',bot:'بوت (روبوت)',cook:'يطبخ',pancakes:'فطائر',pizza:'بيتزا',used:'استعمل',paint:'ألوان / يرسم',make:'يصنع',again:'مرة أخرى',
+ lot:'كثير (a lot)',cheese:'جبن',banana:'موزة',bananas:'موز',off:'عن / بعيداً',five:'خمسة',four:'أربعة',honey:'عسل',yum:'ممم! لذيذ',wall:'جدار',yummy:'لذيذ',face:'وجه',race:'سباق',zara:'زارا (اسم)',fast:'سريع',max:'ماكس (اسم)',ready:'مستعد',set:'انتبه',safe:'آمن',
+ fuel:'وقود',stop:'توقّف',keep:'استمر',left:'يسار',right:'يمين',zoom:'زووم!',hit:'يضرب',fix:'أصلِح',finish:'نهاية',line:'خط',together:'معاً',both:'كلاهما',winner:'فائز',win:'يفوز',tape:'شريط لاصق',pretty:'جميل',third:'الثالث',truck:'شاحنة',wrong:'خطأ',
+ sofa:'كنبة',black:'أسود',white:'أبيض',brown:'بني',apple:'تفاحة',an:'واحد / أداة نكرة',bird:'عصفور',chair:'كرسي',table:'طاولة',ball:'كرة',star:'نجمة',flower:'وردة',duck:'بطة',teddy:'دبدوب',teddies:'دباديب',garage:'مرآب',art:'رسم / فن',treasure:'كنز',
+ something:'شيء ما',see:'يرى / أرى',next:'بجانب (next to)',to:'إلى / (next to = بجانب)'});

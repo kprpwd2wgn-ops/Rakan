@@ -282,6 +282,64 @@ body{background-color:var(--bg);background-image:radial-gradient(circle at 12% 2
 .tend.funny{background:#fff7ed;color:#c2410c}
 .tscore{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border-radius:14px;padding:6px;box-shadow:0 3px 0 var(--line)}
 @media (max-height:700px){.cemo{font-size:42px}.ctxt,.ntxt{font-size:20px}.tl{font-size:20px}}
+/* الرتبة */
+.rank{display:flex;align-items:center;gap:10px;width:100%;text-align:start;background:linear-gradient(135deg,#1e1b4b,#4338ca);color:#fff;border-radius:22px;padding:10px 14px;margin-bottom:12px;box-shadow:0 5px 0 #110f33}
+.rk-e{font-size:40px;line-height:1;flex:none;filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
+.rk-t{flex:1;min-width:0;display:grid;gap:3px}.rk-t b{font-family:var(--f-display);font-weight:400;font-size:20px}.rk-t small{font-weight:700;font-size:13px;color:#e0e7ff}
+.bbar.dark{background:rgba(255,255,255,.2)}.bbar.dark i{background:linear-gradient(90deg,var(--gold),#fde68a)}
+.rklist{display:grid;gap:6px;margin:10px 0 14px}
+.rkrow{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:14px;background:var(--chip);text-align:start}
+.rkrow span{font-size:26px}.rkrow b{flex:1}.rkrow small{font-weight:800;color:var(--ink2)}
+.rkrow.on{background:var(--gold);color:#3b2a00;box-shadow:0 3px 0 var(--gold2)}.rkrow.on small{color:#3b2a00}
+.rkrow.lock{opacity:.55}
+/* كوكب الصور */
+.p-pic{background-color:#0369a1}
+.ppic canvas.pcv{border-radius:50%}
+.pics{display:grid;gap:10px;max-width:620px;margin:0 auto}
+.phud{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink2)}
+.pfuel{flex:1;height:14px;border-radius:99px;background:var(--card);box-shadow:inset 0 0 0 2px var(--line);overflow:hidden}
+.pfuel i{display:block;height:100%;width:0;background:linear-gradient(90deg,#fb923c,#facc15);border-radius:99px;transition:width .5s}
+.psent{background:var(--card);border-radius:20px;padding:10px 14px;box-shadow:0 4px 0 var(--line);border:3px solid #0369a1;display:grid;gap:6px}
+.psent.pop{animation:boing .35s}
+.psx{font-size:24px;font-weight:600;line-height:1.4}
+.pfb{font-weight:800;font-size:14px;color:var(--ink2)}
+.hintw{background:#fde68a;border-radius:6px;padding:0 4px;color:var(--ink)}
+.w.hint{background:#fde68a;box-shadow:0 0 0 2px #f59e0b;animation:pop .6s ease-in-out 2}
+.popts{display:grid;gap:10px}
+@media (min-width:560px){.popts{grid-template-columns:repeat(3,1fr)}}
+.popt{position:relative;border-radius:18px;overflow:hidden;background:var(--card);box-shadow:0 5px 0 var(--line);border:3px solid var(--card);transition:transform .15s,opacity .3s}
+.popt canvas{display:block;width:100%}
+.popt:active:not(:disabled){transform:scale(.98)}
+.popt.ok{border-color:var(--ok);box-shadow:0 5px 0 var(--ok2),0 0 0 4px rgba(47,166,90,.3)}
+.popt.bad{border-color:var(--bad);opacity:.5}
+.popt.dim{opacity:.35}
+.pmark{position:absolute;top:6px;left:8px;font-size:30px;font-weight:900;line-height:1;text-shadow:0 2px 0 #fff}
+.popt.ok .pmark{color:var(--ok)}.popt.bad .pmark{color:var(--bad)}
+/* القراءة مع الصوت */
+.w.say{background:#c4b5fd;box-shadow:0 0 0 2px #7c3aed}
+.tl.sayl{background:#f5f3ff;border-radius:10px;box-shadow:inset 4px 0 0 #7c3aed}
+.tpic{position:relative}
+.tpg{position:absolute;top:8px;right:10px;font-size:13px;font-weight:800;letter-spacing:0;background:rgba(255,255,255,.18);color:#fff;border-radius:99px;padding:2px 10px;font-family:var(--f-body)}
+/* دفتر كلماتي */
+.btop{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:12px;box-shadow:0 4px 0 var(--line)}
+.btop b{font-family:var(--f-display);font-size:46px;color:var(--hdr);font-weight:400;line-height:1}
+.btop span{font-weight:800;display:grid}.btop small{font-weight:700;color:var(--ink2)}
+.bbar.big{height:12px;margin:8px 0 10px;background:var(--chip)}.bbar.big i{background:linear-gradient(90deg,var(--accent),#c084fc)}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+@media (min-width:560px){.bgrid{grid-template-columns:repeat(5,1fr)}}
+.bwd{position:relative;display:grid;justify-items:center;gap:0;background:var(--card);border-radius:16px;padding:8px 4px;box-shadow:0 3px 0 var(--line);min-width:0}
+.bwd .be{font-size:26px;line-height:1.2}.bwd b{font-size:20px;font-weight:600}.bwd small{font-size:12px;font-weight:700;color:var(--ink2);text-align:center;line-height:1.3}
+.bwd i{position:absolute;top:3px;left:6px;font-style:normal;font-size:11px;font-weight:800;color:var(--accent)}
+.bwd.pop{animation:pop .4s}
+#bq{margin:4px 0 8px}
+.bq{display:grid;gap:12px;max-width:460px;margin:0 auto}
+.bqw{display:flex;align-items:center;justify-content:center;gap:14px;background:var(--card);border-radius:22px;padding:18px;box-shadow:0 4px 0 var(--line)}
+.bqw b{font-size:44px;font-weight:600}
+.bqc{display:grid;gap:10px}
+.bqc .btn.ok{background:var(--ok);color:#fff;box-shadow:0 4px 0 var(--ok2)}
+.bqc .btn.no{background:var(--bad);color:#fff;box-shadow:0 4px 0 #a32a2e}
+.note{min-height:128px;align-content:start}
+.bwd i{top:-7px;left:-5px;background:var(--accent);color:#fff;border-radius:99px;padding:0 5px;line-height:16px;box-shadow:0 2px 0 var(--accent2)}
 </style>
 </head><body>
 <header class="hdr"><div class="hdr-in"><button class="back" id="back" aria-label="رجوع" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><div class="ttl" id="ttl"></div><button class="gems" id="hgems" aria-label="جواهري"></button><button class="mini" id="hhero" aria-label="بطلي"></button></div></header>
@@ -662,6 +720,112 @@ function openChest(o={}){
 function dailyChestReady(){return World.p.lastDaily!==dayKey();}
 function claimDaily(onClose){World.p.lastDaily=dayKey();World.save();openChest({title:'صندوق اليوم! 🎁',min:15,max:30,itemChance:.4,onClose});}
 
+/* ===== أشياء مرسومة على الكانفاس (مشتركة بين مدينة الكلام وصاروخ القراءة) =====
+   paintThing(ctx, اسم الشيء, x, y, الحجم, اللون, الوقت) يرسم الشيء ومركزه عند x,y. */
+const TINK='#1d2433';
+const THING_HEX={red:'#ef4444',blue:'#3b82f6',green:'#22c55e',yellow:'#facc15',orange:'#fb923c',purple:'#a855f7',pink:'#f472b6',black:'#1f2937',white:'#f8fafc',brown:'#92400e',gray:'#9ca3af',grey:'#9ca3af',gold:'#f5b82e',silver:'#cbd5e1'};
+function shade(h,a){const n=parseInt(h.slice(1),16),c=v=>clamp(v+a,0,255);return'#'+((1<<24)+(c(n>>16)<<16)+(c((n>>8)&255)<<8)+c(n&255)).toString(16).slice(1);}
+function drawStar(x,cx,cy,r,fill,stroke=TINK){x.save();x.fillStyle=fill;x.strokeStyle=stroke;x.lineWidth=Math.max(1.5,r*.14);x.lineJoin='round';x.beginPath();
+  for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;x.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}x.closePath();x.fill();x.stroke();x.restore();}
+/* أسفل كل شيء بالنسبة إلى مركزه (لكي يقف على الأرض أو فوق شيء آخر) */
+const THING_FOOT={cat:.23,dog:.24,ball:.25,apple:.28,bird:.18,duck:.24,teddy:.3,star:.38,balloon:.3,car:.3,flower:.42,tree:.4,heart:.3,fish:.16,box:.3,table:.4,chair:.4,house:.4,boat:.22,kite:.34,butterfly:.24,sun:.5,moon:.32,cloud:.21,rainbow:.3};
+function paintThing(x,n,cx,cy,s,col,t=0){
+  const C=col?THING_HEX[col]||col:null;x.save();x.translate(cx,cy);x.lineJoin='round';x.lineCap='round';x.strokeStyle=TINK;x.lineWidth=Math.max(1.6,s*.05);
+  const INK=TINK,F=(c)=>{x.fillStyle=c;x.fill();x.stroke();};
+  switch(n){
+  case 'sun':{x.strokeStyle=C;x.lineWidth=s*.07;for(let i=0;i<10;i++){const a=i*Math.PI/5+t*.4;x.beginPath();x.moveTo(Math.cos(a)*s*.36,Math.sin(a)*s*.36);x.lineTo(Math.cos(a)*s*.5,Math.sin(a)*s*.5);x.stroke();}
+    x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.05);x.beginPath();x.arc(0,0,s*.3,0,7);F(C);
+    x.fillStyle=INK;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.04,s*.03,0,7);x.fill();});x.beginPath();x.arc(0,s*.05,s*.1,.2,Math.PI-.2);x.stroke();break;}
+  case 'moon':{const R=s*.32,d=R*.55,r2=R*.82,ix=(d*d+R*R-r2*r2)/(2*d),iy=Math.sqrt(Math.max(0,R*R-ix*ix)),t1=Math.atan2(iy,ix);x.rotate(-.35);
+    x.beginPath();x.arc(0,0,R,t1,Math.PI*2-t1,false);x.arc(d,0,r2,Math.atan2(-iy,ix-d),Math.atan2(iy,ix-d),true);x.closePath();F(C);
+    x.fillStyle=INK;x.beginPath();x.arc(-R*.45,-R*.1,R*.07,0,7);x.fill();x.beginPath();x.arc(-R*.38,R*.22,R*.14,.2,Math.PI-.6);x.stroke();break;}
+  case 'star':drawStar(x,0,0,s*.38,C);break;
+  case 'cloud':x.beginPath();x.arc(-s*.2,s*.04,s*.17,Math.PI*.5,Math.PI*1.5);x.arc(0,-s*.08,s*.22,Math.PI,0);x.arc(s*.22,s*.04,s*.16,Math.PI*1.5,Math.PI*.5);x.closePath();F(C);break;
+  case 'bird':{const f=Math.sin(t*10)*s*.08;x.beginPath();x.ellipse(0,0,s*.24,s*.18,0,0,7);F(C);x.beginPath();x.moveTo(-s*.06,-s*.04);x.quadraticCurveTo(-s*.2,-s*.3-f,s*.08,-s*.12);F(shade(C,-30));
+    x.beginPath();x.moveTo(s*.22,-s*.02);x.lineTo(s*.36,s*.03);x.lineTo(s*.22,s*.08);F('#f59e0b');x.fillStyle=INK;x.beginPath();x.arc(s*.12,-s*.05,s*.03,0,7);x.fill();break;}
+  case 'balloon':x.beginPath();x.moveTo(0,s*.3);x.quadraticCurveTo(s*.06,s*.42,-s*.02,s*.55);x.stroke();x.beginPath();x.ellipse(0,0,s*.22,s*.28,0,0,7);F(C);
+    x.beginPath();x.moveTo(-s*.04,s*.27);x.lineTo(s*.04,s*.27);x.lineTo(0,s*.32);F(C);x.fillStyle='rgba(255,255,255,.55)';x.beginPath();x.ellipse(-s*.08,-s*.1,s*.04,s*.08,-.4,0,7);x.fill();break;
+  case 'kite':x.beginPath();x.moveTo(0,-s*.34);x.lineTo(s*.24,0);x.lineTo(0,s*.34);x.lineTo(-s*.24,0);x.closePath();F(C);x.beginPath();x.moveTo(0,-s*.34);x.lineTo(0,s*.34);x.moveTo(-s*.24,0);x.lineTo(s*.24,0);x.stroke();
+    x.beginPath();x.moveTo(0,s*.34);x.quadraticCurveTo(s*.12,s*.48,0,s*.6);x.quadraticCurveTo(-s*.1,s*.7,s*.05,s*.8);x.stroke();break;
+  case 'butterfly':{const f=Math.abs(Math.sin(t*6))*.4+.6;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.16*f,-s*.08,s*.17*f,s*.2,d*.3,0,7);F(C);x.beginPath();x.ellipse(d*s*.12*f,s*.14,s*.11*f,s*.13,-d*.3,0,7);F(shade(C,30));});
+    x.beginPath();x.ellipse(0,0,s*.04,s*.24,0,0,7);F(INK);x.beginPath();x.moveTo(0,-s*.22);x.lineTo(-s*.08,-s*.34);x.moveTo(0,-s*.22);x.lineTo(s*.08,-s*.34);x.stroke();break;}
+  case 'rainbow':['#ef4444','#fb923c','#facc15','#22c55e','#3b82f6','#a855f7'].forEach((c,i)=>{x.strokeStyle=c;x.lineWidth=s*.07;x.beginPath();x.arc(0,s*.3,s*(.56-i*.07),Math.PI,0);x.stroke();});
+    x.fillStyle='#fff';x.strokeStyle=INK;x.lineWidth=1.5;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.42,s*.3,s*.1,0,7);x.arc(d*s*.33,s*.32,s*.08,0,7);x.fill();});break;
+  case 'heart':x.beginPath();x.moveTo(0,s*.3);x.bezierCurveTo(-s*.45,0,-s*.25,-s*.36,0,-s*.12);x.bezierCurveTo(s*.25,-s*.36,s*.45,0,0,s*.3);F(C);x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.15,-s*.12,s*.05,0,7);x.fill();break;
+  case 'tree':x.beginPath();x.roundRect(-s*.07,-s*.05,s*.14,s*.45,s*.03);F('#92400e');x.beginPath();x.arc(0,-s*.18,s*.27,0,7);x.arc(-s*.2,-s*.02,s*.17,0,7);x.arc(s*.2,-s*.02,s*.17,0,7);F(C);
+    x.fillStyle='rgba(255,255,255,.25)';x.beginPath();x.arc(-s*.08,-s*.28,s*.07,0,7);x.fill();break;
+  case 'flower':x.beginPath();x.moveTo(0,0);x.quadraticCurveTo(s*.04,s*.25,0,s*.42);x.strokeStyle='#16a34a';x.lineWidth=s*.05;x.stroke();x.strokeStyle=INK;x.lineWidth=Math.max(1.6,s*.04);
+    x.fillStyle='#22c55e';x.beginPath();x.ellipse(s*.1,s*.24,s*.09,s*.04,-.5,0,7);x.fill();x.stroke();
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;x.beginPath();x.ellipse(Math.cos(a)*s*.13,-s*.05+Math.sin(a)*s*.13,s*.1,s*.07,a,0,7);F(C);}x.beginPath();x.arc(0,-s*.05,s*.08,0,7);F('#facc15');break;
+  case 'house':x.beginPath();x.rect(-s*.32,-s*.1,s*.64,s*.5);F(C);x.beginPath();x.moveTo(-s*.42,-s*.08);x.lineTo(0,-s*.45);x.lineTo(s*.42,-s*.08);x.closePath();F('#7c2d12');
+    x.beginPath();x.roundRect(-s*.08,s*.12,s*.16,s*.28,s*.04);F('#fde68a');x.beginPath();x.rect(s*.12,0,s*.14,s*.13);F('#bae6fd');x.beginPath();x.rect(-s*.26,0,s*.14,s*.13);F('#bae6fd');break;
+  case 'car':x.beginPath();x.roundRect(-s*.42,-s*.05,s*.84,s*.24,s*.08);F(C);x.beginPath();x.moveTo(-s*.22,-s*.05);x.lineTo(-s*.12,-s*.24);x.lineTo(s*.16,-s*.24);x.lineTo(s*.26,-s*.05);x.closePath();F(C);
+    x.beginPath();x.moveTo(-s*.16,-s*.07);x.lineTo(-s*.09,-s*.2);x.lineTo(s*.02,-s*.2);x.lineTo(s*.02,-s*.07);x.closePath();F('#bae6fd');x.beginPath();x.moveTo(s*.06,-s*.07);x.lineTo(s*.06,-s*.2);x.lineTo(s*.14,-s*.2);x.lineTo(s*.2,-s*.07);x.closePath();F('#bae6fd');
+    [-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.24,s*.2,s*.1,0,7);F('#1f2937');x.beginPath();x.arc(d*s*.24,s*.2,s*.04,0,7);F('#cbd5e1');});break;
+  case 'ball':x.beginPath();x.arc(0,0,s*.25,0,7);F(C);x.beginPath();x.arc(0,0,s*.25,-.3,.3);x.moveTo(-s*.25,0);x.quadraticCurveTo(0,s*.12,s*.25,0);x.stroke();x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(-s*.09,-s*.1,s*.05,0,7);x.fill();break;
+  case 'cat':{const dark=col==='black'||col==='brown'||col==='purple'||col==='blue';
+    x.beginPath();x.moveTo(-s*.24,-s*.06);x.lineTo(-s*.2,-s*.34);x.lineTo(-s*.06,-s*.2);x.closePath();F(C);x.beginPath();x.moveTo(s*.24,-s*.06);x.lineTo(s*.2,-s*.34);x.lineTo(s*.06,-s*.2);x.closePath();F(C);
+    x.beginPath();x.ellipse(0,0,s*.27,s*.22,0,0,7);F(C);x.fillStyle=col==='black'?'#fde047':INK;[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.1,-s*.02,s*.035,s*.05,0,0,7);x.fill();});
+    x.fillStyle='#f472b6';x.beginPath();x.moveTo(-s*.03,s*.05);x.lineTo(s*.03,s*.05);x.lineTo(0,s*.09);x.fill();x.strokeStyle=dark?'#e5e7eb':INK;x.lineWidth=1.4;[-1,1].forEach(d=>{x.beginPath();x.moveTo(d*s*.08,s*.08);x.lineTo(d*s*.3,s*.04);x.moveTo(d*s*.08,s*.1);x.lineTo(d*s*.3,s*.12);x.stroke();});break;}
+  case 'dog':x.beginPath();x.ellipse(0,0,s*.25,s*.22,0,0,7);F(C);[-1,1].forEach(d=>{x.beginPath();x.ellipse(d*s*.25,s*.02,s*.08,s*.16,d*.3,0,7);F(shade(C,-30));});
+    x.beginPath();x.ellipse(0,s*.08,s*.12,s*.09,0,0,7);F(shade(C,40));x.fillStyle=INK;x.beginPath();x.ellipse(0,s*.04,s*.04,s*.03,0,0,7);x.fill();[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.1,-s*.06,s*.035,0,7);x.fill();});
+    x.fillStyle='#f87171';x.beginPath();x.ellipse(0,s*.16,s*.035,s*.05,0,0,7);x.fill();break;
+  case 'apple':x.beginPath();x.moveTo(0,-s*.16);x.bezierCurveTo(-s*.32,-s*.3,-s*.38,s*.16,-s*.12,s*.26);x.quadraticCurveTo(0,s*.3,s*.12,s*.26);x.bezierCurveTo(s*.38,s*.16,s*.32,-s*.3,0,-s*.16);F(C);
+    x.beginPath();x.moveTo(0,-s*.16);x.lineTo(s*.03,-s*.28);x.stroke();x.beginPath();x.ellipse(s*.1,-s*.26,s*.08,s*.04,-.5,0,7);F('#22c55e');x.fillStyle='rgba(255,255,255,.45)';x.beginPath();x.ellipse(-s*.12,-s*.04,s*.04,s*.08,.3,0,7);x.fill();break;
+  case 'fish':x.beginPath();x.ellipse(0,0,s*.26,s*.16,0,0,7);F(C);x.beginPath();x.moveTo(s*.22,0);x.lineTo(s*.4,-s*.14);x.lineTo(s*.4,s*.14);x.closePath();F(C);x.fillStyle=INK;x.beginPath();x.arc(-s*.13,-s*.03,s*.03,0,7);x.fill();
+    x.strokeStyle='rgba(0,0,0,.25)';x.beginPath();x.arc(-s*.02,0,s*.12,-1,1);x.stroke();break;
+  case 'boat':x.beginPath();x.moveTo(-s*.38,s*.04);x.lineTo(s*.38,s*.04);x.lineTo(s*.26,s*.22);x.lineTo(-s*.26,s*.22);x.closePath();F('#92400e');x.beginPath();x.moveTo(0,s*.04);x.lineTo(0,-s*.4);x.stroke();
+    x.beginPath();x.moveTo(s*.02,-s*.38);x.lineTo(s*.3,-s*.02);x.lineTo(s*.02,-s*.02);x.closePath();F(C);break;
+  case 'duck':x.beginPath();x.ellipse(0,s*.06,s*.26,s*.18,0,0,7);F(C);x.beginPath();x.arc(-s*.14,-s*.14,s*.13,0,7);F(C);
+    x.beginPath();x.moveTo(-s*.26,-s*.15);x.lineTo(-s*.4,-s*.1);x.lineTo(-s*.26,-s*.07);x.closePath();F('#f59e0b');x.fillStyle=INK;x.beginPath();x.arc(-s*.17,-s*.17,s*.025,0,7);x.fill();
+    x.beginPath();x.moveTo(s*.02,s*.02);x.quadraticCurveTo(s*.14,-s*.06,s*.2,s*.06);x.stroke();break;
+  case 'teddy':{const B=C||'#b45309';[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.15,-s*.28,s*.07,0,7);F(B);});x.beginPath();x.ellipse(0,s*.12,s*.2,s*.18,0,0,7);F(B);
+    x.beginPath();x.arc(0,-s*.14,s*.17,0,7);F(shade(B,20));x.beginPath();x.ellipse(0,-s*.09,s*.07,s*.05,0,0,7);F('#fde68a');x.fillStyle=INK;[-1,1].forEach(d=>{x.beginPath();x.arc(d*s*.06,-s*.17,s*.022,0,7);x.fill();});
+    x.beginPath();x.arc(0,-s*.1,s*.022,0,7);x.fill();break;}
+  /* أثاث: صندوق، طاولة، كرسي */
+  case 'box':{const B=C||'#c68a4e';x.beginPath();x.rect(-s*.4,-s*.22,s*.8,s*.52);F(B);x.beginPath();x.roundRect(-s*.45,-s*.32,s*.9,s*.13,s*.03);F(shade(B,15));
+    x.strokeStyle='rgba(0,0,0,.25)';x.lineWidth=s*.05;x.beginPath();x.moveTo(0,-s*.19);x.lineTo(0,s*.3);x.stroke();break;}
+  case 'boxback':{const B=C||'#c68a4e';x.beginPath();x.moveTo(-s*.4,-s*.18);x.lineTo(-s*.32,-s*.34);x.lineTo(s*.32,-s*.34);x.lineTo(s*.4,-s*.18);x.closePath();F(shade(B,-55));break;}
+  case 'boxfront':{const B=C||'#c68a4e';x.beginPath();x.rect(-s*.4,-s*.18,s*.8,s*.48);F(B);
+    x.beginPath();x.moveTo(-s*.4,-s*.18);x.lineTo(-s*.56,-s*.36);x.lineTo(-s*.4,-s*.32);x.closePath();F(shade(B,15));x.beginPath();x.moveTo(s*.4,-s*.18);x.lineTo(s*.56,-s*.36);x.lineTo(s*.4,-s*.32);x.closePath();F(shade(B,15));
+    x.strokeStyle='rgba(0,0,0,.2)';x.lineWidth=s*.04;x.beginPath();x.moveTo(-s*.3,s*.05);x.lineTo(s*.3,s*.05);x.stroke();break;}
+  case 'table':{const B=C||'#a16207';x.beginPath();x.roundRect(-s*.62,-s*.2,s*1.24,s*.1,s*.03);F(B);[-1,1].forEach(d=>{x.beginPath();x.rect(d*s*.5-s*.04,-s*.1,s*.08,s*.5);F(shade(B,-25));});break;}
+  case 'chair':{const B=C||'#d97706';x.beginPath();x.rect(-s*.3,-s*.62,s*.08,s*.64);F(shade(B,-20));x.beginPath();x.roundRect(-s*.32,-s*.06,s*.64,s*.1,s*.03);F(B);
+    [-1,1].forEach(d=>{x.beginPath();x.rect(d*s*.25-s*.035,s*.04,s*.07,s*.36);F(shade(B,-20));});break;}
+  }
+  x.restore();}
+
+/* ===== مؤثرات صوتية قصيرة من ضجيج مُرشَّح فقط: لا نغمات ولا ألحان (بلا موسيقى) =====
+   SFX.play('ok') بعد أول لمسة. تُطفأ وتُشغَّل من زر 🔊 في الصفحة الرئيسية (تُحفظ في rakan-sfx). */
+const SFX={ctx:null,noise:null,on:(()=>{try{return localStorage.getItem('rakan-sfx')!=='off';}catch(e){return true;}})(),
+  unlock(){if(!this.ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;try{this.ctx=new AC();}catch(e){return;}}
+    if(this.ctx.state==='suspended')this.ctx.resume();},
+  set(v){this.on=v;try{localStorage.setItem('rakan-sfx',v?'on':'off');}catch(e){}},
+  burst(at,dur,type,freq,q,vol,to){const c=this.ctx;
+    if(!this.noise){const n=c.createBuffer(1,c.sampleRate*.6|0,c.sampleRate),d=n.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;this.noise=n;}
+    const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=this.noise;f.type=type;f.frequency.setValueAtTime(freq,at);f.Q.value=q;
+    if(to)f.frequency.exponentialRampToValueAtTime(to,at+dur);
+    g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(vol,at+.008);g.gain.exponentialRampToValueAtTime(.0001,at+dur);
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start(at,Math.random()*.3);s.stop(at+dur+.03);},
+  play(kind){if(!this.on)return;try{this.unlock();const c=this.ctx;if(!c||c.state!=='running')return;const t=c.currentTime+.01,B=this.burst.bind(this);
+    switch(kind){
+      case 'tap':B(t,.035,'bandpass',1700,1,.35);break;                                   /* نقرة */
+      case 'ok':B(t,.045,'bandpass',1500,1.4,.8);B(t+.08,.07,'bandpass',2300,1.4,.7);break; /* نقرتان لطيفتان */
+      case 'no':B(t,.2,'lowpass',240,.7,1.6);break;                                         /* ارتطام منخفض */
+      case 'pop':B(t,.08,'bandpass',800,1.6,1.4);break;
+      case 'zap':B(t,.16,'bandpass',3200,4,.9,500);break;                                   /* شعاع ليزر من ضجيج */
+      case 'whoosh':B(t,.4,'bandpass',300,1.2,.9,2400);break;
+      case 'thud':B(t,.14,'lowpass',160,.8,2);break;
+      case 'key':B(t,.03,'highpass',4000,1,.5);B(t+.06,.03,'highpass',5000,1,.45);B(t+.12,.05,'highpass',4500,1,.4);break;
+      case 'win':for(let k=0;k<16;k++)B(t+k*.05+Math.random()*.03,.05,'bandpass',1200+Math.random()*1800,1,.45);break; /* مثل التصفيق */
+      case 'sparkle':for(let k=0;k<6;k++)B(t+k*.04,.04,'highpass',5000+Math.random()*3000,2,.3);break;
+    }}catch(e){}}
+};
+['pointerdown','touchend'].forEach(ev=>document.addEventListener(ev,()=>SFX.unlock(),{capture:true,passive:true}));
+const sfx=k=>SFX.play(k);
+function sfxToggleHTML(){return `<button class="chipbtn" id="msfx" aria-label="المؤثرات الصوتية">${SFX.on?'🔊':'🔇'} المؤثرات</button>`;}
+function bindSfxToggle(){const b=$('#msfx');if(b)b.onclick=()=>{SFX.set(!SFX.on);b.innerHTML=`${SFX.on?'🔊':'🔇'} المؤثرات`;if(SFX.on)sfx('ok');};}
+
 /* ===== كلمات صاروخ القراءة (من النسخة السابقة) ===== */
 const CVC={
  a:{ar:'a القصيرة تُقرأ مثل الفتحة: كَـ',words:[['cat','🐱','قطة'],['hat','🎩','قبعة'],['bat','🦇','خفاش'],['rat','🐀','فأر'],['map','🗺️','خريطة'],['cap','🧢','قبعة رياضية'],['bag','👜','حقيبة'],['van','🚐','شاحنة'],['pan','🍳','مقلاة'],['can','🥫','علبة'],['ram','🐏','كبش']]},
@@ -696,7 +860,7 @@ CVC.i.words=CVC.i.words.filter(w=>w[0]!=='fig');
 /* ===== صاروخ القراءة: البيانات ===== */
 const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html'};
 const RKEY='reading-rocket-v2';
-const RS=loadJSON(RKEY,()=>({mon:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{}}));
+const RS=loadJSON(RKEY,()=>({mon:{},pics:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{},zap:{},rank:0}));
 function rsave(){saveJSON(RKEY,RS);}
 
 /* ---------- وحوش الكلمات: المراحل ---------- */
@@ -753,6 +917,17 @@ Object.assign(DICT,{thief:'اللص',has:'يملك / عنده',have:'يملك',n
  leave:'اترك',treasures:'كنوز',photo:'صورة',remember:'يتذكر',mars:'المريخ',path:'طريق',paths:'طرق',wind:'ريح',strong:'قوي',dust:'غبار',storm:'عاصفة',hide:'اختبئ',fly:'يطير',jetpack:'حقيبة طيران',cave:'كهف',walls:'جدران',pictures:'رسوم',
  map:'خريطة',water:'ماء',hidden:'مخبأ',proud:'فخور',crystals:'بلورات',museum:'متحف',magic:'سحري',gone:'اختفى',garden:'حديقة',kitchen:'مطبخ',bird:'عصفور',sitting:'جالس',eggs:'بيض',baby:'صغير / رضيع',wait:'انتظر',another:'آخر',cat:'قطة',playing:'يلعب',
  nicely:'بلطف',ask:'اسأل',waits:'ينتظر',crack:'طق!',come:'يأتي',out:'خارج',away:'بعيداً',back:'رجوع',puts:'يضع',too:'جداً / أيضاً',head:'رأس',everybody:'الجميع',drops:'يُسقط',after:'وراء / بعد',makes:'يصنع',everyone:'الجميع',please:'من فضلك',polite:'مؤدب'});
+/* كلمات القصص والغرف الجديدة، وكلمات كانت بلا معنى في القصص القديمة */
+Object.assign(DICT,{mia:'ميا (اسم)',hear:'يسمع',or:'أو',dog:'كلب',give:'أعطِ / يعطي',something:'شيء ما',woof:'هاو! (نباح)',now:'الآن',new:'جديد',hand:'يد',will:'سوف',bolt:'بولت (اسم)',clink:'طق!',clank:'طاق!',our:'ـنا (لنا)',
+ where:'أين',food:'طعام',take:'خذ / يأخذ',sandwich:'شطيرة',only:'فقط',want:'يريد',oops:'أوه!',ever:'على الإطلاق',zed:'زِد (اسم)',oh:'أوه!',into:'إلى داخل',deeper:'أعمق',past:'مارّاً بـ',phew:'يا للراحة!',sunset:'غروب الشمس',push:'يدفع',circle:'دائرة',
+ land:'يهبط',top:'قمّة / أعلى',ouch:'آخ!',laugh:'يضحك',show:'يُظهر / يبيّن',everything:'كل شيء',full:'مليء / شبعان',leo:'ليو (اسم)',today:'اليوم',me:'ني / لي',your:'ـك (لك)',pop:'بوب!',him:'ـه (هو)',meow:'مياو',what:'ماذا / ما',
+ visit:'يزور',zoo:'حديقة حيوانات',pink:'وردي',elephant:'فيل',six:'ستة',leg:'ساق / رِجل',legs:'أرجل',feed:'أطعِم',say:'يقول',tell:'أخبِر',keeper:'حارس',nut:'حبة مكسّرات',nuts:'مكسّرات',ten:'عشرة',nose:'أنف',more:'أكثر / المزيد',some:'بعض',hug:'عناق',
+ funny:'مضحك',tall:'طويل',card:'بطاقة',longer:'أطول',touch:'يلمس',drink:'يشرب',shower:'دُش',noor:'نور (اسم)',fell:'سقط',from:'من',bread:'خبز',ladder:'سلّم',climb:'اصعد / يتسلّق',cloud:'غيمة',pull:'يسحب',way:'طريق / اتجاه',tweet:'تويت (صوت العصفور)',
+ shine:'يلمع',bright:'ساطع',over:'فوق',house:'بيت',soft:'ناعم',like:'مثل / يحب',fall:'يقع',asleep:'نائم',good:'جيد',night:'ليل',chef:'طبّاخ',bot:'بوت (روبوت)',cook:'يطبخ',pancakes:'فطائر',pizza:'بيتزا',used:'استعمل',paint:'ألوان / يرسم',make:'يصنع',again:'مرة أخرى',
+ lot:'كثير (a lot)',cheese:'جبن',banana:'موزة',bananas:'موز',off:'عن / بعيداً',five:'خمسة',four:'أربعة',honey:'عسل',yum:'ممم! لذيذ',wall:'جدار',yummy:'لذيذ',face:'وجه',race:'سباق',zara:'زارا (اسم)',fast:'سريع',max:'ماكس (اسم)',ready:'مستعد',set:'انتبه',safe:'آمن',
+ fuel:'وقود',stop:'توقّف',keep:'استمر',left:'يسار',right:'يمين',zoom:'زووم!',hit:'يضرب',fix:'أصلِح',finish:'نهاية',line:'خط',together:'معاً',both:'كلاهما',winner:'فائز',win:'يفوز',tape:'شريط لاصق',pretty:'جميل',third:'الثالث',truck:'شاحنة',wrong:'خطأ',
+ sofa:'كنبة',black:'أسود',white:'أبيض',brown:'بني',apple:'تفاحة',an:'واحد / أداة نكرة',bird:'عصفور',chair:'كرسي',table:'طاولة',ball:'كرة',star:'نجمة',flower:'وردة',duck:'بطة',teddy:'دبدوب',teddies:'دباديب',garage:'مرآب',art:'رسم / فن',treasure:'كنز',
+ something:'شيء ما',see:'يرى / أرى',next:'بجانب (next to)',to:'إلى / (next to = بجانب)'});
 
 /* ===== مجرّة القصص: قصص تختار أنت طريقها =====
    كل صفحة: p صورة، s جمل إنجليزية، a ترجمتها، c خياران [النص، الترجمة، الصفحة التالية]، end نوع النهاية */
@@ -800,7 +975,51 @@ const TALES=[
   e1:{p:'🐣🐣🐣',end:'good',s:['Leo waits and waits.','Crack! Three baby birds come out.','The birds fly away, and Leo gets his hat back.'],a:['انتظر ليو وانتظر.','طق! خرجت ثلاثة عصافير صغيرة.','طارت العصافير، واستعاد ليو قبعته.']},
   e2:{p:'🧢👽😆',end:'funny',s:['You give Leo your cap.','He puts it on. It is too small for his big head!','Everybody laughs, and Leo laughs too.'],a:['أعطيت ليو قبعتك الرياضية.','لبسها. إنها صغيرة جداً على رأسه الكبير!','ضحك الجميع، وضحك ليو أيضاً.']},
   e3:{p:'⚽🐱🐟',end:'good',s:['The cat drops the hat and runs after the ball.','Leo puts on his magic hat.','Pop! He makes a fish for the cat. Now everyone is happy.'],a:['أسقطت القطة القبعة وركضت وراء الكرة.','لبس ليو قبعته السحرية.','بوب! صنع سمكة للقطة. الآن الجميع سعداء.']},
-  e4:{p:'🐱🙏🎩',end:'good',s:['"Please, can I have my hat?" asks Leo.','The cat looks at him and says… "Meow!"','Then it gives the hat back. What a polite cat!'],a:['سأل ليو: «من فضلك، هل أستطيع أخذ قبعتي؟»','نظرت إليه القطة وقالت… «مياو!»','ثم أعادت القبعة. يا لها من قطة مؤدبة!']}}}
+  e4:{p:'🐱🙏🎩',end:'good',s:['"Please, can I have my hat?" asks Leo.','The cat looks at him and says… "Meow!"','Then it gives the hat back. What a polite cat!'],a:['سأل ليو: «من فضلك، هل أستطيع أخذ قبعتي؟»','نظرت إليه القطة وقالت… «مياو!»','ثم أعادت القبعة. يا لها من قطة مؤدبة!']}}},
+ {t:'The Space Zoo',ar:'حديقة حيوانات الفضاء',e:'🐘',start:'p1',pages:{
+  p1:{p:'🦒🐘🌌',s:['Sam and his mom visit the Space Zoo.','There is a pink elephant with six legs!','Then Sam sees a little door. It is open.'],a:['زار سام وأمه حديقة حيوانات الفضاء.','هناك فيل وردي له ست أرجل!','ثم رأى سام باباً صغيراً. إنه مفتوح.'],
+   c:[['Go in the little door.','ادخل من الباب الصغير.','p2a'],['Feed the pink elephant.','أطعم الفيل الوردي.','p2b']]},
+  p2a:{p:'🚪👽👽',s:['Behind the door, there are baby aliens.','They are small and green, and they are very sad.','"Our mom is lost," they say.'],a:['خلف الباب، توجد كائنات فضائية صغيرة.','إنها صغيرة وخضراء، وحزينة جداً.','قالت: «أمّنا ضائعة».'],
+   c:[['Help them find their mom.','ساعدهم في إيجاد أمّهم.','e1'],['Tell the zoo keeper.','أخبر حارس الحديقة.','e2']]},
+  p2b:{p:'🥜🐘',s:['Sam has a bag of space nuts.','The elephant eats one nut. Then it eats ten nuts!','Its nose gets very long.'],a:['مع سام كيس من مكسّرات الفضاء.','أكل الفيل حبة واحدة. ثم أكل عشر حبات!','صار أنفه طويلاً جداً.'],
+   c:[['Give it more nuts.','أعطه مكسّرات أكثر.','e3'],['Give it some water.','أعطه بعض الماء.','e4']]},
+  e1:{p:'👽💚🤗',end:'good',s:['Sam and the baby aliens look and look.','They find their mom next to the pond.','She gives Sam a big alien hug. It is wet and funny!'],a:['بحث سام والكائنات الصغيرة وبحثوا.','وجدوا أمّهم بجانب البركة.','عانقت سام عناقاً فضائياً كبيراً. كان مبللاً ومضحكاً!']},
+  e2:{p:'🤖🎫⭐',end:'good',s:['The zoo keeper is a tall robot.','"Thank you!" he says, and he calls their mom.','Sam gets a gold zoo card. Now he can visit every day!'],a:['حارس الحديقة روبوت طويل.','قال: «شكراً لك!» ونادى أمّهم.','حصل سام على بطاقة ذهبية للحديقة. الآن يستطيع أن يزورها كل يوم!']},
+  e3:{p:'🐘🌙😆',end:'funny',s:['The elephant eats all the nuts.','Its nose gets longer and longer, and longer!','Now it can touch the moon. Mom laughs and takes a photo.'],a:['أكل الفيل كل المكسّرات.','صار أنفه أطول وأطول، وأطول!','الآن يستطيع أن يلمس القمر. ضحكت الأم والتقطت صورة.']},
+  e4:{p:'💧🐘🚿',end:'good',s:['The elephant drinks the water.','Then it makes a big shower with its nose.','Splash! Sam and Mom are wet, but they are happy.'],a:['شرب الفيل الماء.','ثم صنع بأنفه دشاً كبيراً.','طرطشة! تبلّل سام وأمه، لكنهما سعيدان.']}}},
+ {t:'The Lost Star',ar:'النجمة الضائعة',e:'⭐',start:'p1',pages:{
+  p1:{p:'🌙⭐🌷',s:['At night, Noor sees a light in her garden.','It is a little star! It fell from the sky.','"I want to go home," says the star.'],a:['في الليل، رأت نور ضوءاً في حديقتها.','إنها نجمة صغيرة! سقطت من السماء.','قالت النجمة: «أريد أن أعود إلى بيتي».'],
+   c:[['Take it up in a balloon.','خذها إلى الأعلى في منطاد.','p2a'],['Call your grandpa.','نادِ جدّك.','p2b']]},
+  p2a:{p:'🎈⭐🐦',s:['Noor and the star get in a big red balloon.','Up, up, up they go!','But a bird is sitting on the balloon.'],a:['ركبت نور والنجمة منطاداً أحمر كبيراً.','إلى الأعلى، الأعلى، الأعلى!','لكن عصفوراً يجلس على المنطاد.'],
+   c:[['Ask the bird to fly away.','اطلب من العصفور أن يطير بعيداً.','e1'],['Give the bird some bread.','أعطِ العصفور بعض الخبز.','e2']]},
+  p2b:{p:'👴🪜☁️',s:['Grandpa comes with a big ladder.','The ladder is very, very tall.','Noor and the star climb up to the clouds.'],a:['جاء الجدّ بسلّم كبير.','السلّم طويل جداً جداً.','صعدت نور والنجمة إلى الغيوم.'],
+   c:[['Climb to the top.','اصعد إلى القمة.','e3'],['Jump on a cloud.','اقفز على غيمة.','e4']]},
+  e1:{p:'🐦⭐💛',end:'good',s:['"Please fly away, little bird," says Noor.','The bird smiles and flies away.','The star goes back to the sky. "Thank you, Noor!" it says.'],a:['قالت نور: «من فضلك طِر بعيداً أيها العصفور الصغير».','ابتسم العصفور وطار بعيداً.','عادت النجمة إلى السماء. قالت: «شكراً يا نور!»']},
+  e2:{p:'🍞🐦🐦🐦',end:'funny',s:['The bird eats the bread, and calls its friends!','Now ten birds sit on the balloon.','They pull it all the way to the sky. Tweet, tweet!'],a:['أكل العصفور الخبز، ونادى أصدقاءه!','الآن تجلس عشرة عصافير على المنطاد.','سحبته العصافير حتى السماء. تويت، تويت!']},
+  e3:{p:'⭐✨🏠',end:'good',s:['At the top, the star jumps back into the sky.','It shines very bright.','Every night, it shines over Noor\'s house.'],a:['في القمة، قفزت النجمة عائدة إلى السماء.','صارت تلمع بقوة.','كل ليلة، تلمع فوق بيت نور.']},
+  e4:{p:'☁️😴⭐',end:'funny',s:['Noor jumps on a cloud. It is soft like a bed.','She falls asleep!','The star sits next to her and says, "Good night, Noor!"'],a:['قفزت نور على غيمة. إنها ناعمة مثل السرير.','نامت!','جلست النجمة بجانبها وقالت: «تصبحين على خير يا نور!»']}}},
+ {t:'Robot Chef',ar:'الروبوت الطبّاخ',e:'🍳',start:'p1',pages:{
+  p1:{p:'🤖🍳',s:['Adam has a new robot. Its name is Chef Bot.','"I can cook!" says Chef Bot.','"What do you want to eat?"'],a:['عند آدم روبوت جديد. اسمه الشيف بوت.','قال الشيف بوت: «أستطيع أن أطبخ!»','«ماذا تريد أن تأكل؟»'],
+   c:[['I want pancakes.','أريد فطائر بان كيك.','p2a'],['I want a pizza.','أريد بيتزا.','p2b']]},
+  p2a:{p:'🥞💙',s:['Chef Bot makes pancakes. But they are blue!','"Oops! I used blue paint," says Chef Bot.'],a:['صنع الشيف بوت فطائر. لكنها زرقاء!','قال الشيف بوت: «أوه! استعملت ألواناً زرقاء».'],
+   c:[['Make them again.','اصنعها مرة أخرى.','e1'],['Paint a picture with them.','ارسم بها صورة.','e2']]},
+  p2b:{p:'🍕🍌',s:['Chef Bot puts a lot of cheese on the pizza.','Then it puts bananas on the pizza!','"Is this good?" asks Chef Bot.'],a:['وضع الشيف بوت جبناً كثيراً على البيتزا.','ثم وضع موزاً على البيتزا!','سأل الشيف بوت: «هل هذا جيد؟»'],
+   c:[['Eat the pizza.','كُل البيتزا.','e3'],['Take the bananas off.','أزِل الموز.','e4']]},
+  e1:{p:'🥞🍯😋',end:'good',s:['This time, Chef Bot reads the book first.','The pancakes are yellow and hot.','Adam eats five pancakes with honey. Yum!'],a:['هذه المرة، قرأ الشيف بوت الكتاب أولاً.','الفطائر صفراء وساخنة.','أكل آدم خمس فطائر مع العسل. ممم!']},
+  e2:{p:'🎨🌊🖼️',end:'funny',s:['Adam and Chef Bot paint with the blue pancakes.','They make a picture of the sea.','Mom puts it on the wall. What a yummy picture!'],a:['رسم آدم والشيف بوت بالفطائر الزرقاء.','رسما صورة للبحر.','علّقتها الأم على الجدار. يا لها من صورة لذيذة!']},
+  e3:{p:'🍕😝😄',end:'funny',s:['Adam eats the banana pizza.','He makes a funny face, then he smiles.','"It is good!" he says. Chef Bot is very proud.'],a:['أكل آدم بيتزا الموز.','صنع وجهاً مضحكاً، ثم ابتسم.','قال: «إنها لذيذة!» والشيف بوت فخور جداً.']},
+  e4:{p:'🍕⭐🏠',end:'good',s:['Adam takes the bananas off.','Chef Bot cooks the pizza again.','It is the best pizza in the house!'],a:['أزال آدم الموز.','طبخ الشيف بوت البيتزا مرة أخرى.','إنها أفضل بيتزا في البيت!']}}},
+ {t:'The Big Race',ar:'السباق الكبير',e:'🏁',start:'p1',pages:{
+  p1:{p:'🚀🏁🚀',s:['Today is the big space race!','Zara has a fast red rocket. Max the alien has a green one.','Ready, set, go!'],a:['اليوم هو سباق الفضاء الكبير!','عند زارا صاروخ أحمر سريع. وعند ماكس الفضائي صاروخ أخضر.','استعد، انتبه، انطلق!'],
+   c:[['Fly around the moon.','طِر حول القمر.','p2a'],['Fly between the rocks.','طِر بين الصخور.','p2b']]},
+  p2a:{p:'🌙🚀😟',s:['Around the moon, the way is long but safe.','Then Zara sees Max. His rocket stops!','It has no fuel.'],a:['حول القمر، الطريق طويل لكنه آمن.','ثم رأت زارا ماكس. توقّف صاروخه!','لم يبقَ فيه وقود.'],
+   c:[['Stop and help Max.','توقّفي وساعدي ماكس.','e1'],['Keep flying fast.','استمرّي في الطيران بسرعة.','e2']]},
+  p2b:{p:'🪨🚀🪨',s:['There are many big rocks.','Zara turns left and right. Zoom!','Oh no! A rock hits her rocket.'],a:['هناك صخور كبيرة كثيرة.','انعطفت زارا يساراً ويميناً. زووم!','يا إلهي! صخرة ضربت صاروخها.'],
+   c:[['Fix the rocket.','أصلحي الصاروخ.','e3'],['Call for help.','اطلبي المساعدة.','e4']]},
+  e1:{p:'⛽🤝🏆',end:'good',s:['Zara gives Max some fuel.','They fly to the finish line together.','Everybody says, "You are both winners!"'],a:['أعطت زارا ماكس بعض الوقود.','طارا معاً إلى خط النهاية.','قال الجميع: «أنتما الاثنان فائزان!»']},
+  e2:{p:'🏆🚀💚',end:'good',s:['Zara flies very fast and wins the race!','Then she goes back for Max.','Max smiles. "You are a good friend," he says.'],a:['طارت زارا بسرعة كبيرة وفازت بالسباق!','ثم عادت من أجل ماكس.','ابتسم ماكس وقال: «أنتِ صديقة طيبة».']},
+  e3:{p:'🔧🚀🥉',end:'good',s:['Zara fixes the rocket with tape.','It is not pretty, but it can fly!','She is third in the race, and she is very proud.'],a:['أصلحت زارا الصاروخ بشريط لاصق.','ليس جميلاً، لكنه يستطيع الطيران!','جاءت الثالثة في السباق، وهي فخورة جداً.']},
+  e4:{p:'🚚🚀😆',end:'funny',s:['A big space truck comes to help.','It pulls Zara\'s rocket the wrong way!','She is last, but she laughs all the way home.'],a:['جاءت شاحنة فضائية كبيرة لتساعد.','سحبت صاروخ زارا في الاتجاه الخطأ!','جاءت الأخيرة، لكنها ضحكت طوال الطريق إلى البيت.']}}}
 ];
 
 /* ===== غرف الهروب: اقرأ الرسالة لتجد المفتاح =====
@@ -808,35 +1027,35 @@ const TALES=[
 const PREPAR={on:'على',under:'تحت',in:'داخل',behind:'خلف',next:'بجانب',between:'بين'};
 const PREPEN={on:'on',under:'under',in:'in',behind:'behind',next:'next to',between:'between'};
 const ROOMS=[
- {en:'The Bedroom',ar:'غرفة النوم',wall:'#c7d2fe',floor:'#8b7fd6',objs:[
+ {en:'The Bedroom',e:'🛏️',ar:'غرفة النوم',wall:'#c7d2fe',floor:'#8b7fd6',objs:[
    {id:'bed',k:'bed',x:18,y:128,w:150,h:84,col:'#60a5fa',en:'the bed',ar:'السرير'},
    {id:'box',k:'box',x:206,y:170,w:58,h:46,col:'#ef4444',en:'the box',ar:'الصندوق'},
    {id:'lamp',k:'lamp',x:190,y:70,w:34,h:70,en:'the lamp',ar:'المصباح'},
    {id:'pic',k:'picture',x:40,y:40,w:70,h:52,en:'the picture',ar:'الصورة'},
    {id:'rug',k:'rug',x:120,y:232,w:120,h:30,col:'#f59e0b',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Look under the bed.',ar:'ابحث تحت السرير.',spot:'bed:under',get:'📜'},{en:'The key is in the box.',ar:'المفتاح في الصندوق.',spot:'box:in',get:'🔑'}]},
- {en:'The Kitchen',ar:'المطبخ',wall:'#fde68a',floor:'#d6a46a',objs:[
+ {en:'The Kitchen',e:'🍳',ar:'المطبخ',wall:'#fde68a',floor:'#d6a46a',objs:[
    {id:'tab',k:'table',x:30,y:150,w:130,h:64,en:'the table',ar:'الطاولة'},
-   {id:'cup',k:'cupboard',x:250,y:60,w:70,h:150,en:'the cupboard',ar:'الخزانة'},
+   {id:'cup',k:'cupboard',x:232,y:60,w:60,h:150,en:'the cupboard',ar:'الخزانة'},
    {id:'rbox',k:'box',x:180,y:178,w:50,h:40,col:'#ef4444',en:'the red box',ar:'الصندوق الأحمر'},
    {id:'bbox',k:'box',x:186,y:236,w:50,h:40,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
    {id:'plant',k:'plant',x:60,y:68,w:44,h:70,en:'the plant',ar:'النبتة'}],
   steps:[{en:'Look on the table.',ar:'انظر على الطاولة.',spot:'tab:on',get:'📜'},{en:'The key is in the blue box.',ar:'المفتاح في الصندوق الأزرق.',spot:'bbox:in',get:'🔑'}]},
- {en:'The Robot Lab',ar:'مختبر الروبوتات',wall:'#bae6fd',floor:'#64748b',objs:[
+ {en:'The Robot Lab',e:'🤖',ar:'مختبر الروبوتات',wall:'#bae6fd',floor:'#64748b',objs:[
    {id:'clock',k:'clock',x:150,y:30,w:48,h:48,en:'the clock',ar:'الساعة'},
    {id:'robot',k:'robot',x:40,y:150,w:56,h:74,en:'the robot',ar:'الروبوت'},
    {id:'books',k:'books',x:200,y:180,w:60,h:40,en:'the books',ar:'الكتب'},
    {id:'chair',k:'chair',x:130,y:150,w:50,h:78,en:'the chair',ar:'الكرسي'},
    {id:'rug',k:'rug',x:60,y:236,w:150,h:30,col:'#22c55e',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Look behind the clock.',ar:'ابحث خلف الساعة.',spot:'clock:behind',get:'📜'},{en:'Look next to the robot.',ar:'ابحث بجانب الروبوت.',spot:'robot:next',get:'📜'},{en:'The key is under the rug.',ar:'المفتاح تحت السجادة.',spot:'rug:under',get:'🔑'}]},
- {en:'The Garden Dome',ar:'قبة الحديقة',wall:'#bbf7d0',floor:'#65a30d',objs:[
+ {en:'The Garden Dome',e:'🌿',ar:'قبة الحديقة',wall:'#bbf7d0',floor:'#65a30d',objs:[
    {id:'bigp',k:'plant',x:30,y:90,w:70,h:130,big:1,en:'the big plant',ar:'النبتة الكبيرة'},
    {id:'smp',k:'plant',x:130,y:160,w:40,h:62,en:'the small plant',ar:'النبتة الصغيرة'},
    {id:'rrug',k:'rug',x:20,y:238,w:110,h:28,col:'#ef4444',en:'the red rug',ar:'السجادة الحمراء'},
    {id:'brug',k:'rug',x:150,y:238,w:110,h:28,col:'#3b82f6',en:'the blue rug',ar:'السجادة الزرقاء'},
    {id:'box',k:'box',x:200,y:180,w:56,h:44,col:'#a855f7',en:'the box',ar:'الصندوق'}],
   steps:[{en:'Look behind the small plant.',ar:'ابحث خلف النبتة الصغيرة.',spot:'smp:behind',get:'📜'},{en:'The key is under the blue rug.',ar:'المفتاح تحت السجادة الزرقاء.',spot:'brug:under',get:'🔑'}]},
- {en:'The Library',ar:'المكتبة',wall:'#fecaca',floor:'#9a6b3f',objs:[
+ {en:'The Library',e:'📚',ar:'المكتبة',wall:'#fecaca',floor:'#9a6b3f',objs:[
    {id:'tab',k:'table',x:20,y:160,w:120,h:60,en:'the table',ar:'الطاولة'},
    {id:'lamp',k:'lamp',x:150,y:140,w:34,h:80,en:'the lamp',ar:'المصباح'},
    {id:'clock',k:'clock',x:240,y:150,w:44,h:44,floor:1,en:'the clock',ar:'الساعة'},
@@ -844,27 +1063,58 @@ const ROOMS=[
    {id:'books',k:'books',x:30,y:236,w:70,h:34,en:'the books',ar:'الكتب'}],
   between:[{id:'lc',a:'lamp',b:'clock',x:188,y:150,w:50,h:70,en:'between the lamp and the clock',ar:'بين المصباح والساعة'}],
   steps:[{en:'Look under the table.',ar:'ابحث تحت الطاولة.',spot:'tab:under',get:'📜'},{en:'Look between the lamp and the clock.',ar:'ابحث بين المصباح والساعة.',spot:'lc:between',get:'📜'},{en:'The key is in the cupboard.',ar:'المفتاح في الخزانة.',spot:'cup:in',get:'🔑'}]},
- {en:'The Toy Room',ar:'غرفة الألعاب',wall:'#fbcfe8',floor:'#c084fc',objs:[
+ {en:'The Toy Room',e:'🧸',ar:'غرفة الألعاب',wall:'#fbcfe8',floor:'#c084fc',objs:[
    {id:'rbox',k:'box',x:20,y:184,w:52,h:42,col:'#ef4444',en:'the red box',ar:'الصندوق الأحمر'},
    {id:'bbox',k:'box',x:84,y:184,w:52,h:42,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
    {id:'ybox',k:'box',x:148,y:184,w:52,h:42,col:'#facc15',en:'the yellow box',ar:'الصندوق الأصفر'},
    {id:'teddy',k:'teddy',x:200,y:110,w:60,h:70,en:'the teddy',ar:'الدبدوب'},
    {id:'chair',k:'chair',x:50,y:90,w:50,h:80,en:'the chair',ar:'الكرسي'}],
   steps:[{en:'Look in the yellow box.',ar:'ابحث في الصندوق الأصفر.',spot:'ybox:in',get:'📜'},{en:'Look behind the teddy.',ar:'ابحث خلف الدبدوب.',spot:'teddy:behind',get:'📜'},{en:'The key is on the chair.',ar:'المفتاح على الكرسي.',spot:'chair:on',get:'🔑'}]},
- {en:'The Control Room',ar:'غرفة التحكم',wall:'#a5b4fc',floor:'#475569',objs:[
+ {en:'The Control Room',e:'🎛️',ar:'غرفة التحكم',wall:'#a5b4fc',floor:'#475569',objs:[
    {id:'tab',k:'table',x:30,y:150,w:140,h:64,en:'the table',ar:'الطاولة'},
    {id:'pic',k:'picture',x:60,y:40,w:90,h:60,screen:1,en:'the picture',ar:'الصورة'},
    {id:'box',k:'box',x:200,y:176,w:56,h:44,col:'#f97316',en:'the box',ar:'الصندوق'},
    {id:'lamp',k:'lamp',x:200,y:60,w:34,h:70,en:'the lamp',ar:'المصباح'},
    {id:'rug',k:'rug',x:40,y:236,w:150,h:30,col:'#06b6d4',en:'the rug',ar:'السجادة'}],
   steps:[{en:'Go to the table. Look under it.',ar:'اذهب إلى الطاولة. ابحث تحتها.',spot:'tab:under',get:'📜'},{en:'The key is not in the box. It is behind the picture.',ar:'المفتاح ليس في الصندوق. إنه خلف الصورة.',spot:'pic:behind',get:'🔑'}]},
- {en:"The Captain's Room",ar:'غرفة القبطان',wall:'#fef3c7',floor:'#7c5a3a',objs:[
+ {en:"The Captain's Room",e:'🧭',ar:'غرفة القبطان',wall:'#fef3c7',floor:'#7c5a3a',objs:[
    {id:'bed',k:'bed',x:16,y:130,w:140,h:80,col:'#ef4444',en:'the bed',ar:'السرير'},
    {id:'srug',k:'rug',x:170,y:240,w:70,h:26,col:'#22c55e',en:'the small rug',ar:'السجادة الصغيرة'},
    {id:'brug',k:'rug',x:20,y:236,w:140,h:32,col:'#3b82f6',en:'the big rug',ar:'السجادة الكبيرة'},
    {id:'clock',k:'clock',x:170,y:36,w:46,h:46,en:'the clock',ar:'الساعة'},
    {id:'teddy',k:'teddy',x:190,y:150,w:56,h:66,en:'the teddy',ar:'الدبدوب'}],
-  steps:[{en:'Look on the bed.',ar:'انظر على السرير.',spot:'bed:on',get:'📜'},{en:'Look under the small rug.',ar:'ابحث تحت السجادة الصغيرة.',spot:'srug:under',get:'📜'},{en:'Look next to the teddy… no! Look behind the clock.',ar:'ابحث بجانب الدبدوب… لا! ابحث خلف الساعة.',spot:'clock:behind',get:'🔑'}]}
+  steps:[{en:'Look on the bed.',ar:'انظر على السرير.',spot:'bed:on',get:'📜'},{en:'Look under the small rug.',ar:'ابحث تحت السجادة الصغيرة.',spot:'srug:under',get:'📜'},{en:'Look next to the teddy… no! Look behind the clock.',ar:'ابحث بجانب الدبدوب… لا! ابحث خلف الساعة.',spot:'clock:behind',get:'🔑'}]},
+ {en:'The Living Room',e:'🛋️',ar:'غرفة الجلوس',wall:'#ddd6fe',floor:'#a78b6d',objs:[
+   {id:'sofa',k:'sofa',x:24,y:132,w:150,h:78,col:'#0d9488',en:'the sofa',ar:'الكنبة'},
+   {id:'lamp',k:'lamp',x:196,y:118,w:34,h:96,en:'the lamp',ar:'المصباح'},
+   {id:'pic',k:'picture',x:56,y:36,w:80,h:56,en:'the picture',ar:'الصورة'},
+   {id:'rug',k:'rug',x:60,y:236,w:150,h:30,col:'#f97316',en:'the rug',ar:'السجادة'},
+   {id:'box',k:'box',x:238,y:174,w:46,h:40,col:'#ef4444',en:'the box',ar:'الصندوق'}],
+  steps:[{en:'Look under the sofa.',ar:'ابحث تحت الكنبة.',spot:'sofa:under',get:'📜'},{en:'Look behind the picture.',ar:'ابحث خلف الصورة.',spot:'pic:behind',get:'📜'},{en:'The key is on the box.',ar:'المفتاح على الصندوق.',spot:'box:on',get:'🔑'}]},
+ {en:'The Space Garage',e:'🔧',ar:'مرآب الصواريخ',wall:'#cbd5e1',floor:'#475569',objs:[
+   {id:'robot',k:'robot',x:20,y:140,w:56,h:74,en:'the robot',ar:'الروبوت'},
+   {id:'tab',k:'table',x:118,y:156,w:110,h:58,en:'the table',ar:'الطاولة'},
+   {id:'bbox',k:'box',x:240,y:176,w:46,h:40,col:'#3b82f6',en:'the blue box',ar:'الصندوق الأزرق'},
+   {id:'ybox',k:'box',x:120,y:236,w:50,h:38,col:'#facc15',en:'the yellow box',ar:'الصندوق الأصفر'},
+   {id:'clock',k:'clock',x:150,y:40,w:46,h:46,en:'the clock',ar:'الساعة'}],
+  steps:[{en:'Look next to the robot.',ar:'ابحث بجانب الروبوت.',spot:'robot:next',get:'📜'},{en:'Look under the table.',ar:'ابحث تحت الطاولة.',spot:'tab:under',get:'📜'},{en:'The key is not in the blue box. It is in the yellow box.',ar:'المفتاح ليس في الصندوق الأزرق. إنه في الصندوق الأصفر.',spot:'ybox:in',get:'🔑'}]},
+ {en:'The Art Room',e:'🎨',ar:'غرفة الرسم',wall:'#fde68a',floor:'#b7794a',objs:[
+   {id:'tab',k:'table',x:20,y:150,w:120,h:62,en:'the table',ar:'الطاولة'},
+   {id:'chair',k:'chair',x:150,y:128,w:48,h:84,en:'the chair',ar:'الكرسي'},
+   {id:'plant',k:'plant',x:244,y:140,w:44,h:74,en:'the plant',ar:'النبتة'},
+   {id:'pic',k:'picture',x:150,y:30,w:90,h:60,en:'the picture',ar:'الصورة'},
+   {id:'books',k:'books',x:40,y:236,w:70,h:34,en:'the books',ar:'الكتب'}],
+  between:[{id:'cp',a:'chair',b:'plant',x:200,y:146,w:42,h:68,en:'between the chair and the plant',ar:'بين الكرسي والنبتة'}],
+  steps:[{en:'Look on the table.',ar:'انظر على الطاولة.',spot:'tab:on',get:'📜'},{en:'Look between the chair and the plant.',ar:'ابحث بين الكرسي والنبتة.',spot:'cp:between',get:'📜'},{en:'The key is under the books.',ar:'المفتاح تحت الكتب.',spot:'books:under',get:'🔑'}]},
+ {en:'The Treasure Room',e:'💰',ar:'غرفة الكنز',wall:'#fef9c3',floor:'#92400e',objs:[
+   {id:'bigb',k:'box',x:20,y:148,w:82,h:66,col:'#a855f7',en:'the big box',ar:'الصندوق الكبير'},
+   {id:'smb',k:'box',x:152,y:182,w:44,h:34,col:'#f59e0b',en:'the small box',ar:'الصندوق الصغير'},
+   {id:'teddy',k:'teddy',x:222,y:140,w:56,h:70,en:'the teddy',ar:'الدبدوب'},
+   {id:'clock',k:'clock',x:120,y:40,w:46,h:46,en:'the clock',ar:'الساعة'},
+   {id:'grug',k:'rug',x:20,y:238,w:120,h:28,col:'#22c55e',en:'the green rug',ar:'السجادة الخضراء'},
+   {id:'rrug',k:'rug',x:160,y:238,w:120,h:28,col:'#ef4444',en:'the red rug',ar:'السجادة الحمراء'}],
+  between:[{id:'bb',a:'bigb',b:'smb',x:106,y:166,w:42,h:50,en:'between the big box and the small box',ar:'بين الصندوق الكبير والصندوق الصغير'}],
+  steps:[{en:'Look under the green rug.',ar:'ابحث تحت السجادة الخضراء.',spot:'grug:under',get:'📜'},{en:'Look behind the clock.',ar:'ابحث خلف الساعة.',spot:'clock:behind',get:'📜'},{en:'Look between the big box and the small box.',ar:'ابحث بين الصندوق الكبير والصندوق الصغير.',spot:'bb:between',get:'📜'},{en:'The key is in the small box.',ar:'المفتاح في الصندوق الصغير.',spot:'smb:in',get:'🔑'}]}
 ];
 /* أماكن كل شيء (مستطيلات بالنسبة إلى حدوده) */
 function spotsOf(o){const {x,y,w,h}=o,S={};
@@ -881,7 +1131,8 @@ function spotsOf(o){const {x,y,w,h}=o,S={};
     case 'teddy':S.behind=[x,y,w,h];break;
     case 'robot':S.next=[x+w,y,30,h];S.behind=[x,y,w,h];break;
     case 'books':S.on=[x,y-14,w,14];S.under=[x,y,w,h];break;
-    case 'clock':S.behind=[x,y,w,h];break;}
+    case 'clock':S.behind=[x,y,w,h];break;
+    case 'sofa':S.on=[x+12,y+h*.28,w-24,h*.22];S.under=[x+8,y+h*.76,w-16,h*.24+8];S.behind=[x+6,y-14,w-12,h*.3];break;}
   return S;}
 function roomSVG(R,o={}){
   const I='#1d2433';let s=`<rect width="360" height="280" fill="${R.wall}"/><rect y="200" width="360" height="80" fill="${R.floor}"/><rect y="196" width="360" height="6" fill="rgba(0,0,0,.18)"/>`;
@@ -914,6 +1165,10 @@ function objSVG(b,I){const {x,y,w,h}=b,c=b.col||'#94a3b8';
    case 'robot':return `<rect x="${x+w*.15}" y="${y+h*.35}" width="${w*.7}" height="${h*.5}" rx="6" fill="#7dd3fc" stroke="${I}" stroke-width="2.5"/><rect x="${x+w*.1}" y="${y+h*.05}" width="${w*.8}" height="${h*.32}" rx="7" fill="#e2e8f0" stroke="${I}" stroke-width="2.5"/>
      <circle cx="${x+w*.35}" cy="${y+h*.21}" r="4" fill="#22d3ee"/><circle cx="${x+w*.65}" cy="${y+h*.21}" r="4" fill="#22d3ee"/><rect x="${x+w*.2}" y="${y+h*.85}" width="${w*.2}" height="${h*.15}" fill="#334155"/><rect x="${x+w*.6}" y="${y+h*.85}" width="${w*.2}" height="${h*.15}" fill="#334155"/>`;
    case 'books':return `<rect x="${x}" y="${y+h*.66}" width="${w}" height="${h*.34}" rx="2" fill="#ef4444" stroke="${I}" stroke-width="2"/><rect x="${x+4}" y="${y+h*.33}" width="${w-8}" height="${h*.33}" rx="2" fill="#3b82f6" stroke="${I}" stroke-width="2"/><rect x="${x+8}" y="${y}" width="${w-16}" height="${h*.33}" rx="2" fill="#22c55e" stroke="${I}" stroke-width="2"/>`;
+   case 'sofa':return `<rect x="${x+8}" y="${y+h*.8}" width="8" height="${h*.2}" fill="#4b2e14"/><rect x="${x+w-16}" y="${y+h*.8}" width="8" height="${h*.2}" fill="#4b2e14"/>
+     <rect x="${x+6}" y="${y}" width="${w-12}" height="${h*.55}" rx="12" fill="${c}" stroke="${I}" stroke-width="2.5"/><rect x="${x}" y="${y+h*.45}" width="${w}" height="${h*.36}" rx="9" fill="${c}" stroke="${I}" stroke-width="2.5"/>
+     <rect x="${x+12}" y="${y+h*.4}" width="${w/2-14}" height="${h*.16}" rx="6" fill="rgba(255,255,255,.25)"/><rect x="${x+w/2+2}" y="${y+h*.4}" width="${w/2-14}" height="${h*.16}" rx="6" fill="rgba(255,255,255,.25)"/>
+     <rect x="${x-6}" y="${y+h*.3}" width="18" height="${h*.52}" rx="8" fill="${c}" stroke="${I}" stroke-width="2.5"/><rect x="${x+w-12}" y="${y+h*.3}" width="18" height="${h*.52}" rx="8" fill="${c}" stroke="${I}" stroke-width="2.5"/>`;
    case 'clock':return `<circle cx="${x+w/2}" cy="${y+h/2}" r="${w/2}" fill="#fff" stroke="${I}" stroke-width="3"/><path d="M${x+w/2} ${y+h/2} V${y+h*.22} M${x+w/2} ${y+h/2} L${x+w*.72} ${y+h*.6}" stroke="${I}" stroke-width="2.5" stroke-linecap="round"/><circle cx="${x+w/2}" cy="${y+h/2}" r="2.5" fill="#ef4444"/>`;
   }return '';}
 
@@ -990,9 +1245,24 @@ let popT=0;
 function wordPop(el){$$('.wpop').forEach(p=>p.remove());const k=el.dataset.w,ar=dictAr(k);
   const p=document.createElement('div');p.className='wpop';p.innerHTML=`<b class="en">${esc(k)}</b><span>${ar||'🔊 اسمعها'}</span>`;document.body.appendChild(p);
   const r=el.getBoundingClientRect(),pw=p.offsetWidth;p.style.left=clamp(r.left+r.width/2-pw/2,8,innerWidth-pw-8)+'px';p.style.top=(r.top+window.scrollY-p.offsetHeight-8)+'px';
-  el.classList.add('lit');setTimeout(()=>el.classList.remove('lit'),700);speak(k,{rate:.8});RS.words[k]=(RS.words[k]||0)+1;rsave();
+  el.classList.add('lit');setTimeout(()=>el.classList.remove('lit'),700);raTok++;$$('.w.say,.sayl').forEach(w=>w.classList.remove('say','sayl'));speak(k,{rate:.8});sfx('tap');RS.words[k]=(RS.words[k]||0)+1;rsave();
   clearTimeout(popT);popT=setTimeout(()=>p.remove(),2600);}
 document.addEventListener('click',e=>{const w=e.target.closest('.w');if(w){e.stopPropagation();wordPop(w);}else $$('.wpop').forEach(p=>p.remove());});
+/* «اقرأ لي» مع إضاءة الكلمات: جملة جملة، وتضيء كل كلمة عندما يقولها الصوت (إن كان الجهاز يخبرنا بمكانها) */
+let raTok=0;
+function readAlong(root,lines,o={}){
+  const tok=++raTok,ws=$$('.w',root),full=lines.join(' '),starts=[];let pos=0;
+  ws.forEach(w=>{const t=w.textContent,i=full.indexOf(t,pos);starts.push(i<0?pos:i);pos=(i<0?pos:i)+t.length;});
+  const lineEls=o.lineEls||[];const clear=()=>{ws.forEach(w=>w.classList.remove('say'));lineEls.forEach(e=>e.classList.remove('sayl'));};
+  let li=0,base=0;
+  const step=()=>{if(tok!==raTok)return;if(li>=lines.length){clear();o.onend&&o.onend();return;}
+    const line=lines[li],off=Math.max(0,full.indexOf(line,base));base=off+line.length;
+    lineEls.forEach((e,k)=>e.classList.toggle('sayl',k===li));
+    speak(line,{rate:o.rate||.82,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
+      onend:()=>{li++;step();}});};
+  step();
+  return{stop(){raTok++;clear();stopSpeak();}};
+}
 /* القراءة بصوت عالٍ: نقارن كلماتك بكلمات الجملة */
 function readCheck(target,res){const tw=normS(target).split(' ').filter(Boolean);let best={ratio:0,hits:tw.map(()=>false)};
   (res.alts&&res.alts.length?res.alts:[res.text]).forEach(a=>{const said=normS(a).split(' ');const hits=tw.map(w=>said.includes(w));const ratio=hits.filter(Boolean).length/tw.length;if(ratio>best.ratio)best={ratio,hits};});
@@ -1004,52 +1274,208 @@ function readAloudBtn(el,getText,onScore){
         const c=readCheck(getText(),r);RS.read++;rsave();onScore&&onScore(c,r);},
       onError:code=>{el.classList.remove('on');el.innerHTML='🎤 اقرأ بصوتك';const ov=document.createElement('div');ov.className='ov';ov.innerHTML=`<div class="res">${micHelp(code)}<div class="btns"><button class="btn gold" id="mhok">حسناً</button></div></div>`;document.body.appendChild(ov);$('#mhok',ov).onclick=()=>ov.remove();}});};}
 
-/* ===== المجرّة: الكواكب الأربعة، قوائم المراحل، والقصة ===== */
+/* ===== كوكب الصور: اقرأ الجملة، واختر الصورة التي تطابقها تماماً =====
+   كل جولة «وصف» (spec) يُرسم: set = أشياء (عدد، لون، حجم)، rel = شيء على/تحت/في/بجانب/خلف شيء آخر.
+   الصورتان الخاطئتان تختلفان عن الصحيحة في شيء واحد فقط (لون، عدد، مكان…)، فالقراءة الدقيقة هي المفتاح. */
+const PNUM=['','one','two','three','four','five'];
+const PCOLS=['red','blue','green','yellow','orange','purple','pink','black','white','brown'];
+const PDEF={cat:'orange',dog:'brown',ball:'red',apple:'red',car:'blue',flower:'pink',balloon:'red',star:'yellow',duck:'yellow',bird:'blue',teddy:'brown',box:'#c68a4e',table:'#a16207',chair:'#d97706',tree:'green'};
+const PSKY=new Set(['star','balloon','bird']);
+const PSET=['cat','dog','ball','apple','car','flower','balloon','star','duck','bird'];
+const PPL={teddy:'teddies'};const pPl=n=>PPL[n]||n+'s';
+/* ما يمكن وضعه في كل مكان */
+const PBASE={box:{r:['on','in','next to','behind'],m:['cat','dog','ball','apple','teddy','duck']},
+  table:{r:['on','under','next to'],m:['cat','dog','ball','apple','teddy','duck']},
+  chair:{r:['on','under','next to'],m:['cat','dog','ball','teddy','duck']},
+  tree:{r:['in','under'],m:{in:['bird','cat','apple'],under:['cat','dog','ball','duck','teddy']}}};
+const movers=(b,r)=>{const m=PBASE[b].m;return Array.isArray(m)?m:m[r]||[];};
+const RELAR={on:'على',under:'تحت',in:'في / داخل','next to':'بجانب',behind:'خلف'};
+
+/* ---------- المراحل ---------- */
+const P_LV=[
+ {e:'🎨',ar:'لون وشيء',tip:'اقرأ اللون ثم الشيء: a red ball = كرة حمراء',g:r=>({t:'set',g:[{n:pk(r,PSET),c:pk(r,PCOLS),k:1}]}),m:['c','n']},
+ {e:'🔢',ar:'كم عددها؟',tip:'two = ٢، three = ٣، four = ٤، five = ٥',g:r=>({t:'set',g:[{n:pk(r,PSET),k:1+Math.floor(r()*5)}]}),m:['k','n']},
+ {e:'🌈',ar:'العدد واللون',tip:'اقرأ كل كلمة: العدد، ثم اللون، ثم الشيء',g:r=>({t:'set',g:[{n:pk(r,PSET),c:pk(r,PCOLS),k:2+Math.floor(r()*3)}]}),m:['k','c','n']},
+ {e:'🐘',ar:'كبير وصغير',tip:'big = كبير، small = صغير',g:r=>({t:'set',g:[{n:pk(r,PSET.filter(n=>!PSKY.has(n))),c:r()<.5?pk(r,PCOLS):null,k:1,z:r()<.5?'big':'small'}]}),m:['z','z','n','c']},
+ {e:'⬆️',ar:'on و under',tip:'on = على، under = تحت',g:r=>relGen(r,['table','chair'],['on','under']),m:['r','n','b']},
+ {e:'📦',ar:'in و next to',tip:'in = في (داخل)، next to = بجانب',g:r=>relGen(r,['box'],['in','on','next to']),m:['r','r','n']},
+ {e:'🌳',ar:'behind و in',tip:'behind = خلف، in the tree = في الشجرة',g:r=>r()<.5?relGen(r,['box'],['behind','behind','in','on']):relGen(r,['tree'],['in','under']),m:['r','n','b']},
+ {e:'🎯',ar:'اللون والمكان',tip:'The red ball… انتبه للون وللمكان معاً!',g:r=>{const s=relGen(r,['table','chair','box'],null);s.m.c=pk(r,PCOLS);return s;},m:['c','r','n']},
+ {e:'🍎',ar:'العدد والمكان',tip:'Two apples are… جمع = are، واحد = is',g:r=>{const s=relGen(r,['table','box','chair'],['on','under','in','next to']);s.m.k=s.b==='chair'?2:2+Math.floor(r()*2);return s;},m:['k','r','n']},
+ {e:'➕',ar:'شيئان معاً',tip:'and = و: اقرأ الجزأين جيداً',g:r=>{const a=pk(r,PSET),b=pk(r,PSET.filter(x=>x!==a));return{t:'set',g:[{n:a,k:1+Math.floor(r()*3),c:r()<.5?pk(r,PCOLS):null},{n:b,k:1+Math.floor(r()*3)}]};},m:['k','k','n','c']},
+ {e:'🚫',ar:'not = ليس',first:['not'],tip:'not = ليس. اقرأ الجملتين حتى النهاية!',g:r=>{const s=relGen(r,['box','table','chair'],null);const o=PBASE[s.b].r.filter(x=>x!==s.r);s.not=pk(r,o);return s;},m:['not','r','n']},
+ {e:'👑',ar:'التحدي الكبير',tip:'كل شيء معاً! اقرأ بتمهّل.',mix:[2,3,7,8,9,10],n:10}
+];
+const pk=(r,a)=>a[Math.floor(r()*a.length)];
+function relGen(r,bases,rels){for(let i=0;i<40;i++){const b=pk(r,bases),R=pk(r,rels?rels.filter(x=>PBASE[b].r.includes(x)):PBASE[b].r);if(!R)continue;const ms=movers(b,R);if(!ms.length)continue;
+  return{t:'rel',m:{n:pk(r,ms),k:1},r:R,b};}return{t:'rel',m:{n:'cat',k:1},r:'on',b:'box'};}
+
+/* ---------- الجملة ---------- */
+const aan=w=>/^[aeiou]/.test(w)?'an':'a';
+function npTok(g,i,def){/* a big red ball / three blue birds */
+  const T=[];const adj=[g.z?{w:g.z,k:'z'+i}:null,g.c?{w:g.c,k:'c'+i}:null].filter(Boolean);
+  if(g.k===1)T.push({w:def?'the':aan((adj[0]||{w:g.n}).w),k:'k'+i});else T.push({w:PNUM[g.k],k:'k'+i});
+  T.push(...adj,{w:g.k===1?g.n:pPl(g.n),k:'n'+i});return T;}
+function specTokens(s){let T;
+  if(s.t==='set'){T=[{w:'I'},{w:'see'},...npTok(s.g[0],0)];if(s.g[1])T.push({w:'and'},...npTok(s.g[1],1));T.push({w:'.'});}
+  else{const m=s.m,pl=m.k>1;T=npTok(m,0,!pl);const be={w:pl?'are':'is'};const rel=x=>x.split(' ').map(w=>({w,k:'r'}));
+    if(s.not){T.push(be,{w:'not',k:'not'},...s.not.split(' ').map(w=>({w,k:'not'})),{w:'the'},{w:s.b,k:'b'},{w:'.'},{w:pl?'They':'It'},{w:pl?'are':'is'},...rel(s.r),{w:'the'},{w:s.b,k:'b'},{w:'.'});}
+    else T.push(be,...rel(s.r),{w:'the'},{w:s.b,k:'b'},{w:'.'});}
+  T[0]=Object.assign({},T[0],{w:T[0].w[0].toUpperCase()+T[0].w.slice(1)});return T;}
+const specText=s=>specTokens(s).map(t=>t.w).join(' ').replace(/ \./g,'.');
+function specHTML(s){return specTokens(s).map(t=>t.w==='.'?'.':` <span class="w" data-w="${wkey(t.w)}"${t.k?` data-k="${t.k}"`:''}>${esc(t.w)}</span>`).join('').trim();}
+
+/* ---------- صور خاطئة تختلف في شيء واحد ---------- */
+const specKey=s=>JSON.stringify(s.t==='set'?s.g.map(g=>[g.n,g.c||PDEF[g.n],g.k,g.z||'']):[s.m.n,s.m.c||PDEF[s.m.n],s.m.k,s.r,s.b]);
+function mutate(s,how,r){const o=JSON.parse(JSON.stringify(s));const gi=o.t==='set'?Math.floor(r()*o.g.length):0,G=o.t==='set'?o.g[gi]:o.m;
+  switch(how){
+    case 'c':{if(!G.c)return null;G.c=pk(r,PCOLS.filter(c=>c!==G.c));return[o,'c'+gi];}
+    case 'k':{const opts=[G.k-1,G.k+1].filter(k=>k>=1&&k<=(o.t==='set'?5:o.b==='chair'?2:3));if(!opts.length)return null;G.k=pk(r,opts);return[o,'k'+gi];}
+    case 'z':{if(!G.z)return null;G.z=G.z==='big'?'small':'big';return[o,'z'+gi];}
+    case 'n':{const pool=o.t==='set'?PSET.filter(n=>!o.g.some(g=>g.n===n)&&(!G.z||!PSKY.has(n))):movers(o.b,o.r).filter(n=>n!==G.n);if(!pool.length)return null;G.n=pk(r,pool);return[o,'n'+gi];}
+    case 'r':{if(o.t!=='rel')return null;const rs=PBASE[o.b].r.filter(x=>x!==o.r&&x!==o.not&&movers(o.b,x).includes(o.m.n));if(!rs.length)return null;o.r=pk(r,rs);return[o,'r'];}
+    case 'not':{if(!o.not)return null;if(!movers(o.b,o.not).includes(o.m.n))return null;o.r=o.not;return[o,'not'];}
+    case 'b':{if(o.t!=='rel')return null;const bs=Object.keys(PBASE).filter(b=>b!==o.b&&PBASE[b].r.includes(o.r)&&movers(b,o.r).includes(o.m.n));if(!bs.length)return null;o.b=pk(r,bs);return[o,'b'];}}
+  return null;}
+function makeRound(L,r){
+  for(let tries=0;tries<60;tries++){const s=L.g(r),seen=new Set([specKey(s)]),wrong=[];
+    const order=(L.first||[]).concat(shuffle(L.m.slice()),shuffle(['c','k','n','r','b','z']));
+    for(const how of order){if(wrong.length>=2)break;const m=mutate(s,how,r);if(!m)continue;const k=specKey(m[0]);if(seen.has(k))continue;seen.add(k);wrong.push({s:m[0],diff:m[1]});}
+    if(wrong.length===2)return{s,opts:shuffle([{s,ok:true},...wrong])};}
+  return null;}
+
+/* ---------- الرسم ---------- */
+function sceneBg(x,w,h,out){const fy=h*.86;
+  if(out){const g=x.createLinearGradient(0,0,0,fy);g.addColorStop(0,'#bae6fd');g.addColorStop(1,'#e0f2fe');x.fillStyle=g;x.fillRect(0,0,w,fy);
+    x.fillStyle='rgba(255,255,255,.8)';[[.15,.2],[.7,.14]].forEach(([a,b])=>{x.beginPath();x.ellipse(w*a,h*b,h*.12,h*.05,0,0,7);x.fill();});
+    const gg=x.createLinearGradient(0,fy-6,0,h);gg.addColorStop(0,'#86efac');gg.addColorStop(1,'#4ade80');x.fillStyle=gg;x.fillRect(0,fy-4,w,h-fy+4);}
+  else{x.fillStyle='#fef3c7';x.fillRect(0,0,w,fy);x.fillStyle='rgba(180,83,9,.08)';for(let i=0;i<w;i+=22)x.fillRect(i,0,11,fy);
+    x.fillStyle='#d6a46a';x.fillRect(0,fy-3,w,h-fy+3);x.fillStyle='rgba(0,0,0,.12)';x.fillRect(0,fy-4,w,3);}
+  return fy;}
+function drawSpec(x,w,h,s){x.clearRect(0,0,w,h);
+  if(s.t==='set'){const fy=sceneBg(x,w,h,true);const all=[];s.g.forEach((g,gi)=>{for(let k=0;k<g.k;k++)all.push({g,gi});});
+    const N=all.length,gap=s.g.length>1?.6:0,slots=N+gap,anyZ=s.g.some(g=>g.z),base=Math.min(h*(anyZ?.42:.5),w/(slots+.6)*.95);let i=0;
+    all.forEach((it,j)=>{if(j>0&&all[j-1].gi!==it.gi)i+=gap;const g=it.g,z=g.z==='big'?1.55:g.z==='small'?.6:1,ms=base*z*(g.z?1.1:1);
+      const cx=w*.5+(i-(slots-1)/2)*(w/(slots+.6));const sky=PSKY.has(g.n);const cy=sky?h*.32+((j%2)?h*.06:0):fy-(THING_FOOT[g.n]||.25)*ms;
+      paintThing(x,g.n,cx,cy,ms,g.c||PDEF[g.n],0);i++;});return;}
+  const fy=sceneBg(x,w,h,s.b==='tree');const B=s.b,bs=h*{box:.6,table:.6,chair:.7,tree:.84}[B],bx=w*.36,by=fy-(THING_FOOT[B]||.3)*bs;
+  const m=s.m,ms0=h*.38,R=s.r;const ms=ms0*(R==='under'?(B==='tree'?.9:.72):R==='in'&&B==='tree'?.62:1);
+  const foot=(THING_FOOT[m.n]||.25)*ms,col=m.c||PDEF[m.n];
+  const spread=(n,cx,wid)=>[...Array(n)].map((_,k)=>cx+(k-(n-1)/2)*wid);
+  let pts=[];const half={box:.45,table:.62,chair:.34,tree:.3}[B]*bs;
+  if(R==='on'){const top={box:by-.32*bs,table:by-.2*bs,chair:by-.06*bs}[B];pts=spread(m.k,bx+(B==='chair'?.04*bs:0),Math.min(ms*.75,(half*2)/m.k)).map(px=>[px,top-foot]);}
+  else if(R==='under'){if(B==='tree')pts=spread(m.k,bx+.24*bs,ms*.7).map(px=>[px,fy-foot]);else pts=spread(m.k,bx,Math.min(ms*.7,half*1.4/m.k)).map(px=>[px,fy-foot]);}
+  else if(R==='next to'){const x0=bx+half+ms*.5;pts=[...Array(m.k)].map((_,k)=>[x0+k*ms*.72,fy-foot]);}
+  else if(R==='in'){if(B==='tree')pts=spread(m.k,bx+.04*bs,ms*.8).map((px,k)=>[px,by-.22*bs+(k%2)*ms*.25]);else pts=spread(m.k,bx,Math.min(ms*.6,.7*bs/m.k)).map(px=>[px,by-.18*bs-.1*ms]);}
+  else if(R==='behind')pts=spread(m.k,bx+.34*bs,ms*.6).map(px=>[px,by-.3*bs]);
+  const mv=()=>pts.forEach(p=>paintThing(x,m.n,p[0],p[1],ms,col,0));
+  if(R==='behind'){mv();paintThing(x,B,bx,by,bs,PDEF[B],0);}
+  else if(R==='in'&&B==='box'){paintThing(x,'boxback',bx,by,bs,PDEF[B],0);mv();paintThing(x,'boxfront',bx,by,bs,PDEF[B],0);}
+  else{paintThing(x,B,bx,by,bs,PDEF[B],0);mv();}}
+
+/* ---------- الشاشة ---------- */
+def('pics',li=>{
+  const L=P_LV[li],N=L.n||8,rng=Math.random;let ri=-1,R=null,miss=0,first=0,busy=false,alive=true;
+  setTitle(`📸 ${L.ar}`);
+  $('#view').innerHTML=`<div class="pics">
+    <div class="phud"><span class="pfuel"><i id="pfl"></i></span><b id="pct"></b></div>
+    <div class="psent" id="ps"></div>
+    <div class="popts" id="po"></div>
+    <p class="tip">💡 ${L.tip}</p></div>`;
+  onClean(()=>{alive=false;});
+  function hudUp(){$('#pct').textContent=`${D(Math.min(N,ri+1))} / ${D(N)}`;$('#pfl').style.width=(Math.max(0,ri)/N*100)+'%';}
+  function next(){ri++;if(ri>=N)return finish();busy=false;
+    const Lr=L.mix?P_LV[pick(L.mix)]:L;R=makeRound(Lr,rng);R.tries=0;const txt=specText(R.s);
+    $('#ps').innerHTML=`<p class="en psx">${specHTML(R.s)}</p><div class="row"><button class="chipbtn" id="psay">🔊 اسمع</button><span class="pfb" id="pfb">👇 أي صورة تطابق الجملة؟</span></div>`;
+    $('#ps').classList.remove('pop');void $('#ps').offsetWidth;$('#ps').classList.add('pop');
+    $('#psay').onclick=()=>{sfx('tap');readAlong($("#ps .psx"),[txt],{rate:.8});};
+    $('#po').innerHTML=R.opts.map((o,i)=>`<button class="popt" data-i="${i}" aria-label="صورة ${D(i+1)}"><canvas></canvas><span class="pmark"></span></button>`).join('');
+    const cw=$('#po').clientWidth||340,wide=innerWidth>=560,w=wide?Math.floor((cw-20)/3):cw,h=Math.round(clamp(wide?w*.75:Math.min(w*.36,(innerHeight-300)/3-16),92,170)),d=Math.min(2,window.devicePixelRatio||1);
+    $$('.popt canvas').forEach((c,i)=>{c.width=w*d;c.height=h*d;c.style.height=h+'px';const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);drawSpec(x,w,h,R.opts[i].s);});
+    $$('.popt').forEach(b=>b.onclick=()=>choose(+b.dataset.i,b));hudUp();}
+  function choose(i,b){if(busy||b.disabled)return;const o=R.opts[i];
+    if(o.ok){busy=true;if(!R.tries)first++;b.classList.add('ok');$('.pmark',b).textContent='✓';sfx('ok');buzz(20);const [x,y]=centerOf(b);FX.burst(x,y,{n:22,colors:['#22c55e','#fde047','#fff']});
+      $$('.popt').forEach(e=>{if(e!==b)e.classList.add('dim');});$('#pfb').innerHTML=R.tries?'👍 صحيح!':'⭐ ممتاز! قراءة دقيقة';speak(specText(R.s),{rate:.85});
+      $$('#ps .w').forEach(w=>w.classList.remove('hint'));setTimeout(()=>{if(alive)next();},1600);return;}
+    R.tries++;miss++;b.disabled=true;b.classList.add('bad');$('.pmark',b).textContent='✖';sfx('no');buzz(60);shake(b);
+    const ks=o.diff==='r'?['r']:[o.diff];const hw=$$('#ps .w').filter(w=>ks.includes(w.dataset.k));
+    $$('#ps .w').forEach(w=>w.classList.remove('hint'));hw.forEach(w=>{w.classList.add('hint');});
+    const word=hw.map(w=>w.textContent).join(' ');
+    $('#pfb').innerHTML=word?`👀 اقرأ كلمة <span class="en hintw">${esc(word)}</span> مرة أخرى`:'🤔 اقرأ الجملة مرة أخرى';if(word)speak(word,{rate:.75});}
+  function finish(){alive=false;const st=miss===0?3:miss<=2?2:1;RS.pics[li]=Math.max(RS.pics[li]||0,st);rsave();sfx('win');const hasNext=li+1<P_LV.length;
+    resultOv({title:'📸 كل الصور صحيحة!',stars:st,gems:first+st*3,lines:[`⭐ من أول مرة: ${D(first)} من ${D(N)}`,st<3?'اقرأ كل كلمة قبل أن تختار لتحصل على ٣ نجوم':'عين دقيقة وقراءة ممتازة! 👑'],
+      btns:[...(hasNext?[{label:'المرحلة التالية ←',cls:'gold big',fn:()=>go('pics',li+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});}
+  next();
+});
+
+/* ===== المجرّة: الكواكب الخمسة، قوائم المراحل، الرتب، والقصة ===== */
 const sumS=o=>Object.values(o).reduce((a,b)=>a+(+b||0),0);
 const RMODES={
   mon:{n:MLEVELS.length,title:'👾 كوكب الوحوش',go:i=>go('monsters',i),icon:i=>MLEVELS[i].t,sub:i=>MLEVELS[i].ar,store:()=>RS.mon},
+  pics:{n:P_LV.length,title:'📸 كوكب الصور',go:i=>go('pics',i),icon:i=>P_LV[i].e,sub:i=>P_LV[i].ar,store:()=>RS.pics},
   cases:{n:CASES.length,title:'🕵️ مكتب المحقق',go:i=>go('case',i),icon:i=>CASES[i].loot,sub:i=>`القضية ${D(i+1)}`,store:()=>RS.cases},
-  rooms:{n:ROOMS.length,title:'🔐 سفينة الألغاز',go:i=>go('room',i),icon:i=>'🚪',sub:i=>ROOMS[i].ar,store:()=>RS.rooms},
+  rooms:{n:ROOMS.length,title:'🔐 سفينة الألغاز',go:i=>go('room',i),icon:i=>ROOMS[i].e||'🚪',sub:i=>ROOMS[i].ar,store:()=>RS.rooms},
   tales:{n:TALES.length,title:'📖 مجرّة القصص',go:i=>go('tale',i),icon:i=>TALES[i].e,sub:i=>TALES[i].ar,store:()=>RS.stories,free:true}
 };
 const endsOf=i=>Object.values(TALES[i].pages).filter(p=>p.end).length;
+const allEnds=()=>TALES.reduce((a,_,i)=>a+endsOf(i),0);
+/* رتب رواد الفضاء: تُحسب من كل النجوم */
+const RRANKS=[['🧑‍🚀','طالب فضاء',0],['🛰️','مستكشف',12],['🚀','طيّار',30],['🌙','ملّاح القمر',55],['🪐','قائد الكواكب',85],['🌟','قائد المجرّة',120],['👑','أسطورة الفضاء',155]];
+const allStars=()=>sumS(RS.mon)+sumS(RS.pics)+sumS(RS.cases)+sumS(RS.rooms)+sumS(RS.stories);
+const rankIdx=n=>{let r=0;RRANKS.forEach((x,i)=>{if(n>=x[2])r=i;});return r;};
+function rankHTML(){const n=allStars(),i=rankIdx(n),R=RRANKS[i],N=RRANKS[i+1];
+  return `<button class="rank" id="mrank"><span class="rk-e">${R[0]}</span><span class="rk-t"><b>رتبتك: ${R[1]}</b><span class="bbar dark"><i style="width:${N?Math.round((n-R[2])/(N[2]-R[2])*100):100}%"></i></span>
+    <small>${N?`⭐ ${D(n)} · باقي ${D(N[2]-n)} ⭐ لتصبح ${N[1]} ${N[0]}`:`⭐ ${D(n)} · أعلى رتبة في المجرّة!`}</small></span></button>`;}
+function rankCheck(){const i=rankIdx(allStars());if(i<=(RS.rank||0))return;RS.rank=i;rsave();const R=RRANKS[i];sfx('win');
+  setTimeout(()=>resultOv({title:'🎖️ ترقية!',big:R[0],lines:[`صرت الآن: <b>${R[1]}</b>`,'كل نجمة تجمعها تقرّبك من الرتبة التالية!'],gems:i*15,btns:[{label:'رائع! 🚀',cls:'gold big',fn:()=>{}}]}),400);}
+function ranksOv(){const n=allStars(),cur=rankIdx(n);const ov=document.createElement('div');ov.className='ov';
+  ov.innerHTML=`<div class="res"><h2>🎖️ رتب رواد الفضاء</h2><p class="muted">اجمع النجوم في كل الكواكب لترتفع رتبتك.</p>
+    <div class="rklist">${RRANKS.map((r,i)=>`<div class="rkrow ${i===cur?'on':''} ${i>cur?'lock':''}"><span>${r[0]}</span><b>${r[1]}</b><small>⭐ ${D(r[2])}</small></div>`).join('')}</div>
+    <div class="btns"><button class="btn gold" id="rkok">حسناً</button></div></div>`;
+  document.body.appendChild(ov);$('#rkok',ov).onclick=()=>ov.remove();}
+
 def('hub',()=>{
   setTitle('',false);
   const card=(k,cls,pic,h,p)=>{const M=RMODES[k],st=M.store(),done=Object.keys(st).length;
-    const prog=k==='tales'?`${D(Object.keys(RS.ends).length)}/${D(TALES.reduce((a,_,i)=>a+endsOf(i),0))} نهاية`:`${D(done)}/${D(M.n)} · ⭐ ${D(sumS(st))}`;
-    return `<button class="planet ${cls}" data-k="${k}"><div class="ppic">${pic}</div><div class="ptxt"><h3>${h}</h3><p>${p}</p><span class="pprog"><span class="bbar"><i style="width:${(k==='tales'?Object.keys(RS.ends).length/TALES.reduce((a,_,i)=>a+endsOf(i),0):done/M.n)*100}%"></i></span>${prog}</span></div></button>`;};
+    const prog=k==='tales'?`${D(Object.keys(RS.ends).length)}/${D(allEnds())} نهاية`:`${D(done)}/${D(M.n)} · ⭐ ${D(sumS(st))}`;
+    return `<button class="planet ${cls}" data-k="${k}"><div class="ppic">${pic}</div><div class="ptxt"><h3>${h}</h3><p>${p}</p><span class="pprog"><span class="bbar"><i style="width:${(k==='tales'?Object.keys(RS.ends).length/allEnds():done/M.n)*100}%"></i></span>${prog}</span></div></button>`;};
+  const nw=Object.keys(Object.assign({},RS.words,RS.zap)).length;
   $('#view').innerHTML=`
    <section class="mtop"><button class="mhero" id="mh" aria-label="بطلي"><div class="bob">${heroSVG(World.p.hero,{face:'happy',pose:'cheer'})}</div></button>
      <div class="mtxt"><h1>أهلاً أيها القارئ ${esc(World.p.name||'')}!</h1><p>كل مهمة في الفضاء تحتاج إلى قارئ ذكي. 🚀</p>
-       <div class="row">${dailyChestReady()?'<button class="chipbtn gold" id="mday">🎁 صندوق اليوم</button>':''}<button class="chipbtn" id="mshop">👕 المتجر</button><span class="chipbtn">📚 ${D(Object.keys(RS.words).length)} كلمة</span></div></div></section>
+       <div class="row">${dailyChestReady()?'<button class="chipbtn gold" id="mday">🎁 صندوق اليوم</button>':''}<button class="chipbtn" id="mbook">📚 كلماتي ${D(nw)}</button><button class="chipbtn" id="mshop">👕 المتجر</button>${sfxToggleHTML()}</div></div></section>
+   ${rankHTML()}
    <div class="galaxy">
-     ${card('mon','p-mon',`<canvas class="mcv" width="120" height="120" data-w="cat"></canvas>`,'كوكب الوحوش','اقرأ الكلمة واضرب الوحش الصحيح!')}
+     ${card('mon','p-mon',`<canvas class="mcv" width="120" height="120"></canvas>`,'كوكب الوحوش','اقرأ الكلمة واضرب الوحش الصحيح!')}
+     ${card('pics','p-pic',`<canvas class="pcv" width="120" height="120"></canvas>`,'كوكب الصور','اقرأ الجملة واختر الصورة المطابقة!')}
      ${card('cases','p-case',suspectSVG({col:'green',eyes:3,hat:'hat',gl:true,ant:2,item:'none',big:true}),'مكتب المحقق','اقرأ الأدلة، واكتشف اللص!')}
      ${card('rooms','p-room','<div class="pemo">🔐</div>','سفينة الألغاز','اقرأ الرسائل لتجد المفتاح وتهرب!')}
      ${card('tales','p-tale','<div class="pemo">📖</div>','مجرّة القصص','اقرأ واختر طريقك. كم نهاية ستكتشف؟')}
    </div>
    <p class="muted small cen">💡 اضغط أي كلمة إنجليزية لتعرف معناها وتسمعها.</p>`;
-  $$('.mcv').forEach(c=>{const x=c.getContext('2d');x.scale(1,1);drawWordMonster(x,60,64,96,'#a78bfa','cat','idle',0,0);});
-  $$('.planet').forEach(b=>b.onclick=()=>go('rlevels',b.dataset.k));
-  $('#mh').onclick=()=>go('closet');$('#mshop').onclick=()=>go('closet','hat');
+  $$('.mcv').forEach(c=>{const x=c.getContext('2d');drawWordMonster(x,60,64,96,'#a78bfa','cat','idle',0,0);});
+  $$('.pcv').forEach(c=>{const x=c.getContext('2d');x.save();x.beginPath();x.arc(60,60,58,0,7);x.clip();drawSpec(x,120,120,{t:'rel',m:{n:'cat',k:1},r:'in',b:'box'});x.restore();});
+  $$('.planet').forEach(b=>b.onclick=()=>{sfx('whoosh');go('rlevels',b.dataset.k);});
+  $('#mh').onclick=()=>go('closet');$('#mshop').onclick=()=>go('closet','hat');$('#mbook').onclick=()=>go('book');$('#mrank').onclick=ranksOv;bindSfxToggle();
   if($('#mday'))$('#mday').onclick=()=>claimDaily(()=>rerender());
+  rankCheck();
 },{home:true});
 
 def('rlevels',k=>{
   const M=RMODES[k],st=M.store();setTitle(M.title);
   const next=(()=>{for(let i=0;i<M.n;i++)if(!st[i])return i;return 0;})();
-  $('#view').innerHTML=`<p class="muted lead">${{mon:'وحوش تحمل كلمات متشابهة. اقرأ بدقة واضرب الوحش الذي يطابق الصورة أو الصوت!',cases:'في كل قضية سرقة، اقرأ الأدلة واحداً واحداً، واشطب من لا يطابقها حتى يبقى اللص.',rooms:'أنت محبوس في غرفة! اقرأ كل رسالة واضغط المكان الذي تقوله.',tales:'قصص قصيرة. في كل قصة تختار ماذا يحدث. هل تكتشف كل النهايات؟'}[k]}</p>
+  $('#view').innerHTML=`<p class="muted lead">${{mon:'وحوش تحمل كلمات متشابهة. اقرأ بدقة واضرب الوحش الذي يطابق الصورة أو الصوت!',pics:'اقرأ الجملة جيداً، ثم اختر الصورة التي تطابقها تماماً. انتبه للون والعدد والمكان!',cases:'في كل قضية سرقة، اقرأ الأدلة واحداً واحداً، واشطب من لا يطابقها حتى يبقى اللص.',rooms:'أنت محبوس في غرفة! اقرأ كل رسالة واضغط المكان الذي تقوله.',tales:'قصص قصيرة. في كل قصة تختار ماذا يحدث. هل تكتشف كل النهايات؟'}[k]}</p>
     <div class="lvls">${[...Array(M.n)].map((_,i)=>{const s=st[i]||0,un=M.free||i===0||st[i-1]||st[i];
       const extra=k==='tales'?`<span class="lvt">${D(Object.keys(RS.ends).filter(e=>e.startsWith(i+':')).length)}/${D(endsOf(i))} نهاية</span>`:starsHTML(s);
       return `<button class="lv ${s?'done':''} ${!M.free&&i===next?'here':''}" data-i="${i}" ${un?'':'disabled'}><span class="lvi ${k==='mon'?'en':''}">${un?M.icon(i):'🔒'}</span><span class="lvt">${M.sub(i)}</span>${extra}</button>`;}).join('')}</div>`;
-  $$('.lv').forEach(b=>b.onclick=()=>M.go(+b.dataset.i));
+  $$('.lv').forEach(b=>b.onclick=()=>{sfx('tap');M.go(+b.dataset.i);});
 });
 
 function introComic(done){
   const ov=document.createElement('div');ov.className='ov';let i=0;
   const P=[['<div class="cbig">🚀</div>','أهلاً بك في صاروخ القراءة!','في الفضاء مهمات كثيرة، وكل مهمة تحتاج إلى قارئ ذكي مثلك.','Welcome to Reading Rocket! There are many missions in space, and every mission needs a smart reader like you.'],
-    ['<div class="cbig">👾🕵️</div>','اقرأ لتنتصر','اضرب وحوش الكلمات، واقرأ أدلة المحقق لتكشف اللص، واقرأ الرسائل لتهرب من الغرف.','Read to win! Zap the word monsters, read the clues to catch the thief, and read the notes to escape from the rooms.'],
-    ['<div class="cbig">👆</div>','كلمة صعبة؟','اضغط أي كلمة إنجليزية، فتسمعها وتعرف معناها بالعربية.','A hard word? Tap any English word to hear it, and see what it means in Arabic.']];
+    ['<div class="cbig">👾📸🕵️</div>','اقرأ لتنتصر','اضرب وحوش الكلمات، واختر الصورة التي تطابق الجملة، واقرأ أدلة المحقق لتكشف اللص، واقرأ الرسائل لتهرب من الغرف.','Read to win! Zap the word monsters, find the right picture, read the clues to catch the thief, and read the notes to escape from the rooms.'],
+    ['<div class="cbig">👆</div>','كلمة صعبة؟','اضغط أي كلمة إنجليزية، فتسمعها وتعرف معناها بالعربية. وكل كلمة تدخل دفتر كلماتك 📚','A hard word? Tap any English word to hear it, and see what it means in Arabic.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic">${p[0]}<h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🚀 لننطلق!'}</button></div>`;
     guide(p[1]+'. '+p[2],p[3]);
@@ -1078,7 +1504,7 @@ def('monsters',li=>{
     <p class="tip">💡 ${L.tip}</p></div>`;
   const cv=$('#mc'),ctx=cv.getContext('2d');let W=360,H=380,S=90;
   let alive=true,paused=false,raf=0,last=performance.now(),now=0,timers=[];
-  let hearts=3,ri=-1,R=null,good=0,misses=0,laser=null,stars=[];
+  let hearts=3,ri=-1,R=null,good=0,misses=0,laser=null,stars=[],combo=0;
   const at=(dt,fn)=>timers.push({t:now+dt,fn});
   onClean(()=>{alive=false;cancelAnimationFrame(raf);document.removeEventListener('visibilitychange',vis);removeEventListener('resize',size);stopSpeak();});
   function size(){W=$('#ms').clientWidth||360;const top=$('#ms').getBoundingClientRect().top+window.scrollY;H=clamp(Math.floor(innerHeight-top-70),300,560);
@@ -1098,14 +1524,15 @@ def('monsters',li=>{
   function bubble(html,ms=1600){const b=$('#mb');b.innerHTML=html;b.hidden=false;clearTimeout(b._t);b._t=setTimeout(()=>{if(alive)b.hidden=true;},ms);}
   function tap(e){if(!R||paused||R.done)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
     let hit=null,bd=1e9;R.mons.forEach(m=>{if(m.gone||m.pop)return;const d=Math.hypot(m.x-px,(m.y+S*.12)-py);if(d<S*.6&&d<bd){bd=d;hit=m;}});if(!hit)return;
-    if(hit.ok){R.done=true;if(!R.tries)good++;laser={x:hit.x,y:hit.y,t0:now};hit.pop=now;buzz(25);
-      const rc=cv.getBoundingClientRect();at(.12,()=>{FX.burst(rc.left+hit.x,rc.top+hit.y,{n:26,colors:[hit.col,'#fff','#fde047'],speed:260});FX.text(rc.left+hit.x,rc.top+hit.y-30,R.tries?'👍':'⭐ ممتاز!','#fde047',22);});
+    if(hit.ok){R.done=true;if(!R.tries){good++;combo++;}else combo=0;laser={x:hit.x,y:hit.y,t0:now};hit.pop=now;buzz(25);sfx('zap');at(.12,()=>sfx('pop'));
+      const zk=R.t.w.toLowerCase();RS.zap[zk]=(RS.zap[zk]||0)+1;rsave();
+      const rc=cv.getBoundingClientRect();at(.12,()=>{FX.burst(rc.left+hit.x,rc.top+hit.y,{n:26,colors:[hit.col,'#fff','#fde047'],speed:260});FX.text(rc.left+hit.x,rc.top+hit.y-30,R.tries?'👍':combo>=3?`🔥 ${D(combo)} متتالية!`:'⭐ ممتاز!','#fde047',22);});
       sayW(R.t.w);bubble(`<b class="en">${esc(R.t.w)}</b> ${R.t.e||''} <span>${esc(R.t.ar)}</span>`,1300);at(1.2,startRound);}
-    else{R.tries++;misses++;hit.mood='laugh';buzz(60);const ar=dictAr(hit.w.toLowerCase());
+    else{R.tries++;misses++;combo=0;hit.mood='laugh';buzz(60);sfx('no');const ar=dictAr(hit.w.toLowerCase());
       bubble(`😜 <b class="en">${esc(hit.w)}</b> ${ar?`= ${esc(ar)}`:''}<br><small>ليست هي! اقرأ مرة أخرى.</small>`,1800);at(.9,()=>{hit.gone=now;});
       if(R.tries>=1&&!R.audio&&$('#cue .cbtn2')==null)$('#cue').insertAdjacentHTML('beforeend','<button class="cbtn cbtn2" id="chint">🔊</button>'),$('#chint').onclick=()=>sayW(R.t.w);}}
   cv.addEventListener('pointerdown',tap);
-  function reach(){R.done=true;hearts--;hud();misses++;buzz(140);const m=R.mons.find(m=>m.ok);if(m)m.mood='worried';sayW(R.t.w);
+  function reach(){R.done=true;hearts--;hud();misses++;combo=0;buzz(140);sfx('thud');const m=R.mons.find(m=>m.ok);if(m)m.mood='worried';sayW(R.t.w);
     bubble(`🛡️ أصاب الوحش الصاروخ! الكلمة كانت <b class="en">${esc(R.t.w)}</b>`,1700);const rc=cv.getBoundingClientRect();FX.burst(rc.left+W/2,rc.top+H-60,{n:24,colors:['#f87171','#fde047','#fff']});
     if(hearts<=0)return at(1.4,()=>finish(false));at(1.8,startRound);}
   function update(dt){if(timers.length){const due=timers.filter(t=>now>=t.t);if(due.length){timers=timers.filter(t=>now<t.t);due.forEach(t=>{if(alive)t.fn();});}}
@@ -1123,6 +1550,7 @@ def('monsters',li=>{
     drawRocket(ctx,W/2,H-S*.55,S*1.05,now);}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;if(!paused){now+=dt;update(dt);}draw();raf=requestAnimationFrame(loop);}
   function finish(won){if(!alive)return;alive=false;cancelAnimationFrame(raf);
+    sfx(won?'win':'no');
     if(!won)return resultOv({title:'الوحوش أصابت الصاروخ! 😮',stars:0,mood:'sad',gems:good,lines:['لا بأس، كل قارئ يتدرّب!','💡 اقرأ الكلمة حرفاً حرفاً قبل أن تضرب'],
       btns:[{label:'🔁 حاول مرة أخرى',cls:'gold big',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});
     const st=hearts===3&&misses<=1?3:hearts>=2?2:1;RS.mon[li]=Math.max(RS.mon[li]||0,st);rsave();const hasNext=li+1<MLEVELS.length;
@@ -1146,9 +1574,10 @@ const EYEAR=['','عين واحدة','عينان','ثلاث عيون'];
 function factText(f){const v=f.v,n=f.neg;switch(f.a){
   case 'col':return n?[`The thief is not ${v}.`,`اللص ليس ${SCOLAR[v]}.`]:[`The thief is ${v}.`,`اللص ${SCOLAR[v]}.`];
   case 'eyes':{const e=`${NUMEN[v]} ${v===1?'eye':'eyes'}`;return n?[`The thief does not have ${e}.`,`ليس للص ${EYEAR[v]}.`]:[`The thief has ${e}.`,`للص ${EYEAR[v]}.`];}
-  case 'hat':if(v==='none')return['The thief has no hat.','اللص بلا قبعة.'];return n?[`The thief does not have ${HATEN[v]}.`,`اللص لا يلبس ${HATAR2[v]}.`]:[`The thief has ${HATEN[v]}.`,`اللص يلبس ${HATAR2[v]}.`];
+  /* «ليس بلا قبعة» = يلبس قبعة، و«ليس بلا شيء» = يحمل شيئاً */
+  case 'hat':if(v==='none')return n?['The thief has a hat.','اللص يلبس قبعة.']:['The thief has no hat.','اللص بلا قبعة.'];return n?[`The thief does not have ${HATEN[v]}.`,`اللص لا يلبس ${HATAR2[v]}.`]:[`The thief has ${HATEN[v]}.`,`اللص يلبس ${HATAR2[v]}.`];
   case 'gl':return v?['The thief has glasses.','اللص يلبس نظارة.']:['The thief has no glasses.','اللص بلا نظارة.'];
-  case 'item':if(v==='none')return['The thief has nothing in his hands.','يدا اللص فارغتان.'];return n?[`The thief does not have a ${v}.`,`اللص لا يحمل ${ITEMAR[v]}.`]:[`The thief has a ${v}.`,`اللص يحمل ${ITEMAR[v]}.`];
+  case 'item':if(v==='none')return n?['The thief has something in his hands.','اللص يحمل شيئاً في يده.']:['The thief has nothing in his hands.','يدا اللص فارغتان.'];return n?[`The thief does not have a ${v}.`,`اللص لا يحمل ${ITEMAR[v]}.`]:[`The thief has a ${v}.`,`اللص يحمل ${ITEMAR[v]}.`];
   case 'ant':return[`The thief has ${NUMEN[v]} ${v===1?'antenna':'antennas'}.`,v===1?'للص قرن استشعار واحد.':'للص قرنا استشعار.'];
   case 'big':return v?['The thief is big.','اللص كبير.']:['The thief is small.','اللص صغير.'];}}
 const fits=(s,f)=>f.neg?s[f.a]!==f.v:s[f.a]===f.v;
@@ -1183,21 +1612,21 @@ def('case',ci=>{
     $('#clue').innerHTML=`<div class="chead">🔎 الدليل ${D(k+1)} من ${D(clues.length)}</div><p class="en ctxt">${tapWords(en)}</p><p class="car2" id="car" hidden>${ar}</p>
       <div class="row"><button class="chipbtn" id="csay">🔊 اسمع</button><button class="chipbtn" id="ctr">🇸🇦 المعنى</button></div>`;
     $('#clue').classList.remove('pop');void $('#clue').offsetWidth;$('#clue').classList.add('pop');
-    $('#csay').onclick=()=>speak(en,{rate:.8});$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
+    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),[en],{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
   const shouldOut=i=>!fitsAll(sus[i],clues.slice(0,k+1));
   function check(){const need=sus.map((_,i)=>i).filter(shouldOut);if(need.every(i=>out.has(i))){
-      if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');k++;setTimeout(()=>{if(!done)showClue();},500);}
+      if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');sfx('ok');k++;setTimeout(()=>{if(!done)showClue();},500);}
       else catchThief();}}
-  function catchThief(){done=true;const card=$(`.scard[data-i="${thief}"]`);card.classList.add('caught');const [x,y]=centerOf(card);FX.burst(x,y,{n:40,speed:320});FX.confetti();
+  function catchThief(){done=true;sfx('win');const card=$(`.scard[data-i="${thief}"]`);card.classList.add('caught');const [x,y]=centerOf(card);FX.burst(x,y,{n:40,speed:320});FX.confetti();
     speak('You found the thief!',{rate:.85});
     const st=miss===0?3:miss<=2?2:1;RS.cases[ci]=Math.max(RS.cases[ci]||0,st);rsave();
     setTimeout(()=>{const hasNext=ci+1<CASES.length;resultOv({title:'🕵️ أمسكت باللص!',stars:st,gems:st*3+2,
       lines:[`${C.loot} عادت ${C.lootAr} إلى مكانها!`,`📖 قرأت ${cntAr(clues.length,W_CLUE)}`,miss?`أخطاء: ${D(miss)}`:'بدون أي خطأ! 👑'],
       btns:[...(hasNext?[{label:'القضية التالية ←',cls:'gold big',fn:()=>go('case',ci+1,false)}]:[]),{label:'🔁 قضية جديدة',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});},1300);}
   $$('.scard').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.i;if(out.has(i))return;
-    if(!shouldOut(i)){miss++;buzz(60);shake(b);const [en,ar]=clueText(clues[k]);
+    if(!shouldOut(i)){miss++;buzz(60);shake(b);sfx('no');const [en,ar]=clueText(clues[k]);
       toast(`🤔 هذا يطابق الدليل! اقرأه مرة أخرى: <span class="en">${esc(en)}</span>`,3000);if(miss>=2&&!arShown){$('#car').hidden=false;arShown=true;}return;}
-    out.add(i);b.classList.add('out');buzz(20);check();});
+    out.add(i);b.classList.add('out');buzz(20);sfx('pop');check();});
   showClue();
 });
 
@@ -1216,26 +1645,26 @@ def('room',ri=>{
     $('#note').innerHTML=`<div class="nhead">📜 ${first?'رسالة على الباب':'رسالة جديدة'}</div><p class="en ntxt">${tapWords(st.en)}</p><p class="nar" id="nar" hidden>${st.ar}</p>
       <div class="row"><button class="chipbtn" id="nsay">🔊 اسمع</button><button class="chipbtn" id="ntr">🇸🇦 المعنى</button></div>`;
     $('#note').classList.remove('pop');void $('#note').offsetWidth;$('#note').classList.add('pop');
-    $('#nsay').onclick=()=>speak(st.en,{rate:.8});$('#ntr').onclick=()=>{$('#nar').hidden=false;};}
+    $('#nsay').onclick=()=>{sfx('tap');readAlong($('#note .ntxt'),[st.en],{rate:.8});};$('#ntr').onclick=()=>{$('#nar').hidden=false;};}
   function fb(h,bad){const e=$('#efb');e.innerHTML=h;e.classList.toggle('bad',!!bad);e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop');}
   function svgPt(ev){const svg=$('#rw svg'),pt=svg.createSVGPoint();pt.x=ev.clientX;pt.y=ev.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse());}
   function pop(x,y,emo){const g=$('#rfx');const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('font-size','30');t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','central');t.setAttribute('class','fpop');t.textContent=emo;g.appendChild(t);setTimeout(()=>t.remove(),1400);}
   $('#rw').addEventListener('click',ev=>{if(done)return;const p=svgPt(ev);
-    if(p.x>=296&&p.x<=356&&p.y>=82&&p.y<=204){if(hasKey){done=true;$('#rw').innerHTML=roomSVG(R,{open:true});win();}
-      else{fb('🔒 الباب مقفل. اقرأ الرسالة وابحث عن المفتاح!',true);buzz(40);}return;}
-    const hit=spots.filter(s=>p.x>=s.r[0]&&p.x<=s.r[0]+s.r[2]&&p.y>=s.r[1]&&p.y<=s.r[1]+s.r[3]).sort((a,b)=>a.r[2]*a.r[3]-b.r[2]*b.r[3])[0];
+    if(p.x>=296&&p.x<=356&&p.y>=82&&p.y<=204){if(hasKey){done=true;sfx('whoosh');$('#rw').innerHTML=roomSVG(R,{open:true});win();}
+      else{fb('🔒 الباب مقفل. اقرأ الرسالة وابحث عن المفتاح!',true);buzz(40);sfx('thud');}return;}
+    const hit=spots.filter(s=>p.x>=s.r[0]&&p.x<=s.r[0]+s.r[2]&&p.y>=s.r[1]&&p.y<=s.r[1]+s.r[3]).sort((a,b)=>(b.p==='between')-(a.p==='between')||a.r[2]*a.r[3]-b.r[2]*b.r[3])[0];
     const st=R.steps[k];if(!st)return;
-    if(hit&&hit.id===st.spot){buzz(25);const cx=hit.r[0]+hit.r[2]/2,cy=hit.r[1]+hit.r[3]/2;pop(cx,cy,st.get);got.push(st.get);
+    if(hit&&hit.id===st.spot){buzz(25);sfx(st.get==='🔑'?'key':'pop');const cx=hit.r[0]+hit.r[2]/2,cy=hit.r[1]+hit.r[3]/2;pop(cx,cy,st.get);got.push(st.get);
       const [x,y]=[ev.clientX,ev.clientY];FX.burst(x,y,{n:18,colors:['#fde047','#fff','#a78bfa']});
       $('#inv').insertAdjacentHTML('beforeend',`<span class="ig">${st.get}</span>`);k++;
       if(st.get==='🔑'){hasKey=true;fb('🔑 وجدت المفتاح! الآن اضغط الباب لتهرب.');speak('You found the key!',{rate:.85});
         $('#note').innerHTML=`<div class="nhead">🔑 المفتاح معك!</div><p class="en ntxt">${tapWords('Open the door!')}</p>`;}
       else{fb('📜 وجدت رسالة جديدة! اقرأها.');showNote();}return;}
-    miss++;buzz(60);
+    miss++;buzz(60);sfx('no');
     if(hit){const pe=PREPEN[hit.p],pa=PREPAR[hit.p];fb(`🙈 <span class="en">Nothing ${pe} ${esc(hit.o.en)}.</span> لا شيء ${pa} ${hit.o.ar}. اقرأ الرسالة مرة أخرى!`,true);}
     else fb('🙈 لا شيء هنا. اقرأ الرسالة مرة أخرى!',true);
     if(miss>=3)$('#nar')&&($('#nar').hidden=false);});
-  function win(){speak('You escaped! Great reading!',{rate:.85});FX.confetti();const st=miss===0?3:miss<=2?2:1;RS.rooms[ri]=Math.max(RS.rooms[ri]||0,st);rsave();
+  function win(){speak('You escaped! Great reading!',{rate:.85});sfx('win');FX.confetti();const st=miss===0?3:miss<=2?2:1;RS.rooms[ri]=Math.max(RS.rooms[ri]||0,st);rsave();
     setTimeout(()=>{const hasNext=ri+1<ROOMS.length;resultOv({title:'🚪 هربت من الغرفة!',stars:st,gems:st*3+1,
       lines:[`📜 قرأت ${cntAr(R.steps.length,W_NOTE)}`,miss?`ضغطات خاطئة: ${D(miss)}`:'بدون أي خطأ! 👑',st<3?'اقرأ كل كلمة: <span class="en">on, under, in, behind…</span>':''],
       btns:[...(hasNext?[{label:'الغرفة التالية ←',cls:'gold big',fn:()=>go('room',ri+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});},1300);}
@@ -1244,11 +1673,11 @@ def('room',ri=>{
 
 /* ===== مجرّة القصص: اقرأ، واختر طريقك ===== */
 def('tale',ti=>{
-  const S=TALES[ti];let pid=S.start;
+  const S=TALES[ti];let pid=S.start,depth=1,ra=null;
   setTitle(`📖 ${S.ar}`);
-  function show(){const P=S.pages[pid];
+  function show(){const P=S.pages[pid];if(ra){ra.stop();ra=null;}
     $('#view').innerHTML=`<div class="tale">
-      <div class="tpic">${P.p}</div>
+      <div class="tpic"><span class="tpg">${P.end?'🏁':`📄 ${D(depth)}`}</span>${P.p}</div>
       <div class="tpage" id="tp">${P.s.map(s=>`<p class="tl en">${tapWords(s)}</p>`).join('')}</div>
       <div class="tar" id="tar" hidden>${P.a.map(a=>`<p>${a}</p>`).join('')}</div>
       <div class="row cen"><button class="chipbtn" id="tsay">🔊 اقرأ لي</button><button class="chipbtn" id="tread">🎤 اقرأ بصوتك</button><button class="chipbtn" id="ttr">🇸🇦 الترجمة</button></div>
@@ -1257,19 +1686,64 @@ def('tale',ti=>{
         :`<div class="tend ${P.end}">${P.end==='funny'?'😆 نهاية مضحكة!':'🌟 نهاية سعيدة!'}</div><p class="muted cen" id="tcount"></p>
           <div class="btns"><button class="btn gold big wide" id="tagain">🔁 جرّب طريقاً آخر</button><button class="btn ghost wide" id="tlist">📚 قصة أخرى</button></div>`}
       </div>`;
-    $('#tsay').onclick=()=>speak(P.s.join(' '),{rate:.82});
+    const sayBtn=$('#tsay');
+    sayBtn.onclick=()=>{sfx('tap');if(ra){ra.stop();ra=null;sayBtn.innerHTML='🔊 اقرأ لي';return;}
+      sayBtn.innerHTML='⏹ توقّف';ra=readAlong($('#tp'),P.s,{rate:.82,lineEls:$$('#tp .tl'),onend:()=>{ra=null;if(sayBtn.isConnected)sayBtn.innerHTML='🔊 اقرأ لي';}});};
     $('#ttr').onclick=()=>{$('#tar').hidden=!$('#tar').hidden;$$('.tca').forEach(e=>e.hidden=$('#tar').hidden);};
-    readAloudBtn($('#tread'),()=>P.s.join(' '),c=>{const ws=$$('#tp .w');let j=0;const tw=normS(P.s.join(' ')).split(' ');
+    readAloudBtn($('#tread'),()=>P.s.join(' '),c=>{const ws=$$('#tp .w');let j=0;
       ws.forEach(w=>{const n=normS(w.textContent);if(!n)return;const ok=c.hits[j];w.classList.toggle('ok',!!ok);w.classList.toggle('miss',!ok);j+=n.split(' ').length;});
-      const st=c.ratio>=.85?3:c.ratio>=.55?2:1;$('#tsc').innerHTML=`<div class="tscore">${starRowR(st)} <b>${['','حاول مرة أخرى 👍','قراءة جيدة! 👏','قراءة ممتازة! 🌟'][st]}</b></div>`;if(st===3)World.add(1);});
-    $$('.tc').forEach(b=>b.onclick=()=>{pid=P.c[+b.dataset.i][2];stopSpeak();show();window.scrollTo(0,0);});
+      const st=c.ratio>=.85?3:c.ratio>=.55?2:1;sfx(st===3?'win':st===2?'ok':'pop');
+      $('#tsc').innerHTML=`<div class="tscore">${starRowR(st)} <b>${['','حاول مرة أخرى 👍','قراءة جيدة! 👏','قراءة ممتازة! 🌟'][st]}</b></div>`;if(st===3)World.add(1);});
+    $$('.tc').forEach(b=>b.onclick=()=>{sfx('whoosh');pid=P.c[+b.dataset.i][2];depth++;stopSpeak();show();window.scrollTo(0,0);});
     if(P.end){const key=ti+':'+pid,fresh=!RS.ends[key];RS.ends[key]=1;const found=Object.keys(RS.ends).filter(e=>e.startsWith(ti+':')).length,total=endsOf(ti);
-      RS.stories[ti]=found>=total?3:found>=2?2:1;rsave();if(fresh){World.add(4);FX.confetti();toast('🌟 نهاية جديدة! 💎 +٤');}
-      $('#tcount').innerHTML=`اكتشفت ${D(found)} من ${D(total)} نهايات في هذه القصة.`;
-      $('#tagain').onclick=()=>{pid=S.start;show();window.scrollTo(0,0);};$('#tlist').onclick=()=>go('rlevels','tales',false);}}
+      RS.stories[ti]=found>=total?3:found>=2?2:1;rsave();if(fresh){World.add(4);FX.confetti();sfx('win');toast('🌟 نهاية جديدة! 💎 +٤');}
+      $('#tcount').innerHTML=`اكتشفت ${D(found)} من ${D(total)} نهايات في هذه القصة.${found>=total?' 👑 كل النهايات!':''}`;
+      $('#tagain').onclick=()=>{pid=S.start;depth=1;show();window.scrollTo(0,0);};$('#tlist').onclick=()=>go('rlevels','tales',false);}}
+  onClean(()=>{if(ra){ra.stop();ra=null;}});
   show();
 });
 const starRowR=n=>`<span class="srow">${[0,1,2].map(i=>`<i class="${i<n?'on':''}">★</i>`).join('')}</span>`;
+
+/* ===== دفتر كلماتي: كل كلمة ضربتها في الوحوش أو ضغطتها في القراءة، مع معناها، واختبار سريع ===== */
+const WEMO={};[...Object.values(CVC).flatMap(v=>v.words),...PATTERNS.flatMap(p=>p.words),...MAGIC].forEach(([w,e,ar])=>{WEMO[w]=[e,ar];});
+SIGHT.forEach(s=>s.words.forEach(([w,ar])=>{const k=w.toLowerCase();if(!WEMO[k])WEMO[k]=['',ar];}));
+const wMean=w=>(WEMO[w]&&WEMO[w][1])||dictAr(w)||'';
+function bookWords(){const all=Object.assign({},RS.words);Object.entries(RS.zap||{}).forEach(([w,c])=>{all[w]=(all[w]||0)+c;});
+  return Object.entries(all).filter(([w])=>w&&/^[a-z]+$/.test(w)).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));}
+def('book',()=>{
+  setTitle('📚 كلماتي');const ws=bookWords(),n=ws.length,goals=[10,25,50,100,200,400],g=goals.find(x=>x>n)||n;
+  const quizable=ws.filter(([w])=>wMean(w)).length>=4;
+  $('#view').innerHTML=`<div class="btop"><b>${D(n)}</b><span>كلمة إنجليزية في دفترك!<small>الهدف التالي: ${D(g)} كلمة 🏆</small></span></div>
+    <div class="bbar big"><i style="width:${Math.min(100,n/g*100)}%"></i></div>
+    ${quizable?'<button class="btn gold big wide" id="bq">🧠 اختبر نفسك: ما معنى الكلمة؟</button>':''}
+    <p class="muted small">اضغط أي كلمة لتسمعها. الكلمات تدخل الدفتر عندما تضرب وحشها أو تضغطها في القراءة.</p>
+    <div class="bgrid">${n?ws.map(([w,c])=>{const e=WEMO[w]&&WEMO[w][0];return `<button class="bwd" data-w="${esc(w)}">${e?`<span class="be">${e}</span>`:''}<b class="en">${esc(w)}</b><small>${esc(wMean(w)||'🔊')}</small>${c>2?`<i>×${D(c)}</i>`:''}</button>`;}).join('')
+      :'<p class="muted cen">الدفتر فارغ الآن. اضرب وحوش الكلمات 👾 واضغط الكلمات في القصص 📖 لتملأه!</p>'}</div>`;
+  $$('.bwd').forEach(b=>b.onclick=()=>{sfx('tap');speak(b.dataset.w,{rate:.8});shake(b,'pop');});
+  if($('#bq'))$('#bq').onclick=()=>go('bquiz');
+});
+def('bquiz',()=>{
+  setTitle('🧠 اختبر نفسك');const ws=bookWords().map(x=>x[0]).filter(wMean);const N=Math.min(6,ws.length);
+  /* الكلمات الأقل تكراراً أولاً قليلاً، حتى نراجع ما نسيناه */
+  const qs=shuffle(ws.slice()).sort((a,b)=>((RS.words[a]||0)+(RS.zap[a]||0))-((RS.words[b]||0)+(RS.zap[b]||0))+(Math.random()-.5)*4).slice(0,N);
+  let qi=0,right=0,locked=false;
+  function ask(){if(qi>=N)return end();locked=false;const w=qs[qi],ar=wMean(w);
+    const others=shuffle([...new Set(ws.filter(x=>x!==w).map(wMean).concat(Object.values(DICT)).filter(a=>a&&a!==ar))]).slice(0,2);
+    const ch=shuffle([ar,...others]),e=WEMO[w]&&WEMO[w][0];
+    $('#view').innerHTML=`<div class="bq"><div class="phud"><span class="pfuel"><i style="width:${qi/N*100}%"></i></span><b>${D(qi+1)} / ${D(N)}</b></div>
+      <div class="bqw"><button class="cbtn" id="bqs" aria-label="اسمع">🔊</button><b class="en">${esc(w)}</b></div>
+      <p class="muted cen">ما معنى هذه الكلمة؟</p>
+      <div class="bqc">${ch.map(a=>`<button class="btn ghost wide" data-a="${esc(a)}">${esc(a)}</button>`).join('')}</div></div>`;
+    $('#bqs').onclick=()=>speak(w,{rate:.8});speak(w,{rate:.8});
+    $$('.bqc .btn').forEach(b=>b.onclick=()=>{if(locked)return;locked=true;
+      if(b.dataset.a===ar){right++;b.classList.add('ok');sfx('ok');const [x,y]=centerOf(b);FX.burst(x,y,{n:18});FX.text(x,y-20,`${e||'⭐'} ✓`,'#fde047',24);}
+      else{b.classList.add('no');sfx('no');shake(b);$$('.bqc .btn').forEach(o=>{if(o.dataset.a===ar)o.classList.add('ok');});}
+      setTimeout(()=>{qi++;ask();},1200);});}
+  function end(){const st=right===N?3:right>=N-2?2:1;sfx('win');
+    resultOv({title:'🧠 انتهى الاختبار!',stars:st,gems:right,lines:[`✅ إجابات صحيحة: ${D(right)} من ${D(N)}`,st<3?'كرّر الاختبار لتتذكر الكلمات أكثر':'ذاكرة رائعة! 👑'],
+      btns:[{label:'🔁 اختبار جديد',cls:'gold big',fn:()=>rerender()},{label:'📚 الدفتر',cls:'ghost',fn:()=>back()}]});}
+  ask();
+});
 
 /* ===== البداية ===== */
 FX.init();

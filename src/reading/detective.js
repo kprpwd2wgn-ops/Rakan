@@ -6,9 +6,10 @@ const EYEAR=['','عين واحدة','عينان','ثلاث عيون'];
 function factText(f){const v=f.v,n=f.neg;switch(f.a){
   case 'col':return n?[`The thief is not ${v}.`,`اللص ليس ${SCOLAR[v]}.`]:[`The thief is ${v}.`,`اللص ${SCOLAR[v]}.`];
   case 'eyes':{const e=`${NUMEN[v]} ${v===1?'eye':'eyes'}`;return n?[`The thief does not have ${e}.`,`ليس للص ${EYEAR[v]}.`]:[`The thief has ${e}.`,`للص ${EYEAR[v]}.`];}
-  case 'hat':if(v==='none')return['The thief has no hat.','اللص بلا قبعة.'];return n?[`The thief does not have ${HATEN[v]}.`,`اللص لا يلبس ${HATAR2[v]}.`]:[`The thief has ${HATEN[v]}.`,`اللص يلبس ${HATAR2[v]}.`];
+  /* «ليس بلا قبعة» = يلبس قبعة، و«ليس بلا شيء» = يحمل شيئاً */
+  case 'hat':if(v==='none')return n?['The thief has a hat.','اللص يلبس قبعة.']:['The thief has no hat.','اللص بلا قبعة.'];return n?[`The thief does not have ${HATEN[v]}.`,`اللص لا يلبس ${HATAR2[v]}.`]:[`The thief has ${HATEN[v]}.`,`اللص يلبس ${HATAR2[v]}.`];
   case 'gl':return v?['The thief has glasses.','اللص يلبس نظارة.']:['The thief has no glasses.','اللص بلا نظارة.'];
-  case 'item':if(v==='none')return['The thief has nothing in his hands.','يدا اللص فارغتان.'];return n?[`The thief does not have a ${v}.`,`اللص لا يحمل ${ITEMAR[v]}.`]:[`The thief has a ${v}.`,`اللص يحمل ${ITEMAR[v]}.`];
+  case 'item':if(v==='none')return n?['The thief has something in his hands.','اللص يحمل شيئاً في يده.']:['The thief has nothing in his hands.','يدا اللص فارغتان.'];return n?[`The thief does not have a ${v}.`,`اللص لا يحمل ${ITEMAR[v]}.`]:[`The thief has a ${v}.`,`اللص يحمل ${ITEMAR[v]}.`];
   case 'ant':return[`The thief has ${NUMEN[v]} ${v===1?'antenna':'antennas'}.`,v===1?'للص قرن استشعار واحد.':'للص قرنا استشعار.'];
   case 'big':return v?['The thief is big.','اللص كبير.']:['The thief is small.','اللص صغير.'];}}
 const fits=(s,f)=>f.neg?s[f.a]!==f.v:s[f.a]===f.v;
@@ -43,20 +44,20 @@ def('case',ci=>{
     $('#clue').innerHTML=`<div class="chead">🔎 الدليل ${D(k+1)} من ${D(clues.length)}</div><p class="en ctxt">${tapWords(en)}</p><p class="car2" id="car" hidden>${ar}</p>
       <div class="row"><button class="chipbtn" id="csay">🔊 اسمع</button><button class="chipbtn" id="ctr">🇸🇦 المعنى</button></div>`;
     $('#clue').classList.remove('pop');void $('#clue').offsetWidth;$('#clue').classList.add('pop');
-    $('#csay').onclick=()=>speak(en,{rate:.8});$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
+    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),[en],{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
   const shouldOut=i=>!fitsAll(sus[i],clues.slice(0,k+1));
   function check(){const need=sus.map((_,i)=>i).filter(shouldOut);if(need.every(i=>out.has(i))){
-      if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');k++;setTimeout(()=>{if(!done)showClue();},500);}
+      if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');sfx('ok');k++;setTimeout(()=>{if(!done)showClue();},500);}
       else catchThief();}}
-  function catchThief(){done=true;const card=$(`.scard[data-i="${thief}"]`);card.classList.add('caught');const [x,y]=centerOf(card);FX.burst(x,y,{n:40,speed:320});FX.confetti();
+  function catchThief(){done=true;sfx('win');const card=$(`.scard[data-i="${thief}"]`);card.classList.add('caught');const [x,y]=centerOf(card);FX.burst(x,y,{n:40,speed:320});FX.confetti();
     speak('You found the thief!',{rate:.85});
     const st=miss===0?3:miss<=2?2:1;RS.cases[ci]=Math.max(RS.cases[ci]||0,st);rsave();
     setTimeout(()=>{const hasNext=ci+1<CASES.length;resultOv({title:'🕵️ أمسكت باللص!',stars:st,gems:st*3+2,
       lines:[`${C.loot} عادت ${C.lootAr} إلى مكانها!`,`📖 قرأت ${cntAr(clues.length,W_CLUE)}`,miss?`أخطاء: ${D(miss)}`:'بدون أي خطأ! 👑'],
       btns:[...(hasNext?[{label:'القضية التالية ←',cls:'gold big',fn:()=>go('case',ci+1,false)}]:[]),{label:'🔁 قضية جديدة',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});},1300);}
   $$('.scard').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.i;if(out.has(i))return;
-    if(!shouldOut(i)){miss++;buzz(60);shake(b);const [en,ar]=clueText(clues[k]);
+    if(!shouldOut(i)){miss++;buzz(60);shake(b);sfx('no');const [en,ar]=clueText(clues[k]);
       toast(`🤔 هذا يطابق الدليل! اقرأه مرة أخرى: <span class="en">${esc(en)}</span>`,3000);if(miss>=2&&!arShown){$('#car').hidden=false;arShown=true;}return;}
-    out.add(i);b.classList.add('out');buzz(20);check();});
+    out.add(i);b.classList.add('out');buzz(20);sfx('pop');check();});
   showClue();
 });

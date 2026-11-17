@@ -12,7 +12,7 @@ function micBar(root,o){
   const set=s=>{state=s;btn.classList.toggle('on',s==='listen');};
   const showTyped=()=>{$('#mtf',root).hidden=false;};
   function start(){if(locked)return;if(state==='listen'){stopListen();return;}
-    stopSpeak();help.innerHTML='';set('listen');live.innerHTML='<span class="hear">🎧 أسمعك… تكلّم الآن</span>';buzz(15);
+    stopSpeak();sfx('tap');help.innerHTML='';set('listen');live.innerHTML='<span class="hear">🎧 أسمعك… تكلّم الآن</span>';buzz(15);
     listen({onLive:t=>{live.innerHTML=`<span class="en said">${esc(t)}</span>`;},
       onDone:r=>{set('idle');if(!r.text){live.textContent='لم أسمعك جيداً… اضغط 🎤 وتكلّم بصوت أوضح.';return;}
         live.innerHTML=`<span class="en said">“${esc(r.text)}”</span>`;T.spoken++;tsave();o.onText({text:r.text,alts:r.alts,conf:r.conf||0,typed:false});},

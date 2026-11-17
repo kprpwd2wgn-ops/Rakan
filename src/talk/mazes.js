@@ -15,5 +15,11 @@ const MAZES=[
  {map:['S.#k..','.##.#.','...*#.','#.###.','ED....'],words:['pick up the key','open the door','go left'],tip:'متاهة طويلة. خطوة خطوة، وابحث عن المفتاح!'},
  {map:['S...r','.####','.R..b','.####','.B..E'],words:['pick up the red key','open the red door','the blue key'],tip:'المفتاح الأحمر يفتح الباب الأحمر، والأزرق يفتح الأزرق.'},
  {map:['S.#....','..#.##.','#...#..','##.##.#','E..*...'],words:['go down and right','go right two and up'],tip:'جرّب أمرين في جملة واحدة: go down and right 🌟'},
- {map:['r..k..S','.######','...R.*b','######B','E.D.*..'],words:['the gold key','the red door','the blue door'],tip:'المتاهة الأخيرة! ثلاثة مفاتيح وثلاثة أبواب بثلاثة ألوان.'}
+ {map:['r..k..S','.######','...R.*b','######B','E.D.*..'],words:['the gold key','the red door','the blue door'],tip:'ثلاثة مفاتيح وثلاثة أبواب بثلاثة ألوان!'},
+ {map:['S..#..E','..#..#.','#...#..','..#...#','*...#.*'],words:['go right one','go down','go up'],tip:'أول خطوة تحتاج رقماً: go right one، ثم انزلق!'},
+ {map:['S...#..','##.##.#','*.....*','.#####.','...E...'],words:['go right two','go left','go down'],tip:'متاهة النجوم! اجمع النجمتين ⭐ قبل أن تصل إلى المخرج.'},
+ {map:['S.....#','####..k','*..D...','##.####','E.....*'],words:['go down one','pick up the key','open the door'],tip:'المفتاح في الزاوية. استخدم الأرقام لتقف حيث تريد!'},
+ {map:['S..#r..','.#.###.','b..B..*','######R','E......'],words:['pick up the blue key','open the blue door','the red key'],tip:'الأزرق أولاً، ثم الأحمر!'},
+ {map:['S.#...k','.##.##.','..#.#E#','r.#.#D.','..R...*'],words:['the red door','the gold key','go right two'],tip:'افتح الباب الأحمر لتصل إلى المفتاح الذهبي.'},
+ {map:['S.k#b..','.#.#.#.','*..D...','######B','E.R...r'],words:['the gold key','the blue door','the red door'],tip:'المتاهة الكبرى! ذهبي، ثم أزرق، ثم أحمر. 🏆'}
 ];

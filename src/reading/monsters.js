@@ -19,7 +19,7 @@ def('monsters',li=>{
     <p class="tip">💡 ${L.tip}</p></div>`;
   const cv=$('#mc'),ctx=cv.getContext('2d');let W=360,H=380,S=90;
   let alive=true,paused=false,raf=0,last=performance.now(),now=0,timers=[];
-  let hearts=3,ri=-1,R=null,good=0,misses=0,laser=null,stars=[];
+  let hearts=3,ri=-1,R=null,good=0,misses=0,laser=null,stars=[],combo=0;
   const at=(dt,fn)=>timers.push({t:now+dt,fn});
   onClean(()=>{alive=false;cancelAnimationFrame(raf);document.removeEventListener('visibilitychange',vis);removeEventListener('resize',size);stopSpeak();});
   function size(){W=$('#ms').clientWidth||360;const top=$('#ms').getBoundingClientRect().top+window.scrollY;H=clamp(Math.floor(innerHeight-top-70),300,560);
@@ -39,14 +39,15 @@ def('monsters',li=>{
   function bubble(html,ms=1600){const b=$('#mb');b.innerHTML=html;b.hidden=false;clearTimeout(b._t);b._t=setTimeout(()=>{if(alive)b.hidden=true;},ms);}
   function tap(e){if(!R||paused||R.done)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
     let hit=null,bd=1e9;R.mons.forEach(m=>{if(m.gone||m.pop)return;const d=Math.hypot(m.x-px,(m.y+S*.12)-py);if(d<S*.6&&d<bd){bd=d;hit=m;}});if(!hit)return;
-    if(hit.ok){R.done=true;if(!R.tries)good++;laser={x:hit.x,y:hit.y,t0:now};hit.pop=now;buzz(25);
-      const rc=cv.getBoundingClientRect();at(.12,()=>{FX.burst(rc.left+hit.x,rc.top+hit.y,{n:26,colors:[hit.col,'#fff','#fde047'],speed:260});FX.text(rc.left+hit.x,rc.top+hit.y-30,R.tries?'👍':'⭐ ممتاز!','#fde047',22);});
+    if(hit.ok){R.done=true;if(!R.tries){good++;combo++;}else combo=0;laser={x:hit.x,y:hit.y,t0:now};hit.pop=now;buzz(25);sfx('zap');at(.12,()=>sfx('pop'));
+      const zk=R.t.w.toLowerCase();RS.zap[zk]=(RS.zap[zk]||0)+1;rsave();
+      const rc=cv.getBoundingClientRect();at(.12,()=>{FX.burst(rc.left+hit.x,rc.top+hit.y,{n:26,colors:[hit.col,'#fff','#fde047'],speed:260});FX.text(rc.left+hit.x,rc.top+hit.y-30,R.tries?'👍':combo>=3?`🔥 ${D(combo)} متتالية!`:'⭐ ممتاز!','#fde047',22);});
       sayW(R.t.w);bubble(`<b class="en">${esc(R.t.w)}</b> ${R.t.e||''} <span>${esc(R.t.ar)}</span>`,1300);at(1.2,startRound);}
-    else{R.tries++;misses++;hit.mood='laugh';buzz(60);const ar=dictAr(hit.w.toLowerCase());
+    else{R.tries++;misses++;combo=0;hit.mood='laugh';buzz(60);sfx('no');const ar=dictAr(hit.w.toLowerCase());
       bubble(`😜 <b class="en">${esc(hit.w)}</b> ${ar?`= ${esc(ar)}`:''}<br><small>ليست هي! اقرأ مرة أخرى.</small>`,1800);at(.9,()=>{hit.gone=now;});
       if(R.tries>=1&&!R.audio&&$('#cue .cbtn2')==null)$('#cue').insertAdjacentHTML('beforeend','<button class="cbtn cbtn2" id="chint">🔊</button>'),$('#chint').onclick=()=>sayW(R.t.w);}}
   cv.addEventListener('pointerdown',tap);
-  function reach(){R.done=true;hearts--;hud();misses++;buzz(140);const m=R.mons.find(m=>m.ok);if(m)m.mood='worried';sayW(R.t.w);
+  function reach(){R.done=true;hearts--;hud();misses++;combo=0;buzz(140);sfx('thud');const m=R.mons.find(m=>m.ok);if(m)m.mood='worried';sayW(R.t.w);
     bubble(`🛡️ أصاب الوحش الصاروخ! الكلمة كانت <b class="en">${esc(R.t.w)}</b>`,1700);const rc=cv.getBoundingClientRect();FX.burst(rc.left+W/2,rc.top+H-60,{n:24,colors:['#f87171','#fde047','#fff']});
     if(hearts<=0)return at(1.4,()=>finish(false));at(1.8,startRound);}
   function update(dt){if(timers.length){const due=timers.filter(t=>now>=t.t);if(due.length){timers=timers.filter(t=>now<t.t);due.forEach(t=>{if(alive)t.fn();});}}
@@ -64,6 +65,7 @@ def('monsters',li=>{
     drawRocket(ctx,W/2,H-S*.55,S*1.05,now);}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;if(!paused){now+=dt;update(dt);}draw();raf=requestAnimationFrame(loop);}
   function finish(won){if(!alive)return;alive=false;cancelAnimationFrame(raf);
+    sfx(won?'win':'no');
     if(!won)return resultOv({title:'الوحوش أصابت الصاروخ! 😮',stars:0,mood:'sad',gems:good,lines:['لا بأس، كل قارئ يتدرّب!','💡 اقرأ الكلمة حرفاً حرفاً قبل أن تضرب'],
       btns:[{label:'🔁 حاول مرة أخرى',cls:'gold big',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});
     const st=hearts===3&&misses<=1?3:hearts>=2?2:1;RS.mon[li]=Math.max(RS.mon[li]||0,st);rsave();const hasNext=li+1<MLEVELS.length;

@@ -26,30 +26,30 @@ def('maze',i=>{
   async function run(cmds){busy=true;mic.lock(true);
     for(const c of cmds){if(!alive)return;
       if(c.k==='move'){const m=mzMove(M,st,c.dir,c.n);used++;hudUp();
-        if(m.steps){setMood('talk',0);bubble(`Going ${c.dir}${c.n?' '+NUMW[c.n]:''}!`,`أتحرك ${DIRAR[c.dir]}${c.n?` ${D(c.n)} ${c.n===1?'خطوة':c.n===2?'خطوتين':'خطوات'}`:''}!`);
+        if(m.steps){setMood('talk',0);sfx('whoosh');bubble(`Going ${c.dir}${c.n?' '+NUMW[c.n]:''}!`,`أتحرك ${DIRAR[c.dir]}${c.n?` ${D(c.n)} ${c.n===1?'خطوة':c.n===2?'خطوتين':'خطوات'}`:''}!`);
           await walk(m.path);st=Object.assign({},st,{r:m.r,c:m.c});setMood('idle',0);
           if(mzAtExit(M,st))return finish();}
-        if(m.why&&(c.n?m.steps<c.n:(!m.steps||m.why==='door'))){bump={dir:c.dir,t0:now};buzz(40);setMood('bump');
+        if(m.why&&(c.n?m.steps<c.n:(!m.steps||m.why==='door'))){bump={dir:c.dir,t0:now};buzz(40);sfx('thud');setMood('bump');
           if(m.why==='door')bubble('A door! It is closed.','باب! إنه مغلق.');else bubble('Bonk! A wall!','آخ! جدار!');await pause(650);}}
       else if(c.k==='pick'){used++;const p=mzPick(M,st,c.col);
-        if(p.ok){st=p.st;spark(st.r,st.c,KEYHEX[p.col]);setMood('happy');bubble(`Got the ${p.col} key!`,`أخذت المفتاح ${KEYAR[p.col]}!`);buzz(30);}
-        else if(p.why==='color'){setMood('confused');bubble(`Hmm, this key is ${p.col}!`,`همم، هذا المفتاح ${KEYAR[p.col].replace('ال','')}!`);}
-        else{setMood('confused');bubble('There is no key here.','لا يوجد مفتاح هنا.');}await pause(700);}
+        if(p.ok){st=p.st;sfx('key');spark(st.r,st.c,KEYHEX[p.col]);setMood('happy');bubble(`Got the ${p.col} key!`,`أخذت المفتاح ${KEYAR[p.col]}!`);buzz(30);}
+        else if(p.why==='color'){setMood('confused');sfx('no');bubble(`Hmm, this key is ${p.col}!`,`همم، هذا المفتاح ${KEYAR[p.col].replace('ال','')}!`);}
+        else{setMood('confused');sfx('no');bubble('There is no key here.','لا يوجد مفتاح هنا.');}await pause(700);}
       else if(c.k==='open'){used++;const o=mzOpen(M,st,c.col);
-        if(o.ok){st=o.st;const d=M.doors[o.di];spark(d.r,d.c,KEYHEX[o.col]);setMood('happy');bubble('The door is open!','انفتح الباب!');buzz(30);}
+        if(o.ok){st=o.st;sfx('whoosh');const d=M.doors[o.di];spark(d.r,d.c,KEYHEX[o.col]);setMood('happy');bubble('The door is open!','انفتح الباب!');buzz(30);}
         else if(o.why==='locked'){setMood('confused');bubble(`It is locked! I need the ${o.col} key.`,`مقفل! أحتاج المفتاح ${KEYAR[o.col]}.`);}
         else if(o.why==='color'){setMood('confused');bubble('That is not the right color!','اللون غير مناسب!');}
         else{setMood('confused');bubble('There is no door next to me.','لا يوجد باب بجانبي.');}await pause(700);}
       hudUp();}
     busy=false;mic.lock(false);}
   function spark(r,c,col){const rc=cv.getBoundingClientRect();FX.burst(rc.left+ox+c*cell+cell/2,rc.top+oy+r*cell+cell/2,{n:18,colors:[col,'#fff','#fde68a'],speed:220});}
-  function finish(){win=true;setMood('happy',0);bubble('Yay! We did it!','يا سلام! وصلنا!');FX.confetti();
+  function finish(){win=true;setMood('happy',0);sfx('win');bubble('Yay! We did it!','يا سلام! وصلنا!');FX.confetti();
     const stars=used<=opt?3:used<=opt+2?2:1,sg=got.size,gems=stars*3+sg;T.maze[i]=Math.max(T.maze[i]||0,stars);tsave();
     setTimeout(()=>{if(!alive)return;const hasNext=i+1<MAZES.length;resultOv({title:'🎉 روبو وصل إلى المخرج!',stars,gems,
       lines:[`🗣️ عدد أوامرك: ${D(used)} (أفضل حل: ${D(opt)})`,M.stars.length?`⭐ نجوم جمعتها: ${D(sg)} من ${D(M.stars.length)}`:'',stars<3?'استخدم أوامر أقل لتحصل على ٣ نجوم':'أوامر ذكية! 👑'],
       btns:[...(hasNext?[{label:'المتاهة التالية ←',cls:'gold big',fn:()=>go('maze',i+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});},1500);}
   function onText(r){if(busy||win)return;let cmds=[];for(const a of r.alts){cmds=mzCommands(a);if(cmds.length)break;}
-    if(!cmds.length){setMood('confused');bubble("Beep? I don't understand.",`بيب؟ لم أفهم. قل مثلاً: <span class="en nw">${esc(L.words[0])}</span>`);return;}
+    if(!cmds.length){setMood('confused');sfx('no');bubble("Beep? I don't understand.",`بيب؟ لم أفهم. قل مثلاً: <span class="en nw">${esc(L.words[0])}</span>`);return;}
     const ws=[];cmds.forEach(c=>{if(c.k==='move'){ws.push(c.dir);if(c.n)ws.push(NUMW[c.n]);}else if(c.k==='pick')ws.push('pick up','key');else ws.push('open','door');if(c.col)ws.push(c.col);});
     if(cmds.length>1)ws.push('and');learnWords(ws);if(normS(r.text).split(' ').length>=3)T.full++;
     run(cmds);}
@@ -80,7 +80,7 @@ def('maze',i=>{
   }
   function update(dt){if(moodT&&now>moodT){moodT=0;mood='idle';}
     if(queue.length){const [tr,tc]=queue[0],sp=dt/.13;const dx=tc-pos[0],dy=tr-pos[1],dist=Math.hypot(dx,dy);
-      if(dist<=sp){pos=[tc,tr];queue.shift();const si=M.stars.findIndex(s=>s.r===tr&&s.c===tc);if(si>=0&&!got.has(si)){got.add(si);spark(tr,tc,'#fde047');World.add(1);}
+      if(dist<=sp){pos=[tc,tr];queue.shift();const si=M.stars.findIndex(s=>s.r===tr&&s.c===tc);if(si>=0&&!got.has(si)){got.add(si);spark(tr,tc,'#fde047');World.add(1);sfx('sparkle');}
         if(!queue.length&&queue.done){const d=queue.done;queue.done=null;d();}}
       else pos=[pos[0]+dx/dist*sp,pos[1]+dy/dist*sp];}}
   function loop(t){if(!alive)return;const dt=Math.min(.05,(t-last)/1000);last=t;now+=dt;update(dt);draw();raf=requestAnimationFrame(loop);}

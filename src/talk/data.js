@@ -1,7 +1,7 @@
 /* ===== مدينة الكلام: البيانات ===== */
 const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html'};
 const TKEY='talk-town-v2';
-const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},words:{},spoken:0,typed:0,full:0,drew:{},intro:false}));
+const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}
 /* كل كلمة إنجليزية يقولها الطفل وتفهمها اللعبة تُحفظ في «كلماتي» */
 function learnWords(list){let fresh=0;list.forEach(w=>{if(!w)return;if(!T.words[w]){T.words[w]=0;fresh++;}T.words[w]++;});tsave();return fresh;}
@@ -70,5 +70,11 @@ const PTARGETS=[
  [{n:'star',c:'yellow',k:3},{n:'moon',c:'white',k:1}],
  [{n:'bird',c:'blue',k:3,z:'small'},{n:'sun',c:'orange',k:1,z:'big'}],
  [{n:'car',c:'red',k:1},{n:'ball',c:'blue',k:1},{n:'tree',c:'green',k:2}],
- [{n:'rainbow',c:null,k:1},{n:'balloon',c:'pink',k:4},{n:'cat',c:'black',k:1,z:'small'}]
+ [{n:'rainbow',c:null,k:1},{n:'balloon',c:'pink',k:4},{n:'cat',c:'black',k:1,z:'small'}],
+ [{n:'boat',c:'red',k:1},{n:'fish',c:'orange',k:3}],
+ [{n:'butterfly',c:'purple',k:2},{n:'flower',c:'yellow',k:3}],
+ [{n:'kite',c:'green',k:1,z:'big'},{n:'cloud',c:'white',k:2}],
+ [{n:'dog',c:'brown',k:1,z:'big'},{n:'cat',c:'orange',k:1,z:'small'},{n:'ball',c:'yellow',k:1}],
+ [{n:'heart',c:'pink',k:4},{n:'house',c:'blue',k:1}],
+ [{n:'sun',c:'yellow',k:1},{n:'house',c:'red',k:1,z:'big'},{n:'tree',c:'green',k:2},{n:'bird',c:'black',k:2,z:'small'}]
 ];

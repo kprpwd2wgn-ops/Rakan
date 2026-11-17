@@ -8,9 +8,24 @@ let popT=0;
 function wordPop(el){$$('.wpop').forEach(p=>p.remove());const k=el.dataset.w,ar=dictAr(k);
   const p=document.createElement('div');p.className='wpop';p.innerHTML=`<b class="en">${esc(k)}</b><span>${ar||'🔊 اسمعها'}</span>`;document.body.appendChild(p);
   const r=el.getBoundingClientRect(),pw=p.offsetWidth;p.style.left=clamp(r.left+r.width/2-pw/2,8,innerWidth-pw-8)+'px';p.style.top=(r.top+window.scrollY-p.offsetHeight-8)+'px';
-  el.classList.add('lit');setTimeout(()=>el.classList.remove('lit'),700);speak(k,{rate:.8});RS.words[k]=(RS.words[k]||0)+1;rsave();
+  el.classList.add('lit');setTimeout(()=>el.classList.remove('lit'),700);raTok++;$$('.w.say,.sayl').forEach(w=>w.classList.remove('say','sayl'));speak(k,{rate:.8});sfx('tap');RS.words[k]=(RS.words[k]||0)+1;rsave();
   clearTimeout(popT);popT=setTimeout(()=>p.remove(),2600);}
 document.addEventListener('click',e=>{const w=e.target.closest('.w');if(w){e.stopPropagation();wordPop(w);}else $$('.wpop').forEach(p=>p.remove());});
+/* «اقرأ لي» مع إضاءة الكلمات: جملة جملة، وتضيء كل كلمة عندما يقولها الصوت (إن كان الجهاز يخبرنا بمكانها) */
+let raTok=0;
+function readAlong(root,lines,o={}){
+  const tok=++raTok,ws=$$('.w',root),full=lines.join(' '),starts=[];let pos=0;
+  ws.forEach(w=>{const t=w.textContent,i=full.indexOf(t,pos);starts.push(i<0?pos:i);pos=(i<0?pos:i)+t.length;});
+  const lineEls=o.lineEls||[];const clear=()=>{ws.forEach(w=>w.classList.remove('say'));lineEls.forEach(e=>e.classList.remove('sayl'));};
+  let li=0,base=0;
+  const step=()=>{if(tok!==raTok)return;if(li>=lines.length){clear();o.onend&&o.onend();return;}
+    const line=lines[li],off=Math.max(0,full.indexOf(line,base));base=off+line.length;
+    lineEls.forEach((e,k)=>e.classList.toggle('sayl',k===li));
+    speak(line,{rate:o.rate||.82,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
+      onend:()=>{li++;step();}});};
+  step();
+  return{stop(){raTok++;clear();stopSpeak();}};
+}
 /* القراءة بصوت عالٍ: نقارن كلماتك بكلمات الجملة */
 function readCheck(target,res){const tw=normS(target).split(' ').filter(Boolean);let best={ratio:0,hits:tw.map(()=>false)};
   (res.alts&&res.alts.length?res.alts:[res.text]).forEach(a=>{const said=normS(a).split(' ');const hits=tw.map(w=>said.includes(w));const ratio=hits.filter(Boolean).length/tw.length;if(ratio>best.ratio)best={ratio,hits};});

@@ -10,9 +10,9 @@ her 9-year-old son comes up with the ideas. Replies get read out or shown to him
 | عالم الألوان (Arabic colors) | `arabic-colors.html` | https://claude.ai/artifact/WgJDPdkMmw2MBJbLH14UjG |
 | لوحة نجوم البطل (star board, behavior chart) | `stars.html` (icon `stars-icon.png`) | https://claude.ai/artifact/NBqa4CeS5jvizkcKZhARA8 |
 | أبطال جدول الضرب: حرس القلعة (times tables 1–12 as castle defense: 12 kingdoms, monster armies in rows × columns, fog/train/gold waves, bosses, 12 dragons that teach each table's secrets, endless tower; shared hero and shop) | `times.html` (icon `times-icon-v2.png`) | https://claude.ai/artifact/CmKzHECmNEE6h54e6fMF3v |
-| مدينة الكلام Talk Town (English speaking by voice: Robo's maze driven by spoken commands, a painter that draws what you describe plus copy-the-picture challenges, Leo the alien who asks questions and reacts; star scoring for full sentences, typing fallback, my-words collection; shared hero and shop) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
+| مدينة الكلام Talk Town (English speaking by voice: Robo's maze driven by spoken commands (18 mazes with keys and doors), a painter that draws what you describe plus 18 copy-the-picture challenges and a gallery of saved paintings, Leo the alien who asks questions and reacts, Leo's TV studio where the child is the reporter and asks Leo the questions (8 shows); star scoring for full sentences, typing fallback, my-words grouped by topic, city ranks, noise-only sound effects; shared hero and shop) | `talk-town.html` (icon `talk-town-icon-v2.png`) | https://claude.ai/artifact/2RVpNvvYo4R255Mp6wT7vQ |
 | قراصنة القسمة (division 1–12 as a pirate voyage: share treasure fairly with the crew, pack barrels, Koko the parrot takes the remainder, torn maps, message bottles, gold ship, kraken and Captain Shanbo bosses, 12 crew animals that teach each number's secrets, shipyard, stormy sea; shared hero and shop) | `division.html` (icon `division-icon-v2.png`) | https://claude.ai/artifact/KxUGqCXTyvSjDuDXns71mK |
-| صاروخ القراءة Reading Rocket (English reading as space missions: word monsters to zap for sounds and sight words, a detective office where clues are read to catch the thief, escape rooms solved by reading notes with on/under/in/behind, choose-your-path stories with read-aloud stars and many endings, tap any word for its meaning; shared hero and shop) | `reading-rocket.html` (icon `reading-rocket-icon-v2.png`) | https://claude.ai/artifact/KQ8qtJN2HdDmqH6fGvqY6d |
+| صاروخ القراءة Reading Rocket (English reading as space missions: word monsters to zap for sounds and sight words, a picture planet where a sentence is read and the matching drawn picture chosen (12 levels: colors, numbers, sizes, on/under/in/next to/behind, not), a detective office where clues are read to catch the thief, 12 escape rooms solved by reading notes with on/under/in/behind/between, 8 choose-your-path stories with read-along word highlighting, read-aloud stars and many endings, tap any word for its meaning, a word book with a meaning quiz, astronaut ranks, noise-only sound effects; shared hero and shop) | `reading-rocket.html` (icon `reading-rocket-icon-v2.png`) | https://claude.ai/artifact/KQ8qtJN2HdDmqH6fGvqY6d |
 | عالم الأبطال الصغار (behavior program for parents and kids: daily missions with stars and real rewards, a star-sprout friend that hatches and grows, 7 mini games, 7 choose-your-path stories plus Claude-written ones, calm corner with breathing, badges and certificate, protected parent area with approvals, behavior tracking, reports and tips; its own stars and gems, not the shared hero) | `little-heroes.html` | https://claude.ai/artifact/8vPtRDZAXhNvkq1EyfuakR |
 | النجمة الصغيرة (short illustrated story read aloud sentence by sentence with the Azure voice, clips in `little-star/voices/`) | `little-star.html` | https://claude.ai/artifact/5WGrZYdLs2hk3EVd8cxjAA |
 | My English Gap ماي إنجلش قاب (English speaking practice for the owner: the tutor asks in Arabic, you answer in English by mic or typing, it corrects in English with highlighted fixes and saves your mistakes; calls the Claude API with a key the user pastes into its settings, kept in that browser only; mic uses the browser's speech recognition, so no device voice is used; no listen buttons, since live corrections can't be pre-recorded with Azure) | `my-english-gap.html` | GitHub Pages only (the mic and API calls don't work inside a play link). In-Claude version without mic: https://claude.ai/artifact/UcquNcYuwX4hxZKwB1Vbtq |
@@ -56,6 +56,9 @@ These steps are the routine: do all of them, every time, without stopping to ask
 2. Check it still works: `node tools/check-game.js <file>`. Fix anything it reports before going on.
    It saves a screenshot; look at it when the change is visual.
 3. Update the play link in place, so it stays the same:
+   - The current Artifact server (`claude-artifacts` tools) wants one complete document starting with `<!DOCTYPE html>`:
+     publish the game file itself with `publish_files` (`as: index.html`, the artifact's slug and live version from `get_artifact`).
+     The two steps below are for the older Artifact tool.
    - `python3 tools/artifact-page.py <file> <scratchpad>/<file>` writes the page version
      (the same game without the outer html/head/body tags, which the Artifact tool adds itself).
    - If this session hasn't read or published that artifact yet, read it first
@@ -227,6 +230,11 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
 `new Audio(...).play()` outside a tap is blocked.
 
 ## Games moving over
+
+- Talk Town (`talk-town.html`) and Reading Rocket (`reading-rocket.html`) still speak English with the device voice
+  (`speak()` in `src/kit/voice.js`); none of their sentences has an Azure clip yet (single words are mostly in `ollie/voices`).
+  Move them over in a session that has `AZURE_SPEECH_KEY`. Their drawn objects (`src/kit/things.js`) and noise-only sound
+  effects (`src/kit/sfx.js`, switched off with the 🔊 button on the home screen, kept under `rakan-sfx`) are shared by the two.
 
 - Times tables (`times.html`) and Division (`division.html`): every line is drafted in `times-lines.json`
   and `division-lines.json`. They are built by `python3 src/voices/make-lines.py`, so fix the script, not the JSON;

@@ -455,6 +455,8 @@ let sayTok=0;
 function speak(text,o={}){
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
   const lang=o.lang||'en';
+  /* صوت أولي المسجّل (src/kit/enclips.js) إن وُجد للكلام كله؛ الألعاب التي لا تحمّله لا يتغير فيها شيء */
+  if(lang==='en'&&typeof EN!=='undefined'&&EN.say(text,o,()=>tok===sayTok,end))return;
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
     u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
@@ -466,8 +468,8 @@ function speak(text,o={}){
 }
 /* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
 function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
-function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(en&&typeof EN!=='undefined'&&EN.has(en)){speak(en,Object.assign({},o,{lang:'en'}));return;}if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+function stopSpeak(){sayTok++;if(typeof EN!=='undefined')EN.stop();if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
 /* ---------- الاستماع للميكروفون ---------- */
@@ -826,6 +828,48 @@ const sfx=k=>SFX.play(k);
 function sfxToggleHTML(){return `<button class="chipbtn" id="msfx" aria-label="المؤثرات الصوتية">${SFX.on?'🔊':'🔇'} المؤثرات</button>`;}
 function bindSfxToggle(){const b=$('#msfx');if(b)b.onclick=()=>{SFX.set(!SFX.on);b.innerHTML=`${SFX.on?'🔊':'🔇'} المؤثرات`;if(SFX.on)sfx('ok');};}
 
+/* ===== صوت أولي للكلام الإنجليزي (Azure، en-US-AvaNeural) =====
+   المقاطع مسجّلة مسبقاً في ollie/voices/<رقم>.mp3 (مشتركة مع أولي)، ولكل لعبة خريطة APP.enmap:
+   {s:{"النص":"الرقم"}, slow:["رقم", …]}. الكلمات المفردة مفاتيحها بحروف صغيرة.
+   speak() في kit/voice.js يسأل EN.say أولاً: إذا كان لكل جزء من الكلام مقطع تكلم صوت أولي، وإلا تكلم صوت الجهاز
+   كما كان، إلى أن تُسجَّل كل الجمل (tools/en-lines.js يكتب القائمة الناقصة ويعيد كتابة الخريطة).
+   خيارات speak: parts = أجزاء تُشغَّل متتالية بدل الجملة كاملة، words = يُقرأ كلمة كلمة إن لم توجد الجملة. */
+var EN={map:null,buf:{},order:[],cur:null,res:null,timers:[],
+  norm:t=>String(t==null?'':t).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu,'').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim(),
+  load(){if(!APP.enmap||location.protocol==='file:')return;fetch(APP.enmap).then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)this.map=m;}).catch(()=>{});},
+  id(t){if(!this.map)return null;const k=this.norm(t);if(!k)return null;const S=this.map.s;
+    return S[k]||(/^[A-Za-z'-]+[.!?,]?$/.test(k)?S[k.replace(/[.!?,]$/,'').toLowerCase()]:null)||null;},
+  sentences(t){return(this.norm(t).match(/[^.!?…]+[.!?…]*['"]?/g)||[]).map(s=>s.trim()).filter(Boolean);},
+  /* خطة الكلام: [[رقم المقطع، بداية الجزء في النص، طوله]] أو null إذا نقص مقطع */
+  plan(text,o={}){if(!this.map)return null;const full=this.norm(text);if(!full)return null;
+    const fit=list=>{let pos=0;const out=[];for(const p of list){const id=this.id(p);if(!id)return null;const q=this.norm(p),i=full.indexOf(q,pos),at=i<0?pos:i;out.push([id,at,q.length]);pos=at+q.length;}return out.length?out:null;};
+    const w=this.id(full);if(w)return[[w,0,full.length]];
+    return(o.parts&&fit(o.parts))||fit(this.sentences(full))||(o.words?fit(full.split(' ').map(x=>x.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g,'')).filter(Boolean)):null);},
+  has(text,o){return!!this.plan(text,o);},
+  async get(id){if(this.buf[id])return this.buf[id];const ctx=SFX.ctx;if(!ctx)return null;
+    try{const r=await fetch(APP.enbase+id+'.mp3');if(!r.ok)return null;const data=await r.arrayBuffer();
+      const b=await new Promise((ok,no)=>{const p=ctx.decodeAudioData(data,ok,no);if(p&&p.then)p.then(ok,no);});
+      this.buf[id]=b;this.order.push(id);if(this.order.length>60)delete this.buf[this.order.shift()];return b;}catch(e){return null;}},
+  stop(){this.timers.forEach(clearTimeout);this.timers=[];if(this.cur){const c=this.cur;this.cur=null;c.onended=null;try{c.stop();}catch(e){}}if(this.res){const r=this.res;this.res=null;r();}},
+  /* يرجع true إذا تكلم صوت أولي (و end() تُنادى في النهاية)، و false ليتكلم صوت الجهاز */
+  say(text,o,alive,end){const pl=this.plan(text,o);if(!pl)return false;this.stop();
+    const full=this.norm(text),slow=(World.p.rate||1)<.9;SFX.unlock();
+    (async()=>{const ctx=SFX.ctx;if(!ctx){end();return;}if(ctx.state==='suspended')try{await ctx.resume();}catch(e){}
+      if(o.el&&alive())o.el.classList.add('talking');
+      for(let k=0;k<pl.length;k++){const [id,at,len]=pl[k];if(!alive())return;
+        const sl=slow&&this.map.slow&&this.map.slow.includes(id);let b=await this.get(sl?id+'-slow':id);if(!b&&sl)b=await this.get(id);if(!alive())return;if(!b)continue;
+        await new Promise(res=>{this.res=res;const s=ctx.createBufferSource();s.buffer=b;s.connect(ctx.destination);this.cur=s;
+          s.onended=()=>{if(this.cur===s)this.cur=null;if(this.res===res)this.res=null;res();};
+          if(o.onboundary){/* إضاءة الكلمات: نوزّع كلمات الجزء على مدة المقطع حسب طولها */
+            const seg=full.slice(at,at+len),dur=b.duration*1000,ws=[];seg.replace(/\S+/g,(m,i)=>{ws.push(i);return m;});
+            const lead=Math.min(180,dur*.08);ws.forEach(i=>this.timers.push(setTimeout(()=>{if(alive())o.onboundary(at+i);},lead+(dur-lead*2)*(i/Math.max(1,seg.length)))));}
+          s.start();});
+        if(k<pl.length-1&&alive())await new Promise(r=>setTimeout(r,o.words?160:90));}
+      if(alive())end();})();
+    return true;}
+};
+/* EN.load() يُنادى من main.js في كل لعبة، بعد أن يُعرَّف APP */
+
 /* ===== كلمات صاروخ القراءة (من النسخة السابقة) ===== */
 const CVC={
  a:{ar:'a القصيرة تُقرأ مثل الفتحة: كَـ',words:[['cat','🐱','قطة'],['hat','🎩','قبعة'],['bat','🦇','خفاش'],['rat','🐀','فأر'],['map','🗺️','خريطة'],['cap','🧢','قبعة رياضية'],['bag','👜','حقيبة'],['van','🚐','شاحنة'],['pan','🍳','مقلاة'],['can','🥫','علبة'],['ram','🐏','كبش']]},
@@ -858,7 +902,7 @@ const DICT={a:'واحد / أداة نكرة',across:'عبر',adam:'آدم (اس�
 CVC.i.words=CVC.i.words.filter(w=>w[0]!=='fig');
 
 /* ===== صاروخ القراءة: البيانات ===== */
-const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html'};
+const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html',enmap:'ollie/voices/reading-rocket.json',enbase:'ollie/voices/'};
 const RKEY='reading-rocket-v2';
 const RS=loadJSON(RKEY,()=>({mon:{},pics:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{},zap:{},rank:0}));
 function rsave(){saveJSON(RKEY,RS);}
@@ -1258,7 +1302,7 @@ function readAlong(root,lines,o={}){
   const step=()=>{if(tok!==raTok)return;if(li>=lines.length){clear();o.onend&&o.onend();return;}
     const line=lines[li],off=Math.max(0,full.indexOf(line,base));base=off+line.length;
     lineEls.forEach((e,k)=>e.classList.toggle('sayl',k===li));
-    speak(line,{rate:o.rate||.82,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
+    speak(line,{rate:o.rate||.82,words:o.words,parts:o.parts&&o.parts[li]?[].concat(o.parts[li]):null,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
       onend:()=>{li++;step();}});};
   step();
   return{stop(){raTok++;clear();stopSpeak();}};
@@ -1388,20 +1432,20 @@ def('pics',li=>{
     const Lr=L.mix?P_LV[pick(L.mix)]:L;R=makeRound(Lr,rng);R.tries=0;const txt=specText(R.s);
     $('#ps').innerHTML=`<p class="en psx">${specHTML(R.s)}</p><div class="row"><button class="chipbtn" id="psay">🔊 اسمع</button><span class="pfb" id="pfb">👇 أي صورة تطابق الجملة؟</span></div>`;
     $('#ps').classList.remove('pop');void $('#ps').offsetWidth;$('#ps').classList.add('pop');
-    $('#psay').onclick=()=>{sfx('tap');readAlong($("#ps .psx"),[txt],{rate:.8});};
+    $('#psay').onclick=()=>{sfx('tap');readAlong($("#ps .psx"),[txt],{rate:.8,words:true});};
     $('#po').innerHTML=R.opts.map((o,i)=>`<button class="popt" data-i="${i}" aria-label="صورة ${D(i+1)}"><canvas></canvas><span class="pmark"></span></button>`).join('');
     const cw=$('#po').clientWidth||340,wide=innerWidth>=560,w=wide?Math.floor((cw-20)/3):cw,h=Math.round(clamp(wide?w*.75:Math.min(w*.36,(innerHeight-300)/3-16),92,170)),d=Math.min(2,window.devicePixelRatio||1);
     $$('.popt canvas').forEach((c,i)=>{c.width=w*d;c.height=h*d;c.style.height=h+'px';const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);drawSpec(x,w,h,R.opts[i].s);});
     $$('.popt').forEach(b=>b.onclick=()=>choose(+b.dataset.i,b));hudUp();}
   function choose(i,b){if(busy||b.disabled)return;const o=R.opts[i];
     if(o.ok){busy=true;if(!R.tries)first++;b.classList.add('ok');$('.pmark',b).textContent='✓';sfx('ok');buzz(20);const [x,y]=centerOf(b);FX.burst(x,y,{n:22,colors:['#22c55e','#fde047','#fff']});
-      $$('.popt').forEach(e=>{if(e!==b)e.classList.add('dim');});$('#pfb').innerHTML=R.tries?'👍 صحيح!':'⭐ ممتاز! قراءة دقيقة';speak(specText(R.s),{rate:.85});
+      $$('.popt').forEach(e=>{if(e!==b)e.classList.add('dim');});$('#pfb').innerHTML=R.tries?'👍 صحيح!':'⭐ ممتاز! قراءة دقيقة';speak(specText(R.s),{rate:.85,words:true});
       $$('#ps .w').forEach(w=>w.classList.remove('hint'));setTimeout(()=>{if(alive)next();},1600);return;}
     R.tries++;miss++;b.disabled=true;b.classList.add('bad');$('.pmark',b).textContent='✖';sfx('no');buzz(60);shake(b);
     const ks=o.diff==='r'?['r']:[o.diff];const hw=$$('#ps .w').filter(w=>ks.includes(w.dataset.k));
     $$('#ps .w').forEach(w=>w.classList.remove('hint'));hw.forEach(w=>{w.classList.add('hint');});
     const word=hw.map(w=>w.textContent).join(' ');
-    $('#pfb').innerHTML=word?`👀 اقرأ كلمة <span class="en hintw">${esc(word)}</span> مرة أخرى`:'🤔 اقرأ الجملة مرة أخرى';if(word)speak(word,{rate:.75});}
+    $('#pfb').innerHTML=word?`👀 اقرأ كلمة <span class="en hintw">${esc(word)}</span> مرة أخرى`:'🤔 اقرأ الجملة مرة أخرى';if(word)speak(word,{rate:.75,words:true});}
   function finish(){alive=false;const st=miss===0?3:miss<=2?2:1;RS.pics[li]=Math.max(RS.pics[li]||0,st);rsave();sfx('win');const hasNext=li+1<P_LV.length;
     resultOv({title:'📸 كل الصور صحيحة!',stars:st,gems:first+st*3,lines:[`⭐ من أول مرة: ${D(first)} من ${D(N)}`,st<3?'اقرأ كل كلمة قبل أن تختار لتحصل على ٣ نجوم':'عين دقيقة وقراءة ممتازة! 👑'],
       btns:[...(hasNext?[{label:'المرحلة التالية ←',cls:'gold big',fn:()=>go('pics',li+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});}
@@ -1595,6 +1639,8 @@ function makeCase(C){
     if(C.and&&clues.length>=3){const [a,b]=clues.splice(0,2);clues.unshift({and:true,parts:[a,b]});}
     return{sus,thief,clues};}
   return null;}
+/* أجزاء الدليل كما تُقرأ: «The thief is red» ثم «and has a cap.» (لكل جزء مقطع صوتي) */
+function clueLines(f){if(!f.and)return[factText(f)[0]];const [a,b]=f.parts.map(factText);return[a[0].replace(/\.$/,''),'and '+b[0].replace(/^The thief /,'')];}
 function clueText(f){if(!f.and)return factText(f);const [a,b]=f.parts.map(factText);
   const b1=b[1].replace(/^ليس للص /,'وليس له ').replace(/^للص /,'وله ').replace(/^يدا اللص /,'ويداه ').replace(/^اللص /,'و');
   return[a[0].replace(/\.$/,'')+' and '+b[0].replace(/^The thief /,''),a[1].replace(/\.$/,'')+'، '+b1];}
@@ -1612,7 +1658,7 @@ def('case',ci=>{
     $('#clue').innerHTML=`<div class="chead">🔎 الدليل ${D(k+1)} من ${D(clues.length)}</div><p class="en ctxt">${tapWords(en)}</p><p class="car2" id="car" hidden>${ar}</p>
       <div class="row"><button class="chipbtn" id="csay">🔊 اسمع</button><button class="chipbtn" id="ctr">🇸🇦 المعنى</button></div>`;
     $('#clue').classList.remove('pop');void $('#clue').offsetWidth;$('#clue').classList.add('pop');
-    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),[en],{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
+    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),clueLines(clues[k]),{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
   const shouldOut=i=>!fitsAll(sus[i],clues.slice(0,k+1));
   function check(){const need=sus.map((_,i)=>i).filter(shouldOut);if(need.every(i=>out.has(i))){
       if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');sfx('ok');k++;setTimeout(()=>{if(!done)showClue();},500);}
@@ -1747,6 +1793,7 @@ def('bquiz',()=>{
 
 /* ===== البداية ===== */
 FX.init();
+EN.load();
 $('#back').onclick=()=>back();
 $('#hgems').onclick=()=>go('closet');
 $('#hhero').onclick=()=>go('closet');

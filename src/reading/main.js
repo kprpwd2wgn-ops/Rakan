@@ -1,5 +1,6 @@
 /* ===== البداية ===== */
 FX.init();
+EN.load();
 $('#back').onclick=()=>back();
 $('#hgems').onclick=()=>go('closet');
 $('#hhero').onclick=()=>go('closet');

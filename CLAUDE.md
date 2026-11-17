@@ -231,10 +231,27 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
 
 ## Games moving over
 
-- Talk Town (`talk-town.html`) and Reading Rocket (`reading-rocket.html`) still speak English with the device voice
-  (`speak()` in `src/kit/voice.js`); none of their sentences has an Azure clip yet (single words are mostly in `ollie/voices`).
-  Move them over in a session that has `AZURE_SPEECH_KEY`. Their drawn objects (`src/kit/things.js`) and noise-only sound
-  effects (`src/kit/sfx.js`, switched off with the 🔊 button on the home screen, kept under `rakan-sfx`) are shared by the two.
+- Talk Town (`talk-town.html`) and Reading Rocket (`reading-rocket.html`), moving over since 17 Nov 2026, when she asked
+  for "the new voice" (Ollie's `en-US-AvaNeural`). That session had no `AZURE_SPEECH_KEY` and could not reach Azure, so it
+  recorded nothing: the games now say every line that already has an Ollie clip in that voice, and the device voice says
+  the rest until it is recorded. How it works: `src/kit/enclips.js` (`EN`, loaded only by these two games) is asked first by
+  `speak()` in `src/kit/voice.js`; it plays `ollie/voices/<id>.mp3` when the game's clip map `ollie/voices/<game>.json`
+  (`{s:{text:id},slow:[ids]}`) has the whole line, or each of its sentences, or the `parts` the caller gives
+  ("Try like this:" + the example, the two halves of an "and" clue, "Here you go!" + the painted words), or every word
+  when the caller passes `words:true` (picture sentences are read word by word). Read-along lights each word in step with
+  the clip. The 🐢 speed setting plays the `-slow` copies of sentences.
+  `node tools/en-lines.js talk|reading` lists every line the game can say, writes its clip map and `<game>-en-lines.json`
+  with the lines still to record (17 Nov: Reading Rocket 446 lines, about 10,600 characters; Talk Town 1,433 lines, about
+  29,400 characters, mostly Leo's full-sentence models built from each word the child may say). In the first session
+  with the key: `python3 tools/english-voices.py reading-rocket-en-lines.json --out ollie/voices`, the same for
+  `talk-town-en-lines.json`, then `node tools/en-lines.js reading --slow` and `... talk --slow` (rewrites the maps, makes the
+  slow copies), build both, check, publish, push. A new spoken line in either game must be added to `tools/en-lines.js`,
+  or it stays in the device voice. The play links do not carry the clips (about 900 and 1,800 files), so they still use
+  the device voice; the GitHub Pages links are the ones with the new voice.
+  Their drawn objects (`src/kit/things.js`) and noise-only sound effects (`src/kit/sfx.js`, switched off with the 🔊
+  button on the home screen, kept under `rakan-sfx`) are shared by the two. The Arabic intro guides still use the device
+  voice when it has a natural Arabic voice, unless the English guide line has a clip; moving them to Hamed needs vowelled
+  lines and her check.
 
 - Times tables (`times.html`) and Division (`division.html`): every line is drafted in `times-lines.json`
   and `division-lines.json`. They are built by `python3 src/voices/make-lines.py`, so fix the script, not the JSON;

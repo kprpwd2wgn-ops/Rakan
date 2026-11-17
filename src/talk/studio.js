@@ -108,7 +108,7 @@ def('studio',si=>{
       else{sfx('no');zibSay(c.model,{rate:.85});show(best.raw,scores[qi],`حاول أن تقول: <span class="en">${esc(c.model)}</span>`,null,null);}return;}
     if(!best.rel&&tries<2){tries++;sfx('no');setMood('wow',1800);
       if(tries===1){zibSay("Hmm? Can you ask me again?");show(best.raw,0,'همم؟ لم يفهم ليو سؤالك. اسأله مرة أخرى بطريقة أخرى!');}
-      else{zibSay('You can ask: '+c.model,{rate:.85});show(best.raw,0,`💡 مثلاً: <span class="en">${esc(c.model)}</span>`);}return;}
+      else{zibSay('You can ask: '+c.model,{rate:.85,parts:['You can ask:',c.model]});show(best.raw,0,`💡 مثلاً: <span class="en">${esc(c.model)}</span>`);}return;}
     busy=true;mic.lock(true);const stars=best.rel?(best.full?3:2):1;scores[qi]=stars;if(stars===3){fulls++;T.full++;}tsave();
     sfx(stars===3?'ok':'pop');setMood('talk');
     zibSay(c.ans[0],{onend:()=>{if(alive&&mood==='talk')setMood('happy');}});fx(c.fx);

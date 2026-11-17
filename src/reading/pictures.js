@@ -112,20 +112,20 @@ def('pics',li=>{
     const Lr=L.mix?P_LV[pick(L.mix)]:L;R=makeRound(Lr,rng);R.tries=0;const txt=specText(R.s);
     $('#ps').innerHTML=`<p class="en psx">${specHTML(R.s)}</p><div class="row"><button class="chipbtn" id="psay">🔊 اسمع</button><span class="pfb" id="pfb">👇 أي صورة تطابق الجملة؟</span></div>`;
     $('#ps').classList.remove('pop');void $('#ps').offsetWidth;$('#ps').classList.add('pop');
-    $('#psay').onclick=()=>{sfx('tap');readAlong($("#ps .psx"),[txt],{rate:.8});};
+    $('#psay').onclick=()=>{sfx('tap');readAlong($("#ps .psx"),[txt],{rate:.8,words:true});};
     $('#po').innerHTML=R.opts.map((o,i)=>`<button class="popt" data-i="${i}" aria-label="صورة ${D(i+1)}"><canvas></canvas><span class="pmark"></span></button>`).join('');
     const cw=$('#po').clientWidth||340,wide=innerWidth>=560,w=wide?Math.floor((cw-20)/3):cw,h=Math.round(clamp(wide?w*.75:Math.min(w*.36,(innerHeight-300)/3-16),92,170)),d=Math.min(2,window.devicePixelRatio||1);
     $$('.popt canvas').forEach((c,i)=>{c.width=w*d;c.height=h*d;c.style.height=h+'px';const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);drawSpec(x,w,h,R.opts[i].s);});
     $$('.popt').forEach(b=>b.onclick=()=>choose(+b.dataset.i,b));hudUp();}
   function choose(i,b){if(busy||b.disabled)return;const o=R.opts[i];
     if(o.ok){busy=true;if(!R.tries)first++;b.classList.add('ok');$('.pmark',b).textContent='✓';sfx('ok');buzz(20);const [x,y]=centerOf(b);FX.burst(x,y,{n:22,colors:['#22c55e','#fde047','#fff']});
-      $$('.popt').forEach(e=>{if(e!==b)e.classList.add('dim');});$('#pfb').innerHTML=R.tries?'👍 صحيح!':'⭐ ممتاز! قراءة دقيقة';speak(specText(R.s),{rate:.85});
+      $$('.popt').forEach(e=>{if(e!==b)e.classList.add('dim');});$('#pfb').innerHTML=R.tries?'👍 صحيح!':'⭐ ممتاز! قراءة دقيقة';speak(specText(R.s),{rate:.85,words:true});
       $$('#ps .w').forEach(w=>w.classList.remove('hint'));setTimeout(()=>{if(alive)next();},1600);return;}
     R.tries++;miss++;b.disabled=true;b.classList.add('bad');$('.pmark',b).textContent='✖';sfx('no');buzz(60);shake(b);
     const ks=o.diff==='r'?['r']:[o.diff];const hw=$$('#ps .w').filter(w=>ks.includes(w.dataset.k));
     $$('#ps .w').forEach(w=>w.classList.remove('hint'));hw.forEach(w=>{w.classList.add('hint');});
     const word=hw.map(w=>w.textContent).join(' ');
-    $('#pfb').innerHTML=word?`👀 اقرأ كلمة <span class="en hintw">${esc(word)}</span> مرة أخرى`:'🤔 اقرأ الجملة مرة أخرى';if(word)speak(word,{rate:.75});}
+    $('#pfb').innerHTML=word?`👀 اقرأ كلمة <span class="en hintw">${esc(word)}</span> مرة أخرى`:'🤔 اقرأ الجملة مرة أخرى';if(word)speak(word,{rate:.75,words:true});}
   function finish(){alive=false;const st=miss===0?3:miss<=2?2:1;RS.pics[li]=Math.max(RS.pics[li]||0,st);rsave();sfx('win');const hasNext=li+1<P_LV.length;
     resultOv({title:'📸 كل الصور صحيحة!',stars:st,gems:first+st*3,lines:[`⭐ من أول مرة: ${D(first)} من ${D(N)}`,st<3?'اقرأ كل كلمة قبل أن تختار لتحصل على ٣ نجوم':'عين دقيقة وقراءة ممتازة! 👑'],
       btns:[...(hasNext?[{label:'المرحلة التالية ←',cls:'gold big',fn:()=>go('pics',li+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🪐 المجرّة',cls:'ghost',fn:()=>home()}]});}

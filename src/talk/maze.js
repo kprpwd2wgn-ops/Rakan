@@ -19,7 +19,7 @@ def('maze',i=>{
     const d=Math.min(2,window.devicePixelRatio||1);cv.width=W*d;cv.height=H*d;cv.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);}
   function hudUp(){const inv=['gold','red','blue'].filter(c=>st.inv&CBIT[c]);$('#minv').innerHTML=inv.length?'🎒 '+inv.map(c=>`<span class="kchip" style="--kc:${KEYHEX[c]}">🔑</span>`).join(''):'';
     $('#mcnt').textContent=`الأوامر: ${D(used)}`;}
-  function bubble(en,ar){const b=$('#rb');b.innerHTML=`<span class="bwho">${roboSVG(mood==='bump'?'bump':mood==='confused'?'confused':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');roboSay(en);}
+  function bubble(en,ar,o){const b=$('#rb');b.innerHTML=`<span class="bwho">${roboSVG(mood==='bump'?'bump':mood==='confused'?'confused':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');roboSay(en,o);}
   function setMood(m,ms=1400){mood=m;moodT=ms?now+ms/1000:0;}
   const walk=path=>new Promise(res=>{queue=path.slice();queue.done=res;});
   const pause=ms=>new Promise(res=>setTimeout(res,ms));
@@ -53,7 +53,7 @@ def('maze',i=>{
     const ws=[];cmds.forEach(c=>{if(c.k==='move'){ws.push(c.dir);if(c.n)ws.push(NUMW[c.n]);}else if(c.k==='pick')ws.push('pick up','key');else ws.push('open','door');if(c.col)ws.push(c.col);});
     if(cmds.length>1)ws.push('and');learnWords(ws);if(normS(r.text).split(' ').length>=3)T.full++;
     run(cmds);}
-  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وقل لروبو إلى أين يذهب',onHelp:()=>{bubble(`Say: ${L.words[0]}`,`قل مثلاً: <span class="en">${esc(L.words[0])}</span>`);}});
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وقل لروبو إلى أين يذهب',onHelp:()=>{bubble(`Say: ${L.words[0]}`,`قل مثلاً: <span class="en">${esc(L.words[0])}</span>`,{parts:['Say:',L.words[0]]});}});
   $$('.wc').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.85}));
   $('#mre').onclick=()=>{if(busy)return;reset();bubble("Let's try again!",'لنحاول من جديد!');};
 

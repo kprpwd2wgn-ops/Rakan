@@ -38,7 +38,7 @@ def('paint',arg=>{
   let alive=true,raf=0,last=performance.now(),now=0,items=[],tries=0,busy=false,won=false;
   onClean(()=>{alive=false;cancelAnimationFrame(raf);removeEventListener('resize',size);});
   function size(){W=$('#ps').clientWidth||360;H=Math.round(clamp(W*.62,200,300));S=Math.min(W,H)*.2;const d=Math.min(2,window.devicePixelRatio||1);cv.width=W*d;cv.height=H*d;cv.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);}
-  function bubble(en,ar,think){const b=$('#pb');b.innerHTML=`<span class="bwho">${brushSVG(brushCol,think?'think':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');sayEn(en,{pitch:1.15});
+  function bubble(en,ar,think,o){const b=$('#pb');b.innerHTML=`<span class="bwho">${brushSVG(brushCol,think?'think':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');sayEn(en,Object.assign({pitch:1.15},o||{}));
     $('#pbr').innerHTML=brushSVG(brushCol,think?'think':'happy');}
   let brushCol='#f472b6';
   /* أماكن الأشياء */
@@ -75,7 +75,7 @@ def('paint',arg=>{
     tries++;checkTarget(P.items);}
   function freeDraw(list){let fresh=0;list.forEach(it=>{addItem(it);if(!T.drew[it.n]){T.drew[it.n]=1;fresh++;}});tsave();
     if(fresh){World.add(fresh);toast(`🎨 رسمت شيئاً جديداً! 💎 +${D(fresh)}`);}
-    const ph=list.map(phraseOf);bubble(`Here ${list.length>1||list[0].k>1?'are':'is'} ${ph.join(' and ')}!`,`رسمت لك ما قلت! ${D(Object.keys(T.drew).length)} من ${D(Object.keys(PNOUNS).length)} شيئاً في دفتري.`);}
+    const ph=list.map(phraseOf);bubble(`Here ${list.length>1||list[0].k>1?'are':'is'} ${ph.join(' and ')}!`,`رسمت لك ما قلت! ${D(Object.keys(T.drew).length)} من ${D(Object.keys(PNOUNS).length)} شيئاً في دفتري.`,false,{parts:['Here you go!',...ph.join(' and ').split(' ')]});}
   function checkTarget(list){let good=0,hint=null;
     list.forEach(it=>{const t=tgt.find(t=>!t.done&&t.n===it.n);
       if(!t){const any=tgt.find(x=>x.n===it.n);addItem(it,{temp:now+2.2});if(!hint)hint=any?['You already have that one!','رسمت هذا من قبل!']:[`I don't see a ${it.n} in the picture.`,`لا أرى ${NOUNAR[it.n]} في اللوحة.`];return;}
@@ -87,7 +87,7 @@ def('paint',arg=>{
       t.done=true;good++;addItem(t);});
     drawTarget();
     if(tgt.every(t=>t.done))return finish();
-    if(good)bubble(`Yes! ${list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ')}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟');
+    if(good){const gp=list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ');bubble(`Yes! ${gp}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟',false,{parts:['Yes!',...gp.split(' '),'What else?']});}
     else if(hint)bubble(hint[0],hint[1],true);}
   function finish(){won=true;busy=true;mic.lock(true);FX.confetti();sfx('win');bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
     const n=tgt.length,stars=tries<=n?3:tries<=n+2?2:1;T.paint[li]=Math.max(T.paint[li]||0,stars);tsave();

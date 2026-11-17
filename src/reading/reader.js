@@ -21,7 +21,7 @@ function readAlong(root,lines,o={}){
   const step=()=>{if(tok!==raTok)return;if(li>=lines.length){clear();o.onend&&o.onend();return;}
     const line=lines[li],off=Math.max(0,full.indexOf(line,base));base=off+line.length;
     lineEls.forEach((e,k)=>e.classList.toggle('sayl',k===li));
-    speak(line,{rate:o.rate||.82,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
+    speak(line,{rate:o.rate||.82,words:o.words,parts:o.parts&&o.parts[li]?[].concat(o.parts[li]):null,onboundary:ci=>{if(tok!==raTok)return;const abs=off+ci;let k=-1;for(let j=0;j<starts.length;j++)if(starts[j]<=abs)k=j;ws.forEach(w=>w.classList.remove('say'));if(k>=0)ws[k].classList.add('say');},
       onend:()=>{li++;step();}});};
   step();
   return{stop(){raTok++;clear();stopSpeak();}};

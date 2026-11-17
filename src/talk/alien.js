@@ -4,9 +4,13 @@ const NOARTS=new Set(NOART.split('|'));
 const art=x=>NOARTS.has(x)?'':/^[aeiou]/.test(x)?'an':'a';
 const cap=x=>PROPER[x]||x.replace(/\b[a-z]/g,c=>c.toUpperCase());
 const IRR={fish:'fish',sheep:'sheep',mouse:'mice',deer:'deer',fox:'foxes',wolf:'wolves',butterfly:'butterflies',puppy:'puppies',bunny:'bunnies',octopus:'octopuses',strawberry:'strawberries',cherry:'cherries',peach:'peaches',mango:'mangoes',potato:'potatoes',tomato:'tomatoes'};
-const plural=x=>IRR[x]||(/(s|sh|ch|x)$/.test(x)?x+'es':x+'s');
+/* جمع الكلمة في الجملة الكاملة: ما لا يُعدّ (rice, fries, dates…) يبقى كما هو، و candy → candies */
+const plural=x=>IRR[x]||(NOARTS.has(x)||/s$/.test(x)?x:/[^aeiou]y$/.test(x)?x.slice(0,-1)+'ies':/(sh|ch|x)$/.test(x)?x+'es':x+'s');
 function catFind(cats,t){for(const c of cats.split(',')){for(const e of (CATRE[c]||[]))if(e.re.test(t))return e.w;}return'';}
 const fillN=s=>String(s||'').replace(/\{name\}/g,World.p.name||'friend');
+/* ما يقوله صوت أولي من المثال: الاسم لا يُسجَّل، فيقول «My name is…» */
+const exSay=st=>String(st.ex||'').includes('{name}')?st.ex.replace(/\s*\{name\}\.?$/,'…'):st.ex;
+const modelSay=(st,e)=>e.x&&st.tpl?[e.model]:[exSay(st)];
 function relevant(st,t){const x=st.cat?catFind(st.cat,t):'';let ok=!!x;
   if(!ok&&st.re){const n=normS(World.p.name||'');ok=new RegExp('\\b(?:'+st.re.replace(/\{name\}/g,n||'zzzz')+')\\b').test(t);}return{ok,x};}
 const subst=(s,x)=>s.replace(/\{X\}/g,cap(x)).replace(/\{xs\}/g,plural(x)).replace(/\{xa\}/g,COLAR[x]||x).replace(/\{x\}/g,x);
@@ -78,16 +82,16 @@ def('alien',vi=>{
       ${note?`<p class="note">${note}</p>`:''}
       ${ok&&e.rel.ok&&!e.full?`<p class="better">✨ قلها كاملة: <span class="en">${esc(e.model)}</span> <button class="mini2" id="bsay" aria-label="اسمع">🔊</button><br><small>اضغط 🎤 وقلها كاملة لتربح نجمة إضافية!</small></p>`:''}
       ${ok?`<button class="btn gold big wide" id="anext">${si<N-1?'السؤال التالي ←':'🏁 النهاية'}</button>`:''}`;
-    a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85});if($('#anext'))$('#anext').onclick=next;}
+    a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85,parts:modelSay(V.steps[si],e)});if($('#anext'))$('#anext').onclick=next;}
   function next(){stopSpeak();si++;if(si>=N)return finish();ask();}
   function onText(r){if(busy)return;const st=V.steps[si],e=evalAns(st,r);
     if(bonusFor===si){if(e.rel.ok&&e.full){sfx('win');scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
         showAns(e,true,'⭐ رائع! جملة كاملة.',['Perfect sentence!','جملة ممتازة!']);}
-      else{zibSay(e.model,{rate:.85});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
+      else{zibSay(e.model,{rate:.85,parts:modelSay(st,e)});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
     if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');sfx('no');return;}
     if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);sfx('no');
       if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم ليو. قلها مرة أخرى بطريقة أخرى!');}
-      else{zibSay('Try like this: '+fillN(st.ex),{rate:.85});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
+      else{zibSay('Try like this: '+fillN(st.ex),{rate:.85,parts:['Try like this:',exSay(st)]});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
     const stars=e.rel.ok?e.stars:1;scores[si]=Math.max(scores[si]||0,stars);
     if(e.rel.ok&&e.full){fulls++;T.full++;}
     fresh+=learnWords(e.x&&e.x.includes(' ')?e.norm.replace(e.x,' ').split(' ').filter(w=>ALLW.has(w)).concat([e.x]):e.norm.split(' ').filter(w=>ALLW.has(w)));
@@ -100,7 +104,7 @@ def('alien',vi=>{
     resultOv({title:'👽 ليو سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,
       lines:[`🌟 جمل كاملة: ${D(fulls)} من ${D(N)}`,fresh?`📚 كلمات جديدة: ${D(fresh)}`:'',stars<3?'أجب بجمل كاملة لتحصل على ٣ نجوم':'متحدث رائع! 👑'],
       btns:[...(hasNext?[{label:'الزيارة التالية ←',cls:'gold big',fn:()=>go('alien',vi+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});}
-  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب ليو بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85});
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب ليو بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85,parts:[exSay(st)]});
     showAns({raw:'…',x:'',rel:{ok:false},full:false,model:''},false,`💡 مثال: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small><br>قلها بكلماتك أنت!`);}});
   $('#qs').onclick=()=>{const st=V.steps[si];if(st)zibSay(fillN(st.q),{rate:.82});};
   zib();setTimeout(()=>{if(alive)ask();},350);

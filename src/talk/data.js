@@ -1,5 +1,5 @@
 /* ===== مدينة الكلام: البيانات ===== */
-const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html'};
+const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/'};
 const TKEY='talk-town-v2';
 const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}
@@ -13,7 +13,7 @@ const CATS={
  foods:'pizza|burger|hamburger|sandwich|pasta|spaghetti|rice|chicken|fish|meat|cake|cookie|pancake|egg|bread|cheese|salad|soup|french fries|fries|apple|banana|ice cream|kabsa|dates|chocolate|noodles|cereal|olives|fruit|vegetables|hot dog|shawarma|falafel|hummus|steak|potato|carrot|grapes|watermelon|strawberry|orange|mango|yogurt|honey|sweets|candy|donut|waffle|popcorn|nuggets|beans|biryani|toast|croissant|muffin|cupcake|sushi|tacos|kebab|lasagna|cheeseburger|mandi|pear|peach|cherry|lemon|pineapple|kiwi|tomato|cucumber|corn',
  drinks:'water|orange juice|apple juice|mango juice|juice|milk|tea|coffee|lemonade|hot chocolate|chocolate milk|laban|smoothie|milkshake',
  games:'football|soccer|basketball|volleyball|tennis|video games|computer games|games|chess|hide and seek|tag|swimming|running|cycling|puzzles|cards|board games|racing|karate|baseball|bowling|ping pong|drawing|reading',
- activity:'cooking|cook|reading|read|drawing|draw|painting|paint|shopping|walking|walk|swimming|swim|baking|bake|gardening|coffee|tea|sleeping|sleep|working|work|writing|playing|play|watching tv|watch tv|tv|movies|cars|football|news|phone|computer|running|helping|travel|traveling|fishing|camping|riding|ride|games|video games|homework|cartoons|jumping|singing|dancing',
+ activity:'cooking|cook|reading|read|drawing|draw|painting|paint|shopping|walking|walk|swimming|swim|baking|bake|gardening|coffee|tea|sleeping|sleep|working|work|writing|playing|play|watching tv|watch tv|tv|movies|cars|football|news|phone|computer|running|helping|travel|traveling|fishing|camping|riding|ride|games|video games|homework|cartoons|jumping',
  country:'saudi arabia|saudi|kuwait|egypt|uae|emirates|united arab emirates|qatar|bahrain|oman|jordan|morocco|iraq|syria|lebanon|palestine|yemen|sudan|tunisia|algeria|libya|america|usa|united states|england|britain|uk|france|turkey|india|pakistan|indonesia|malaysia|canada|germany|spain|italy|china|japan|korea|somalia|mauritania|australia|brazil|earth',
  num:'one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|hundred|thousand|million',
  family:'brother|sister|cousin|mom|mother|mum|mommy|dad|father|daddy|grandma|grandmother|grandpa|grandfather|baby|friend|uncle|aunt|family|twin|brothers|sisters',

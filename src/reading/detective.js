@@ -27,6 +27,8 @@ function makeCase(C){
     if(C.and&&clues.length>=3){const [a,b]=clues.splice(0,2);clues.unshift({and:true,parts:[a,b]});}
     return{sus,thief,clues};}
   return null;}
+/* أجزاء الدليل كما تُقرأ: «The thief is red» ثم «and has a cap.» (لكل جزء مقطع صوتي) */
+function clueLines(f){if(!f.and)return[factText(f)[0]];const [a,b]=f.parts.map(factText);return[a[0].replace(/\.$/,''),'and '+b[0].replace(/^The thief /,'')];}
 function clueText(f){if(!f.and)return factText(f);const [a,b]=f.parts.map(factText);
   const b1=b[1].replace(/^ليس للص /,'وليس له ').replace(/^للص /,'وله ').replace(/^يدا اللص /,'ويداه ').replace(/^اللص /,'و');
   return[a[0].replace(/\.$/,'')+' and '+b[0].replace(/^The thief /,''),a[1].replace(/\.$/,'')+'، '+b1];}
@@ -44,7 +46,7 @@ def('case',ci=>{
     $('#clue').innerHTML=`<div class="chead">🔎 الدليل ${D(k+1)} من ${D(clues.length)}</div><p class="en ctxt">${tapWords(en)}</p><p class="car2" id="car" hidden>${ar}</p>
       <div class="row"><button class="chipbtn" id="csay">🔊 اسمع</button><button class="chipbtn" id="ctr">🇸🇦 المعنى</button></div>`;
     $('#clue').classList.remove('pop');void $('#clue').offsetWidth;$('#clue').classList.add('pop');
-    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),[en],{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
+    $('#csay').onclick=()=>{sfx('tap');readAlong($('#clue .ctxt'),clueLines(clues[k]),{rate:.8});};$('#ctr').onclick=()=>{$('#car').hidden=false;arShown=true;};}
   const shouldOut=i=>!fitsAll(sus[i],clues.slice(0,k+1));
   function check(){const need=sus.map((_,i)=>i).filter(shouldOut);if(need.every(i=>out.has(i))){
       if(k<clues.length-1){toast('👍 ممتاز! الدليل التالي…');sfx('ok');k++;setTimeout(()=>{if(!done)showClue();},500);}

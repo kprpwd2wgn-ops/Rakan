@@ -18,6 +18,8 @@ let sayTok=0;
 function speak(text,o={}){
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
   const lang=o.lang||'en';
+  /* صوت أولي المسجّل (src/kit/enclips.js) إن وُجد للكلام كله؛ الألعاب التي لا تحمّله لا يتغير فيها شيء */
+  if(lang==='en'&&typeof EN!=='undefined'&&EN.say(text,o,()=>tok===sayTok,end))return;
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
     u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
@@ -29,8 +31,8 @@ function speak(text,o={}){
 }
 /* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
 function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
-function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(en&&typeof EN!=='undefined'&&EN.has(en)){speak(en,Object.assign({},o,{lang:'en'}));return;}if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+function stopSpeak(){sayTok++;if(typeof EN!=='undefined')EN.stop();if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
 /* ---------- الاستماع للميكروفون ---------- */

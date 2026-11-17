@@ -508,6 +508,8 @@ let sayTok=0;
 function speak(text,o={}){
   const tok=++sayTok;let ended=false;const end=()=>{if(ended)return;ended=true;if(o.el)o.el.classList.remove('talking');if(tok===sayTok&&o.onend)o.onend();};
   const lang=o.lang||'en';
+  /* صوت أولي المسجّل (src/kit/enclips.js) إن وُجد للكلام كله؛ الألعاب التي لا تحمّله لا يتغير فيها شيء */
+  if(lang==='en'&&typeof EN!=='undefined'&&EN.say(text,o,()=>tok===sayTok,end))return;
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
     u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
@@ -519,8 +521,8 @@ function speak(text,o={}){
 }
 /* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
 function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
-function stopSpeak(){sayTok++;if(TTS)try{speechSynthesis.cancel();}catch(e){}}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(en&&typeof EN!=='undefined'&&EN.has(en)){speak(en,Object.assign({},o,{lang:'en'}));return;}if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+function stopSpeak(){sayTok++;if(typeof EN!=='undefined')EN.stop();if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
 /* ---------- الاستماع للميكروفون ---------- */
@@ -879,8 +881,50 @@ const sfx=k=>SFX.play(k);
 function sfxToggleHTML(){return `<button class="chipbtn" id="msfx" aria-label="المؤثرات الصوتية">${SFX.on?'🔊':'🔇'} المؤثرات</button>`;}
 function bindSfxToggle(){const b=$('#msfx');if(b)b.onclick=()=>{SFX.set(!SFX.on);b.innerHTML=`${SFX.on?'🔊':'🔇'} المؤثرات`;if(SFX.on)sfx('ok');};}
 
+/* ===== صوت أولي للكلام الإنجليزي (Azure، en-US-AvaNeural) =====
+   المقاطع مسجّلة مسبقاً في ollie/voices/<رقم>.mp3 (مشتركة مع أولي)، ولكل لعبة خريطة APP.enmap:
+   {s:{"النص":"الرقم"}, slow:["رقم", …]}. الكلمات المفردة مفاتيحها بحروف صغيرة.
+   speak() في kit/voice.js يسأل EN.say أولاً: إذا كان لكل جزء من الكلام مقطع تكلم صوت أولي، وإلا تكلم صوت الجهاز
+   كما كان، إلى أن تُسجَّل كل الجمل (tools/en-lines.js يكتب القائمة الناقصة ويعيد كتابة الخريطة).
+   خيارات speak: parts = أجزاء تُشغَّل متتالية بدل الجملة كاملة، words = يُقرأ كلمة كلمة إن لم توجد الجملة. */
+var EN={map:null,buf:{},order:[],cur:null,res:null,timers:[],
+  norm:t=>String(t==null?'':t).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu,'').replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/\s+/g,' ').trim(),
+  load(){if(!APP.enmap||location.protocol==='file:')return;fetch(APP.enmap).then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)this.map=m;}).catch(()=>{});},
+  id(t){if(!this.map)return null;const k=this.norm(t);if(!k)return null;const S=this.map.s;
+    return S[k]||(/^[A-Za-z'-]+[.!?,]?$/.test(k)?S[k.replace(/[.!?,]$/,'').toLowerCase()]:null)||null;},
+  sentences(t){return(this.norm(t).match(/[^.!?…]+[.!?…]*['"]?/g)||[]).map(s=>s.trim()).filter(Boolean);},
+  /* خطة الكلام: [[رقم المقطع، بداية الجزء في النص، طوله]] أو null إذا نقص مقطع */
+  plan(text,o={}){if(!this.map)return null;const full=this.norm(text);if(!full)return null;
+    const fit=list=>{let pos=0;const out=[];for(const p of list){const id=this.id(p);if(!id)return null;const q=this.norm(p),i=full.indexOf(q,pos),at=i<0?pos:i;out.push([id,at,q.length]);pos=at+q.length;}return out.length?out:null;};
+    const w=this.id(full);if(w)return[[w,0,full.length]];
+    return(o.parts&&fit(o.parts))||fit(this.sentences(full))||(o.words?fit(full.split(' ').map(x=>x.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g,'')).filter(Boolean)):null);},
+  has(text,o){return!!this.plan(text,o);},
+  async get(id){if(this.buf[id])return this.buf[id];const ctx=SFX.ctx;if(!ctx)return null;
+    try{const r=await fetch(APP.enbase+id+'.mp3');if(!r.ok)return null;const data=await r.arrayBuffer();
+      const b=await new Promise((ok,no)=>{const p=ctx.decodeAudioData(data,ok,no);if(p&&p.then)p.then(ok,no);});
+      this.buf[id]=b;this.order.push(id);if(this.order.length>60)delete this.buf[this.order.shift()];return b;}catch(e){return null;}},
+  stop(){this.timers.forEach(clearTimeout);this.timers=[];if(this.cur){const c=this.cur;this.cur=null;c.onended=null;try{c.stop();}catch(e){}}if(this.res){const r=this.res;this.res=null;r();}},
+  /* يرجع true إذا تكلم صوت أولي (و end() تُنادى في النهاية)، و false ليتكلم صوت الجهاز */
+  say(text,o,alive,end){const pl=this.plan(text,o);if(!pl)return false;this.stop();
+    const full=this.norm(text),slow=(World.p.rate||1)<.9;SFX.unlock();
+    (async()=>{const ctx=SFX.ctx;if(!ctx){end();return;}if(ctx.state==='suspended')try{await ctx.resume();}catch(e){}
+      if(o.el&&alive())o.el.classList.add('talking');
+      for(let k=0;k<pl.length;k++){const [id,at,len]=pl[k];if(!alive())return;
+        const sl=slow&&this.map.slow&&this.map.slow.includes(id);let b=await this.get(sl?id+'-slow':id);if(!b&&sl)b=await this.get(id);if(!alive())return;if(!b)continue;
+        await new Promise(res=>{this.res=res;const s=ctx.createBufferSource();s.buffer=b;s.connect(ctx.destination);this.cur=s;
+          s.onended=()=>{if(this.cur===s)this.cur=null;if(this.res===res)this.res=null;res();};
+          if(o.onboundary){/* إضاءة الكلمات: نوزّع كلمات الجزء على مدة المقطع حسب طولها */
+            const seg=full.slice(at,at+len),dur=b.duration*1000,ws=[];seg.replace(/\S+/g,(m,i)=>{ws.push(i);return m;});
+            const lead=Math.min(180,dur*.08);ws.forEach(i=>this.timers.push(setTimeout(()=>{if(alive())o.onboundary(at+i);},lead+(dur-lead*2)*(i/Math.max(1,seg.length)))));}
+          s.start();});
+        if(k<pl.length-1&&alive())await new Promise(r=>setTimeout(r,o.words?160:90));}
+      if(alive())end();})();
+    return true;}
+};
+/* EN.load() يُنادى من main.js في كل لعبة، بعد أن يُعرَّف APP */
+
 /* ===== مدينة الكلام: البيانات ===== */
-const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html'};
+const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/'};
 const TKEY='talk-town-v2';
 const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}
@@ -894,7 +938,7 @@ const CATS={
  foods:'pizza|burger|hamburger|sandwich|pasta|spaghetti|rice|chicken|fish|meat|cake|cookie|pancake|egg|bread|cheese|salad|soup|french fries|fries|apple|banana|ice cream|kabsa|dates|chocolate|noodles|cereal|olives|fruit|vegetables|hot dog|shawarma|falafel|hummus|steak|potato|carrot|grapes|watermelon|strawberry|orange|mango|yogurt|honey|sweets|candy|donut|waffle|popcorn|nuggets|beans|biryani|toast|croissant|muffin|cupcake|sushi|tacos|kebab|lasagna|cheeseburger|mandi|pear|peach|cherry|lemon|pineapple|kiwi|tomato|cucumber|corn',
  drinks:'water|orange juice|apple juice|mango juice|juice|milk|tea|coffee|lemonade|hot chocolate|chocolate milk|laban|smoothie|milkshake',
  games:'football|soccer|basketball|volleyball|tennis|video games|computer games|games|chess|hide and seek|tag|swimming|running|cycling|puzzles|cards|board games|racing|karate|baseball|bowling|ping pong|drawing|reading',
- activity:'cooking|cook|reading|read|drawing|draw|painting|paint|shopping|walking|walk|swimming|swim|baking|bake|gardening|coffee|tea|sleeping|sleep|working|work|writing|playing|play|watching tv|watch tv|tv|movies|cars|football|news|phone|computer|running|helping|travel|traveling|fishing|camping|riding|ride|games|video games|homework|cartoons|jumping|singing|dancing',
+ activity:'cooking|cook|reading|read|drawing|draw|painting|paint|shopping|walking|walk|swimming|swim|baking|bake|gardening|coffee|tea|sleeping|sleep|working|work|writing|playing|play|watching tv|watch tv|tv|movies|cars|football|news|phone|computer|running|helping|travel|traveling|fishing|camping|riding|ride|games|video games|homework|cartoons|jumping',
  country:'saudi arabia|saudi|kuwait|egypt|uae|emirates|united arab emirates|qatar|bahrain|oman|jordan|morocco|iraq|syria|lebanon|palestine|yemen|sudan|tunisia|algeria|libya|america|usa|united states|england|britain|uk|france|turkey|india|pakistan|indonesia|malaysia|canada|germany|spain|italy|china|japan|korea|somalia|mauritania|australia|brazil|earth',
  num:'one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|hundred|thousand|million',
  family:'brother|sister|cousin|mom|mother|mum|mommy|dad|father|daddy|grandma|grandmother|grandpa|grandfather|baby|friend|uncle|aunt|family|twin|brothers|sisters',
@@ -1370,7 +1414,7 @@ def('studio',si=>{
       else{sfx('no');zibSay(c.model,{rate:.85});show(best.raw,scores[qi],`حاول أن تقول: <span class="en">${esc(c.model)}</span>`,null,null);}return;}
     if(!best.rel&&tries<2){tries++;sfx('no');setMood('wow',1800);
       if(tries===1){zibSay("Hmm? Can you ask me again?");show(best.raw,0,'همم؟ لم يفهم ليو سؤالك. اسأله مرة أخرى بطريقة أخرى!');}
-      else{zibSay('You can ask: '+c.model,{rate:.85});show(best.raw,0,`💡 مثلاً: <span class="en">${esc(c.model)}</span>`);}return;}
+      else{zibSay('You can ask: '+c.model,{rate:.85,parts:['You can ask:',c.model]});show(best.raw,0,`💡 مثلاً: <span class="en">${esc(c.model)}</span>`);}return;}
     busy=true;mic.lock(true);const stars=best.rel?(best.full?3:2):1;scores[qi]=stars;if(stars===3){fulls++;T.full++;}tsave();
     sfx(stars===3?'ok':'pop');setMood('talk');
     zibSay(c.ans[0],{onend:()=>{if(alive&&mood==='talk')setMood('happy');}});fx(c.fx);
@@ -1512,7 +1556,7 @@ def('maze',i=>{
     const d=Math.min(2,window.devicePixelRatio||1);cv.width=W*d;cv.height=H*d;cv.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);}
   function hudUp(){const inv=['gold','red','blue'].filter(c=>st.inv&CBIT[c]);$('#minv').innerHTML=inv.length?'🎒 '+inv.map(c=>`<span class="kchip" style="--kc:${KEYHEX[c]}">🔑</span>`).join(''):'';
     $('#mcnt').textContent=`الأوامر: ${D(used)}`;}
-  function bubble(en,ar){const b=$('#rb');b.innerHTML=`<span class="bwho">${roboSVG(mood==='bump'?'bump':mood==='confused'?'confused':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');roboSay(en);}
+  function bubble(en,ar,o){const b=$('#rb');b.innerHTML=`<span class="bwho">${roboSVG(mood==='bump'?'bump':mood==='confused'?'confused':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');roboSay(en,o);}
   function setMood(m,ms=1400){mood=m;moodT=ms?now+ms/1000:0;}
   const walk=path=>new Promise(res=>{queue=path.slice();queue.done=res;});
   const pause=ms=>new Promise(res=>setTimeout(res,ms));
@@ -1546,7 +1590,7 @@ def('maze',i=>{
     const ws=[];cmds.forEach(c=>{if(c.k==='move'){ws.push(c.dir);if(c.n)ws.push(NUMW[c.n]);}else if(c.k==='pick')ws.push('pick up','key');else ws.push('open','door');if(c.col)ws.push(c.col);});
     if(cmds.length>1)ws.push('and');learnWords(ws);if(normS(r.text).split(' ').length>=3)T.full++;
     run(cmds);}
-  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وقل لروبو إلى أين يذهب',onHelp:()=>{bubble(`Say: ${L.words[0]}`,`قل مثلاً: <span class="en">${esc(L.words[0])}</span>`);}});
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وقل لروبو إلى أين يذهب',onHelp:()=>{bubble(`Say: ${L.words[0]}`,`قل مثلاً: <span class="en">${esc(L.words[0])}</span>`,{parts:['Say:',L.words[0]]});}});
   $$('.wc').forEach(b=>b.onclick=()=>sayEn(b.dataset.w,{rate:.85}));
   $('#mre').onclick=()=>{if(busy)return;reset();bubble("Let's try again!",'لنحاول من جديد!');};
 
@@ -1622,7 +1666,7 @@ def('paint',arg=>{
   let alive=true,raf=0,last=performance.now(),now=0,items=[],tries=0,busy=false,won=false;
   onClean(()=>{alive=false;cancelAnimationFrame(raf);removeEventListener('resize',size);});
   function size(){W=$('#ps').clientWidth||360;H=Math.round(clamp(W*.62,200,300));S=Math.min(W,H)*.2;const d=Math.min(2,window.devicePixelRatio||1);cv.width=W*d;cv.height=H*d;cv.style.height=H+'px';ctx.setTransform(d,0,0,d,0,0);}
-  function bubble(en,ar,think){const b=$('#pb');b.innerHTML=`<span class="bwho">${brushSVG(brushCol,think?'think':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');sayEn(en,{pitch:1.15});
+  function bubble(en,ar,think,o){const b=$('#pb');b.innerHTML=`<span class="bwho">${brushSVG(brushCol,think?'think':'happy')}</span><b class="en">${esc(en)}</b><span>${ar}</span>`;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');sayEn(en,Object.assign({pitch:1.15},o||{}));
     $('#pbr').innerHTML=brushSVG(brushCol,think?'think':'happy');}
   let brushCol='#f472b6';
   /* أماكن الأشياء */
@@ -1659,7 +1703,7 @@ def('paint',arg=>{
     tries++;checkTarget(P.items);}
   function freeDraw(list){let fresh=0;list.forEach(it=>{addItem(it);if(!T.drew[it.n]){T.drew[it.n]=1;fresh++;}});tsave();
     if(fresh){World.add(fresh);toast(`🎨 رسمت شيئاً جديداً! 💎 +${D(fresh)}`);}
-    const ph=list.map(phraseOf);bubble(`Here ${list.length>1||list[0].k>1?'are':'is'} ${ph.join(' and ')}!`,`رسمت لك ما قلت! ${D(Object.keys(T.drew).length)} من ${D(Object.keys(PNOUNS).length)} شيئاً في دفتري.`);}
+    const ph=list.map(phraseOf);bubble(`Here ${list.length>1||list[0].k>1?'are':'is'} ${ph.join(' and ')}!`,`رسمت لك ما قلت! ${D(Object.keys(T.drew).length)} من ${D(Object.keys(PNOUNS).length)} شيئاً في دفتري.`,false,{parts:['Here you go!',...ph.join(' and ').split(' ')]});}
   function checkTarget(list){let good=0,hint=null;
     list.forEach(it=>{const t=tgt.find(t=>!t.done&&t.n===it.n);
       if(!t){const any=tgt.find(x=>x.n===it.n);addItem(it,{temp:now+2.2});if(!hint)hint=any?['You already have that one!','رسمت هذا من قبل!']:[`I don't see a ${it.n} in the picture.`,`لا أرى ${NOUNAR[it.n]} في اللوحة.`];return;}
@@ -1671,7 +1715,7 @@ def('paint',arg=>{
       t.done=true;good++;addItem(t);});
     drawTarget();
     if(tgt.every(t=>t.done))return finish();
-    if(good)bubble(`Yes! ${list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ')}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟');
+    if(good){const gp=list.filter(it=>tgt.some(t=>t.done&&t.n===it.n)).map(phraseOf).join(' and ');bubble(`Yes! ${gp}! What else?`,'أحسنت! ماذا أيضاً في اللوحة؟',false,{parts:['Yes!',...gp.split(' '),'What else?']});}
     else if(hint)bubble(hint[0],hint[1],true);}
   function finish(){won=true;busy=true;mic.lock(true);FX.confetti();sfx('win');bubble('Wow! The same picture! You are an artist!','واو! نفس اللوحة تماماً! أنت فنان!');
     const n=tgt.length,stars=tries<=n?3:tries<=n+2?2:1;T.paint[li]=Math.max(T.paint[li]||0,stars);tsave();
@@ -1718,9 +1762,13 @@ const NOARTS=new Set(NOART.split('|'));
 const art=x=>NOARTS.has(x)?'':/^[aeiou]/.test(x)?'an':'a';
 const cap=x=>PROPER[x]||x.replace(/\b[a-z]/g,c=>c.toUpperCase());
 const IRR={fish:'fish',sheep:'sheep',mouse:'mice',deer:'deer',fox:'foxes',wolf:'wolves',butterfly:'butterflies',puppy:'puppies',bunny:'bunnies',octopus:'octopuses',strawberry:'strawberries',cherry:'cherries',peach:'peaches',mango:'mangoes',potato:'potatoes',tomato:'tomatoes'};
-const plural=x=>IRR[x]||(/(s|sh|ch|x)$/.test(x)?x+'es':x+'s');
+/* جمع الكلمة في الجملة الكاملة: ما لا يُعدّ (rice, fries, dates…) يبقى كما هو، و candy → candies */
+const plural=x=>IRR[x]||(NOARTS.has(x)||/s$/.test(x)?x:/[^aeiou]y$/.test(x)?x.slice(0,-1)+'ies':/(sh|ch|x)$/.test(x)?x+'es':x+'s');
 function catFind(cats,t){for(const c of cats.split(',')){for(const e of (CATRE[c]||[]))if(e.re.test(t))return e.w;}return'';}
 const fillN=s=>String(s||'').replace(/\{name\}/g,World.p.name||'friend');
+/* ما يقوله صوت أولي من المثال: الاسم لا يُسجَّل، فيقول «My name is…» */
+const exSay=st=>String(st.ex||'').includes('{name}')?st.ex.replace(/\s*\{name\}\.?$/,'…'):st.ex;
+const modelSay=(st,e)=>e.x&&st.tpl?[e.model]:[exSay(st)];
 function relevant(st,t){const x=st.cat?catFind(st.cat,t):'';let ok=!!x;
   if(!ok&&st.re){const n=normS(World.p.name||'');ok=new RegExp('\\b(?:'+st.re.replace(/\{name\}/g,n||'zzzz')+')\\b').test(t);}return{ok,x};}
 const subst=(s,x)=>s.replace(/\{X\}/g,cap(x)).replace(/\{xs\}/g,plural(x)).replace(/\{xa\}/g,COLAR[x]||x).replace(/\{x\}/g,x);
@@ -1792,16 +1840,16 @@ def('alien',vi=>{
       ${note?`<p class="note">${note}</p>`:''}
       ${ok&&e.rel.ok&&!e.full?`<p class="better">✨ قلها كاملة: <span class="en">${esc(e.model)}</span> <button class="mini2" id="bsay" aria-label="اسمع">🔊</button><br><small>اضغط 🎤 وقلها كاملة لتربح نجمة إضافية!</small></p>`:''}
       ${ok?`<button class="btn gold big wide" id="anext">${si<N-1?'السؤال التالي ←':'🏁 النهاية'}</button>`:''}`;
-    a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85});if($('#anext'))$('#anext').onclick=next;}
+    a.hidden=false;if($('#bsay'))$('#bsay').onclick=()=>sayEn(e.model,{rate:.85,parts:modelSay(V.steps[si],e)});if($('#anext'))$('#anext').onclick=next;}
   function next(){stopSpeak();si++;if(si>=N)return finish();ask();}
   function onText(r){if(busy)return;const st=V.steps[si],e=evalAns(st,r);
     if(bonusFor===si){if(e.rel.ok&&e.full){sfx('win');scores[si]=3;fulls++;T.full++;tsave();bonusFor=-1;const [x,y]=centerOf($('#ans'));FX.burst(x,y,{n:24});zibSay('Perfect sentence!');
         showAns(e,true,'⭐ رائع! جملة كاملة.',['Perfect sentence!','جملة ممتازة!']);}
-      else{zibSay(e.model,{rate:.85});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
+      else{zibSay(e.model,{rate:.85,parts:modelSay(st,e)});showAns(e,true,`حاول أن تقول: <span class="en">${esc(e.model)}</span>`);}return;}
     if(!e.spoke){mic.say('لم أسمع كلمات إنجليزية… جرّب مرة أخرى');sfx('no');return;}
     if(!e.rel.ok&&tries<2){tries++;setMood('wow',1800);sfx('no');
       if(tries===1){zibSay("Hmm? I don't understand. Can you say it again?");showAns(e,false,'همم؟ لم يفهم ليو. قلها مرة أخرى بطريقة أخرى!');}
-      else{zibSay('Try like this: '+fillN(st.ex),{rate:.85});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
+      else{zibSay('Try like this: '+fillN(st.ex),{rate:.85,parts:['Try like this:',exSay(st)]});showAns(e,false,`💡 جرّب مثلاً: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small>`);}return;}
     const stars=e.rel.ok?e.stars:1;scores[si]=Math.max(scores[si]||0,stars);
     if(e.rel.ok&&e.full){fulls++;T.full++;}
     fresh+=learnWords(e.x&&e.x.includes(' ')?e.norm.replace(e.x,' ').split(' ').filter(w=>ALLW.has(w)).concat([e.x]):e.norm.split(' ').filter(w=>ALLW.has(w)));
@@ -1814,7 +1862,7 @@ def('alien',vi=>{
     resultOv({title:'👽 ليو سعيد جداً!',stars,gems:Math.round(tot/2)+stars*2,
       lines:[`🌟 جمل كاملة: ${D(fulls)} من ${D(N)}`,fresh?`📚 كلمات جديدة: ${D(fresh)}`:'',stars<3?'أجب بجمل كاملة لتحصل على ٣ نجوم':'متحدث رائع! 👑'],
       btns:[...(hasNext?[{label:'الزيارة التالية ←',cls:'gold big',fn:()=>go('alien',vi+1,false)}]:[]),{label:'🔁 مرة أخرى',cls:'ghost',fn:()=>rerender()},{label:'🏙️ المدينة',cls:'ghost',fn:()=>home()}]});}
-  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب ليو بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85});
+  const mic=micBar($('#mic'),{onText,hint:'اضغط 🎤 وأجب ليو بالإنجليزية',onHelp:()=>{const st=V.steps[si];zibSay(fillN(st.ex),{rate:.85,parts:[exSay(st)]});
     showAns({raw:'…',x:'',rel:{ok:false},full:false,model:''},false,`💡 مثال: <span class="en">${esc(fillN(st.ex))}</span><br><small>${fillN(st.exa)}</small><br>قلها بكلماتك أنت!`);}});
   $('#qs').onclick=()=>{const st=V.steps[si];if(st)zibSay(fillN(st.q),{rate:.82});};
   zib();setTimeout(()=>{if(alive)ask();},350);
@@ -1822,6 +1870,7 @@ def('alien',vi=>{
 
 /* ===== البداية ===== */
 FX.init();
+EN.load();
 $('#back').onclick=()=>back();
 $('#hgems').onclick=()=>go('closet');
 $('#hhero').onclick=()=>go('closet');

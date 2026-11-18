@@ -250,9 +250,14 @@ Web Audio unlocked by that first tap is what lets a line play later from a game 
   (`en-lines.js` reports 0 to record), so on GitHub Pages they speak only in Ollie's voice. The play links do not carry the clips (about 900 and 1,800 files), so they still use
   the device voice; the GitHub Pages links are the ones with the new voice.
   Their drawn objects (`src/kit/things.js`) and noise-only sound effects (`src/kit/sfx.js`, switched off with the 🔊
-  button on the home screen, kept under `rakan-sfx`) are shared by the two. The Arabic intro guides still use the device
-  voice when it has a natural Arabic voice, unless the English guide line has a clip; moving them to Hamed needs vowelled
-  lines and her check.
+  button on the home screen, kept under `rakan-sfx`) are shared by the two. Since 18 Nov 2026 the Arabic intro pages and the
+  hero's voice test speak with Hamed: `ARV` in `src/kit/enclips.js` plays `APP.arvoices/<id>.mp3` (`reading-rocket/voices`,
+  `talk-town/voices`, from `<game>-ar-lines.json` via `tools/game-voices.py`) when `guide()`/`speak()` get `{arclip:id}`.
+  She asked for it directly; the vowelled lines were shown to her afterwards for checking.
+- iPhone silent switch (18 Nov 2026, she reported "no sound at all"): Web Audio, which plays every recorded clip, is muted by
+  the silent switch. `UNMUTE` (in `src/kit/base.js`, copied into `src/ollie/engine.js` and `little-star.html`) sets
+  `navigator.audioSession.type='playback'` and, for older iOS, loops a silent WAV in an `<audio>` element after the first
+  tap (paused when the page is hidden). Every new game that plays clips needs the same.
 
 - Times tables (`times.html`) and Division (`division.html`): every line is drafted in `times-lines.json`
   and `division-lines.json`. They are built by `python3 src/voices/make-lines.py`, so fix the script, not the JSON;

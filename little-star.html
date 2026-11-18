@@ -72,6 +72,22 @@ const LINES = [
   'النِّهَايَةُ ⭐',
 ];
 
+/* ---------- الآيفون: زر الوضع الصامت يكتم Web Audio (صوت حامد وصوت أولي والمؤثرات) ----------
+   نطلب أن يُعامَل الصوت مثل الفيديو (audioSession=playback)، وفي الأجهزة الأقدم نشغّل ملفًا صامتًا قصيرًا
+   بعد أول لمسة، فيتحول الجهاز إلى وضع التشغيل ولا يكتمه الزر الصامت. يتوقف حين تُخفى الصفحة. */
+var UNMUTE={a:null,
+  url(){const sr=8000,n=sr,b=new ArrayBuffer(44+n*2),v=new DataView(b),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+    return URL.createObjectURL(new Blob([b],{type:'audio/wav'}));},
+  go(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}
+    if(document.hidden)return;
+    try{if(!this.a){const a=document.createElement('audio');a.setAttribute('playsinline','');a.setAttribute('x-webkit-airplay','deny');a.loop=true;a.preload='auto';a.src=this.url();this.a=a;}
+      if(this.a.paused){const p=this.a.play();if(p&&p.catch)p.catch(()=>{});}}catch(e){}}
+};
+['touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>UNMUTE.go(),{capture:true,passive:true}));
+document.addEventListener('visibilitychange',()=>{if(UNMUTE.a){if(document.hidden)UNMUTE.a.pause();else UNMUTE.go();}});
+
 // ---------- voices (Azure clips shipped beside the page) ----------
 const voices = {
   ctx: null, out: null, buf: {}, cur: null,

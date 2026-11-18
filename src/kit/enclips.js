@@ -39,3 +39,21 @@ var EN={map:null,buf:{},order:[],cur:null,res:null,timers:[],
     return true;}
 };
 /* EN.load() يُنادى من main.js في كل لعبة، بعد أن يُعرَّف APP */
+
+/* ===== صوت حامد للعربية (Azure، ar-SA-HamedNeural): APP.arvoices/manifest.json من tools/game-voices.py =====
+   speak(نص،{lang:'ar',arclip:'intro-1'}) يشغّل المقطع إن وُجد، وإلا تكلم صوت الجهاز كما كان. */
+var ARV={files:null,buf:{},
+  load(){if(!APP.arvoices||location.protocol==='file:')return;fetch(APP.arvoices+'/manifest.json').then(r=>r.ok?r.json():null)
+    .then(m=>{if(m&&m.lines){this.files={};m.lines.forEach(l=>{this.files[l.id]=l.file;});}}).catch(()=>{});},
+  has(id){return!!(id&&this.files&&this.files[id]);},
+  say(id,o,alive,end){if(!this.has(id))return false;EN.stop();SFX.unlock();
+    (async()=>{const ctx=SFX.ctx;if(!ctx){end();return;}if(ctx.state==='suspended')try{await ctx.resume();}catch(e){}
+      let b=this.buf[id];
+      if(!b){try{const r=await fetch(APP.arvoices+'/'+this.files[id]);if(!r.ok)throw 0;const d=await r.arrayBuffer();
+        b=await new Promise((ok,no)=>{const p=ctx.decodeAudioData(d,ok,no);if(p&&p.then)p.then(ok,no);});this.buf[id]=b;}catch(e){if(alive())end();return;}}
+      if(!alive())return;if(o.el)o.el.classList.add('talking');
+      await new Promise(res=>{EN.res=res;const s=ctx.createBufferSource();s.buffer=b;s.connect(ctx.destination);EN.cur=s;
+        s.onended=()=>{if(EN.cur===s)EN.cur=null;if(EN.res===res)EN.res=null;res();};s.start();});
+      if(alive())end();})();
+    return true;}
+};

@@ -68,7 +68,7 @@ function introComic(done){
     ['<div class="cbig">👆</div>','كلمة صعبة؟','اضغط أي كلمة إنجليزية، فتسمعها وتعرف معناها بالعربية. وكل كلمة تدخل دفتر كلماتك 📚','A hard word? Tap any English word to hear it, and see what it means in Arabic.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic">${p[0]}<h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🚀 لننطلق!'}</button></div>`;
-    guide(p[1]+'. '+p[2],p[3]);
+    guide(p[1]+'. '+p[2],p[3],{arclip:'intro-'+(i+1)});
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{RS.intro=true;rsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }

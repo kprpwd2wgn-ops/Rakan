@@ -460,6 +460,22 @@ function resultOv({title,stars=null,big=null,lines=[],gems=0,chest=null,btns=[],
   return ov;
 }
 
+/* ---------- الآيفون: زر الوضع الصامت يكتم Web Audio (صوت حامد وصوت أولي والمؤثرات) ----------
+   نطلب أن يُعامَل الصوت مثل الفيديو (audioSession=playback)، وفي الأجهزة الأقدم نشغّل ملفًا صامتًا قصيرًا
+   بعد أول لمسة، فيتحول الجهاز إلى وضع التشغيل ولا يكتمه الزر الصامت. يتوقف حين تُخفى الصفحة. */
+const UNMUTE={a:null,
+  url(){const sr=8000,n=sr,b=new ArrayBuffer(44+n*2),v=new DataView(b),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+    return URL.createObjectURL(new Blob([b],{type:'audio/wav'}));},
+  go(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}
+    if(document.hidden)return;
+    try{if(!this.a){const a=document.createElement('audio');a.setAttribute('playsinline','');a.setAttribute('x-webkit-airplay','deny');a.loop=true;a.preload='auto';a.src=this.url();this.a=a;}
+      if(this.a.paused){const p=this.a.play();if(p&&p.catch)p.catch(()=>{});}}catch(e){}}
+};
+['touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>UNMUTE.go(),{capture:true,passive:true}));
+document.addEventListener('visibilitychange',()=>{if(UNMUTE.a){if(document.hidden)UNMUTE.a.pause();else UNMUTE.go();}});
+
 /* ===== المؤثرات: شرارات، كلمات طائرة، اهتزاز ===== */
 if(window.CanvasRenderingContext2D&&!CanvasRenderingContext2D.prototype.roundRect){CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){r=Math.min(typeof r==='number'?r:(r&&r[0])||0,Math.abs(w)/2,Math.abs(h)/2);this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath();return this;};}
 const REDUCED=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -510,6 +526,8 @@ function speak(text,o={}){
   const lang=o.lang||'en';
   /* صوت أولي المسجّل (src/kit/enclips.js) إن وُجد للكلام كله؛ الألعاب التي لا تحمّله لا يتغير فيها شيء */
   if(lang==='en'&&typeof EN!=='undefined'&&EN.say(text,o,()=>tok===sayTok,end))return;
+  /* صوت حامد المسجّل للعربية (ARV في src/kit/enclips.js) حين يعطي المنادي رقم المقطع o.arclip */
+  if(lang==='ar'&&o.arclip&&typeof ARV!=='undefined'&&ARV.say(o.arclip,o,()=>tok===sayTok,end))return;
   if(!TTS||(lang==='ar'&&(!VOICE.ar||!World.p.voiceAr))){setTimeout(end,o.lang==='ar'?10:400);return;}
   try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu,''));
     u.lang=lang==='ar'?'ar-SA':'en-US';const v=VOICE[lang];if(v)u.voice=v;
@@ -521,7 +539,7 @@ function speak(text,o={}){
 }
 /* الإرشادات: بالعربية فقط إذا كان في الجهاز صوت عربي طبيعي، وإلا فبالإنجليزية (حتى لا يتكلم «رجل آلي») */
 function guideLang(){const g=World.p.guide;if(g==='ar'&&VOICE.ar)return 'ar';if(g==='en')return 'en';return VOICE.ar&&NATURAL.test(VOICE.ar.name)?'ar':'en';}
-function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(en&&typeof EN!=='undefined'&&EN.has(en)){speak(en,Object.assign({},o,{lang:'en'}));return;}if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
+function guide(ar,en,o={}){if(!World.p.voiceAr)return;if(o.arclip&&typeof ARV!=='undefined'&&ARV.has(o.arclip)){speak(ar,Object.assign({},o,{lang:'ar'}));return;}if(en&&typeof EN!=='undefined'&&EN.has(en)){speak(en,Object.assign({},o,{lang:'en'}));return;}if(guideLang()==='ar')speak(String(ar).replace(/([!?؟])\. /g,'$1 '),Object.assign({},o,{lang:'ar'}));else if(en)speak(en,Object.assign({},o,{lang:'en'}));}
 function stopSpeak(){sayTok++;if(typeof EN!=='undefined')EN.stop();if(TTS)try{speechSynthesis.cancel();}catch(e){}}
 document.addEventListener('pointerdown',()=>{try{if(TTS){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}}catch(e){}},{once:true});
 
@@ -739,7 +757,7 @@ def('closet',(tab)=>{
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
       $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off'&&v!=='on')World.p.guide=v;World.save();draw();
         if(APP.voices){if(v==='off')CLIPS.stop();return;}
-        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.',{arclip:'hello'});else stopSpeak();});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});
@@ -923,8 +941,26 @@ var EN={map:null,buf:{},order:[],cur:null,res:null,timers:[],
 };
 /* EN.load() يُنادى من main.js في كل لعبة، بعد أن يُعرَّف APP */
 
+/* ===== صوت حامد للعربية (Azure، ar-SA-HamedNeural): APP.arvoices/manifest.json من tools/game-voices.py =====
+   speak(نص،{lang:'ar',arclip:'intro-1'}) يشغّل المقطع إن وُجد، وإلا تكلم صوت الجهاز كما كان. */
+var ARV={files:null,buf:{},
+  load(){if(!APP.arvoices||location.protocol==='file:')return;fetch(APP.arvoices+'/manifest.json').then(r=>r.ok?r.json():null)
+    .then(m=>{if(m&&m.lines){this.files={};m.lines.forEach(l=>{this.files[l.id]=l.file;});}}).catch(()=>{});},
+  has(id){return!!(id&&this.files&&this.files[id]);},
+  say(id,o,alive,end){if(!this.has(id))return false;EN.stop();SFX.unlock();
+    (async()=>{const ctx=SFX.ctx;if(!ctx){end();return;}if(ctx.state==='suspended')try{await ctx.resume();}catch(e){}
+      let b=this.buf[id];
+      if(!b){try{const r=await fetch(APP.arvoices+'/'+this.files[id]);if(!r.ok)throw 0;const d=await r.arrayBuffer();
+        b=await new Promise((ok,no)=>{const p=ctx.decodeAudioData(d,ok,no);if(p&&p.then)p.then(ok,no);});this.buf[id]=b;}catch(e){if(alive())end();return;}}
+      if(!alive())return;if(o.el)o.el.classList.add('talking');
+      await new Promise(res=>{EN.res=res;const s=ctx.createBufferSource();s.buffer=b;s.connect(ctx.destination);EN.cur=s;
+        s.onended=()=>{if(EN.cur===s)EN.cur=null;if(EN.res===res)EN.res=null;res();};s.start();});
+      if(alive())end();})();
+    return true;}
+};
+
 /* ===== مدينة الكلام: البيانات ===== */
-const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/'};
+const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/',arvoices:'talk-town/voices'};
 const TKEY='talk-town-v2';
 const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}
@@ -1530,7 +1566,7 @@ function introComic(done){
     [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.','Tap the microphone and talk. Say what you want, all by yourself! If the microphone does not work, you can type in English.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🎤 لنبدأ!'}</button></div>`;
-    guide(p[1]+'. '+p[2],p[3]);
+    guide(p[1]+'. '+p[2],p[3],{arclip:'intro-'+(i+1)});
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{T.intro=true;tsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }
@@ -1870,7 +1906,7 @@ def('alien',vi=>{
 
 /* ===== البداية ===== */
 FX.init();
-EN.load();
+EN.load();ARV.load();
 $('#back').onclick=()=>back();
 $('#hgems').onclick=()=>go('closet');
 $('#hhero').onclick=()=>go('closet');

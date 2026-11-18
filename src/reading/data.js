@@ -1,5 +1,5 @@
 /* ===== صاروخ القراءة: البيانات ===== */
-const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html',enmap:'ollie/voices/reading-rocket.json',enbase:'ollie/voices/'};
+const APP={id:'reading',land:'reading',title:'صاروخ القراءة',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/reading-rocket.html',enmap:'ollie/voices/reading-rocket.json',enbase:'ollie/voices/',arvoices:'reading-rocket/voices'};
 const RKEY='reading-rocket-v2';
 const RS=loadJSON(RKEY,()=>({mon:{},pics:{},cases:{},rooms:{},stories:{},ends:{},read:0,intro:false,words:{},zap:{},rank:0}));
 function rsave(){saveJSON(RKEY,RS);}

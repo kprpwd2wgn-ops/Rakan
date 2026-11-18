@@ -1,5 +1,5 @@
 /* ===== مدينة الكلام: البيانات ===== */
-const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/'};
+const APP={id:'talk',land:'talk',title:'مدينة الكلام',home:'hub',gh:'https://kprpwd2wgn-ops.github.io/Rakan/talk-town.html',enmap:'ollie/voices/talk-town.json',enbase:'ollie/voices/',arvoices:'talk-town/voices'};
 const TKEY='talk-town-v2';
 const T=loadJSON(TKEY,()=>({maze:{},paint:{},alien:{},studio:{},words:{},spoken:0,typed:0,full:0,drew:{},gal:[],rank:0,intro:false}));
 function tsave(){saveJSON(TKEY,T);}

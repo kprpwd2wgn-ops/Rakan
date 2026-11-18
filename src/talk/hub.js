@@ -93,7 +93,7 @@ function introComic(done){
     [`<div class="cbig">🎤</div>`,'اضغط الميكروفون وتكلّم','لا توجد جمل لتختارها. قل ما تريد بنفسك! وإذا لم يعمل الميكروفون، اكتب بالإنجليزية ⌨️.','Tap the microphone and talk. Say what you want, all by yourself! If the microphone does not work, you can type in English.']];
   const draw=()=>{const p=P[i];ov.innerHTML=`<div class="res comic"><div class="cpic">${p[0]}</div><h2>${p[1]}</h2><p class="ctext">${p[2]}</p>
     <div class="dots">${P.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</div><button class="btn big wide gold" id="cn">${i<P.length-1?'التالي ←':'🎤 لنبدأ!'}</button></div>`;
-    guide(p[1]+'. '+p[2],p[3]);
+    guide(p[1]+'. '+p[2],p[3],{arclip:'intro-'+(i+1)});
     $('#cn',ov).onclick=()=>{if(i<P.length-1){i++;draw();}else{T.intro=true;tsave();ov.remove();stopSpeak();done();}};};
   document.body.appendChild(ov);draw();
 }

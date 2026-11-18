@@ -151,7 +151,7 @@ def('closet',(tab)=>{
       $$('[data-d]',body).forEach(b=>b.onclick=()=>{World.p.digits=b.dataset.d;World.save();hud();draw();});
       $$('[data-va]',body).forEach(b=>b.onclick=()=>{const v=b.dataset.va;World.p.voiceAr=v!=='off';if(v!=='off'&&v!=='on')World.p.guide=v;World.save();draw();
         if(APP.voices){if(v==='off')CLIPS.stop();return;}
-        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.');else stopSpeak();});
+        if(v!=='off')guide('مرحباً! هكذا أتكلم.','Hello! This is how I talk.',{arclip:'hello'});else stopSpeak();});
       $$('[data-rt]',body).forEach(b=>b.onclick=()=>{World.p.rate=+b.dataset.rt;World.save();draw();speak('Hello! I will talk like this.',{lang:'en'});});}
     else{const list=ITEMS.filter(x=>x[1]===tab).map(x=>ITEM[x[0]]).sort((a,b)=>(b.land===APP.land)-(a.land===APP.land)||a.price-b.price);
       body.innerHTML=`<div class="items">${tab!=='outfit'?`<button class="item ${h[tab]==='none'?'worn':''}" data-none="1"><div class="ipic none">✖</div><b>بدون</b></button>`:''}${list.map(it=>{const p=Object.assign({},h,{[it.slot]:it.id});

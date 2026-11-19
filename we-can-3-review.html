@@ -712,7 +712,7 @@ function browserSay(text,slow,btn){
    if(btn){btn.classList.add('speaking');u.onend=u.onerror=()=>btn.classList.remove('speaking')}
    speechSynthesis.speak(u)}catch(e){toast('تعذّر تشغيل الصوت')}
 }
-let CLIP=null,CUR=null;
+let CLIP=null,AC=null;
 const CDIR='we-can-3-review/voices/';
 try{fetch(CDIR+'map.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)CLIP=m}).catch(()=>{})}catch(e){}
 function clipIds(text,slow){
@@ -723,29 +723,54 @@ function clipIds(text,slow){
   if(ss.length>1){const ids=ss.map(one);if(ids.every(Boolean))return ids}
   return null;
 }
-function stopClip(){if(CUR){try{CUR.pause()}catch(e){}CUR=null}}
-function playClips(ids,btn){
-  stopClip();try{if(TTS)TTS.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}
-  let i=0;if(btn)btn.classList.add('speaking');
-  const nx=()=>{if(i>=ids.length){btn&&btn.classList.remove('speaking');CUR=null;return}
-    const a=new Audio(CDIR+ids[i++]+'.mp3');CUR=a;a.onended=()=>{if(CUR===a)nx()};a.onerror=()=>{if(CUR===a)nx()};
-    const p=a.play();if(p&&p.catch)p.catch(()=>{btn&&btn.classList.remove('speaking')})};
-  nx();
+let SRC=null,PLAYTOK=0;const BUF={},RAW={};
+function actx(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC}
+function getRaw(id){return RAW[id]||(RAW[id]=fetch(CDIR+id+'.mp3').then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}))}
+async function getBuf(id){if(BUF[id])return BUF[id];const c=actx();const d=(await getRaw(id)).slice(0);
+  const b=await new Promise((ok,no)=>{const p=c.decodeAudioData(d,ok,no);if(p&&p.then)p.then(ok,no)});BUF[id]=b;return b}
+function stopClip(){PLAYTOK++;if(SRC){try{SRC.stop()}catch(e){}SRC=null}}
+async function playClips(ids,btn,fallback){
+  stopClip();const tok=PLAYTOK;try{if(TTS)TTS.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}
+  const c=actx();if(!c){fallback();return}
+  if(btn)btn.classList.add('speaking');const done=()=>{btn&&btn.classList.remove('speaking')};
+  for(const id of ids){
+    let b;try{b=await getBuf(id)}catch(e){if(tok===PLAYTOK){done();fallback()}return}
+    if(tok!==PLAYTOK)return;
+    await new Promise(res=>{const s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.onended=res;SRC=s;s.start()});
+    if(tok!==PLAYTOK)return;
+  }
+  done();SRC=null;
 }
+// iPhone: keep sound on with the silent switch (same as the other games)
+const UNMUTE={a:null,
+  url(){const sr=8000,n=sr,b=new ArrayBuffer(44+n*2),v=new DataView(b),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+    return URL.createObjectURL(new Blob([b],{type:'audio/wav'}));},
+  go(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}
+    if(document.hidden)return;
+    try{if(!this.a){const a=document.createElement('audio');a.setAttribute('playsinline','');a.setAttribute('x-webkit-airplay','deny');a.loop=true;a.preload='auto';a.src=this.url();this.a=a;}
+      if(this.a.paused){const p=this.a.play();if(p&&p.catch)p.catch(()=>{});}}catch(e){}}
+};
+['touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>{UNMUTE.go();actx()},{capture:true,passive:true}));
+document.addEventListener('pointerdown',()=>{try{if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u)}}catch(e){}},{once:true});
+document.addEventListener('visibilitychange',()=>{if(UNMUTE.a){if(document.hidden)UNMUTE.a.pause();else UNMUTE.go();}});
 function say(text,slow,btn){
-  const ids=clipIds(text,slow);if(ids){playClips(ids,btn);return}
-  stopClip();
+  const ids=clipIds(text,slow);if(ids){playClips(ids,btn,()=>devSay(text,slow,btn));return}
+  stopClip();devSay(text,slow,btn);
+}
+function devSay(text,slow,btn){
   if(TTS){if(btn)btn.classList.add('speaking');
     TTS.speak(text,{rate:slow?0.75:0.95,language:'en'}).then(()=>btn&&btn.classList.remove('speaking')).catch(e=>{btn&&btn.classList.remove('speaking');if(!e||e.code!=='viewer_stopped')browserSay(text,slow,btn)});return}
   browserSay(text,slow,btn);
 }
 /* ---------- sfx: short filtered-noise bursts only, no musical tones ---------- */
-let AC=null,NZ=null;
+let NZ=null;
 function burst(at,dur,type,freq,q,vol){try{const c=AC;if(!NZ){NZ=c.createBuffer(1,c.sampleRate*.6|0,c.sampleRate);const d=NZ.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
   const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NZ;f.type=type;f.frequency.value=freq;f.Q.value=q;
   g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(vol,at+.008);g.gain.exponentialRampToValueAtTime(.0001,at+dur);
   s.connect(f);f.connect(g);g.connect(c.destination);s.start(at,Math.random()*.3);s.stop(at+dur+.03)}catch(e){}}
-function fx(kind){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();const t=AC.currentTime+.01;
+function fx(kind){try{if(!actx())return;const t=AC.currentTime+.01;
   if(kind==='ok'){burst(t,.045,'bandpass',1500,1.4,.8);burst(t+.08,.07,'bandpass',2300,1.4,.7)}
   else if(kind==='tap')burst(t,.035,'bandpass',1700,1,.35);
   else if(kind==='no')burst(t,.2,'lowpass',240,.7,1.6);

@@ -714,7 +714,7 @@ function browserSay(text,slow,btn){
 }
 let CLIP=null,AC=null;
 const CDIR='we-can-3-review/voices/';
-try{fetch(CDIR+'map.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)CLIP=m}).catch(()=>{})}catch(e){}
+try{if(location.protocol!=='file:')fetch(CDIR+'map.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)CLIP=m}).catch(()=>{})}catch(e){}
 function clipIds(text,slow){
   if(!CLIP)return null;const k=t=>t.trim();
   const one=t=>{const id=CLIP.s[k(t)];if(!id)return null;return slow&&CLIP.slow&&CLIP.slow.includes(id)?id+'-slow':id};
@@ -734,7 +734,9 @@ async function playClips(ids,btn,fallback){
   const c=actx();if(!c){fallback();return}
   if(btn)btn.classList.add('speaking');const done=()=>{btn&&btn.classList.remove('speaking')};
   for(const id of ids){
-    let b;try{b=await getBuf(id)}catch(e){if(tok===PLAYTOK){done();fallback()}return}
+    let b;try{b=await getBuf(id)}catch(e){/* a slow copy the play link does not carry: the normal clip */
+      if(id.endsWith('-slow'))try{b=await getBuf(id.slice(0,-5))}catch(e2){}
+      if(!b){if(tok===PLAYTOK){done();fallback()}return}}
     if(tok!==PLAYTOK)return;
     await new Promise(res=>{const s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.onended=res;SRC=s;s.start()});
     if(tok!==PLAYTOK)return;

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مراجعة الرياضيات — الصف الثالث</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF7EA;--ink:#1C2240;--muted:#6B6F86;--line:#EADFCB;--main:#0FA3A3;--main2:#0a7272;--sun:#FFC23C;--ok:#16A34A;--okbg:#E7F8EC;--bad:#E11D48;--badbg:#FDE8EE}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo Bhaijaan 2",system-ui,sans-serif;font-size:17px;line-height:1.55}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 90px}
+.nask{font-family:"Noto Naskh Arabic","Baloo Bhaijaan 2",serif}
+.ltr{direction:ltr;unicode-bidi:isolate}
+header.top{display:flex;align-items:center;gap:12px;margin:4px 0 14px}
+.logo{width:54px;height:54px;border-radius:16px;background:var(--ink);display:grid;place-items:center;font-size:30px;flex:none;transform:rotate(-4deg);box-shadow:4px 4px 0 var(--main)}
+.top h1{margin:0;font-size:22px;line-height:1.25}
+.top p{margin:0;color:var(--muted);font-size:14px}
+.stars{margin-inline-start:auto;background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;white-space:nowrap}
+.hero{background:var(--ink);color:#fff;border-radius:26px;padding:20px;position:relative;overflow:hidden;margin-bottom:16px}
+.hero h2{margin:0 0 4px;font-size:24px}
+.hero p{margin:0;opacity:.88;font-size:15px}
+.hero .go{margin-top:14px;background:var(--sun);color:var(--ink);font-weight:800;padding:10px 18px;border-radius:14px;box-shadow:0 4px 0 #C98F00}
+.hero .go:active{transform:translateY(3px);box-shadow:0 1px 0 #C98F00}
+.hero svg{position:absolute;inset-inline-end:-6px;bottom:-8px;width:110px;height:110px;opacity:.95}
+.label{font-weight:700;color:var(--muted);font-size:14px;margin:14px 2px 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:6px 14px;border-radius:999px;background:#fff;border:2px solid var(--line);font-weight:700;font-size:15px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.sec{background:#fff;border:2px solid var(--line);border-radius:20px;padding:14px;text-align:start;position:relative;box-shadow:0 4px 0 var(--line)}
+.sec:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.sec .ic{font-size:28px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:6px}
+.sec b{display:block;font-size:17px;line-height:1.3}
+.sec small{color:var(--muted);font-size:13px;display:block}
+.sec .best{position:absolute;top:10px;inset-inline-end:12px;font-size:12px;font-weight:700;color:var(--muted)}
+.sec.wide{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+.sec.wide .ic{margin:0}
+.qbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.x{width:40px;height:40px;border-radius:12px;background:#fff;border:2px solid var(--line);font-size:18px;flex:none}
+.prog{flex:1;height:14px;background:#fff;border:2px solid var(--line);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--main);border-radius:99px;transition:width .3s}
+.cnt{font-weight:700;font-size:14px;color:var(--muted);white-space:nowrap}
+.card{background:#fff;border:2px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 5px 0 var(--line)}
+.tags{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;background:#F3EEE4;color:var(--muted)}
+.inst{color:var(--muted);font-size:15px;margin:0 0 8px}
+.qrow{display:flex;align-items:flex-start;gap:10px;margin:4px 0 12px}
+.qtext{flex:1;font-size:23px;font-weight:700;line-height:1.75}
+.qtext.big{font-size:34px;text-align:center}
+.spk{width:44px;height:44px;border-radius:14px;background:#FFE4DF;border:2px solid #F8C5BC;font-size:20px;flex:none}
+.spk.speaking,.play.speaking{animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.pic{font-size:60px;text-align:center;line-height:1.15;margin:2px 0 6px}
+.passage{background:#FFFBF2;border:2px dashed var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px;max-height:300px;overflow:auto}
+.passage h4{margin:0 0 6px;font-size:17px;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.passage div{white-space:pre-line;font-size:19px;line-height:1.9}
+.audio{display:flex;gap:10px;justify-content:center;align-items:center;margin:4px 0 14px;flex-wrap:wrap}
+.play{width:84px;height:84px;border-radius:50%;background:var(--main);color:#fff;font-size:36px;box-shadow:0 5px 0 var(--main2)}
+.play:active{transform:translateY(4px);box-shadow:0 1px 0 var(--main2)}
+.small{padding:8px 14px;border-radius:14px;background:#F3EEE4;font-weight:700;font-size:14px}
+.transcript{background:#F3EEE4;border-radius:12px;padding:8px 12px;margin:-4px 0 12px;font-size:19px}
+.opts{display:grid;gap:10px}
+.opt{background:#fff;border:2px solid var(--line);border-radius:16px;padding:11px 14px;font-size:20px;font-weight:700;text-align:start;box-shadow:0 3px 0 var(--line);display:flex;align-items:center;gap:10px;line-height:1.6}
+.opt .k{width:30px;height:30px;border-radius:10px;background:#F3EEE4;display:grid;place-items:center;font-size:14px;flex:none}
+.opt:active{transform:translateY(2px)}
+.opt.ok{background:var(--okbg);border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad);box-shadow:0 3px 0 var(--bad);animation:shake .35s}
+.opt.dim{opacity:.55}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tf{grid-template-columns:1fr 1fr}
+.tf .opt{justify-content:center;font-size:21px}
+input.ans{width:100%;font-family:inherit;font-size:24px;padding:12px 14px;border-radius:16px;border:2px solid var(--line);outline:none;text-align:center}
+input.ans:focus{border-color:var(--main)}
+input.ans.ok{border-color:var(--ok);background:var(--okbg)}input.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:16px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 4px 0 #000;font-size:17px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.main{background:var(--main);box-shadow:0 4px 0 var(--main2)}
+.btn.full{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.row .btn{flex:1}
+.line{min-height:62px;border:2px dashed var(--line);border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-content:flex-start}
+.line.ok{border-color:var(--ok);background:var(--okbg);border-style:solid}.line.bad{border-color:var(--bad);background:var(--badbg);border-style:solid}
+.bank{display:flex;flex-wrap:wrap;gap:8px}
+.tile{padding:8px 14px;border-radius:12px;background:#fff;border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:700;font-size:20px}
+.tile.used{visibility:hidden}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match .col{display:grid;gap:8px;align-content:start}
+.mi{padding:10px;border-radius:14px;background:#fff;border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:700;font-size:17px;min-height:52px;line-height:1.5}
+.mi.emo{font-size:30px;padding:4px}
+.mi.sel{border-color:var(--main);background:#E2F7F7}
+.mi.done{background:var(--okbg);border-color:var(--ok);box-shadow:none;opacity:.75}
+.mi.bad{animation:shake .35s;border-color:var(--bad)}
+.fb{margin-top:14px;border-radius:16px;padding:12px 14px;display:none}
+.fb.show{display:block;animation:pop .25s}
+.fb.ok{background:var(--okbg);color:#0f5f2e}.fb.bad{background:var(--badbg);color:#8f1230}
+.fb b{font-size:19px;display:block}
+.fb .c{font-weight:800;margin-top:2px;font-size:19px}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.mic{width:92px;height:92px;border-radius:50%;background:var(--main);color:#fff;font-size:38px;box-shadow:0 5px 0 var(--main2);margin:4px auto 8px;display:grid;place-items:center}
+.mic.on{background:var(--bad);box-shadow:0 5px 0 #9b1030;animation:pulse 1s infinite}
+.heard{min-height:44px;background:#F3EEE4;border-radius:14px;padding:10px 12px;font-size:19px;margin-bottom:10px}
+.or{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin:12px 0 8px}
+.or:before,.or:after{content:"";flex:1;height:2px;background:var(--line)}
+.res{text-align:center}
+.res .big{font-size:60px;line-height:1}
+.res h2{margin:6px 0 0;font-size:26px}
+.res .pct{font-size:46px;font-weight:800;color:var(--main);line-height:1.1}
+.res .st{font-size:42px;letter-spacing:4px;margin:6px 0}
+.mist{text-align:start;margin-top:16px}
+.mist .m{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.mist .m .a{color:var(--ok);font-weight:800}
+.unit{background:#fff;border:2px solid var(--line);border-radius:22px;margin-bottom:12px;overflow:hidden}
+.unit summary{list-style:none;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700}
+.unit summary::-webkit-details-marker{display:none}
+.unit .num{width:44px;height:44px;border-radius:14px;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800;flex:none}
+.unit .ub{padding:0 14px 14px}
+.unit ul{margin:0;padding-inline-start:20px}
+.unit li{margin-bottom:5px;font-size:17px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;z-index:9;max-width:90vw;text-align:center;display:none}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 1.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:18px}
+@media (min-width:640px){.grid{grid-template-columns:1fr 1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+const CFG={id:'math3',title:'مراجعة الرياضيات — الصف الثالث',sub:'الفصل الدراسي الأول · الفصول من ١ إلى ٥',icon:'🔢',
+ color:'#2F6BFF',color2:'#1d47b8',arDigits:true,dir:'math-3-review/voices',secLabel:'اختر الفصل',sumTitle:'ملخص الفصول',
+ art:'<svg viewBox="0 0 100 100"><rect x="14" y="20" width="70" height="66" rx="12" fill="#FFC23C"/><rect x="22" y="28" width="54" height="16" rx="4" fill="#1C2240"/><g fill="#fff"><rect x="24" y="52" width="12" height="10" rx="3"/><rect x="43" y="52" width="12" height="10" rx="3"/><rect x="62" y="52" width="12" height="10" rx="3"/><rect x="24" y="68" width="12" height="10" rx="3"/><rect x="43" y="68" width="12" height="10" rx="3"/><rect x="62" y="68" width="12" height="10" rx="3" fill="#FF6B5A"/></g><text x="70" y="40" font-size="12" fill="#35d0b5" text-anchor="end" font-family="monospace">123</text></svg>',
+ secs:[
+  {k:'c1',t:'القيمة المنزلية',ic:'🏠',bg:'#E3EBFF',d:'الفصل الأول'},
+  {k:'c2',t:'الجمع',ic:'➕',bg:'#E2F6E7',d:'الفصل الثاني'},
+  {k:'c3',t:'الطرح',ic:'➖',bg:'#FFE4DF',d:'الفصل الثالث'},
+  {k:'c4',t:'الضرب (١)',ic:'✖️',bg:'#FFF1CC',d:'الفصل الرابع'},
+  {k:'c5',t:'الضرب (٢)',ic:'🧮',bg:'#EFE7FF',d:'الفصل الخامس'}]};
+const P={};
+const Q=[];
+const OPW={'+':'زَائِدَ','−':'نَاقِصَ','×':'فِي'};
+// first option is always the correct one (options are shuffled on screen)
+const mc=(s,q,o,ex,x={})=>Q.push({s,t:'mcq',q,o:o.map(String),ex,...x});
+const tf=(s,q,a,ex,x={})=>Q.push({s,t:'tf',q,a,ex,...x});
+const ty=(s,q,ans,ex,x={})=>Q.push({s,t:'type',q,ans:[].concat(ans).map(String),ex,...x});
+const od=(s,q,ord,ex,x={})=>Q.push({s,t:'order',q,ord:ord.map(String),join:'، ',ex,...x});
+const ma=(s,q,pairs,ex,x={})=>Q.push({s,t:'match',q,pairs:pairs.map(p=>p.map(String)),ex,i:'صِل كل عملية بناتجها',...x});
+const calc=(s,a,op,b,ans,wrong,ex)=>mc(s,`${a} ${op} ${b} = ؟`,[ans,...wrong],ex,{v:`كَمْ يُسَاوِي ${a} ${OPW[op]} ${b}؟`});
+const calcT=(s,a,op,b,ans,ex)=>ty(s,`${a} ${op} ${b} = ؟`,ans,ex,{v:`كَمْ يُسَاوِي ${a} ${OPW[op]} ${b}؟`});
+
+/* ===== الفصل الأول: القيمة المنزلية ===== */
+mc('c1','أَكْمِلِ النَّمَطَ: 5، 10، 15، 20، ...',[25,30,21],'النمط: نضيف ٥ في كل مرة.');
+mc('c1','أَكْمِلِ النَّمَطَ: 30، 40، 50، 60، ...',[70,61,80],'النمط: نضيف ١٠ في كل مرة.');
+mc('c1','أَكْمِلِ النَّمَطَ: 50، 45، 40، 35، ...',[30,25,36],'النمط: نطرح ٥ في كل مرة.');
+mc('c1','مَا قَاعِدَةُ النَّمَطِ: 3، 6، 9، 12؟',['نُضِيفُ 3','نُضِيفُ 2','نَطْرَحُ 3'],'كل عدد يزيد ٣ على الذي قبله.');
+od('c1','رَتِّبْ خُطُوَاتِ حَلِّ الْمَسْأَلَةِ الْأَرْبَعَ.',['أَفْهَمُ','أُخَطِّطُ','أَحُلُّ','أَتَحَقَّقُ'],'الخطوات الأربع: أفهم، أخطط، أحل، أتحقق.');
+mc('c1','مَا قِيمَةُ الرَّقْمِ 5 فِي الْعَدَدِ 4567؟',[500,5,50,5000],'الرقم ٥ في منزلة المئات، قيمته ٥٠٠.');
+mc('c1','مَا قِيمَةُ الرَّقْمِ 8 فِي الْعَدَدِ 8213؟',[8000,800,80,8],'الرقم ٨ في منزلة الآلاف، قيمته ٨٠٠٠.');
+mc('c1','مَا مَنْزِلَةُ الرَّقْمِ 6 فِي الْعَدَدِ 3642؟',['الْمِئَاتُ','الْعَشَرَاتُ','الْآحَادُ','الْآلَافُ'],'٣٦٤٢: ٢ آحاد، ٤ عشرات، ٦ مئات، ٣ آلاف.');
+mc('c1','مَا قِيمَةُ الرَّقْمِ 7 فِي الْعَدَدِ 72815؟',[70000,7000,700,70],'الرقم ٧ في منزلة عشرات الألوف، قيمته ٧٠٠٠٠.');
+mc('c1','مَا مَنْزِلَةُ الرَّقْمِ 4 فِي الْعَدَدِ 46309؟',['عَشَرَاتُ الْأُلُوفِ','الْآلَافُ','الْمِئَاتُ','الْعَشَرَاتُ'],'العدد من خمسة أرقام، والرقم الأول في منزلة عشرات الألوف.');
+ty('c1','4000 + 300 + 20 + 5 = ؟',4325,'الصيغة القياسية: ٤٣٢٥.',{v:'اُكْتُبِ الْعَدَدَ بِالصِّيغَةِ الْقِيَاسِيَّةِ: 4000 زَائِدَ 300 زَائِدَ 20 زَائِدَ 5.'});
+ty('c1','6000 + 50 + 8 = ؟',6058,'لا توجد مئات، فنكتب صفرًا في منزلة المئات: ٦٠٥٨.',{v:'اُكْتُبِ الْعَدَدَ بِالصِّيغَةِ الْقِيَاسِيَّةِ: 6000 زَائِدَ 50 زَائِدَ 8.'});
+mc('c1','مَا الصِّيغَةُ التَّحْلِيلِيَّةُ لِلْعَدَدِ 2734؟',['2000 + 700 + 30 + 4','2000 + 70 + 300 + 4','200 + 700 + 30 + 4'],'نفكّ العدد حسب منازل أرقامه.');
+mc('c1','اُكْتُبْ بِالْأَرْقَامِ: ثَلَاثَةُ آلَافٍ وَخَمْسُمِئَةٍ وَأَرْبَعُونَ.',[3540,3504,3450,30540],'٣ آلاف و٥ مئات و٤ عشرات و٠ آحاد.');
+mc('c1','أَيُّ الْعَدَدَيْنِ أَكْبَرُ: 3456 أَمْ 3465؟',[3465,3456],'نقارن من اليسار: الآلاف متساوية، المئات متساوية، العشرات ٦ أكبر من ٥.');
+mc('c1','أَيُّ الْعَدَدَيْنِ أَصْغَرُ: 8709 أَمْ 8790؟',[8709,8790],'عشرات ٨٧٠٩ هي ٠، وعشرات ٨٧٩٠ هي ٩.');
+mc('c1','أَيُّ الْأَعْدَادِ الْآتِيَةِ هُوَ الْأَكْبَرُ؟',[12450,9999,12405,10450],'العدد الأكبر له أكبر رقم في أعلى منزلة.');
+od('c1','رَتِّبِ الْأَعْدَادَ مِنَ الْأَصْغَرِ إِلَى الْأَكْبَرِ.',[1259,1295,1529,1925],'نقارن الأرقام منزلةً منزلة.');
+od('c1','رَتِّبِ الْأَعْدَادَ مِنَ الْأَكْبَرِ إِلَى الْأَصْغَرِ.',[5430,5340,4530,3540],'من الأكبر إلى الأصغر.');
+mc('c1','قَرِّبِ الْعَدَدَ 67 إِلَى أَقْرَبِ عَشَرَةٍ.',[70,60,65],'رقم الآحاد ٧ أكبر من ٥، فنقرب إلى ٧٠.');
+mc('c1','قَرِّبِ الْعَدَدَ 43 إِلَى أَقْرَبِ عَشَرَةٍ.',[40,50,45],'رقم الآحاد ٣ أقل من ٥، فنقرب إلى ٤٠.');
+mc('c1','قَرِّبِ الْعَدَدَ 85 إِلَى أَقْرَبِ عَشَرَةٍ.',[90,80,85],'إذا كان رقم الآحاد ٥ نقرب إلى الأعلى.');
+mc('c1','قَرِّبِ الْعَدَدَ 345 إِلَى أَقْرَبِ مِئَةٍ.',[300,400,350],'رقم العشرات ٤ أقل من ٥، فنقرب إلى ٣٠٠.');
+mc('c1','قَرِّبِ الْعَدَدَ 762 إِلَى أَقْرَبِ مِئَةٍ.',[800,700,760],'رقم العشرات ٦ أكبر من ٥، فنقرب إلى ٨٠٠.');
+mc('c1','قَرِّبِ الْعَدَدَ 2650 إِلَى أَقْرَبِ أَلْفٍ.',[3000,2000,2700],'رقم المئات ٦، فنقرب إلى ٣٠٠٠.');
+mc('c1','قَرِّبِ الْعَدَدَ 7381 إِلَى أَقْرَبِ أَلْفٍ.',[7000,8000,7400],'رقم المئات ٣ أقل من ٥، فنقرب إلى ٧٠٠٠.');
+tf('c1','الْعَدَدُ 9999 هُوَ أَكْبَرُ عَدَدٍ مِنْ أَرْبَعَةِ أَرْقَامٍ.',true,'بعده ١٠٠٠٠ وهو من خمسة أرقام.');
+tf('c1','قِيمَةُ الرَّقْمِ 3 فِي الْعَدَدِ 1300 هِيَ 30.',false,'الرقم ٣ في منزلة المئات، قيمته ٣٠٠.');
+
+/* ===== الفصل الثاني: الجمع ===== */
+mc('c2','أَيُّ خَاصِّيَّةٍ فِي: 6 + 9 = 9 + 6؟',['خَاصِّيَّةُ الْإِبْدَالِ','خَاصِّيَّةُ التَّجْمِيعِ','الْعُنْصُرُ الْمُحَايِدُ'],'تغيير ترتيب العددين لا يغير الناتج: خاصية الإبدال.',{v:'أَيُّ خَاصِّيَّةٍ فِي: 6 زَائِدَ 9 يُسَاوِي 9 زَائِدَ 6؟'});
+mc('c2','أَيُّ خَاصِّيَّةٍ فِي: (2 + 3) + 5 = 2 + (3 + 5)؟',['خَاصِّيَّةُ التَّجْمِيعِ','خَاصِّيَّةُ الْإِبْدَالِ','الْعُنْصُرُ الْمُحَايِدُ'],'تغيير طريقة تجميع الأعداد لا يغير الناتج: خاصية التجميع.',{v:'أَيُّ خَاصِّيَّةٍ تَظْهَرُ عِنْدَمَا نُغَيِّرُ طَرِيقَةَ تَجْمِيعِ الْأَعْدَادِ وَيَبْقَى النَّاتِجُ نَفْسَهُ؟'});
+mc('c2','أَيُّ خَاصِّيَّةٍ فِي: 8 + 0 = 8؟',['الْعُنْصُرُ الْمُحَايِدُ','خَاصِّيَّةُ الْإِبْدَالِ','خَاصِّيَّةُ التَّجْمِيعِ'],'جمع الصفر لا يغير العدد: العنصر المحايد.',{v:'أَيُّ خَاصِّيَّةٍ فِي: 8 زَائِدَ صِفْرٍ يُسَاوِي 8؟'});
+ty('c2','15 + ؟ = 7 + 15',7,'خاصية الإبدال: ١٥ + ٧ = ٧ + ١٥.',{v:'مَا الْعَدَدُ النَّاقِصُ: 15 زَائِدَ كَمْ يُسَاوِي 7 زَائِدَ 15؟'});
+ty('c2','25 + 0 = ؟',25,'العنصر المحايد في الجمع هو الصفر.',{v:'كَمْ يُسَاوِي 25 زَائِدَ صِفْرٍ؟'});
+mc('c2','قَدِّرْ نَاتِجَ: 48 + 31 بِالتَّقْرِيبِ إِلَى أَقْرَبِ عَشَرَةٍ.',[80,70,90],'٤٨ ← ٥٠ ، ٣١ ← ٣٠ ، ٥٠ + ٣٠ = ٨٠.');
+mc('c2','قَدِّرْ نَاتِجَ: 312 + 486 بِالتَّقْرِيبِ إِلَى أَقْرَبِ مِئَةٍ.',[800,700,900],'٣١٢ ← ٣٠٠ ، ٤٨٦ ← ٥٠٠ ، المجموع ٨٠٠.');
+mc('c2','مَعَ فَهْدٍ 50 رِيَالًا، وَيُرِيدُ شِرَاءَ كِتَابٍ بِـ 28 رِيَالًا وَقِصَّةٍ بِـ 19 رِيَالًا. هَلْ يَكْفِيهِ الْمَبْلَغُ؟ أَيُّهُمَا يَكْفِي: جَوَابٌ دَقِيقٌ أَمْ تَقْدِيرِيٌّ؟',['التَّقْدِيرُ يَكْفِي، وَالْمَبْلَغُ يَكْفِيهِ','نَحْتَاجُ جَوَابًا دَقِيقًا، وَالْمَبْلَغُ لَا يَكْفِيهِ'],'٢٨ ← ٣٠ ، ١٩ ← ٢٠ ، المجموع نحو ٥٠ أو أقل، فالتقدير يكفي.');
+calc('c2',47,'+',38,85,[75,815,84],'٧ + ٨ = ١٥: نكتب ٥ ونحمل ١ إلى العشرات.');
+calc('c2',56,'+',27,83,[73,713,82],'٦ + ٧ = ١٣: نكتب ٣ ونحمل ١.');
+calcT('c2',34,'+',45,79,'لا يوجد إعادة تجميع: ٤ + ٥ = ٩ ، ٣ + ٤ = ٧.');
+calcT('c2',69,'+',23,92,'٩ + ٣ = ١٢: نكتب ٢ ونحمل ١ ، ٦ + ٢ + ١ = ٩.');
+calc('c2',256,'+',378,634,[524,624,534],'نجمع الآحاد ثم العشرات ثم المئات، مع إعادة التجميع.');
+calc('c2',405,'+',196,601,[501,591,611],'٥ + ٦ = ١١ ، ٠ + ٩ + ١ = ١٠ ، ٤ + ١ + ١ = ٦.');
+calcT('c2',123,'+',245,368,'١٢٣ + ٢٤٥ = ٣٦٨.');
+calcT('c2',489,'+',312,801,'٤٨٩ + ٣١٢ = ٨٠١.');
+mc('c2','اشْتَرَى سَعِيدٌ 125 بِطَاقَةً، ثُمَّ اشْتَرَى 68 بِطَاقَةً أُخْرَى. كَمْ بِطَاقَةً مَعَهُ الْآنَ؟',[193,183,57,203],'نجمع: ١٢٥ + ٦٨ = ١٩٣.');
+ty('c2','فِي الْمَكْتَبَةِ 234 قِصَّةً وَ 158 كِتَابًا. كَمْ عَدَدُهَا جَمِيعًا؟',392,'٢٣٤ + ١٥٨ = ٣٩٢.');
+mc('c2','قَطَعَتْ سَيَّارَةٌ 346 كِيلُومِتْرًا فِي يَوْمٍ، وَ 275 كِيلُومِتْرًا فِي الْيَوْمِ التَّالِي. كَمْ كِيلُومِتْرًا قَطَعَتْ؟',[621,611,521,71],'٣٤٦ + ٢٧٥ = ٦٢١.');
+ma('c2','',[['20 + 30','50'],['45 + 15','60'],['36 + 34','70'],['100 + 0','100']],'');
+tf('c2','7 + 8 = 8 + 7',true,'هذه خاصية الإبدال.',{v:'هَلْ: 7 زَائِدَ 8 يُسَاوِي 8 زَائِدَ 7؟'});
+tf('c2','نَاتِجُ 0 + 9 هُوَ 0.',false,'٠ + ٩ = ٩ لأن الصفر عنصر محايد.',{v:'هَلْ نَاتِجُ صِفْرٍ زَائِدَ 9 هُوَ صِفْرٌ؟'});
+
+/* ===== الفصل الثالث: الطرح ===== */
+calc('c3',72,'−',38,34,[46,44,36],'لا يمكن طرح ٨ من ٢: نعيد التجميع، ١٢ − ٨ = ٤ ، ٦ − ٣ = ٣.');
+calc('c3',65,'−',27,38,[42,48,32],'١٥ − ٧ = ٨ ، ٥ − ٢ = ٣.');
+calcT('c3',94,'−',51,43,'٤ − ١ = ٣ ، ٩ − ٥ = ٤.');
+calcT('c3',80,'−',46,34,'نعيد التجميع: ١٠ − ٦ = ٤ ، ٧ − ٤ = ٣.');
+mc('c3','قَدِّرْ نَاتِجَ: 89 − 42 بِالتَّقْرِيبِ إِلَى أَقْرَبِ عَشَرَةٍ.',[50,40,60],'٨٩ ← ٩٠ ، ٤٢ ← ٤٠ ، ٩٠ − ٤٠ = ٥٠.',{v:'قَدِّرْ نَاتِجَ 89 نَاقِصَ 42 بِالتَّقْرِيبِ إِلَى أَقْرَبِ عَشَرَةٍ.'});
+mc('c3','قَدِّرْ نَاتِجَ: 678 − 312 بِالتَّقْرِيبِ إِلَى أَقْرَبِ مِئَةٍ.',[400,300,500],'٦٧٨ ← ٧٠٠ ، ٣١٢ ← ٣٠٠ ، ٧٠٠ − ٣٠٠ = ٤٠٠.',{v:'قَدِّرْ نَاتِجَ 678 نَاقِصَ 312 بِالتَّقْرِيبِ إِلَى أَقْرَبِ مِئَةٍ.'});
+calc('c3',523,'−',287,236,[364,246,336],'نعيد التجميع مرتين: الآحاد ثم العشرات.');
+calc('c3',642,'−',358,284,[316,294,384],'١٢ − ٨ = ٤ ، ١٣ − ٥ = ٨ ، ٥ − ٣ = ٢.');
+calcT('c3',856,'−',423,433,'لا يوجد إعادة تجميع.');
+calc('c3',400,'−',163,237,[337,263,247],'الطرح مع وجود الأصفار: ٤٠٠ = ٣ مئات و٩ عشرات و١٠ آحاد.');
+calc('c3',305,'−',128,177,[223,187,277],'٣٠٥ − ١٢٨ = ١٧٧.');
+calcT('c3',700,'−',245,455,'٧٠٠ − ٢٤٥ = ٤٥٥.');
+mc('c3','عِنْدَ مَرْيَمَ 45 قَلَمًا، أَعْطَتْ أُخْتَهَا 18 قَلَمًا. كَمْ قَلَمًا بَقِيَ مَعَهَا؟',[27,63,37,33],'نطرح: ٤٥ − ١٨ = ٢٧.');
+ty('c3','فِي حَدِيقَةٍ 512 شَجَرَةً، مِنْهَا 275 شَجَرَةَ نَخِيلٍ، وَالْبَاقِي أَشْجَارُ لَيْمُونٍ. كَمْ شَجَرَةَ لَيْمُونٍ فِيهَا؟',237,'٥١٢ − ٢٧٥ = ٢٣٧.');
+mc('c3','حَلَّ خَالِدٌ: 61 − 29 = 42. هَلْ جَوَابُهُ مَعْقُولٌ؟',['لَا، لِأَنَّ 60 − 30 = 30 تَقْرِيبًا','نَعَمْ، الْجَوَابُ صَحِيحٌ'],'نتحقق بالتقدير: ٦٠ − ٣٠ = ٣٠، والجواب الصحيح ٣٢.',{v:'حَلَّ خَالِدٌ: 61 نَاقِصَ 29 يُسَاوِي 42. هَلْ جَوَابُهُ مَعْقُولٌ؟'});
+mc('c3','مَعَ سَارَةَ 90 رِيَالًا، اشْتَرَتْ لُعْبَةً بِـ 35 رِيَالًا. مَا الْعَمَلِيَّةُ الْمُنَاسِبَةُ لِمَعْرِفَةِ الْبَاقِي؟',['الطَّرْحُ','الْجَمْعُ','الضَّرْبُ'],'نبحث عن الباقي، فنطرح.');
+mc('c3','فِي صَفٍّ 14 طَالِبًا، وَفِي صَفٍّ آخَرَ 16 طَالِبًا. مَا الْعَمَلِيَّةُ الْمُنَاسِبَةُ لِمَعْرِفَةِ الْعَدَدِ كُلِّهِ؟',['الْجَمْعُ','الطَّرْحُ','الضَّرْبُ'],'نبحث عن المجموع، فنجمع.');
+mc('c3','كَيْفَ نَتَحَقَّقُ مِنْ صِحَّةِ: 83 − 47 = 36؟',['نَجْمَعُ: 36 + 47','نَطْرَحُ: 47 − 36','نَجْمَعُ: 83 + 47'],'الجمع والطرح عمليتان متعاكستان.',{v:'كَيْفَ نَتَحَقَّقُ مِنْ صِحَّةِ نَاتِجِ الطَّرْحِ؟'});
+tf('c3','نَاتِجُ 500 − 1 هُوَ 499.',true,'٥٠٠ − ١ = ٤٩٩.',{v:'هَلْ نَاتِجُ 500 نَاقِصَ 1 هُوَ 499؟'});
+
+/* ===== الفصل الرابع: الضرب (١) ===== */
+mc('c4','كَمْ نَجْمَةً فِي الشَّبَكَةِ؟ 3 صُفُوفٍ، فِي كُلِّ صَفٍّ 4 نُجُومٍ.',[12,7,10,16],'٣ × ٤ = ١٢.',{pic:'⭐⭐⭐⭐<br>⭐⭐⭐⭐<br>⭐⭐⭐⭐'});
+mc('c4','أَيُّ جُمْلَةِ ضَرْبٍ تُعَبِّرُ عَنْ: 4 + 4 + 4 + 4 + 4؟',['5 × 4','4 × 4','5 + 4'],'٤ مكررة ٥ مرات: ٥ × ٤.',{v:'أَيُّ جُمْلَةِ ضَرْبٍ تُعَبِّرُ عَنْ جَمْعِ الْعَدَدِ 4 خَمْسَ مَرَّاتٍ؟'});
+mc('c4','إِذَا كَانَ 3 × 6 = 18، فَإِنَّ 6 × 3 = ؟',[18,9,36],'خاصية الإبدال في الضرب: تغيير ترتيب العددين لا يغير الناتج.',{v:'إِذَا كَانَ 3 فِي 6 يُسَاوِي 18، فَكَمْ يُسَاوِي 6 فِي 3؟'});
+calc('c4',2,'×',7,14,[9,12,16],'جدول ٢: الضرب في ٢ يعني مضاعفة العدد.');
+calc('c4',2,'×',9,18,[11,16,20],'٢ × ٩ = ١٨.');
+calcT('c4',2,'×',6,12,'٢ × ٦ = ١٢.');
+calc('c4',4,'×',6,24,[20,10,28],'الضرب في ٤ = مضاعفة العدد مرتين: ٦ ← ١٢ ← ٢٤.');
+calc('c4',4,'×',8,32,[28,12,36],'٤ × ٨ = ٣٢.');
+calcT('c4',4,'×',7,28,'٤ × ٧ = ٢٨.');
+calc('c4',5,'×',7,35,[30,12,40],'نواتج الضرب في ٥ تنتهي بـ ٠ أو ٥.');
+calc('c4',5,'×',9,45,[40,14,50],'٥ × ٩ = ٤٥.');
+calcT('c4',5,'×',6,30,'٥ × ٦ = ٣٠.');
+calc('c4',10,'×',8,80,[18,800,70],'عند الضرب في ١٠ نضع صفرًا يمين العدد.');
+calcT('c4',10,'×',6,60,'١٠ × ٦ = ٦٠.');
+calc('c4',9,'×',0,0,[9,1,90],'أي عدد مضروب في صفر يساوي صفرًا.');
+calc('c4',1,'×',8,8,[1,9,0],'أي عدد مضروب في ١ يساوي العدد نفسه.');
+tf('c4','نَاتِجُ ضَرْبِ أَيِّ عَدَدٍ فِي 1 هُوَ الْعَدَدُ نَفْسُهُ.',true,'خاصية العنصر المحايد في الضرب.');
+tf('c4','نَاتِجُ 7 × 0 هُوَ 7.',false,'٧ × ٠ = ٠.',{v:'هَلْ نَاتِجُ 7 فِي صِفْرٍ هُوَ 7؟'});
+mc('c4','مَعَ عَلِيٍّ 5 عُلَبٍ، فِي كُلِّ عُلْبَةٍ 4 أَقْلَامٍ. كَمْ قَلَمًا مَعَهُ؟',[20,9,15,24],'٥ × ٤ = ٢٠.');
+ty('c4','فِي مَوْقِفٍ 6 سَيَّارَاتٍ، لِكُلِّ سَيَّارَةٍ 4 عَجَلَاتٍ. كَمْ عَجَلَةً فِي الْمَوْقِفِ؟',24,'٦ × ٤ = ٢٤.');
+mc('c4','اشْتَرَتْ نُورَةُ 3 عُلَبِ أَلْوَانٍ بِـ 10 رِيَالَاتٍ لِكُلِّ عُلْبَةٍ، وَكَانَ الْجَوُّ جَمِيلًا. مَا الْمُعْطَى الزَّائِدُ؟',['الْجَوُّ كَانَ جَمِيلًا','3 عُلَبٍ','10 رِيَالَاتٍ'],'المعطى الزائد معلومة لا نحتاجها للحل.');
+ma('c4','',[['2 × 8','16'],['4 × 5','20'],['5 × 5','25'],['10 × 3','30']],'');
+
+/* ===== الفصل الخامس: الضرب (٢) ===== */
+calc('c5',3,'×',7,21,[10,24,18],'جدول ٣: ٣ × ٧ = ٢١.');
+calc('c5',3,'×',8,24,[11,21,27],'٣ × ٨ = ٢٤.');
+calcT('c5',3,'×',9,27,'٣ × ٩ = ٢٧.');
+calc('c5',6,'×',4,24,[10,20,28],'الضرب في ٦ = ضعف الضرب في ٣: ٣ × ٤ = ١٢ ، ١٢ × ٢ = ٢٤.');
+calc('c5',6,'×',7,42,[13,36,48],'٦ × ٧ = ٤٢.');
+calcT('c5',6,'×',8,48,'٦ × ٨ = ٤٨.');
+calc('c5',7,'×',7,49,[14,42,56],'٧ × ٧ = ٤٩.');
+calc('c5',7,'×',8,56,[15,54,64],'٧ × ٨ = ٥٦ (٥، ٦، ٧، ٨).');
+calcT('c5',7,'×',6,42,'٧ × ٦ = ٤٢.');
+calc('c5',8,'×',6,48,[14,42,56],'الضرب في ٨ = ضعف الضرب في ٤.');
+calc('c5',8,'×',9,72,[17,64,81],'٨ × ٩ = ٧٢.');
+calcT('c5',8,'×',4,32,'٨ × ٤ = ٣٢.');
+calc('c5',9,'×',6,54,[15,45,63],'في جدول ٩: مجموع رقمي الناتج ٩ (٥ + ٤).');
+calc('c5',9,'×',9,81,[18,72,99],'٩ × ٩ = ٨١.');
+calcT('c5',9,'×',7,63,'٩ × ٧ = ٦٣.');
+mc('c5','أَكْمِلِ النَّمَطَ: 7، 14، 21، 28، ...',[35,30,42],'نضيف ٧ في كل مرة: مضاعفات العدد ٧.');
+mc('c5','أَكْمِلِ النَّمَطَ: 9، 18، 27، 36، ...',[45,40,54],'نضيف ٩ في كل مرة.');
+mc('c5','(2 × 3) × 4 = 2 × (3 × ؟)',[4,3,2,24],'الخاصية التجميعية: تغيير تجميع الأعداد لا يغير الناتج.',{v:'الْخَاصِّيَّةُ التَّجْمِيعِيَّةُ: مَا الْعَدَدُ النَّاقِصُ؟'});
+ty('c5','(2 × 5) × 3 = ؟',30,'٢ × ٥ = ١٠ ، ١٠ × ٣ = ٣٠.',{v:'كَمْ يُسَاوِي 2 فِي 5 فِي 3؟'});
+mc('c5','فِي الْأُسْبُوعِ 7 أَيَّامٍ. كَمْ يَوْمًا فِي 4 أَسَابِيعَ؟',[28,11,24,32],'٤ × ٧ = ٢٨.');
+ty('c5','لِلْعَنْكَبُوتِ 8 أَرْجُلٍ. كَمْ رِجْلًا لِـ 3 عَنَاكِبَ؟',24,'٣ × ٨ = ٢٤.');
+mc('c5','وَزَّعَ الْمُعَلِّمُ 6 مَجْمُوعَاتٍ، فِي كُلِّ مَجْمُوعَةٍ 6 طُلَّابٍ. كَمْ طَالِبًا؟',[36,12,30,42],'٦ × ٦ = ٣٦.');
+ma('c5','',[['3 × 6','18'],['6 × 9','54'],['7 × 4','28'],['8 × 8','64']],'');
+tf('c5','نَاتِجُ 6 × 5 يُسَاوِي نَاتِجَ 5 × 6.',true,'خاصية الإبدال.',{v:'هَلْ نَاتِجُ 6 فِي 5 يُسَاوِي نَاتِجَ 5 فِي 6؟'});
+
+const SUM=[
+ {t:'الفصل الأول: القيمة المنزلية',ic:'🏠',c:'#2F6BFF',sec:'c1',pts:['المنازل من اليمين: الآحاد، العشرات، المئات، الآلاف، عشرات الألوف.','قيمة الرقم = الرقم × منزلته: في ٤٥٦٧ قيمة ٥ هي ٥٠٠.','الصيغة التحليلية: ٢٧٣٤ = ٢٠٠٠ + ٧٠٠ + ٣٠ + ٤.','للمقارنة نبدأ بأعلى منزلة.','التقريب: إذا كان الرقم الذي بعد منزلة التقريب ٥ أو أكبر نقرب إلى الأعلى، وإذا كان أقل من ٥ يبقى.','خطوات حل المسألة: أفهم، أخطط، أحل، أتحقق.']},
+ {t:'الفصل الثاني: الجمع',ic:'➕',c:'#16A34A',sec:'c2',pts:['خاصية الإبدال: ٦ + ٩ = ٩ + ٦.','خاصية التجميع: (٢ + ٣) + ٥ = ٢ + (٣ + ٥).','العنصر المحايد: ٨ + ٠ = ٨.','التقدير: نقرب الأعداد ثم نجمعها.','نجمع الآحاد أولًا، وإذا زاد المجموع على ٩ نعيد التجميع (نحمل ١).']},
+ {t:'الفصل الثالث: الطرح',ic:'➖',c:'#E11D48',sec:'c3',pts:['نطرح الآحاد أولًا، وإذا كان الرقم العلوي أصغر نعيد التجميع.','الطرح مع الأصفار: ٤٠٠ = ٣ مئات + ٩ عشرات + ١٠ آحاد.','نتحقق من الطرح بالجمع.','معقولية الجواب: نقارن الجواب بالتقدير.','نجمع عندما نبحث عن المجموع، ونطرح عندما نبحث عن الباقي أو الفرق.']},
+ {t:'الفصل الرابع: الضرب (١)',ic:'✖️',c:'#E8A100',sec:'c4',pts:['الضرب جمع متكرر: ٤ + ٤ + ٤ = ٣ × ٤.','الشبكة: صفوف × أعمدة.','الضرب في ٢: مضاعفة. الضرب في ٤: مضاعفة مرتين.','نواتج الضرب في ٥ تنتهي بـ ٠ أو ٥، وفي ١٠ تنتهي بـ ٠.','أي عدد × ٠ = ٠ ، وأي عدد × ١ = العدد نفسه.','المعطى الزائد معلومة لا نحتاجها للحل.']},
+ {t:'الفصل الخامس: الضرب (٢)',ic:'🧮',c:'#8A5CF6',sec:'c5',pts:['الضرب في ٦ = ضعف الضرب في ٣.','الضرب في ٨ = ضعف الضرب في ٤.','في جدول ٩ مجموع رقمي الناتج ٩: ٩ × ٦ = ٥٤.','الخاصية التجميعية: (٢ × ٣) × ٤ = ٢ × (٣ × ٤).','ابحث عن النمط: ٧، ١٤، ٢١، ٢٨...']}
+];
+
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app');
+document.documentElement.style.setProperty('--main',CFG.color);document.documentElement.style.setProperty('--main2',CFG.color2);
+const SEC={};CFG.secs.forEach(s=>SEC[s.k]=s);
+const ALLU=(CFG.units||[]).map(u=>u.n);
+let units=new Set(ALLU),count=10,S=null;
+const store={get(k,d){try{const v=localStorage.getItem(CFG.id+'_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(CFG.id+'_'+k,JSON.stringify(v))}catch(e){}}};
+let stars=store.get('stars',0);
+const AR='٠١٢٣٤٥٦٧٨٩';
+const dig=s=>CFG.arDigits?String(s).replace(/[0-9]/g,d=>AR[d]):String(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const D=s=>esc(dig(s));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const strip=s=>String(s).replace(/[ً-ْٰـ]/g,'');
+const westDigits=s=>String(s).replace(/[٠-٩]/g,d=>AR.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+const norm=s=>strip(westDigits(s)).replace(/[،,.!؟?:؛"'()\-]/g,' ').replace(/\s+/g,' ').trim();
+const loose=s=>norm(s).replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+const onlyEmoji=s=>!/[A-Za-z0-9؀-ۿ٠-٩]/.test(s);
+const spoken=q=>q.v===0?null:(q.v||(/[ء-ي]/.test(q.q||'')?q.q:null));
+
+/* ---------- Hamed's recorded voice (Azure clips listed in voices/manifest.json); no device voice ---------- */
+let AC=null,CLIP={},SRC=null,TOK=0;const BUF={},RAW={};
+try{fetch(CFG.dir+'/manifest.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.lines){m.lines.forEach(l=>CLIP[l.text.trim()]=l.file);if(S&&S.cur)refreshSpk();else if(!S)home()}}).catch(()=>{})}catch(e){}
+const has=t=>!!(t&&CLIP[String(t).trim()]);
+function actx(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC}
+function raw(f){return RAW[f]||(RAW[f]=fetch(CFG.dir+'/'+f).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}))}
+async function buf(f){if(BUF[f])return BUF[f];const c=actx();const d=(await raw(f)).slice(0);const b=await new Promise((ok,no)=>{const p=c.decodeAudioData(d,ok,no);if(p&&p.then)p.then(ok,no)});BUF[f]=b;return b}
+function stop(){TOK++;if(SRC){try{SRC.stop()}catch(e){}SRC=null}document.querySelectorAll('.speaking').forEach(e=>e.classList.remove('speaking'))}
+async function say(texts,btn){
+  texts=[].concat(texts).filter(has);if(!texts.length)return false;
+  stop();const tok=TOK,c=actx();if(!c)return false;if(btn)btn.classList.add('speaking');
+  for(const t of texts){let b;try{b=await buf(CLIP[t.trim()])}catch(e){break}if(tok!==TOK)return true;
+    await new Promise(res=>{const s=c.createBufferSource();s.buffer=b;s.connect(c.destination);s.onended=res;SRC=s;s.start()});if(tok!==TOK)return true}
+  if(btn)btn.classList.remove('speaking');SRC=null;return true;
+}
+const UNMUTE={a:null,
+  url(){const sr=8000,n=sr,b=new ArrayBuffer(44+n*2),v=new DataView(b),w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+    v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
+    return URL.createObjectURL(new Blob([b],{type:'audio/wav'}));},
+  go(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch(e){}
+    if(document.hidden)return;
+    try{if(!this.a){const a=document.createElement('audio');a.setAttribute('playsinline','');a.setAttribute('x-webkit-airplay','deny');a.loop=true;a.preload='auto';a.src=this.url();this.a=a;}
+      if(this.a.paused){const p=this.a.play();if(p&&p.catch)p.catch(()=>{});}}catch(e){}}
+};
+['touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,()=>{UNMUTE.go();actx()},{capture:true,passive:true}));
+document.addEventListener('visibilitychange',()=>{if(UNMUTE.a){if(document.hidden)UNMUTE.a.pause();else UNMUTE.go();}});
+
+/* ---------- noise-only effects (no musical tones) ---------- */
+let NZ=null;
+function burst(at,dur,type,freq,q,vol){try{const c=AC;if(!NZ){NZ=c.createBuffer(1,c.sampleRate*.6|0,c.sampleRate);const d=NZ.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NZ;f.type=type;f.frequency.value=freq;f.Q.value=q;
+  g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(vol,at+.008);g.gain.exponentialRampToValueAtTime(.0001,at+dur);
+  s.connect(f);f.connect(g);g.connect(c.destination);s.start(at,Math.random()*.3);s.stop(at+dur+.03)}catch(e){}}
+function fx(k){try{if(!actx())return;const t=AC.currentTime+.01;
+  if(k==='ok'){burst(t,.045,'bandpass',1500,1.4,.8);burst(t+.08,.07,'bandpass',2300,1.4,.7)}
+  else if(k==='tap')burst(t,.035,'bandpass',1700,1,.35);
+  else if(k==='no')burst(t,.2,'lowpass',240,.7,1.6);
+  else if(k==='win'){for(let i=0;i<16;i++)burst(t+i*.05+Math.random()*.03,.05,'bandpass',1200+Math.random()*1800,1,.45)}}catch(e){}}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',2600)}
+function confetti(){const c=document.createElement('div');c.className='confetti';const cols=['#FF6B5A','#FFC23C','#0FA3A3','#8A5CF6','#16A34A'];for(let i=0;i<60;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%5];p.style.animationDelay=Math.random()*.6+'s';c.appendChild(p)}document.body.appendChild(c);setTimeout(()=>c.remove(),2800)}
+
+/* ---------- HOME ---------- */
+const inPool=(q,k)=>(k==='all'||q.s===k)&&(!ALLU.length||units.has(q.u));
+function home(){
+  S=null;stop();window.scrollTo(0,0);
+  const best=store.get('best',{});const cnt=k=>Q.filter(q=>inPool(q,k)).length;
+  const n=Q.filter(q=>inPool(q,'all')).length;
+  app.innerHTML=`<header class="top"><div class="logo">${CFG.icon}</div><div><h1>${esc(CFG.title)}</h1><p>${esc(CFG.sub)}</p></div><div class="stars">⭐ ${stars}</div></header>
+  <section class="hero">${CFG.art||''}<h2>جاهز للاختبار النهائي؟</h2><p>${dig(n)} سؤالًا من الكتاب مع تصحيح فوري وشرح لكل إجابة${Object.keys(CLIP).length?'، وحامد يقرأ لك الأسئلة 🔊':''}.</p><button class="go" data-sec="all">🏆 ابدأ الاختبار الشامل</button></section>
+  ${ALLU.length?`<div class="label">الوحدات</div><div class="chips">${`<button class="chip ${units.size===ALLU.length?'on':''}" data-u="0">الكل</button>`+CFG.units.map(u=>`<button class="chip ${units.size<ALLU.length&&units.has(u.n)?'on':''}" data-u="${u.n}">${esc(u.t)}</button>`).join('')}</div>`:''}
+  <div class="label">عدد الأسئلة في كل جولة</div>
+  <div class="chips">${[10,20,0].map(c=>`<button class="chip ${count===c?'on':''}" data-c="${c}">${c?dig(c):'كل الأسئلة'}</button>`).join('')}</div>
+  <div class="label">${esc(CFG.secLabel||'اختر القسم')}</div>
+  <div class="grid">${CFG.secs.map(s=>`<button class="sec" data-sec="${s.k}"><div class="ic" style="background:${s.bg}">${s.ic}</div><b>${esc(s.t)}</b><small>${esc(s.d||'')} · ${dig(cnt(s.k))} سؤال</small>${best[s.k]!=null?`<span class="best">أفضل: ${dig(best[s.k])}٪</span>`:''}</button>`).join('')}
+  <button class="sec wide" id="sum"><div class="ic" style="background:#F3EEE4">📝</div><div><b>${esc(CFG.sumTitle||'ملخص الدروس')}</b><small>أهم ما يجب أن تتذكره قبل الاختبار</small></div></button></div>
+  <p class="foot">${Object.keys(CLIP).length?'🔊 اضغط زر السماعة ليقرأ حامد السؤال':'🔊 صوت حامد يُضاف قريبًا'}</p>`;
+  app.querySelectorAll('[data-sec]').forEach(b=>b.onclick=()=>start(b.dataset.sec));
+  app.querySelectorAll('[data-u]').forEach(b=>b.onclick=()=>{const n=+b.dataset.u;
+    if(n===0)units=new Set(ALLU);else if(units.size===ALLU.length)units=new Set([n]);else if(units.has(n)){units.delete(n);if(!units.size)units=new Set(ALLU)}else units.add(n);home()});
+  app.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{count=+b.dataset.c;home()});
+  $('#sum').onclick=summary;
+}
+
+/* ---------- SESSION ---------- */
+function start(sec,list){
+  let pool=list||Q.filter(q=>inPool(q,sec));
+  if(!list){
+    if(sec==='all'){const by={};shuf(pool).forEach(q=>(by[q.s]=by[q.s]||[]).push(q));const ks=Object.keys(by),n=count||pool.length,out=[];let i=0;
+      while(out.length<n&&ks.some(k=>by[k].length)){const k=ks[i++%ks.length];if(by[k].length)out.push(by[k].shift())}pool=shuf(out)}
+    else{pool=shuf(pool);if(count)pool=pool.slice(0,count)}
+  }
+  if(!pool.length){toast('لا توجد أسئلة لهذا الاختيار');return}
+  S={sec,list:pool,i:0,score:0,wrong:[]};next(true);
+}
+function next(first){if(!first)S.i++;if(S.i>=S.list.length)return result();S.cur=S.list[S.i];S.done=false;render(true);window.scrollTo(0,0)}
+const OKS=['أَحْسَنْتَ!','مُمْتَازٌ!','إِجَابَةٌ صَحِيحَةٌ!','رَائِعٌ، أَنْتَ بَطَلٌ!'];
+const BADL='انْتَبِهْ، هَذِهِ هِيَ الْإِجَابَةُ الصَّحِيحَةُ.';
+function answered(ok,ctext){
+  if(S.done)return;S.done=true;const q=S.cur;
+  if(ok){S.score++;fx('ok')}else{fx('no');S.wrong.push({q,c:ctext})}
+  const p=OKS[Math.floor(Math.random()*OKS.length)];
+  const fb=$('#fb');fb.className='fb show '+(ok?'ok':'bad');
+  fb.innerHTML=`<b>${ok?esc(p)+' ✅':'إجابة خاطئة ❌'}</b>${!ok&&ctext?`<div>الإجابة الصحيحة:</div><div class="c nask">${D(ctext)}</div>`:''}${q.ex?`<div style="margin-top:4px">${D(q.ex)}</div>`:''}`;
+  setTimeout(()=>say(ok?p:BADL),250);
+  const tr=$('#tr');if(tr)tr.style.display='block';
+  $('#nx').style.display='flex';setTimeout(()=>fb.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+}
+const INST={mcq:'اختر الإجابة الصحيحة',tf:'هل العبارة صحيحة أم خاطئة؟',type:'اكتب الإجابة',order:'رتّب البطاقات بالترتيب الصحيح',match:'اضغط على عنصر من العمود الأيمن ثم ما يناسبه من الأيسر',speak:'اقرأ بصوت عالٍ'};
+function render(auto){
+  const q=S.cur,sec=SEC[q.s]||{t:'',ic:''};const pct=Math.round(S.i/S.list.length*100);const sp=spoken(q);
+  let h=`<div class="qbar"><button class="x" id="quit">✕</button><div class="prog"><i style="width:${pct}%"></i></div><span class="cnt">${dig(S.i+1)} / ${dig(S.list.length)}</span></div>
+  <div class="card"><div class="tags"><span class="tag">${sec.ic} ${esc(sec.t)}</span>${q.u&&CFG.units?`<span class="tag">${esc((CFG.units.find(u=>u.n===q.u)||{}).t||'')}</span>`:''}<span class="tag">✔ ${dig(S.score)}</span></div>`;
+  if(q.p){const p=P[q.p];h+=`<div class="passage"><h4><span>${esc(p.t)}</span>${has(p.x)||(p.parts&&p.parts.every(has))?'<button class="spk" id="pread">🔊</button>':''}</h4><div class="nask">${D(p.x)}</div></div>`}
+  h+=`<p class="inst">${esc(q.i||INST[q.t])}</p>`;
+  if(q.say){const ok=has(q.say);h+=ok?`<div class="audio"><button class="play" id="play">🔊</button></div><div class="transcript nask" id="tr" style="display:none">${D(q.say)}</div>`
+    :`<div class="transcript nask">${D(q.say)}</div>`}
+  if(q.pic)h+=`<div class="pic">${q.pic}</div>`;
+  if(q.q&&q.t!=='match')h+=`<div class="qrow"><div class="qtext nask ${onlyEmoji(q.q)?'big':''}">${D(q.q)}</div>${sp&&has(sp)?'<button class="spk" id="qsay">🔊</button>':''}</div>`;
+  h+=`<div id="body"></div><div class="fb" id="fb"></div><div class="row" id="nx" style="display:none"><button class="btn full main" id="nextb">${S.i+1<S.list.length?'السؤال التالي ←':'اعرض النتيجة 🏁'}</button></div></div>`;
+  app.innerHTML=h;
+  $('#quit').onclick=()=>{if(S.i>0&&!confirmQuit())return;home()};
+  $('#nextb').onclick=()=>next();
+  if($('#play'))$('#play').onclick=e=>say(q.say,e.currentTarget);
+  if($('#qsay'))$('#qsay').onclick=e=>say(sp,e.currentTarget);
+  if($('#pread'))$('#pread').onclick=e=>{const p=P[q.p];say(has(p.x)?p.x:p.parts,e.currentTarget)};
+  ({mcq:bMcq,tf:bMcq,type:bType,order:bOrder,match:bMatch,speak:bSpeak})[q.t](q,$('#body'));
+  if(auto){if(q.say&&has(q.say))say(q.say,$('#play'));else if(sp&&has(sp))say(sp,$('#qsay'))}
+}
+function refreshSpk(){if(S&&S.cur&&!S.done)render(false)}
+let qa=0;function confirmQuit(){if(Date.now()-qa<2500)return true;qa=Date.now();toast('اضغط ✕ مرة أخرى للخروج');return false}
+
+function bMcq(q,el){
+  const tf=q.t==='tf';const correct=tf?(q.a?'صح':'خطأ'):q.o[0];
+  const opts=tf?['صح','خطأ']:(q.keep?q.o.slice():shuf(q.o));const L='أبجد';
+  el.innerHTML=`<div class="opts ${tf?'tf':''}">${opts.map((o,i)=>`<button class="opt nask" data-o="${esc(o)}">${tf?(o==='صح'?'✔ صح':'✘ خطأ'):`<span class="k">${L[i]}</span><span>${D(o)}</span>`}</button>`).join('')}</div>`;
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;const ok=b.dataset.o===correct;
+    el.querySelectorAll('.opt').forEach(x=>{if(x.dataset.o===correct)x.classList.add('ok');else if(x!==b)x.classList.add('dim')});
+    if(!ok)b.classList.add('bad');answered(ok,tf?null:correct)});
+}
+function bType(q,el){
+  const num=q.ans.every(a=>/^[0-9٠-٩]+$/.test(String(a)));
+  el.innerHTML=`<input class="ans nask" id="ti" autocomplete="off" ${num?'inputmode="numeric"':''} placeholder="${num?'اكتب العدد':'اكتب هنا'}"><div class="row"><button class="btn full" id="chk">تحقّق ✓</button></div>`;
+  const i=$('#ti'),go=()=>{if(S.done)return;const v=norm(i.value);if(!v){toast('اكتب إجابتك أولًا');return}
+    const ok=q.ans.some(a=>q.strict?norm(a)===v:loose(a)===loose(i.value));i.classList.add(ok?'ok':'bad');i.disabled=true;$('#chk').style.display='none';answered(ok,String(q.ans[0]))};
+  $('#chk').onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};
+}
+function bOrder(q,el){
+  const items=q.ord;let bank=shuf(items.map((w,i)=>({w,i})));if(bank.every((x,k)=>x.i===k)&&items.length>2)bank.push(bank.shift());
+  const picked=[];
+  el.innerHTML=`<div class="line" id="ln"></div><div class="bank" id="bk"></div><div class="row"><button class="btn alt" id="clr">↺ مسح</button><button class="btn" id="chk">تحقّق ✓</button></div>`;
+  const draw=()=>{$('#ln').innerHTML=picked.map((x,k)=>`<button class="tile nask" data-k="${k}">${D(x.w)}</button>`).join('');
+    $('#bk').innerHTML=bank.map((x,k)=>`<button class="tile nask ${picked.includes(x)?'used':''}" data-b="${k}">${D(x.w)}</button>`).join('');
+    $('#ln').querySelectorAll('.tile').forEach(t=>t.onclick=()=>{if(S.done)return;picked.splice(+t.dataset.k,1);draw()});
+    $('#bk').querySelectorAll('.tile').forEach(t=>t.onclick=()=>{if(S.done)return;const x=bank[+t.dataset.b];if(!picked.includes(x)){picked.push(x);fx('tap');draw()}})};
+  draw();$('#clr').onclick=()=>{if(S.done)return;picked.length=0;draw()};
+  $('#chk').onclick=()=>{if(S.done)return;if(picked.length<items.length){toast('استخدم كل البطاقات');return}
+    const ok=picked.every((x,k)=>x.w===items[k]);$('#ln').classList.add(ok?'ok':'bad');$('#clr').style.display=$('#chk').style.display='none';answered(ok,items.join(q.join||' ← '))};
+}
+function bMatch(q,el){
+  const L=shuf(q.pairs.map((p,i)=>({t:p[0],i}))),R=shuf(q.pairs.map((p,i)=>({t:p[1],i})));let sel=null,miss=0,done=0;
+  el.innerHTML=`<p class="qtext nask" style="font-size:19px;margin:0 0 10px">${D(q.q||'')}</p><div class="match"><div class="col" id="cl">${L.map(x=>`<button class="mi nask ${onlyEmoji(x.t)?'emo':''}" data-i="${x.i}">${D(x.t)}</button>`).join('')}</div><div class="col" id="cr">${R.map(x=>`<button class="mi nask" data-i="${x.i}">${D(x.t)}</button>`).join('')}</div></div>`;
+  el.querySelectorAll('#cl .mi').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('#cl .mi').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+  el.querySelectorAll('#cr .mi').forEach(b=>b.onclick=()=>{if(b.classList.contains('done')||S.done)return;if(!sel){toast('اختر من العمود الأيمن أولًا');return}
+    if(sel.dataset.i===b.dataset.i){sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');fx('tap');done++;sel=null;
+      if(done===q.pairs.length){const ok=miss===0;answered(ok,null);if(!ok)$('#fb').querySelector('b').textContent='أكملت التوصيل مع '+dig(miss)+' خطأ — حاول بدون أخطاء 💪'}}
+    else{miss++;b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');fx('no')}});
+}
+function bSpeak(q,el){
+  const target=q.model||q.q;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,on=false,heard='';
+  let h='';if(SR)h+=`<button class="mic" id="mic">🎤</button><p class="inst" style="text-align:center" id="mst">اضغط المايك واقرأ، ثم اضغط مرة أخرى للإنهاء</p><div class="heard nask" id="hd"></div><div class="or">أو</div>`;
+  h+=`<button class="btn alt full" id="self">🗣️ قرأتها — أسمعني القراءة الصحيحة</button><div id="mdl"></div>`;el.innerHTML=h;
+  const model=(ask)=>{$('#mdl').innerHTML=`<div class="transcript nask" style="margin-top:10px">${has(target)?'<button class="spk" id="ms" style="float:left">🔊</button>':''}${D(target)}</div>${ask?`<p class="inst">هل كانت قراءتك صحيحة وواضحة؟</p><div class="row"><button class="btn main" id="y">✅ نعم</button><button class="btn alt" id="n">❌ أحتاج تدريبًا</button></div>`:''}`;
+    if($('#ms'))$('#ms').onclick=e=>say(target,e.currentTarget);
+    if(ask){$('#y').onclick=()=>{$('#y').parentNode.remove();answered(true)};$('#n').onclick=()=>{$('#y').parentNode.remove();answered(false,null)}}};
+  $('#self').onclick=()=>{if(S.done)return;$('#self').style.display='none';model(true);say(target)};
+  if(SR){const mic=$('#mic');
+    const finish=()=>{if(S.done||!heard)return;const a=loose(target).split(' '),b=new Set(loose(heard).split(' '));const hit=a.filter(w=>b.has(w)).length/a.length;
+      $('#self').style.display='none';model(false);answered(hit>=.6,null);$('#fb').insertAdjacentHTML('beforeend',`<div style="margin-top:4px">سمعتُ ${dig(Math.round(hit*100))}٪ من الكلمات.</div>`)};
+    mic.onclick=()=>{if(S.done)return;if(on){try{rec.stop()}catch(e){}return}
+      try{rec=new SR();rec.lang='ar-SA';rec.interimResults=true;rec.continuous=true;heard='';
+        rec.onresult=e=>{let f='',p='';for(const r of e.results){if(r.isFinal)f+=r[0].transcript+' ';else p+=r[0].transcript}heard=(f+p).trim();$('#hd').textContent=heard};
+        rec.onend=()=>{on=false;mic.classList.remove('on');mic.textContent='🎤';finish()};
+        rec.onerror=e=>{if(e.error==='not-allowed'||e.error==='service-not-allowed'){mic.remove();$('#mst').remove();$('#hd').remove();toast('المايك غير متاح — اقرأ ثم قيّم نفسك')}};
+        rec.start();on=true;mic.classList.add('on');mic.textContent='⏹'}catch(e){toast('المايك غير متاح هنا')}};
+  }
+}
+
+/* ---------- RESULT ---------- */
+function result(){
+  stop();const n=S.list.length,p=Math.round(S.score/n*100),st=p>=90?3:p>=70?2:p>=50?1:0;stars+=st;store.set('stars',stars);
+  if(!S.retry&&S.sec!=='all'){const b=store.get('best',{});b[S.sec]=Math.max(b[S.sec]||0,p);store.set('best',b)}
+  const m=p>=90?['🏆','أَنْتَ بَطَلٌ! أَنْتَ جَاهِزٌ لِلِاخْتِبَارِ.']:p>=70?['🎉','مُمْتَازٌ! رَاجِعْ أَخْطَاءَكَ الْقَلِيلَةَ.']:p>=50?['💪','جَيِّدٌ! تَحْتَاجُ إِلَى مَزِيدٍ مِنَ التَّدْرِيبِ.']:['📚','لَا بَأْسَ، رَاجِعْ دُرُوسَكَ ثُمَّ حَاوِلْ مِنْ جَدِيدٍ.'];
+  if(p>=70){fx('win');confetti()}setTimeout(()=>say(m[1]),300);
+  app.innerHTML=`<div class="card res"><div class="big">${m[0]}</div><h2 class="nask">${esc(m[1])}</h2><div class="pct">${dig(p)}٪</div><div>${dig(S.score)} من ${dig(n)} إجابات صحيحة</div><div class="st">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>
+  <div class="row">${S.wrong.length?'<button class="btn main" id="rw">🔁 أعد الأخطاء فقط</button>':''}<button class="btn" id="again">جولة جديدة</button><button class="btn alt" id="hm">🏠 الرئيسية</button></div>
+  ${S.wrong.length?`<div class="mist"><div class="label">راجع أخطاءك</div>${S.wrong.map(w=>`<div class="m"><div class="nask">${D(w.q.q||w.q.say||'')}</div>${w.c?`<div class="a nask">✔ ${D(w.c)}</div>`:''}${w.q.ex?`<div style="font-size:14px;color:var(--muted)">${D(w.q.ex)}</div>`:''}</div>`).join('')}</div>`:''}</div>`;
+  const wl=S.wrong.map(w=>w.q),sec=S.sec;
+  if($('#rw'))$('#rw').onclick=()=>{start(sec,shuf(wl));S.retry=1};$('#again').onclick=()=>start(sec);$('#hm').onclick=home;window.scrollTo(0,0);
+}
+
+/* ---------- SUMMARY ---------- */
+function summary(){
+  stop();window.scrollTo(0,0);
+  app.innerHTML=`<div class="qbar"><button class="x" id="bk">→</button><h2 style="margin:0;font-size:22px">📝 ${esc(CFG.sumTitle||'ملخص الدروس')}</h2></div>
+  ${SUM.map((u,k)=>`<details class="unit" ${k===0?'open':''}><summary><span class="num" style="background:${u.c||CFG.color}">${u.ic||dig(k+1)}</span><span>${esc(u.t)}</span></summary><div class="ub"><ul class="nask">${u.pts.map(x=>`<li>${D(x)}</li>`).join('')}</ul>${u.sec?`<div class="row"><button class="btn main" data-go="${u.sec}">تدرّب على هذا القسم ←</button></div>`:''}</div></details>`).join('')}`;
+  $('#bk').onclick=home;app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>start(b.dataset.go));
+}
+home();
+})();
+</script>
+</body>
+</html>

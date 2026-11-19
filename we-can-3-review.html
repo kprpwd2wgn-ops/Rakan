@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المراجعة الشاملة — We Can! 3 الجزء الأول</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF7EA;--ink:#1C2240;--muted:#6B6F86;--card:#fff;--line:#EADFCB;--teal:#0FA3A3;--coral:#FF6B5A;--sun:#FFC23C;--ok:#16A34A;--okbg:#E7F8EC;--bad:#E11D48;--badbg:#FDE8EE;--r:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo Bhaijaan 2",system-ui,sans-serif;font-size:17px;line-height:1.5}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 90px}
+.en{direction:ltr;text-align:left;unicode-bidi:isolate}
+header.top{display:flex;align-items:center;gap:12px;margin:4px 0 14px}
+.logo{width:52px;height:52px;border-radius:16px;background:var(--ink);color:var(--sun);display:grid;place-items:center;font-weight:800;font-size:15px;line-height:1;text-align:center;flex:none;transform:rotate(-4deg);box-shadow:4px 4px 0 var(--coral)}
+.top h1{margin:0;font-size:22px;line-height:1.2}
+.top p{margin:0;color:var(--muted);font-size:14px}
+.stars{margin-inline-start:auto;background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;white-space:nowrap}
+.hero{background:var(--ink);color:#fff;border-radius:26px;padding:20px;position:relative;overflow:hidden;margin-bottom:16px}
+.hero h2{margin:0 0 4px;font-size:24px}
+.hero p{margin:0;opacity:.85;font-size:15px}
+.hero .bubbles{position:absolute;inset-inline-end:-10px;top:-6px;font-size:58px;opacity:.9;transform:rotate(8deg)}
+.hero .go{margin-top:14px;background:var(--sun);color:var(--ink);font-weight:800;padding:10px 18px;border-radius:14px;box-shadow:0 4px 0 #C98F00}
+.hero .go:active{transform:translateY(3px);box-shadow:0 1px 0 #C98F00}
+.label{font-weight:700;color:var(--muted);font-size:14px;margin:14px 2px 8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:6px 14px;border-radius:999px;background:#fff;border:2px solid var(--line);font-weight:600;font-size:15px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.sec{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:14px;text-align:start;position:relative;box-shadow:0 4px 0 var(--line);transition:transform .1s}
+.sec:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.sec .ic{font-size:30px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:6px}
+.sec b{display:block;font-size:18px}
+.sec small{color:var(--muted);font-size:13px;display:block}
+.sec .best{position:absolute;top:10px;inset-inline-end:12px;font-size:12px;font-weight:700;color:var(--muted)}
+.sec.wide{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+.sec.wide .ic{margin:0}
+/* quiz */
+.qbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.x{width:40px;height:40px;border-radius:12px;background:#fff;border:2px solid var(--line);font-size:18px;flex:none}
+.prog{flex:1;height:14px;background:#fff;border:2px solid var(--line);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#35d0b5);border-radius:99px;transition:width .3s}
+.cnt{font-weight:700;font-size:14px;color:var(--muted);white-space:nowrap}
+.card{background:#fff;border:2px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 5px 0 var(--line)}
+.tags{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;background:#F3EEE4;color:var(--muted)}
+.inst{color:var(--muted);font-size:15px;margin:0 0 8px}
+.qtext{font-size:22px;font-weight:700;margin:4px 0 12px;line-height:1.35}
+.qtext.big{font-size:64px;text-align:center;line-height:1.1}
+.pic{font-size:64px;text-align:center;line-height:1.1;margin:4px 0}
+.passage{background:#FFFBF2;border:2px dashed var(--line);border-radius:16px;padding:12px 14px;margin-bottom:12px;max-height:260px;overflow:auto}
+.passage h4{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.passage div{white-space:pre-line;font-size:16px;line-height:1.55}
+.audio{display:flex;gap:8px;justify-content:center;margin:6px 0 14px;flex-wrap:wrap}
+.play{width:84px;height:84px;border-radius:50%;background:var(--coral);color:#fff;font-size:36px;box-shadow:0 5px 0 #C9483A}
+.play:active{transform:translateY(4px);box-shadow:0 1px 0 #C9483A}
+.play.speaking{animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.small{align-self:center;padding:8px 14px;border-radius:14px;background:#F3EEE4;font-weight:700;font-size:14px}
+.transcript{background:#F3EEE4;border-radius:12px;padding:8px 12px;margin:-4px 0 12px;font-size:16px}
+.opts{display:grid;gap:10px}
+.opt{background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px 14px;font-size:18px;font-weight:600;text-align:left;direction:ltr;box-shadow:0 3px 0 var(--line);display:flex;align-items:center;gap:10px}
+.opt .k{width:30px;height:30px;border-radius:10px;background:#F3EEE4;display:grid;place-items:center;font-size:14px;flex:none}
+.opt:active{transform:translateY(2px)}
+.opt.ok{background:var(--okbg);border-color:var(--ok);box-shadow:0 3px 0 var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad);box-shadow:0 3px 0 var(--bad);animation:shake .35s}
+.opt.dim{opacity:.55}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tf{grid-template-columns:1fr 1fr}
+.tf .opt{justify-content:center;font-size:20px}
+input.ans{width:100%;font-family:inherit;font-size:22px;padding:12px 14px;border-radius:16px;border:2px solid var(--line);direction:ltr;text-align:left;outline:none}
+input.ans:focus{border-color:var(--teal)}
+input.ans.ok{border-color:var(--ok);background:var(--okbg)}input.ans.bad{border-color:var(--bad);background:var(--badbg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:16px;font-weight:800;background:var(--ink);color:#fff;box-shadow:0 4px 0 #000;font-size:17px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.btn.teal{background:var(--teal);box-shadow:0 4px 0 #0a7272}
+.btn.full{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.row .btn{flex:1}
+.line{min-height:62px;border:2px dashed var(--line);border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;direction:ltr;margin-bottom:12px;align-content:flex-start}
+.line.ok{border-color:var(--ok);background:var(--okbg);border-style:solid}.line.bad{border-color:var(--bad);background:var(--badbg);border-style:solid}
+.bank{display:flex;flex-wrap:wrap;gap:8px;direction:ltr}
+.tile{padding:8px 14px;border-radius:12px;background:#fff;border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:700;font-size:18px}
+.tile.used{visibility:hidden}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px;direction:ltr}
+.match .col{display:grid;gap:8px;align-content:start}
+.mi{padding:10px;border-radius:14px;background:#fff;border:2px solid var(--line);box-shadow:0 3px 0 var(--line);font-weight:700;font-size:16px;min-height:52px}
+.mi.emo{font-size:30px;padding:4px}
+.mi.sel{border-color:var(--teal);background:#E2F7F7}
+.mi.done{background:var(--okbg);border-color:var(--ok);box-shadow:none;opacity:.75}
+.mi.bad{animation:shake .35s;border-color:var(--bad)}
+.fb{margin-top:14px;border-radius:16px;padding:12px 14px;display:none}
+.fb.show{display:block;animation:pop .25s}
+.fb.ok{background:var(--okbg);color:#0f5f2e}.fb.bad{background:var(--badbg);color:#8f1230}
+.fb b{font-size:19px;display:block}
+.fb .c{direction:ltr;text-align:left;font-weight:700;margin-top:2px}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.mic{width:96px;height:96px;border-radius:50%;background:var(--teal);color:#fff;font-size:40px;box-shadow:0 5px 0 #0a7272;margin:4px auto 8px;display:grid;place-items:center}
+.mic.on{background:var(--bad);box-shadow:0 5px 0 #9b1030;animation:pulse 1s infinite}
+.heard{min-height:44px;background:#F3EEE4;border-radius:14px;padding:10px 12px;direction:ltr;text-align:left;font-size:18px;margin-bottom:10px}
+.or{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;margin:12px 0 8px}
+.or:before,.or:after{content:"";flex:1;height:2px;background:var(--line)}
+.model{background:#FFF3D6;border-radius:14px;padding:10px 12px;margin-top:10px;display:flex;align-items:center;gap:10px}
+.model .en{flex:1;font-weight:700;font-size:18px}
+.spk{width:40px;height:40px;border-radius:12px;background:#fff;border:2px solid var(--line);font-size:18px;flex:none}
+/* result */
+.res{text-align:center}
+.res .big{font-size:60px;line-height:1}
+.res h2{margin:6px 0 0;font-size:28px}
+.res .pct{font-size:46px;font-weight:800;color:var(--teal);line-height:1.1}
+.res .st{font-size:42px;letter-spacing:4px;margin:6px 0}
+.mist{text-align:start;margin-top:16px}
+.mist .m{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.mist .m .en{font-weight:700}
+.mist .m .a{color:var(--ok);font-weight:700}
+/* summary */
+.unit{background:#fff;border:2px solid var(--line);border-radius:22px;margin-bottom:12px;overflow:hidden}
+.unit summary{list-style:none;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:700}
+.unit summary::-webkit-details-marker{display:none}
+.unit .num{width:44px;height:44px;border-radius:14px;color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800;flex:none}
+.unit .ub{padding:0 14px 14px}
+.unit h5{margin:10px 0 6px;font-size:15px;color:var(--muted)}
+.phr{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:12px;background:#FAF6EE;margin-bottom:6px;width:100%;text-align:left;direction:ltr;font-size:16px}
+.phr span{flex:1}
+.gl{margin:0;padding-inline-start:20px}
+.gl li{margin-bottom:3px}
+.adv{background:#FFF3D6;border-radius:12px;padding:8px 12px;margin-top:8px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:14px;font-size:14px;z-index:9;max-width:90vw;text-align:center;display:none}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:8;overflow:hidden}
+.confetti i{position:absolute;top:-20px;width:10px;height:14px;border-radius:3px;animation:fall 1.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:18px}
+@media (min-width:640px){.grid{grid-template-columns:1fr 1fr 1fr}.opts.two{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+// ===== Passages (from the Student's Book) =====
+const P = {
+falcon:{t:"The Traditional Sport of Falconry",x:"Falconry is a popular sport in the Kingdom of Saudi Arabia. Many people have falcons that are trained to hunt other birds and animals.\nFalcons are very strong birds. They can fly fast and dive even faster. They see very far, so they can spot animals that are kilometers away. They have very sharp talons that they use to attack and catch their prey. They are amazing to watch!"},
+race:{t:"Reading Race",x:"A. It is as white as snow and as strong as a lion.\nB. It is as scary as a tiger and as quiet as a fish.\nC. It's beautiful and as fast as the wind.\nD. It is very quiet and as slow as a snail.\nE. It is smaller than a cat and as gray as an elephant."},
+jack:{t:"This Is Jack's House",x:"Word bank: snake - cat - house - cow - mouse\n\nThis is Jack's house.\nThis is the cheese that is in Jack's (1) ____.\nThis is the (2) ____ that eats the cheese that is in Jack's house.\nThis is the (3) ____ that chases the mouse that eats the cheese that is in Jack's house.\nThis is the (4) ____ that scares the cat that chases the mouse...\nThis is the (5) ____ with the pointed horns that tosses the snake that scares the cat..."},
+robot:{t:"Clever Robot",x:"I have a little robot,\nThe smartest ever seen.\nHe washes my dishes,\nAnd keeps the house clean.\nHe bakes my bread,\nAnd makes me a drink.\nHe sits by the fire,\nAnd gives me a smile."},
+doing:{t:"What Are They Doing Now?",x:"What is the good helper doing now?\nShe usually vacuums and cleans up her room,\nEarly in the morning or in the afternoon!\nWhat is she doing now?\nShe's watching TV and eating a snack.\nHer room is clean, her chores all done!\n\nWhat is the good helper doing now?\nHe usually feeds the fish and goes shopping,\nEarly in the morning or in the afternoon!\nWhat is he doing now?\nHe's playing games and sitting back.\nThe fish is full, his chores all done!"},
+time:{t:"What Time Do You Do It?",x:"At six o'clock, I jump out of bed and brush my teeth.\nAt one o'clock, I finish school and ride the bus home.\nAt two o'clock, I eat my lunch and meet my friends.\nAt ten o'clock, I jump into bed and dream a lot!"},
+crew:{t:"Space Station Crew",x:"Who's he? He's Abdullah. What does he do? He's the pilot. Where does he work? In a station. In the train station? No, in the space station!\n\nWho's he? He's Faisal. What does he do? He's a doctor. Where does he work? In a hospital. In the city hospital? No, in the space hospital.\n\nWho are they? They're Ali and Omar. What do they do? They're the cooks. Where do they work? In a restaurant. In the fast-food restaurant? No, in the space restaurant."},
+diary:{t:"Monday, August 31st",x:"Yesterday, my basketball team had a big game. We met at the station to go to the tournament. When I tried to catch a fly ball, I crashed into another player and fell on the ground. I twisted my knee and injured my wrist. It really hurt! After the game, I went to the hospital. Luckily, I am okay now. The doctor was very nice, so I will write him a thank-you note. I want to be a doctor or a basketball player in the future."},
+market:{t:"To the Market",x:"Monday morning is market day.\nI go to the market for... one fish, for two fish, three eggs, for four eggs, five plums, for six plums, seven cookies, for eight cookies, nine pies, for ten pies, and bring them back home to eat.\nMonday morning was market day. I went to the market to buy food. But I ate it all. Now I have a tummyache!"},
+meet:{t:"Kim's Family",x:"Hello. My name is Kim. I'm eleven years old and I live in New York.\nThis is my mother. Her name is Jasmine.\nThese are my sisters. Their names are Judy and Rose.\nThis is our little brother. His name is Pete."},
+camp:{t:"He's Going Camping",x:"He's going camping. He's packing his backpack. His cousins are coming to pick him up! He's packing his socks. He's taking his books. His cousins are calling. He's tying his shoes! Oh! Where are his keys? He has to unpack and look in the bag! They're going camping. He runs out and back!"}
+};
+
+const Q=[];
+const add=o=>Q.push(o);
+// first option is ALWAYS the correct one (options are shuffled on screen)
+const mc=(u,s,q,o,ex,x={})=>add({u,s,t:'mcq',q,o,ex,...x});
+const li=(u,say,q,o,ex,x={})=>add({u,s:'listen',t:'mcq',say,q,o,ex,...x});
+const ty=(u,s,q,ans,ex,x={})=>add({u,s,t:'type',q,ans,ex,...x});
+const od=(u,s,ans,ex,x={})=>add({u,s,t:'order',ans,ex,...x});
+const sp=(u,q,model,kw,x={})=>add({u,s:'speak',t:'speak',q,model,kw,...x});
+const ma=(u,s,q,pairs,ex,x={})=>add({u,s,t:'match',q,pairs,ex,...x});
+
+/* ================= UNIT 1 — It's Nice to Meet You! ================= */
+// listening
+li(1,"Hi. I'm Jack. What's your name?","What's the boy's name?",["Jack","Hashim","Kim"],"قال: I'm Jack = أنا جاك.");
+li(1,"My name's Hashim. I live in Jeddah.","Where does Hashim live?",["In Jeddah","In Riyadh","In Abha"],"I live in Jeddah = أسكن في جدة.");
+li(1,"How old are you? I'm eleven years old.","How old is he?",["11","7","12"],"eleven = 11");
+li(1,"Faisal lives in Madinah. He is twelve years old.","Faisal is ...",["12 years old and lives in Madinah","10 years old and lives in Dammam","12 years old and lives in Jizan"],"twelve = 12، Madinah = المدينة.");
+li(1,"These are my sisters. Their names are Judy and Rose.","What are the sisters' names?",["Judy and Rose","Jasmine and Kim","Pete and Rose"],"Their names = أسماؤهن.");
+li(1,"Whose shoes are these? They're Steve's.","Whose shoes are they?",["Steve's","Ken's","Kim's"],"Steve's = تخص ستيف.");
+li(1,"Nice to meet you.","Choose the best reply.",["Nice to meet you, too.","I'm eleven.","I live in Jeddah."],"الرد على Nice to meet you هو Nice to meet you, too.");
+// speaking
+sp(1,"What's your name?","My name's Hashim.",["name","im \\w+","i am"],{pic:"🙋‍♂️"});
+sp(1,"How old are you?","I'm eleven years old.",["years old","im \\w+","i am"],{pic:"🎂"});
+sp(1,"Where do you live?","I live in Riyadh.",["live in","i live"],{pic:"🏠"});
+sp(1,"Nice to meet you.","Nice to meet you, too.",["too"],{pic:"🤝"});
+sp(1,"Whose bag is this? (It belongs to you.)","It's mine.",["mine"],{pic:"🎒"});
+// reading
+mc(1,'read',"How old is Kim?",["Eleven","Twelve","Ten"],"I'm eleven years old.",{p:'meet'});
+mc(1,'read',"Where does Kim live?",["In New York","In Jeddah","In Abha"],"I live in New York.",{p:'meet'});
+mc(1,'read',"Who is Jasmine?",["Kim's mother","Kim's sister","Kim's friend"],"This is my mother. Her name is Jasmine.",{p:'meet'});
+mc(1,'read',"Pete is Kim's ...",["little brother","father","sister"],"This is our little brother. His name is Pete.",{p:'meet'});
+// grammar
+mc(1,'grammar',"This is my mother. ___ name is Jasmine.",["Her","His","Their"],"للمؤنث نستخدم Her.");
+mc(1,'grammar',"This is our little brother. ___ name is Pete.",["His","Her","Our"],"للمذكر نستخدم His.");
+mc(1,'grammar',"These are my sisters. ___ names are Judy and Rose.",["Their","Her","His"],"للجمع (هم/هن) نستخدم Their.");
+mc(1,'grammar',"Ali and I are friends. ___ names are Ali and Sami.",["Our","Their","Your"],"نحن = Our.");
+mc(1,'grammar',"Whose pen is this? It's ___. (I)",["mine","my","me"],"mine = ملكي (بدون اسم بعده).");
+mc(1,'grammar',"This bag is Sara's. It's ___.",["hers","her","his"],"hers = ملكها.");
+mc(1,'grammar',"These toys belong to the boys. They're ___.",["theirs","their","ours"],"theirs = ملكهم.");
+mc(1,'grammar',"Is this your book? Yes, it's ___.",["mine","yours","his"],"الكتاب لي ← mine.");
+mc(1,'grammar',"___ shoes are these?",["Whose","Who","Where"],"Whose = لمن.");
+mc(1,'grammar',"Choose the correct question:",["Whose shoes are these?","Whose shoes is this?","Whose shoe are these?"],"shoes جمع ← are these.");
+mc(1,'grammar',"He ___ eleven years old.",["is","are","am"],"He/She ← is");
+mc(1,'grammar',"They ___ from Abha.",["are","is","am"],"They ← are");
+mc(1,'grammar',"I ___ a b. You have an i.",["have","has","having"],"I/You/We/They ← have");
+mc(1,'grammar',"He ___ a c. She has a y.",["has","have","is"],"He/She ← has");
+mc(1,'grammar',"You have ___ i.",["an","a","the"],"قبل الحرف المتحرك (a,e,i,o,u) نستخدم an.");
+mc(1,'grammar',"I have a d, an e, and an s. You have an r and an s. Can we write 'hat'?",["No, we can't.","Yes, we can.","Yes, we do."],"لا يوجد حرف h ولا t ← No, we can't.");
+od(1,'grammar',"What's your name?","");
+od(1,'grammar',"Where do you live?","");
+od(1,'grammar',"Their names are Judy and Rose.","");
+// phonics
+mc(1,'phonics',"s _ _ l  (🦭)",["ea → seal","ee → seel","ai → sail"],"seal = فقمة، تكتب ea.");
+mc(1,'phonics',"sh _ _ p  (🐑)",["ee → sheep","ea → sheap","ie → shiep"],"sheep تكتب ee.");
+mc(1,'phonics',"p _ _ ch  (🍑)",["ea → peach","ee → peech","ai → paich"],"peach تكتب ea.");
+mc(1,'phonics',"sl _ _ p  (😴)",["ee → sleep","ea → sleap","ay → slayp"],"sleep تكتب ee.");
+mc(1,'phonics',"Which word has the same vowel sound as 'rain'?",["play","pie","meat"],"ai و ay لهما نفس الصوت: rain / play / day / train.");
+mc(1,'phonics',"Which word has the same vowel sound as 'tie'?",["rice","train","cheese"],"ie و i_e: tie / pie / rice / pine.");
+mc(1,'phonics',"I like to eat ___ . (لحم)",["meat","meet","mat"],"meat = لحم، meet = يقابل.");
+mc(1,'phonics',"Nice to ___ you.",["meet","meat","met"],"meet = يقابل.");
+ty(1,'phonics',"Listen and write the word.",["cheese"],"cheese تكتب ee.",{say:"cheese",spell:1});
+ty(1,'phonics',"Listen and write the word.",["train"],"train تكتب ai.",{say:"train",spell:1});
+// vocab
+mc(1,'vocab',"Advice Time: Show me your friend and ...",["I'll tell you who you are.","I'll tell you where you live.","we can play together."],"الحكمة: قل لي من صديقك أقل لك من أنت.");
+
+/* ================= UNIT 2 — Sea Animals ================= */
+li(2,"What's that? It's a whale.","What is it?",["🐋 a whale","🦈 a shark","🐬 a dolphin"],"whale = حوت.");
+li(2,"What are those? They're seals.","What are they?",["🦭 seals","🐙 octopuses","🦀 crabs"],"seals = فقمات.");
+li(2,"I think sharks are scary.","What does he think?",["Sharks are scary.","Sharks are cute.","Sharks are slow."],"scary = مخيف.");
+li(2,"I don't think whales are fast.","What does she think about whales?",["They are not fast.","They are fast.","They are cute."],"I don't think ... = لا أظن.");
+li(2,"It has eight arms. It lives in the sea. It can change color.","Which sea animal is it?",["🐙 octopus","🦀 crab","🦈 shark"],"ثماني أذرع ← octopus (أخطبوط).");
+li(2,"It has five arms. It looks like a star.","Which sea animal is it?",["⭐ starfish","🦑 squid","🪼 jellyfish"],"starfish = نجم البحر.");
+li(2,"It has two big claws. It walks sideways.","Which sea animal is it?",["🦀 crab","🐙 octopus","🐋 whale"],"crab = سلطعون.");
+li(2,"It has ten arms. It can squirt ink.","Which sea animal is it?",["🦑 squid","⭐ starfish","🦭 seal"],"squid = حبار (عشرة أذرع).");
+li(2,"As slippery as an eel. As noisy as a seagull.","Which animal is noisy?",["a seagull","an eel","a seahorse"],"noisy = مزعج، seagull = نورس.");
+sp(2,"What's that?","It's a whale.",["whale"],{pic:"🐋"});
+sp(2,"What are those?","They're dolphins.",["dolphin"],{pic:"🐬🐬"});
+sp(2,"What do you think about sharks?","I think sharks are scary.",["think"],{pic:"🦈"});
+sp(2,"Say a sentence with as ... as about a dolphin.","As fast as a dolphin.",["as \\w+ as"],{pic:"🐬"});
+mc(2,'read',"Sentence A is about a ...",["polar bear","horse","mouse"],"أبيض مثل الثلج وقوي مثل الأسد ← الدب القطبي.",{p:'race'});
+mc(2,'read',"Sentence B is about a ...",["crocodile","turtle","horse"],"مخيف كالنمر وهادئ كالسمكة ← التمساح.",{p:'race'});
+mc(2,'read',"Sentence C is about a ...",["horse","snail","polar bear"],"جميل وسريع كالريح ← الحصان.",{p:'race'});
+mc(2,'read',"Sentence D is about a ...",["turtle","crocodile","lion"],"هادئ وبطيء كالحلزون ← السلحفاة.",{p:'race'});
+mc(2,'read',"Sentence E is about a ...",["mouse","elephant","cat"],"أصغر من القطة ورمادي ← الفأر.",{p:'race'});
+mc(2,'read',"This is the cheese that is in Jack's (1) ____.",["house","cow","cat"],"Jack's house = بيت جاك.",{p:'jack'});
+mc(2,'read',"This is the (2) ____ that eats the cheese.",["mouse","cow","snake"],"الفأر يأكل الجبن.",{p:'jack'});
+mc(2,'read',"This is the (3) ____ that chases the mouse.",["cat","snake","house"],"القطة تطارد الفأر.",{p:'jack'});
+mc(2,'read',"This is the (4) ____ that scares the cat.",["snake","mouse","cow"],"الثعبان يخيف القطة.",{p:'jack'});
+mc(2,'read',"This is the (5) ____ with the pointed horns.",["cow","cat","mouse"],"البقرة ذات القرون المدببة.",{p:'jack'});
+mc(2,'grammar',"A seahorse is ___ than a dolphin.",["cuter","cute","the cutest"],"المقارنة بين اثنين ← er + than.");
+mc(2,'grammar',"A baby seal is ___ .",["the cutest","cuter","cute than"],"التفضيل (الأكثر) ← the + est.");
+mc(2,'grammar',"Sharks are ___ than whales.",["faster","fast","the fastest"],"faster than.");
+mc(2,'grammar',"Dolphins are ___ .",["the fastest","faster","fastest than"],"the fastest = الأسرع.");
+mc(2,'grammar',"A whale is ___ than a seal.",["bigger","biger","more big"],"big ← bigger (نضاعف g).");
+mc(2,'grammar',"The shark is ___ sea animal.",["the scariest","the scaryest","the most scary"],"scary ← scariest (y تتحول i).");
+mc(2,'grammar',"scary – scarier – ___",["the scariest","the scaryest","the most scary"],"y ← i + est.");
+mc(2,'grammar',"What are those?",["They're seals.","It's a seal.","I'm a seal."],"those (جمع) ← They're.");
+mc(2,'grammar',"What's that?",["It's a whale.","They're whales.","It's whales."],"that (مفرد) ← It's a ...");
+mc(2,'grammar',"As slippery as an ___ .",["eel","walrus","whale"],"slippery = زلق ← eel ثعبان البحر.");
+mc(2,'grammar',"As fat as a ___ .",["walrus","seahorse","dolphin"],"fat = سمين ← walrus الفظ.");
+mc(2,'grammar',"As slow as a ___ .",["seahorse","dolphin","shark"],"slow = بطيء ← seahorse فرس البحر.");
+od(2,'grammar',"I think a seahorse is cute.","");
+od(2,'grammar',"I don't think whales are fast.","");
+od(2,'grammar',"Sharks are faster than whales.","");
+mc(2,'phonics',"g _ _ t  (🐐)",["oa → goat","ow → gowt","ou → gout"],"goat تكتب oa.");
+mc(2,'phonics',"b _ _ t  (⛵)",["oa → boat","ow → bowt","oo → boot"],"boat تكتب oa.");
+mc(2,'phonics',"c _ _ t  (🧥)",["oa → coat","ow → cowt","ai → cait"],"coat تكتب oa.");
+mc(2,'phonics',"Which word has the same sound as 'snow'?",["window","cow","house"],"ow في snow و window و yellow تنطق (أو).");
+mc(2,'phonics',"Which word has the same sound as 'cow'?",["brown","snow","yellow"],"ow في cow و brown و clown تنطق (آو).");
+mc(2,'phonics',"m _ _ se  (🐭)",["ou → mouse","ow → mowse","oa → moase"],"mouse تكتب ou.");
+ty(2,'phonics',"Listen and write the word.",["house"],"house تكتب ou.",{say:"house",spell:1});
+ty(2,'phonics',"Listen and write the word.",["clown"],"clown تكتب ow.",{say:"clown",spell:1});
+mc(2,'vocab',"🐋",["whale","walrus","seal"],"حوت");
+mc(2,'vocab',"🐬",["dolphin","shark","octopus"],"دلفين");
+mc(2,'vocab',"🪼",["jellyfish","starfish","squid"],"قنديل البحر");
+mc(2,'vocab',"Advice Time: The patient fisherman ...",["catches the best fish.","swims with dolphins.","goes home early."],"الصياد الصبور يصطاد أفضل سمكة.");
+
+/* ================= UNIT 3 — Sports and Activities ================= */
+li(3,"What sport do you like? I like football.","What sport does he like?",["⚽ football","🎾 tennis","🏀 basketball"],"I like football.");
+li(3,"What sport do you want to try? I want to try rock climbing.","What does she want to try?",["🧗 rock climbing","🤿 scuba diving","🪂 sky diving"],"want to try = يريد أن يجرب.");
+li(3,"What sport does your brother like? He likes horse riding.","What does her brother like?",["🏇 horse riding","🏐 volleyball","⛷️ skiing"],"He likes horse riding.");
+li(3,"Does your father play golf? Yes, he does.","Does the father play golf?",["Yes, he does.","No, he doesn't.","Yes, I do."],"Yes, he does.");
+li(3,"Horse riding is more exciting than cycling.","Which is more exciting?",["horse riding","cycling","jogging"],"more exciting than = أكثر إثارة من.");
+li(3,"Hang gliding is the most dangerous.","What is the most dangerous?",["hang gliding","jogging","tennis"],"the most dangerous = الأخطر.");
+sp(3,"What sport do you like?","I like football.",["i like","like"],{pic:"⚽"});
+sp(3,"What sport do you want to try?","I want to try rock climbing.",["want to try","try"],{pic:"🧗"});
+sp(3,"Do you play tennis?","Yes, I do. / No, I don't.",["yes i do","no i dont","no i do not","yes","no"],{pic:"🎾"});
+sp(3,"What's the most exciting sport for you?","Hang gliding is the most exciting.",["most exciting"],{pic:"🪂"});
+mc(3,'read',"Many people in Saudi Arabia like falconry.",["True","False"],"Falconry is a popular sport in Saudi Arabia.",{p:'falcon'});
+mc(3,'read',"Falcons slow down when they dive to catch an animal.",["False","True"],"They dive even faster.",{p:'falcon'});
+mc(3,'read',"Falcons can see very far.",["True","False"],"They see very far.",{p:'falcon'});
+mc(3,'read',"Falcons have soft talons.",["False","True"],"They have very sharp talons.",{p:'falcon'});
+mc(3,'read',"What do falcons use to catch their prey?",["their sharp talons","their wings","their eyes"],"sharp talons = مخالب حادة.",{p:'falcon'});
+mc(3,'read',"Falcons can spot animals that are ...",["kilometers away","very small","in the water"],"kilometers away = على بعد كيلومترات.",{p:'falcon'});
+ma(3,'read',"I'd like to ... but — طابق بين الجملتين",[["play tennis","I have no racket."],["try falconing","I have no falcon."],["try riding","I have no horse."],["try scuba diving","there is no sea."],["try sky diving","there is no plane."]],"من نشيد I'd like to ... but");
+mc(3,'grammar',"___ you play tennis? Yes, I do.",["Do","Does","Are"],"I/You/We/They ← Do");
+mc(3,'grammar',"___ your father play golf?",["Does","Do","Is"],"He/She ← Does");
+mc(3,'grammar',"Does she like football? No, she ___ .",["doesn't","don't","isn't"],"she ← doesn't");
+mc(3,'grammar',"Do they jog? Yes, they ___ .",["do","does","are"],"they ← do");
+mc(3,'grammar',"What sport does your brother like? He ___ horse riding.",["likes","like","liking"],"He ← likes (نضيف s).");
+mc(3,'grammar',"He wants ___ try hang gliding.",["to","for","at"],"want to + فعل.");
+mc(3,'grammar',"Rock climbing is ___ dangerous than jogging.",["more","most","the most"],"الصفات الطويلة: more ... than.");
+mc(3,'grammar',"Hang gliding is ___ dangerous.",["the most","more","most than"],"التفضيل: the most.");
+mc(3,'grammar',"Choose the correct sentence:",["Golf is more boring than football.","Golf is boringer than football.","Golf is more boringer than football."],"boring صفة طويلة ← more boring.");
+mc(3,'grammar',"difficult – more difficult – ___",["the most difficult","the difficultest","more difficulter"],"the most difficult.");
+mc(3,'grammar',"We ___ pottery and painting.",["do","play","does"],"do pottery / do painting، play computer games.");
+mc(3,'grammar',"They ___ computer games.",["play","do","does"],"play + games/ball sports.");
+od(3,'grammar',"Does your brother play basketball?","");
+od(3,'grammar',"Horse riding is more exciting than cycling.","");
+mc(3,'phonics',"t _ _  (🧸)",["oy → toy","oi → toi","ow → tow"],"oy في آخر الكلمة: toy, boy.");
+mc(3,'phonics',"c _ _ n  (🪙)",["oi → coin","oy → coyn","oa → coan"],"oi في وسط الكلمة: coin, point.");
+mc(3,'phonics',"I want to eat a p ___ . (🍐)",["ear → pear","air → pair","ere → pere"],"pear = كمثرى.");
+mc(3,'phonics',"Look at this p ___ of shoes.",["air → pair","ear → pear","ere → pere"],"pair = زوج.");
+mc(3,'phonics',"I'd like to sit on that ch ___ .",["air → chair","ear → chear","ere → chere"],"chair = كرسي.");
+mc(3,'phonics',"He's w ___ ing a blue coat.",["ear → wearing","air → wairing","ere → wereing"],"wear = يلبس.");
+mc(3,'phonics',"___ do you live?",["Where","Wear","Were"],"Where = أين (ere).");
+ty(3,'phonics',"Listen and write the word.",["bear"],"bear = دب (ear).",{say:"bear",spell:1});
+ma(3,'vocab',"طابق الرياضة بالصورة",[["🤿","scuba diving"],["🧗","rock climbing"],["🏇","horse riding"],["🏐","volleyball"],["⛷️","ski"]],"");
+mc(3,'vocab',"Which one is a dangerous sport?",["bungee jumping","tennis","football"],"bungee jumping من الرياضات الخطرة.");
+mc(3,'vocab',"Which one is NOT a ball sport?",["jog","golf","volleyball"],"jog (الهرولة) رياضة فردية.");
+mc(3,'vocab',"Advice Time: A healthy mind needs ...",["a healthy body.","a big house.","many friends."],"العقل السليم في الجسم السليم.");
+
+/* ================= UNIT 4 — Chores ================= */
+li(4,"What chores do you do? I feed the fish.","What chore does he do?",["🐟 feed the fish","🍽️ set the table","🧺 fold the laundry"],"feed the fish = يطعم السمك.");
+li(4,"What chores does your sister do? She sets the table.","What does his sister do?",["She sets the table.","She washes the dishes.","She goes shopping."],"set the table = يجهز المائدة.");
+li(4,"Does she vacuum the floor? Yes, she does sometimes.","Does she vacuum the floor?",["Yes, sometimes.","No, never.","Yes, always."],"sometimes = أحياناً.");
+li(4,"He takes out the trash.","What does he do?",["🗑️ takes out the trash","🧹 vacuums the floor","🛒 goes shopping"],"take out the trash = يخرج القمامة.");
+li(4,"I have a little robot, the smartest ever seen. He washes my dishes.","What does the robot do?",["washes the dishes","feeds the fish","goes shopping"],"He washes my dishes.");
+sp(4,"What chores do you do?","I feed the fish.",["fish","table","dishes","floor","room","shopping","trash","laundry"],{pic:"🧹"});
+sp(4,"Do you take out the trash, too?","Yes, I do sometimes.",["yes","no","i do","i dont"],{pic:"🗑️"});
+sp(4,"What chores does your sister do?","She sets the table.",["she (sets|feeds|washes|vacuums|cleans|goes|takes|folds)"],{pic:"👧"});
+mc(4,'read',"What does the robot bake?",["bread","a cake","cookies"],"He bakes my bread.",{p:'robot'});
+mc(4,'read',"Where does the robot sit?",["by the fire","on the chair","in the kitchen"],"He sits by the fire.",{p:'robot'});
+mc(4,'read',"The robot is the ___ ever seen.",["smartest","biggest","cutest"],"The smartest ever seen.",{p:'robot'});
+mc(4,'read',"What is the girl doing now?",["watching TV and eating a snack","vacuuming her room","going shopping"],"She's watching TV and eating a snack.",{p:'doing'});
+mc(4,'read',"What does the boy usually do?",["feeds the fish and goes shopping","vacuums and cleans his room","washes the dishes"],"He usually feeds the fish and goes shopping.",{p:'doing'});
+mc(4,'read',"What is the boy doing now?",["playing games and sitting back","feeding the fish","eating a snack"],"He's playing games and sitting back.",{p:'doing'});
+mc(4,'read',"Check Your Chores: Your total is 10 points. You are ...",["a good helper","a great helper","a poor helper"],"9–12 = good helper، 13+ = great، 5–8 = average، 0–4 = poor.");
+mc(4,'grammar',"She ___ the table.",["sets","set","setting"],"She ← نضيف s للفعل.");
+mc(4,'grammar',"He ___ the dishes.",["washes","washs","wash"],"الفعل المنتهي بـ sh نضيف es.");
+mc(4,'grammar',"They ___ the fish.",["feed","feeds","feedes"],"They ← بدون s.");
+mc(4,'grammar',"My mom ___ shopping.",["goes","go","gos"],"go ← goes.");
+mc(4,'grammar',"I ___ the laundry.",["fold","folds","foldes"],"I ← بدون s.");
+mc(4,'grammar',"Does she vacuum the floor? Yes, she ___ sometimes.",["does","do","is"],"Does she ...? Yes, she does.");
+mc(4,'grammar',"She's ___ TV now.",["watching","watch","watches"],"now ← المضارع المستمر (is + ing).");
+mc(4,'grammar',"take → ___",["takes","takies","takees"],"take ← takes.");
+od(4,'grammar',"He washes the dishes.","");
+od(4,'grammar',"What chores does your sister do?","");
+mc(4,'phonics',"He is playing with a toy c ___ . (🚗)",["ar → car","or → cor","er → cer"],"car تكتب ar.");
+mc(4,'phonics',"There is a horse on the f ___ m.",["ar → farm","or → form","er → ferm"],"farm = مزرعة.");
+mc(4,'phonics',"She is a doct ___ .",["or → doctor","er → docter","ar → doctar"],"doctor تنتهي بـ or.");
+mc(4,'phonics',"Judy has three broth ___ s.",["er → brothers","or → brothors","ar → brothars"],"brother تنتهي بـ er.");
+mc(4,'phonics',"He is eating with a f ___ k. (🍴)",["or → fork","ar → fark","er → ferk"],"fork تكتب or.");
+mc(4,'phonics',"It's d ___ k at night.",["ar → dark","or → dork","er → derk"],"dark = مظلم.");
+ty(4,'phonics',"Spelling Bee: How do you spell ...?",["teacher"],"t-e-a-c-h-e-r",{say:"teacher",spell:1});
+ty(4,'phonics',"Spelling Bee: How do you spell ...?",["sister"],"s-i-s-t-e-r",{say:"sister",spell:1});
+ma(4,'vocab',"طابق المهمة المنزلية بالصورة",[["🍽️","set the table"],["🐟","feed the fish"],["🗑️","take out the trash"],["🧺","fold the laundry"],["🛒","go shopping"]],"");
+mc(4,'vocab',"🧽🍽️",["wash the dishes","vacuum the floor","clean up your room"],"wash the dishes = يغسل الصحون.");
+mc(4,'vocab',"Advice Time: Don't put off until tomorrow ...",["what you can do today.","what you did yesterday.","your homework."],"لا تؤجل عمل اليوم إلى الغد.");
+
+/* ================= UNIT 5 — Yesterday and Today ================= */
+li(5,"It's seven thirty.","What time is it?",["7:30","7:15","3:30"],"seven thirty = 7:30");
+li(5,"It's a quarter past seven.","What time is it?",["7:15","7:45","6:45"],"a quarter past = وربع.");
+li(5,"It's half past twelve.","What time is it?",["12:30","12:15","2:30"],"half past = ونصف.");
+li(5,"It's a quarter to nine.","What time is it?",["8:45","9:15","9:45"],"a quarter to nine = التاسعة إلا ربع.");
+li(5,"It's eleven forty-five.","What time is it?",["11:45","11:15","10:45"],"forty-five = 45");
+li(5,"I usually get up at seven o'clock. Yesterday, I got up at eight o'clock.","What time did he get up yesterday?",["8:00","7:00","9:00"],"Yesterday, I got up at eight.");
+li(5,"What time do you go to bed? I usually go to bed at nine thirty.","What time does she usually go to bed?",["9:30","10:00","9:00"],"usually = عادة.");
+sp(5,"What time do you get up in the morning?","I usually get up at six o'clock.",["get up","at \\w+"],{pic:"⏰"});
+sp(5,"What time did you go to bed yesterday?","Yesterday, I went to bed at ten o'clock.",["went to bed","went"],{pic:"🛏️"});
+sp(5,"What time is it? (7:30)","It's seven thirty.",["seven thirty","half past seven","730","7:30"],{pic:"🕢"});
+mc(5,'read',"What time does he jump out of bed?",["At six o'clock","At one o'clock","At ten o'clock"],"At six o'clock, I jump out of bed.",{p:'time'});
+mc(5,'read',"How does he go home?",["by bus","by bike","by car"],"ride the bus home.",{p:'time'});
+mc(5,'read',"What does he do at two o'clock?",["eats lunch and meets friends","brushes his teeth","jumps into bed"],"At two o'clock, I eat my lunch and meet my friends.",{p:'time'});
+mc(5,'read',"When does he jump into bed?",["At ten o'clock","At six o'clock","At two o'clock"],"At ten o'clock, I jump into bed.",{p:'time'});
+mc(5,'read',"What day is market day?",["Monday","Friday","Sunday"],"Monday morning is market day.",{p:'market'});
+mc(5,'read',"Why does he have a tummyache?",["He ate all the food.","He didn't eat.","He went to bed late."],"But I ate it all.",{p:'market'});
+mc(5,'read',"What is he packing?",["his backpack, socks and books","his toys","his keys only"],"He's packing his backpack... his socks... his books.",{p:'camp'});
+mc(5,'grammar',"Yesterday, I ___ up at eight.",["got","get","gets"],"get ← got (الماضي).");
+mc(5,'grammar',"I usually ___ to bed at ten.",["go","went","goes"],"usually ← المضارع.");
+mc(5,'grammar',"Yesterday, I ___ to bed at nine thirty.",["went","go","goed"],"go ← went.");
+mc(5,'grammar',"Yesterday, I ___ lunch at one o'clock.",["ate","eat","eated"],"eat ← ate.");
+mc(5,'grammar',"Yesterday, I ___ home at three thirty.",["came","come","comed"],"come ← came.");
+mc(5,'grammar',"Yesterday, I ___ my homework at eight thirty.",["did","do","does"],"do ← did.");
+mc(5,'grammar',"Yesterday, I ___ a bath at six thirty.",["took","take","taked"],"take ← took.");
+mc(5,'grammar',"What time ___ you get up yesterday?",["did","do","does"],"yesterday ← did.");
+mc(5,'grammar',"What time ___ you usually go to bed?",["do","did","are"],"usually ← do.");
+ma(5,'grammar',"طابق الفعل بماضيه",[["get up","got up"],["eat lunch","ate lunch"],["come home","came home"],["take a bath","took a bath"],["go to bed","went to bed"]],"");
+od(5,'grammar',"Yesterday, I went to bed at ten o'clock.","");
+od(5,'grammar',"What time do you get up in the morning?","");
+mc(5,'phonics',"thi _ _  (🤔)",["nk → think","ng → thing","ck → thick"],"think = يفكر.");
+mc(5,'phonics',"ri _ _  (💍)",["ng → ring","nk → rink","ck → rick"],"ring = خاتم.");
+mc(5,'phonics',"clo _ _  (🕰️)",["ck → clock","nk → clonk","ng → clong"],"clock = ساعة حائط.");
+mc(5,'phonics',"dri _ _  (🥤)",["nk → drink","ng → dring","ck → drick"],"drink = يشرب.");
+mc(5,'phonics',"spri _ _  (🌸)",["ng → spring","nk → sprink","ck → sprick"],"spring = الربيع.");
+mc(5,'phonics',"Which word starts with 'ph'?",["phone","fish","shop"],"ph تنطق f: phone.");
+mc(5,'phonics',"Which word starts with 'wh'?",["whale","wall","well"],"whale = حوت.");
+ty(5,'phonics',"Listen and write the word.",["wing"],"wing = جناح (ng).",{say:"wing",spell:1});
+mc(5,'vocab',"Advice Time: Early to sleep, early to rise, makes you ...",["healthy and wise.","tired and sad.","fast and strong."],"النوم والاستيقاظ مبكراً يجعلانك صحيحاً وحكيماً.");
+
+/* ================= UNIT 6 — Jobs ================= */
+li(6,"What does your dad do? He's a pilot.","What does his dad do?",["✈️ He's a pilot.","👨‍🍳 He's a cook.","👨‍🏫 He's a teacher."],"pilot = طيار.");
+li(6,"What does your mom do? She's a teacher.","What does her mom do?",["She's a teacher.","She's a nurse.","She's a lawyer."],"teacher = معلمة.");
+li(6,"Who's he? He's Faisal. What does he do? He's a doctor.","What does Faisal do?",["He's a doctor.","He's a pilot.","He's a cook."],"doctor = طبيب.");
+li(6,"When I grow up, I want to be a scientist.","What does she want to be?",["🔬 a scientist","✍️ a writer","🎨 a designer"],"scientist = عالم.");
+li(6,"Six hundred.","Which number?",["600","60","6000"],"six hundred = 600");
+li(6,"One thousand stars at night!","How many stars?",["1000","100","10"],"one thousand = 1000");
+li(6,"They put out fires.","Who are they?",["firefighters","pilots","doctors"],"put out fires = يطفئون الحرائق.");
+sp(6,"What does your dad do?","He's a pilot.",["hes","he is"],{pic:"👨"});
+sp(6,"What do you want to be when you grow up?","When I grow up, I want to be a doctor.",["want to be","i want"],{pic:"🧑‍⚕️"});
+sp(6,"Where does a doctor work?","In a hospital.",["hospital"],{pic:"🏥"});
+sp(6,"What does a firefighter do?","He puts out fires.",["fire"],{pic:"🧑‍🚒"});
+mc(6,'read',"Where does Abdullah work?",["in the space station","in the train station","in a hospital"],"No, in the space station!",{p:'crew'});
+mc(6,'read',"What does Faisal do?",["He's a doctor.","He's the pilot.","He's a cook."],"He's a doctor.",{p:'crew'});
+mc(6,'read',"What do Ali and Omar do?",["They're the cooks.","They're doctors.","They're pilots."],"They're the cooks.",{p:'crew'});
+mc(6,'read',"Where did the team meet?",["at the station","at the hospital","at school"],"We met at the station.",{p:'diary'});
+mc(6,'read',"Where did he go after the game?",["to the hospital","to the station","home"],"After the game, I went to the hospital.",{p:'diary'});
+mc(6,'read',"He is okay now.",["True","False"],"Luckily, I am okay now.",{p:'diary'});
+mc(6,'read',"What will he write to the doctor?",["a thank-you note","a story","a letter to his team"],"I will write him a thank-you note.",{p:'diary'});
+mc(6,'grammar',"What ___ your dad do?",["does","do","is"],"your dad (هو) ← does.");
+mc(6,'grammar',"What ___ they do?",["do","does","are"],"they ← do.");
+mc(6,'grammar',"Where ___ he work?",["does","do","is"],"he ← does.");
+mc(6,'grammar',"He's ___ engineer.",["an","a","the"],"engineer تبدأ بحرف متحرك ← an.");
+mc(6,'grammar',"She's ___ nurse.",["a","an","the"],"nurse تبدأ بحرف ساكن ← a.");
+mc(6,'grammar',"He's ___ astronaut.",["an","a","two"],"astronaut ← an.");
+mc(6,'grammar',"Who are they? ___ Ali and Omar.",["They're","He's","It's"],"Who are they ← They're.");
+mc(6,'grammar',"When I grow up, I want ___ a baker.",["to be","be","being"],"want to be.");
+od(6,'grammar',"Where does he work?","");
+od(6,'grammar',"When I grow up, I want to be a teacher.","");
+mc(6,'phonics',"Which letter is silent in 'knife'?",["k","n","f"],"k صامتة: knife, knee, knock.");
+mc(6,'phonics',"Which letters are silent in 'night'?",["gh","n","t"],"gh صامتة: night, light, right.");
+mc(6,'phonics',"_ _ ee  (🦵)",["kn → knee","gh → ghee","n → nee"],"knee = ركبة.");
+mc(6,'phonics',"li _ _ t  (💡)",["gh → light","kn → likn","ck → lickt"],"light = ضوء.");
+mc(6,'phonics',"The 's' in 'reads' sounds like ...",["/z/","/s/","/ɪz/"],"reads, comes, cleans, plays, goes ← /z/.");
+mc(6,'phonics',"The 's' in 'walks' sounds like ...",["/s/","/z/","/ɪz/"],"walks, sleeps, eats ← /s/.");
+mc(6,'phonics',"The 'es' in 'teaches' sounds like ...",["/ɪz/","/s/","/z/"],"teaches, brushes, washes, watches, catches ← /ɪz/.");
+mc(6,'phonics',"Which letter is silent in 'sign'?",["g","s","n"],"g صامتة في sign.");
+mc(6,'phonics',"Which letter is silent in 'whistle'?",["h","w","s"],"h صامتة في whistle.");
+ty(6,'phonics',"Listen and write the word.",["knock"],"k صامتة.",{say:"knock",spell:1});
+ma(6,'vocab',"طابق الوظيفة بمكان العمل",[["doctor","hospital"],["cook","restaurant"],["pilot","plane"],["teacher","school"],["astronaut","space station"]],"");
+ma(6,'vocab',"طابق الوظيفة بالصورة",[["👩‍🚀","astronaut"],["👨‍✈️","pilot"],["👩‍⚕️","nurse"],["🧑‍🚒","firefighter"],["👨‍🍳","cook"]],"");
+mc(6,'vocab',"A person who designs buildings is an ...",["architect","astronaut","engineer"],"architect = مهندس معماري.");
+mc(6,'vocab',"A person who works with computers is a ...",["computer technician","lawyer","reporter"],"computer technician = فني حاسب.");
+mc(6,'vocab',"Advice Time:",["Winners work hard.","Winners sleep late.","Winners never try."],"الفائزون يعملون بجد.");
+
+/* ===== Unit summaries ===== */
+const UNITS=[
+{n:1,en:"It's Nice to Meet You!",ar:"تشرفت بمعرفتك",c:"#0FA3A3",ph:["Hi. I'm Jack. What's your name?","My name's Hashim.","How old are you? I'm eleven years old.","Where do you live? I live in Jeddah.","Nice to meet you. Nice to meet you, too.","Whose shoes are these? They're Steve's."],
+g:["my – your – his – her – our – their + اسم","mine – yours – his – hers – ours – theirs (بدون اسم)","Whose ... is this? / Whose ... are these? = لمن؟","I/You/We/They have — He/She has","a + حرف ساكن — an + حرف متحرك"],
+s:"ee / ea (sheep, meat) — i_e / ie (rice, tie) — ai / ay (rain, play)",ad:"Show me your friend and I'll tell you who you are."},
+{n:2,en:"Sea Animals",ar:"حيوانات البحر",c:"#2F6BFF",ph:["What's that? It's a whale.","What are those? They're seals.","I think a seahorse is cute.","I don't think whales are fast.","As fast as a dolphin. As slow as a seahorse."],
+g:["cute → cuter → the cutest","scary → scarier → the scariest","fast → faster → the fastest","big → bigger → the biggest","as + صفة + as = مثل"],
+s:"oa (goat, boat) — ow (snow, window) — ou / ow (house, cow)",ad:"The patient fisherman catches the best fish."},
+{n:3,en:"Sports and Activities",ar:"الرياضات والأنشطة",c:"#FF6B5A",ph:["What sport do you like? I like football.","What sport do you want to try? I want to try rock climbing.","He likes horse riding. He wants to try hang gliding.","Do you play tennis? Yes, I do. / No, I don't."],
+g:["Do you/they ...? Yes, I do. / No, they don't.","Does he/she ...? Yes, she does. / No, he doesn't.","exciting → more exciting → the most exciting","play tennis / football — do pottery / painting"],
+s:"oy / oi (toy, coin) — ere / air / ear (where, hair, bear)",ad:"A healthy mind needs a healthy body."},
+{n:4,en:"Chores",ar:"الأعمال المنزلية",c:"#8A5CF6",ph:["What chores do you do? I feed the fish.","Do you take out the trash, too? Yes, I do sometimes.","What chores does your sister do? She sets the table.","Does she vacuum the floor? Yes, she does sometimes."],
+g:["He/She + فعل + s: sets, feeds, cleans, takes, folds","sh / ch / o + es: washes, goes","I/You/We/They + فعل بدون s","She's watching TV now. (المضارع المستمر)"],
+s:"ar (car, farm) — or (fork, doctor) — er (teacher, sister)",ad:"Don't put off until tomorrow what you can do today."},
+{n:5,en:"Yesterday and Today",ar:"الأمس واليوم",c:"#E8A100",ph:["What time do you get up? I usually get up at seven.","What time did you get up yesterday? Yesterday, I got up at eight.","It's a quarter past seven.","It's half past twelve.","It's a quarter to nine."],
+g:["usually + المضارع — yesterday + الماضي","get up → got up — eat → ate — come → came","do → did — take → took — go → went","What time do you ...? / What time did you ...?"],
+s:"nk (think, drink) — ng (ring, spring) — ck (rock, clock)",ad:"Early to sleep, early to rise, makes you healthy and wise."},
+{n:6,en:"Jobs",ar:"الوظائف",c:"#16A34A",ph:["What does your dad do? He's a pilot.","What does your mom do? She's a teacher.","Who's he? He's Faisal. He's a doctor.","Where does he work? In a hospital.","When I grow up, I want to be a scientist."],
+g:["What does he/she do? — What do they do?","Where does he work? — Where do they work?","a nurse / a pilot — an engineer / an astronaut","/z/ reads — /s/ walks — /ɪz/ teaches"],
+s:"silent k (knife, knee) — silent gh (night, light) — silent g (sign) — silent h (whistle)",ad:"Winners work hard."}
+];
+
+/* ================= WORKBOOK (كتاب التمارين) ================= */
+P.omar={t:"Omar's Family (Workbook p.73)",x:"Omar and (1) his / her family live in Jeddah. (2) Their / Your apartment is near the center of town. Omar's father is a businessman. (3) My / His mother is a teacher. He has two sisters. (4) His / Their names are Fatima and Sahar. They like to play in (5) her / their room and speak with (6) their / your friends."};
+P.wbjobs={t:"What Do They Do? (Workbook p.114)",x:"A doctor helps sick people and works in a hospital.\nA pilot flies airplanes and works in an airport.\nA scientist studies things. He works in a laboratory.\nA cook cooks food. He works in a restaurant.\nAn architect designs buildings. He works in an office."};
+P.chores2={t:"Chores Talk (Workbook p.95)",x:"A: What chores do you do?\nB: I feed the fish.\nA: Do you take out the trash, too?\nB: Yes, I do sometimes.\nA: What chores does your sister do?\nB: She folds the laundry.\nA: Does she vacuum the floor, too?\nB: Yes, she does sometimes."};
+const WB0=Q.length;
+// Unit 1
+mc(1,'read',"Omar and (1) ___ family live in Jeddah.",["his","her"],"عمر مذكر ← his.",{p:'omar'});
+mc(1,'read',"(2) ___ apartment is near the center of town.",["Their","Your"],"شقتهم (العائلة) ← Their.",{p:'omar'});
+mc(1,'read',"(3) ___ mother is a teacher.",["His","My"],"أم عمر ← His.",{p:'omar'});
+mc(1,'read',"(4) ___ names are Fatima and Sahar.",["Their","His"],"اسما الأختين (جمع) ← Their.",{p:'omar'});
+mc(1,'read',"They like to play in (5) ___ room.",["their","her"],"They ← their.",{p:'omar'});
+mc(1,'read',"What does Omar's father do?",["He's a businessman.","He's a teacher.","He's a pilot."],"Omar's father is a businessman.",{p:'omar'});
+li(1,"Whose scissors are these? Do you know? Yes. They're mine.","Whose scissors are they?",["They're mine.","They're Jack's.","They're hers."],"They're mine = إنها لي.");
+li(1,"And what about those pens? They're not mine. I think they're Jack's.","Whose pens are they?",["Jack's","mine","Omar's"],"I think they're Jack's.");
+li(1,"What's your name? My name's Saeed. I live in Riyadh.","Where does Saeed live?",["In Riyadh","In Jeddah","In Dammam"],"I live in Riyadh.");
+od(1,'grammar',"Ken is eating cheese.","");
+od(1,'grammar',"He goes to school by train.","");
+od(1,'grammar',"It is raining today.","");
+od(1,'grammar',"Ken is looking at a snail.","");
+mc(1,'vocab',"True or False? Alligators can swim. 🐊",["True","False"],"التماسيح تسبح.");
+mc(1,'vocab',"True or False? Eggplants are eggs. 🍆",["False","True"],"eggplant = باذنجان، ليس بيضاً!");
+mc(1,'vocab',"True or False? Goats give us milk. 🐐",["True","False"],"الماعز تعطينا الحليب.");
+mc(1,'vocab',"True or False? Cats can see in the dark. 🐈",["True","False"],"القطط ترى في الظلام.");
+// Unit 2
+li(2,"It's scary. It has big teeth. It can bite!","Which animal is it?",["🦈 a shark","🐙 an octopus","🦀 a crab"],"big teeth, can bite ← shark.");
+li(2,"It can walk and swim. It has suckers. It has eight legs.","Which animal is it?",["🐙 an octopus","🦑 a squid","⭐ a starfish"],"suckers = ممصات، eight legs ← octopus.");
+li(2,"It can sting. It's not a fish. It's like jelly.","Which animal is it?",["🪼 a jellyfish","🦈 a shark","🦭 a seal"],"sting = يلسع ← jellyfish.");
+li(2,"It's like an octopus. But it has ten legs. It can change color.","Which animal is it?",["🦑 a squid","🐙 an octopus","🦀 a crab"],"ten legs ← squid.");
+li(2,"It has five arms. It can't swim. It looks like a star.","Which animal is it?",["⭐ a starfish","🪼 a jellyfish","🐬 a dolphin"],"looks like a star ← starfish.");
+li(2,"It has a hard shell. It has two big claws. It can pinch.","Which animal is it?",["🦀 a crab","🐢 a turtle","🦑 a squid"],"claws, pinch ← crab.");
+ty(2,'phonics',"Unscramble the letters: l – wh – a – e",["whale"],"w-h-a-l-e");
+ty(2,'phonics',"Unscramble the letters: o – l – ph – i – d – n",["dolphin"],"d-o-l-p-h-i-n");
+ty(2,'phonics',"Unscramble the letters: u – ll – ea – s – g",["seagull"],"s-e-a-g-u-l-l");
+od(2,'grammar',"There is a mouse on the chair.","");
+od(2,'grammar',"The boy is opening the window.","");
+mc(2,'vocab',"True or False? Lions eat grass. 🦁",["False","True"],"الأسود تأكل اللحم.");
+mc(2,'vocab',"True or False? Turtles have hard shells. 🐢",["True","False"],"للسلحفاة صدفة صلبة.");
+mc(2,'vocab',"True or False? An ostrich is a big bird.",["True","False"],"النعامة طائر كبير.");
+mc(2,'vocab',"True or False? A walrus is a big sea animal.",["True","False"],"الفظ حيوان بحري كبير.");
+// Unit 3
+li(3,"What sport does Jimmy like? He likes snowboarding.","What does Jimmy like?",["🏂 snowboarding","⛷️ skiing","🧗 rock climbing"],"He likes snowboarding.");
+li(3,"What sport does Omar want to try? He wants to try rock climbing.","What does Omar want to try?",["🧗 rock climbing","🏇 horse riding","🤿 scuba diving"],"He wants to try rock climbing.");
+mc(3,'grammar',"Do you play word games? Yes, ___ .",["I do","he does","they do"],"Do you ...? ← Yes, I do.");
+mc(3,'grammar',"Does he do karate? Yes, ___ .",["he does","I do","she does"],"Does he ...? ← Yes, he does.");
+mc(3,'grammar',"Do they ride horses? Yes, ___ .",["they do","they does","he does"],"Do they ...? ← Yes, they do.");
+mc(3,'grammar',"Do you ski? No, ___ .",["I don't","I doesn't","he doesn't"],"Do you ...? ← No, I don't.");
+mc(3,'grammar',"Does she play computer games? No, ___ .",["she doesn't","she don't","they don't"],"Does she ...? ← No, she doesn't.");
+mc(3,'grammar',"Do they play tennis? No, ___ .",["they don't","they doesn't","I don't"],"Do they ...? ← No, they don't.");
+ma(3,'vocab',"طابق الرياضة بما تحتاجه",[["sky diving","airplane"],["horse riding","saddle, riding boots"],["basketball","ball, basketball stand"],["football","ball, goal"],["tennis","racket, ball"]],"");
+mc(3,'read',"Falconry: The ___ Sport of Falconry.",["Traditional","Dangerous","New"],"The Traditional Sport of Falconry.",{p:'falcon'});
+mc(3,'read',"Falcons are ___ .",["very strong birds","very slow birds","small fish"],"Falcons are very strong birds.",{p:'falcon'});
+mc(3,'read',"They are ___ to watch!",["amazing","boring","difficult"],"They are amazing to watch!",{p:'falcon'});
+ty(3,'phonics',"Unscramble: rwehe",["where"],"w-h-e-r-e");
+ty(3,'phonics',"Unscramble: rahic",["chair"],"c-h-a-i-r");
+ty(3,'phonics',"Unscramble: otinp",["point"],"p-o-i-n-t");
+ty(3,'phonics',"Unscramble: nico",["coin"],"c-o-i-n");
+ty(3,'phonics',"Unscramble: arep",["pear"],"p-e-a-r");
+mc(3,'vocab',"Quiz: Which is taller, a giraffe or a goat?",["a giraffe 🦒","a goat 🐐"],"الزرافة أطول.");
+mc(3,'vocab',"Quiz: Which is faster, a jet or a train?",["a jet ✈️","a train 🚆"],"الطائرة النفاثة أسرع.");
+mc(3,'vocab',"Quiz: Which one is yellow, a lemon or an orange?",["a lemon 🍋","an orange 🍊"],"الليمون أصفر.");
+mc(3,'vocab',"Quiz: Which is faster, a kangaroo or a koala?",["a kangaroo","a koala"],"الكنغر أسرع.");
+// Unit 4
+mc(4,'read',"What chore does the sister do?",["She folds the laundry.","She feeds the fish.","She sets the table."],"She folds the laundry.",{p:'chores2'});
+mc(4,'read',"Does the boy take out the trash?",["Yes, sometimes.","No, never.","Yes, always."],"Yes, I do sometimes.",{p:'chores2'});
+li(4,"I usually vacuum the floor. I never wash the dishes.","What does she never do?",["wash the dishes","vacuum the floor","go shopping"],"never = أبداً.");
+mc(4,'vocab',"Check Your Chores: always = ___ points",["2","1","0"],"always 2، sometimes 1، never 0.");
+ty(4,'grammar',"Unscramble the verb and write it with he: lofd → He ___ the laundry.",["folds"],"fold ← folds.");
+ty(4,'grammar',"Unscramble: wkal → She ___ the dog.",["walks"],"walk ← walks.");
+ty(4,'grammar',"Unscramble: og → He ___ shopping.",["goes"],"go ← goes.");
+ma(4,'grammar',"طابق الفعل بصيغته مع he/she",[["set","sets"],["wash","washes"],["vacuum","vacuums"],["clean","cleans"],["go","goes"]],"");
+od(4,'grammar',"He feeds the fish and goes shopping.","");
+od(4,'grammar',"She cooks and sets the table.","");
+ma(4,'read',"Clever Robot — طابق الجملة بالصورة",[["🍽️","washes my dishes"],["🏠","keeps the house clean"],["🍞","bakes my bread"],["🥤","makes me a drink"],["🔥","sits by the fire"]],"");
+mc(4,'vocab',"Quiz: Which is stronger, a bear or a monkey?",["a bear 🐻","a monkey 🐒"],"الدب أقوى.");
+mc(4,'vocab',"Quiz: Which can jump higher, a rabbit or a kangaroo?",["a kangaroo 🦘","a rabbit 🐇"],"الكنغر يقفز أعلى.");
+mc(4,'vocab',"Quiz: Which is heavier, an alligator or a hippo?",["a hippo 🦛","an alligator 🐊"],"فرس النهر أثقل.");
+mc(4,'vocab',"Quiz: Which is a man, an uncle or an aunt?",["an uncle","an aunt"],"uncle = عم/خال (رجل).");
+mc(4,'vocab',"True or False? An octopus has eight legs. 🐙",["True","False"],"للأخطبوط ثمانية أذرع.");
+// Unit 5
+li(5,"What time do you usually go to bed? I usually go to bed at nine o'clock. Yesterday, I went to bed at nine thirty.","What time did he go to bed yesterday?",["9:30","9:00","10:30"],"Yesterday ... 9:30.");
+li(5,"I usually do my homework at five thirty. Yesterday, I did my homework at eight thirty.","When did she do her homework yesterday?",["8:30","5:30","8:00"],"Yesterday, I did my homework at eight thirty.");
+ty(5,'grammar',"Write the past: I take a bath. → Yesterday, I ___ a bath.",["took"],"take ← took.");
+ty(5,'grammar',"Write the past: I do my homework. → Yesterday, I ___ my homework.",["did"],"do ← did.");
+mc(5,'grammar',"Read the time: 🕡 6:30",["six thirty","three six","six thirteen"],"6:30 = six thirty = half past six.");
+mc(5,'grammar',"Read the time: 2:20",["two twenty","twenty two","two twelve"],"2:20 = two twenty.");
+mc(5,'grammar',"Read the time: 1:40",["one forty","one fourteen","four one"],"40 = forty، 14 = fourteen.");
+mc(5,'grammar',"Read the time: 7:50",["seven fifty","seven fifteen","five seven"],"50 = fifty، 15 = fifteen.");
+ma(5,'phonics',"طابق الحرفين بالكلمة",[["SH","sheep"],["CH","cherry"],["PH","photo"],["WH","whistle"]],"SH sheep, CH cherry, PH photo, WH whistle");
+mc(5,'phonics',"Which word does NOT start with 'ch'?",["shark","cheese","chocolate"],"shark تبدأ بـ sh.");
+mc(5,'phonics',"'ph' in elephant sounds like ...",["f","p","h"],"ph تنطق f.");
+mc(5,'vocab',"Missing letter: An _pple is a fruit.",["a","e","o"],"apple");
+mc(5,'vocab',"Missing letter: A _anana is a yellow fruit.",["b","p","d"],"banana");
+mc(5,'vocab',"Missing letter: A do_phin can swim very fast.",["l","r","p"],"dolphin");
+mc(5,'vocab',"Quiz: Which is sweeter, a watermelon or a lemon?",["a watermelon 🍉","a lemon 🍋"],"البطيخ أحلى.");
+mc(5,'vocab',"Quiz: Which is faster, a fly or a snail?",["a fly","a snail"],"الذبابة أسرع.");
+// Unit 6
+ty(6,'phonics',"Unscramble: or – o – c – d – t",["doctor"],"d-o-c-t-o-r");
+ty(6,'phonics',"Unscramble: oo – k – c",["cook"],"c-o-o-k");
+ty(6,'phonics',"Unscramble: t – o – i – l – p",["pilot"],"p-i-l-o-t");
+ty(6,'phonics',"Unscramble: ch – ea – t – er",["teacher"],"t-e-a-c-h-e-r");
+ty(6,'phonics',"Unscramble: st – r – a – o – t – n – au",["astronaut"],"a-s-t-r-o-n-a-u-t");
+ty(6,'phonics',"Unscramble: er – v – d – i",["diver"],"d-i-v-e-r");
+mc(6,'read',"Where does a pilot work?",["in an airport","in a laboratory","in an office"],"A pilot ... works in an airport.",{p:'wbjobs'});
+mc(6,'read',"Who works in a laboratory?",["a scientist","a cook","a doctor"],"A scientist ... works in a laboratory.",{p:'wbjobs'});
+mc(6,'read',"What does an architect do?",["designs buildings","cooks food","flies airplanes"],"An architect designs buildings.",{p:'wbjobs'});
+mc(6,'read',"A doctor helps ___ .",["sick people","animals","pilots"],"A doctor helps sick people.",{p:'wbjobs'});
+li(6,"What's your mom's name? My mom's name's Fatima. What does she do? She's a teacher.","What does Fatima do?",["She's a teacher.","She's a nurse.","She's a doctor."],"She's a teacher.");
+li(6,"When I grow up, I want to be a computer programmer.","What does he want to be?",["a computer programmer","an engineer","a cook"],"computer programmer = مبرمج.");
+li(6,"Seven hundred and eighty.","Which number?",["780","870","718"],"seven hundred and eighty = 780");
+li(6,"Two hundred and fifty.","Which number?",["250","215","520"],"two hundred and fifty = 250");
+li(6,"Nine hundred and forty.","Which number?",["940","914","490"],"nine hundred and forty = 940");
+mc(6,'phonics',"The ending of 'sleeps' sounds like ...",["/s/","/z/","/ɪz/"],"sleeps ← /s/");
+mc(6,'phonics',"The ending of 'brushes' sounds like ...",["/ɪz/","/s/","/z/"],"brushes ← /ɪz/");
+mc(6,'phonics',"The ending of 'plays' sounds like ...",["/z/","/s/","/ɪz/"],"plays ← /z/");
+mc(6,'phonics',"The ending of 'watches' sounds like ...",["/ɪz/","/z/","/s/"],"watches ← /ɪz/");
+mc(6,'phonics',"The ending of 'eats' sounds like ...",["/s/","/ɪz/","/z/"],"eats ← /s/");
+mc(6,'phonics',"The ending of 'goes' sounds like ...",["/z/","/s/","/ɪz/"],"goes ← /z/");
+mc(6,'vocab',"Missing letter: An _el is a long fish (like a snake).",["e","a","i"],"eel");
+mc(6,'vocab',"Missing letter: _lamingoes are pink.",["F","P","V"],"Flamingoes");
+mc(6,'vocab',"Missing letter: _orillas live in Africa.",["G","C","K"],"Gorillas");
+mc(6,'vocab',"Missing letter: A _et is faster than a helicopter.",["j","g","y"],"jet");
+mc(6,'vocab',"Quiz: Which is bigger, an ant or an elephant?",["an elephant 🐘","an ant 🐜"],"الفيل أكبر.");
+Q.slice(WB0).forEach(q=>q.wb=1);
+
+/* ================= NEW SOUNDS (الأصوات الجديدة) ================= */
+// ph = phoneme family (same sound), alt = spellings used to build wrong options
+const SOUNDS=[
+{u:1,p:"ee",ph:"iː",ar:"إي طويلة",w:["sheep","sleep","cheese","teeth","green","feet"],alt:["ea","ie"]},
+{u:1,p:"ea",ph:"iː",ar:"إي طويلة",w:["seal","peach","beach","team","tea","leaf"],alt:["ee","ai"]},
+{u:1,p:"ie",ph:"aɪ",ar:"آي",w:["tie","pie","lie"],alt:["y","ee"]},
+{u:1,p:"i_e",ph:"aɪ",ar:"آي (e في الآخر لا تُنطق)",w:["rice","pine","bike","five","kite"],alt:[]},
+{u:1,p:"ai",ph:"eɪ",ar:"إيْ",w:["rain","train","snail","chain","tail","paint"],alt:["ay","ea"]},
+{u:1,p:"ay",ph:"eɪ",ar:"إيْ (في آخر الكلمة)",w:["play","day","May","crayon","Saturday"],alt:["ai","ey"]},
+{u:1,p:"a_e",ph:"eɪ",ar:"إيْ (e في الآخر لا تُنطق)",w:["tape","cake","snake","plane","game"],alt:[]},
+{u:2,p:"oa",ph:"oʊ",ar:"أوْ",w:["goat","boat","coat","road","soap"],alt:["ow","ou"]},
+{u:2,p:"ow",ph:"oʊ",ar:"أوْ",w:["snow","window","yellow","show","pillow"],alt:["oa","ou"]},
+{u:2,p:"oe",ph:"oʊ",ar:"أوْ",w:["toe","Joe"],alt:["ow","oa"]},
+{u:2,p:"ou",ph:"aʊ",ar:"آوْ",w:["house","mouse","cloud","loud","mouth"],alt:["ow","oa"]},
+{u:2,p:"ow ",ph:"aʊ",ar:"آوْ",w:["cow","brown","clown","down","flower"],alt:["ou","oa"]},
+{u:2,p:"ue",ph:"uː",ar:"أو طويلة",w:["blue","glue","Tuesday"],alt:["oo","ew"]},
+{u:2,p:"ui",ph:"uː",ar:"أو طويلة",w:["fruit","juice","suit"],alt:["oo","ue"]},
+{u:3,p:"oi",ph:"ɔɪ",ar:"أوي (وسط الكلمة)",w:["coin","point","boil","soil"],alt:["oy","ow"]},
+{u:3,p:"oy",ph:"ɔɪ",ar:"أوي (آخر الكلمة)",w:["toy","boy"],alt:["oi","ow"]},
+{u:3,p:"air",ph:"eə",ar:"إير",w:["hair","chair","pair"],alt:["ear","ere"]},
+{u:3,p:"ear",ph:"eə",ar:"إير",w:["bear","pear","wear"],alt:["air","ere"]},
+{u:3,p:"ere",ph:"eə",ar:"إير",w:["where","there"],alt:["air","ear"]},
+{u:3,p:"cl",ph:"kl",ar:"كْل",w:["clap","cloud","clothes","clock","clown"],alt:["cr","kl"]},
+{u:3,p:"cr",ph:"kr",ar:"كْر",w:["crab","crayon","crown","cry"],alt:["cl","kr"]},
+{u:4,p:"ar",ph:"ɑː",ar:"آر",w:["car","farm","park","dark","star","shark","scarf"],alt:["or","er"]},
+{u:4,p:"or",ph:"ɔː",ar:"أور",w:["fork","horse","corn","shorts","doctor"],alt:["ar","er"]},
+{u:4,p:"er",ph:"ɜː",ar:"إر",w:["teacher","sister","brother","water"],alt:["ar","or"]},
+{u:4,p:"ur",ph:"ɜː",ar:"إر",w:["turtle","purple","nurse"],alt:["ir","er"]},
+{u:4,p:"ir",ph:"ɜː",ar:"إر",w:["bird","shirt","girl"],alt:["ur","er"]},
+{u:5,p:"nk",ph:"ŋk",ar:"نك",w:["think","drink","ink","pink"],alt:["ng","ck"]},
+{u:5,p:"ng",ph:"ŋ",ar:"نْغ (أنفية)",w:["ring","spring","swing","wing","king"],alt:["nk","ck"]},
+{u:5,p:"ck",ph:"k",ar:"ك",w:["rock","clock","back","duck","sock","thick"],alt:["k","c"]},
+{u:5,p:"sh",ph:"ʃ",ar:"ش",w:["sheep","ship","shark","fish"],alt:["ch","s"]},
+{u:5,p:"ch",ph:"tʃ",ar:"تش",w:["cheese","chocolate","cherry","chair"],alt:["sh","c"]},
+{u:5,p:"ph",ph:"f",ar:"ف",w:["phone","photo","elephant","dolphin"],alt:["f","p"]},
+{u:5,p:"wh",ph:"w",ar:"و",w:["white","whale","whistle","wheel"],alt:["w","h"]},
+{u:6,p:"kn",ph:"n",ar:"k صامتة ← ن",w:["knife","knee","knock","knob"],alt:["n","gn"]},
+{u:6,p:"igh",ph:"aɪ",ar:"gh صامتة ← آي",w:["night","light","right","high"],alt:["i","ie"]},
+{u:6,p:"wr",ph:"r",ar:"w صامتة ← ر",w:["write","wrist"],alt:["r","rw"]},
+{u:6,p:"gn",ph:"n",ar:"g صامتة",w:["sign"],alt:["ne","n"]},
+{u:6,p:"s /z/",ph:"z",ar:"تُنطق z",w:["reads","comes","cleans","plays","goes","runs"],alt:[]},
+{u:6,p:"s /s/",ph:"s",ar:"تُنطق s",w:["walks","sleeps","eats"],alt:[]},
+{u:6,p:"es /ɪz/",ph:"ɪz",ar:"تُنطق إز",w:["teaches","brushes","washes","watches","catches"],alt:[]}
+];
+// words whose wrong spellings would be real homophones → no "listen & spell" for them
+const HOMO=new Set(["clap","feet","beach","team","toe","blue","pair","pear","wear","where","there","right","write","tea","tail","sign","knob","knock","high","lie","suit","ink","pie","read","meat","meet","Joe","May","rock","back"]);
+const SPLIT={rice:["rise","ryce"],pine:["pain","pyne"],bike:["biek","byke"],five:["fiev","fyve"],kite:["kiet","kyte"],tape:["taip","tayp"],cake:["caik","cayk"],snake:["snaik","snayk"],plane:["plain","plaen"],game:["gaim","gaym"]};
+const VOW=new Set(["iː","aɪ","eɪ","oʊ","aʊ","uː","ɔɪ","eə","ɑː","ɔː","ɜː"]);
+const MULTI=new Set(["teacher","sister","brother","water","turtle","purple","window","yellow","pillow","crayon","Saturday","Tuesday","flower","doctor","Joe","May"]);
+const shuf0=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function genSounds(){const shuf=shuf0;
+  SOUNDS.forEach(s=>{
+    const pat=s.p.trim();
+    s.w.forEach(w=>{
+      if(HOMO.has(w)||pat.includes('/'))return;
+      let wrong=[];
+      if(SPLIT[w])wrong=SPLIT[w].filter(x=>x!=='rise'&&x!=='plain');
+      else{const i=w.toLowerCase().indexOf(pat);if(i<0)return;wrong=s.alt.map(a=>w.slice(0,i)+a+w.slice(i+pat.length))}
+      wrong=[...new Set(wrong)].filter(x=>x!==w);
+      if(SPLIT[w]&&wrong.length<2)wrong.push(w.replace(/e$/,''));
+      if(wrong.length<2)return;
+      add({u:s.u,s:'sounds',t:'mcq',say:w,q:"Listen. Which spelling is correct?",o:[w,...wrong.slice(0,2)],ex:`صوت ${pat} (${s.ar}): ${w}`,snd:pat});
+    });
+    // same-sound question (vowel sounds, one-syllable words only)
+    if(VOW.has(s.ph)){
+      const one=w=>!MULTI.has(w);
+      const tgt=s.w.find(one);
+      const same=SOUNDS.filter(o=>o.ph===s.ph).flatMap(o=>o.w).filter(x=>x!==tgt&&one(x));
+      const other=shuf(SOUNDS.filter(o=>VOW.has(o.ph)&&o.ph!==s.ph&&Math.abs(o.u-s.u)<=1).flatMap(o=>o.w).filter(one));
+      if(tgt&&same.length&&other.length>=2){
+        const c=same[Math.floor(Math.random()*same.length)];
+        add({u:s.u,s:'sounds',t:'mcq',say:tgt,q:`Which word has the same sound as "${tgt}"? (${pat})`,o:[c,other[0],other[1]],ex:`${tgt} و ${c} فيهما نفس الصوت (${s.ar}).`,snd:pat});
+      }
+    }
+    // read-aloud (pronunciation) question
+    const rw=s.w[Math.floor(Math.random()*s.w.length)];
+    add({u:s.u,s:'sounds',t:'speak',q:`Read aloud: ${rw}`,model:rw,kw:[rw.toLowerCase()],ex:`صوت ${pat}: ${s.ar}`,snd:pat,pron:1});
+  });
+  // final s sorting
+  [["reads","/z/"],["comes","/z/"],["cleans","/z/"],["runs","/z/"],["walks","/s/"],["sleeps","/s/"],["eats","/s/"],["teaches","/ɪz/"],["washes","/ɪz/"],["catches","/ɪz/"]].forEach(([w,c])=>{
+    add({u:6,s:'sounds',t:'mcq',say:w,q:`Listen: "${w}" — the ending sounds like ...`,o:[c,...["/z/","/s/","/ɪz/"].filter(x=>x!==c)],ex:`${w} ← ${c}`,snd:'s / es'});
+  });
+}
+genSounds();
+
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const SEC={
+ listen:{ar:'الاستماع',ic:'🎧',bg:'#FFE4DF',d:'استمع واختر'},
+ speak:{ar:'التحدث',ic:'🗣️',bg:'#DDF5F3',d:'أجب بصوتك'},
+ read:{ar:'القراءة',ic:'📖',bg:'#E3EBFF',d:'نصوص الكتاب'},
+ grammar:{ar:'القواعد والتراكيب',ic:'✏️',bg:'#EFE7FF',d:'اختر ورتّب'},
+ phonics:{ar:'الصوتيات والإملاء',ic:'🔤',bg:'#FFF1CC',d:'الأصوات والتهجئة'},
+ vocab:{ar:'المفردات',ic:'🧩',bg:'#E2F6E7',d:'صور وتوصيل'},
+ sounds:{ar:'الأصوات الجديدة',ic:'🔊',bg:'#FFE0F0',d:'اسمع، اكتب، انطق'}
+};
+const inSec=(q,sec)=>sec==='all'||(sec==='wb'?!!q.wb:q.s===sec);
+let units=new Set([1,2,3,4,5,6]); let count=10;
+let S=null; // session
+const store={get(k,d){try{const v=localStorage.getItem('wc3r_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('wc3r_'+k,JSON.stringify(v))}catch(e){}}};
+let stars=store.get('stars',0);
+
+/* ---------- audio: Claude voice → browser voice → text ---------- */
+let TTS=null,DICT=null,dictH=null;
+function initCaps(){
+  if(!(window.claude&&claude.use))return false;
+  claude.use('tts').then(t=>{TTS=t}).catch(()=>{});
+  claude.use('dictation').then(d=>{if(!d)return;DICT=d;
+    try{d.onPartial(e=>dictH&&dictH.partial(e.text));d.onFinal(e=>dictH&&dictH.final(e.text));d.onState(e=>dictH&&dictH.state(e.state,e.reason));}catch(e){}
+    if(S&&S.cur&&S.cur.t==='speak')render();
+  }).catch(()=>{});
+  return true;
+}
+if(!initCaps()){setTimeout(initCaps,800)}
+let enVoice=null;
+function pickVoice(){try{const vs=speechSynthesis.getVoices();enVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/female|samantha|google/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){}}
+if('speechSynthesis' in window){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice}catch(e){}}
+function browserSay(text,slow,btn){
+  if(!('speechSynthesis' in window)){toast('الصوت غير متاح على هذا الجهاز — اضغط «اعرض النص»');return}
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(enVoice)u.voice=enVoice;u.rate=slow?0.65:0.9;
+   if(btn){btn.classList.add('speaking');u.onend=u.onerror=()=>btn.classList.remove('speaking')}
+   speechSynthesis.speak(u)}catch(e){toast('تعذّر تشغيل الصوت')}
+}
+let CLIP=null,CUR=null;
+const CDIR='we-can-3-review/voices/';
+try{fetch(CDIR+'map.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.s)CLIP=m}).catch(()=>{})}catch(e){}
+function clipIds(text,slow){
+  if(!CLIP)return null;const k=t=>t.trim();
+  const one=t=>{const id=CLIP.s[k(t)];if(!id)return null;return slow&&CLIP.slow&&CLIP.slow.includes(id)?id+'-slow':id};
+  const w=one(text);if(w)return [w];
+  const ss=text.split(/(?<=[.!?])\s+|\n+/).map(x=>x.trim()).filter(Boolean);
+  if(ss.length>1){const ids=ss.map(one);if(ids.every(Boolean))return ids}
+  return null;
+}
+function stopClip(){if(CUR){try{CUR.pause()}catch(e){}CUR=null}}
+function playClips(ids,btn){
+  stopClip();try{if(TTS)TTS.stop()}catch(e){}try{speechSynthesis.cancel()}catch(e){}
+  let i=0;if(btn)btn.classList.add('speaking');
+  const nx=()=>{if(i>=ids.length){btn&&btn.classList.remove('speaking');CUR=null;return}
+    const a=new Audio(CDIR+ids[i++]+'.mp3');CUR=a;a.onended=()=>{if(CUR===a)nx()};a.onerror=()=>{if(CUR===a)nx()};
+    const p=a.play();if(p&&p.catch)p.catch(()=>{btn&&btn.classList.remove('speaking')})};
+  nx();
+}
+function say(text,slow,btn){
+  const ids=clipIds(text,slow);if(ids){playClips(ids,btn);return}
+  stopClip();
+  if(TTS){if(btn)btn.classList.add('speaking');
+    TTS.speak(text,{rate:slow?0.75:0.95,language:'en'}).then(()=>btn&&btn.classList.remove('speaking')).catch(e=>{btn&&btn.classList.remove('speaking');if(!e||e.code!=='viewer_stopped')browserSay(text,slow,btn)});return}
+  browserSay(text,slow,btn);
+}
+/* ---------- sfx: short filtered-noise bursts only, no musical tones ---------- */
+let AC=null,NZ=null;
+function burst(at,dur,type,freq,q,vol){try{const c=AC;if(!NZ){NZ=c.createBuffer(1,c.sampleRate*.6|0,c.sampleRate);const d=NZ.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
+  const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=NZ;f.type=type;f.frequency.value=freq;f.Q.value=q;
+  g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(vol,at+.008);g.gain.exponentialRampToValueAtTime(.0001,at+dur);
+  s.connect(f);f.connect(g);g.connect(c.destination);s.start(at,Math.random()*.3);s.stop(at+dur+.03)}catch(e){}}
+function fx(kind){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();const t=AC.currentTime+.01;
+  if(kind==='ok'){burst(t,.045,'bandpass',1500,1.4,.8);burst(t+.08,.07,'bandpass',2300,1.4,.7)}
+  else if(kind==='tap')burst(t,.035,'bandpass',1700,1,.35);
+  else if(kind==='no')burst(t,.2,'lowpass',240,.7,1.6);
+  else if(kind==='win'){for(let k=0;k<16;k++)burst(t+k*.05+Math.random()*.03,.05,'bandpass',1200+Math.random()*1800,1,.45)}}catch(e){}}
+const sfx={ok(){fx('ok')},bad(){fx('no')},win(){fx('win')}};
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',2600)}
+function confetti(){const c=document.createElement('div');c.className='confetti';const cols=['#FF6B5A','#FFC23C','#0FA3A3','#8A5CF6','#16A34A'];for(let i=0;i<60;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%5];p.style.animationDelay=Math.random()*.6+'s';c.appendChild(p)}document.body.appendChild(c);setTimeout(()=>c.remove(),2800)}
+
+/* ---------- helpers ---------- */
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const norm=s=>String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/'/g,'').replace(/[^a-z0-9: ]/g,' ').replace(/\s+/g,' ').trim();
+const isAr=s=>/[؀-ۿ]/.test(s);
+const onlyEmoji=s=>!/[A-Za-z0-9؀-ۿ]/.test(s);
+const TYPE_AR={mcq:'اختر الإجابة الصحيحة',type:'اكتب الإجابة',order:'رتّب الكلمات لتكوين جملة صحيحة',speak:'استمع للسؤال ثم أجب بصوتك بالإنجليزية',match:'اضغط على عنصر من اليسار ثم ما يناسبه من اليمين'};
+
+/* ---------- HOME ---------- */
+function home(){
+  S=null;window.scrollTo(0,0);
+  const best=store.get('best',{});
+  const cnt=k=>Q.filter(q=>inSec(q,k)&&units.has(q.u)).length;
+  app.innerHTML=`
+  <header class="top"><div class="logo" dir="ltr">We<br>Can!</div><div><h1>المراجعة الشاملة</h1><p><span class="en">We Can! 3</span> — الجزء الأول · الوحدات 1–6</p></div><div class="stars">⭐ ${stars}</div></header>
+  <section class="hero"><div class="bubbles">🐬</div><h2>جاهز للاختبار النهائي؟</h2><p>${Q.length} سؤالاً من الكتاب: استماع، تحدث، قراءة، قواعد، صوتيات ومفردات — مع تصحيح فوري وشرح لكل إجابة.</p><button class="go" data-sec="all">🏆 ابدأ الاختبار الشامل</button></section>
+  <div class="label">الوحدات</div>
+  <div class="chips" id="uchips"><button class="chip ${units.size===6?'on':''}" data-u="0">الكل</button>${[1,2,3,4,5,6].map(n=>`<button class="chip ${units.size<6&&units.has(n)?'on':''}" data-u="${n}">Unit ${n}</button>`).join('')}</div>
+  <div class="label">عدد الأسئلة في كل جولة</div>
+  <div class="chips" id="cchips">${[10,20,0].map(n=>`<button class="chip ${count===n?'on':''}" data-c="${n}">${n?n:'كل الأسئلة'}</button>`).join('')}</div>
+  <div class="label">اختر المهارة</div>
+  <button class="sec wide" id="snd" style="border-color:#F7A8CF;box-shadow:0 4px 0 #F7A8CF;margin-top:6px;width:100%"><div class="ic" style="background:#FFE0F0">🔊</div><div><b>الأصوات الجديدة <span class="tag" style="background:#E11D74;color:#fff">جديد</span></b><small>كل أصوات الكتاب (ee, oa, ar, kn, igh…) — اسمعها، اكتبها، وانطقها · ${cnt('sounds')} سؤال</small></div></button>
+  <div class="grid">${Object.entries(SEC).filter(([k])=>k!=='sounds').map(([k,v])=>`<button class="sec" data-sec="${k}"><div class="ic" style="background:${v.bg}">${v.ic}</div><b>${v.ar}</b><small>${v.d} · ${cnt(k)} سؤال</small>${best[k]!=null?`<span class="best">أفضل: ${best[k]}%</span>`:''}</button>`).join('')}
+  <button class="sec wide" data-sec="wb"><div class="ic" style="background:#E0F2FE">📒</div><div><b>كتاب التمارين (Workbook)</b><small>أسئلة من تمارين الوحدات 1–6 · ${cnt('wb')} سؤال${best.wb!=null?' · أفضل: '+best.wb+'%':''}</small></div></button>
+  <button class="sec wide" id="sum"><div class="ic" style="background:#F3EEE4">📝</div><div><b>ملخص الوحدات</b><small>الجمل الأساسية والقواعد والأصوات — اضغط على أي جملة لتسمعها</small></div></button></div>
+  <p class="foot">🔊 اضغط زر الصوت لسماع النطق · 🎤 التحدث بالمايك متاح في متصفح Chrome، وفي غيره اكتب إجابتك أو قيّم نفسك</p>`;
+  app.querySelectorAll('[data-sec]').forEach(b=>b.onclick=()=>start(b.dataset.sec));
+  app.querySelectorAll('[data-u]').forEach(b=>b.onclick=()=>{const n=+b.dataset.u;
+    if(n===0)units=new Set([1,2,3,4,5,6]);else{if(units.size===6)units=new Set([n]);else if(units.has(n)){units.delete(n);if(!units.size)units=new Set([1,2,3,4,5,6])}else units.add(n)}home()});
+  app.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{count=+b.dataset.c;home()});
+  $('#sum').onclick=summary;$('#snd').onclick=soundLab;
+}
+
+/* ---------- SESSION ---------- */
+function start(sec,list){
+  let pool=list||Q.filter(q=>inSec(q,sec)&&units.has(q.u));
+  if(!list){
+    if(sec==='all'){ // balanced mix across skills
+      const by={};shuf(pool).forEach(q=>(by[q.s]=by[q.s]||[]).push(q));
+      const keys=Object.keys(by);const n=count||pool.length;const out=[];let i=0;
+      while(out.length<n&&keys.some(k=>by[k].length)){const k=keys[i++%keys.length];if(by[k].length)out.push(by[k].shift())}
+      pool=shuf(out);
+    }else{pool=shuf(pool);if(count)pool=pool.slice(0,count)}
+  }
+  if(!pool.length){toast('لا توجد أسئلة لهذا الاختيار');return}
+  S={sec,list:pool,i:0,score:0,wrong:[],cur:null};next(true);
+}
+function next(first){
+  if(!first)S.i++;
+  if(S.i>=S.list.length)return result();
+  S.cur=S.list[S.i];S.done=false;S.st={};
+  render(true);window.scrollTo(0,0);
+  // auto-play listening audio
+  if(S.cur.say&&!S.cur.spell&&S.cur.s==='listen'){}
+}
+function answered(ok,correctTxt){
+  if(S.done)return;S.done=true;
+  if(ok){S.score++;sfx.ok()}else{sfx.bad();S.wrong.push({q:S.cur,c:correctTxt})}
+  const fb=$('#fb');const q=S.cur;
+  fb.className='fb show '+(ok?'ok':'bad');
+  const praise=['أحسنت! 🌟','ممتاز! 🎉','رائع! 👏','إجابة صحيحة! ✅'];
+  fb.innerHTML=`<b>${ok?praise[Math.floor(Math.random()*praise.length)]:'إجابة خاطئة ❌'}</b>${!ok&&correctTxt?`<div>الإجابة الصحيحة:</div><div class="c">${esc(correctTxt)}</div>`:''}${q.ex?`<div style="margin-top:4px">${isAr(q.ex)?'':'<span class="en">'}${esc(q.ex)}${isAr(q.ex)?'':'</span>'}</div>`:''}`;
+  const tr=$('#tr');if(tr)tr.style.display='block';
+  $('#nx').style.display='flex';
+  setTimeout(()=>fb.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+}
+function render(auto){
+  const q=S.cur,sec=SEC[q.s];
+  const pct=Math.round(S.i/S.list.length*100);
+  let h=`<div class="qbar"><button class="x" id="quit" aria-label="خروج">✕</button><div class="prog"><i style="width:${pct}%"></i></div><span class="cnt">${S.i+1} / ${S.list.length}</span></div>
+  <div class="card"><div class="tags"><span class="tag">${sec.ic} ${sec.ar}</span><span class="tag">Unit ${q.u}</span>${q.wb?'<span class="tag">📒 Workbook</span>':''}${q.snd?`<span class="tag en">${esc(q.snd)}</span>`:''}<span class="tag">✔ ${S.score}</span></div>`;
+  if(q.p){const p=P[q.p];h+=`<div class="passage"><h4><span class="en">${esc(p.t)}</span><button class="spk" id="pread" aria-label="استمع للنص">🔊</button></h4><div class="en">${esc(p.x)}</div></div>`}
+  let inst=q.t==='mcq'?(q.s==='listen'?'استمع ثم اختر الإجابة الصحيحة':q.p?'اقرأ النص ثم أجب':TYPE_AR.mcq):TYPE_AR[q.t];
+  if(q.t==='type'&&q.spell)inst='استمع للكلمة ثم اكتبها بشكل صحيح';
+  if(q.t==='match')inst=q.q+' — '+TYPE_AR.match;
+  if(q.pron)inst='اقرأ الكلمة بصوت عالٍ، ثم استمع للنطق الصحيح وقارن';
+  if(q.s==='sounds'&&q.t==='mcq')inst='استمع للكلمة ثم اختر الإجابة';
+  h+=`<p class="inst">${esc(inst)}</p>`;
+  if(q.say&&q.t!=='speak'){h+=`<div class="audio"><button class="play" id="play" aria-label="تشغيل">🔊</button><button class="small" id="slow">🐢 ببطء</button>${(q.spell||q.s==='sounds')?'':'<button class="small" id="showtr">📄 اعرض النص</button>'}</div>${q.spell?'':`<div class="transcript en" id="tr" style="display:none">${esc(q.say)}</div>`}`}
+  if(q.pic)h+=`<div class="pic">${q.pic}</div>`;
+  if(q.t!=='match'&&q.t!=='order'&&q.q&&!(q.t==='type'&&q.spell)){
+    const big=onlyEmoji(q.q);
+    h+=`<div class="qtext ${big?'big':''} ${isAr(q.q)?'':'en'}">${esc(q.q)}${q.t==='speak'?` <button class="spk" id="qsay" style="vertical-align:middle">🔊</button>`:''}</div>`;
+  }
+  h+=`<div id="body"></div><div class="fb" id="fb"></div><div class="row" id="nx" style="display:none"><button class="btn full teal" id="nextb">${S.i+1<S.list.length?'السؤال التالي ←':'اعرض النتيجة 🏁'}</button></div></div>`;
+  app.innerHTML=h;
+  $('#quit').onclick=()=>{if(S.i>0&&!confirmQuit())return;home()};
+  $('#nextb').onclick=()=>next();
+  if($('#play')){$('#play').onclick=e=>say(q.say,false,e.currentTarget);$('#slow').onclick=()=>say(q.say,true,$('#play'))}
+  if($('#showtr'))$('#showtr').onclick=()=>{$('#tr').style.display='block'};
+  if($('#pread'))$('#pread').onclick=e=>say(P[q.p].x.replace(/Word bank:[^\n]*\n/,'').replace(/\(\d\) ____/g,'blank'),false,e.currentTarget);
+  if($('#qsay'))$('#qsay').onclick=e=>say(q.q.replace(/\(.*?\)/g,''),false,e.currentTarget);
+  ({mcq:bMcq,type:bType,order:bOrder,speak:bSpeak,match:bMatch})[q.t](q,$('#body'));
+  if(auto){if(q.say&&q.t!=='speak')say(q.say,false,$('#play'));else if(q.t==='speak'&&!q.pron)say(q.q.replace(/\(.*?\)/g,''))}
+}
+let quitArm=0;function confirmQuit(){if(Date.now()-quitArm<2500)return true;quitArm=Date.now();toast('اضغط ✕ مرة أخرى للخروج');return false}
+
+/* ---------- question types ---------- */
+function bMcq(q,el){
+  const correct=q.o[0];const tf=q.o.length===2&&/^(True|False)$/.test(q.o[0]);
+  const opts=tf?['True','False']:shuf(q.o);
+  const L='ABCD';
+  el.innerHTML=`<div class="opts ${tf?'tf':''}">${opts.map((o,i)=>`<button class="opt" data-o="${esc(o)}">${tf?(o==='True'?'✔ True':'✘ False'):`<span class="k">${L[i]}</span>`}<span>${esc(o)}</span></button>`).join('')}</div>`;
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;const ok=b.dataset.o===correct;
+    el.querySelectorAll('.opt').forEach(x=>{if(x.dataset.o===correct)x.classList.add('ok');else if(x!==b)x.classList.add('dim')});
+    if(!ok)b.classList.add('bad');answered(ok,correct)});
+}
+function bType(q,el){
+  el.innerHTML=`<input class="ans" id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type here..."><div class="row"><button class="btn full" id="chk">تحقق ✓</button></div>`;
+  const i=$('#ti'),go=()=>{if(S.done)return;const v=norm(i.value);if(!v){toast('اكتب إجابتك أولاً');return}
+    const ok=q.ans.some(a=>norm(a)===v);i.classList.add(ok?'ok':'bad');i.disabled=true;$('#chk').style.display='none';answered(ok,q.ans[0]+(q.spell?'  ('+q.ans[0].split('').join('-')+')':''))};
+  $('#chk').onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};
+}
+function bOrder(q,el){
+  const words=q.ans.split(' ');let bank=shuf(words.map((w,i)=>({w,i})));
+  if(bank.map(x=>x.w).join(' ')===q.ans&&words.length>2)bank=bank.slice(1).concat(bank[0]);
+  const picked=[];
+  el.innerHTML=`<div class="line" id="ln"></div><div class="bank" id="bk"></div><div class="row"><button class="btn alt" id="clr">↺ مسح</button><button class="btn" id="chk">تحقق ✓</button></div>`;
+  const draw=()=>{$('#ln').innerHTML=picked.map((x,k)=>`<button class="tile" data-k="${k}">${esc(x.w)}</button>`).join('');
+    $('#bk').innerHTML=bank.map((x,k)=>`<button class="tile ${picked.includes(x)?'used':''}" data-b="${k}">${esc(x.w)}</button>`).join('');
+    $('#ln').querySelectorAll('.tile').forEach(t=>t.onclick=()=>{if(S.done)return;picked.splice(+t.dataset.k,1);draw()});
+    $('#bk').querySelectorAll('.tile').forEach(t=>t.onclick=()=>{if(S.done)return;const x=bank[+t.dataset.b];if(!picked.includes(x)){picked.push(x);draw()}})};
+  draw();
+  $('#clr').onclick=()=>{if(S.done)return;picked.length=0;draw()};
+  $('#chk').onclick=()=>{if(S.done)return;if(picked.length<words.length){toast('استخدم كل الكلمات');return}
+    const ok=picked.map(x=>x.w).join(' ')===q.ans;$('#ln').classList.add(ok?'ok':'bad');$('#clr').style.display=$('#chk').style.display='none';answered(ok,q.ans);say(q.ans)};
+}
+function bMatch(q,el){
+  const left=shuf(q.pairs.map((p,i)=>({t:p[0],i}))),right=shuf(q.pairs.map((p,i)=>({t:p[1],i})));
+  let sel=null,miss=0,done=0;
+  el.innerHTML=`<div class="match"><div class="col" id="cl">${left.map(x=>`<button class="mi ${onlyEmoji(x.t)?'emo':''}" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div><div class="col" id="cr">${right.map(x=>`<button class="mi" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div></div>`;
+  el.querySelectorAll('#cl .mi').forEach(b=>b.onclick=()=>{if(b.classList.contains('done'))return;el.querySelectorAll('#cl .mi').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');sel=b});
+  el.querySelectorAll('#cr .mi').forEach(b=>b.onclick=()=>{if(b.classList.contains('done')||S.done)return;if(!sel){toast('اختر من العمود الأيسر أولاً');return}
+    if(sel.dataset.i===b.dataset.i){sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');fx('tap');done++;if(!/^[^A-Za-z]+$/.test(b.textContent))say(b.textContent);sel=null;
+      if(done===q.pairs.length){const ok=miss===0;answered(ok,ok?'':'عدد الأخطاء: '+miss);if(!ok){$('#fb').querySelector('b').textContent='أكملت التوصيل مع '+miss+' خطأ — حاول بدون أخطاء 💪'}}}
+    else{miss++;b.classList.remove('bad');void b.offsetWidth;b.classList.add('bad');fx('no')}});
+}
+function bSpeak(q,el){
+  const kws=q.kw.map(k=>new RegExp('\\b(?:'+k+')','i'));
+  const check=txt=>{const n=norm(txt);return kws.some(r=>r.test(n))};
+  let heard='';
+  let h='';
+  if(DICT){h+=`<button class="mic" id="mic" aria-label="تحدث">🎤</button><p class="inst" style="text-align:center" id="mst">اضغط المايك وتحدث، ثم اضغط مرة أخرى للإنهاء</p><div class="heard" id="hd"></div><div class="or">أو اكتب إجابتك</div>`}
+  if(!q.pron)h+=`<input class="ans" id="ti" autocomplete="off" placeholder="type your answer..."><div class="row"><button class="btn" id="chk">تحقق ✓</button></div>`;
+  h+=`<div class="or">${q.pron?'قلها بصوت عالٍ ثم قارن':'أو قلها بصوت عالٍ وقيّم نفسك'}</div><button class="btn alt full" id="self">🗣️ قلتها — اعرض الإجابة النموذجية</button><div id="mdl"></div>`;
+  el.innerHTML=h;
+  const showModel=(selfAssess)=>{$('#mdl').innerHTML=`<div class="model"><button class="spk" id="ms">🔊</button><span class="en">${esc(q.model)}</span></div>${selfAssess?`<p class="inst" style="margin-top:10px">هل كانت إجابتك صحيحة ومشابهة للنموذج؟</p><div class="row"><button class="btn teal" id="y">✅ نعم</button><button class="btn alt" id="n">❌ أحتاج تدريباً</button></div>`:''}`;
+    $('#ms').onclick=e=>say(q.model,false,e.currentTarget);
+    if(selfAssess){$('#y').onclick=()=>{$('#y').parentNode.remove();answered(true)};$('#n').onclick=()=>{$('#y').parentNode.remove();answered(false,q.model)}}};
+  const finish=(txt,src)=>{if(S.done)return;const ok=check(txt);
+    if(src==='t'){$('#ti').classList.add(ok?'ok':'bad')}
+    ['chk','self'].forEach(id=>{const b=$('#'+id);if(b)b.style.display='none'});const ti=$('#ti');if(ti)ti.disabled=true;
+    showModel(false);answered(ok,q.model);if(!ok)$('#fb').insertAdjacentHTML('beforeend','<div style="margin-top:4px">💡 استمع للنموذج وكرّره بصوت عالٍ.</div>')};
+  if(!q.pron){$('#chk').onclick=()=>{const v=$('#ti').value;if(!norm(v)){toast('اكتب إجابتك أولاً');return}finish(v,'t')};
+  $('#ti').onkeydown=e=>{if(e.key==='Enter')$('#chk').click()};}
+  $('#self').onclick=()=>{if(S.done)return;$('#self').style.display='none';showModel(true);say(q.model,!!q.pron)};
+  if(DICT){
+    const mic=$('#mic');let on=false;
+    dictH={partial:t=>{$('#hd')&&($('#hd').textContent=(heard+' '+t).trim())},final:t=>{heard=(heard+' '+t).trim();$('#hd')&&($('#hd').textContent=heard)},
+      state:(st,reason)=>{if(!$('#mic'))return;on=st==='listening';mic.classList.toggle('on',on);mic.textContent=on?'⏹':'🎤';if(!on&&heard&&!S.done)finish(heard,'m')}};
+    mic.onclick=()=>{if(S.done)return;if(on){DICT.stop().catch(()=>{});return}heard='';$('#hd').textContent='';
+      DICT.start().catch(e=>{const c=e&&e.code||e;if(c==='not_granted'){toast('لم يُسمح بالمايك — اكتب إجابتك أو قيّم نفسك');mic.remove();$('#mst').remove();$('#hd').remove()}else toast('تعذّر تشغيل المايك، حاول مرة أخرى')})};
+  }
+  setTimeout(()=>{},0);
+}
+
+/* ---------- RESULT ---------- */
+function result(){
+  const n=S.list.length,p=Math.round(S.score/n*100);
+  const st=p>=90?3:p>=70?2:p>=50?1:0;
+  stars+=st;store.set('stars',stars);
+  if(!S.retry){const best=store.get('best',{});if(S.sec!=='all'){best[S.sec]=Math.max(best[S.sec]||0,p);store.set('best',best)}}
+  const msg=p>=90?['🏆','بطل! أنت جاهز للاختبار']:p>=70?['🎉','ممتاز! راجع أخطاءك القليلة']:p>=50?['💪','جيد! تحتاج مزيداً من التدريب']:['📚','لا بأس — راجع ملخص الوحدات ثم حاول مجدداً'];
+  if(p>=70){sfx.win();confetti()}
+  app.innerHTML=`<div class="card res"><div class="big">${msg[0]}</div><h2>${msg[1]}</h2><div class="pct">${p}%</div><div>${S.score} من ${n} إجابات صحيحة</div><div class="st">${'⭐'.repeat(st)}${'☆'.repeat(3-st)}</div>
+  <div class="row">${S.wrong.length?'<button class="btn teal" id="rw">🔁 أعد الأخطاء فقط</button>':''}<button class="btn" id="again">جولة جديدة</button><button class="btn alt" id="hm">🏠 الرئيسية</button></div>
+  ${S.wrong.length?`<div class="mist"><div class="label">راجع أخطاءك</div>${S.wrong.map(w=>{const q=w.q;const t=q.t==='order'?'ترتيب جملة':q.t==='match'?q.q:(q.q||q.say);return `<div class="m"><div class="${isAr(t)?'':'en'}">${esc(t)}</div>${q.say&&q.s==='listen'?`<div class="en" style="color:var(--muted)">🎧 ${esc(q.say)}</div>`:''}${w.c?`<div class="a en">✔ ${esc(w.c)}</div>`:''}${q.ex?`<div style="font-size:14px;color:var(--muted)">${esc(q.ex)}</div>`:''}</div>`}).join('')}</div>`:''}</div>`;
+  const wl=S.wrong.map(w=>w.q),sec=S.sec;
+  if($('#rw'))$('#rw').onclick=()=>{start(sec,shuf(wl));S.retry=1};
+  $('#again').onclick=()=>start(sec);$('#hm').onclick=home;
+  window.scrollTo(0,0);
+}
+
+/* ---------- SOUND LAB ---------- */
+function soundLab(){
+  window.scrollTo(0,0);S=null;
+  const byU={};SOUNDS.forEach(s=>(byU[s.u]=byU[s.u]||[]).push(s));
+  const cnt=Q.filter(q=>q.s==='sounds'&&units.has(q.u)).length;
+  app.innerHTML=`<div class="qbar"><button class="x" id="bk">→</button><h2 style="margin:0;font-size:22px">🔊 الأصوات الجديدة</h2></div>
+  <section class="hero" style="background:#7A1747"><h2>مختبر الأصوات</h2><p>اضغط على أي كلمة لتسمعها، ثم كرّرها بصوتك. بعد ذلك اختبر نفسك: اسمع الكلمة واختر تهجئتها الصحيحة، وابحث عن الكلمات المتشابهة في الصوت، واقرأ بصوت عالٍ.</p><button class="go" id="sq">🎯 اختبر كل الأصوات (${cnt})</button></section>
+  ${Object.keys(byU).map(u=>`<div class="label">Unit ${u}</div>${byU[u].map((s,k)=>`<div class="unit" style="padding:12px 14px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span class="num en" style="background:${UNITS[u-1].c};width:auto;min-width:54px;padding:0 10px;font-size:18px">${esc(s.p.trim())}</span><span style="flex:1;font-weight:700">${esc(s.ar)}</span><button class="small" data-snd="${esc(s.p.trim())}">اختبرني</button></div>
+   <div class="bank">${s.w.map(w=>`<button class="tile" data-say="${esc(w)}">${hl(w,s.p.trim())} 🔊</button>`).join('')}</div></div>`).join('')}`).join('')}
+  <p class="foot">💡 الحروف الملوّنة في كل كلمة هي التي تصنع الصوت</p>`;
+  $('#bk').onclick=home;$('#sq').onclick=()=>start('sounds');
+  app.querySelectorAll('[data-say]').forEach(b=>b.onclick=()=>say(b.dataset.say,true));
+  app.querySelectorAll('[data-snd]').forEach(b=>b.onclick=()=>{const l=shuf(Q.filter(q=>q.snd===b.dataset.snd));start('sounds',l)});
+}
+function hl(w,p){
+  const lw=w.toLowerCase();let i=-1,len=0;
+  if(p.includes('_')){const m=lw.match(new RegExp(p[0]+'[^aeiou]e$'));if(m){i=m.index;len=3;
+    return esc(w.slice(0,i))+'<b style="color:#E11D74">'+esc(w[i])+'</b>'+esc(w[i+1])+'<b style="color:#E11D74">e</b>'}}
+  else if(p.includes('/')){const e=p.startsWith('es')?'es':'s';i=lw.length-e.length;len=e.length}
+  else{i=lw.indexOf(p);len=p.length}
+  if(i<0)return esc(w);
+  return esc(w.slice(0,i))+'<b style="color:#E11D74">'+esc(w.slice(i,i+len))+'</b>'+esc(w.slice(i+len));
+}
+
+/* ---------- SUMMARY ---------- */
+function summary(){
+  window.scrollTo(0,0);
+  app.innerHTML=`<div class="qbar"><button class="x" id="bk">→</button><h2 style="margin:0;font-size:22px">📝 ملخص الوحدات</h2></div>
+  ${UNITS.map(u=>`<details class="unit" ${u.n===1?'open':''}><summary><span class="num" style="background:${u.c}">${u.n}</span><span><span class="en" style="display:block">${esc(u.en)}</span><small style="color:var(--muted)">${u.ar}</small></span></summary><div class="ub">
+   <h5>🗣️ الجمل الأساسية (اضغط لتسمع)</h5>${u.ph.map(p=>`<button class="phr" data-say="${esc(p)}"><span>${esc(p)}</span>🔊</button>`).join('')}
+   <h5>✏️ القواعد</h5><ul class="gl">${u.g.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>
+   <h5>🔤 الأصوات</h5><div class="en">${esc(u.s)}</div>
+   <div class="adv">💡 <span class="en">${esc(u.ad)}</span></div>
+   <div class="row"><button class="btn teal" data-unit="${u.n}">تدرّب على الوحدة ${u.n} ←</button></div></div></details>`).join('')}`;
+  $('#bk').onclick=home;
+  app.querySelectorAll('.phr').forEach(b=>b.onclick=()=>say(b.dataset.say));
+  app.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>{units=new Set([+b.dataset.unit]);start('all')});
+}
+home();
+})();
+</script>
+</body>
+</html>

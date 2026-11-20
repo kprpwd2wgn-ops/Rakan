@@ -312,7 +312,7 @@ const spoken=q=>q.v===0?null:(q.v||(/[ء-ي]/.test(q.q||'')?q.q:null));
 
 /* ---------- Hamed's recorded voice (Azure clips listed in voices/manifest.json); no device voice ---------- */
 let AC=null,CLIP={},SRC=null,TOK=0;const BUF={},RAW={};
-try{fetch(CFG.dir+'/manifest.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.lines){m.lines.forEach(l=>CLIP[l.text.trim()]=l.file);if(S&&S.cur)refreshSpk();else if(!S)home()}}).catch(()=>{})}catch(e){}
+try{if(location.protocol!=='file:')fetch(CFG.dir+'/manifest.json').then(r=>r.ok?r.json():null).then(m=>{if(m&&m.lines){m.lines.forEach(l=>CLIP[l.text.trim()]=l.file);if(S&&S.cur)refreshSpk();else if(!S)home()}}).catch(()=>{})}catch(e){}
 const has=t=>!!(t&&CLIP[String(t).trim()]);
 function actx(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC}
 function raw(f){return RAW[f]||(RAW[f]=fetch(CFG.dir+'/'+f).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}))}

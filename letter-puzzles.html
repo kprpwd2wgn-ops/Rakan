@@ -407,7 +407,7 @@ const lvStars = li => (save.best[li]||[]).reduce((a,b)=>a+(b||0),0);
 const ROUND = 10; // puzzles in one game; each level has many more, new ones come first
 const lvSolved = li => (save.best[li]||[]).filter(Boolean).length;
 const lvDone = li => lvSolved(li) >= ROUND;
-const unlocked = li => li===0 || lvDone(li-1);
+const unlocked = li => true; // every level is open: the player picks any one
 
 function show(id){ document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on', s.id===id)); }
 function owlDo(cls){ const o=$('owl'); o.classList.remove('hop','shake'); void o.getBBox; requestAnimationFrame(()=>o.classList.add(cls)); }
@@ -537,7 +537,7 @@ function levelDone(){
   const last = L===LEVELS.length-1;
   $('doneTitle').textContent = last ? 'أَنْتَ عَبْقَرِيُّ الْحُرُوفِ! 🏆' : 'أَنْهَيْتَ مُسْتَوَى «' + LEVELS[L].name + '»!';
   const left = LEVELS[L].P.length - lvSolved(L);
-  $('doneText').textContent = (last ? 'حَلَلْتَ أَصْعَبَ الْأَلْغَازِ!' : 'فُتِحَ الْمُسْتَوَى التَّالِي: ' + LEVELS[L+1].name) + (left>0 ? ' — أَلْغَازٌ جَدِيدَةٌ تَنْتَظِرُكَ هُنَا: ' + left : '');
+  $('doneText').textContent = (last ? 'حَلَلْتَ أَصْعَبَ الْأَلْغَازِ!' : 'جَرِّبِ الْمُسْتَوَى التَّالِي: ' + LEVELS[L+1].name) + (left>0 ? ' — أَلْغَازٌ جَدِيدَةٌ تَنْتَظِرُكَ هُنَا: ' + left : '');
   $('nextLv').style.display = last ? 'none' : '';
   say(last ? 'all' : 'done');
 }

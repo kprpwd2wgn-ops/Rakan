@@ -170,6 +170,26 @@ const LEVELS = [
     { s:[{p:'🏠',n:'بيت',v:'بَيْتٌ'},{add:'ي'}], a:'بيتي', av:'بَيْتِي', x:['بيوت','يبيت'] },
     { s:[{p:'✏️',n:'قلم',v:'قَلَمٌ'},{del:'م'}], a:'قل', av:'قُلْ', x:['لم','قم'] },
     { s:[{p:'🍯',n:'عسل',v:'عَسَلٌ'},{add:'ي'}], a:'عسلي', av:'عَسَلِيٌّ', x:['يعسل','عسلة'] },
+    { s:[{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'ق'}], a:'مر', av:'مُرٌّ', x:['قم','رق'] },
+    { s:[{p:'🐜',n:'نمل',v:'نَمْلٌ'},{del:'ل'}], a:'نم', av:'نَمْ', x:['مل','لم'] },
+    { s:[{p:'🌹',n:'ورد',v:'وَرْدٌ'},{del:'و'}], a:'رد', av:'رَدٌّ', x:['ور','دو'] },
+    { s:[{p:'🐘',n:'فيل',v:'فِيلٌ'},{del:'ي'}], a:'فل', av:'فُلٌّ', x:['في','يل'] },
+    { s:[{p:'🌊',n:'بحر',v:'بَحْرٌ'},{del:'ب'}], a:'حر', av:'حَرٌّ', x:['بح','رب'] },
+    { s:[{p:'⚡',n:'برق',v:'بَرْقٌ'},{del:'ق'}], a:'بر', av:'بَرٌّ', x:['رق','قب'] },
+    { s:[{p:'🐈',n:'قط',v:'قِطٌّ'},{add:'ع'}], a:'قطع', av:'قَطَعَ', x:['عقط','قطة'] },
+    { s:[{p:'🍃',n:'ورق',v:'وَرَقٌ'},{add:'ة'}], a:'ورقة', av:'وَرَقَةٌ', x:['أوراق','ورقي'] },
+    { s:[{p:'⭐',n:'نجم',v:'نَجْمٌ'},{add:'ة'}], a:'نجمة', av:'نَجْمَةٌ', x:['نجوم','نجمي'] },
+    { s:[{p:'🥕',n:'جزر',v:'جَزَرٌ'},{add:'ة'}], a:'جزرة', av:'جَزَرَةٌ', x:['جزيرة','جزري'] },
+    { s:[{p:'☀️',n:'شمس',v:'شَمْسٌ'},{add:'ي'}], a:'شمسي', av:'شَمْسِيٌّ', x:['يشمس','شموس'] },
+    { s:[{p:'⛰️',n:'جبل',v:'جَبَلٌ'},{add:'ي'}], a:'جبلي', av:'جَبَلِيٌّ', x:['جبال','يجبل'] },
+    { s:[{add:'ك'},{p:'🚪',n:'باب',v:'بَابٌ'}], a:'كباب', av:'كَبَابٌ', x:['بابك','كتاب'] },
+    { s:[{add:'ش'},{p:'🚪',n:'باب',v:'بَابٌ'}], a:'شباب', av:'شَبَابٌ', x:['بابش','شبك'] },
+    { s:[{add:'ذ'},{p:'🚪',n:'باب',v:'بَابٌ'}], a:'ذباب', av:'ذُبَابٌ', x:['بابذ','ذهاب'] },
+    { s:[{add:'ح'},{p:'🦷',n:'سن',v:'سِنٌّ'}], a:'حسن', av:'حَسَنٌ', x:['سنح','حسين'] },
+    { s:[{p:'🧀',n:'جبن',v:'جُبْنٌ'},{add:'ة'}], a:'جبنة', av:'جُبْنَةٌ', x:['جبان','جبين'] },
+    { s:[{p:'🌊',n:'بحر',v:'بَحْرٌ'},{add:'ي'}], a:'بحري', av:'بَحْرِيٌّ', x:['بحار','يبحر'] },
+    { s:[{p:'☁️',n:'سحاب',v:'سَحَابٌ'},{add:'ة'}], a:'سحابة', av:'سَحَابَةٌ', x:['سحب','سحابي'] },
+    { s:[{p:'✋',n:'يد',v:'يَدٌ'},{add:'ي'}], a:'يدي', av:'يَدِي', x:['يدا','أيدي'] },
   ]},
   { name:'مُتَوَسِّط', title:'الْمُسْتَوَى الْمُتَوَسِّطُ', icon:'🌿', color:'#59c3ff', note:'اسْمُ الصُّورَةِ مَخْفِيٌّ، وَخُطْوَتَانِ', mode:'pick', show:false, P:[
     { s:[{p:'🐟',n:'سمك',v:'سَمَكٌ'},{del:'ك'},{add:'ع'}], a:'سمع', av:'سَمِعَ', x:['سمك','عسم','مسع'] },
@@ -182,6 +202,26 @@ const LEVELS = [
     { s:[{p:'⛰️',n:'جبل',v:'جَبَلٌ'},{del:'ل'},{add:'ن'}], a:'جبن', av:'جُبْنٌ', x:['جبلن','نجب','جنب'] },
     { s:[{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'ر'},{add:'ح'}], a:'قمح', av:'قَمْحٌ', x:['قمرح','حقم','مقح'] },
     { s:[{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ر'},{add:'س'}], a:'ناس', av:'نَاسٌ', x:['نارس','سان','نسر'] },
+    { s:[{add:'ق'},{p:'🐕',n:'كلب',v:'كَلْبٌ'},{del:'ك'}], a:'قلب', av:'قَلْبٌ', x:['كلبق','بلق','قبل'] },
+    { s:[{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ر'},{add:'ب'}], a:'ناب', av:'نَابٌ', x:['نارب','بان','نبا'] },
+    { s:[{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ر'},{add:'م'}], a:'نام', av:'نَامَ', x:['نارم','مان','منا'] },
+    { s:[{p:'🐪',n:'جمل',v:'جَمَلٌ'},{del:'ل'},{add:'ع'}], a:'جمع', av:'جَمْعٌ', x:['جملع','عجم','معج'] },
+    { s:[{p:'🐪',n:'جمل',v:'جَمَلٌ'},{del:'ل'},{add:'ر'}], a:'جمر', av:'جَمْرٌ', x:['جملر','رجم','مرج'] },
+    { s:[{p:'🥚',n:'بيض',v:'بَيْضٌ'},{del:'ض'},{add:'ع'}], a:'بيع', av:'بَيْعٌ', x:['بيضع','عيب','يبع'] },
+    { s:[{p:'🧂',n:'ملح',v:'مِلْحٌ'},{del:'ح'},{add:'ف'}], a:'ملف', av:'مَلَفٌّ', x:['ملحف','فلم','لمف'] },
+    { s:[{p:'☀️',n:'شمس',v:'شَمْسٌ'},{del:'س'},{add:'ع'}], a:'شمع', av:'شَمْعٌ', x:['شمسع','عشم','مشع'] },
+    { s:[{p:'⚡',n:'برق',v:'بَرْقٌ'},{del:'ق'},{add:'د'}], a:'برد', av:'بَرْدٌ', x:['برقد','درب','ربد'] },
+    { s:[{add:'ك'},{p:'🍯',n:'عسل',v:'عَسَلٌ'},{del:'ع'}], a:'كسل', av:'كَسَلٌ', x:['عسلك','سلك','كعسل'] },
+    { s:[{p:'🌊',n:'بحر',v:'بَحْرٌ'},{del:'ر'},{add:'ث'}], a:'بحث', av:'بَحْثٌ', x:['بحرث','ثبح','حبث'] },
+    { s:[{add:'ج'},{p:'🐜',n:'نمل',v:'نَمْلٌ'},{del:'ن'}], a:'جمل', av:'جَمَلٌ', x:['نجمل','جنم','ملج'] },
+    { s:[{p:'🦆',n:'بطة',v:'بَطَّةٌ'},{del:'ة'},{add:'ن'}], a:'بطن', av:'بَطْنٌ', x:['بطنة','نبط','طنب'] },
+    { s:[{p:'🐦',n:'طير',v:'طَيْرٌ'},{del:'ر'},{add:'ن'}], a:'طين', av:'طِينٌ', x:['طيرن','نيط','طنين'] },
+    { s:[{p:'🧄',n:'ثوم',v:'ثُومٌ'},{del:'م'},{add:'ب'}], a:'ثوب', av:'ثَوْبٌ', x:['ثومب','بوث','ثبو'] },
+    { s:[{p:'👁️',n:'عين',v:'عَيْنٌ'},{del:'ن'},{add:'د'}], a:'عيد', av:'عِيدٌ', x:['عيند','دعي','يعد'] },
+    { s:[{p:'🦁',n:'أسد',v:'أَسَدٌ'},{del:'د'},{add:'ف'}], a:'أسف', av:'أَسَفٌ', x:['أسدف','فأس','سفأ'] },
+    { s:[{p:'❄️',n:'ثلج',v:'ثَلْجٌ'},{del:'ج'},{add:'ث'}], a:'ثلث', av:'ثُلُثٌ', x:['ثلجث','ثثل','لثث'] },
+    { s:[{p:'🍯',n:'عسل',v:'عَسَلٌ'},{del:'س'},{add:'م'}], a:'علم', av:'عَلَمٌ', x:['عسلم','معل','لعم'] },
+    { s:[{add:'ث'},{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'ق'}], a:'ثمر', av:'ثَمَرٌ', x:['ثقمر','قثمر','مثر'] },
   ]},
   { name:'صَعْب', title:'الْمُسْتَوَى الصَّعْبُ', icon:'🌳', color:'#ff8a5c', note:'رَكِّبِ الْكَلِمَةَ بِنَفْسِكَ، حَرْفًا حَرْفًا', mode:'build', show:false, extra:2, P:[
     { s:[{p:'🦆',n:'بط',v:'بَطٌّ'},{add:'يخ'}], a:'بطيخ', av:'بِطِّيخٌ' },
@@ -194,6 +234,26 @@ const LEVELS = [
     { s:[{p:'👁️',n:'عين',v:'عَيْنٌ'},{del:'ي'},{add:'ب'}], a:'عنب', av:'عِنَبٌ' },
     { s:[{p:'❤️',n:'قلب',v:'قَلْبٌ'},{del:'ب'},{add:'م'}], a:'قلم', av:'قَلَمٌ' },
     { s:[{p:'🌹',n:'ورد',v:'وَرْدٌ'},{del:'د'},{add:'ق'}], a:'ورق', av:'وَرَقٌ' },
+    { s:[{p:'🐻',n:'دب',v:'دُبٌّ'},{add:'وس'}], a:'دبوس', av:'دَبُّوسٌ' },
+    { s:[{p:'🦷',n:'سن',v:'سِنٌّ'},{add:'ام'}], a:'سنام', av:'سَنَامٌ' },
+    { s:[{p:'🦷',n:'سن',v:'سِنٌّ'},{add:'بلة'}], a:'سنبلة', av:'سُنْبُلَةٌ' },
+    { s:[{p:'🦆',n:'بط',v:'بَطٌّ'},{add:'انية'}], a:'بطانية', av:'بَطَّانِيَّةٌ' },
+    { s:[{p:'🦆',n:'بط',v:'بَطٌّ'},{add:'اقة'}], a:'بطاقة', av:'بِطَاقَةٌ' },
+    { s:[{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ر'},{add:'فذة'}], a:'نافذة', av:'نَافِذَةٌ' },
+    { s:[{p:'🧂',n:'ملح',v:'مِلْحٌ'},{del:'ح'},{add:'عقة'}], a:'ملعقة', av:'مِلْعَقَةٌ' },
+    { s:[{p:'❤️',n:'قلب',v:'قَلْبٌ'},{del:'ب'},{add:'عة'}], a:'قلعة', av:'قَلْعَةٌ' },
+    { s:[{p:'🌊',n:'بحر',v:'بَحْرٌ'},{del:'ر'},{add:'يرة'}], a:'بحيرة', av:'بُحَيْرَةٌ' },
+    { s:[{p:'⚡',n:'برق',v:'بَرْقٌ'},{del:'ق'},{add:'تقال'}], a:'برتقال', av:'بُرْتُقَالٌ' },
+    { s:[{p:'🦷',n:'سن',v:'سِنٌّ'},{del:'ن'},{add:'كين'}], a:'سكين', av:'سِكِّينٌ' },
+    { s:[{p:'🐈',n:'قط',v:'قِطٌّ'},{add:'عة'}], a:'قطعة', av:'قِطْعَةٌ' },
+    { s:[{p:'🐟',n:'سمك',v:'سَمَكٌ'},{del:'ك'},{add:'اء'}], a:'سماء', av:'سَمَاءٌ' },
+    { s:[{p:'🥕',n:'جزر',v:'جَزَرٌ'},{del:'ر'},{add:'يرة'}], a:'جزيرة', av:'جَزِيرَةٌ' },
+    { s:[{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ر'},{add:'فورة'}], a:'نافورة', av:'نَافُورَةٌ' },
+    { s:[{p:'🌹',n:'ورد',v:'وَرْدٌ'},{del:'د'},{add:'شة'}], a:'ورشة', av:'وَرْشَةٌ' },
+    { s:[{p:'🐘',n:'فيل',v:'فِيلٌ'},{del:'ي'},{add:'فل'}], a:'فلفل', av:'فُلْفُلٌ' },
+    { s:[{p:'🐻',n:'دب',v:'دُبٌّ'},{add:'ور'}], a:'دبور', av:'دَبُّورٌ' },
+    { s:[{p:'🦆',n:'بط',v:'بَطٌّ'},{add:'ريق'}], a:'بطريق', av:'بِطْرِيقٌ' },
+    { s:[{p:'🧂',n:'ملح',v:'مِلْحٌ'},{del:'ح'},{add:'كة'}], a:'ملكة', av:'مَلِكَةٌ' },
   ]},
   { name:'أَصْعَب', title:'الْمُسْتَوَى الْأَصْعَبُ', icon:'🏆', color:'#ffd23f', note:'صُوَرٌ أَكْثَرُ، وَحُرُوفٌ فِي الْبِدَايَةِ', mode:'build', show:false, extra:3, P:[
     { s:[{p:'🐈',n:'قط',v:'قِطٌّ'},{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ن'}], a:'قطار', av:'قِطَارٌ' },
@@ -206,6 +266,26 @@ const LEVELS = [
     { s:[{p:'🐘',n:'فيل',v:'فِيلٌ'},{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'ق'},{del:'ر'}], a:'فيلم', av:'فِيلْمٌ' },
     { s:[{p:'🐈',n:'قط',v:'قِطٌّ'},{p:'🌊',n:'بحر',v:'بَحْرٌ'},{del:'ب'},{del:'ح'}], a:'قطر', av:'قَطَرُ' },
     { s:[{add:'ح'},{p:'🐪',n:'جمل',v:'جَمَلٌ'},{del:'ج'}], a:'حمل', av:'حَمَلٌ' },
+    { s:[{add:'ع'},{p:'🐪',n:'جمل',v:'جَمَلٌ'},{del:'ج'}], a:'عمل', av:'عَمَلٌ' },
+    { s:[{add:'ت'},{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'ق'}], a:'تمر', av:'تَمْرٌ' },
+    { s:[{add:'ب'},{p:'🦷',n:'سن',v:'سِنٌّ'},{del:'س'},{add:'ت'}], a:'بنت', av:'بِنْتٌ' },
+    { s:[{add:'ف'},{p:'🦷',n:'سن',v:'سِنٌّ'},{del:'س'},{add:'جان'}], a:'فنجان', av:'فِنْجَانٌ' },
+    { s:[{p:'🦷',n:'سن',v:'سِنٌّ'},{p:'🔥',n:'نار',v:'نَارٌ'},{del:'ن'},{add:'ة'}], a:'سنارة', av:'سِنَّارَةٌ' },
+    { s:[{add:'م'},{p:'🔥',n:'نار',v:'نَارٌ'},{add:'ة'}], a:'منارة', av:'مَنَارَةٌ' },
+    { s:[{add:'ن'},{p:'🐪',n:'جمل',v:'جَمَلٌ'},{del:'ج'},{add:'ة'}], a:'نملة', av:'نَمْلَةٌ' },
+    { s:[{p:'🐻',n:'دب',v:'دُبٌّ'},{p:'🐻',n:'دب',v:'دُبٌّ'},{del:'ب'},{add:'وب'}], a:'دبدوب', av:'دَبْدُوبٌ' },
+    { s:[{p:'🐟',n:'سمك',v:'سَمَكٌ'},{del:'ك'},{p:'🐟',n:'سمك',v:'سَمَكٌ'},{del:'ك'}], a:'سمسم', av:'سِمْسِمٌ' },
+    { s:[{add:'م'},{p:'🧂',n:'ملح',v:'مِلْحٌ'},{del:'ح'},{add:'كة'}], a:'مملكة', av:'مَمْلَكَةٌ' },
+    { s:[{p:'☀️',n:'شمس',v:'شَمْسٌ'},{del:'س'},{p:'👁️',n:'عين',v:'عَيْنٌ'},{del:'ي'},{del:'ن'},{add:'ة'}], a:'شمعة', av:'شَمْعَةٌ' },
+    { s:[{add:'ك'},{p:'👑',n:'تاج',v:'تَاجٌ'},{del:'ج'},{add:'ب'}], a:'كتاب', av:'كِتَابٌ' },
+    { s:[{add:'ب'},{p:'🌙',n:'قمر',v:'قَمَرٌ'},{del:'م'},{add:'ة'}], a:'بقرة', av:'بَقَرَةٌ' },
+    { s:[{add:'ز'},{p:'🏠',n:'بيت',v:'بَيْتٌ'},{del:'ب'},{add:'ون'}], a:'زيتون', av:'زَيْتُونٌ' },
+    { s:[{add:'ت'},{p:'👁️',n:'عين',v:'عَيْنٌ'},{del:'ع'}], a:'تين', av:'تِينٌ' },
+    { s:[{add:'ر'},{p:'🐜',n:'نمل',v:'نَمْلٌ'},{del:'ن'}], a:'رمل', av:'رَمْلٌ' },
+    { s:[{add:'ر'},{p:'🐝',n:'نحلة',v:'نَحْلَةٌ'},{del:'ن'}], a:'رحلة', av:'رِحْلَةٌ' },
+    { s:[{add:'س'},{p:'✏️',n:'قلم',v:'قَلَمٌ'},{del:'ق'}], a:'سلم', av:'سُلَّمٌ' },
+    { s:[{add:'ح'},{p:'✏️',n:'قلم',v:'قَلَمٌ'},{del:'ق'}], a:'حلم', av:'حُلْمٌ' },
+    { s:[{add:'ن'},{p:'🦷',n:'سن',v:'سِنٌّ'},{del:'ن'},{add:'ر'}], a:'نسر', av:'نَسْرٌ' },
   ]},
 ];
 // letter names as Hamed says them (after حرف, so in the genitive)
@@ -324,7 +404,9 @@ let save = { best:[[],[],[],[]] };
 try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.best) save = s; } catch(e){}
 const store = () => { try { localStorage.setItem(KEY, JSON.stringify(save)); } catch(e){} };
 const lvStars = li => (save.best[li]||[]).reduce((a,b)=>a+(b||0),0);
-const lvDone = li => (save.best[li]||[]).filter(Boolean).length >= LEVELS[li].P.length;
+const ROUND = 10; // puzzles in one game; each level has many more, new ones come first
+const lvSolved = li => (save.best[li]||[]).filter(Boolean).length;
+const lvDone = li => lvSolved(li) >= ROUND;
 const unlocked = li => li===0 || lvDone(li-1);
 
 function show(id){ document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on', s.id===id)); }
@@ -339,7 +421,7 @@ function levels(speak=true){
   LEVELS.forEach((lv,li)=>{
     const b=document.createElement('button'); b.className='lv'+(unlocked(li)?'':' lock');
     b.innerHTML = `<span class="ic" style="background:${lv.color}33">${unlocked(li)?lv.icon:'🔒'}</span>
-      <span><b>${lv.name}</b><small>${lv.note}</small></span><span class="st">⭐ ${lvStars(li)}/${lv.P.length*3}</span>`;
+      <span><b>${lv.name}</b><small>${lv.note}</small><small style="display:block">🧩 حَلَلْتَ ${lvSolved(li)} مِنْ ${lv.P.length}</small></span><span class="st">⭐ ${lvStars(li)}</span>`;
     b.onclick = () => { SFX.tap(); if (!unlocked(li)) { owlShakeList(b); return; } startLevel(li); };
     $('lvList').appendChild(b);
   });
@@ -349,13 +431,15 @@ function owlShakeList(b){ b.style.animation='shake .4s'; setTimeout(()=>b.style.
 
 // ---------- playing ----------
 let L=0, I=0, tries=0, hinted=false, order=[], earned=[];
-function startLevel(li){ L=li; I=0; earned=[]; order=LEVELS[li].P.map((_,i)=>i); show('playScr'); say('lv-'+li).then(()=>{}); puzzle(true); }
+function startLevel(li){ L=li; I=0; earned=[]; const b=save.best[li]||[], all=LEVELS[li].P.map((_,i)=>i);
+  order=[...shuffle(all.filter(i=>!b[i])), ...shuffle(all.filter(i=>b[i]))].slice(0,ROUND); show('playScr'); say('lv-'+li).then(()=>{}); puzzle(true); }
 function cur(){ return LEVELS[L].P[order[I]]; }
+window.puzzleNow = cur; // lets the test bot read the puzzle on screen
 
 function puzzle(first){
   const lv=LEVELS[L], pz=cur(); tries=0; hinted=lv.show;
-  $('lvName').textContent = lv.title + ' — ' + (I+1) + ' / ' + lv.P.length;
-  $('dots').innerHTML = lv.P.map((_,i)=>`<i class="${i<I?'done':i===I?'now':''}"></i>`).join('');
+  $('lvName').textContent = lv.title + ' — ' + (I+1) + ' / ' + order.length;
+  $('dots').innerHTML = order.map((_,i)=>`<i class="${i<I?'done':i===I?'now':''}"></i>`).join('');
   const eq=$('eq'); eq.innerHTML='';
   pz.s.forEach((t,ti)=>{
     if (ti) { const o=document.createElement('span'); o.className='op '+(t.del?'m':'p'); o.textContent=t.del?'−':'+'; eq.appendChild(o); }
@@ -374,7 +458,7 @@ function puzzle(first){
   $('choices').style.display = pick ? 'grid' : 'none';
   $('build').style.display = pick ? 'none' : 'flex';
   if (pick) {
-    $('choices').style.gridTemplateColumns = lv.P[0].x.length+1 > 3 ? '1fr 1fr' : '1fr 1fr 1fr';
+    $('choices').style.gridTemplateColumns = pz.x.length+1 > 3 ? '1fr 1fr' : '1fr 1fr 1fr';
     $('choices').innerHTML='';
     shuffle([pz.a, ...pz.x]).forEach(w=>{ const b=document.createElement('button'); b.textContent=w; b.onclick=()=>choose(b,w); $('choices').appendChild(b); });
   } else buildSetup(pz, lv.extra);
@@ -444,15 +528,16 @@ function solved(){
 }
 $('nextQ').onclick = () => {
   SFX.tap(); $('solved').classList.remove('on');
-  I++; if (I < LEVELS[L].P.length) puzzle(false); else levelDone();
+  I++; if (I < order.length) puzzle(false); else levelDone();
 };
 function levelDone(){
   show('doneScr'); SFX.win(); confetti(120);
-  const got=earned.reduce((a,b)=>a+(b||0),0), max=LEVELS[L].P.length*3;
+  const got=earned.reduce((a,b)=>a+(b||0),0), max=order.length*3;
   $('doneStars').textContent = '⭐ ' + got + ' / ' + max;
   const last = L===LEVELS.length-1;
   $('doneTitle').textContent = last ? 'أَنْتَ عَبْقَرِيُّ الْحُرُوفِ! 🏆' : 'أَنْهَيْتَ مُسْتَوَى «' + LEVELS[L].name + '»!';
-  $('doneText').textContent = last ? 'حَلَلْتَ أَصْعَبَ الْأَلْغَازِ!' : 'فُتِحَ الْمُسْتَوَى التَّالِي: ' + LEVELS[L+1].name;
+  const left = LEVELS[L].P.length - lvSolved(L);
+  $('doneText').textContent = (last ? 'حَلَلْتَ أَصْعَبَ الْأَلْغَازِ!' : 'فُتِحَ الْمُسْتَوَى التَّالِي: ' + LEVELS[L+1].name) + (left>0 ? ' — أَلْغَازٌ جَدِيدَةٌ تَنْتَظِرُكَ هُنَا: ' + left : '');
   $('nextLv').style.display = last ? 'none' : '';
   say(last ? 'all' : 'done');
 }

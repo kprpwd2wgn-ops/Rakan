@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تحدي العباقرة</title>
+<meta name="theme-color" content="#101a45">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="تحدي العباقرة">
+<style>
+/*CSS*/
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="brainArt" viewBox="0 0 120 120">
+      <ellipse cx="60" cy="114" rx="30" ry="4.5" fill="#00000033"/>
+      <path d="M47 96 v13 M73 96 v13" stroke="#d94c7a" stroke-width="7" stroke-linecap="round"/>
+      <path d="M40 110 h10 M70 110 h10" stroke="#d94c7a" stroke-width="6" stroke-linecap="round"/>
+      <path d="M20 66 q-12 -2 -14 -12 M100 66 q12 -2 14 -12" stroke="#d94c7a" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path d="M60 16 c-9 -8 -25 -6 -29 5 c-13 -1 -21 11 -17 22 c-11 6 -11 23 1 29 c-1 13 13 21 26 17 c6 8 23 8 29 0 c13 4 27 -4 26 -17 c12 -6 12 -23 1 -29 c4 -11 -4 -23 -17 -22 c-4 -11 -20 -13 -29 -5 z"
+        fill="#ff9dbb" stroke="#d94c7a" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M60 17 v30" stroke="#d94c7a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M31 30 q8 -7 15 1 M74 31 q8 -8 15 0 M19 52 q8 5 13 -3 M88 49 q6 8 13 3 M36 44 q6 4 10 -1 M75 43 q5 5 10 0"
+        stroke="#d94c7a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="34" cy="78" rx="7" ry="4" fill="#ff6f9c" opacity=".7"/><ellipse cx="86" cy="78" rx="7" ry="4" fill="#ff6f9c" opacity=".7"/>
+      <g class="eyes">
+        <circle cx="46" cy="64" r="11.5" fill="#fff" stroke="#d94c7a" stroke-width="2"/><circle cx="74" cy="64" r="11.5" fill="#fff" stroke="#d94c7a" stroke-width="2"/>
+        <circle cx="47.5" cy="66" r="5.5" fill="#2b1030"/><circle cx="75.5" cy="66" r="5.5" fill="#2b1030"/>
+        <circle cx="49.5" cy="63.5" r="2" fill="#fff"/><circle cx="77.5" cy="63.5" r="2" fill="#fff"/>
+      </g>
+      <path d="M51 82 q9 9 18 0" stroke="#7a1f3d" stroke-width="3.5" fill="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- start -->
+<div class="scr on" id="startScr">
+  <svg class="brain" id="brain0" style="margin-top:3vh"><use href="#brainArt"/></svg>
+  <h1>تَحَدِّي الْعَبَاقِرَةِ</h1>
+  <p class="sub">أَلْغَازُ ذَكَاءٍ كَثِيرَةٌ وَمُمْتِعَةٌ مَعَ عَبْقَرِينُو</p>
+  <div class="trio">
+    <div><span class="ico" style="background:var(--v)">👁️</span><b>تَرْكِيزٌ بَصَرِيٌّ</b></div>
+    <div><span class="ico" style="background:var(--l)">🔍</span><b>مَنْطِقٌ وَتَحْقِيقٌ</b></div>
+    <div><span class="ico" style="background:var(--m)">🧮</span><b>حِسَابَاتٌ ذِهْنِيَّةٌ</b></div>
+  </div>
+  <button class="big" id="go">▶︎ اِبْدَأْ</button>
+  <p class="sub" id="loading" hidden>لَحْظَةً…</p>
+</div>
+
+<!-- home -->
+<div class="scr" id="homeScr">
+  <div class="bar"><span id="rank"></span><button class="ib" id="snd" aria-label="الأصوات">🔊</button></div>
+  <svg class="brain small" id="brainH"><use href="#brainArt"/></svg>
+  <button class="test" id="testBtn">
+    <span class="tico">⏱️</span>
+    <span><b>اِخْتَبِرْ ذَكَاءَكَ</b><small>١٥ سُؤَالًا • ١٥ ثَانِيَةً لِكُلِّ سُؤَالٍ</small><small id="testBest"></small></span>
+  </button>
+  <div id="worlds"></div>
+  <p class="sub small" id="totalLine"></p>
+</div>
+
+<!-- world: list of puzzle kinds -->
+<div class="scr" id="worldScr">
+  <div class="bar"><button class="ib" id="wBack" aria-label="رجوع">→</button><b id="wTitle"></b><span id="wStars"></span></div>
+  <button class="mix" id="mixBtn">🎲 <b>خَلِيطٌ مِنْ كُلِّ الْأَنْوَاعِ</b></button>
+  <div id="kinds"></div>
+</div>
+
+<!-- play -->
+<div class="scr" id="playScr">
+  <div class="bar"><button class="ib" id="pBack" aria-label="خروج">✕</button><div id="dots"></div><button class="ib" id="replay" aria-label="اسمع">🔊</button></div>
+  <div id="pHead"><span id="pKind"></span><span id="pNum"></span></div>
+  <div id="timer" hidden><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="tb"/><circle cx="22" cy="22" r="19" class="tf" id="tArc"/></svg><span id="tNum"></span></div>
+  <p id="qText"></p>
+  <div id="board"></div>
+  <div id="opts"></div>
+  <div id="pFoot"><svg class="brain tiny" id="brainP"><use href="#brainArt"/></svg><button class="soft" id="hintBtn" hidden>💡 تَلْمِيحٌ</button></div>
+</div>
+
+<!-- solved / answer panel -->
+<div id="panel"><div class="box">
+  <div id="okTitle"></div>
+  <div id="exBoard"></div>
+  <p id="exText"></p>
+  <div id="pStars"></div>
+  <button class="big" id="nextQ">التَّالِي ◀︎</button>
+</div></div>
+
+<!-- round done -->
+<div class="scr" id="doneScr">
+  <svg class="brain" style="margin-top:4vh"><use href="#brainArt"/></svg>
+  <h1 id="doneTitle"></h1>
+  <div class="stars" id="doneStars"></div>
+  <p class="sub" id="doneText"></p>
+  <div class="row"><button class="big" id="againBtn">🔁 جَوْلَةٌ جَدِيدَةٌ</button></div>
+  <div class="row"><button class="soft" id="toWorld">📚 الْأَنْوَاعُ</button><button class="soft" id="toHome">🏠 الرَّئِيسِيَّةُ</button></div>
+</div>
+
+<!-- IQ test result -->
+<div class="scr" id="resScr">
+  <h1 style="font-size:30px">نَتِيجَةُ الِاخْتِبَارِ</h1>
+  <div id="score"></div>
+  <div id="tiers"></div>
+  <div id="parts"></div>
+  <div class="row"><button class="big" id="testAgain">🔁 اخْتِبَارٌ جَدِيدٌ</button></div>
+  <div class="row"><button class="soft" id="resHome">🏠 الرَّئِيسِيَّةُ</button></div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+/*DATA*/
+</script>
+<script>
+/*UI*/
+</script>
+</body>
+</html>

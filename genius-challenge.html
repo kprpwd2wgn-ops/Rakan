@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تحدي العباقرة</title>
+<meta name="theme-color" content="#101a45">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="تحدي العباقرة">
+<style>
+:root { color-scheme:dark; --bg:#101a45; --bg2:#1c2a6b; --card:#24357f; --card2:#1a2766; --gold:#ffd23f; --ink:#fff8ec;
+  --ok:#3ddc84; --bad:#ff6b6b; --v:#2f8cff; --l:#ff8a1c; --m:#ff4d6d; --paper:#fffdf6; --line:#2b2f55; }
+* { box-sizing:border-box; -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; }
+html,body { margin:0; height:100%; background:radial-gradient(circle at 50% -10%,#33489e,var(--bg) 62%); color:var(--ink);
+  font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif; overflow:hidden; }
+button { font:inherit; color:inherit; border:0; cursor:pointer; background:none; }
+[hidden] { display:none !important; }
+.scr { position:fixed; inset:0; display:none; flex-direction:column; align-items:center; max-width:560px; margin:0 auto;
+  padding:calc(10px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); overflow-y:auto; overflow-x:hidden; }
+.scr.on { display:flex; }
+h1 { margin:4px 0 0; font-size:clamp(30px,9vw,42px); color:var(--gold); text-align:center; text-shadow:0 0 18px #ffd23f55; line-height:1.45; }
+.sub { font-size:18px; opacity:.92; text-align:center; margin:6px 0 14px; line-height:1.7; }
+.sub.small { font-size:15px; opacity:.75; }
+.big { background:var(--gold); color:#4a3200; font-size:25px; font-weight:bold; padding:12px 38px; border-radius:30px; box-shadow:0 6px 0 #b88a00; }
+.big:active { transform:translateY(4px); box-shadow:0 2px 0 #b88a00; }
+.soft { background:#ffffff1c; border-radius:22px; padding:10px 20px; font-size:19px; }
+.soft:active { background:#ffffff33; }
+.row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
+.brain { width:150px; height:150px; flex:none; }
+.brain.small { width:92px; height:92px; margin:-4px 0 2px; }
+.brain.tiny { width:58px; height:58px; }
+.hop { animation:hop .6s; } @keyframes hop { 30%{transform:translateY(-16px) rotate(-6deg)} 60%{transform:translateY(0) rotate(4deg)} }
+.shake { animation:shake .5s; } @keyframes shake { 25%{transform:translateX(-8px)} 50%{transform:translateX(8px)} 75%{transform:translateX(-5px)} }
+.think .eyes { animation:look 2.4s infinite; } @keyframes look { 0%,40%{transform:none} 50%,90%{transform:translate(2px,-3px)} }
+.trio { display:flex; gap:10px; justify-content:center; margin:4px 0 22px; flex-wrap:wrap; }
+.trio div { display:flex; flex-direction:column; align-items:center; gap:4px; width:100px; font-size:15px; text-align:center; }
+.ico { width:62px; height:62px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow:0 4px 0 #0004, inset 0 -4px 0 #0002; }
+.bar { width:100%; display:flex; align-items:center; gap:10px; min-height:46px; font-size:18px; }
+.bar b { flex:1; text-align:center; font-size:21px; }
+.ib { background:#ffffff1c; border-radius:14px; width:48px; height:44px; font-size:21px; flex:none; }
+#rank { flex:1; font-size:17px; color:var(--gold); }
+#worlds { width:100%; }
+/* home */
+.test { width:100%; display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#ffd23f,#ff9f1c); color:#4a2600; border-radius:24px;
+  padding:14px 16px; margin:6px 0 10px; box-shadow:0 6px 0 #a85d00; text-align:right; }
+.test:active { transform:translateY(3px); box-shadow:0 3px 0 #a85d00; }
+.test .tico { font-size:44px; }
+.test b { font-size:26px; display:block; } .test small { display:block; font-size:15px; }
+.world { width:100%; display:flex; align-items:center; gap:14px; background:var(--card); border-radius:22px; padding:12px 14px; margin:7px 0;
+  box-shadow:0 5px 0 #0c1440; text-align:right; }
+.world:active { transform:translateY(3px); box-shadow:0 2px 0 #0c1440; }
+.world b { font-size:22px; display:block; } .world small { font-size:15px; opacity:.85; display:block; }
+.world .ico { flex:none; }
+.prog { height:8px; border-radius:6px; background:#ffffff22; margin-top:6px; overflow:hidden; }
+.prog i { display:block; height:100%; background:var(--gold); border-radius:6px; }
+/* world: kinds */
+.mix { width:100%; background:#ffffff14; border:2px dashed #ffffff44; border-radius:20px; padding:10px; font-size:19px; margin:6px 0 4px; }
+#kinds { width:100%; display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
+.kind { background:var(--card); border-radius:20px; padding:12px 8px 10px; box-shadow:0 5px 0 #0c1440; display:flex; flex-direction:column; align-items:center; gap:2px; }
+.kind:active { transform:translateY(3px); box-shadow:0 2px 0 #0c1440; }
+.kind .k { font-size:38px; line-height:1.2; }
+.kind b { font-size:18px; text-align:center; line-height:1.4; }
+.kind small { font-size:13px; opacity:.8; }
+.kind .prog { width:85%; }
+/* play */
+#dots { flex:1; display:flex; justify-content:center; gap:5px; flex-wrap:wrap; }
+#dots i { width:11px; height:11px; border-radius:50%; background:#ffffff2a; }
+#dots i.ok { background:var(--ok); } #dots i.no { background:var(--bad); } #dots i.now { background:#fff; transform:scale(1.3); }
+#pHead { width:100%; display:flex; justify-content:space-between; font-size:15px; opacity:.8; margin:2px 0 0; }
+#timer { position:relative; width:52px; height:52px; margin:2px 0 -4px; }
+#timer svg { width:52px; height:52px; transform:rotate(-90deg); }
+#timer .tb { fill:none; stroke:#ffffff22; stroke-width:5; }
+#timer .tf { fill:none; stroke:var(--gold); stroke-width:5; stroke-linecap:round; stroke-dasharray:119.4; transition:stroke-dashoffset .25s linear, stroke .3s; }
+#timer.low .tf { stroke:var(--bad); }
+#timer span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:bold; }
+#qText { font-size:21px; text-align:center; margin:6px 0 8px; line-height:1.65; min-height:34px; }
+#board { width:100%; background:var(--paper); color:var(--line); border-radius:22px; padding:8px; box-shadow:0 5px 0 #c9c3a8;
+  display:flex; align-items:center; justify-content:center; min-height:120px; position:relative; }
+#board svg { width:100%; height:auto; display:block; max-height:48vh; }
+#board .txt { font-size:24px; line-height:1.8; padding:10px 8px; text-align:center; color:#2b2f55; }
+#board [data-k] { cursor:pointer; }
+#board .pick { animation:pulse .9s infinite alternate; }
+@keyframes pulse { to { opacity:.35; } }
+#opts { width:100%; display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+#opts.three { grid-template-columns:1fr 1fr 1fr; }
+#opts.one { grid-template-columns:1fr; }
+#opts button { background:var(--card); border-radius:18px; font-size:28px; padding:10px 6px; box-shadow:0 5px 0 #0c1440; font-weight:bold; min-height:64px;
+  display:flex; align-items:center; justify-content:center; line-height:1.3; }
+#opts button.w { font-size:21px; }
+#opts button svg { width:100%; max-width:120px; height:auto; }
+#opts button.pic { background:var(--paper); box-shadow:0 5px 0 #c9c3a8; padding:6px; }
+#opts button:active { transform:translateY(3px); box-shadow:0 2px 0 #0c1440; }
+#opts button.ok { background:var(--ok); color:#06381c; box-shadow:0 5px 0 #1f9c57; }
+#opts button.no { background:var(--bad); opacity:.55; }
+#opts button.pic.ok { outline:5px solid var(--ok); background:#eafff2; }
+#opts button.pic.no { outline:5px solid var(--bad); background:#ffecec; opacity:.6; }
+#pFoot { width:100%; display:flex; align-items:center; justify-content:space-between; margin-top:auto; padding-top:8px; }
+/* answer panel */
+#panel { position:fixed; inset:0; background:#060b26cc; display:none; align-items:center; justify-content:center; z-index:5; padding:14px; }
+#panel.on { display:flex; }
+#panel .box { background:linear-gradient(#2c3f92,#1b2869); border-radius:26px; padding:16px 16px 18px; width:100%; max-width:460px; text-align:center;
+  box-shadow:0 0 0 4px #ffd23f55; animation:pop .3s; max-height:94vh; overflow-y:auto; }
+@keyframes pop { from{transform:scale(.75);opacity:0} }
+#okTitle { font-size:27px; font-weight:bold; }
+#okTitle.no { color:#ffb3b3; }
+#exBoard { background:var(--paper); color:var(--line); border-radius:18px; margin:10px 0 4px; padding:6px; }
+#exBoard:empty { display:none; }
+#exBoard svg { width:100%; height:auto; max-height:34vh; display:block; }
+#exBoard .txt { font-size:22px; line-height:1.8; padding:6px; }
+#exText { font-size:20px; line-height:1.75; margin:8px 0; }
+#pStars { font-size:36px; letter-spacing:4px; margin:2px 0 12px; }
+/* done + result */
+.stars { font-size:40px; margin:8px 0; }
+#score { font-size:64px; font-weight:bold; color:var(--gold); margin:6px 0 4px; direction:rtl; }
+#tiers { width:100%; display:flex; flex-direction:column; gap:8px; margin:6px 0 12px; }
+.tier { display:flex; align-items:center; gap:10px; border-radius:18px; padding:10px 14px; font-size:20px; font-weight:bold; opacity:.38; transform:scale(.96); }
+.tier.on { opacity:1; transform:scale(1.03); box-shadow:0 0 0 4px #fff8, 0 8px 18px #0006; animation:pop .4s; }
+.tier .cr { margin-inline-start:auto; font-size:30px; }
+#parts { width:100%; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+#parts div { background:var(--card); border-radius:16px; padding:8px 4px; text-align:center; font-size:15px; }
+#parts b { display:block; font-size:24px; }
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:6; }
+/* puzzle pieces */
+.top { font-size:30px; vertical-align:middle; }
+.story { font-size:22px !important; line-height:1.9 !important; text-align:center; }
+.det { width:100%; }
+.det ul { list-style:none; margin:2px 0 6px; padding:0 4px; font-size:18px; line-height:1.7; text-align:right; color:#2b2f55; }
+.ana { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 14px; padding:14px 4px; color:#2b2f55; }
+.ana .pair { display:inline-flex; align-items:center; gap:6px; background:#f2eee0; border-radius:16px; padding:6px 10px; }
+.ana .ae { font-size:44px; line-height:1.2; } .ana .aw { font-size:26px; font-weight:bold; }
+.ana i { font-style:normal; font-size:22px; color:#e63946; } .ana b { font-size:20px; color:#8a7d5a; }
+.qm { color:#e0a800; font-size:40px; font-weight:bold; }
+.eqs { width:100%; display:flex; flex-direction:column; align-items:center; gap:6px; padding:8px 0; color:#2b2f55; }
+.eq { display:flex; direction:rtl; align-items:center; justify-content:center; gap:8px; font-size:34px; font-weight:bold; line-height:1.3; }
+.eqs.lg .eq { font-size:42px; }
+.vals { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; direction:rtl; }
+.vals span { background:#f2eee0; border-radius:12px; padding:2px 10px; font-size:26px; font-weight:bold; white-space:nowrap; }
+.note { font-size:18px; color:#e63946; text-align:center; margin-top:-4px; padding-bottom:6px; }
+.memobar { position:absolute; left:14px; right:14px; bottom:6px; height:6px; border-radius:4px; background:#0001; overflow:hidden; }
+.memobar i { display:block; height:100%; background:#6c5ce7; animation:memo linear forwards; transform-origin:right; }
+@keyframes memo { from { transform:scaleX(1); } to { transform:scaleX(0); } }
+#exBoard { position:relative; }
+.cnt { position:absolute; top:8px; left:12px; background:#e63946; color:#fff; border-radius:14px; min-width:38px; padding:0 8px; font-size:24px; font-weight:bold; }
+.cnt:empty { display:none; }
+
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="brainArt" viewBox="0 0 120 120">
+      <ellipse cx="60" cy="114" rx="30" ry="4.5" fill="#00000033"/>
+      <path d="M47 96 v13 M73 96 v13" stroke="#d94c7a" stroke-width="7" stroke-linecap="round"/>
+      <path d="M40 110 h10 M70 110 h10" stroke="#d94c7a" stroke-width="6" stroke-linecap="round"/>
+      <path d="M20 66 q-12 -2 -14 -12 M100 66 q12 -2 14 -12" stroke="#d94c7a" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <path d="M60 16 c-9 -8 -25 -6 -29 5 c-13 -1 -21 11 -17 22 c-11 6 -11 23 1 29 c-1 13 13 21 26 17 c6 8 23 8 29 0 c13 4 27 -4 26 -17 c12 -6 12 -23 1 -29 c4 -11 -4 -23 -17 -22 c-4 -11 -20 -13 -29 -5 z"
+        fill="#ff9dbb" stroke="#d94c7a" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M60 17 v30" stroke="#d94c7a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <path d="M31 30 q8 -7 15 1 M74 31 q8 -8 15 0 M19 52 q8 5 13 -3 M88 49 q6 8 13 3 M36 44 q6 4 10 -1 M75 43 q5 5 10 0"
+        stroke="#d94c7a" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="34" cy="78" rx="7" ry="4" fill="#ff6f9c" opacity=".7"/><ellipse cx="86" cy="78" rx="7" ry="4" fill="#ff6f9c" opacity=".7"/>
+      <g class="eyes">
+        <circle cx="46" cy="64" r="11.5" fill="#fff" stroke="#d94c7a" stroke-width="2"/><circle cx="74" cy="64" r="11.5" fill="#fff" stroke="#d94c7a" stroke-width="2"/>
+        <circle cx="47.5" cy="66" r="5.5" fill="#2b1030"/><circle cx="75.5" cy="66" r="5.5" fill="#2b1030"/>
+        <circle cx="49.5" cy="63.5" r="2" fill="#fff"/><circle cx="77.5" cy="63.5" r="2" fill="#fff"/>
+      </g>
+      <path d="M51 82 q9 9 18 0" stroke="#7a1f3d" stroke-width="3.5" fill="#fff" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- start -->
+<div class="scr on" id="startScr">
+  <svg class="brain" id="brain0" style="margin-top:3vh"><use href="#brainArt"/></svg>
+  <h1>تَحَدِّي الْعَبَاقِرَةِ</h1>
+  <p class="sub">أَلْغَازُ ذَكَاءٍ كَثِيرَةٌ وَمُمْتِعَةٌ مَعَ عَبْقَرِينُو</p>
+  <div class="trio">
+    <div><span class="ico" style="background:var(--v)">👁️</span><b>تَرْكِيزٌ بَصَرِيٌّ</b></div>
+    <div><span class="ico" style="background:var(--l)">🔍</span><b>مَنْطِقٌ وَتَحْقِيقٌ</b></div>
+    <div><span class="ico" style="background:var(--m)">🧮</span><b>حِسَابَاتٌ ذِهْنِيَّةٌ</b></div>
+  </div>
+  <button class="big" id="go">▶︎ اِبْدَأْ</button>
+  <p class="sub" id="loading" hidden>لَحْظَةً…</p>
+</div>
+
+<!-- home -->
+<div class="scr" id="homeScr">
+  <div class="bar"><span id="rank"></span><button class="ib" id="snd" aria-label="الأصوات">🔊</button></div>
+  <svg class="brain small" id="brainH"><use href="#brainArt"/></svg>
+  <button class="test" id="testBtn">
+    <span class="tico">⏱️</span>
+    <span><b>اِخْتَبِرْ ذَكَاءَكَ</b><small>١٥ سُؤَالًا • ١٥ ثَانِيَةً لِكُلِّ سُؤَالٍ</small><small id="testBest"></small></span>
+  </button>
+  <div id="worlds"></div>
+  <p class="sub small" id="totalLine"></p>
+</div>
+
+<!-- world: list of puzzle kinds -->
+<div class="scr" id="worldScr">
+  <div class="bar"><button class="ib" id="wBack" aria-label="رجوع">→</button><b id="wTitle"></b><span id="wStars"></span></div>
+  <button class="mix" id="mixBtn">🎲 <b>خَلِيطٌ مِنْ كُلِّ الْأَنْوَاعِ</b></button>
+  <div id="kinds"></div>
+</div>
+
+<!-- play -->
+<div class="scr" id="playScr">
+  <div class="bar"><button class="ib" id="pBack" aria-label="خروج">✕</button><div id="dots"></div><button class="ib" id="replay" aria-label="اسمع">🔊</button></div>
+  <div id="pHead"><span id="pKind"></span><span id="pNum"></span></div>
+  <div id="timer" hidden><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="tb"/><circle cx="22" cy="22" r="19" class="tf" id="tArc"/></svg><span id="tNum"></span></div>
+  <p id="qText"></p>
+  <div id="board"></div>
+  <div id="opts"></div>
+  <div id="pFoot"><svg class="brain tiny" id="brainP"><use href="#brainArt"/></svg><button class="soft" id="hintBtn" hidden>💡 تَلْمِيحٌ</button></div>
+</div>
+
+<!-- solved / answer panel -->
+<div id="panel"><div class="box">
+  <div id="okTitle"></div>
+  <div id="exBoard"></div>
+  <p id="exText"></p>
+  <div id="pStars"></div>
+  <button class="big" id="nextQ">التَّالِي ◀︎</button>
+</div></div>
+
+<!-- round done -->
+<div class="scr" id="doneScr">
+  <svg class="brain" style="margin-top:4vh"><use href="#brainArt"/></svg>
+  <h1 id="doneTitle"></h1>
+  <div class="stars" id="doneStars"></div>
+  <p class="sub" id="doneText"></p>
+  <div class="row"><button class="big" id="againBtn">🔁 جَوْلَةٌ جَدِيدَةٌ</button></div>
+  <div class="row"><button class="soft" id="toWorld">📚 الْأَنْوَاعُ</button><button class="soft" id="toHome">🏠 الرَّئِيسِيَّةُ</button></div>
+</div>
+
+<!-- IQ test result -->
+<div class="scr" id="resScr">
+  <h1 style="font-size:30px">نَتِيجَةُ الِاخْتِبَارِ</h1>
+  <div id="score"></div>
+  <div id="tiers"></div>
+  <div id="parts"></div>
+  <div class="row"><button class="big" id="testAgain">🔁 اخْتِبَارٌ جَدِيدٌ</button></div>
+  <div class="row"><button class="soft" id="resHome">🏠 الرَّئِيسِيَّةُ</button></div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script>
+// ---------- core: random numbers, puzzle registry, drawing helpers, common lines ----------
+// Every puzzle is made from its kind and number with a fixed seed, so puzzle 7 of a kind is the same
+// puzzle every time (stars are kept per puzzle). d is its difficulty, 0 (easy) to 3 (genius).
+const AR = '٠١٢٣٤٥٦٧٨٩';
+const dg = s => String(s).replace(/[0-9]/g, d => AR[d]);
+function RNG(seed){ let a = seed >>> 0; return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const ri = (r, a, b) => a + Math.floor(r() * (b - a + 1));
+const pk = (r, a) => a[Math.floor(r() * a.length)];
+const shuf = (r, a) => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const range = n => [...Array(n).keys()];
+function hash(s){ let h = 2166136261; for (const c of s) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+const WORLDS = {
+  v: { name:'تَرْكِيزٌ بَصَرِيٌّ', icon:'👁️', color:'var(--v)', note:'عَيْنُ الصَّقْرِ لَا يَفُوتُهَا شَيْءٌ' },
+  l: { name:'مَنْطِقٌ وَتَحْقِيقٌ', icon:'🔍', color:'var(--l)', note:'فَكِّرْ مِثْلَ الْمُحَقِّقِ' },
+  m: { name:'حِسَابَاتٌ ذِهْنِيَّةٌ', icon:'🧮', color:'var(--m)', note:'احْسُبْ فِي عَقْلِكَ' },
+};
+const TYPES = {}, ORDER = { v:[], l:[], m:[] };
+// T(id, {w: world, name, icon, n: how many puzzles, gen(r, d, i) -> puzzle, lines(): extra spoken lines})
+function T(id, o){ o.id = id; TYPES[id] = o; ORDER[o.w].push(id); }
+function make(id, i){
+  const t = TYPES[id], r = RNG(hash(id + ':' + i)), d = Math.min(3, Math.floor(i * 4 / t.n));
+  const p = t.gen(r, d, i);
+  p.type = id; p.i = i; p.d = d;
+  return p;
+}
+
+// ---------- answers ----------
+// number choices: the answer and three near misses, never below zero
+function numOpts(r, ans, near){
+  const c = new Set();
+  const tries = near || [1, -1, 2, -2, 10, -10, 3, -3, 5, -5];
+  for (const k of shuf(r, tries)) { const v = ans + k; if (v >= 0 && v !== ans) c.add(v); if (c.size >= 3) break; }
+  let k = 4; while (c.size < 3) { if (ans + k !== ans) c.add(ans + k); k++; }
+  return shuf(r, [ans, ...[...c].slice(0, 3)]).map(v => ({ h: dg(v), ok: v === ans, v }));
+}
+// any choices: the right one and the wrong ones, mixed
+const opts = (r, right, wrong, extra = {}) => shuf(r, [{ h: right, ok: true, ...extra }, ...wrong.map(h => ({ h, ok: false, ...extra }))]);
+
+// ---------- drawing ----------
+const SV = (w, h, body, extra = '') => `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" ${extra}>${body}</svg>`;
+const f1 = v => +(+v).toFixed(1);
+const COL = { red:'#ff4d4d', blue:'#3d7dff', green:'#2fbf71', yellow:'#ffc21a', purple:'#9b5de5', orange:'#ff8c42', pink:'#ff70a6', teal:'#14b8b8' };
+const COLS = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+// a shape centred at (x, y), s = its half size
+function shape(kind, x, y, s, fill, rot = 0, stroke = '#2b2f55', sw = 3){
+  const T = rot ? ` transform="rotate(${f1(rot)} ${f1(x)} ${f1(y)})"` : '';
+  const st = `fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"`;
+  const P = pts => `<polygon points="${pts.map(p => f1(p[0]) + ',' + f1(p[1])).join(' ')}" ${st}${T}/>`;
+  const ring = (n, r0, r1, a0 = -90) => range(n * (r1 ? 2 : 1)).map(k => { const a = (a0 + k * 360 / (n * (r1 ? 2 : 1))) * Math.PI / 180, rr = r1 && k % 2 ? r1 : r0; return [x + rr * Math.cos(a), y + rr * Math.sin(a)]; });
+  switch (kind) {
+    case 'circle': return `<circle cx="${f1(x)}" cy="${f1(y)}" r="${f1(s)}" ${st}/>`;
+    case 'square': return `<rect x="${f1(x - s * .88)}" y="${f1(y - s * .88)}" width="${f1(s * 1.76)}" height="${f1(s * 1.76)}" rx="${f1(s * .12)}" ${st}${T}/>`;
+    case 'triangle': return P([[x, y - s], [x + s * 1.05, y + s * .8], [x - s * 1.05, y + s * .8]]);
+    case 'diamond': return P([[x, y - s], [x + s * .8, y], [x, y + s], [x - s * .8, y]]);
+    case 'star': return P(ring(5, s * 1.05, s * .45));
+    case 'hexagon': return P(ring(6, s, 0, 0));
+    case 'pentagon': return P(ring(5, s));
+    case 'heart': return `<path d="M${f1(x)} ${f1(y + s * .85)} C${f1(x - s * 1.5)} ${f1(y - s * .1)} ${f1(x - s * .7)} ${f1(y - s * 1.1)} ${f1(x)} ${f1(y - s * .4)} C${f1(x + s * .7)} ${f1(y - s * 1.1)} ${f1(x + s * 1.5)} ${f1(y - s * .1)} ${f1(x)} ${f1(y + s * .85)}Z" ${st}${T}/>`;
+    case 'plus': { const a = s * .36; return P([[x - a, y - s], [x + a, y - s], [x + a, y - a], [x + s, y - a], [x + s, y + a], [x + a, y + a], [x + a, y + s], [x - a, y + s], [x - a, y + a], [x - s, y + a], [x - s, y - a], [x - a, y - a]]); }
+    case 'arrow': return P([[x, y - s], [x + s * .8, y - s * .1], [x + s * .3, y - s * .1], [x + s * .3, y + s], [x - s * .3, y + s], [x - s * .3, y - s * .1], [x - s * .8, y - s * .1]]);
+  }
+  return '';
+}
+const txt = (x, y, t, size = 28, fill = '#2b2f55', extra = '') => `<text x="${f1(x)}" y="${f1(y)}" font-size="${size}" fill="${fill}" text-anchor="middle" dominant-baseline="central" font-weight="bold" font-family="Tahoma,Arial,sans-serif" ${extra}>${t}</text>`;
+const emo = (x, y, e, size = 40, extra = '') => `<text x="${f1(x)}" y="${f1(y)}" font-size="${size}" text-anchor="middle" dominant-baseline="central" ${extra}>${e}</text>`;
+// a row of picture choices drawn small, for the answer buttons
+const mini = (w, h, body) => SV(w, h, body);
+
+// ---------- words Hamed says with numbers ----------
+// abstract numbers, as in «نُضِيفُ ثَلَاثَةً» (accusative, indefinite)
+const NUM_ACC = { 1:'وَاحِدًا', 2:'اثْنَيْنِ', 3:'ثَلَاثَةً', 4:'أَرْبَعَةً', 5:'خَمْسَةً', 6:'سِتَّةً', 7:'سَبْعَةً', 8:'ثَمَانِيَةً', 9:'تِسْعَةً',
+  10:'عَشَرَةً', 11:'أَحَدَ عَشَرَ', 12:'اثْنَيْ عَشَرَ', 15:'خَمْسَةَ عَشَرَ', 20:'عِشْرِينَ', 25:'خَمْسَةً وَعِشْرِينَ', 50:'خَمْسِينَ', 100:'مِئَةً' };
+
+// ---------- lines every part of the game uses ----------
+const SAY = {
+  intro:'أَهْلًا يَا بَطَلُ! أَنَا عَبْقَرِينُو. هَيَّا نُدَرِّبْ عُقُولَنَا بِأَلْغَازٍ مُمْتِعَةٍ!',
+  home:'اخْتَرْ تَحَدِّيًا.',
+  'w-v':'عَالَمُ التَّرْكِيزِ الْبَصَرِيِّ. افْتَحْ عَيْنَيْكَ جَيِّدًا!',
+  'w-l':'عَالَمُ الْمَنْطِقِ وَالتَّحْقِيقِ. فَكِّرْ مِثْلَ الْمُحَقِّقِ!',
+  'w-m':'عَالَمُ الْحِسَابَاتِ الذِّهْنِيَّةِ. احْسُبْ فِي عَقْلِكَ!',
+  mix:'خَلِيطٌ مِنْ كُلِّ الْأَنْوَاعِ. اسْتَعِدَّ لِلْمُفَاجَآتِ!',
+  test:'اخْتِبَارُ الذَّكَاءِ: خَمْسَةَ عَشَرَ سُؤَالًا، وَلِكُلِّ سُؤَالٍ خَمْسَ عَشْرَةَ ثَانِيَةً. رَكِّزْ جَيِّدًا، وَلَا تَتَوَقَّفْ!',
+  'test-v':'أَوَّلًا: أَسْئِلَةُ التَّرْكِيزِ الْبَصَرِيِّ.',
+  'test-l':'الْآنَ: أَسْئِلَةُ الْمَنْطِقِ وَالتَّحْقِيقِ.',
+  'test-m':'وَأَخِيرًا: أَسْئِلَةُ الْحِسَابَاتِ الذِّهْنِيَّةِ.',
+  'res-0':'عَقْلُكَ يَتَدَرَّبُ! الْعَبْ أَكْثَرَ، وَسَتَصِيرُ أَذْكَى كُلَّ يَوْمٍ.',
+  'res-1':'رَائِعٌ! أَنْتَ ذَكِيٌّ جِدًّا!',
+  'res-2':'مُذْهِلٌ! أَنْتَ عَبْقَرِيٌّ!',
+  'ok-0':'أَحْسَنْتَ!', 'ok-1':'مُمْتَازٌ!', 'ok-2':'رَائِعٌ يَا بَطَلُ!', 'ok-3':'إِجَابَةٌ صَحِيحَةٌ!', 'ok-4':'يَا لَكَ مِنْ ذَكِيٍّ!', 'ok-5':'بِالضَّبْطِ!',
+  'no-0':'حَاوِلْ مَرَّةً أُخْرَى.', 'no-1':'قَرِيبٌ! فَكِّرْ مِنْ جَدِيدٍ.', 'no-2':'لَيْسَتْ هَذِهِ، جَرِّبْ غَيْرَهَا.',
+  show:'لَا بَأْسَ، انْظُرْ إِلَى الْحَلِّ.',
+  late:'انْتَهَى الْوَقْتُ!',
+  miss:'إِجَابَةٌ غَيْرُ صَحِيحَةٍ.',
+  done:'أَنْهَيْتَ الْجَوْلَةَ! أَحْسَنْتَ يَا بَطَلُ.',
+  alldone:'رَائِعٌ! حَلَلْتَ كُلَّ أَلْغَازِ هَذَا النَّوْعِ. أَنْتَ عَبْقَرِيٌّ!',
+};
+
+// ---------- world 1: visual focus (part 1) ----------
+
+// ===== find the different one =====
+const ODD_SETS = [
+  // [the many, the different one]
+  [['🍎','🍏'],['🌳','🌲'],['😀','😎'],['🐶','🐱'],['⚽','🏀'],['🚗','🚕'],['🌞','🌝'],['🐥','🐧']],
+  [['ب','ت'],['ج','خ'],['ح','خ'],['د','ذ'],['ر','ز'],['س','ش'],['ص','ض'],['ط','ظ'],['ع','غ'],['ف','ق']],
+  [['b','d'],['p','q'],['6','9'],['E','F'],['M','N'],['O','Q'],['3','8'],['C','G'],['٢','٣'],['ن','ت']],
+  [['ص','ض'],['ف','ق'],['ع','غ'],['ط','ظ'],['R','P'],['B','8'],['m','n'],['W','V'],['٧','٨'],['ي','ئ']],
+];
+T('odd', { w:'v', name:'أَوْجِدِ الْمُخْتَلِفَ', icon:'🎯', n:40,
+  gen(r, d){
+    const n = [4, 5, 6, 7][d], [a, b] = pk(r, ODD_SETS[d]), k = ri(r, 0, n * n - 1);
+    const W = 360, c = W / n, fs = c * (d ? .62 : .66);
+    let cells = '';
+    for (let i = 0; i < n * n; i++) {
+      const x = (i % n + .5) * c, y = (Math.floor(i / n) + .5) * c;
+      cells += `<g data-k="${i}"><rect x="${f1(x - c / 2)}" y="${f1(y - c / 2)}" width="${f1(c)}" height="${f1(c)}" fill="transparent"/>` +
+        (d ? txt(x, y, i === k ? b : a, fs, '#2b2f55', 'font-family="Tahoma,Arial,sans-serif"') : emo(x, y, i === k ? b : a, fs)) + '</g>';
+    }
+    const kx = (k % n + .5) * c, ky = (Math.floor(k / n) + .5) * c;
+    const ring = `<circle cx="${f1(kx)}" cy="${f1(ky)}" r="${f1(c * .5)}" fill="none" stroke="#ff4d4d" stroke-width="5"/>`;
+    return { q:'أَيْنَ الْمُخْتَلِفُ؟ ابْحَثْ عَنْهُ بِسُرْعَةٍ!', say:['q-odd'], board:SV(W, W, cells), tap:true, k:String(k),
+      exBoard:SV(W, W, cells + ring), ex:`الْمُخْتَلِفُ هُوَ «${b}» بَيْنَ «${a}».`, exSay:['ex-odd'] };
+  } });
+SAY['q-odd'] = 'أَيْنَ الْمُخْتَلِفُ؟ ابْحَثْ عَنْهُ بِسُرْعَةٍ!';
+SAY['ex-odd'] = 'عَيْنُ صَقْرٍ! هَذَا هُوَ الْمُخْتَلِفُ.';
+SAY['h-odd'] = 'كُلُّ الصُّوَرِ مُتَشَابِهَةٌ، إِلَّا وَاحِدَةً. اضْغَطْ عَلَى الْمُخْتَلِفِ.';
+
+// ===== how many? =====
+const CNT = [
+  { e:'🍎', w:'تُفَّاحَةً', like:['🍅','🍏'] }, { e:'⭐', w:'نَجْمَةً', like:['🌟','🌙'] }, { e:'🐟', w:'سَمَكَةً', like:['🐠','🐡'] },
+  { e:'🦋', w:'فَرَاشَةً', like:['🐝','🐞'] }, { e:'🌸', w:'زَهْرَةً', like:['🌼','🌺'] }, { e:'🚗', w:'سَيَّارَةً', like:['🚕','🚙'] },
+  { e:'🎈', w:'بَالُونًا', like:['🎀','🍭'] }, { e:'⚽', w:'كُرَةً', like:['🏀','🏐'] }, { e:'🐥', w:'كَتْكُوتًا', like:['🐤','🐣'] },
+  { e:'🍌', w:'مَوْزَةً', like:['🌽','🥕'] }, { e:'🐢', w:'سُلَحْفَاةً', like:['🐸','🐊'] }, { e:'🍩', w:'كَعْكَةً', like:['🍪','🥯'] },
+];
+const OTHER = ['🍇','🍓','🐘','🐙','🌵','🍄','🧸','🚀','🌈','🦒','🍉','🐳','🏠','🎁'];
+// spots spread over an area without overlapping
+function spots(r, n, W, H, gap){
+  const out = []; let tries = 0;
+  while (out.length < n && tries < 4000) {
+    tries++;
+    const x = gap / 2 + r() * (W - gap), y = gap / 2 + r() * (H - gap);
+    if (out.every(p => (p[0] - x) ** 2 + (p[1] - y) ** 2 > gap * gap)) out.push([x, y]);
+    if (tries % 800 === 0) gap *= .92;
+  }
+  return out;
+}
+T('cnt', { w:'v', name:'كَمْ عَدَدُهَا؟', icon:'🔢', n:40,
+  gen(r, d){
+    const t = CNT[ri(r, 0, CNT.length - 1)], ti = CNT.indexOf(t);
+    const want = ri(r, [3, 5, 7, 9][d], [6, 9, 12, 15][d]), total = want + [5, 9, 12, 15][d];
+    const W = 360, H = 300, sz = [44, 38, 33, 30][d];
+    const P = spots(r, total, W, H, sz * 1.05);
+    const others = d >= 2 ? [...t.like, ...shuf(r, OTHER).slice(0, 2)] : d === 1 ? [t.like[0], ...shuf(r, OTHER).slice(0, 3)] : shuf(r, OTHER).slice(0, 3);
+    const kinds = shuf(r, P.map((_, i) => i < want ? t.e : others[i % others.length]));
+    let body = '', marks = '', c = 0;
+    P.forEach((p, i) => {
+      const rot = d === 3 ? ri(r, -35, 35) : 0;
+      body += emo(p[0], p[1], kinds[i], sz, rot ? `transform="rotate(${rot} ${f1(p[0])} ${f1(p[1])})"` : '');
+    });
+    // numbered marks in reading order (right to left, top to bottom), for the answer panel
+    P.map((p, i) => ({ p, i })).filter(o => kinds[o.i] === t.e).sort((a, b) => Math.round(a.p[1] / 45) - Math.round(b.p[1] / 45) || b.p[0] - a.p[0])
+      .forEach(o => { c++; marks += `<circle cx="${f1(o.p[0])}" cy="${f1(o.p[1])}" r="${f1(sz * .62)}" fill="none" stroke="#ff4d4d" stroke-width="3"/>` +
+        `<circle cx="${f1(o.p[0] + sz * .45)}" cy="${f1(o.p[1] - sz * .45)}" r="11" fill="#ff4d4d"/>` + txt(o.p[0] + sz * .45, o.p[1] - sz * .45, dg(c), 14, '#fff'); });
+    const realWant = kinds.filter(k => k === t.e).length;
+    return { q:`كَمْ ${t.w} تَرَى؟`, top:t.e, say:['q-cnt-' + ti], board:SV(W, H, body), opts:numOpts(r, realWant, [1, -1, 2, -2, 3]),
+      exBoard:SV(W, H, body + marks), ex:`عَدَدُهَا ${dg(realWant)}.`, exSay:['ex-cnt'] };
+  } });
+CNT.forEach((t, i) => { SAY['q-cnt-' + i] = `كَمْ ${t.w} تَرَى؟`; });
+SAY['ex-cnt'] = 'عُدَّ بِتَرْتِيبٍ: سَطْرًا سَطْرًا، حَتَّى لَا تَنْسَى وَاحِدَةً، وَلَا تَعُدَّهَا مَرَّتَيْنِ.';
+SAY['h-cnt'] = 'صُوَرٌ كَثِيرَةٌ مُخْتَلِطَةٌ. عُدَّ الصُّورَةَ الْمَطْلُوبَةَ فَقَطْ.';
+
+// ===== count the squares / triangles / rectangles =====
+// every family has a sure count: squares in a grid, triangles in a fan (2 rays + 1 cross line each),
+// rectangles in a strip of tall cells (no two cells ever make a square), and the square with two diagonals (8).
+const SHP = [
+  [{ f:'sq', m:2, n:2 }, { f:'fan', k:1, h:1 }, { f:'fan', k:2, h:1 }, { f:'strip', n:3 }, { f:'sq', m:1, n:3 }],
+  [{ f:'sq', m:2, n:3 }, { f:'x' }, { f:'fan', k:1, h:2 }, { f:'fan', k:3, h:1 }, { f:'strip', n:4 }, { f:'sq', m:3, n:3 }],
+  [{ f:'sq', m:2, n:4 }, { f:'fan', k:2, h:2 }, { f:'strip', n:5 }, { f:'sq', m:3, n:4 }, { f:'fan', k:4, h:1 }],
+  [{ f:'sq', m:4, n:4 }, { f:'fan', k:3, h:2 }, { f:'fan', k:2, h:3 }, { f:'sq', m:3, n:5 }, { f:'strip', n:6 }, { f:'fan', k:3, h:3 }],
+];
+function shpFigure(F){
+  const W = 360, H = 300, L = 'stroke="#2b2f55" stroke-width="4" stroke-linecap="round" fill="none"', list = [];
+  let body = '';
+  const hl = d => `<path d="${d}" fill="#ffc21a66" stroke="#ff4d4d" stroke-width="6" stroke-linejoin="round"/>`;
+  if (F.f === 'sq') {
+    const c = Math.min((W - 40) / F.n, (H - 40) / F.m), x0 = (W - c * F.n) / 2, y0 = (H - c * F.m) / 2;
+    for (let i = 0; i <= F.m; i++) body += `<line x1="${f1(x0)}" y1="${f1(y0 + i * c)}" x2="${f1(x0 + F.n * c)}" y2="${f1(y0 + i * c)}" ${L}/>`;
+    for (let j = 0; j <= F.n; j++) body += `<line x1="${f1(x0 + j * c)}" y1="${f1(y0)}" x2="${f1(x0 + j * c)}" y2="${f1(y0 + F.m * c)}" ${L}/>`;
+    for (let s = 1; s <= Math.min(F.m, F.n); s++) for (let i = 0; i + s <= F.m; i++) for (let j = 0; j + s <= F.n; j++)
+      list.push(hl(`M${f1(x0 + j * c)} ${f1(y0 + i * c)}h${f1(s * c)}v${f1(s * c)}h${f1(-s * c)}Z`));
+    return { body:SV(W, H, body), list, what:'sq' };
+  }
+  if (F.f === 'strip') {
+    const h = 200, c = Math.min(h / 1.55, (W - 30) / F.n), x0 = (W - c * F.n) / 2, y0 = (H - h) / 2;
+    body += `<rect x="${f1(x0)}" y="${f1(y0)}" width="${f1(c * F.n)}" height="${h}" ${L}/>`;
+    for (let j = 1; j < F.n; j++) body += `<line x1="${f1(x0 + j * c)}" y1="${y0}" x2="${f1(x0 + j * c)}" y2="${y0 + h}" ${L}/>`;
+    for (let s = 1; s <= F.n; s++) for (let j = 0; j + s <= F.n; j++) list.push(hl(`M${f1(x0 + j * c)} ${y0}h${f1(s * c)}v${h}h${f1(-s * c)}Z`));
+    return { body:SV(W, H, body), list, what:'rect' };
+  }
+  if (F.f === 'x') {
+    const a = 60, b = 300, y0 = 30, y1 = 270;
+    body += `<rect x="${a}" y="${y0}" width="${b - a}" height="${y1 - y0}" ${L}/><line x1="${a}" y1="${y0}" x2="${b}" y2="${y1}" ${L}/><line x1="${b}" y1="${y0}" x2="${a}" y2="${y1}" ${L}/>`;
+    const m = [(a + b) / 2, (y0 + y1) / 2], C = [[a, y0], [b, y0], [b, y1], [a, y1]];
+    for (let i = 0; i < 4; i++) { const p = C[i], q = C[(i + 1) % 4]; list.push(hl(`M${p[0]} ${p[1]}L${q[0]} ${q[1]}L${m[0]} ${m[1]}Z`)); }
+    for (let i = 0; i < 4; i++) { const p = C[i], q = C[(i + 1) % 4], o = C[(i + 2) % 4]; list.push(hl(`M${p[0]} ${p[1]}L${q[0]} ${q[1]}L${o[0]} ${o[1]}Z`)); }
+    return { body:SV(W, H, body), list, what:'tri' };
+  }
+  // fan: apex at the top, k inner rays to the base, h cross lines (the base is the last one)
+  const A = [180, 22], bl = 24, br = 336, by = 280, n = F.k + 2;
+  const rayX = range(n).map(i => bl + (br - bl) * i / (n - 1));
+  const lvl = range(F.h).map(j => by - (by - A[1]) * (F.h - 1 - j) / F.h * .78); // cross lines from the top down
+  const at = (i, y) => [A[0] + (rayX[i] - A[0]) * (y - A[1]) / (by - A[1]), y];
+  rayX.forEach(x => body += `<line x1="${A[0]}" y1="${A[1]}" x2="${f1(x)}" y2="${by}" ${L}/>`);
+  lvl.forEach(y => { const p = at(0, y), q = at(n - 1, y); body += `<line x1="${f1(p[0])}" y1="${f1(y)}" x2="${f1(q[0])}" y2="${f1(y)}" ${L}/>`; });
+  lvl.forEach(y => { for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { const p = at(i, y), q = at(j, y);
+    list.push(hl(`M${A[0]} ${A[1]}L${f1(p[0])} ${f1(y)}L${f1(q[0])} ${f1(y)}Z`)); } });
+  return { body:SV(W, H, body), list, what:'tri' };
+}
+T('shp', { w:'v', name:'عُدَّ الْأَشْكَالَ', icon:'🔺', n:24,
+  gen(r, d){
+    const F = pk(r, SHP[d]), fig = shpFigure(F), ans = fig.list.length;
+    // after 3 to 10 the plural, after 11 and more the singular: ٥ مُرَبَّعَاتٍ، ١٤ مُرَبَّعًا
+    const Q = { sq:['كَمْ مُرَبَّعًا فِي الشَّكْلِ؟', 'مُرَبَّعَاتٍ', 'مُرَبَّعًا'], tri:['كَمْ مُثَلَّثًا فِي الشَّكْلِ؟', 'مُثَلَّثَاتٍ', 'مُثَلَّثًا'], rect:['كَمْ مُسْتَطِيلًا فِي الشَّكْلِ؟', 'مُسْتَطِيلَاتٍ', 'مُسْتَطِيلًا'] }[fig.what];
+    return { q:Q[0], say:['q-shp-' + fig.what], board:fig.body, opts:numOpts(r, ans, [1, -1, 2, -2, 3, -3, 4]),
+      anim:{ base:fig.body, list:fig.list }, ex:`فِي الشَّكْلِ ${dg(ans)} ${ans <= 10 ? Q[1] : Q[2]}، وَمِنْهَا أَشْكَالٌ كَبِيرَةٌ تَتَكَوَّنُ مِنْ أَشْكَالٍ صَغِيرَةٍ.`,
+      exSay:['ex-shp-' + fig.what] };
+  } });
+SAY['q-shp-sq'] = 'كَمْ مُرَبَّعًا فِي الشَّكْلِ؟';
+SAY['q-shp-tri'] = 'كَمْ مُثَلَّثًا فِي الشَّكْلِ؟';
+SAY['q-shp-rect'] = 'كَمْ مُسْتَطِيلًا فِي الشَّكْلِ؟';
+SAY['ex-shp-sq'] = 'لَا تَنْسَ الْمُرَبَّعَاتِ الْكَبِيرَةَ الَّتِي تَتَكَوَّنُ مِنْ مُرَبَّعَاتٍ صَغِيرَةٍ!';
+SAY['ex-shp-tri'] = 'الْمُثَلَّثَاتُ الْكَبِيرَةُ تَتَكَوَّنُ مِنْ مُثَلَّثَاتٍ صَغِيرَةٍ، فَعُدَّهَا كُلَّهَا!';
+SAY['ex-shp-rect'] = 'كُلُّ مُسْتَطِيلَيْنِ مُتَجَاوِرَيْنِ يَصْنَعَانِ مُسْتَطِيلًا أَكْبَرَ، فَعُدَّ الْكَبِيرَ وَالصَّغِيرَ!';
+SAY['h-shp'] = 'فِي الشَّكْلِ أَشْكَالٌ صَغِيرَةٌ وَكَبِيرَةٌ. عُدَّهَا كُلَّهَا!';
+
+// ===== shapes made of squares (shadow and mirror puzzles) =====
+const norm = cells => { const mx = Math.min(...cells.map(c => c[0])), my = Math.min(...cells.map(c => c[1]));
+  return cells.map(c => [c[0] - mx, c[1] - my, c[2]]).sort((a, b) => a[1] - b[1] || a[0] - b[0]); };
+const ckey = (cells, col = true) => norm(cells).map(c => col ? c.join(',') : c[0] + ',' + c[1]).join(';');
+const flipX = cells => { const w = Math.max(...cells.map(c => c[0])); return norm(cells.map(c => [w - c[0], c[1], c[2]])); };
+const flipY = cells => { const h = Math.max(...cells.map(c => c[1])); return norm(cells.map(c => [c[0], h - c[1], c[2]])); };
+const rot90 = cells => norm(cells.map(c => [-c[1], c[0], c[2]]));
+function linked(cells){
+  const has = new Set(cells.map(c => c[0] + ',' + c[1])), seen = new Set([cells[0][0] + ',' + cells[0][1]]), st = [cells[0]];
+  while (st.length) { const [x, y] = st.pop(); for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const k = (x + dx) + ',' + (y + dy);
+    if (has.has(k) && !seen.has(k)) { seen.add(k); st.push([x + dx, y + dy]); } } }
+  return seen.size === cells.length;
+}
+function polyo(r, n, maxW, maxH){
+  for (let a = 0; a < 200; a++) {
+    const cells = [[0, 0]], has = new Set(['0,0']);
+    let t = 0;
+    while (cells.length < n && t++ < 500) {
+      const [x, y] = pk(r, cells), [dx, dy] = pk(r, [[1, 0], [-1, 0], [0, 1], [0, -1]]), nx = x + dx, ny = y + dy;
+      if (has.has(nx + ',' + ny)) continue;
+      const xs = [...cells.map(c => c[0]), nx], ys = [...cells.map(c => c[1]), ny];
+      if (Math.max(...xs) - Math.min(...xs) >= maxW || Math.max(...ys) - Math.min(...ys) >= maxH) continue;
+      cells.push([nx, ny]); has.add(nx + ',' + ny);
+    }
+    if (cells.length === n) return norm(cells);
+  }
+  return norm([[0, 0], [1, 0], [2, 0], [2, 1]]);
+}
+// the same shape with one square moved somewhere else next to it (still in one piece)
+function moveOne(r, cells){
+  for (let a = 0; a < 80; a++) {
+    const i = ri(r, 0, cells.length - 1), rest = cells.filter((_, j) => j !== i);
+    if (!linked(rest)) continue;
+    const has = new Set(rest.map(c => c[0] + ',' + c[1])), free = [];
+    rest.forEach(([x, y]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => { const k = (x + dx) + ',' + (y + dy);
+      if (!has.has(k) && !(x + dx === cells[i][0] && y + dy === cells[i][1])) free.push([x + dx, y + dy]); }));
+    if (!free.length) continue;
+    const p = pk(r, free);
+    return norm([...rest, [p[0], p[1], cells[i][2]]]);
+  }
+  return null;
+}
+function drawCells(cells, W, H, o = {}){
+  const w = Math.max(...cells.map(c => c[0])) + 1, h = Math.max(...cells.map(c => c[1])) + 1;
+  const s = Math.min((W - 16) / w, (H - 16) / h, o.max || 60), x0 = (W - s * w) / 2, y0 = (H - s * h) / 2;
+  return cells.map(c => `<rect x="${f1(x0 + c[0] * s)}" y="${f1(y0 + c[1] * s)}" width="${f1(s)}" height="${f1(s)}" rx="${f1(s * .12)}" ` +
+    (o.sil ? 'fill="#262a40" stroke="#262a40" stroke-width="1.5"' : `fill="${COL[c[2]] || COL.blue}" stroke="#2b2f55" stroke-width="3"`) + '/>').join('');
+}
+
+// ---------- world 1: visual focus (part 2) ----------
+
+// ===== the right shadow =====
+const SHD_EMO = [
+  ['🐘','🦏','🦛','🐃'], ['🦒','🦘','🐫','🦙'], ['🐓','🦃','🦚','🦢'], ['🐟','🐠','🐡','🦈'], ['✈️','🚁','🚀','🛸'],
+  ['🍎','🍐','🍊','🍋'], ['🌲','🌳','🌴','🌵'], ['🐢','🐊','🦎','🐍'], ['🦋','🐝','🐞','🦗'], ['🔑','🔨','🔧','✂️'],
+  ['🚗','🚕','🚙','🚌'], ['🐕','🐈','🐁','🐇'], ['☂️','🌂','⛱️','🎈'], ['🐄','🐖','🐑','🐐'],
+];
+T('shd', { w:'v', name:'الظِّلُّ الصَّحِيحُ', icon:'🌑', n:30,
+  gen(r, d){
+    if (d < 2) {
+      const g = pk(r, SHD_EMO), e = pk(r, g);
+      const box = x => `<span style="filter:brightness(0);font-size:52px;line-height:1.1">${x}</span>`;
+      return { q:'أَيُّ ظِلٍّ هُوَ ظِلُّ هَذَا الشَّكْلِ؟', say:['q-shd'], board:`<div class="txt" style="font-size:96px;line-height:1.2">${e}</div>`,
+        opts:opts(r, box(e), g.filter(x => x !== e).map(box), { pic:true }),
+        exBoard:`<div class="txt" style="font-size:64px">${e} ⬅︎ ${box(e).replace('52px', '64px')}</div>`, ex:'الظِّلُّ لَهُ نَفْسُ شَكْلِ الصُّورَةِ تَمَامًا.', exSay:['ex-shd'] };
+    }
+    const n = d === 2 ? ri(r, 6, 7) : ri(r, 8, 9);
+    let cells, wrong;
+    for (let a = 0; a < 60; a++) {
+      cells = polyo(r, n, 4, 4).map(c => [c[0], c[1], pk(r, ['red', 'blue', 'green', 'yellow', 'purple'])]);
+      const seen = new Set([ckey(cells, false)]); wrong = [];
+      const cands = [flipX(cells), moveOne(r, cells), moveOne(r, cells), moveOne(r, cells), rot90(cells), moveOne(r, cells)];
+      for (const c of cands) { if (c && !seen.has(ckey(c, false)) && wrong.length < 3) { seen.add(ckey(c, false)); wrong.push(c); } }
+      if (wrong.length === 3) break;
+    }
+    const pic = c => SV(120, 120, drawCells(c, 120, 120, { sil:true }));
+    const big = SV(300, 220, drawCells(cells, 300, 220));
+    return { q:'أَيُّ ظِلٍّ هُوَ ظِلُّ هَذَا الشَّكْلِ؟', say:['q-shd'], board:big,
+      opts:opts(r, pic(cells), wrong.map(pic), { pic:true }),
+      exBoard:SV(360, 150, `<g transform="translate(10,15) scale(.6)">${drawCells(cells, 300, 220)}</g>` + txt(200, 75, '⬅︎', 34) + `<g transform="translate(225,15)">${drawCells(cells, 120, 120, { sil:true })}</g>`),
+      ex:'الظِّلُّ لَهُ نَفْسُ الشَّكْلِ تَمَامًا: نَفْسُ الْمُرَبَّعَاتِ فِي نَفْسِ الْأَمَاكِنِ.', exSay:['ex-shd'] };
+  } });
+SAY['q-shd'] = 'أَيُّ ظِلٍّ هُوَ ظِلُّ هَذَا الشَّكْلِ؟';
+SAY['ex-shd'] = 'الظِّلُّ لَهُ نَفْسُ الشَّكْلِ تَمَامًا. قَارِنِ الْأَطْرَافَ وَاحِدًا وَاحِدًا.';
+SAY['h-shd'] = 'انْظُرْ إِلَى الشَّكْلِ، ثُمَّ اخْتَرْ ظِلَّهُ الصَّحِيحَ.';
+
+// ===== in the mirror =====
+T('mir', { w:'v', name:'فِي الْمِرْآةِ', icon:'🪞', n:30,
+  gen(r, d){
+    const n = [4, 5, 7, 9][d], cols = [['red', 'blue'], ['red', 'blue', 'yellow'], ['red', 'blue', 'green', 'yellow'], ['red', 'blue', 'green', 'yellow', 'purple']][d];
+    let cells, m, wrong;
+    for (let a = 0; a < 80; a++) {
+      cells = polyo(r, n, d < 2 ? 3 : 4, d < 2 ? 3 : 4).map(c => [c[0], c[1], pk(r, cols)]);
+      m = flipX(cells);
+      const cands = [cells, flipY(cells), flipX(flipY(cells)), rot90(cells), moveOne(r, m)];
+      const seen = new Set([ckey(m)]); wrong = [];
+      for (const c of cands) if (c && !seen.has(ckey(c)) && wrong.length < 3) { seen.add(ckey(c)); wrong.push(c); }
+      if (wrong.length === 3 && ckey(cells) !== ckey(m)) break;
+    }
+    const pic = c => SV(120, 120, drawCells(c, 120, 120));
+    // the shape on the right, the mirror (a blue glass line) on its left
+    const board = SV(360, 220, `<g transform="translate(150,0)">${drawCells(cells, 210, 220, { max:46 })}</g>` +
+      `<rect x="118" y="14" width="12" height="192" rx="5" fill="#bfe3ff" stroke="#6aa9d8" stroke-width="3"/>` + txt(58, 110, '؟', 64, '#6aa9d8'));
+    return { q:'كَيْفَ يَبْدُو هَذَا الشَّكْلُ فِي الْمِرْآةِ؟', say:['q-mir'], board, opts:opts(r, pic(m), wrong.map(pic), { pic:true }),
+      exBoard:SV(360, 170, `<g transform="translate(190,0)">${drawCells(cells, 170, 170, { max:38 })}</g><rect x="174" y="10" width="10" height="150" rx="4" fill="#bfe3ff" stroke="#6aa9d8" stroke-width="3"/><g>${drawCells(m, 170, 170, { max:38 })}</g>`),
+      ex:'فِي الْمِرْآةِ يَصِيرُ الْيَمِينُ يَسَارًا، وَالْيَسَارُ يَمِينًا، وَيَبْقَى الْأَعْلَى فِي الْأَعْلَى.', exSay:['ex-mir'] };
+  } });
+SAY['q-mir'] = 'كَيْفَ يَبْدُو هَذَا الشَّكْلُ فِي الْمِرْآةِ؟';
+SAY['ex-mir'] = 'فِي الْمِرْآةِ يَصِيرُ الْيَمِينُ يَسَارًا، وَالْيَسَارُ يَمِينًا، وَيَبْقَى الْأَعْلَى فِي الْأَعْلَى.';
+SAY['h-mir'] = 'تَخَيَّلْ أَنَّ الشَّكْلَ يَقِفُ أَمَامَ مِرْآةٍ. كَيْفَ تَبْدُو صُورَتُهُ؟';
+
+// ===== picture memory =====
+const MEM = ['🍎','🐶','⚽','🚗','🌙','🎈','🐟','🌸','🍌','⭐','🐸','🍩','🦋','🚀','🎁','🐱','🍓','🌈','🦁','🐢','🍉','🧸','🏠','🐝'];
+T('mem', { w:'v', name:'ذَاكِرَةُ الصُّوَرِ', icon:'🧠', n:30,
+  gen(r, d){
+    const n = [4, 6, 9, 12][d], cols = [2, 3, 3, 4][d], ms = [4000, 5000, 6000, 7000][d];
+    const kind = d === 0 ? pk(r, ['miss', 'where']) : d === 3 ? pk(r, ['miss', 'where', 'count']) : pk(r, ['miss', 'where', 'where', 'miss']);
+    let pics = shuf(r, MEM).slice(0, n + 1);
+    const extra = pics.pop();
+    let target = pk(r, pics), times = 1;
+    if (kind === 'count') { times = ri(r, 2, 4); for (let k = 1; k < times; k++) pics[(pics.indexOf(target) + k * 5) % n] = target; times = pics.filter(x => x === target).length; }
+    const rows = Math.ceil(n / cols), c = 360 / cols, ch = Math.min(c, 300 / rows) , H = ch * rows;
+    const grid = (show, hit) => SV(360, H, pics.map((e, i) => { const x = (i % cols + .5) * c, y = (Math.floor(i / cols) + .5) * ch;
+      return `<g data-k="${i}"><rect x="${f1(x - c / 2 + 5)}" y="${f1(y - ch / 2 + 5)}" width="${f1(c - 10)}" height="${f1(ch - 10)}" rx="14" fill="${show ? '#fff' : '#6c5ce7'}" stroke="${hit && hit(i, e) ? '#ff4d4d' : '#c9c3a8'}" stroke-width="${hit && hit(i, e) ? 6 : 3}"/>` +
+        (show ? emo(x, y, e, Math.min(c, ch) * .5) : txt(x, y, '؟', Math.min(c, ch) * .4, '#fff')) + '</g>'; }).join(''));
+    const base = { memo:{ board:grid(true), ms, q:'احْفَظِ الصُّوَرَ جَيِّدًا!', say:['q-mem-0'] }, exBoard:grid(true, kind === 'miss' ? null : (i, e) => e === target) };
+    if (kind === 'miss') {
+      const shown = shuf(r, [...new Set(pics)]).slice(0, 3);
+      return { ...base, q:'أَيُّ صُورَةٍ لَمْ تَكُنْ فِي اللَّوْحَةِ؟', say:['q-mem-miss'], board:grid(false), opts:opts(r, extra, shown),
+        ex:`الصُّورَةُ ${extra} لَمْ تَكُنْ فِي اللَّوْحَةِ.`, exSay:['ex-mem'] };
+    }
+    if (kind === 'count') return { ...base, q:'كَمْ مَرَّةً ظَهَرَتْ هَذِهِ الصُّورَةُ؟', top:target, say:['q-mem-count'], board:grid(false),
+      opts:numOpts(r, times, [1, -1, 2]), ex:`ظَهَرَتْ ${target} ${dg(times)} مَرَّاتٍ.`, exSay:['ex-mem'] };
+    return { ...base, q:'أَيْنَ كَانَتْ هَذِهِ الصُّورَةُ؟ اضْغَطْ عَلَى مَكَانِهَا.', top:target, say:['q-mem-where'], board:grid(false), tap:true,
+      k:String(pics.indexOf(target)), ex:`كَانَتْ ${target} هُنَا.`, exSay:['ex-mem'] };
+  } });
+SAY['q-mem-0'] = 'احْفَظِ الصُّوَرَ جَيِّدًا!';
+SAY['q-mem-miss'] = 'أَيُّ صُورَةٍ لَمْ تَكُنْ فِي اللَّوْحَةِ؟';
+SAY['q-mem-where'] = 'أَيْنَ كَانَتْ هَذِهِ الصُّورَةُ؟ اضْغَطْ عَلَى مَكَانِهَا.';
+SAY['q-mem-count'] = 'كَمْ مَرَّةً ظَهَرَتْ هَذِهِ الصُّورَةُ؟';
+SAY['ex-mem'] = 'هَذِهِ هِيَ اللَّوْحَةُ كَمَا كَانَتْ. الذَّاكِرَةُ تَقْوَى بِالتَّدْرِيبِ!';
+SAY['h-mem'] = 'سَتَظْهَرُ صُوَرٌ لِثَوَانٍ قَلِيلَةٍ، ثُمَّ تَخْتَفِي. احْفَظْهَا جَيِّدًا!';
+
+// ===== spot the difference =====
+const DIF_SWAP = { '🍎':'🍏', '🐶':'🐱', '🌸':'🌼', '⭐':'🌟', '🚗':'🚕', '🐟':'🐠', '🎈':'🎀', '🌳':'🌲', '🐥':'🐤', '⚽':'🏀',
+  '🍓':'🍒', '🦋':'🐝', '🏠':'🏡', '🌙':'⭐', '🍩':'🍪', '🐸':'🐢', '🍌':'🌽', '🧸':'🐻', '☀️':'🌞', '🐞':'🐜' };
+const DIF_ALL = Object.keys(DIF_SWAP);
+const DIF_FLIP = ['🚗','🐟','🍌','🌙']; // only pictures that look different when turned around
+T('dif', { w:'v', name:'أَوْجِدِ الْفَرْقَ', icon:'🔎', n:30,
+  gen(r, d){
+    const n = [5, 8, 11, 14][d], W = 360, H = 150, sz = [44, 38, 34, 30][d];
+    const P = spots(r, n, W, H - 6, sz * 1.15).map(p => [p[0], p[1] + 3]);
+    const items = P.map(() => pk(r, DIF_ALL));
+    const k = ri(r, 0, P.length - 1);
+    const how = pk(r, d === 0 ? ['swap', 'gone'] : d === 1 ? ['swap', 'gone', 'flip'] : ['swap', 'gone', 'flip', 'small']);
+    const can = how !== 'flip' || DIF_FLIP.includes(items[k]);
+    const mode = can ? how : 'swap';
+    const one = (i, e, x, y, alt) => {
+      if (alt && mode === 'gone') return '';
+      if (alt && mode === 'swap') e = DIF_SWAP[e];
+      const tf = alt && mode === 'flip' ? `transform="translate(${f1(x)} ${f1(y)}) scale(-1 1)"` : alt && mode === 'small' ? `transform="translate(${f1(x)} ${f1(y)}) scale(.62)"` : '';
+      return tf ? `<text x="0" y="0" font-size="${sz}" text-anchor="middle" dominant-baseline="central" ${tf}>${e}</text>` : emo(x, y, e, sz);
+    };
+    const panel = (alt) => P.map((p, i) => one(i, items[i], p[0], p[1], alt && i === k)).join('');
+    const hit = `<g data-k="1"><rect x="${f1(P[k][0] - sz * .75)}" y="${f1(P[k][1] - sz * .75)}" width="${f1(sz * 1.5)}" height="${f1(sz * 1.5)}" fill="transparent"/></g>`;
+    const frame = (y, label) => `<rect x="2" y="${y + 2}" width="${W - 4}" height="${H - 4}" rx="16" fill="#fff" stroke="#c9c3a8" stroke-width="3"/>` + txt(20, y + 18, label, 15, '#a59f86');
+    // a tap anywhere else on the pictures counts as a wrong guess (the outer group), the changed spot is the inner one
+    const body = `<g data-k="x">` + frame(0, '١') + panel(false) + `<g transform="translate(0,${H + 12})">${frame(0, '٢')}${panel(true)}</g></g>`;
+    const tap = `<g transform="translate(0,0)">${hit}</g><g transform="translate(0,${H + 12})">${hit}</g>`;
+    const ring = y => `<circle cx="${f1(P[k][0])}" cy="${f1(P[k][1] + y)}" r="${f1(sz * .72)}" fill="none" stroke="#ff4d4d" stroke-width="5"/>`;
+    const what = { swap:'تَغَيَّرَتْ صُورَةٌ بِصُورَةٍ أُخْرَى.', gone:'اخْتَفَتْ صُورَةٌ مِنَ الصُّورَةِ الثَّانِيَةِ.', flip:'صُورَةٌ انْقَلَبَتْ إِلَى الْجِهَةِ الْأُخْرَى.', small:'صُورَةٌ صَغُرَتْ.' }[mode];
+    return { q:'مَا الْفَرْقُ بَيْنَ الصُّورَتَيْنِ؟ اضْغَطْ عَلَيْهِ.', say:['q-dif'], board:SV(W, H * 2 + 12, body + tap), tap:true, k:'1',
+      exBoard:SV(W, H * 2 + 12, body + ring(0) + ring(H + 12)), ex:what, exSay:['ex-dif'] };
+  } });
+SAY['q-dif'] = 'مَا الْفَرْقُ بَيْنَ الصُّورَتَيْنِ؟ اضْغَطْ عَلَيْهِ.';
+SAY['ex-dif'] = 'قَارِنْ جُزْءًا جُزْءًا، تَجِدِ الِاخْتِلَافَ!';
+SAY['h-dif'] = 'صُورَتَانِ مُتَشَابِهَتَانِ، بَيْنَهُمَا فَرْقٌ وَاحِدٌ فَقَطْ. اضْغَطْ عَلَيْهِ.';
+
+// ===== tangled strings =====
+const TNG_ANI = ['🐭','🐰','🐶','🐱','🐼','🐸','🐵','🐨'];
+function catmull(pts){
+  let d = `M${f1(pts[0][0])} ${f1(pts[0][1])}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    d += `C${f1(p1[0] + (p2[0] - p0[0]) / 6)} ${f1(p1[1] + (p2[1] - p0[1]) / 6)} ${f1(p2[0] - (p3[0] - p1[0]) / 6)} ${f1(p2[1] - (p3[1] - p1[1]) / 6)} ${f1(p2[0])} ${f1(p2[1])}`;
+  }
+  return d;
+}
+T('tng', { w:'v', name:'الْخُيُوطُ الْمُتَشَابِكَةُ', icon:'🧶', n:30,
+  gen(r, d){
+    const n = [3, 4, 4, 5][d], W = 360, H = 330, top = 36, bot = 296, way = [2, 3, 4, 5][d];
+    const xs = range(n).map(i => (i + .5) * W / n), perm = shuf(r, range(n));
+    const ani = shuf(r, TNG_ANI).slice(0, n), goal = ri(r, 0, n - 1), who = perm.indexOf(goal);
+    const colors = ['#e63946', '#2a9d8f', '#3d7dff', '#9b5de5', '#ff8c42'];
+    const paths = range(n).map(i => {
+      const pts = [[xs[i], top + 22]];
+      for (let w = 1; w <= way; w++) pts.push([ri(r, 25, W - 25), top + 22 + (bot - top - 44) * w / (way + 1)]);
+      pts.push([xs[perm[i]], bot - 22]);
+      return catmull(pts);
+    });
+    const line = (i, hl) => `<path d="${paths[i]}" fill="none" stroke="${hl ? '#ff4d4d' : d === 0 ? colors[i] : '#4a4e75'}" stroke-width="${hl ? 9 : 5}" stroke-linecap="round" opacity="${hl ? 1 : .9}"/>`;
+    const heads = range(n).map(i => `<g data-k="${i}"><circle cx="${f1(xs[i])}" cy="${top}" r="26" fill="#fff4d6" stroke="#c9a74d" stroke-width="3"/>${emo(xs[i], top + 1, ani[i], 32)}</g>`).join('');
+    const feet = range(n).map(j => `<circle cx="${f1(xs[j])}" cy="${bot}" r="24" fill="${j === goal ? '#ffe08a' : '#eee'}" stroke="#c9c3a8" stroke-width="3"/>` +
+      (j === goal ? emo(xs[j], bot + 1, '🎁', 30) : txt(xs[j], bot, '✕', 22, '#b5b0a0'))).join('');
+    const all = hl => range(n).map(i => line(i, false)).join('') + (hl ? line(who, true) : '') + feet + heads;
+    return { q:'أَيُّ حَيَوَانٍ يَصِلُ خَيْطُهُ إِلَى الْهَدِيَّةِ؟', say:['q-tng'], board:SV(W, H, all(false)), tap:true, k:String(who),
+      exBoard:SV(W, H, all(true)), ex:`خَيْطُ ${ani[who]} يَصِلُ إِلَى الْهَدِيَّةِ 🎁.`, exSay:['ex-tng'] };
+  } });
+SAY['q-tng'] = 'أَيُّ حَيَوَانٍ يَصِلُ خَيْطُهُ إِلَى الْهَدِيَّةِ؟';
+SAY['ex-tng'] = 'تَتَبَّعِ الْخَيْطَ بِعَيْنِكَ مِنْ أَوَّلِهِ إِلَى آخِرِهِ، وَلَا تَقْفِزْ إِلَى خَيْطٍ آخَرَ!';
+SAY['h-tng'] = 'خُيُوطٌ مُتَشَابِكَةٌ! تَتَبَّعْ كُلَّ خَيْطٍ لِتَعْرِفَ أَيْنَ يَنْتَهِي.';
+
+// ===== ink colour (say the colour, not the word) =====
+const INK = [['red', 'أَحْمَرُ'], ['blue', 'أَزْرَقُ'], ['green', 'أَخْضَرُ'], ['yellow', 'أَصْفَرُ'], ['purple', 'بَنَفْسَجِيٌّ'], ['orange', 'بُرْتُقَالِيٌّ']];
+T('ink', { w:'v', name:'لَوْنُ الْحِبْرِ', icon:'🎨', n:30,
+  gen(r, d){
+    const pick4 = shuf(r, INK).slice(0, 4), word = pick4[0], ink = pick4[1];
+    const bg = d >= 2 ? COL[pick4[2][0]] + '33' : '#fff';
+    const board = `<div class="txt" style="font-size:64px;color:${COL[ink[0]]};background:${bg};border-radius:16px;padding:16px 10px;width:100%;-webkit-text-stroke:1.5px #2b2f55">${word[1].replace(/[ً-ْ]/g, '')}</div>`;
+    let o;
+    if (d < 2) {
+      const dot = c => `<span style="display:inline-block;width:52px;height:52px;border-radius:50%;background:${COL[c[0]]};border:3px solid #2b2f55"></span>`;
+      o = opts(r, dot(ink), shuf(r, pick4.filter(c => c !== ink)).map(dot), { pic:true });
+    } else {
+      // the choices are colour names, each written in a different colour: read the name this time
+      const lab = (c, j) => `<span style="font-size:30px;color:${COL[pick4[(j + 2) % 4][0]]};-webkit-text-stroke:.7px #2b2f55">${c[1].replace(/[ً-ْ]/g, '')}</span>`;
+      o = opts(r, lab(ink, 0), pick4.filter(c => c !== ink).map((c, j) => lab(c, j + 1)), { pic:true, w:true });
+    }
+    return { q:d < 2 ? 'مَا لَوْنُ الْكِتَابَةِ؟ لَا تَقْرَأِ الْكَلِمَةَ!' : 'اخْتَرِ اسْمَ لَوْنِ الْكِتَابَةِ، لَا مَعْنَى الْكَلِمَةِ!',
+      say:[d < 2 ? 'q-ink' : 'q-ink-2'], board, opts:o, ex:`الْكَلِمَةُ تَقُولُ: ${word[1]}، لَكِنَّ لَوْنَ الْحِبْرِ ${ink[1]}.`, exSay:['ex-ink'] };
+  } });
+SAY['q-ink'] = 'مَا لَوْنُ الْكِتَابَةِ؟ لَا تَقْرَأِ الْكَلِمَةَ!';
+SAY['q-ink-2'] = 'اخْتَرِ اسْمَ لَوْنِ الْكِتَابَةِ، لَا مَعْنَى الْكَلِمَةِ!';
+SAY['ex-ink'] = 'الْكَلِمَةُ تَقُولُ لَوْنًا، لَكِنَّ الْحِبْرَ لَوْنٌ آخَرُ. هَكَذَا يَتَدَرَّبُ عَقْلُكَ عَلَى التَّرْكِيزِ!';
+SAY['h-ink'] = 'كَلِمَةٌ مَكْتُوبَةٌ بِلَوْنٍ غَيْرِ مَعْنَاهَا. انْتَبِهْ لِلَوْنِ الْحِبْرِ!';
+
+// ---------- world 2: logic and investigation (made by rules) ----------
+
+// a tile: { s: shape, c: colour, rot, n: how many, z: size 0..2 }
+function tile(t, x, y, S = 80, frame = true){
+  let b = frame ? `<rect x="${f1(x - S / 2)}" y="${f1(y - S / 2)}" width="${S}" height="${S}" rx="12" fill="#fff" stroke="#c9c3a8" stroke-width="3"/>` : '';
+  const n = t.n || 1, z = [.2, .28, .36][t.z == null ? 2 : t.z] * S;
+  if (n === 1) return b + shape(t.s, x, y, z, COL[t.c], t.rot || 0);
+  const P = { 2:[[-.22, 0], [.22, 0]], 3:[[-.24, .18], [.24, .18], [0, -.2]], 4:[[-.2, -.2], [.2, -.2], [-.2, .2], [.2, .2]],
+    5:[[-.24, -.24], [.24, -.24], [0, 0], [-.24, .24], [.24, .24]], 6:[[-.25, -.2], [0, -.2], [.25, -.2], [-.25, .2], [0, .2], [.25, .2]] }[n] || [];
+  return b + P.map(p => shape(t.s, x + p[0] * S, y + p[1] * S, S * (n > 4 ? .09 : .11), COL[t.c], t.rot || 0, '#2b2f55', 2)).join('');
+}
+const tkey = t => [t.s, t.c, t.rot || 0, t.n || 1, t.z == null ? 2 : t.z].join('|');
+const tilePic = t => SV(100, 100, tile(t, 50, 50, 92));
+// a row of tiles from right to left, the last one a question mark
+function tileRow(seq, ask = true){
+  const n = seq.length + (ask ? 1 : 0), per = Math.min(n, 4), rows = Math.ceil(n / per), S = 78, gap = 10, W = 360;
+  const x0 = (W - (per * S + (per - 1) * gap)) / 2;
+  let b = '';
+  for (let i = 0; i < n; i++) {
+    const col = i % per, row = Math.floor(i / per), x = W - x0 - col * (S + gap) - S / 2, y = 12 + row * (S + gap) + S / 2;
+    if (i < seq.length) b += tile(seq[i], x, y, S);
+    else b += `<rect x="${f1(x - S / 2)}" y="${f1(y - S / 2)}" width="${S}" height="${S}" rx="12" fill="#fff7d6" stroke="#ffc21a" stroke-width="4" stroke-dasharray="8 6"/>` + txt(x, y, '؟', 40, '#e0a800');
+  }
+  return SV(W, 24 + rows * S + (rows - 1) * gap, b);
+}
+
+// ===== what comes next? =====
+const SHAPES = ['circle', 'square', 'triangle', 'star', 'heart', 'diamond', 'hexagon'];
+T('nxt', { w:'l', name:'مَا التَّالِي؟', icon:'➡️', n:36,
+  gen(r, d){
+    const rules = [['col', 'shape', 'grow'], ['col3', 'rot', 'grow2', 'shape3'], ['two', 'rot45', 'size', 'grow3'], ['rep', 'rotcol', 'two', 'down']][d];
+    const rule = pk(r, rules), len = d < 2 ? 5 : 6;
+    const S = shuf(r, SHAPES), C = shuf(r, COLS), base = { s:S[0], c:C[0], rot:0, n:1, z:2 };
+    let at, ex;
+    if (rule === 'col') { at = i => ({ ...base, c:C[i % 2] }); ex = 'col'; }
+    if (rule === 'col3') { at = i => ({ ...base, c:C[i % 3] }); ex = 'col'; }
+    if (rule === 'shape') { at = i => ({ ...base, s:S[i % 2] }); ex = 'shape'; }
+    if (rule === 'shape3') { at = i => ({ ...base, s:S[i % 3] }); ex = 'shape'; }
+    if (rule === 'grow') { at = i => ({ ...base, n:i + 1 }); ex = 'grow'; }
+    if (rule === 'grow2') { at = i => ({ ...base, n:i + 1, c:C[i % 2] }); ex = 'two'; }
+    if (rule === 'grow3') { at = i => ({ ...base, s:S[i % 2], n:i + 1 }); ex = 'two'; }
+    if (rule === 'down') { at = i => ({ ...base, n:6 - i }); ex = 'grow'; }
+    if (rule === 'rot') { const dir = pk(r, [90, -90]); at = i => ({ ...base, s:'arrow', rot:i * dir }); ex = 'rot'; }
+    if (rule === 'rot45') { const dir = pk(r, [45, -45]); at = i => ({ ...base, s:'arrow', rot:i * dir }); ex = 'rot'; }
+    if (rule === 'rotcol') { const dir = pk(r, [90, -90, 45]); at = i => ({ ...base, s:'arrow', rot:i * dir, c:C[i % 2] }); ex = 'two'; }
+    if (rule === 'size') { at = i => ({ ...base, z:i % 3 }); ex = 'size'; }
+    if (rule === 'two') { at = i => ({ ...base, s:S[i % 2], c:C[i % 3] }); ex = 'two'; }
+    if (rule === 'rep') { const pat = pk(r, [[0, 0, 1], [0, 1, 1], [0, 1, 0, 2]]); at = i => ({ ...base, s:S[pat[i % pat.length]], c:C[pat[i % pat.length]] }); ex = 'rep'; }
+    const L = ['grow', 'grow2', 'grow3', 'down'].includes(rule) ? 5 : rule === 'rep' ? 6 : len; // dots go up to six
+    const seq = range(L).map(at), ans = at(L);
+    if (ans.rot) ans.rot = ((ans.rot % 360) + 360) % 360;
+    seq.forEach(t => { t.rot = ((t.rot % 360) + 360) % 360; });
+    // wrong answers: change one thing about the right one
+    const wrong = [], seen = new Set([tilePic(ans)]); // compared as drawn: a turned circle looks the same
+    const tweak = [t => ({ ...t, c:pk(r, C.filter(c => c !== t.c)) }), t => ({ ...t, s:pk(r, S.filter(s => s !== t.s && s !== 'arrow')) }),
+      t => ({ ...t, n:Math.min(6, Math.max(1, (t.n || 1) + pk(r, [1, -1, 2]))) }), t => ({ ...t, rot:(t.rot + pk(r, [90, 180, 270, 45])) % 360 }),
+      t => ({ ...t, z:(t.z + pk(r, [1, 2])) % 3 }), t => ({ ...seq[L - 1] }), t => ({ ...seq[L - 2] })];
+    for (let a = 0; wrong.length < 3 && a < 60; a++) {
+      let w = pk(r, tweak)(ans);
+      if (ans.s === 'arrow' && w.s !== 'arrow') w = { ...w, s:'arrow' };
+      if (ans.s !== 'arrow' && (rule.startsWith('rot') || (w.rot && ans.s !== 'arrow'))) w.rot = 0;
+      if (w.s === 'circle' && ans.s === 'circle' && w.rot !== ans.rot) continue;
+      if (!seen.has(tilePic(w))) { seen.add(tilePic(w)); wrong.push(w); }
+    }
+    const say = { col:'الْأَلْوَانُ تَتَكَرَّرُ بِالتَّرْتِيبِ نَفْسِهِ.', shape:'الْأَشْكَالُ تَتَكَرَّرُ بِالتَّرْتِيبِ نَفْسِهِ.', grow:'الْعَدَدُ يَتَغَيَّرُ بِالْمِقْدَارِ نَفْسِهِ كُلَّ مَرَّةٍ.',
+      rot:'السَّهْمُ يَدُورُ بِالْمِقْدَارِ نَفْسِهِ كُلَّ مَرَّةٍ.', size:'الْأَحْجَامُ تَتَكَرَّرُ: صَغِيرٌ، ثُمَّ مُتَوَسِّطٌ، ثُمَّ كَبِيرٌ.',
+      two:'هُنَا قَاعِدَتَانِ مَعًا، فَانْتَبِهْ لِكِلْتَيْهِمَا.', rep:'الْمَجْمُوعَةُ نَفْسُهَا تَتَكَرَّرُ مَرَّةً بَعْدَ مَرَّةٍ.' }[ex];
+    return { q:'مَا الشَّكْلُ التَّالِي؟', say:['q-nxt'], board:tileRow(seq), opts:opts(r, tilePic(ans), wrong.map(tilePic), { pic:true }),
+      exBoard:tileRow([...seq, ans], false), ex:say, exSay:['ex-nxt-' + ex] };
+  } });
+SAY['q-nxt'] = 'مَا الشَّكْلُ التَّالِي؟';
+SAY['ex-nxt-col'] = 'الْأَلْوَانُ تَتَكَرَّرُ بِالتَّرْتِيبِ نَفْسِهِ.';
+SAY['ex-nxt-shape'] = 'الْأَشْكَالُ تَتَكَرَّرُ بِالتَّرْتِيبِ نَفْسِهِ.';
+SAY['ex-nxt-grow'] = 'الْعَدَدُ يَتَغَيَّرُ بِالْمِقْدَارِ نَفْسِهِ كُلَّ مَرَّةٍ.';
+SAY['ex-nxt-rot'] = 'السَّهْمُ يَدُورُ بِالْمِقْدَارِ نَفْسِهِ كُلَّ مَرَّةٍ.';
+SAY['ex-nxt-size'] = 'الْأَحْجَامُ تَتَكَرَّرُ: صَغِيرٌ، ثُمَّ مُتَوَسِّطٌ، ثُمَّ كَبِيرٌ.';
+SAY['ex-nxt-two'] = 'هُنَا قَاعِدَتَانِ مَعًا، فَانْتَبِهْ لِكِلْتَيْهِمَا.';
+SAY['ex-nxt-rep'] = 'الْمَجْمُوعَةُ نَفْسُهَا تَتَكَرَّرُ مَرَّةً بَعْدَ مَرَّةٍ.';
+SAY['h-nxt'] = 'الْأَشْكَالُ تَسِيرُ عَلَى قَاعِدَةٍ. اكْتَشِفْهَا، وَاخْتَرِ الشَّكْلَ التَّالِيَ.';
+
+// ===== numbers in shapes (like the video: each shape has its own sequence) =====
+function numShape(kind, x, y, v, S = 74, q = false){
+  const col = { square:'#3d7dff', triangle:'#e63946', circle:'#2fbf71' }[kind];
+  const st = `fill="${q ? '#fff7d6' : '#fff'}" stroke="${col}" stroke-width="4" ${q ? 'stroke-dasharray="7 5"' : ''}`;
+  const h = S / 2;
+  const sh = kind === 'square' ? `<rect x="${f1(x - h * .9)}" y="${f1(y - h * .9)}" width="${f1(h * 1.8)}" height="${f1(h * 1.8)}" ${st}/>`
+    : kind === 'circle' ? `<circle cx="${f1(x)}" cy="${f1(y)}" r="${f1(h * .95)}" ${st}/>`
+    : `<polygon points="${f1(x)},${f1(y - h)} ${f1(x + h * 1.05)},${f1(y + h * .85)} ${f1(x - h * 1.05)},${f1(y + h * .85)}" ${st}/>`;
+  const ty = kind === 'triangle' ? y + h * .3 : y;
+  return sh + txt(x, ty, q ? '؟' : dg(v), String(v).length > 2 ? 22 : 27, q ? '#e0a800' : '#2b2f55');
+}
+T('sqn', { w:'l', name:'أَعْدَادُ الْأَشْكَالِ', icon:'🔷', n:30,
+  gen(r, d){
+    const kinds = d === 3 ? ['square', 'triangle', 'circle'] : ['square', 'triangle'], g = kinds.length;
+    const mul = d >= 2 && r() < .5, f = pk(r, [2, 3]);
+    const groups = kinds.map(() => {
+      if (mul) { const s = ri(r, 1, f === 3 ? 4 : 6); return [s, s * f, s * f * f]; }
+      const s = ri(r, 1, [9, 15, 20, 30][d]), k = ri(r, [1, 2, 3, 3][d], [5, 10, 12, 15][d]) * (d >= 1 && r() < .3 ? -1 : 1);
+      const a = k < 0 ? s + 2 * -k + ri(r, 0, 5) : s;
+      return [a, a + k, a + 2 * k];
+    });
+    const seq = []; for (let j = 0; j < 3; j++) kinds.forEach((kd, gi) => seq.push({ kd, v:groups[gi][j] }));
+    const last = seq.pop(), ans = last.v;
+    const n = seq.length + 1, per = g === 3 ? 3 : 4, rows = Math.ceil(n / per), S = 74, gap = 16, W = 360;
+    const x0 = (W - (per * S + (per - 1) * gap)) / 2;
+    const draw = (all) => { let b = ''; for (let i = 0; i < n; i++) { const col = i % per, row = Math.floor(i / per);
+      const x = W - x0 - col * (S + gap) - S / 2, y = 14 + row * (S + gap) + S / 2, it = i < seq.length ? seq[i] : last;
+      b += numShape(it.kd, x, y, it.v, S, i === seq.length && !all); } return SV(W, 28 + rows * S + (rows - 1) * gap, b); };
+    const name = { square:'🟦', triangle:'🔺', circle:'🟢' };
+    const op = (gi) => { const G = groups[gi]; return mul ? `×${dg(f)}` : (G[1] - G[0] >= 0 ? '+' : '−') + dg(Math.abs(G[1] - G[0])); };
+    const ex = kinds.map((kd, gi) => `${name[kd]} ${groups[gi].map(dg).join(' ← ')} (${op(gi)})`).join('\n');
+    const G = groups[g - 1], naive = G[1] + (G[1] - G[0]) - ans; // the answer of someone who mixes up the two sequences
+    return { q:'مَا الْعَدَدُ الَّذِي مَكَانَ عَلَامَةِ الِاسْتِفْهَامِ؟', say:['q-sqn'], board:draw(false), opts:numOpts(r, ans, mul ? [naive || 1, 1, -1, ans] : [1, -1, 2, -2, 10]),
+      exBoard:draw(true), ex:'كُلُّ شَكْلٍ لَهُ سِلْسِلَتُهُ:\n' + ex, exSay:[mul ? 'ex-sqn-mul' : 'ex-sqn-add'] };
+  } });
+SAY['q-sqn'] = 'مَا الْعَدَدُ الَّذِي مَكَانَ عَلَامَةِ الِاسْتِفْهَامِ؟';
+SAY['ex-sqn-add'] = 'كُلُّ شَكْلٍ لَهُ سِلْسِلَتُهُ الْخَاصَّةُ. انْظُرْ إِلَى الْأَشْكَالِ الْمُتَشَابِهَةِ مَعًا: كَمْ تَزِيدُ أَوْ تَنْقُصُ كُلَّ مَرَّةٍ؟';
+SAY['ex-sqn-mul'] = 'كُلُّ شَكْلٍ لَهُ سِلْسِلَتُهُ، وَفِي كُلِّ سِلْسِلَةٍ نَضْرِبُ فِي الْعَدَدِ نَفْسِهِ.';
+SAY['h-sqn'] = 'الْمُرَبَّعَاتُ لَهَا سِلْسِلَةٌ، وَالْمُثَلَّثَاتُ لَهَا سِلْسِلَةٌ أُخْرَى. لَا تَخْلِطْ بَيْنَهُمَا!';
+
+// ===== the 3 x 3 board =====
+T('mtx', { w:'l', name:'اللَّوْحَةُ النَّاقِصَةُ', icon:'🔲', n:30,
+  gen(r, d){
+    const S = shuf(r, ['circle', 'square', 'triangle', 'star', 'heart', 'diamond']).slice(0, 3), C = shuf(r, COLS).slice(0, 3);
+    const lat = () => { const a = shuf(r, [0, 1, 2]), b = shuf(r, [0, 1, 2]); return (i, j) => a[(b[i] + j) % 3]; }; // a Latin square
+    const LS = lat(), LC = lat(), rule = ['shape', 'color', 'count', 'all'][d];
+    const cnt = shuf(r, [1, 2, 3]);
+    const cell = (i, j) => rule === 'shape' ? { s:S[LS(i, j)], c:C[0], n:1 }
+      : rule === 'color' ? { s:S[LS(i, j)], c:C[LC(i, j)], n:1 }
+      : rule === 'count' ? { s:S[i], c:C[i], n:cnt[j] }
+      : { s:S[LS(i, j)], c:C[LC(i, j)], n:cnt[j] };
+    const ans = cell(2, 2), Sz = 96, W = 3 * Sz + 24;
+    const board = (fill) => { let b = ''; for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) {
+      const x = W - 12 - j * Sz - Sz / 2, y = 12 + i * Sz + Sz / 2;
+      b += i === 2 && j === 2 && !fill ? `<rect x="${f1(x - Sz / 2 + 4)}" y="${f1(y - Sz / 2 + 4)}" width="${Sz - 8}" height="${Sz - 8}" rx="12" fill="#fff7d6" stroke="#ffc21a" stroke-width="4" stroke-dasharray="8 6"/>` + txt(x, y, '؟', 44, '#e0a800')
+        : tile(cell(i, j), x, y, Sz - 8); }
+      return SV(W, W, b); };
+    const wrong = [], seen = new Set([tkey(ans)]);
+    const tw = [t => ({ ...t, s:pk(r, S.filter(s => s !== t.s)) }), t => ({ ...t, c:pk(r, C.filter(c => c !== t.c)) }), t => ({ ...t, n:pk(r, [1, 2, 3].filter(n => n !== t.n)) }),
+      t => ({ ...t, s:pk(r, S.filter(s => s !== t.s)), c:pk(r, C.filter(c => c !== t.c)) })];
+    for (let a = 0; wrong.length < 3 && a < 50; a++) { const w = pk(r, tw)(ans); if (!seen.has(tkey(w))) { seen.add(tkey(w)); wrong.push(w); } }
+    const say = { shape:'فِي كُلِّ صَفٍّ تَظْهَرُ الْأَشْكَالُ الثَّلَاثَةُ، كُلُّ شَكْلٍ مَرَّةً وَاحِدَةً.',
+      color:'فِي كُلِّ صَفٍّ الْأَشْكَالُ الثَّلَاثَةُ، وَفِي كُلِّ صَفٍّ الْأَلْوَانُ الثَّلَاثَةُ أَيْضًا.',
+      count:'لِكُلِّ صَفٍّ شَكْلُهُ وَلَوْنُهُ، وَالْعَدَدُ يَتَغَيَّرُ مِنْ عَمُودٍ إِلَى عَمُودٍ بِالتَّرْتِيبِ نَفْسِهِ.',
+      all:'ثَلَاثُ قَوَاعِدَ مَعًا: الشَّكْلُ، وَاللَّوْنُ، وَالْعَدَدُ. كُلُّ وَاحِدَةٍ تَظْهَرُ مَرَّةً فِي كُلِّ صَفٍّ.' }[rule];
+    return { q:'أَيُّ قِطْعَةٍ تُكْمِلُ اللَّوْحَةَ؟', say:['q-mtx'], board:board(false), opts:opts(r, tilePic(ans), wrong.map(tilePic), { pic:true }),
+      exBoard:board(true), ex:say, exSay:['ex-mtx-' + rule] };
+  } });
+SAY['q-mtx'] = 'أَيُّ قِطْعَةٍ تُكْمِلُ اللَّوْحَةَ؟';
+SAY['ex-mtx-shape'] = 'فِي كُلِّ صَفٍّ تَظْهَرُ الْأَشْكَالُ الثَّلَاثَةُ، كُلُّ شَكْلٍ مَرَّةً وَاحِدَةً.';
+SAY['ex-mtx-color'] = 'فِي كُلِّ صَفٍّ الْأَشْكَالُ الثَّلَاثَةُ، وَفِي كُلِّ صَفٍّ الْأَلْوَانُ الثَّلَاثَةُ أَيْضًا.';
+SAY['ex-mtx-count'] = 'لِكُلِّ صَفٍّ شَكْلُهُ وَلَوْنُهُ، وَالْعَدَدُ يَتَغَيَّرُ مِنْ عَمُودٍ إِلَى عَمُودٍ بِالتَّرْتِيبِ نَفْسِهِ.';
+SAY['ex-mtx-all'] = 'ثَلَاثُ قَوَاعِدَ مَعًا: الشَّكْلُ، وَاللَّوْنُ، وَالْعَدَدُ. كُلُّ وَاحِدَةٍ تَظْهَرُ مَرَّةً فِي كُلِّ صَفٍّ.';
+SAY['h-mtx'] = 'لَوْحَةٌ فِيهَا تِسْعُ قِطَعٍ، وَوَاحِدَةٌ نَاقِصَةٌ. انْظُرْ إِلَى الصُّفُوفِ وَالْأَعْمِدَةِ.';
+
+// ---------- world 2: logic and investigation (detective, odd one out, pairs, order) ----------
+
+// ===== the detective: who did it? =====
+// suspects are little monsters; the clues say what the mischief-maker has, or has not
+const DET_STORY = [['🎂', 'مَنْ أَكَلَ الْكَعْكَةَ؟'], ['⚽', 'مَنْ أَخَذَ الْكُرَةَ؟'], ['🖍️', 'مَنْ رَسَمَ عَلَى الْحَائِطِ؟'],
+  ['🍬', 'مَنْ فَتَحَ عُلْبَةَ الْحَلْوَى؟'], ['🔑', 'مَنْ خَبَّأَ الْمِفْتَاحَ؟'], ['🧃', 'مَنْ سَكَبَ الْعَصِيرَ؟']];
+const DET_COL = { red:'أَحْمَرُ', blue:'أَزْرَقُ', green:'أَخْضَرُ', yellow:'أَصْفَرُ' };
+const DET_NOT = { red:'أَحْمَرَ', blue:'أَزْرَقَ', green:'أَخْضَرَ', yellow:'أَصْفَرَ' };
+const DET_CLUES = [];
+['hat', 'glasses', 'horns'].forEach(k => [true, false].forEach(v => DET_CLUES.push({ k, v, id:`det-${k}-${v ? 'y' : 'n'}`,
+  t:{ hat:v ? 'الْمُشَاغِبُ يَلْبَسُ قُبَّعَةً.' : 'الْمُشَاغِبُ لَا يَلْبَسُ قُبَّعَةً.',
+      glasses:v ? 'الْمُشَاغِبُ يَلْبَسُ نَظَّارَةً.' : 'الْمُشَاغِبُ لَا يَلْبَسُ نَظَّارَةً.',
+      horns:v ? 'لِلْمُشَاغِبِ قَرْنَانِ.' : 'لَيْسَ لِلْمُشَاغِبِ قُرُونٌ.' }[k], ok:m => m[k] === v })));
+[1, 2].forEach(v => DET_CLUES.push({ k:'eyes', v, id:`det-eyes-${v}`, t:v === 1 ? 'لِلْمُشَاغِبِ عَيْنٌ وَاحِدَةٌ.' : 'لِلْمُشَاغِبِ عَيْنَانِ.', ok:m => m.eyes === v }));
+Object.keys(DET_COL).forEach(c => {
+  DET_CLUES.push({ k:'c', v:c, id:`det-c-${c}`, t:`لَوْنُ الْمُشَاغِبِ ${DET_COL[c]}.`, ok:m => m.c === c });
+  DET_CLUES.push({ k:'c', v:'!' + c, neg:true, id:`det-c-not-${c}`, t:`لَوْنُ الْمُشَاغِبِ لَيْسَ ${DET_NOT[c]}.`, ok:m => m.c !== c });
+});
+DET_CLUES.forEach(c => { if (c.k !== 'c' && c.k !== 'eyes' && !c.v) c.neg = true; SAY[c.id] = c.t; });
+DET_STORY.forEach((s, i) => { SAY['det-' + i] = s[1]; });
+
+function monster(m, x, y, s = 1){
+  const c = COL[m.c], k = '#2b2f55', g = (a, b) => `${f1(x + a * s)},${f1(y + b * s)}`;
+  let o = `<ellipse cx="${f1(x)}" cy="${f1(y + 46 * s)}" rx="${f1(30 * s)}" ry="${f1(5 * s)}" fill="#0002"/>`;
+  o += `<rect x="${f1(x - 20 * s)}" y="${f1(y + 28 * s)}" width="${f1(12 * s)}" height="${f1(16 * s)}" rx="4" fill="${c}" stroke="${k}" stroke-width="2.5"/>` +
+       `<rect x="${f1(x + 8 * s)}" y="${f1(y + 28 * s)}" width="${f1(12 * s)}" height="${f1(16 * s)}" rx="4" fill="${c}" stroke="${k}" stroke-width="2.5"/>`;
+  if (m.horns) o += `<polygon points="${g(-24, -24)} ${g(-30, -52)} ${g(-10, -32)}" fill="#fff3c4" stroke="${k}" stroke-width="2.5" stroke-linejoin="round"/>` +
+                    `<polygon points="${g(24, -24)} ${g(30, -52)} ${g(10, -32)}" fill="#fff3c4" stroke="${k}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  o += `<path d="M${g(-34, 32)} Q${g(-40, -40)} ${g(0, -40)} Q${g(40, -40)} ${g(34, 32)} Z" fill="${c}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/>`;
+  o += `<ellipse cx="${f1(x)}" cy="${f1(y + 16 * s)}" rx="${f1(18 * s)}" ry="${f1(12 * s)}" fill="#ffffff55"/>`;
+  const eye = (ex, r) => `<circle cx="${f1(x + ex * s)}" cy="${f1(y - 12 * s)}" r="${f1(r * s)}" fill="#fff" stroke="${k}" stroke-width="2"/><circle cx="${f1(x + ex * s)}" cy="${f1(y - 11 * s)}" r="${f1(r * .45 * s)}" fill="${k}"/>`;
+  o += m.eyes === 1 ? eye(0, 12) : eye(-12, 8.5) + eye(12, 8.5);
+  if (m.glasses) o += m.eyes === 1
+    ? `<circle cx="${f1(x)}" cy="${f1(y - 12 * s)}" r="${f1(16 * s)}" fill="none" stroke="${k}" stroke-width="3.5"/><path d="M${g(-16, -12)} L${g(-32, -16)} M${g(16, -12)} L${g(32, -16)}" stroke="${k}" stroke-width="3"/>`
+    : `<circle cx="${f1(x - 12 * s)}" cy="${f1(y - 12 * s)}" r="${f1(12 * s)}" fill="none" stroke="${k}" stroke-width="3.5"/><circle cx="${f1(x + 12 * s)}" cy="${f1(y - 12 * s)}" r="${f1(12 * s)}" fill="none" stroke="${k}" stroke-width="3.5"/>`;
+  o += `<path d="M${g(-11, 6)} Q${g(0, 16)} ${g(11, 6)}" fill="#fff" stroke="${k}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  if (m.hat) o += `<rect x="${f1(x - 26 * s)}" y="${f1(y - 41 * s)}" width="${f1(52 * s)}" height="${f1(7 * s)}" rx="3" fill="#3b2a6b" stroke="${k}" stroke-width="2"/>` +
+                  `<rect x="${f1(x - 16 * s)}" y="${f1(y - 66 * s)}" width="${f1(32 * s)}" height="${f1(27 * s)}" rx="4" fill="#3b2a6b" stroke="${k}" stroke-width="2"/>` +
+                  `<rect x="${f1(x - 16 * s)}" y="${f1(y - 47 * s)}" width="${f1(32 * s)}" height="${f1(6 * s)}" fill="#ffc21a"/>`;
+  return o;
+}
+T('det', { w:'l', name:'الْمُحَقِّقُ الصَّغِيرُ', icon:'🕵️', n:36,
+  gen(r, d){
+    const N = [3, 4, 5, 6][d], keyOf = m => [m.c, m.eyes, m.hat, m.glasses, m.horns].join('|');
+    let mons, culprit, clues;
+    for (let a = 0; a < 200; a++) {
+      const seen = new Set(); mons = [];
+      while (mons.length < N) { const m = { c:pk(r, Object.keys(DET_COL)), eyes:ri(r, 1, 2), hat:r() < .5, glasses:r() < .5, horns:r() < .5 };
+        if (!seen.has(keyOf(m))) { seen.add(keyOf(m)); mons.push(m); } }
+      culprit = ri(r, 0, N - 1);
+      const true_ = shuf(r, DET_CLUES.filter(c => c.ok(mons[culprit])));
+      // fewest clues that leave only the culprit; harder puzzles prefer "has not" clues
+      const want = [1, 2, 2, 3][d], pref = d >= 2 ? [...true_.filter(c => c.neg), ...true_.filter(c => !c.neg)] : true_;
+      clues = null;
+      const tryPick = (k, from, start, acc) => {
+        if (acc.length === k) { const left = mons.filter(m => acc.every(c => c.ok(m))); return left.length === 1 ? acc : null; }
+        for (let i = start; i < from.length; i++) { if (acc.some(c => c.k === from[i].k)) continue; const got = tryPick(k, from, i + 1, [...acc, from[i]]); if (got) return got; }
+        return null;
+      };
+      for (let k = want; k <= 4 && !clues; k++) clues = tryPick(k, pref, 0, []);
+      if (clues && (d === 0 || clues.length >= Math.min(want, 2))) break;
+    }
+    const story = ri(r, 0, DET_STORY.length - 1), per = N <= 3 ? 3 : N === 4 ? 4 : 3, rows = Math.ceil(N / per);
+    const W = 360, cw = W / per, H = rows * 124 + 8, sc = N === 4 ? .78 : .9;
+    const draw = hit => SV(W, H, mons.map((m, i) => { const x = W - (i % per + .5) * cw, y = 70 + Math.floor(i / per) * 124;
+      return `<g data-k="${i}"><rect x="${f1(x - cw / 2 + 4)}" y="${f1(y - 64)}" width="${f1(cw - 8)}" height="118" rx="16" fill="${hit === i ? '#fff3b0' : '#f6f3ea'}" stroke="${hit === i ? '#ff4d4d' : 'transparent'}" stroke-width="5"/>${monster(m, x, y - 4, sc)}</g>`; }).join(''));
+    const list = clues.map(c => `<li>${c.neg ? '🚫' : '✅'} ${c.t}</li>`).join('');
+    return { q:DET_STORY[story][0] + ' ' + DET_STORY[story][1], say:['det-' + story, ...clues.map(c => c.id)],
+      board:`<div class="det"><ul>${list}</ul>${draw(-1)}</div>`, tap:true, k:String(culprit),
+      exBoard:`<div class="det"><ul>${list}</ul>${draw(culprit)}</div>`, ex:'هُوَ الْوَحِيدُ الَّذِي تَنْطَبِقُ عَلَيْهِ كُلُّ الدَّلَائِلِ.', exSay:['ex-det'] };
+  } });
+SAY['ex-det'] = 'هُوَ الْوَحِيدُ الَّذِي تَنْطَبِقُ عَلَيْهِ كُلُّ الدَّلَائِلِ. أَحْسَنْتَ أَيُّهَا الْمُحَقِّقُ!';
+SAY['h-det'] = 'أَحَدُ الْوُحُوشِ الصَّغِيرَةِ قَامَ بِمُشَاغَبَةٍ! اسْمَعِ الدَّلَائِلَ، ثُمَّ اضْغَطْ عَلَى الْمُشَاغِبِ.';
+
+// ===== which one does not belong? =====
+// [the four pictures (the odd one first), why]
+const OUT = [
+  [['🥕','🍎','🍌','🍇'], 'الْجَزَرُ مِنَ الْخُضَارِ، وَالْبَاقِي فَوَاكِهُ.'],
+  [['🚗','🐶','🐱','🐰'], 'السَّيَّارَةُ لَيْسَتْ حَيَوَانًا، وَالْبَاقِي حَيَوَانَاتٌ.'],
+  [['🚗','✈️','🚁','🦅'], 'السَّيَّارَةُ لَا تَطِيرُ، وَالْبَاقِي يَطِيرُ.'],
+  [['🧸','🍕','🍔','🌭'], 'الدُّبُّ لُعْبَةٌ، وَالْبَاقِي طَعَامٌ.'],
+  [['🍴','✏️','🖊️','🖍️'], 'الشَّوْكَةُ لِلْأَكْلِ، وَالْبَاقِي لِلْكِتَابَةِ وَالرَّسْمِ.'],
+  [['🐄','🐔','🦆','🦉'], 'الْبَقَرَةُ لَيْسَتْ طَائِرًا، وَالْبَاقِي طُيُورٌ.'],
+  [['📚','⚽','🏀','🎾'], 'الْكُتُبُ لَيْسَتْ كُرَةً، وَالْبَاقِي كُرَاتٌ.'],
+  [['🍞','🥛','🧃','☕'], 'الْخُبْزُ يُؤْكَلُ، وَالْبَاقِي يُشْرَبُ.'],
+  [['🍫','🥕','🥦','🌽'], 'الشُّوكُولَاتَةُ حَلْوَى، وَالْبَاقِي خُضَارٌ.'],
+  [['🍄','🌳','🌲','🌴'], 'الْفُطْرُ لَيْسَ شَجَرَةً، وَالْبَاقِي أَشْجَارٌ.'],
+  [['🐘','🐟','🐬','🐙'], 'الْفِيلُ يَعِيشُ عَلَى الْيَابِسَةِ، وَالْبَاقِي يَعِيشُ فِي الْبَحْرِ.'],
+  [['🧢','👟','👢','🧦'], 'الْقُبَّعَةُ تُلْبَسُ عَلَى الرَّأْسِ، وَالْبَاقِي يُلْبَسُ فِي الْقَدَمِ.'],
+  [['🌵','🌹','🌻','🌷'], 'الصَّبَّارُ لَيْسَ زَهْرَةً، وَالْبَاقِي أَزْهَارٌ.'],
+  [['🛶','🚲','🛴','🚗'], 'الْقَارِبُ لَيْسَتْ لَهُ عَجَلَاتٌ، وَالْبَاقِي يَسِيرُ عَلَى عَجَلَاتٍ.'],
+  [['🔥','🍦','🧊','⛄'], 'النَّارُ سَاخِنَةٌ، وَالْبَاقِي بَارِدٌ.'],
+  [['🚌','🚒','🚑','🚓'], 'الْحَافِلَةُ لَيْسَتْ سَيَّارَةَ طَوَارِئَ، وَالْبَاقِي سَيَّارَاتُ طَوَارِئَ.'],
+  [['📱','👀','👂','👃'], 'الْهَاتِفُ جِهَازٌ، وَالْبَاقِي أَعْضَاءٌ فِي جِسْمِ الْإِنْسَانِ.'],
+  [['🐌','🐝','🦋','🐞'], 'الْحَلَزُونُ لَيْسَ حَشَرَةً، وَالْبَاقِي حَشَرَاتٌ.'],
+  [['📏','⏰','⌚','⏳'], 'الْمِسْطَرَةُ تَقِيسُ الطُّولَ، وَالْبَاقِي يَقِيسُ الْوَقْتَ.'],
+  [['🍳','🎒','📏','✏️'], 'الْمِقْلَاةُ لِلْمَطْبَخِ، وَالْبَاقِي أَدَوَاتٌ مَدْرَسِيَّةٌ.'],
+  [['⭐','🔴','🔵','🟢'], 'النَّجْمَةُ لَيْسَتْ دَائِرَةً، وَالْبَاقِي دَوَائِرُ.'],
+  [['🧊','☀️','🔥','💡'], 'الثَّلْجُ لَا يُضِيءُ، وَالْبَاقِي يُعْطِي ضَوْءًا.'],
+  [['🍇','🍋','🍌','🌽'], 'الْعِنَبُ بَنَفْسَجِيٌّ، وَالْبَاقِي لَوْنُهُ أَصْفَرُ.'],
+  [['☁️','🌙','⭐','☀️'], 'السَّحَابَةُ قَرِيبَةٌ مِنَّا فِي الْجَوِّ، وَالْبَاقِي فِي الْفَضَاءِ الْبَعِيدِ.'],
+  [['🐄','🦁','🐯','🐆'], 'الْبَقَرَةُ تَأْكُلُ الْعُشْبَ، وَالْبَاقِي يَأْكُلُ اللَّحْمَ.'],
+  [['🦅','🐧','🦃','🐓'], 'النَّسْرُ يُحَلِّقُ عَالِيًا، وَالْبَاقِي طُيُورٌ لَا تَطِيرُ جَيِّدًا.'],
+  [['🍌','🍉','🍓','🍒'], 'الْمَوْزُ أَصْفَرُ، وَالْبَاقِي أَحْمَرُ.'],
+  [['🥔','🍎','🍐','🍊'], 'الْبَطَاطِسُ تَنْمُو تَحْتَ الْأَرْضِ، وَالْبَاقِي يَنْمُو عَلَى الْأَشْجَارِ.'],
+  [['⚽','🌍','🌕','☀️'], 'الْكُرَةُ لُعْبَةٌ، وَالْبَاقِي أَجْرَامٌ فِي الْفَضَاءِ.'],
+  [['💡','☀️','🌙','⭐'], 'الْمِصْبَاحُ صَنَعَهُ الْإِنْسَانُ، وَالْبَاقِي أَنْوَارٌ فِي السَّمَاءِ.'],
+  [['🐭','🦒','🐘','🦏'], 'الْفَأْرُ صَغِيرٌ، وَالْبَاقِي حَيَوَانَاتٌ ضَخْمَةٌ.'],
+  [['🐍','🐊','🐢','🦎'], 'الثُّعْبَانُ لَيْسَتْ لَهُ أَرْجُلٌ، وَالْبَاقِي لَهُ أَرْجُلٌ.'],
+  [['🕷️','🐜','🐝','🐞'], 'الْعَنْكَبُوتُ لَهُ ثَمَانِي أَرْجُلٍ، وَالْبَاقِي حَشَرَاتٌ لَهَا سِتُّ أَرْجُلٍ.'],
+  [['٧','٢','٤','٦'], 'سَبْعَةٌ عَدَدٌ فَرْدِيٌّ، وَالْبَاقِي أَعْدَادٌ زَوْجِيَّةٌ.'],
+  [['١٠','٣','٦','٩'], 'عَشَرَةٌ لَيْسَتْ مِنْ جَدْوَلِ الثَّلَاثَةِ، وَالْبَاقِي مِنْ مُضَاعَفَاتِ الثَّلَاثَةِ.'],
+  [['🥚','🥛','🧀','🍦'], 'الْبَيْضُ يَأْتِي مِنَ الدَّجَاجِ، وَالْبَاقِي يُصْنَعُ مِنَ الْحَلِيبِ.'],
+  [['🐧','🐪','🦂','🦎'], 'الْبِطْرِيقُ يَعِيشُ فِي الْبَرْدِ، وَالْبَاقِي يَعِيشُ فِي الصَّحْرَاءِ.'],
+  [['🚿','🛏️','🛋️','🪑'], 'الدُّشُّ لِلِاسْتِحْمَامِ، وَالْبَاقِي أَثَاثٌ نَجْلِسُ أَوْ نَنَامُ عَلَيْهِ.'],
+  [['٤٥','١١','٢٢','٣٣'], 'كُلُّ عَدَدٍ رَقْمَاهُ مُتَشَابِهَانِ، إِلَّا خَمْسَةً وَأَرْبَعِينَ.'],
+  [['١٨','٥','١٠','١٥'], 'ثَمَانِيَةَ عَشَرَ لَيْسَ مِنْ جَدْوَلِ الْخَمْسَةِ، وَالْبَاقِي مِنْ مُضَاعَفَاتِ الْخَمْسَةِ.'],
+  [['🐕','🐄','🐑','🐐'], 'الْكَلْبُ لَا يُعْطِينَا الْحَلِيبَ، وَالْبَاقِي يُعْطِينَا الْحَلِيبَ.'],
+  [['🥗','🍔','🍟','🌭'], 'السَّلَطَةُ طَعَامٌ صِحِّيٌّ خَفِيفٌ، وَالْبَاقِي وَجَبَاتٌ سَرِيعَةٌ.'],
+];
+OUT.forEach((o, i) => { SAY['out-' + i] = o[1]; });
+T('out', { w:'l', name:'الدَّخِيلُ', icon:'🙅', n:OUT.length,
+  gen(r, d, i){
+    const [e, why] = OUT[i], big = e.map(x => `<span style="font-size:${/^[٠-٩]+$/.test(x) ? 40 : 46}px">${x}</span>`);
+    return { q:'أَيُّهَا لَا يَنْتَمِي إِلَى الْمَجْمُوعَةِ؟', say:['q-out'], board:`<div class="txt" style="font-size:44px;letter-spacing:6px">🤔</div>`,
+      opts:opts(r, big[0], big.slice(1), { pic:true }), ex:why, exSay:['out-' + i], exBoard:`<div class="txt" style="font-size:52px">${e[0]}</div>` };
+  } });
+SAY['q-out'] = 'أَيُّهَا لَا يَنْتَمِي إِلَى الْمَجْمُوعَةِ؟';
+SAY['h-out'] = 'أَرْبَعُ صُوَرٍ، ثَلَاثٌ مِنْهَا تَجْمَعُهَا صِفَةٌ وَاحِدَةٌ. اخْتَرِ الدَّخِيلَ!';
+
+// ===== pairs that match (A is to B as C is to ?) =====
+// [A, B, C, right, wrong..., why]
+const ANA = [
+  ['🐄','🥛','🐔','🥚',['🧀','🌾','🐤'],'الْبَقَرَةُ تُعْطِينَا الْحَلِيبَ، وَالدَّجَاجَةُ تُعْطِينَا الْبَيْضَ.'],
+  ['🐶','🦴','🐰','🥕',['🦴','🧀','🐟'],'الْكَلْبُ يُحِبُّ الْعَظْمَ، وَالْأَرْنَبُ يُحِبُّ الْجَزَرَ.'],
+  ['🐱','🐟','🐵','🍌',['🥕','🦴','🧀'],'الْقِطُّ يُحِبُّ السَّمَكَ، وَالْقِرْدُ يُحِبُّ الْمَوْزَ.'],
+  ['🖐️','🧤','🦶','🧦',['🧢','🧣','👓'],'الْقُفَّازُ لِلْيَدِ، وَالْجَوْرَبُ لِلْقَدَمِ.'],
+  ['🐟','🌊','🐫','🏜️',['🌊','🌲','🏔️'],'السَّمَكَةُ تَعِيشُ فِي الْبَحْرِ، وَالْجَمَلُ يَعِيشُ فِي الصَّحْرَاءِ.'],
+  ['☀️','🕶️','🌧️','☂️',['🎈','🧊','🌞'],'نَلْبَسُ النَّظَّارَةَ لِلشَّمْسِ، وَنَحْمِلُ الْمِظَلَّةَ لِلْمَطَرِ.'],
+  ['⬆️','⬇️','➡️','⬅️',['➡️','⬆️','⬇️'],'الْأَعْلَى عَكْسُهُ الْأَسْفَلُ، وَالْيَمِينُ عَكْسُهُ الْيَسَارُ.'],
+  ['😀','😢','👍','👎',['👍','👏','✋'],'الضَّحِكُ عَكْسُ الْبُكَاءِ، وَالْإِعْجَابُ عَكْسُهُ عَدَمُ الْإِعْجَابِ.'],
+  ['🐻','🍯','🐿️','🌰',['🍯','🥕','🍌'],'الدُّبُّ يُحِبُّ الْعَسَلَ، وَالسِّنْجَابُ يُحِبُّ الْبُنْدُقَ.'],
+  ['🐄','🌾','🐼','🎋',['🐟','🍯','🧀'],'الْبَقَرَةُ تَأْكُلُ الْعُشْبَ، وَالْبَانْدَا تَأْكُلُ الْخَيْزُرَانَ.'],
+  ['🐣','🐔','🐛','🦋',['🐝','🐞','🐜'],'الْكَتْكُوتُ يَكْبَرُ فَيَصِيرُ دَجَاجَةً، وَالْيَرَقَةُ تَكْبَرُ فَتَصِيرُ فَرَاشَةً.'],
+  ['🥚','🐣','🌱','🌳',['🍂','🌵','🍄'],'مِنَ الْبَيْضَةِ يَخْرُجُ الْكَتْكُوتُ، وَالنَّبْتَةُ الصَّغِيرَةُ تَكْبَرُ فَتَصِيرُ شَجَرَةً.'],
+  ['🚒','🔥','🚑','🤕',['🔥','🚓','🏠'],'سَيَّارَةُ الْإِطْفَاءِ تُطْفِئُ النَّارَ، وَسَيَّارَةُ الْإِسْعَافِ تُسْعِفُ الْمَرِيضَ.'],
+  ['🚗','⛽','📱','🔋',['⛽','💧','🍎'],'السَّيَّارَةُ تَحْتَاجُ إِلَى الْوَقُودِ، وَالْهَاتِفُ يَحْتَاجُ إِلَى الشَّحْنِ.'],
+  ['🌱','💧','🔥','🪵',['💧','🧊','🌊'],'النَّبْتَةُ تَحْتَاجُ إِلَى الْمَاءِ، وَالنَّارُ تَحْتَاجُ إِلَى الْحَطَبِ.'],
+  ['🧊','💧','🌽','🍿',['🌽','🍞','🧈'],'الثَّلْجُ يَذُوبُ بِالْحَرَارَةِ فَيَصِيرُ مَاءً، وَالذُّرَةُ تَتَفَرْقَعُ بِالْحَرَارَةِ فَتَصِيرُ فُشَارًا.'],
+  ['🔥','🧊','☀️','🌙',['⭐','🔥','🌈'],'النَّارُ حَارَّةٌ وَالثَّلْجُ بَارِدٌ، وَالشَّمْسُ لِلنَّهَارِ وَالْقَمَرُ لِلَّيْلِ.'],
+  ['🐘','🐭','🐳','🐟',['🐳','🐘','🦒'],'الْفِيلُ ضَخْمٌ وَالْفَأْرُ صَغِيرٌ، وَكَذَلِكَ الْحُوتُ ضَخْمٌ وَالسَّمَكَةُ صَغِيرَةٌ.'],
+  ['🔺','٣','⬛','٤',['٣','٥','٦'],'لِلْمُثَلَّثِ ثَلَاثَةُ أَضْلَاعٍ، وَلِلْمُرَبَّعِ أَرْبَعَةُ أَضْلَاعٍ.'],
+  ['🖐️','٥','🐙','٨',['٦','٤','١٠'],'لِلْيَدِ خَمْسَةُ أَصَابِعَ، وَلِلْأُخْطُبُوطِ ثَمَانِي أَذْرُعٍ.'],
+  ['🕷️','٨','🐜','٦',['٨','٤','٢'],'لِلْعَنْكَبُوتِ ثَمَانِي أَرْجُلٍ، وَلِلنَّمْلَةِ سِتُّ أَرْجُلٍ.'],
+  ['١','٢','٥','١٠',['٦','٧','٢٥'],'الْعَدَدُ الثَّانِي ضِعْفُ الْأَوَّلِ: ضِعْفُ خَمْسَةٍ عَشَرَةٌ.'],
+  ['١٠','٥','٨','٤',['٣','٦','١٦'],'الْعَدَدُ الثَّانِي نِصْفُ الْأَوَّلِ: نِصْفُ ثَمَانِيَةٍ أَرْبَعَةٌ.'],
+  ['٢','٥','٦','٩',['١٢','٨','١٨'],'نُضِيفُ ثَلَاثَةً: سِتَّةٌ وَثَلَاثَةٌ تُسَاوِي تِسْعَةً.'],
+  ['٣','٩','٤','١٦',['١٢','٨','١٣'],'الْعَدَدُ الثَّانِي هُوَ الْأَوَّلُ مَضْرُوبًا فِي نَفْسِهِ: أَرْبَعَةٌ فِي أَرْبَعَةٍ تُسَاوِي سِتَّةَ عَشَرَ.'],
+  ['١٠٠','١٠','٥٠','٥',['١٠','٢٥','٤٠'],'نَقْسِمُ عَلَى عَشَرَةٍ: خَمْسُونَ عَلَى عَشَرَةٍ تُسَاوِي خَمْسَةً.'],
+  ['ا','ب','ت','ث',['ج','ب','ح'],'الْحَرْفُ الثَّانِي يَأْتِي بَعْدَ الْأَوَّلِ مُبَاشَرَةً فِي الْحُرُوفِ الْهِجَائِيَّةِ.'],
+  ['كتاب','كتب','قلم','أقلام',['قلمان','قلمي','مقلمة'],'الْكَلِمَةُ الثَّانِيَةُ جَمْعُ الْأُولَى: جَمْعُ قَلَمٍ أَقْلَامٌ.'],
+  ['كبير','صغير','طويل','قصير',['عريض','طويل','بعيد'],'الْكَبِيرُ عَكْسُهُ الصَّغِيرُ، وَالطَّوِيلُ عَكْسُهُ الْقَصِيرُ.'],
+  ['شمس','نهار','قمر','ليل',['نجوم','صباح','سماء'],'نَرَى الشَّمْسَ فِي النَّهَارِ، وَنَرَى الْقَمَرَ فِي اللَّيْلِ.'],
+  ['طبيب','مستشفى','معلم','مدرسة',['كتاب','طالب','بيت'],'الطَّبِيبُ يَعْمَلُ فِي الْمُسْتَشْفَى، وَالْمُعَلِّمُ يَعْمَلُ فِي الْمَدْرَسَةِ.'],
+  ['عين','رؤية','أذن','سمع',['صوت','رؤية','شم'],'الْعَيْنُ لِلرُّؤْيَةِ، وَالْأُذُنُ لِلسَّمْعِ.'],
+  ['🌕','🌍','🌍','☀️',['🌕','⭐','☁️'],'الْقَمَرُ يَدُورُ حَوْلَ الْأَرْضِ، وَالْأَرْضُ تَدُورُ حَوْلَ الشَّمْسِ.'],
+];
+ANA.forEach((a, i) => { SAY['ana-' + i] = a[5]; });
+T('ana', { w:'l', name:'عَلَاقَاتٌ ذَكِيَّةٌ', icon:'🔗', n:ANA.length,
+  gen(r, d, i){
+    const [A, B, C, ok, wrong, why] = ANA[i], word = /^[ء-ي]/.test(A);
+    const it = x => `<span class="${word ? 'aw' : 'ae'}">${x}</span>`;
+    const pair = (a, b) => `<span class="pair">${it(a)}<i>⬅</i>${it(b)}</span>`;
+    const board = `<div class="ana">${pair(A, B)}<b>كَمَا</b><span class="pair">${it(C)}<i>⬅</i><span class="qm">؟</span></span></div>`;
+    const big = x => word ? x : `<span style="font-size:${/^[٠-٩]+$/.test(x) ? 36 : 46}px">${x}</span>`;
+    return { q:'فَكِّرْ فِي الْعَلَاقَةِ، ثُمَّ أَكْمِلِ الزَّوْجَ الثَّانِيَ.', say:['q-ana'], board, opts:opts(r, big(ok), wrong.map(big), { pic:!word, w:word }),
+      exBoard:`<div class="ana">${pair(A, B)}<b>كَمَا</b>${pair(C, ok)}</div>`, ex:why, exSay:['ana-' + i] };
+  } });
+SAY['q-ana'] = 'فَكِّرْ فِي الْعَلَاقَةِ، ثُمَّ أَكْمِلِ الزَّوْجَ الثَّانِيَ.';
+SAY['h-ana'] = 'بَيْنَ الصُّورَتَيْنِ الْأُولَيَيْنِ عَلَاقَةٌ. ابْحَثْ عَنْ صُورَةٍ لَهَا الْعَلَاقَةُ نَفْسُهَا مَعَ الصُّورَةِ الثَّالِثَةِ.';
+
+// ===== who is first? (order stories) =====
+// [story (spoken and shown), right, wrong..., why]
+const ORD = [
+  ['سَامِي أَطْوَلُ مِنْ رَامِي، وَرَامِي أَطْوَلُ مِنْ هَادِي. مَنِ الْأَقْصَرُ؟', 'هَادِي', ['سَامِي', 'رَامِي'], 'التَّرْتِيبُ مِنَ الْأَطْوَلِ: سَامِي، ثُمَّ رَامِي، ثُمَّ هَادِي.'],
+  ['الْأَرْنَبُ أَسْرَعُ مِنَ الْقِطِّ، وَالْقِطُّ أَسْرَعُ مِنَ السُّلَحْفَاةِ. مَنِ الْأَبْطَأُ؟', 'السُّلَحْفَاةُ', ['الْأَرْنَبُ', 'الْقِطُّ'], 'السُّلَحْفَاةُ أَبْطَأُ مِنَ الْقِطِّ، وَالْقِطُّ أَبْطَأُ مِنَ الْأَرْنَبِ.'],
+  ['هِنْدُ تَجْلِسُ بَيْنَ لَيْلَى وَنُورَةَ. مَنْ تَجْلِسُ فِي الْوَسَطِ؟', 'هِنْدُ', ['لَيْلَى', 'نُورَةُ'], 'مَنْ تَجْلِسُ بَيْنَ اثْنَتَيْنِ تَكُونُ فِي الْوَسَطِ.'],
+  ['عِنْدَ لَيْلَى قِطَّةٌ، وَعِنْدَ هِنْدَ كَلْبٌ، وَعِنْدَ نُورَةَ سَمَكَةٌ. مَنْ عِنْدَهَا حَيَوَانٌ يَعِيشُ فِي الْمَاءِ؟', 'نُورَةُ', ['لَيْلَى', 'هِنْدُ'], 'السَّمَكَةُ تَعِيشُ فِي الْمَاءِ، وَهِيَ عِنْدَ نُورَةَ.'],
+  ['خَالِدٌ وَصَلَ قَبْلَ فَهْدٍ، وَمَازِنٌ وَصَلَ بَعْدَ فَهْدٍ. مَنْ وَصَلَ أَوَّلًا؟', 'خَالِدٌ', ['فَهْدٌ', 'مَازِنٌ'], 'خَالِدٌ أَوَّلًا، ثُمَّ فَهْدٌ، ثُمَّ مَازِنٌ.'],
+  ['لَيْلَى أَكْبَرُ مِنْ سَلْمَى، وَنُورَةُ أَكْبَرُ مِنْ لَيْلَى. مَنِ الْكُبْرَى؟', 'نُورَةُ', ['لَيْلَى', 'سَلْمَى'], 'نُورَةُ أَكْبَرُ مِنْ لَيْلَى، وَلَيْلَى أَكْبَرُ مِنْ سَلْمَى.'],
+  ['الْكِتَابُ فَوْقَ الطَّاوِلَةِ، وَالْكُرَةُ تَحْتَ الطَّاوِلَةِ، وَالْقِطَّةُ فَوْقَ الْكِتَابِ. أَيُّهَا الْأَعْلَى؟', 'الْقِطَّةُ', ['الْكِتَابُ', 'الْكُرَةُ'], 'الْقِطَّةُ فَوْقَ الْكِتَابِ، وَالْكِتَابُ فَوْقَ الطَّاوِلَةِ.'],
+  ['فِي صَفٍّ مِنْ ثَلَاثَةِ أَطْفَالٍ، سَامِي لَيْسَ الْأَوَّلَ وَلَا الْأَخِيرَ. أَيْنَ يَقِفُ سَامِي؟', 'فِي الْوَسَطِ', ['الْأَوَّلُ', 'الْأَخِيرُ'], 'إِذَا لَمْ يَكُنِ الْأَوَّلَ وَلَا الْأَخِيرَ، فَهُوَ فِي الْوَسَطِ.'],
+  ['الصُّنْدُوقُ الْأَحْمَرُ أَثْقَلُ مِنَ الْأَزْرَقِ، وَالْأَخْضَرُ أَخَفُّ مِنَ الْأَزْرَقِ. أَيُّهَا الْأَثْقَلُ؟', 'الْأَحْمَرُ', ['الْأَزْرَقُ', 'الْأَخْضَرُ'], 'الْأَحْمَرُ أَثْقَلُ مِنَ الْأَزْرَقِ، وَالْأَزْرَقُ أَثْقَلُ مِنَ الْأَخْضَرِ.'],
+  ['رَامِي أَقْصَرُ مِنْ سَامِي، وَهَادِي أَطْوَلُ مِنْ سَامِي. مَنِ الْأَطْوَلُ؟', 'هَادِي', ['سَامِي', 'رَامِي'], 'التَّرْتِيبُ مِنَ الْأَطْوَلِ: هَادِي، ثُمَّ سَامِي، ثُمَّ رَامِي.'],
+  ['سَامِي فِي الطَّابُورِ: أَمَامَهُ طِفْلَانِ، وَخَلْفَهُ طِفْلَانِ. كَمْ طِفْلًا فِي الطَّابُورِ؟', '٥', ['٤', '٦', '٣'], 'طِفْلَانِ أَمَامَهُ، وَطِفْلَانِ خَلْفَهُ، وَسَامِي نَفْسُهُ: خَمْسَةُ أَطْفَالٍ.'],
+  ['سَلْمَى تَسْكُنُ فِي الطَّابِقِ الثَّالِثِ، وَلَيْلَى تَسْكُنُ فَوْقَهَا بِطَابِقَيْنِ. فِي أَيِّ طَابِقٍ تَسْكُنُ لَيْلَى؟', '٥', ['٢', '٤', '١'], 'ثَلَاثَةٌ وَاثْنَانِ خَمْسَةٌ: لَيْلَى فِي الطَّابِقِ الْخَامِسِ.'],
+  ['إِذَا كَانَ يَوْمُ الْأَحَدِ قَبْلَ يَوْمَيْنِ، فَمَا الْيَوْمُ؟', 'الثُّلَاثَاءُ', ['الِاثْنَيْنِ', 'الْأَرْبِعَاءُ', 'الْجُمُعَةُ'], 'بَعْدَ الْأَحَدِ يَأْتِي الِاثْنَيْنِ، ثُمَّ الثُّلَاثَاءُ.'],
+  ['فِي صَفٍّ مِنْ خَمْسَةِ أَطْفَالٍ، فَهْدٌ هُوَ الثَّانِي مِنَ الْأَمَامِ. فِي أَيِّ مَرْكَزٍ هُوَ مِنَ الْخَلْفِ؟', '٤', ['٢', '٣', '٥'], 'خَلْفَهُ ثَلَاثَةُ أَطْفَالٍ، فَهُوَ الرَّابِعُ مِنَ الْخَلْفِ.'],
+  ['عُمُرُ نُورَةَ تِسْعُ سَنَوَاتٍ، وَسَلْمَى أَكْبَرُ مِنْهَا بِسَنَتَيْنِ، وَلَيْلَى أَصْغَرُ مِنْ سَلْمَى بِسَنَةٍ. كَمْ عُمُرُ لَيْلَى؟', '١٠', ['٩', '١١', '٨'], 'عُمُرُ سَلْمَى إِحْدَى عَشْرَةَ سَنَةً، وَلَيْلَى أَصْغَرُ مِنْهَا بِسَنَةٍ، فَعُمُرُهَا عَشْرُ سَنَوَاتٍ.'],
+  ['نُورَةُ أَطْوَلُ مِنْ هِنْدَ، وَهِنْدُ أَطْوَلُ مِنْ سَلْمَى، وَسَلْمَى أَطْوَلُ مِنْ لَيْلَى. مَنِ الثَّانِيَةُ فِي الطُّولِ؟', 'هِنْدُ', ['نُورَةُ', 'سَلْمَى', 'لَيْلَى'], 'التَّرْتِيبُ مِنَ الْأَطْوَلِ: نُورَةُ، ثُمَّ هِنْدُ، ثُمَّ سَلْمَى، ثُمَّ لَيْلَى.'],
+  ['ثَلَاثَةُ أَصْدِقَاءَ يَلْبَسُونَ قُمْصَانًا: أَحْمَرَ وَأَزْرَقَ وَأَخْضَرَ. سَامِي لَا يَلْبَسُ الْأَحْمَرَ وَلَا الْأَزْرَقَ، وَرَامِي لَا يَلْبَسُ الْأَحْمَرَ. مَاذَا يَلْبَسُ هَادِي؟', 'الْأَحْمَرُ', ['الْأَزْرَقُ', 'الْأَخْضَرُ'], 'سَامِي يَلْبَسُ الْأَخْضَرَ، وَرَامِي يَلْبَسُ الْأَزْرَقَ، فَيَبْقَى لِهَادِي الْأَحْمَرُ.'],
+  ['فِي سِبَاقٍ: فَهْدٌ لَيْسَ الْأَوَّلَ، وَمَازِنٌ وَصَلَ قَبْلَ خَالِدٍ، وَخَالِدٌ لَيْسَ الْأَخِيرَ. مَنِ الْأَوَّلُ؟', 'مَازِنٌ', ['خَالِدٌ', 'فَهْدٌ'], 'خَالِدٌ لَيْسَ الْأَخِيرَ، وَمَازِنٌ قَبْلَهُ، إِذَنْ مَازِنٌ الْأَوَّلُ، ثُمَّ خَالِدٌ، ثُمَّ فَهْدٌ.'],
+  ['رَامِي سَبَقَ سَامِي، وَسَامِي سَبَقَ هَادِي، وَمَازِنٌ وَصَلَ بَعْدَ هَادِي، وَفَهْدٌ وَصَلَ قَبْلَ رَامِي. مَنِ الْأَخِيرُ؟', 'مَازِنٌ', ['هَادِي', 'سَامِي', 'فَهْدٌ'], 'التَّرْتِيبُ: فَهْدٌ، ثُمَّ رَامِي، ثُمَّ سَامِي، ثُمَّ هَادِي، ثُمَّ مَازِنٌ.'],
+  ['لَيْلَى وَهِنْدُ وَنُورَةُ: إِحْدَاهُنَّ تُحِبُّ التُّفَّاحَ، وَالثَّانِيَةُ الْمَوْزَ، وَالثَّالِثَةُ الْعِنَبَ. لَيْلَى لَا تُحِبُّ الْمَوْزَ وَلَا الْعِنَبَ، وَهِنْدُ لَا تُحِبُّ الْعِنَبَ. مَاذَا تُحِبُّ نُورَةُ؟', 'الْعِنَبَ', ['التُّفَّاحَ', 'الْمَوْزَ'], 'لَيْلَى تُحِبُّ التُّفَّاحَ، وَهِنْدُ تُحِبُّ الْمَوْزَ، فَيَبْقَى لِنُورَةَ الْعِنَبُ.'],
+];
+ORD.forEach((o, i) => { SAY[`ord-${i}-q`] = o[0]; SAY[`ord-${i}-a`] = o[3]; });
+T('ord', { w:'l', name:'مَنْ قَبْلَ مَنْ؟', icon:'🏁', n:ORD.length,
+  gen(r, d, i){
+    const [story, ok, wrong, why] = ORD[i], num = /^[٠-٩]+$/.test(ok);
+    const plain = s => s.replace(/[ً-ْ]/g, '');
+    return { q:'اقْرَأْ، وَرَتِّبْ فِي عَقْلِكَ، ثُمَّ أَجِبْ.', say:[`ord-${i}-q`], board:`<div class="txt story">👦👧🧒<br>${story}</div>`,
+      opts:opts(r, num ? ok : plain(ok), wrong.map(w => num ? w : plain(w)), { w:!num }), cols:wrong.length === 2 ? 3 : 2,
+      ex:why, exSay:[`ord-${i}-a`] };
+  } });
+SAY['h-ord'] = 'قِصَصٌ قَصِيرَةٌ فِيهَا تَرْتِيبٌ: مَنِ الْأَطْوَلُ؟ مَنْ وَصَلَ أَوَّلًا؟ اقْرَأْ وَفَكِّرْ.';
+
+// ---------- world 2: riddles and trick questions ----------
+// [question, right answer, wrong answers, the answer told after it is solved]
+const RID = [
+  ['أَنَا أَطْوَلُ الْحَيَوَانَاتِ رَقَبَةً. مَنْ أَنَا؟', '🦒', ['🐘', '🐫', '🦓'], 'إِنَّهَا الزَّرَافَةُ! تَأْكُلُ أَوْرَاقَ الْأَشْجَارِ الْعَالِيَةِ.'],
+  ['أَنَا أَصْفَرُ وَطَوِيلٌ، تُقَشِّرُنِي قَبْلَ أَنْ تَأْكُلَنِي، وَيُحِبُّنِي الْقِرْدُ. مَنْ أَنَا؟', '🍌', ['🍋', '🌽', '🥕'], 'إِنَّهُ الْمَوْزُ! نُقَشِّرُهُ ثُمَّ نَأْكُلُهُ.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ أَرْبَعُ أَرْجُلٍ وَلَا يَمْشِي؟', '🪑', ['🐕', '🐄', '🐢'], 'إِنَّهُ الْكُرْسِيُّ! لَهُ أَرْبَعُ أَرْجُلٍ، لَكِنَّهُ لَا يَمْشِي.'],
+  ['مَا الشَّيْءُ الَّذِي يَكْتُبُ وَلَا يَقْرَأُ؟', '✏️', ['📖', '👓', '📱'], 'إِنَّهُ الْقَلَمُ! يَكْتُبُ كَثِيرًا، لَكِنَّهُ لَا يَقْرَأُ.'],
+  ['مَا الشَّيْءُ الَّذِي يَكْبَرُ كُلَّمَا نَفَخْتَ فِيهِ؟', '🎈', ['🧸', '📦', '🍎'], 'إِنَّهُ الْبَالُونُ! كُلَّمَا نَفَخْتَ فِيهِ كَبُرَ.'],
+  ['مَا الشَّيْءُ الَّذِي يَنْزِلُ مِنَ السَّمَاءِ وَلَا يَصْعَدُ إِلَيْهَا؟', '🌧️', ['🎈', '🚀', '🦅'], 'إِنَّهُ الْمَطَرُ! يَنْزِلُ مِنَ السَّمَاءِ إِلَى الْأَرْضِ.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ عَقَارِبُ وَلَا يَلْدَغُ؟', '⏰', ['🦂', '🐍', '🐝'], 'إِنَّهَا السَّاعَةُ! عَقَارِبُهَا تُشِيرُ إِلَى الْوَقْتِ، وَلَا تَلْدَغُ.'],
+  ['بَيْتٌ بِلَا أَبْوَابٍ وَلَا نَوَافِذَ، يَسْكُنُهُ كَتْكُوتٌ صَغِيرٌ. مَا هُوَ؟', '🥚', ['🏠', '📦', '🐚'], 'إِنَّهَا الْبَيْضَةُ! يَعِيشُ فِيهَا الْكَتْكُوتُ حَتَّى يَخْرُجَ.'],
+  ['حَيَوَانٌ يَحْمِلُ بَيْتَهُ عَلَى ظَهْرِهِ. مَا هُوَ؟', '🐢', ['🐇', '🐫', '🐘'], 'إِنَّهَا السُّلَحْفَاةُ! تَحْمِلُ دِرْعَهَا عَلَى ظَهْرِهَا أَيْنَمَا ذَهَبَتْ.'],
+  ['أَيُّ طَائِرٍ يَسْتَطِيعُ أَنْ يُدِيرَ رَأْسَهُ لِيَرَى مَا خَلْفَهُ؟', '🦉', ['🐔', '🦆', '🐧'], 'إِنَّهَا الْبُومَةُ! تُدِيرُ رَأْسَهَا كَثِيرًا لِتَرَى مَا خَلْفَهَا.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ أَسْنَانٌ وَلَا يَعَضُّ؟', 'الْمُشْطُ', ['التِّمْسَاحُ', 'الْقِطُّ', 'الْكُرْسِيُّ'], 'إِنَّهُ الْمُشْطُ! لَهُ أَسْنَانٌ، لَكِنَّهُ لَا يَعَضُّ.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ عَيْنٌ وَاحِدَةٌ وَلَا يَرَى؟', 'الْإِبْرَةُ', ['الْمِصْبَاحُ', 'الْقِطُّ', 'الْبُومَةُ'], 'إِنَّهَا الْإِبْرَةُ! لَهَا ثُقْبٌ صَغِيرٌ نُسَمِّيهِ عَيْنَهَا، لَكِنَّهَا لَا تَرَى.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ أَوْرَاقٌ وَلَيْسَ نَبَاتًا؟', '📖', ['🌳', '🍃', '🌵'], 'إِنَّهُ الْكِتَابُ! أَوْرَاقُهُ لِلْقِرَاءَةِ، لَا لِلنُّمُوِّ.'],
+  ['مَا الشَّيْءُ الَّذِي يَأْكُلُ وَلَا يَشْبَعُ؟', '🔥', ['🐘', '🦈', '🐛'], 'إِنَّهَا النَّارُ! كُلَّمَا أَعْطَيْتَهَا حَطَبًا أَكَلَتْهُ، وَطَلَبَتِ الْمَزِيدَ.'],
+  ['مَا الشَّيْءُ الَّذِي يَسْمَعُ بِلَا أُذُنٍ، وَيَتَكَلَّمُ بِلَا لِسَانٍ؟', '📱', ['📚', '🎒', '⏰'], 'إِنَّهُ الْهَاتِفُ! يَنْقُلُ صَوْتَكَ وَكَلَامَكَ.'],
+  ['مَا الشَّيْءُ الَّذِي تَحْمِلُهُ، وَهُوَ يَحْمِلُكَ؟', '👟', ['🎒', '🧢', '📚'], 'إِنَّهُ الْحِذَاءُ! تَحْمِلُهُ بِيَدِكَ، وَعِنْدَمَا تَلْبَسُهُ يَحْمِلُكَ.'],
+  ['مَا الشَّيْءُ الَّذِي نَشْتَرِيهِ لِنَأْكُلَ فِيهِ، وَلَا نَأْكُلُهُ؟', '🍽️', ['🍎', '🍞', '🍫'], 'إِنَّهُ الصَّحْنُ! نَأْكُلُ فِيهِ، وَلَا نَأْكُلُهُ.'],
+  ['أَنَا طَائِرٌ أَبْيَضُ وَأَسْوَدُ، أَعِيشُ فِي الْبَرْدِ، وَأَسْبَحُ وَلَا أَطِيرُ. مَنْ أَنَا؟', '🐧', ['🦓', '🐼', '🦅'], 'إِنَّهُ الْبِطْرِيقُ! طَائِرٌ يَسْبَحُ، وَلَا يَطِيرُ.'],
+  ['حَيَوَانٌ يَسْتَطِيعُ أَنْ يَنَامَ وَهُوَ وَاقِفٌ. مَا هُوَ؟', '🐴', ['🐶', '🐱', '🐰'], 'إِنَّهُ الْحِصَانُ! يَسْتَطِيعُ أَنْ يَنَامَ وَهُوَ وَاقِفٌ عَلَى أَرْجُلِهِ.'],
+  ['لَهُ عُنُقٌ طَوِيلٌ وَرِيشٌ أَبْيَضُ، وَيَسْبَحُ فِي الْبُحَيْرَةِ. مَا هُوَ؟', '🦢', ['🦒', '🐟', '🐧'], 'إِنَّهَا الْبَجَعَةُ! طَائِرٌ جَمِيلٌ يَسْبَحُ فِي الْبُحَيْرَاتِ.'],
+  ['يَمْشِي بِلَا أَرْجُلٍ، وَيَبْكِي بِلَا عُيُونٍ. مَا هُوَ؟', '☁️', ['🐍', '🚗', '🌊'], 'إِنَّهُ السَّحَابُ! يَتَحَرَّكُ فِي السَّمَاءِ، وَيَنْزِلُ مِنْهُ الْمَطَرُ.'],
+  ['مَا الشَّيْءُ الَّذِي يَبْتَلُّ كُلَّمَا جَفَّفَ؟', 'الْمِنْشَفَةُ', ['الْمِظَلَّةُ', 'الصَّابُونُ', 'الْمِرْوَحَةُ'], 'إِنَّهَا الْمِنْشَفَةُ! تُجَفِّفُنَا فَتَبْتَلُّ هِيَ.'],
+  ['مَا الشَّيْءُ الَّذِي يُكْسَرُ إِذَا نَطَقْتَ اسْمَهُ؟', '🤫', ['🥚', '🍪', '🎈'], 'إِنَّهُ الصَّمْتُ! إِذَا تَكَلَّمْتَ انْكَسَرَ الصَّمْتُ.'],
+  ['مَا الشَّيْءُ الَّذِي يَدُورُ حَوْلَ الْبَيْتِ، وَلَا يَتَحَرَّكُ؟', 'السُّورُ', ['الْقِطَّةُ', 'الْهَوَاءُ', 'السَّيَّارَةُ'], 'إِنَّهُ السُّورُ! يُحِيطُ بِالْبَيْتِ، وَهُوَ ثَابِتٌ لَا يَتَحَرَّكُ.'],
+  ['مَا الشَّيْءُ الَّذِي يَجْرِي، وَلَيْسَتْ لَهُ أَرْجُلٌ؟', '💧', ['🐢', '🐌', '🌳'], 'إِنَّهُ الْمَاءُ! يَجْرِي فِي الْأَنْهَارِ، وَلَيْسَتْ لَهُ أَرْجُلٌ.'],
+  ['مَا الَّذِي تَرَاهُ فِي السَّمَاءِ، وَلَا تَسْتَطِيعُ أَنْ تَلْمِسَهُ أَبَدًا؟', '🌈', ['🍎', '⚽', '🧸'], 'إِنَّهُ قَوْسُ قُزَحَ! نَرَاهُ فِي السَّمَاءِ، وَلَا نَسْتَطِيعُ أَنْ نَلْمِسَهُ.'],
+  ['لَهُ ذَيْلٌ طَوِيلٌ، وَيَطِيرُ فِي السَّمَاءِ، وَلَيْسَ طَائِرًا. نُمْسِكُهُ بِخَيْطٍ. مَا هُوَ؟', 'الطَّائِرَةُ الْوَرَقِيَّةُ', ['الصَّارُوخُ', 'الْبَالُونُ', 'الطَّائِرَةُ'], 'إِنَّهَا الطَّائِرَةُ الْوَرَقِيَّةُ! يُحَرِّكُهَا الْهَوَاءُ، وَنُمْسِكُ خَيْطَهَا.'],
+  ['مَا الشَّيْءُ الَّذِي كُلَّمَا طَالَ اشْتِعَالُهُ قَصُرَ؟', '🕯️', ['🔦', '💡', '🔥'], 'إِنَّهَا الشَّمْعَةُ! كُلَّمَا اشْتَعَلَتْ ذَابَتْ وَقَصُرَتْ.'],
+  ['مَا الشَّيْءُ الَّذِي نَرْمِيهِ فِي الْمَاءِ كُلَّمَا أَرَدْنَا أَنْ نَتَوَقَّفَ؟', '⚓', ['🛶', '🧭', '🏝️'], 'إِنَّهَا الْمِرْسَاةُ! نَرْمِيهَا فِي الْبَحْرِ لِيَتَوَقَّفَ الْقَارِبُ.'],
+  ['مَا الشَّيْءُ الَّذِي لَهُ رَقَبَةٌ، وَلَيْسَ لَهُ رَأْسٌ؟', 'الزُّجَاجَةُ', ['الزَّرَافَةُ', 'الْكُرْسِيُّ', 'الْبَطَّةُ'], 'إِنَّهَا الزُّجَاجَةُ! لَهَا رَقَبَةٌ، وَلَيْسَ لَهَا رَأْسٌ.'],
+  ['مَا الشَّيْءُ الَّذِي كُلَّمَا أَخَذْتَ مِنْهُ كَبُرَ؟', '🕳️', ['🎈', '🍰', '🌳'], 'إِنَّهَا الْحُفْرَةُ! كُلَّمَا أَخَذْتَ مِنْ تُرَابِهَا صَارَتْ أَكْبَرَ.'],
+  ['أَخْضَرُ فِي الْمَزْرَعَةِ، أَسْوَدُ فِي السُّوقِ، أَحْمَرُ فِي الْكُوبِ. مَا هُوَ؟', 'الشَّايُ', ['الطَّمَاطِمُ', 'الْبِطِّيخُ', 'الْفُلْفُلُ'], 'إِنَّهُ الشَّايُ! أَوْرَاقُهُ خَضْرَاءُ فِي الْمَزْرَعَةِ، وَسَوْدَاءُ فِي السُّوقِ، وَحَمْرَاءُ فِي الْكُوبِ.'],
+  ['شَيْءٌ يَقْرُصُكَ فِي بَطْنِكَ، وَلَا تَرَاهُ. مَا هُوَ؟', 'الْجُوعُ', ['الْبَعُوضَةُ', 'النَّمْلَةُ', 'الْقِطَّةُ'], 'إِنَّهُ الْجُوعُ! تَشْعُرُ بِهِ فِي بَطْنِكَ، وَلَا تَرَاهُ.'],
+  ['تَسْمَعُهُ وَلَا تَرَاهُ، وَإِذَا تَكَلَّمْتَ رَدَّ عَلَيْكَ بِكَلَامِكَ نَفْسِهِ. مَا هُوَ؟', 'الصَّدَى', ['الْهَاتِفُ', 'الْبَبَّغَاءُ', 'الرِّيحُ'], 'إِنَّهُ الصَّدَى! يُعِيدُ كَلَامَكَ فِي الْجِبَالِ وَالْكُهُوفِ.'],
+  ['شَيْءٌ إِذَا وَضَعْتَهُ فِي الثَّلَّاجَةِ يَبْقَى حَارًّا. مَا هُوَ؟', '🌶️', ['🧊', '🍦', '🥛'], 'إِنَّهُ الْفُلْفُلُ الْحَارُّ! يَبْقَى طَعْمُهُ حَارًّا دَائِمًا.'],
+  ['شَيْءٌ تَرَاهُ فِي اللَّيْلِ ثَلَاثَ مَرَّاتٍ، وَفِي النَّهَارِ مَرَّةً وَاحِدَةً. مَا هُوَ؟', 'حَرْفُ اللَّامِ', ['الْقَمَرُ', 'النُّجُومُ', 'الشَّمْسُ'], 'إِنَّهُ حَرْفُ اللَّامِ! فِي كَلِمَةِ اللَّيْلِ ثَلَاثُ لَامَاتٍ، وَفِي كَلِمَةِ النَّهَارِ لَامٌ وَاحِدَةٌ.'],
+  ['شَيْءٌ تَجِدُهُ فِي الْقَرْنِ مَرَّةً، وَفِي الدَّقِيقَةِ مَرَّتَيْنِ، وَلَا تَجِدُهُ فِي الْيَوْمِ. مَا هُوَ؟', 'حَرْفُ الْقَافِ', ['حَرْفُ الدَّالِ', 'الثَّانِيَةُ', 'السَّاعَةُ'], 'إِنَّهُ حَرْفُ الْقَافِ! فِي كَلِمَةِ قَرْنٍ قَافٌ وَاحِدَةٌ، وَفِي كَلِمَةِ دَقِيقَةٍ قَافَانِ، وَلَا قَافَ فِي كَلِمَةِ يَوْمٍ.'],
+];
+const TRK = [
+  ['أَيُّهُمَا أَثْقَلُ: كِيلُو مِنَ الْحَدِيدِ، أَمْ كِيلُو مِنَ الْقُطْنِ؟', 'مُتَسَاوِيَانِ', ['الْحَدِيدُ', 'الْقُطْنُ'], 'لَهُمَا الْوَزْنُ نَفْسُهُ: كِيلُو وَكِيلُو!'],
+  ['إِذَا كَانَ عِنْدَكَ ثَلَاثُ تُفَّاحَاتٍ، وَأَخَذْتَ مِنْهَا اثْنَتَيْنِ، فَكَمْ تُفَّاحَةً مَعَكَ؟', '٢', ['١', '٣', '٥'], 'أَنْتَ أَخَذْتَ اثْنَتَيْنِ، فَمَعَكَ اثْنَتَانِ!'],
+  ['أَيُّهُمَا أَكْثَرُ: أَصَابِعُ يَدَيْكَ، أَمْ أَصَابِعُ قَدَمَيْكَ؟', 'مُتَسَاوِيَةٌ', ['الْيَدَانِ', 'الْقَدَمَانِ'], 'مُتَسَاوِيَةٌ: عَشَرَةٌ وَعَشَرَةٌ!'],
+  ['عِنْدَ أَحْمَدَ عَشْرُ سَمَكَاتٍ فِي حَوْضٍ، غَرِقَتْ مِنْهَا اثْنَتَانِ. كَمْ سَمَكَةً بَقِيَتْ؟', '١٠', ['٨', '١٢', '٢'], 'السَّمَكُ لَا يَغْرَقُ! بَقِيَتِ السَّمَكَاتُ الْعَشْرُ كُلُّهَا.'],
+  ['دِيكٌ وَقَفَ عَلَى سَطْحِ بَيْتٍ، وَبَاضَ بَيْضَةً. عَلَى أَيِّ جِهَةٍ تَقَعُ الْبَيْضَةُ؟', 'الدِّيكُ لَا يَبِيضُ', ['الْيَمِينُ', 'الْيَسَارُ'], 'الدِّيكُ لَا يَبِيضُ! الدَّجَاجَةُ هِيَ الَّتِي تَبِيضُ.'],
+  ['فِي سِبَاقٍ لِلْجَرْيِ، سَبَقْتَ الْعَدَّاءَ الثَّانِيَ. فِي أَيِّ مَرْكَزٍ أَنْتَ الْآنَ؟', 'الثَّانِي', ['الْأَوَّلُ', 'الثَّالِثُ'], 'أَخَذْتَ مَكَانَهُ، فَصِرْتَ أَنْتَ الثَّانِيَ!'],
+  ['كَمْ زَاوِيَةً لِلدَّائِرَةِ؟', '٠', ['١', '٤', '٣٦٠'], 'لَيْسَ لِلدَّائِرَةِ زَوَايَا! إِنَّهَا مُسْتَدِيرَةٌ.'],
+  ['وُلِدَ طِفْلٌ فِي الرِّيَاضِ، وَأَبُوهُ مِنْ جِدَّةَ، وَأُمُّهُ مِنْ مَكَّةَ. أَيْنَ تَنْبُتُ أَسْنَانُهُ؟', 'فِي فَمِهِ', ['فِي الرِّيَاضِ', 'فِي جِدَّةَ', 'فِي مَكَّةَ'], 'فِي فَمِهِ طَبْعًا! الْأَسْنَانُ تَنْبُتُ فِي الْفَمِ.'],
+  ['كَمْ شَهْرًا فِي السَّنَةِ فِيهِ ثَمَانِيَةٌ وَعِشْرُونَ يَوْمًا؟', '١٢', ['١', '٢', '٦'], 'كُلُّ الشُّهُورِ فِيهَا ثَمَانِيَةٌ وَعِشْرُونَ يَوْمًا عَلَى الْأَقَلِّ!'],
+  ['إِذَا أَعْطَيْتَ صَدِيقَكَ نِصْفَ تُفَّاحَتِكَ، وَأَعْطَاكَ هُوَ نِصْفَ تُفَّاحَتِهِ، فَكَمْ تُفَّاحَةً مَعَكَ؟', '١', ['٢', '٠', '٣'], 'تُفَّاحَةٌ وَاحِدَةٌ: نِصْفُكَ وَنِصْفُهُ!'],
+  ['لَوْ رَمَيْتَ حَجَرًا أَبْيَضَ فِي الْبَحْرِ الْأَحْمَرِ، فَمَاذَا يَحْدُثُ لَهُ؟', 'يَبْتَلُّ وَيَغْرَقُ', ['يَصِيرُ أَحْمَرَ', 'يَطْفُو'], 'يَبْتَلُّ وَيَغْرَقُ! مَاءُ الْبَحْرِ الْأَحْمَرِ لَيْسَ أَحْمَرَ، وَإِنَّمَا هَذَا اسْمُهُ.'],
+  ['أَيُّهُمَا أَسْرَعُ: الصَّوْتُ أَمِ الضَّوْءُ؟', 'الضَّوْءُ', ['الصَّوْتُ', 'مُتَسَاوِيَانِ'], 'الضَّوْءُ أَسْرَعُ بِكَثِيرٍ! لِذَلِكَ نَرَى الْبَرْقَ قَبْلَ أَنْ نَسْمَعَ الرَّعْدَ.'],
+  ['إِذَا كَانَ يَوْمُ أَمْسِ الْخَمِيسَ، فَأَيُّ يَوْمٍ يَكُونُ غَدًا؟', 'السَّبْتُ', ['الْجُمُعَةُ', 'الْأَحَدُ', 'الْأَرْبِعَاءُ'], 'الْيَوْمُ هُوَ الْجُمُعَةُ، إِذَنْ غَدًا السَّبْتُ!'],
+  ['كَمْ بَيْضَةً تَسْتَطِيعُ أَنْ تَأْكُلَ وَمَعِدَتُكَ فَارِغَةٌ؟', 'وَاحِدَةً', ['ثَلَاثًا', 'عَشْرًا', 'وَلَا وَاحِدَةً'], 'وَاحِدَةً فَقَطْ! بَعْدَهَا لَا تَكُونُ مَعِدَتُكَ فَارِغَةً.'],
+  ['عِنْدَكَ صَحْنٌ فِيهِ عَشْرُ حَبَّاتٍ مِنَ الْعِنَبِ، أَكَلْتَهَا كُلَّهَا إِلَّا ثَلَاثًا. كَمْ حَبَّةً بَقِيَتْ؟', '٣', ['٧', '١٠', '١٣'], 'بَقِيَتْ ثَلَاثُ حَبَّاتٍ! كُلَّهَا إِلَّا ثَلَاثًا تَعْنِي أَنَّ الثَّلَاثَ لَمْ تُؤْكَلْ.'],
+  ['كَمْ مَرَّةً تَسْتَطِيعُ أَنْ تَطْرَحَ خَمْسَةً مِنْ خَمْسَةٍ وَعِشْرِينَ؟', '١', ['٥', '٤', '٢٥'], 'مَرَّةً وَاحِدَةً فَقَطْ! بَعْدَهَا لَا يَبْقَى خَمْسَةٌ وَعِشْرُونَ، بَلْ عِشْرُونَ.'],
+  ['وَالِدُ عَلِيٍّ لَهُ أَرْبَعَةُ أَبْنَاءٍ: شَمَالٌ، وَجَنُوبٌ، وَشَرْقٌ. مَا اسْمُ الِابْنِ الرَّابِعِ؟', 'عَلِيٌّ', ['غَرْبٌ', 'سَعِيدٌ', 'وَسَطٌ'], 'الِابْنُ الرَّابِعُ هُوَ عَلِيٌّ نَفْسُهُ! السُّؤَالُ قَالَ: وَالِدُ عَلِيٍّ.'],
+  ['مَا الْعَدَدُ الَّذِي إِذَا ضَرَبْتَهُ فِي أَيِّ عَدَدٍ كَانَ الْجَوَابُ هُوَ نَفْسَهُ دَائِمًا؟', '٠', ['١', '١٠', '١٠٠'], 'إِنَّهُ الصِّفْرُ! صِفْرٌ ضَرْبَ أَيِّ عَدَدٍ يُسَاوِي صِفْرًا.'],
+  ['فِي غُرْفَةٍ أَرْبَعُ زَوَايَا، فِي كُلِّ زَاوِيَةٍ قِطَّةٌ، وَأَمَامَ كُلِّ قِطَّةٍ ثَلَاثُ قِطَطٍ. كَمْ قِطَّةً فِي الْغُرْفَةِ؟', '٤', ['١٢', '١٦', '٨'], 'أَرْبَعُ قِطَطٍ فَقَطْ! كُلُّ قِطَّةٍ تَرَى أَمَامَهَا الْقِطَطَ الثَّلَاثَ الْأُخْرَى.'],
+  ['قِطَارٌ كَهْرَبَائِيٌّ يَسِيرُ نَحْوَ الشَّمَالِ، وَالرِّيحُ تَهُبُّ نَحْوَ الْجَنُوبِ. إِلَى أَيْنَ يَذْهَبُ دُخَانُهُ؟', 'لَا دُخَانَ لَهُ', ['الشَّمَالُ', 'الْجَنُوبُ', 'الْأَعْلَى'], 'الْقِطَارُ الْكَهْرَبَائِيُّ لَيْسَ لَهُ دُخَانٌ!'],
+  ['تَخَيَّلْ أَنَّكَ سَائِقُ حَافِلَةٍ. رَكِبَ خَمْسَةُ رُكَّابٍ، ثُمَّ نَزَلَ اثْنَانِ، ثُمَّ رَكِبَ ثَلَاثَةٌ. مَا لَوْنُ عَيْنَيِ السَّائِقِ؟', 'لَوْنُ عَيْنَيْكَ', ['أَسْوَدُ', 'أَزْرَقُ', 'لَا نَعْرِفُ'], 'لَوْنُ عَيْنَيْكَ أَنْتَ! لِأَنَّ السُّؤَالَ قَالَ: تَخَيَّلْ أَنَّكَ السَّائِقُ.'],
+  ['رَجُلٌ مَشَى تَحْتَ الْمَطَرِ بِلَا مِظَلَّةٍ وَلَا قُبَّعَةٍ، وَلَمْ تَبْتَلَّ شَعْرَةٌ وَاحِدَةٌ مِنْ رَأْسِهِ. كَيْفَ؟', 'لِأَنَّهُ أَصْلَعُ', ['لِأَنَّهُ رَكَضَ', 'الْمَطَرُ خَفِيفٌ', 'لَبِسَ مِعْطَفًا'], 'لِأَنَّهُ أَصْلَعُ، لَيْسَ عَلَى رَأْسِهِ شَعْرٌ!'],
+  ['كَمْ يَوْمًا مِنْ أَيَّامِ الْأُسْبُوعِ يَبْدَأُ اسْمُهُ بِحَرْفِ الْأَلِفِ؟', '٧', ['٢', '١', '٠'], 'كُلُّهَا! كُلُّ أَيَّامِ الْأُسْبُوعِ تَبْدَأُ بِالْأَلِفِ وَاللَّامِ: السَّبْتُ، الْأَحَدُ، الِاثْنَيْنِ، وَهَكَذَا.'],
+  ['ثَلَاثَةُ أَطْفَالٍ يَأْكُلُونَ ثَلَاثَ تُفَّاحَاتٍ فِي ثَلَاثِ دَقَائِقَ. كَمْ دَقِيقَةً يَحْتَاجُ طِفْلٌ وَاحِدٌ لِيَأْكُلَ تُفَّاحَةً وَاحِدَةً؟', '٣', ['١', '٩', '٦'], 'ثَلَاثُ دَقَائِقَ! كُلُّ طِفْلٍ يَأْكُلُ تُفَّاحَتَهُ فِي ثَلَاثِ دَقَائِقَ.'],
+  ['كَمْ مَرَّةً نَكْتُبُ الرَّقْمَ تِسْعَةً عِنْدَمَا نَكْتُبُ الْأَعْدَادَ مِنْ وَاحِدٍ إِلَى مِئَةٍ؟', '٢٠', ['١٠', '١٩', '١١'], 'عِشْرُونَ مَرَّةً! عَشْرُ مَرَّاتٍ فِي الْآحَادِ، وَعَشْرُ مَرَّاتٍ فِي الْعَشَرَاتِ مِنْ تِسْعِينَ إِلَى تِسْعَةٍ وَتِسْعِينَ.'],
+  ['مَا الْكَلِمَةُ الَّتِي نَكْتُبُهَا دَائِمًا خَطَأً؟', 'خَطَأ', ['صَوَاب', 'كَلِمَة', 'حَرْف'], 'إِنَّهَا كَلِمَةُ خَطَأٍ نَفْسُهَا! لِأَنَّنَا نَكْتُبُهَا دَائِمًا هَكَذَا.'],
+];
+// the riddles and trick questions use the same screen
+function quizKind(id, name, icon, LIST, q, how){
+  LIST.forEach((x, i) => { SAY[`${id}-${i}-q`] = x[0]; SAY[`${id}-${i}-a`] = x[3]; });
+  T(id, { w:'l', name, icon, n:LIST.length,
+    gen(r, d, i){
+      const [qq, ok, wrong, ans] = LIST[i], pic = /\p{Extended_Pictographic}/u.test(ok), num = /^[٠-٩]+$/.test(ok);
+      const plain = s => s.replace(/[ً-ْ]/g, '');
+      const show = s => pic ? `<span style="font-size:46px">${s}</span>` : num ? s : plain(s);
+      return { q, say:[`${id}-${i}-q`], board:`<div class="txt story">${icon}<br>${qq}</div>`,
+        opts:opts(r, show(ok), wrong.map(show), { pic, w:!pic && !num }), cols:wrong.length === 2 ? 3 : 2, ex:ans, exSay:[`${id}-${i}-a`] };
+    } });
+  SAY['h-' + id] = how;
+}
+quizKind('rid', 'فَوَازِيرُ', '🧩', RID, 'فَكِّرْ جَيِّدًا: مَا الْجَوَابُ؟', 'فَوَازِيرُ مُمْتِعَةٌ! اسْمَعِ اللُّغْزَ، وَفَكِّرْ قَبْلَ أَنْ تُجِيبَ.');
+quizKind('trk', 'أَسْئِلَةٌ خَادِعَةٌ', '🃏', TRK, 'انْتَبِهْ! السُّؤَالُ فِيهِ خُدْعَةٌ.', 'أَسْئِلَةٌ خَادِعَةٌ! اقْرَأْ كُلَّ كَلِمَةٍ بِانْتِبَاهٍ، فَالْجَوَابُ السَّرِيعُ قَدْ يَكُونُ خَطَأً.');
+
+// ---------- world 3: mental maths (part 1) ----------
+
+// a row of tokens read from right to left (numbers, pictures, signs)
+const eqRow = toks => `<div class="eq">${toks.map(t => `<span>${t}</span>`).join('')}</div>`;
+
+// ===== picture equations =====
+const EQN_SETS = [['🍎','🍌','🍇'], ['🍓','🍊','🍉'], ['🐶','🐱','🐰'], ['⚽','🎈','⭐'], ['🍩','🍪','🧁'], ['🚗','🚲','🚀'], ['🐸','🐢','🐟'], ['🌸','🌻','🍀']];
+T('eqn', { w:'m', name:'مُعَادَلَاتُ الصُّوَرِ', icon:'🍎', n:40,
+  gen(r, d){
+    const [A, B, C] = shuf(r, pk(r, EQN_SETS));
+    let a, b, c, rows, ask, ans;
+    if (d === 0) { a = ri(r, 2, 9); b = ri(r, 1, 9);
+      rows = [[A, '+', A, '=', dg(2 * a)], [A, '+', B, '=', dg(a + b)]]; ask = [B]; ans = b; }
+    else if (d === 1) { a = ri(r, 2, 10); b = ri(r, 1, 9); c = ri(r, 1, 9);
+      rows = [[A, '+', A, '+', A, '=', dg(3 * a)], [A, '+', B, '+', B, '=', dg(a + 2 * b)], [B, '+', C, '=', dg(b + c)]]; ask = [A, '+', B, '+', C]; ans = a + b + c; }
+    else if (d === 2) { a = ri(r, 2, 9); b = ri(r, 2, 6); c = ri(r, 1, 9);
+      rows = [[A, '+', A, '=', dg(2 * a)], [A, '×', B, '=', dg(a * b)], [C, '−', B, '=', dg(c)]]; c += b; ask = [A, '+', B, '+', C]; ans = a + b + c; }
+    else { a = ri(r, 2, 10); b = ri(r, 2, 9); c = ri(r, 2, 5);
+      rows = [[A, '+', A, '+', A, '=', dg(3 * a)], [A, '+', B, '+', B, '=', dg(a + 2 * b)], [B, '×', C, '=', dg(b * c)]]; ask = [C, '+', A, '×', C]; ans = c + a * c; }
+    if (d === 3 && r() < .5) { ask = [A, '+', B, '+', C]; ans = a + b + c; }
+    const vals = [[A, a], [B, b], [C, c]].filter(v => v[1] != null);
+    const board = `<div class="eqs">${rows.map(eqRow).join('')}${eqRow([...ask, '=', '<b class="qm">؟</b>'])}</div>`;
+    const note = ask.includes('×') && ask.includes('+') ? '<div class="note">✖️ قَبْلَ ➕</div>' : '';
+    return { q:'كُلُّ صُورَةٍ لَهَا قِيمَةٌ. احْسُبِ السَّطْرَ الْأَخِيرَ!', say:['q-eqn'], board:board + note, opts:numOpts(r, ans),
+      exBoard:`<div class="eqs"><div class="vals">${vals.map(v => `<span>${v[0]} = ${dg(v[1])}</span>`).join('')}</div>${eqRow([...ask, '=', '<b>' + dg(ans) + '</b>'])}</div>`,
+      ex:'أَوَّلًا نَجِدُ قِيمَةَ كُلِّ صُورَةٍ، ثُمَّ نَحْسُبُ.' + (note ? ' وَنَضْرِبُ قَبْلَ أَنْ نَجْمَعَ.' : ''), exSay:[note ? 'ex-eqn-x' : 'ex-eqn'] };
+  } });
+SAY['q-eqn'] = 'كُلُّ صُورَةٍ لَهَا قِيمَةٌ. احْسُبِ السَّطْرَ الْأَخِيرَ!';
+SAY['ex-eqn'] = 'أَوَّلًا نَجِدُ قِيمَةَ كُلِّ صُورَةٍ مِنَ السُّطُورِ الْأُولَى، ثُمَّ نَحْسُبُ السَّطْرَ الْأَخِيرَ.';
+SAY['ex-eqn-x'] = 'نَجِدُ قِيمَةَ كُلِّ صُورَةٍ، ثُمَّ نَحْسُبُ. وَتَذَكَّرْ: نَضْرِبُ قَبْلَ أَنْ نَجْمَعَ!';
+SAY['h-eqn'] = 'كُلُّ صُورَةٍ تُخْفِي عَدَدًا. اكْتَشِفْ قِيمَتَهَا مِنَ السُّطُورِ، ثُمَّ احْسُبْ.';
+
+// ===== number sequences =====
+const STEPS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 20, 25, 50, 100];
+STEPS.forEach(k => { SAY['ex-seq-add-' + k] = `نُضِيفُ ${NUM_ACC[k]} كُلَّ مَرَّةٍ.`; SAY['ex-seq-sub-' + k] = `نَطْرَحُ ${NUM_ACC[k]} كُلَّ مَرَّةٍ.`; });
+Object.assign(SAY, {
+  'ex-seq-mul2':'كُلُّ عَدَدٍ ضِعْفُ الْعَدَدِ الَّذِي قَبْلَهُ.',
+  'ex-seq-mul3':'نَضْرِبُ فِي ثَلَاثَةٍ كُلَّ مَرَّةٍ.',
+  'ex-seq-mul10':'نَضْرِبُ فِي عَشَرَةٍ كُلَّ مَرَّةٍ.',
+  'ex-seq-half':'كُلُّ عَدَدٍ نِصْفُ الْعَدَدِ الَّذِي قَبْلَهُ.',
+  'ex-seq-grow':'الزِّيَادَةُ تَكْبَرُ كُلَّ مَرَّةٍ: نُضِيفُ وَاحِدًا، ثُمَّ اثْنَيْنِ، ثُمَّ ثَلَاثَةً، وَهَكَذَا.',
+  'ex-seq-sq':'كُلُّ عَدَدٍ مَضْرُوبٌ فِي نَفْسِهِ: وَاحِدٌ فِي وَاحِدٍ، اثْنَانِ فِي اثْنَيْنِ، ثَلَاثَةٌ فِي ثَلَاثَةٍ، وَهَكَذَا.',
+  'ex-seq-alt':'عَمَلِيَّتَانِ بِالتَّنَاوُبِ: نُضِيفُ مَرَّةً، وَنَطْرَحُ مَرَّةً.',
+  'ex-seq-fib':'كُلُّ عَدَدٍ هُوَ مَجْمُوعُ الْعَدَدَيْنِ اللَّذَيْنِ قَبْلَهُ.',
+  'ex-seq-two':'هُنَا سِلْسِلَتَانِ مُتَدَاخِلَتَانِ: عَدَدٌ مِنْ هَذِهِ، وَعَدَدٌ مِنْ تِلْكَ.',
+  'q-seq':'مَا الْعَدَدُ التَّالِي؟', 'q-seq-mid':'مَا الْعَدَدُ النَّاقِصُ؟',
+  'h-seq':'الْأَعْدَادُ تَسِيرُ عَلَى قَاعِدَةٍ. اكْتَشِفْهَا، وَأَكْمِلِ السِّلْسِلَةَ.',
+});
+function numRow(vals, hole, ops){
+  const n = vals.length, per = n > 6 ? 4 : n, rows = Math.ceil(n / per), S = Math.min(78, (344 - (per - 1) * 10) / per), gap = 10, W = 360;
+  const x0 = (W - (per * S + (per - 1) * gap)) / 2, rh = S + (ops ? 26 : 0) + 10;
+  let b = '';
+  vals.forEach((v, i) => {
+    const col = i % per, row = Math.floor(i / per), x = W - x0 - col * (S + gap) - S / 2, y = 8 + row * rh + S / 2, q = i === hole;
+    b += `<rect x="${f1(x - S / 2)}" y="${f1(y - S / 2)}" width="${f1(S)}" height="${f1(S)}" rx="14" fill="${q ? '#fff7d6' : '#fff'}" stroke="${q ? '#ffc21a' : '#3d7dff'}" stroke-width="4" ${q ? 'stroke-dasharray="8 6"' : ''}/>` +
+      txt(x, y, q ? '؟' : dg(v), String(v).length > 2 ? 23 : 28, q ? '#e0a800' : '#2b2f55');
+    if (ops && i < n - 1 && col < per - 1) b += txt(x - S / 2 - gap / 2, y + S / 2 + 14, ops[i], 15, '#e63946');
+  });
+  return SV(W, 16 + rows * rh - (rows ? 10 : 0) + (ops ? 0 : 0), b);
+}
+T('seq', { w:'m', name:'سَلَاسِلُ الْأَعْدَادِ', icon:'🔢', n:40,
+  gen(r, d){
+    const kinds = [['add', 'add', 'sub'], ['add', 'sub', 'mul2', 'add'], ['add', 'sub', 'mul3', 'half', 'grow', 'alt'], ['sq', 'fib', 'two', 'grow', 'mul2', 'alt']][d];
+    const kind = pk(r, kinds), len = d === 3 ? 6 : 5;
+    let v = [], ex, ops = null, k;
+    const stepSet = [[1, 2, 3, 5, 10], [2, 3, 4, 5, 6, 7, 8, 9], [11, 12, 15, 20, 25], [3, 4, 6, 7, 8, 9, 12]][d];
+    if (kind === 'add') { k = pk(r, stepSet); const s = ri(r, 0, d ? 20 : 10); v = range(len + 1).map(i => s + i * k); ex = 'add-' + k; ops = v.map(() => '+' + dg(k)); }
+    if (kind === 'sub') { k = pk(r, stepSet); const s = k * (len + 1) + ri(r, 0, 20); v = range(len + 1).map(i => s - i * k); ex = 'sub-' + k; ops = v.map(() => '−' + dg(k)); }
+    if (kind === 'mul2') { const s = ri(r, 1, d === 3 ? 6 : 3); v = range(len + 1).map(i => s * 2 ** i); ex = 'mul2'; ops = v.map(() => '×٢'); }
+    if (kind === 'mul3') { const s = ri(r, 1, 2); v = range(len).map(i => s * 3 ** i); ex = 'mul3'; ops = v.map(() => '×٣'); }
+    if (kind === 'half') { const s = pk(r, [64, 128, 96, 160, 192]); v = range(len + 1).map(i => s / 2 ** i); ex = 'half'; ops = v.map(() => '÷٢'); }
+    if (kind === 'grow') { let s = ri(r, 1, 10); v = [s]; for (let i = 1; i <= len; i++) { s += i; v.push(s); } ex = 'grow'; ops = range(len).map(i => '+' + dg(i + 1)); }
+    if (kind === 'sq') { const s = ri(r, 1, 3); v = range(len + 1).map(i => (s + i) ** 2); ex = 'sq'; }
+    if (kind === 'fib') { const a = ri(r, 1, 3), b = ri(r, a, 4); v = [a, b]; while (v.length < len + 1) v.push(v[v.length - 1] + v[v.length - 2]); ex = 'fib'; }
+    if (kind === 'alt') { const up = ri(r, 3, d === 3 ? 9 : 6), dn = ri(r, 1, up - 1); let s = ri(r, 1, 10); v = [s];
+      for (let i = 0; i < len; i++) { s += i % 2 ? -dn : up; v.push(s); } ex = 'alt'; ops = range(len).map(i => i % 2 ? '−' + dg(dn) : '+' + dg(up)); }
+    if (kind === 'two') { const s1 = ri(r, 1, 5), k1 = ri(r, 2, 5), s2 = ri(r, 20, 40), k2 = ri(r, 2, 5);
+      v = range(len + 1).map(i => i % 2 ? s2 - Math.floor(i / 2) * k2 : s1 + (i / 2) * k1); ex = 'two'; }
+    const mid = d >= 2 && r() < .35 && !['fib', 'two'].includes(kind);
+    const hole = mid ? 2 + ri(r, 0, 1) : v.length - 1, ans = v[hole];
+    const shown = mid ? v.slice(0, v.length) : v;
+    const near = kind === 'add' || kind === 'sub' ? [k, -k, 1, -1, 2] : [1, -1, 2, -2, 5, 10];
+    return { q:mid ? 'مَا الْعَدَدُ النَّاقِصُ؟' : 'مَا الْعَدَدُ التَّالِي؟', say:[mid ? 'q-seq-mid' : 'q-seq'], board:numRow(shown, hole),
+      opts:numOpts(r, ans, near), exBoard:numRow(shown, -1, ops), ex:SAY['ex-seq-' + ex], exSay:['ex-seq-' + ex] };
+  } });
+
+// ===== numbers in shapes: one rule for every shape =====
+const SHN_F = {
+  tsum:{ k:'t', f:(a, b, c) => a + b + c, gen:r => [ri(r, 1, 9), ri(r, 1, 9), ri(r, 1, 9)] },
+  tmul:{ k:'t', f:(a, b, c) => a * b * c, gen:r => [ri(r, 1, 4), ri(r, 2, 4), ri(r, 1, 5)] },
+  tmix:{ k:'t', f:(a, b, c) => (b + c) * a, gen:r => [ri(r, 2, 4), ri(r, 1, 6), ri(r, 1, 6)] },
+  rsum:{ k:'r', f:(a, b) => a + b, gen:r => [ri(r, 1, 20), ri(r, 1, 20)] },
+  rmul:{ k:'r', f:(a, b) => a * b, gen:r => [ri(r, 2, 9), ri(r, 2, 9)] },
+  rdif:{ k:'r', f:(a, b) => Math.abs(a - b), gen:r => [ri(r, 5, 30), ri(r, 1, 30)] },
+  xsum:{ k:'x', f:(a, b, c, e) => a + b + c + e, gen:r => [ri(r, 1, 12), ri(r, 1, 12), ri(r, 1, 12), ri(r, 1, 12)] },
+};
+const SHN_D = [['tsum', 'rsum'], ['rmul', 'xsum', 'tsum'], ['tmix', 'rdif', 'xsum', 'rmul'], ['tmul', 'tmix', 'rdif']];
+Object.assign(SAY, {
+  'ex-shn-tsum':'الْعَدَدُ فِي الْوَسَطِ هُوَ مَجْمُوعُ الْأَعْدَادِ الثَّلَاثَةِ فِي الزَّوَايَا.',
+  'ex-shn-tmul':'الْعَدَدُ فِي الْوَسَطِ هُوَ حَاصِلُ ضَرْبِ الْأَعْدَادِ الثَّلَاثَةِ فِي الزَّوَايَا.',
+  'ex-shn-tmix':'نَجْمَعُ الْعَدَدَيْنِ فِي الْأَسْفَلِ، ثُمَّ نَضْرِبُ الْمَجْمُوعَ فِي الْعَدَدِ الَّذِي فِي الْأَعْلَى.',
+  'ex-shn-rsum':'الْعَدَدُ فِي السَّقْفِ هُوَ مَجْمُوعُ الْعَدَدَيْنِ تَحْتَهُ.',
+  'ex-shn-rmul':'الْعَدَدُ فِي السَّقْفِ هُوَ حَاصِلُ ضَرْبِ الْعَدَدَيْنِ تَحْتَهُ.',
+  'ex-shn-rdif':'الْعَدَدُ فِي السَّقْفِ هُوَ الْفَرْقُ بَيْنَ الْعَدَدَيْنِ تَحْتَهُ: الْكَبِيرُ نَاقِصَ الصَّغِيرِ.',
+  'ex-shn-xsum':'الْعَدَدُ فِي الْوَسَطِ هُوَ مَجْمُوعُ الْأَعْدَادِ الْأَرْبَعَةِ حَوْلَهُ.',
+  'q-shn':'اكْتَشِفِ الْقَاعِدَةَ: مَا الْعَدَدُ النَّاقِصُ؟',
+  'h-shn':'فِي كُلِّ شَكْلٍ أَعْدَادٌ تَتْبَعُ الْقَاعِدَةَ نَفْسَهَا. اكْتَشِفْهَا مِنَ الْأَشْكَالِ الْكَامِلَةِ.',
+});
+function shnDraw(kind, x, y, nums, res, q){
+  const N = (v, nx, ny, sz = 22, c = '#2b2f55') => txt(nx, ny, v, sz, c);
+  const R = q ? N('؟', x, kind === 'r' ? y - 38 : y + (kind === 't' ? 8 : 0), 26, '#e0a800') : N(dg(res), x, kind === 'r' ? y - 38 : y + (kind === 't' ? 8 : 0), 22, '#e63946');
+  if (kind === 't') return `<polygon points="${x},${y - 44} ${x + 44},${y + 38} ${x - 44},${y + 38}" fill="#fff" stroke="#3d7dff" stroke-width="3.5" stroke-linejoin="round"/>` +
+    N(dg(nums[0]), x, y - 57, 20) + N(dg(nums[1]), x + 46, y + 52, 20) + N(dg(nums[2]), x - 46, y + 52, 20) + R;
+  if (kind === 'r') return `<polygon points="${x - 46},${y - 18} ${x},${y - 62} ${x + 46},${y - 18}" fill="#ffe3e3" stroke="#e63946" stroke-width="3.5" stroke-linejoin="round"/>` +
+    `<rect x="${x - 40}" y="${y - 18}" width="80" height="60" fill="#fff" stroke="#e63946" stroke-width="3.5"/>` + `<line x1="${x}" y1="${y - 18}" x2="${x}" y2="${y + 42}" stroke="#e8b4b4" stroke-width="2"/>` +
+    N(dg(nums[0]), x + 20, y + 12) + N(dg(nums[1]), x - 20, y + 12) + R;
+  return `<circle cx="${x}" cy="${y}" r="24" fill="#fff" stroke="#2fbf71" stroke-width="3.5"/>` +
+    [[0, -46], [0, 46], [46, 0], [-46, 0]].map(([dx, dy], i) => `<circle cx="${x + dx}" cy="${y + dy}" r="17" fill="#effaf3" stroke="#2fbf71" stroke-width="2.5"/>` + N(dg(nums[i]), x + dx, y + dy, 18)).join('') + R;
+}
+T('shn', { w:'m', name:'أَعْدَادٌ فِي الْأَشْكَالِ', icon:'🔺', n:30,
+  gen(r, d){
+    const fam = pk(r, SHN_D[d]), F = SHN_F[fam], others = Object.entries(SHN_F).filter(([k, g]) => g.k === F.k && k !== fam);
+    let ex;
+    for (let a = 0; a < 100; a++) {
+      ex = range(3).map(() => F.gen(r));
+      const okAll = ex.every(e => F.f(...e) >= 0 && F.f(...e) <= 120);
+      const clash = others.some(([, g]) => ex.slice(0, 2).every(e => g.f(...e) === F.f(...e)));
+      if (okAll && !clash) break;
+    }
+    const ans = F.f(...ex[2]), W = 360, H = F.k === 'x' ? 140 : 150, cw = W / 3;
+    const draw = q => SV(W, H, ex.map((e, i) => shnDraw(F.k, W - cw * (i + .5), F.k === 'r' ? 80 : 74, e, F.f(...e), q && i === 2)).join(''));
+    return { q:'اكْتَشِفِ الْقَاعِدَةَ: مَا الْعَدَدُ النَّاقِصُ؟', say:['q-shn'], board:draw(true), opts:numOpts(r, ans),
+      exBoard:draw(false), ex:SAY['ex-shn-' + fam], exSay:['ex-shn-' + fam] };
+  } });
+
+// ===== number pyramid: every brick is the sum of the two under it =====
+T('pyr', { w:'m', name:'هَرَمُ الْأَعْدَادِ', icon:'🧱', n:30,
+  gen(r, d){
+    const n = d < 2 ? 3 : 4, top = [9, 12, 10, 15][d];
+    const P = [range(n).map(() => ri(r, 1, top))];
+    for (let k = 1; k < n; k++) P.push(range(n - k).map(i => P[k - 1][i] + P[k - 1][i + 1]));
+    // which bricks are hidden: only the asked one, or a chain that needs two steps
+    const all = []; P.forEach((row, k) => row.forEach((_, i) => all.push([k, i])));
+    let hide, ask;
+    const solvable = (H, A) => { const known = P.map((row, k) => row.map((_, i) => !H.some(h => h[0] === k && h[1] === i)));
+      for (let ch = true; ch;) { ch = false;
+        for (let k = 1; k < n; k++) for (let i = 0; i < n - k; i++) {
+          const t = known[k][i], L = known[k - 1][i], R = known[k - 1][i + 1];
+          if (!t && L && R) { known[k][i] = true; ch = true; }
+          if (t && L && !R) { known[k - 1][i + 1] = true; ch = true; }
+          if (t && !L && R) { known[k - 1][i] = true; ch = true; } } }
+      return known[A[0]][A[1]]; };
+    for (let a = 0; a < 100; a++) {
+      if (d === 0) { ask = [n - 1, 0]; hide = [ask, ...all.filter(([k]) => k === 1)]; }
+      else if (d === 1) { ask = [0, ri(r, 0, n - 1)]; hide = [ask]; }
+      else if (d === 2) { ask = [n - 1, 0]; hide = all.filter(([k]) => k > 0); }
+      else { ask = pk(r, all.filter(([k]) => k < n - 1)); const more = shuf(r, all.filter(b => b + '' !== ask + '')).slice(0, 3); hide = [ask, ...more]; }
+      if (solvable(hide, ask)) break;
+    }
+    if (!solvable(hide, ask)) hide = [ask];
+    const ans = P[ask[0]][ask[1]], bw = 76, bh = 48, W = 360, H = n * (bh + 6) + 10;
+    const draw = (showAll) => SV(W, H, P.map((row, k) => row.map((v, i) => {
+      const x = W / 2 - (row.length * bw) / 2 + i * bw, y = H - 6 - (k + 1) * (bh + 6) + 6, h = hide.some(b => b[0] === k && b[1] === i), q = k === ask[0] && i === ask[1];
+      return `<rect x="${f1(x + 2)}" y="${f1(y)}" width="${bw - 4}" height="${bh}" rx="8" fill="${q ? '#fff7d6' : h && !showAll ? '#e9e4d4' : '#ffd9b3'}" stroke="${q ? '#ffc21a' : '#c97b3a'}" stroke-width="3" ${q && !showAll ? 'stroke-dasharray="7 5"' : ''}/>` +
+        txt(x + bw / 2, y + bh / 2, q && !showAll ? '؟' : h && !showAll ? '' : dg(v), 24, q ? (showAll ? '#e63946' : '#e0a800') : '#2b2f55');
+    }).join('')).join(''));
+    return { q:'كُلُّ حَجَرٍ هُوَ مَجْمُوعُ الْحَجَرَيْنِ تَحْتَهُ. مَا الْعَدَدُ النَّاقِصُ؟', say:['q-pyr'], board:draw(false), opts:numOpts(r, ans),
+      exBoard:draw(true), ex:ask[0] === 0 || d === 3 ? SAY['ex-pyr-sub'] : SAY['ex-pyr'], exSay:[ask[0] === 0 || d === 3 ? 'ex-pyr-sub' : 'ex-pyr'] };
+  } });
+SAY['q-pyr'] = 'كُلُّ حَجَرٍ هُوَ مَجْمُوعُ الْحَجَرَيْنِ تَحْتَهُ. مَا الْعَدَدُ النَّاقِصُ؟';
+SAY['ex-pyr'] = 'نَجْمَعُ كُلَّ حَجَرَيْنِ مُتَجَاوِرَيْنِ، وَنَكْتُبُ الْمَجْمُوعَ فِي الْحَجَرِ الَّذِي فَوْقَهُمَا.';
+SAY['ex-pyr-sub'] = 'إِذَا عَرَفْتَ الْحَجَرَ الَّذِي فَوْقُ، فَاطْرَحْ مِنْهُ الْحَجَرَ الْمُجَاوِرَ، تَجِدِ النَّاقِصَ.';
+SAY['h-pyr'] = 'هَرَمٌ مِنَ الْحِجَارَةِ: كُلُّ حَجَرٍ يُسَاوِي مَجْمُوعَ الْحَجَرَيْنِ اللَّذَيْنِ تَحْتَهُ.';
+
+// ---------- world 3: mental maths (part 2) ----------
+
+// ===== the balance =====
+const BAL_SETS = [['🍉', '🍍', '🍎'], ['🐘', '🦒', '🐰'], ['📦', '🧸', '⚽'], ['🎂', '🍩', '🍬']];
+function scale(left, right, y, ask){
+  const cx = 180, by = y + 18;
+  const pan = (px, items) => {
+    const per = Math.min(items.length, 5), rows = Math.ceil(items.length / 5), s = items.length > 5 ? 24 : 28;
+    let o = `<line x1="${px - 52}" y1="${by}" x2="${px - 46}" y2="${by + 52}" stroke="#8a7d5a" stroke-width="2"/><line x1="${px + 52}" y1="${by}" x2="${px + 46}" y2="${by + 52}" stroke="#8a7d5a" stroke-width="2"/>`;
+    o += `<path d="M${px - 60} ${by + 52} Q${px} ${by + 82} ${px + 60} ${by + 52} Z" fill="#ffe08a" stroke="#c9a74d" stroke-width="3"/>`;
+    items.forEach((e, i) => { const row = Math.floor(i / 5), col = i % 5, n = row === rows - 1 ? items.length - row * 5 : per;
+      o += emo(px + (col - (n - 1) / 2) * (s + 1), by + 40 - row * (s - 2), e, s); });
+    return o;
+  };
+  let o = `<rect x="${cx - 40}" y="${y + 104}" width="80" height="10" rx="5" fill="#8a7d5a"/><line x1="${cx}" y1="${by}" x2="${cx}" y2="${y + 104}" stroke="#8a7d5a" stroke-width="6"/>`;
+  o += `<line x1="${cx - 128}" y1="${by}" x2="${cx + 128}" y2="${by}" stroke="#8a7d5a" stroke-width="6" stroke-linecap="round"/><circle cx="${cx}" cy="${by}" r="7" fill="#c9a74d"/>`;
+  o += pan(cx + 100, left);
+  o += ask ? pan(cx - 100, []) + `<text x="${cx - 100}" y="${by + 40}" font-size="30" text-anchor="middle" dominant-baseline="central" font-weight="bold" fill="#e0a800">؟ ${ask}</text>` : pan(cx - 100, right);
+  return o;
+}
+T('bal', { w:'m', name:'الْمِيزَانُ', icon:'⚖️', n:30,
+  gen(r, d){
+    const [A, B, C] = pk(r, BAL_SETS), rep = (e, n) => Array(n).fill(e);
+    let S = [], ask, ans, steps;
+    if (d === 0) { const k = ri(r, 2, 4), m = ri(r, 2, 3); S = [[[A], rep(C, k)]]; ask = rep(A, m); ans = m * k;
+      steps = `${A} = ${dg(k)} ${C}، إِذَنْ ${dg(m)} ${A} = ${dg(ans)} ${C}`; }
+    else if (d === 1) { const p = ri(r, 2, 3), q = ri(r, 2, 4); S = [[[A], rep(B, p)], [[B], rep(C, q)]]; ask = [A]; ans = p * q;
+      steps = `${A} = ${dg(p)} ${B} = ${dg(p)} × ${dg(q)} ${C} = ${dg(ans)} ${C}`; }
+    else if (d === 2) { const p = ri(r, 2, 3), q = ri(r, 2, 3); S = [[[A], rep(B, p)], [[B], rep(C, q)]]; ask = [A, B]; ans = p * q + q;
+      steps = `${A} = ${dg(p * q)} ${C}، ${B} = ${dg(q)} ${C}، الْمَجْمُوعُ ${dg(ans)} ${C}`; }
+    else { const q = ri(r, 2, 4); S = [[[A, C], [B, B]], [[B], rep(C, q)]]; ask = [A]; ans = 2 * q - 1;
+      steps = `${B}${B} = ${dg(2 * q)} ${C}، وَ${A} + ${C} = ${B}${B}، إِذَنْ ${A} = ${dg(ans)} ${C}`; }
+    const H = (S.length + 1) * 124;
+    const draw = withAns => SV(360, H, S.map((s, i) => scale(s[0], s[1], i * 124, null)).join('') + scale(ask, withAns ? rep(C, ans) : [], S.length * 124, withAns ? null : C));
+    return { q:'الْمَوَازِينُ مُتَوَازِنَةٌ. كَمْ صُورَةً نَضَعُ مَكَانَ عَلَامَةِ الِاسْتِفْهَامِ؟', top:C, say:['q-bal'], board:draw(false), opts:numOpts(r, ans, [1, -1, 2, -2]),
+      exBoard:`<div class="txt" style="font-size:22px">${steps}</div>`, ex:SAY['ex-bal'], exSay:['ex-bal'] };
+  } });
+SAY['q-bal'] = 'الْمَوَازِينُ مُتَوَازِنَةٌ. كَمْ صُورَةً نَضَعُ مَكَانَ عَلَامَةِ الِاسْتِفْهَامِ؟';
+SAY['ex-bal'] = 'نُبَدِّلُ كُلَّ صُورَةٍ بِمَا يُسَاوِيهَا مِنَ الْمَوَازِينِ الْأُخْرَى، ثُمَّ نَعُدُّ.';
+SAY['h-bal'] = 'الْمِيزَانُ الْمُتَوَازِنُ يَعْنِي أَنَّ الْكَفَّتَيْنِ لَهُمَا الْوَزْنُ نَفْسُهُ.';
+
+// ===== clocks =====
+const tm = m => { m = ((m % 720) + 720) % 720; const h = Math.floor(m / 60) || 12, mm = m % 60; return dg(h + ':' + String(mm).padStart(2, '0')); };
+function clock(m, W = 220){
+  const c = W / 2, R = W / 2 - 8, hA = ((m / 60) % 12) * 30, mA = (m % 60) * 6;
+  let o = `<circle cx="${c}" cy="${c}" r="${R}" fill="#fff" stroke="#3d7dff" stroke-width="7"/>`;
+  for (let i = 1; i <= 12; i++) { const a = (i * 30 - 90) * Math.PI / 180; o += txt(c + Math.cos(a) * R * .78, c + Math.sin(a) * R * .78, dg(i), W * .1, '#2b2f55'); }
+  for (let i = 0; i < 60; i++) { if (i % 5) { const a = i * 6 * Math.PI / 180; o += `<circle cx="${f1(c + Math.sin(a) * R * .93)}" cy="${f1(c - Math.cos(a) * R * .93)}" r="1.6" fill="#9aa"/>`; } }
+  const hand = (ang, len, w, col) => { const a = ang * Math.PI / 180; return `<line x1="${c}" y1="${c}" x2="${f1(c + Math.sin(a) * len)}" y2="${f1(c - Math.cos(a) * len)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`; };
+  return o + hand(hA, R * .5, 9, '#e63946') + hand(mA, R * .78, 5, '#2b2f55') + `<circle cx="${c}" cy="${c}" r="7" fill="#2b2f55"/>`;
+}
+const CLK_SHIFT = { a60:['بَعْدَ سَاعَةٍ وَاحِدَةٍ', 60], a120:['بَعْدَ سَاعَتَيْنِ', 120], a180:['بَعْدَ ثَلَاثِ سَاعَاتٍ', 180], a30:['بَعْدَ نِصْفِ سَاعَةٍ', 30],
+  a15:['بَعْدَ رُبْعِ سَاعَةٍ', 15], a90:['بَعْدَ سَاعَةٍ وَنِصْفٍ', 90], a45:['بَعْدَ ثَلَاثَةِ أَرْبَاعِ السَّاعَةِ', 45],
+  b60:['قَبْلَ سَاعَةٍ وَاحِدَةٍ', -60], b30:['قَبْلَ نِصْفِ سَاعَةٍ', -30], b120:['قَبْلَ سَاعَتَيْنِ', -120] };
+Object.entries(CLK_SHIFT).forEach(([k, [w, v]]) => { SAY['q-clk-' + k] = (v > 0 ? 'كَمْ سَتَكُونُ السَّاعَةُ ' : 'كَمْ كَانَتِ السَّاعَةُ ') + w + '؟'; });
+T('clk', { w:'m', name:'السَّاعَةُ', icon:'⏰', n:30,
+  gen(r, d){
+    const mins = [[0, 30], [0, 15, 30, 45, 5, 10, 20, 50], [0, 30], [0, 15, 30, 45]][d];
+    const m = ri(r, 1, 12) * 60 + pk(r, mins) - (r() < .5 ? 0 : 0);
+    const sh = d === 2 ? pk(r, ['a60', 'a120', 'a180', 'a30']) : d === 3 ? pk(r, ['a90', 'a45', 'a15', 'b60', 'b30', 'b120']) : null;
+    const ans = sh ? m + CLK_SHIFT[sh][1] : m;
+    const near = [60, -60, 30, -30, 15, -15, 120, 5, -5, 360].map(x => ans + x);
+    if (!sh) near.unshift(((m % 60) / 5) * 60 + ((Math.floor(m / 60) % 12) * 5)); // hands mixed up
+    const wrong = []; const seen = new Set([tm(ans)]);
+    for (const w of shuf(r, near)) { if (wrong.length >= 3) break; const s = tm(w); if (!seen.has(s)) { seen.add(s); wrong.push(s); } }
+    const q = sh ? SAY['q-clk-' + sh] : 'كَمِ السَّاعَةُ الْآنَ؟';
+    return { q, say:[sh ? 'q-clk-' + sh : 'q-clk'], board:SV(220, 220, clock(m)), opts:opts(r, tm(ans), wrong),
+      exBoard:sh ? SV(360, 170, `<g transform="translate(200,5) scale(.72)">${clock(m)}</g>` + txt(180, 84, '⬅', 30) + `<g transform="translate(0,5) scale(.72)">${clock(ans)}</g>`) : '',
+      ex:(sh ? `${tm(m)} ⬅ ${tm(ans)}. ` : `السَّاعَةُ ${tm(ans)}. `) + SAY[sh ? 'ex-clk-add' : 'ex-clk'], exSay:[sh ? 'ex-clk-add' : 'ex-clk'] };
+  } });
+SAY['q-clk'] = 'كَمِ السَّاعَةُ الْآنَ؟';
+SAY['ex-clk'] = 'الْعَقْرَبُ الْقَصِيرُ يُشِيرُ إِلَى السَّاعَاتِ، وَالْعَقْرَبُ الطَّوِيلُ يُشِيرُ إِلَى الدَّقَائِقِ.';
+SAY['ex-clk-add'] = 'نَبْدَأُ مِنَ الْوَقْتِ الَّذِي تُشِيرُ إِلَيْهِ السَّاعَةُ، ثُمَّ نَتَقَدَّمُ أَوْ نَرْجِعُ بِالْوَقْتِ الْمَطْلُوبِ.';
+SAY['h-clk'] = 'اقْرَأِ السَّاعَةَ: الْعَقْرَبُ الْقَصِيرُ لِلسَّاعَاتِ، وَالطَّوِيلُ لِلدَّقَائِقِ.';
+
+// ===== quick sums =====
+T('qck', { w:'m', name:'حِسَابٌ سَرِيعٌ', icon:'⚡', n:40,
+  gen(r, d){
+    const kinds = [['add', 'sub'], ['add2', 'sub2', 'mul'], ['add3', 'sub3', 'mul', 'div'], ['chain', 'tens', 'div', 'mul']][d];
+    const kind = pk(r, kinds);
+    let t, ans, ex;
+    if (kind === 'add') { const a = ri(r, 1, 10), b = ri(r, 1, 10); t = [a, '+', b]; ans = a + b; ex = 'add'; }
+    if (kind === 'sub') { const a = ri(r, 5, 20), b = ri(r, 1, a); t = [a, '−', b]; ans = a - b; ex = 'sub'; }
+    if (kind === 'add2') { const a = ri(r, 12, 89), b = ri(r, 3, 9); t = [a, '+', b]; ans = a + b; ex = 'add'; }
+    if (kind === 'sub2') { const a = ri(r, 20, 99), b = ri(r, 3, 9); t = [a, '−', b]; ans = a - b; ex = 'sub'; }
+    if (kind === 'add3') { const a = ri(r, 15, 59), b = ri(r, 12, 39); t = [a, '+', b]; ans = a + b; ex = 'add'; }
+    if (kind === 'sub3') { const a = ri(r, 40, 99), b = ri(r, 11, a - 10); t = [a, '−', b]; ans = a - b; ex = 'sub'; }
+    if (kind === 'mul') { const a = ri(r, d === 1 ? 2 : 6, d === 1 ? 5 : 9), b = ri(r, 2, 9); t = [a, '×', b]; ans = a * b; ex = 'mul'; }
+    if (kind === 'div') { const b = ri(r, 2, 9), q = ri(r, 2, 9); t = [b * q, '÷', b]; ans = q; ex = 'div'; }
+    if (kind === 'tens') { const a = ri(r, 2, 9), b = ri(r, 2, 5); t = [a * 10, '×', b]; ans = a * 10 * b; ex = 'tens'; }
+    if (kind === 'chain') { const a = ri(r, 5, 20), b = ri(r, 2, 15), c = ri(r, 1, a + b - 1); t = [a, '+', b, '−', c]; ans = a + b - c; ex = 'chain'; }
+    const toks = t.map(x => typeof x === 'number' ? dg(x) : x);
+    return { q:'احْسُبْ بِسُرْعَةٍ!', say:['q-qck'], board:`<div class="eqs lg">${eqRow([...toks, '=', '<b class="qm">؟</b>'])}</div>`,
+      opts:numOpts(r, ans, ex === 'mul' || ex === 'tens' ? [t[2], -t[2], 1, -1, 10] : [1, -1, 10, -10, 2]),
+      exBoard:`<div class="eqs lg">${eqRow([...toks, '=', '<b>' + dg(ans) + '</b>'])}</div>`, ex:SAY['ex-qck-' + ex], exSay:['ex-qck-' + ex] };
+  } });
+Object.assign(SAY, {
+  'q-qck':'احْسُبْ بِسُرْعَةٍ!',
+  'ex-qck-add':'اجْمَعِ الْآحَادَ مَعَ الْآحَادِ، وَالْعَشَرَاتِ مَعَ الْعَشَرَاتِ.',
+  'ex-qck-sub':'اطْرَحِ الْآحَادَ مِنَ الْآحَادِ، وَالْعَشَرَاتِ مِنَ الْعَشَرَاتِ.',
+  'ex-qck-mul':'تَذَكَّرْ جَدْوَلَ الضَّرْبِ!',
+  'ex-qck-div':'الْقِسْمَةُ عَكْسُ الضَّرْبِ: فَكِّرْ فِي جَدْوَلِ الضَّرْبِ.',
+  'ex-qck-tens':'اضْرِبِ الرَّقْمَيْنِ أَوَّلًا، ثُمَّ ضَعْ صِفْرًا عَلَى الْيَمِينِ.',
+  'ex-qck-chain':'احْسُبْ خُطْوَةً خُطْوَةً: اجْمَعْ أَوَّلًا، ثُمَّ اطْرَحْ.',
+  'h-qck':'عَمَلِيَّاتٌ حِسَابِيَّةٌ سَرِيعَةٌ. احْسُبْ فِي عَقْلِكَ، بِلَا وَرَقَةٍ وَلَا قَلَمٍ!',
+});
+
+// ===== story problems =====
+// [the story, answer, what Hamed says after, the sum in figures]
+const WRD = [
+  ['فِي الشَّجَرَةِ خَمْسَةُ عَصَافِيرَ، طَارَ مِنْهَا اثْنَانِ. كَمْ عُصْفُورًا بَقِيَ؟', 3, 'خَمْسَةٌ نَاقِصَ اثْنَيْنِ يُسَاوِي ثَلَاثَةً.', '٥ − ٢ = ٣'],
+  ['مَعَ سَارَةَ سَبْعُ حَبَّاتٍ مِنَ الْحَلْوَى، وَأَعْطَتْهَا أُمُّهَا ثَلَاثًا أُخْرَى. كَمْ حَبَّةً مَعَهَا الْآنَ؟', 10, 'سَبْعَةٌ زَائِدَ ثَلَاثَةٍ يُسَاوِي عَشَرَةً.', '٧ + ٣ = ١٠'],
+  ['فِي كِيسٍ سِتُّ كُرَاتٍ حَمْرَاءَ، وَأَرْبَعُ كُرَاتٍ زَرْقَاءَ. كَمْ كُرَةً فِي الْكِيسِ؟', 10, 'سِتَّةٌ زَائِدَ أَرْبَعَةٍ يُسَاوِي عَشَرَةً.', '٦ + ٤ = ١٠'],
+  ['اشْتَرَى عُمَرُ قَلَمًا بِثَلَاثَةِ رِيَالَاتٍ، وَدَفْتَرًا بِخَمْسَةِ رِيَالَاتٍ. كَمْ رِيَالًا دَفَعَ؟', 8, 'ثَلَاثَةٌ زَائِدَ خَمْسَةٍ يُسَاوِي ثَمَانِيَةً.', '٣ + ٥ = ٨'],
+  ['مَعَ خَالِدٍ عَشَرَةُ رِيَالَاتٍ، اشْتَرَى عَصِيرًا بِأَرْبَعَةِ رِيَالَاتٍ. كَمْ رِيَالًا بَقِيَ مَعَهُ؟', 6, 'عَشَرَةٌ نَاقِصَ أَرْبَعَةٍ يُسَاوِي سِتَّةً.', '١٠ − ٤ = ٦'],
+  ['فِي الْأُسْبُوعِ سَبْعَةُ أَيَّامٍ. كَمْ يَوْمًا فِي أُسْبُوعَيْنِ؟', 14, 'سَبْعَةٌ زَائِدَ سَبْعَةٍ يُسَاوِي أَرْبَعَةَ عَشَرَ.', '٧ + ٧ = ١٤'],
+  ['لِلدَّرَّاجَةِ عَجَلَتَانِ. كَمْ عَجَلَةً لِخَمْسِ دَرَّاجَاتٍ؟', 10, 'اثْنَانِ فِي خَمْسَةٍ يُسَاوِي عَشَرَةً.', '٢ × ٥ = ١٠'],
+  ['فِي الصَّفِّ عِشْرُونَ طَالِبًا، نِصْفُهُمْ بَنَاتٌ. كَمْ وَلَدًا فِي الصَّفِّ؟', 10, 'نِصْفُ الْعِشْرِينَ عَشَرَةٌ.', '٢٠ ÷ ٢ = ١٠'],
+  ['لِلْقِطَّةِ أَرْبَعُ أَرْجُلٍ. كَمْ رِجْلًا لِثَلَاثِ قِطَطٍ؟', 12, 'أَرْبَعَةٌ فِي ثَلَاثَةٍ يُسَاوِي اثْنَيْ عَشَرَ.', '٤ × ٣ = ١٢'],
+  ['عُمُرُ أَحْمَدَ ثَمَانِي سَنَوَاتٍ، وَأَخُوهُ أَكْبَرُ مِنْهُ بِأَرْبَعِ سَنَوَاتٍ. كَمْ عُمُرُ أَخِيهِ؟', 12, 'ثَمَانِيَةٌ زَائِدَ أَرْبَعَةٍ يُسَاوِي اثْنَيْ عَشَرَ.', '٨ + ٤ = ١٢'],
+  ['فِي الْعُلْبَةِ سِتُّ بَيْضَاتٍ. كَمْ بَيْضَةً فِي ثَلَاثِ عُلَبٍ؟', 18, 'سِتَّةٌ فِي ثَلَاثَةٍ يُسَاوِي ثَمَانِيَةَ عَشَرَ.', '٦ × ٣ = ١٨'],
+  ['وَزَّعَتِ الْمُعَلِّمَةُ اثْنَيْ عَشَرَ قَلَمًا عَلَى أَرْبَعَةِ طُلَّابٍ بِالتَّسَاوِي. كَمْ قَلَمًا أَخَذَ كُلُّ طَالِبٍ؟', 3, 'اثْنَا عَشَرَ عَلَى أَرْبَعَةٍ يُسَاوِي ثَلَاثَةً.', '١٢ ÷ ٤ = ٣'],
+  ['عِنْدَ لَيْلَى خَمْسَ عَشْرَةَ وَرْدَةً، أَهْدَتْ صَدِيقَتَهَا سِتًّا مِنْهَا. كَمْ وَرْدَةً بَقِيَتْ؟', 9, 'خَمْسَةَ عَشَرَ نَاقِصَ سِتَّةٍ يُسَاوِي تِسْعَةً.', '١٥ − ٦ = ٩'],
+  ['كَعْكَةٌ مَقْسُومَةٌ إِلَى ثَمَانِي قِطَعٍ، أَكَلَ الْأَطْفَالُ نِصْفَهَا. كَمْ قِطْعَةً بَقِيَتْ؟', 4, 'نِصْفُ الثَّمَانِيَةِ أَرْبَعَةٌ.', '٨ ÷ ٢ = ٤'],
+  ['شَجَرَةٌ لَهَا أَرْبَعَةُ أَغْصَانٍ، عَلَى كُلِّ غُصْنٍ ثَلَاثَةُ عَصَافِيرَ. كَمْ عُصْفُورًا عَلَى الشَّجَرَةِ؟', 12, 'أَرْبَعَةٌ فِي ثَلَاثَةٍ يُسَاوِي اثْنَيْ عَشَرَ.', '٤ × ٣ = ١٢'],
+  ['قَفَزَ الضِّفْدَعُ ثَلَاثَ قَفَزَاتٍ، طُولُ كُلِّ قَفْزَةٍ خَمْسَةُ أَمْتَارٍ. كَمْ مِتْرًا قَطَعَ؟', 15, 'ثَلَاثَةٌ فِي خَمْسَةٍ يُسَاوِي خَمْسَةَ عَشَرَ.', '٣ × ٥ = ١٥'],
+  ['كَمْ قَدَمًا لِثَلَاثِ دَجَاجَاتٍ وَبَقَرَةٍ وَاحِدَةٍ؟', 10, 'لِلدَّجَاجَاتِ سِتُّ أَقْدَامٍ، وَلِلْبَقَرَةِ أَرْبَعٌ، وَسِتَّةٌ زَائِدَ أَرْبَعَةٍ يُسَاوِي عَشَرَةً.', '٣ × ٢ + ٤ = ١٠'],
+  ['فِي الْحَافِلَةِ تِسْعَةُ رُكَّابٍ، نَزَلَ أَرْبَعَةٌ، ثُمَّ رَكِبَ سِتَّةٌ. كَمْ رَاكِبًا فِي الْحَافِلَةِ الْآنَ؟', 11, 'تِسْعَةٌ نَاقِصَ أَرْبَعَةٍ يُسَاوِي خَمْسَةً، وَخَمْسَةٌ زَائِدَ سِتَّةٍ يُسَاوِي أَحَدَ عَشَرَ.', '٩ − ٤ + ٦ = ١١'],
+  ['سُلَّمٌ فِيهِ عَشْرُ دَرَجَاتٍ، صَعِدَ عَلِيٌّ سِتَّ دَرَجَاتٍ، ثُمَّ نَزَلَ دَرَجَتَيْنِ. عَلَى أَيِّ دَرَجَةٍ يَقِفُ الْآنَ؟', 4, 'سِتَّةٌ نَاقِصَ اثْنَيْنِ يُسَاوِي أَرْبَعَةً.', '٦ − ٢ = ٤'],
+  ['يَقْرَأُ سَامِي خَمْسَ صَفَحَاتٍ كُلَّ يَوْمٍ. كَمْ صَفْحَةً يَقْرَأُ فِي أُسْبُوعٍ؟', 35, 'خَمْسَةٌ فِي سَبْعَةٍ يُسَاوِي خَمْسَةً وَثَلَاثِينَ.', '٥ × ٧ = ٣٥'],
+  ['سُلَحْفَاةٌ تَمْشِي مِتْرَيْنِ كُلَّ دَقِيقَةٍ. كَمْ مِتْرًا تَمْشِي فِي عَشْرِ دَقَائِقَ؟', 20, 'اثْنَانِ فِي عَشَرَةٍ يُسَاوِي عِشْرِينَ.', '٢ × ١٠ = ٢٠'],
+  ['عِنْدَ هِنْدَ عِشْرُونَ رِيَالًا، اشْتَرَتْ كِتَابَيْنِ، ثَمَنُ الْكِتَابِ سَبْعَةُ رِيَالَاتٍ. كَمْ رِيَالًا بَقِيَ مَعَهَا؟', 6, 'ثَمَنُ الْكِتَابَيْنِ أَرْبَعَةَ عَشَرَ رِيَالًا، وَعِشْرُونَ نَاقِصَ أَرْبَعَةَ عَشَرَ يُسَاوِي سِتَّةً.', '٢٠ − ١٤ = ٦'],
+  ['مَعَ فَهْدٍ سِتُّ كُرَاتٍ، وَمَعَ مَازِنٍ ضِعْفُ مَا مَعَ فَهْدٍ. كَمْ كُرَةً مَعَهُمَا مَعًا؟', 18, 'مَعَ مَازِنٍ اثْنَتَا عَشْرَةَ كُرَةً، وَاثْنَا عَشَرَ زَائِدَ سِتَّةٍ يُسَاوِي ثَمَانِيَةَ عَشَرَ.', '١٢ + ٦ = ١٨'],
+  ['أَكَلَ الدُّبُّ نِصْفَ جَرَّةِ الْعَسَلِ، فَبَقِيَ فِيهَا سِتُّ مَلَاعِقَ. كَمْ مِلْعَقَةً كَانَتْ فِي الْجَرَّةِ؟', 12, 'إِذَا كَانَ النِّصْفُ سِتَّةً، فَالْجَرَّةُ كُلُّهَا اثْنَا عَشَرَ.', '٦ + ٦ = ١٢'],
+  ['نَامَ سَامِي فِي التَّاسِعَةِ لَيْلًا، وَاسْتَيْقَظَ فِي السَّادِسَةِ صَبَاحًا. كَمْ سَاعَةً نَامَ؟', 9, 'مِنَ التَّاسِعَةِ إِلَى الثَّانِيَةَ عَشْرَةَ ثَلَاثُ سَاعَاتٍ، ثُمَّ سِتُّ سَاعَاتٍ حَتَّى الصَّبَاحِ: الْمَجْمُوعُ تِسْعُ سَاعَاتٍ.', '٣ + ٦ = ٩'],
+  ['ثَلَاثَةُ إِخْوَةٍ، لِكُلٍّ مِنْهُمْ أُخْتٌ وَاحِدَةٌ. كَمْ طِفْلًا فِي الْعَائِلَةِ؟', 4, 'الْأُخْتُ نَفْسُهَا لِلْإِخْوَةِ الثَّلَاثَةِ: ثَلَاثَةُ أَوْلَادٍ وَبِنْتٌ وَاحِدَةٌ، أَيْ أَرْبَعَةُ أَطْفَالٍ.', '٣ + ١ = ٤'],
+  ['بَيْنَ كُلِّ شَجَرَتَيْنِ مِتْرَانِ، وَهُنَاكَ أَرْبَعُ شَجَرَاتٍ فِي صَفٍّ. كَمْ مِتْرًا مِنَ الشَّجَرَةِ الْأُولَى إِلَى الْأَخِيرَةِ؟', 6, 'بَيْنَ أَرْبَعِ شَجَرَاتٍ ثَلَاثُ مَسَافَاتٍ فَقَطْ، وَثَلَاثَةٌ فِي اثْنَيْنِ يُسَاوِي سِتَّةً.', '٣ × ٢ = ٦'],
+  ['أَنَا عَدَدٌ، إِذَا أَضَفْتَ إِلَيَّ خَمْسَةً صِرْتُ اثْنَيْ عَشَرَ. مَنْ أَنَا؟', 7, 'اثْنَا عَشَرَ نَاقِصَ خَمْسَةٍ يُسَاوِي سَبْعَةً.', '١٢ − ٥ = ٧'],
+  ['فِي الْمَزْرَعَةِ دَجَاجٌ وَأَرَانِبُ، لَهَا خَمْسَةُ رُؤُوسٍ، وَأَرْبَعَ عَشْرَةَ رِجْلًا. كَمْ أَرْنَبًا فِي الْمَزْرَعَةِ؟', 2, 'لَوْ كَانَتْ كُلُّهَا دَجَاجًا لَكَانَتِ الْأَرْجُلُ عَشْرًا، وَالْأَرْجُلُ الْأَرْبَعُ الزَّائِدَةُ لِأَرْنَبَيْنِ.', '١٤ − ١٠ = ٤ ، ٤ ÷ ٢ = ٢'],
+  ['أَنَا عَدَدٌ، إِذَا ضَرَبْتَنِي فِي ثَلَاثَةٍ ثُمَّ أَضَفْتَ اثْنَيْنِ صِرْتُ أَرْبَعَةَ عَشَرَ. مَنْ أَنَا؟', 4, 'أَرْبَعَةَ عَشَرَ نَاقِصَ اثْنَيْنِ يُسَاوِي اثْنَيْ عَشَرَ، وَاثْنَا عَشَرَ عَلَى ثَلَاثَةٍ يُسَاوِي أَرْبَعَةً.', '١٤ − ٢ = ١٢ ، ١٢ ÷ ٣ = ٤'],
+];
+WRD.forEach((w, i) => { SAY[`wrd-${i}-q`] = w[0]; SAY[`wrd-${i}-a`] = w[2]; });
+T('wrd', { w:'m', name:'مَسَائِلُ ذَكِيَّةٌ', icon:'📖', n:WRD.length,
+  gen(r, d, i){
+    const [q, ans, a, sum] = WRD[i];
+    return { q:'اسْمَعِ الْمَسْأَلَةَ، وَاحْسُبْ فِي عَقْلِكَ.', say:[`wrd-${i}-q`], board:`<div class="txt story">${q}</div>`, opts:numOpts(r, ans, [1, -1, 2, -2, 3]),
+      exBoard:`<div class="eqs lg">${sum.split(' ، ').map(x => `<div class="eq">${x}</div>`).join('')}</div>`, ex:a, exSay:[`wrd-${i}-a`] };
+  } });
+SAY['h-wrd'] = 'مَسَائِلُ قَصِيرَةٌ مِنَ الْحَيَاةِ. اسْمَعْ جَيِّدًا، ثُمَّ احْسُبْ.';
+
+if (typeof module !== 'undefined') module.exports = { TYPES, ORDER, SAY, WORLDS, make, hash };
+
+</script>
+<script>
+if (typeof document !== 'undefined') (function(){
+const $ = id => document.getElementById(id);
+const rnd = a => a[Math.floor(Math.random() * a.length)];
+const mix = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+// keeps sound on when the iPhone silent switch is on
+const UNMUTE = { a:null,
+  url(){ const sr = 8000, n = sr, b = new ArrayBuffer(44 + n * 2), v = new DataView(b), w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * 2, true);
+    return URL.createObjectURL(new Blob([b], { type:'audio/wav' })); },
+  go(){ try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch(e){}
+    if (document.hidden) return;
+    try { if (!this.a) { const a = document.createElement('audio'); a.setAttribute('playsinline', ''); a.setAttribute('x-webkit-airplay', 'deny'); a.loop = true; a.preload = 'auto'; a.src = this.url(); this.a = a; }
+      if (this.a.paused) { const p = this.a.play(); if (p && p.catch) p.catch(() => {}); } } catch(e){} }
+};
+['touchend', 'click', 'keydown'].forEach(ev => document.addEventListener(ev, () => UNMUTE.go(), { capture:true, passive:true }));
+document.addEventListener('visibilitychange', () => { if (UNMUTE.a) { if (document.hidden) UNMUTE.a.pause(); else UNMUTE.go(); } });
+
+// Hamed's recorded voice. The clips sit in a few pack files (genius-challenge/voices/pack-*.mp3);
+// packs.json says where each line is. A line plays only if its clip was made from the very same text.
+const VO = {
+  dir:'genius-challenge/voices', ctx:null, idx:null, packs:{}, bufs:{}, src:null, ready:null, tok:0,
+  start(){
+    if (this.ready) return this.ready;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    this.ctx = AC ? new AC() : null;
+    if (!this.ctx) return this.ready = Promise.resolve();
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    if (location.protocol === 'file:') return this.ready = Promise.resolve(); // opened as a file: no voice files to fetch
+    return this.ready = fetch(this.dir + '/packs.json').then(r => r.json()).then(j => { this.idx = j; this.pack('core'); }).catch(e => console.warn('voices not loaded', e));
+  },
+  pack(name){
+    if (!this.idx || !this.idx.packs[name]) return Promise.resolve(null);
+    return this.packs[name] || (this.packs[name] = fetch(this.dir + '/' + this.idx.packs[name]).then(r => r.ok ? r.arrayBuffer() : null).catch(() => null));
+  },
+  clip(id){
+    if (this.bufs[id]) return this.bufs[id];
+    const e = this.idx && this.idx.c[id];
+    if (!e || !SAY[id] || e[3] !== hash(SAY[id]).toString(36)) return Promise.resolve(null);
+    return this.bufs[id] = this.pack(e[0]).then(ab => ab ? new Promise(res => {
+      try { const p = this.ctx.decodeAudioData(ab.slice(e[1], e[1] + e[2]), res, () => res(null)); if (p && p.catch) p.catch(() => res(null)); } catch(err){ res(null); }
+    }) : null);
+  },
+  pre(ids){ if (this.idx) ids.forEach(id => this.clip(id)); },
+  stop(){ this.tok++; if (this.src) { try { this.src.onended = null; this.src.stop(); } catch(e){} this.src = null; } },
+  async play(id, tok){
+    if (!this.ctx) return;
+    await this.ready;
+    const b = await this.clip(id);
+    if (!b || tok !== this.tok) return;
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    return new Promise(res => { const s = this.ctx.createBufferSource(); s.buffer = b; s.connect(this.ctx.destination);
+      s.onended = () => { if (this.src === s) this.src = null; res(); }; this.src = s; s.start(); });
+  },
+  async say(ids){ this.stop(); const tok = this.tok; for (const id of [].concat(ids)) { if (tok !== this.tok) return; await this.play(id, tok); } },
+};
+
+window.VO = VO; // for the test bot
+
+// sound effects: short noise bursts only, no notes or tunes
+const SFX = {
+  on:true,
+  noise(dur, from, to, vol = .35, type = 'bandpass'){
+    const c = VO.ctx; if (!c || !this.on) return;
+    const n = Math.floor(c.sampleRate * dur), b = c.createBuffer(1, n, c.sampleRate), d = b.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 2);
+    const s = c.createBufferSource(); s.buffer = b; const f = c.createBiquadFilter(); f.type = type; f.Q.value = 1.2;
+    f.frequency.setValueAtTime(from, c.currentTime); f.frequency.exponentialRampToValueAtTime(to, c.currentTime + dur);
+    const g = c.createGain(); g.gain.value = vol; s.connect(f); f.connect(g); g.connect(c.destination); s.start();
+  },
+  tap(){ this.noise(.05, 2500, 1800, .25); },
+  tick(){ this.noise(.03, 3500, 3000, .18, 'highpass'); },
+  good(){ this.noise(.35, 800, 5000, .3); },
+  bad(){ this.noise(.25, 400, 150, .45, 'lowpass'); },
+  win(){ [0, 120, 240].forEach(t => setTimeout(() => this.noise(.3, 1200, 6000, .25), t)); },
+};
+
+// progress kept in this browser
+const KEY = 'rakan-genius-v1';
+let save = { b:{}, best:-1, tests:0, sfx:true };
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.b) save = Object.assign(save, s); } catch(e){}
+const store = () => { try { localStorage.setItem(KEY, JSON.stringify(save)); } catch(e){} };
+SFX.on = save.sfx !== false;
+const starsOf = id => (save.b[id] || []).reduce((a, b) => a + (b || 0), 0);
+const solvedOf = id => (save.b[id] || []).filter(Boolean).length;
+const ALL = Object.keys(TYPES).reduce((a, id) => a + TYPES[id].n, 0);
+const totalStars = () => Object.keys(TYPES).reduce((a, id) => a + starsOf(id), 0);
+const RANKS = [[0, '🌱 مُبْتَدِئٌ'], [30, '⭐ ذَكِيٌّ'], [120, '💡 لَامِعٌ'], [300, '🧠 عَبْقَرِيٌّ'], [700, '🚀 عَبْقَرِيٌّ خَارِقٌ'], [1500, '👑 أُسْطُورَةُ الذَّكَاءِ']];
+const rankName = s => RANKS.filter(r => s >= r[0]).pop()[1];
+
+function show(id){ document.querySelectorAll('.scr').forEach(s => s.classList.toggle('on', s.id === id)); window.scrollTo(0, 0); }
+function brainDo(el, cls){ el.classList.remove('hop', 'shake'); void el.getBoundingClientRect(); el.classList.add(cls); }
+
+// ---------- home ----------
+function home(speak){
+  show('homeScr'); stopTimer();
+  const ts = totalStars();
+  $('rank').textContent = 'رُتْبَتُكَ: ' + rankName(ts) + '  ⭐ ' + dg(ts);
+  $('snd').textContent = SFX.on ? '🔊' : '🔇';
+  $('testBest').textContent = save.best >= 0 ? `🏆 أَفْضَلُ نَتِيجَةٍ: ${dg(save.best)} مِنْ ${dg(15)}` : '';
+  $('worlds').innerHTML = '';
+  for (const w of ['v', 'l', 'm']) {
+    const W = WORLDS[w], ids = ORDER[w], n = ids.reduce((a, id) => a + TYPES[id].n, 0), s = ids.reduce((a, id) => a + solvedOf(id), 0);
+    const b = document.createElement('button'); b.className = 'world';
+    b.innerHTML = `<span class="ico" style="background:${W.color}">${W.icon}</span><span style="flex:1"><b>${W.name}</b><small>${W.note}</small>` +
+      `<small>🧩 ${dg(s)} مِنْ ${dg(n)} لُغْزًا</small><div class="prog"><i style="width:${Math.round(s * 100 / n)}%"></i></div></span>`;
+    b.onclick = () => { SFX.tap(); world(w, true); };
+    $('worlds').appendChild(b);
+  }
+  $('totalLine').textContent = `فِي اللُّعْبَةِ ${dg(ALL)} لُغْزًا وَأَكْثَرُ مِنْ ${dg(Object.keys(TYPES).length)} نَوْعًا مِنَ الْأَلْغَازِ`;
+  if (speak) VO.say('home');
+}
+$('snd').onclick = () => { SFX.on = !SFX.on; save.sfx = SFX.on; store(); $('snd').textContent = SFX.on ? '🔊' : '🔇'; SFX.tap(); };
+
+// ---------- a world: its kinds of puzzles ----------
+let curW = 'v';
+function world(w, speak){
+  curW = w; show('worldScr'); stopTimer();
+  const W = WORLDS[w];
+  $('wTitle').innerHTML = W.icon + ' ' + W.name;
+  $('wStars').textContent = '⭐ ' + dg(ORDER[w].reduce((a, id) => a + starsOf(id), 0));
+  $('kinds').innerHTML = '';
+  ORDER[w].forEach(id => {
+    const t = TYPES[id], s = solvedOf(id), b = document.createElement('button'); b.className = 'kind';
+    b.innerHTML = `<span class="k">${t.icon}</span><b>${t.name}</b><small>${dg(s)} / ${dg(t.n)}</small><div class="prog"><i style="width:${Math.round(s * 100 / t.n)}%"></i></div>`;
+    b.onclick = () => { SFX.tap(); startKind(id); };
+    $('kinds').appendChild(b);
+  });
+  if (speak) VO.say('w-' + w);
+}
+$('wBack').onclick = () => { SFX.tap(); VO.stop(); home(false); };
+$('mixBtn').onclick = () => { SFX.tap(); startMix(curW); };
+
+// ---------- rounds ----------
+// mode: 'kind' (ten of one kind, the first unsolved ones), 'mix' (ten of one world), 'test' (fifteen, timed)
+let R = null;
+const ROUND = 10, TEST_SEC = 15;
+function firstUnsolved(id, k, avoid = []){
+  const b = save.b[id] || [], n = TYPES[id].n, out = [];
+  for (let i = 0; i < n && out.length < k; i++) if (!b[i] && !avoid.includes(i)) out.push(i);
+  if (out.length < k) mix(range(n).filter(i => !out.includes(i) && !avoid.includes(i))).slice(0, k - out.length).forEach(i => out.push(i));
+  return out;
+}
+function startKind(id){
+  R = { mode:'kind', id, w:TYPES[id].w, list:firstUnsolved(id, ROUND).map(i => [id, i]), at:0, got:[] };
+  VO.pack(id); begin(['h-' + id]);
+}
+function startMix(w){
+  const kinds = mix(ORDER[w]), list = [];
+  for (let k = 0; list.length < ROUND; k++) { const id = kinds[k % kinds.length]; const i = firstUnsolved(id, 1, list.filter(x => x[0] === id).map(x => x[1]))[0]; list.push([id, i]); }
+  R = { mode:'mix', w, list, at:0, got:[] };
+  begin(['mix']);
+}
+function startTest(){
+  const list = [];
+  for (const w of ['v', 'l', 'm']) mix(ORDER[w]).slice(0, 5).forEach(id => { const n = TYPES[id].n; list.push([id, Math.floor(n / 4) + Math.floor(Math.random() * Math.max(1, n / 2))]); });
+  R = { mode:'test', list, at:0, got:[] };
+  list.forEach(([id]) => VO.pack(id));
+  begin(['test']);
+}
+$('testBtn').onclick = () => { SFX.tap(); startTest(); };
+function begin(intro){ show('playScr'); R.intro = intro; puzzle(); }
+
+// ---------- one puzzle ----------
+let P = null, tries = 0, locked = false, memoT = 0, asking = false;
+window.puzzleNow = () => P; // lets the test bot see the puzzle on screen
+window.showPuzzle = (id, i) => { R = { mode:'kind', id, w:TYPES[id].w, list:[[id, i]], at:0, got:[] }; begin([]); }; // and open any puzzle
+function puzzle(){
+  const [id, i] = R.list[R.at];
+  P = make(id, i); tries = 0; locked = false; asking = false; clearTimeout(memoT); stopTimer();
+  const t = TYPES[id];
+  $('pKind').textContent = t.icon + ' ' + t.name;
+  $('pNum').textContent = dg(R.at + 1) + ' / ' + dg(R.list.length);
+  $('dots').innerHTML = R.list.map((_, k) => `<i class="${k < R.at ? (R.got[k] ? 'ok' : 'no') : k === R.at ? 'now' : ''}"></i>`).join('');
+  $('timer').hidden = R.mode !== 'test';
+  const intro = [];
+  if (R.intro) { intro.push(...R.intro); R.intro = null; }
+  if (R.mode === 'test' && R.at % 5 === 0) intro.push('test-' + ['v', 'l', 'm'][R.at / 5]);
+  // the next puzzle's lines start loading now
+  const nx = R.list[R.at + 1]; if (nx) { try { const q = make(nx[0], nx[1]); VO.pre([...(q.say || []), ...(q.exSay || [])]); } catch(e){} }
+  if (P.memo) {
+    // the pictures show only after any opening words, so the child gets the whole time to look
+    const me = P;
+    $('qText').innerHTML = P.memo.q; $('opts').innerHTML = ''; $('opts').className = '';
+    $('board').innerHTML = '<div class="txt" style="font-size:54px">⏳</div>';
+    (intro.length ? VO.say(intro) : Promise.resolve()).then(() => {
+      if (P !== me) return;
+      $('board').innerHTML = P.memo.board + `<div class="memobar"><i style="animation-duration:${P.memo.ms}ms"></i></div>`;
+      VO.say(P.memo.say);
+      memoT = setTimeout(() => { if (P === me) ask(); }, P.memo.ms);
+    });
+    return;
+  }
+  ask(intro);
+}
+function ask(intro = []){
+  $('qText').innerHTML = P.q + (P.top ? ` <span class="top">${P.top}</span>` : '');
+  $('board').innerHTML = P.board;
+  const o = $('opts'); o.innerHTML = '';
+  if (P.opts) {
+    const n = P.opts.length, cols = P.cols || (n === 3 ? 3 : 2);
+    o.className = cols === 3 ? 'three' : cols === 1 ? 'one' : '';
+    P.opts.forEach(op => { const b = document.createElement('button'); b.innerHTML = op.h; if (op.pic) b.classList.add('pic'); if (op.w) b.classList.add('w');
+      b.onclick = () => choose(b, op); o.appendChild(b); });
+  } else o.className = '';
+  asking = true;
+  if (R.mode !== 'test') { VO.say([...intro, ...P.say]); return; }
+  // the test: the clock starts once the opening words are over
+  left = TEST_SEC; drawTimer();
+  const me = P;
+  (intro.length ? VO.say(intro) : Promise.resolve()).then(() => { if (P !== me || locked) return; VO.say(P.say); startTimer(); });
+}
+$('board').addEventListener('click', e => {
+  if (!P || !P.tap || locked || !asking) return;
+  const g = e.target.closest('[data-k]'); if (!g) return;
+  if (g.dataset.k === P.k) right();
+  else { g.classList.add('pick'); setTimeout(() => g.classList.remove('pick'), 900); wrong(); }
+});
+$('replay').onclick = () => { if (P) VO.say(!asking && P.memo ? P.memo.say : P.say); };
+$('pBack').onclick = () => { SFX.tap(); VO.stop(); stopTimer(); clearTimeout(memoT); P = null; $('panel').classList.remove('on'); R.mode === 'test' ? home(false) : world(R.w || curW, false); };
+
+function choose(b, op){
+  if (locked || b.classList.contains('no')) return;
+  if (op.ok) { b.classList.add('ok'); right(); } else { b.classList.add('no'); wrong(); }
+}
+function right(){
+  locked = true; stopTimer();
+  const st = R.mode === 'test' ? 3 : tries === 0 ? 3 : tries === 1 ? 2 : 1;
+  R.got[R.at] = st; record(st);
+  SFX.good(); brainDo($('brainP'), 'hop'); confetti(36);
+  setTimeout(() => panel(true, st), 420);
+}
+function wrong(){
+  tries++; SFX.bad(); brainDo($('brainP'), 'shake');
+  const left = P.opts ? P.opts.length - 1 - tries : 3 - tries;
+  if (R.mode === 'test' || left <= 0) { locked = true; stopTimer(); R.got[R.at] = 0; markRight(); setTimeout(() => panel(false, 0), 700); return; }
+  VO.say('no-' + Math.min(tries - 1, 2));
+}
+function markRight(){ if (P.opts) [...$('opts').children].forEach((b, k) => { if (P.opts[k].ok) b.classList.add('ok'); }); }
+function record(st){ const [id, i] = R.list[R.at]; const b = save.b[id] || (save.b[id] = []); b[i] = Math.max(b[i] || 0, st); store(); }
+
+// ---------- the answer panel ----------
+let animT = 0;
+function panel(ok, st, late){
+  clearInterval(animT);
+  $('okTitle').textContent = ok ? rnd(['أَحْسَنْتَ! 🎉', 'مُمْتَازٌ! 🌟', 'رَائِعٌ! 🎉', 'عَبْقَرِيٌّ! 🧠']) : late ? 'انْتَهَى الْوَقْتُ ⏰' : 'هَذَا هُوَ الْحَلُّ 👇';
+  $('okTitle').className = ok ? '' : 'no';
+  $('exText').innerHTML = (P.ex || '').replace(/\n/g, '<br>');
+  $('pStars').textContent = R.mode === 'test' ? (ok ? '✅' : '❌') : '⭐'.repeat(st) + '☆'.repeat(3 - st);
+  const eb = $('exBoard');
+  if (P.anim) {
+    eb.innerHTML = P.anim.base.replace('</svg>', '<g id="hl"></g></svg>') + `<div class="cnt" id="hlN"></div>`;
+    let k = 0; const L = P.anim.list, every = Math.max(260, Math.min(700, 9000 / L.length));
+    animT = setInterval(() => { if (k >= L.length) { clearInterval(animT); return; } $('hl').innerHTML = L[k]; k++; $('hlN').textContent = dg(k); SFX.tick(); }, every);
+  } else eb.innerHTML = P.exBoard || '';
+  $('panel').classList.add('on');
+  $('nextQ').textContent = R.at + 1 < R.list.length ? 'التَّالِي ◀︎' : 'النَّتِيجَةُ 🏁';
+  VO.say([ok ? 'ok-' + Math.floor(Math.random() * 6) : late ? 'late' : R.mode === 'test' ? 'miss' : 'show', ...(P.exSay || [])]);
+}
+$('nextQ').onclick = () => {
+  SFX.tap(); clearInterval(animT); $('panel').classList.remove('on');
+  R.at++; if (R.at < R.list.length) puzzle(); else R.mode === 'test' ? result() : done();
+};
+
+// ---------- the 15-second timer (the test) ----------
+let timerT = 0, left = 0;
+function startTimer(){
+  stopTimer(); left = TEST_SEC; drawTimer();
+  timerT = setInterval(() => { left--; drawTimer(); if (left <= 5 && left > 0) SFX.tick();
+    if (left <= 0) { stopTimer(); if (locked) return; locked = true; R.got[R.at] = 0; SFX.bad(); markRight(); setTimeout(() => panel(false, 0, true), 500); } }, 1000);
+}
+function stopTimer(){ clearInterval(timerT); timerT = 0; }
+function drawTimer(){ $('tNum').textContent = dg(Math.max(0, left)); $('tArc').style.strokeDashoffset = 119.4 * (1 - left / TEST_SEC); $('timer').classList.toggle('low', left <= 5); }
+
+// ---------- end of a round ----------
+function done(){
+  show('doneScr'); SFX.win(); confetti(110);
+  const got = R.got.reduce((a, b) => a + (b || 0), 0), max = R.list.length * 3;
+  $('doneStars').textContent = '⭐ ' + dg(got) + ' / ' + dg(max);
+  const id = R.id, all = id && solvedOf(id) >= TYPES[id].n;
+  $('doneTitle').textContent = all ? 'حَلَلْتَ كُلَّ الْأَلْغَازِ! 🏆' : got >= max * .8 ? 'عَقْلٌ لَامِعٌ! 🌟' : 'أَحْسَنْتَ! 🎉';
+  $('doneText').textContent = id ? `حَلَلْتَ ${dg(solvedOf(id))} مِنْ ${dg(TYPES[id].n)} لُغْزًا فِي «${TYPES[id].name}».` : 'جَوْلَةٌ مُنَوَّعَةٌ رَائِعَةٌ!';
+  VO.say(all ? 'alldone' : 'done');
+}
+$('againBtn').onclick = () => { SFX.tap(); R.mode === 'kind' ? startKind(R.id) : startMix(R.w); };
+$('toWorld').onclick = () => { SFX.tap(); world(R.w || curW, false); };
+$('toHome').onclick = () => { SFX.tap(); home(false); };
+
+// ---------- the IQ test result ----------
+function result(){
+  show('resScr'); SFX.win();
+  const sc = R.got.filter(Boolean).length, tier = sc >= 11 ? 2 : sc >= 7 ? 1 : 0;
+  save.tests = (save.tests || 0) + 1; if (sc > save.best) save.best = sc; store();
+  $('score').textContent = dg(sc) + ' / ' + dg(15);
+  const T3 = [['#e63946', '٠–٦', 'عَقْلٌ يَتَدَرَّبُ', '🌱'], ['#f4b400', '٧–١٠', 'ذَكِيٌّ جِدًّا', '⭐'], ['#2fbf71', '١١–١٥', 'عَبْقَرِيٌّ', '👑']];
+  $('tiers').innerHTML = T3.map((t, k) => `<div class="tier${k === tier ? ' on' : ''}" style="background:${t[0]}"><span>${t[1]}: ${t[2]}</span><span class="cr">${t[3]}</span></div>`).join('');
+  $('parts').innerHTML = ['v', 'l', 'm'].map((w, k) => `<div>${WORLDS[w].icon}<b>${dg(R.got.slice(k * 5, k * 5 + 5).filter(Boolean).length)}/${dg(5)}</b>${WORLDS[w].name}</div>`).join('');
+  confetti(tier === 2 ? 160 : 70);
+  VO.say('res-' + tier);
+}
+$('testAgain').onclick = () => { SFX.tap(); startTest(); };
+$('resHome').onclick = () => { SFX.tap(); home(false); };
+
+// ---------- start ----------
+$('go').onclick = () => {
+  $('go').hidden = true; $('loading').hidden = false;
+  VO.start().then(() => { home(false); VO.say('intro'); });
+  setTimeout(() => { if ($('startScr').classList.contains('on')) { home(false); } }, 4000);
+};
+
+// confetti
+const cv = $('confetti'), cx = cv.getContext('2d'); let bits = [];
+function confetti(n){ cv.width = innerWidth; cv.height = innerHeight;
+  for (let i = 0; i < n; i++) bits.push({ x:innerWidth / 2, y:innerHeight * .45, vx:(Math.random() - .5) * 12, vy:-Math.random() * 12 - 3, r:Math.random() * 6 + 4,
+    c:rnd(['#ffd23f', '#3ddc84', '#59c3ff', '#ff8a5c', '#ff6bd6']), a:Math.random() * 6, life:90 });
+  if (bits.length === n) requestAnimationFrame(tick); }
+function tick(){ cx.clearRect(0, 0, cv.width, cv.height);
+  bits.forEach(b => { b.x += b.vx; b.y += b.vy; b.vy += .35; b.a += .2; b.life--; cx.save(); cx.translate(b.x, b.y); cx.rotate(b.a); cx.fillStyle = b.c; cx.fillRect(-b.r / 2, -b.r / 4, b.r, b.r / 2); cx.restore(); });
+  bits = bits.filter(b => b.life > 0 && b.y < cv.height + 20); if (bits.length) requestAnimationFrame(tick); else cx.clearRect(0, 0, cv.width, cv.height); }
+})();
+
+</script>
+</body>
+</html>

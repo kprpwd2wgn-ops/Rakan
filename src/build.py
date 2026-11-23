@@ -120,4 +120,14 @@ def build_ollie():
         html=OLLIE_PAGE.replace('@N@',str(n)).replace('@ICON@',icon).replace('@CSS@',css).replace('@DATA@',f'const PARTS={parts};\n'+rd(f'data/part{n}.js')).replace('@ENGINE@',engine)
         open(os.path.join(O,ollie_page(n)),'w',encoding='utf-8').write(html)
         print('built',ollie_page(n),'(Ollie part %d)'%n,len(html),('· clip map +%d lines'%len(added)) if added else '')
-for n in (sys.argv[1:] or list(APPS)+['ollie']): build_ollie() if n=='ollie' else build(n)
+# ---- Genius Challenge (تحدي العباقرة): python3 src/build.py genius  ->  genius-challenge.html ----
+# One page from src/genius/: page.html with style.css, the puzzle files (they also run in node, for
+# tools/genius-lines.js) and ui.js inlined. Its voice packs come from tools/voice-packs.py.
+GENIUS_DATA=['core.js','visual.js','visual2.js','logic.js','logic2.js','logic3.js','math.js','math2.js']
+def build_genius():
+    S=os.path.join(R,'genius'); rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
+    data='\n'.join(rd(f) for f in GENIUS_DATA)+"\nif (typeof module !== 'undefined') module.exports = { TYPES, ORDER, SAY, WORLDS, make, hash };\n"
+    html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*UI*/',rd('ui.js'))
+    open(os.path.join(O,'genius-challenge.html'),'w',encoding='utf-8').write(html)
+    print('built genius-challenge.html',len(html))
+for n in (sys.argv[1:] or list(APPS)+['ollie','genius']): build_ollie() if n=='ollie' else build_genius() if n=='genius' else build(n)

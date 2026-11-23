@@ -637,7 +637,7 @@ T('dif', { w:'v', name:'أَوْجِدِ الْفَرْقَ', icon:'🔎', n:30,
     const P = spots(r, n, W, H - 6, sz * 1.15).map(p => [p[0], p[1] + 3]);
     const items = P.map(() => pk(r, DIF_ALL));
     const k = ri(r, 0, P.length - 1);
-    const how = pk(r, d === 0 ? ['swap', 'gone'] : d === 1 ? ['swap', 'gone', 'flip'] : ['swap', 'gone', 'flip', 'small']);
+    const how = pk(r, d === 0 ? ['swap', 'gone'] : d === 1 ? ['swap', 'gone', 'small'] : ['swap', 'gone', 'flip', 'small']); // a turned picture is the hardest to see
     const can = how !== 'flip' || DIF_FLIP.includes(items[k]);
     const mode = can ? how : 'swap';
     const one = (i, e, x, y, alt) => {

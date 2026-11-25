@@ -538,8 +538,8 @@ def('check', id => {
       app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ mood: knew.length ? 'happy' : 'idle', pose: knew.length ? 'cheer' : 'idle' })}</div><h2>عرفت ${num(knew.length)} من ${num(words.length)}</h2>
         ${knew.length ? `<div class="wlist">${knew.map(w => `<span>${pic(w)}${esc(w.en)}</span>`).join('')}</div><p class="muted" style="margin:0">أضيفت إلى قاموسك، وستراجعها فقط.</p>` : '<p style="margin:0">لا بأس! ستتعلمها كلها في الدروس.</p>'}
         <button class="btn" id="ok">متابعة ◀︎</button></div>`;
-      if (knew.length) { FX.confetti(); VO.say({ a: 'check-done' }); }
-      celebrate([]);
+      if (knew.length) FX.confetti();
+      celebrate(knew.length ? [{ a: 'check-done' }] : []);
       on('#ok', () => { clean(); cur = stack.pop() || { name: 'home' }; render(); });
     } }));
 });

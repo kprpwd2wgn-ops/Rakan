@@ -58,7 +58,7 @@ const GAME = {
       const perch = () => { gf.style.left = '8px'; gf.style.top = (H() - 118) + 'px'; };
       perch();
       const tick = setInterval(() => { if (over) return; left--; $('#tm').style.width = (left / 60 * 100) + '%'; if (left <= 0) end(); }, 1000);
-      const end = () => { if (over) return; over = true; clearInterval(tick); cancelAnimationFrame(raf); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, Math.ceil(score / 15)), 900); };
+      const end = () => { if (over) return; over = true; clearInterval(tick); cancelAnimationFrame(raf); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, Math.ceil(score / 15)), 1300); };
       onLeave(() => { over = true; clearInterval(tick); cancelAnimationFrame(raf); });
       const newRound = () => {
         if (over) return; round++;
@@ -134,7 +134,7 @@ const GAME = {
   rush(g) {
     startCard(g, 'دقيقة واحدة! اختر اسم كل صورة بأسرع ما يمكن.', () => {
       const pool = gamePool(true); let score = 0, left = 60, k = 0, over = false;
-      const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 60 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 800); } }, 1000);
+      const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 60 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 1300); } }, 1000);
       onLeave(() => { over = true; clearInterval(tick); });
       const show = () => {
         if (over) return; const w = pool[k++ % pool.length], opts = mix([w, ...gameOthers(w, pool, 2, 'en')]);
@@ -226,7 +226,7 @@ const GAME = {
   tf(g) {
     startCard(g, 'سترى صورة وتسمع كلمة. هل الكلمة تناسب الصورة؟ لديك ٤٥ ثانية!', () => {
       const pool = gamePool(true); let score = 0, left = 45, k = 0, over = false;
-      const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 45 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 800); } }, 1000);
+      const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 45 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 1300); } }, 1000);
       onLeave(() => { over = true; clearInterval(tick); });
       const show = () => {
         if (over) return; const w = pool[k++ % pool.length], yes = Math.random() < .5, shown = yes ? w : (gameOthers(w, pool, 1, 'pic')[0] || w), truth = shown === w;

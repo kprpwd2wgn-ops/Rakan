@@ -1,0 +1,623 @@
+{
+  "voice": "ar-SA-HamedNeural",
+  "generated": "2026-11-25",
+  "loudness": "-14.5 LUFS",
+  "lines": [
+    {
+      "id": "hello-1",
+      "text": "مَرْحَبًا! أَنَا شَاهِينُ، صَقْرُ الْكَلِمَاتِ.",
+      "file": "hello-1.mp3",
+      "seconds": 4.13,
+      "stamp": "7e650d5f7982"
+    },
+    {
+      "id": "hello-2",
+      "text": "سَنَتَعَلَّمُ مَعًا كَلِمَاتٍ إِنْجِلِيزِيَّةً جَدِيدَةً كُلَّ يَوْمٍ.",
+      "file": "hello-2.mp3",
+      "seconds": 3.96,
+      "stamp": "ac5245e673ec"
+    },
+    {
+      "id": "hello-3",
+      "text": "كُلَّمَا تَعَلَّمْتَ كَلِمَاتٍ أَكْثَرَ، كَبِرْتُ وَطِرْتُ أَعْلَى!",
+      "file": "hello-3.mp3",
+      "seconds": 3.84,
+      "stamp": "53b71baea2e6"
+    },
+    {
+      "id": "home-1",
+      "text": "أَهْلًا بِعَوْدَتِكَ يَا بَطَلُ!",
+      "file": "home-1.mp3",
+      "seconds": 1.8,
+      "stamp": "f021c3c8c2ae"
+    },
+    {
+      "id": "home-2",
+      "text": "هَيَّا لِنَصْطَادَ كَلِمَاتٍ جَدِيدَةً!",
+      "file": "home-2.mp3",
+      "seconds": 2.14,
+      "stamp": "a7a9c69789c7"
+    },
+    {
+      "id": "review-due",
+      "text": "عِنْدَكَ كَلِمَاتٌ تَنْتَظِرُ الْمُرَاجَعَةَ.",
+      "file": "review-due.mp3",
+      "seconds": 2.47,
+      "stamp": "7f52d255fd2b"
+    },
+    {
+      "id": "review-none",
+      "text": "لَا تُوجَدُ مُرَاجَعَةٌ الْآنَ، تَعَلَّمْ كَلِمَاتٍ جَدِيدَةً!",
+      "file": "review-none.mp3",
+      "seconds": 3.96,
+      "stamp": "ec6101421132"
+    },
+    {
+      "id": "meet",
+      "text": "تَعَرَّفْ عَلَى الْكَلِمَاتِ الْجَدِيدَةِ: اِسْمَعْ، وَانْظُرْ إِلَى الصُّورَةِ.",
+      "file": "meet.mp3",
+      "seconds": 4.3,
+      "stamp": "e31d844438ba"
+    },
+    {
+      "id": "practice",
+      "text": "الْآنَ نَتَدَرَّبُ، أَجِبْ عَنِ الْأَسْئِلَةِ.",
+      "file": "practice.mp3",
+      "seconds": 2.81,
+      "stamp": "ba325ddd1e80"
+    },
+    {
+      "id": "q-lp",
+      "text": "اِسْمَعْ، ثُمَّ اخْتَرِ الصُّورَةَ.",
+      "file": "q-lp.mp3",
+      "seconds": 2.16,
+      "stamp": "799b458095b1"
+    },
+    {
+      "id": "q-pw",
+      "text": "مَا اسْمُ هَذِهِ الصُّورَةِ بِالْإِنْجِلِيزِيَّةِ؟",
+      "file": "q-pw.mp3",
+      "seconds": 2.4,
+      "stamp": "6d48cf0c6661"
+    },
+    {
+      "id": "q-wp",
+      "text": "اِقْرَأِ الْكَلِمَةَ، ثُمَّ اخْتَرْ صُورَتَهَا.",
+      "file": "q-wp.mp3",
+      "seconds": 2.66,
+      "stamp": "5da30bd7d58b"
+    },
+    {
+      "id": "q-aw",
+      "text": "اِخْتَرِ الْكَلِمَةَ الْإِنْجِلِيزِيَّةَ الصَّحِيحَةَ.",
+      "file": "q-aw.mp3",
+      "seconds": 2.69,
+      "stamp": "1de1caf4c0f4"
+    },
+    {
+      "id": "q-wa",
+      "text": "مَا مَعْنَى هَذِهِ الْكَلِمَةِ؟",
+      "file": "q-wa.mp3",
+      "seconds": 1.63,
+      "stamp": "8bb0d323e91f"
+    },
+    {
+      "id": "q-gap",
+      "text": "اِخْتَرِ الْكَلِمَةَ الَّتِي تُكْمِلُ الْجُمْلَةَ.",
+      "file": "q-gap.mp3",
+      "seconds": 2.28,
+      "stamp": "8317f2c98344"
+    },
+    {
+      "id": "q-sp",
+      "text": "رَتِّبِ الْحُرُوفَ لِتَكْتُبَ الْكَلِمَةَ.",
+      "file": "q-sp.mp3",
+      "seconds": 2.18,
+      "stamp": "43f8842f1295"
+    },
+    {
+      "id": "q-tf",
+      "text": "هَلْ هَذِهِ الْكَلِمَةُ تُنَاسِبُ الصُّورَةَ؟",
+      "file": "q-tf.mp3",
+      "seconds": 2.26,
+      "stamp": "43b4f9b368a5"
+    },
+    {
+      "id": "q-say",
+      "text": "اُنْطُقِ الْكَلِمَةَ بِصَوْتٍ وَاضِحٍ.",
+      "file": "q-say.mp3",
+      "seconds": 2.38,
+      "stamp": "f278a59a1ff2"
+    },
+    {
+      "id": "q-sit",
+      "text": "مَاذَا تَقُولُ فِي هَذَا الْمَوْقِفِ؟",
+      "file": "q-sit.mp3",
+      "seconds": 2.11,
+      "stamp": "2ef21b15bdd9"
+    },
+    {
+      "id": "q-ord",
+      "text": "رَتِّبِ الْكَلِمَاتِ لِتُكَوِّنَ جُمْلَةً صَحِيحَةً.",
+      "file": "q-ord.mp3",
+      "seconds": 3.05,
+      "stamp": "bdce0b75af77"
+    },
+    {
+      "id": "lesson-done",
+      "text": "أَنْهَيْتَ الدَّرْسَ! أُضِيفَتِ الْكَلِمَاتُ إِلَى قَامُوسِكَ.",
+      "file": "lesson-done.mp3",
+      "seconds": 4.51,
+      "stamp": "1f477f681e9b"
+    },
+    {
+      "id": "review-start",
+      "text": "هَيَّا لِنُرَاجِعَ الْكَلِمَاتِ حَتَّى لَا تَنْسَاهَا.",
+      "file": "review-start.mp3",
+      "seconds": 2.98,
+      "stamp": "0746e606a75f"
+    },
+    {
+      "id": "review-done",
+      "text": "مُرَاجَعَةٌ رَائِعَةٌ! صَارَتِ الْكَلِمَاتُ أَقْوَى فِي ذَاكِرَتِكَ.",
+      "file": "review-done.mp3",
+      "seconds": 4.99,
+      "stamp": "907f04efdce9"
+    },
+    {
+      "id": "wrong",
+      "text": "لَا بَأْسَ، هَذِهِ هِيَ الْإِجَابَةُ الصَّحِيحَةُ.",
+      "file": "wrong.mp3",
+      "seconds": 3.12,
+      "stamp": "1ec768a578ba"
+    },
+    {
+      "id": "goal",
+      "text": "أَحْسَنْتَ! حَقَّقْتَ هَدَفَ الْيَوْمِ.",
+      "file": "goal.mp3",
+      "seconds": 3.05,
+      "stamp": "ce132b256e0d"
+    },
+    {
+      "id": "streak",
+      "text": "رَائِعٌ! تَعَلَّمْتَ الْيَوْمَ أَيْضًا، فَلَا تَقْطَعْ سِلْسِلَتَكَ!",
+      "file": "streak.mp3",
+      "seconds": 4.99,
+      "stamp": "48bd3d3e2ad8"
+    },
+    {
+      "id": "badge",
+      "text": "مَبْرُوكٌ! حَصَلْتَ عَلَى وِسَامٍ جَدِيدٍ.",
+      "file": "badge.mp3",
+      "seconds": 3.82,
+      "stamp": "768dbc6e771a"
+    },
+    {
+      "id": "rank-2",
+      "text": "مَبْرُوكٌ! كَبِرْتُ، وَصِرْتُ صَقْرًا صَغِيرًا.",
+      "file": "rank-2.mp3",
+      "seconds": 4.39,
+      "stamp": "cd583ca2ed95"
+    },
+    {
+      "id": "rank-3",
+      "text": "رَائِعٌ! صِرْتُ صَقْرًا صَيَّادًا.",
+      "file": "rank-3.mp3",
+      "seconds": 3.24,
+      "stamp": "3928fb59e530"
+    },
+    {
+      "id": "rank-4",
+      "text": "مُذْهِلٌ! صِرْتُ صَقْرَ السَّمَاءِ.",
+      "file": "rank-4.mp3",
+      "seconds": 2.86,
+      "stamp": "e8eff841aa65"
+    },
+    {
+      "id": "rank-5",
+      "text": "مُدْهِشٌ! صِرْتُ الصَّقْرَ الذَّهَبِيَّ.",
+      "file": "rank-5.mp3",
+      "seconds": 3.24,
+      "stamp": "c9a16fe75cf2"
+    },
+    {
+      "id": "rank-6",
+      "text": "أَنْتَ بَطَلٌ حَقِيقِيٌّ! صِرْتُ أُسْطُورَةَ الْكَلِمَاتِ.",
+      "file": "rank-6.mp3",
+      "seconds": 4.32,
+      "stamp": "be3ae773d1fe"
+    },
+    {
+      "id": "placement-ask",
+      "text": "هَلْ تُرِيدُ اخْتِبَارًا سَرِيعًا، لِنَعْرِفَ الْكَلِمَاتِ الَّتِي تَعْرِفُهَا؟",
+      "file": "placement-ask.mp3",
+      "seconds": 4.3,
+      "stamp": "5c323a44c244"
+    },
+    {
+      "id": "placement-go",
+      "text": "اِسْمَعِ الْكَلِمَةَ، وَاخْتَرْ صُورَتَهَا. لَا بَأْسَ إِذَا لَمْ تَعْرِفْهَا.",
+      "file": "placement-go.mp3",
+      "seconds": 5.38,
+      "stamp": "a779373449d4"
+    },
+    {
+      "id": "placement-done",
+      "text": "أَحْسَنْتَ! عَرَفْنَا مَا تَعْرِفُهُ، وَسَنَبْدَأُ بِالْكَلِمَاتِ الْجَدِيدَةِ.",
+      "file": "placement-done.mp3",
+      "seconds": 5.28,
+      "stamp": "8e9dabc240be"
+    },
+    {
+      "id": "check-topic",
+      "text": "لِنَخْتَبِرْ مَا تَعْرِفُهُ مِنْ كَلِمَاتِ هَذَا الْمَوْضُوعِ.",
+      "file": "check-topic.mp3",
+      "seconds": 3.17,
+      "stamp": "a5fed6a76aa3"
+    },
+    {
+      "id": "check-done",
+      "text": "الْكَلِمَاتُ الَّتِي عَرَفْتَهَا لَنْ تَحْتَاجَ إِلَى تَعَلُّمِهَا مِنْ جَدِيدٍ.",
+      "file": "check-done.mp3",
+      "seconds": 4.15,
+      "stamp": "2bc90c315410"
+    },
+    {
+      "id": "g-catch",
+      "text": "اِسْمَعِ الْكَلِمَةَ، وَالْمِسْ صُورَتَهَا لِيَصْطَادَهَا الصَّقْرُ!",
+      "file": "g-catch.mp3",
+      "seconds": 3.53,
+      "stamp": "8778e4c35a05"
+    },
+    {
+      "id": "g-memory",
+      "text": "اِقْلِبْ بِطَاقَتَيْنِ، وَابْحَثْ عَنِ الصُّورَةِ وَكَلِمَتِهَا.",
+      "file": "g-memory.mp3",
+      "seconds": 3.86,
+      "stamp": "245284202e05"
+    },
+    {
+      "id": "g-tower",
+      "text": "اُكْتُبِ الْكَلِمَاتِ لِتَبْنِيَ بُرْجًا عَالِيًا.",
+      "file": "g-tower.mp3",
+      "seconds": 2.76,
+      "stamp": "5d3210f842f6"
+    },
+    {
+      "id": "g-rush",
+      "text": "أَجِبْ عَنْ أَكْبَرِ عَدَدٍ مِنَ الْأَسْئِلَةِ فِي دَقِيقَةٍ وَاحِدَةٍ!",
+      "file": "g-rush.mp3",
+      "seconds": 3.55,
+      "stamp": "247f045eb8b0"
+    },
+    {
+      "id": "g-odd",
+      "text": "ثَلَاثُ صُوَرٍ مِنْ مَجْمُوعَةٍ وَاحِدَةٍ، وَوَاحِدَةٌ غَرِيبَةٌ. اِبْحَثْ عَنْهَا!",
+      "file": "g-odd.mp3",
+      "seconds": 5.9,
+      "stamp": "729e4e5f5b38"
+    },
+    {
+      "id": "g-mystery",
+      "text": "اِكْتَشِفِ الْكَلِمَةَ الْغَامِضَةَ حَرْفًا حَرْفًا.",
+      "file": "g-mystery.mp3",
+      "seconds": 2.76,
+      "stamp": "844acaa11166"
+    },
+    {
+      "id": "g-tf",
+      "text": "هَلِ الْكَلِمَةُ الَّتِي تَسْمَعُهَا تُنَاسِبُ الصُّورَةَ؟ أَجِبْ بِسُرْعَةٍ!",
+      "file": "g-tf.mp3",
+      "seconds": 4.73,
+      "stamp": "0f98b7ec4b6c"
+    },
+    {
+      "id": "talk-intro",
+      "text": "سَتَسْمَعُ سُؤَالًا بِالْإِنْجِلِيزِيَّةِ، فَأَجِبْ عَنْهُ بِجُمْلَةٍ كَامِلَةٍ.",
+      "file": "talk-intro.mp3",
+      "seconds": 4.46,
+      "stamp": "7ff62d344f9f"
+    },
+    {
+      "id": "talk-mic",
+      "text": "اِضْغَطِ الزِّرَّ، ثُمَّ تَكَلَّمْ.",
+      "file": "talk-mic.mp3",
+      "seconds": 2.3,
+      "stamp": "77d6788e8108"
+    },
+    {
+      "id": "talk-build",
+      "text": "رَتِّبِ الْكَلِمَاتِ لِتَبْنِيَ الْإِجَابَةَ.",
+      "file": "talk-build.mp3",
+      "seconds": 2.3,
+      "stamp": "693a7030ce46"
+    },
+    {
+      "id": "shop",
+      "text": "اِجْمَعِ الرِّيشَ، وَاشْتَرِ لِي أَشْيَاءَ جَمِيلَةً.",
+      "file": "shop.mp3",
+      "seconds": 3.07,
+      "stamp": "f2e38b94ce7f"
+    },
+    {
+      "id": "book",
+      "text": "هَذَا قَامُوسُكَ، فِيهِ كُلُّ كَلِمَةٍ تَعَلَّمْتَهَا.",
+      "file": "book.mp3",
+      "seconds": 3.67,
+      "stamp": "4735f9ad0ce0"
+    },
+    {
+      "id": "map",
+      "text": "اِخْتَرْ مَوْضُوعًا تُحِبُّهُ.",
+      "file": "map.mp3",
+      "seconds": 1.7,
+      "stamp": "2ac5593cf159"
+    },
+    {
+      "id": "next-lesson",
+      "text": "هَيَّا إِلَى الدَّرْسِ التَّالِي!",
+      "file": "next-lesson.mp3",
+      "seconds": 1.58,
+      "stamp": "d3bd61faf73e"
+    },
+    {
+      "id": "games",
+      "text": "اِخْتَرْ لُعْبَةً، وَالْعَبْ بِكَلِمَاتِكَ.",
+      "file": "games.mp3",
+      "seconds": 2.52,
+      "stamp": "961b757bc21e"
+    },
+    {
+      "id": "mastered",
+      "text": "أَتْقَنْتَ كَلِمَاتٍ جَدِيدَةً! أَحْسَنْتَ.",
+      "file": "mastered.mp3",
+      "seconds": 3.22,
+      "stamp": "7f6fc9894cdc"
+    },
+    {
+      "id": "time-up",
+      "text": "اِنْتَهَى الْوَقْتُ!",
+      "file": "time-up.mp3",
+      "seconds": 0.86,
+      "stamp": "2560f5e13f20"
+    },
+    {
+      "id": "again",
+      "text": "حَاوِلْ مَرَّةً أُخْرَى.",
+      "file": "again.mp3",
+      "seconds": 1.54,
+      "stamp": "52fd205a7ab6"
+    },
+    {
+      "id": "good-try",
+      "text": "مُحَاوَلَةٌ جَيِّدَةٌ!",
+      "file": "good-try.mp3",
+      "seconds": 1.49,
+      "stamp": "29fcb430e77c"
+    },
+    {
+      "id": "t-family",
+      "text": "الْعَائِلَةُ وَالنَّاسُ.",
+      "file": "t-family.mp3",
+      "seconds": 1.63,
+      "stamp": "da1ee1025fd2"
+    },
+    {
+      "id": "t-body",
+      "text": "جِسْمِي.",
+      "file": "t-body.mp3",
+      "seconds": 0.67,
+      "stamp": "fcb06f7132d2"
+    },
+    {
+      "id": "t-clothes",
+      "text": "الْمَلَابِسُ.",
+      "file": "t-clothes.mp3",
+      "seconds": 1.1,
+      "stamp": "7ea674080087"
+    },
+    {
+      "id": "t-food",
+      "text": "الطَّعَامُ.",
+      "file": "t-food.mp3",
+      "seconds": 0.74,
+      "stamp": "6f230dc5666a"
+    },
+    {
+      "id": "t-fruit",
+      "text": "الْفَوَاكِهُ وَالْخُضَارُ.",
+      "file": "t-fruit.mp3",
+      "seconds": 1.61,
+      "stamp": "5df6bd490ce7"
+    },
+    {
+      "id": "t-animals",
+      "text": "حَيَوَانَاتُ الْمَزْرَعَةِ وَالْبَيْتِ.",
+      "file": "t-animals.mp3",
+      "seconds": 2.14,
+      "stamp": "4205035cc1d7"
+    },
+    {
+      "id": "t-house",
+      "text": "بَيْتِي.",
+      "file": "t-house.mp3",
+      "seconds": 0.74,
+      "stamp": "0f3fa05d8209"
+    },
+    {
+      "id": "t-school",
+      "text": "مَدْرَسَتِي.",
+      "file": "t-school.mp3",
+      "seconds": 0.84,
+      "stamp": "d2a28eb47536"
+    },
+    {
+      "id": "t-colors",
+      "text": "الْأَلْوَانُ وَالْأَشْكَالُ وَالْأَعْدَادُ.",
+      "file": "t-colors.mp3",
+      "seconds": 2.38,
+      "stamp": "ce1929a07bf9"
+    },
+    {
+      "id": "t-verbs",
+      "text": "أَفْعَالُ الْحَرَكَةِ.",
+      "file": "t-verbs.mp3",
+      "seconds": 1.2,
+      "stamp": "d6a1dca51f43"
+    },
+    {
+      "id": "t-day",
+      "text": "يَوْمِي.",
+      "file": "t-day.mp3",
+      "seconds": 0.74,
+      "stamp": "3032dc6a12ad"
+    },
+    {
+      "id": "t-time",
+      "text": "الْوَقْتُ وَالْأَيَّامُ.",
+      "file": "t-time.mp3",
+      "seconds": 1.37,
+      "stamp": "5b66bfe86cdb"
+    },
+    {
+      "id": "t-weather",
+      "text": "الطَّقْسُ وَالْفُصُولُ.",
+      "file": "t-weather.mp3",
+      "seconds": 1.39,
+      "stamp": "f2ce7d16a60c"
+    },
+    {
+      "id": "t-wild",
+      "text": "الْحَيَوَانَاتُ الْبَرِّيَّةُ.",
+      "file": "t-wild.mp3",
+      "seconds": 1.56,
+      "stamp": "c8c7acb392c6"
+    },
+    {
+      "id": "t-sea",
+      "text": "الْبَحْرُ وَالْحَشَرَاتُ.",
+      "file": "t-sea.mp3",
+      "seconds": 1.34,
+      "stamp": "913d54a9a81c"
+    },
+    {
+      "id": "t-town",
+      "text": "الْمَدِينَةُ وَالْأَمَاكِنُ.",
+      "file": "t-town.mp3",
+      "seconds": 1.66,
+      "stamp": "8e65c46a4208"
+    },
+    {
+      "id": "t-transport",
+      "text": "الْمُوَاصَلَاتُ.",
+      "file": "t-transport.mp3",
+      "seconds": 1.1,
+      "stamp": "11f2f13b933e"
+    },
+    {
+      "id": "t-jobs",
+      "text": "الْمِهَنُ.",
+      "file": "t-jobs.mp3",
+      "seconds": 0.79,
+      "stamp": "8fb22b819786"
+    },
+    {
+      "id": "t-sports",
+      "text": "الرِّيَاضَةُ وَوَقْتُ الْفَرَاغِ.",
+      "file": "t-sports.mp3",
+      "seconds": 1.85,
+      "stamp": "2cfb643c6cca"
+    },
+    {
+      "id": "t-feelings",
+      "text": "الْمَشَاعِرُ وَالصِّفَاتُ.",
+      "file": "t-feelings.mp3",
+      "seconds": 1.56,
+      "stamp": "0fbcf6927014"
+    },
+    {
+      "id": "t-opposites",
+      "text": "الْأَضْدَادُ.",
+      "file": "t-opposites.mp3",
+      "seconds": 0.86,
+      "stamp": "13c2ed2a9246"
+    },
+    {
+      "id": "t-health",
+      "text": "صِحَّتِي.",
+      "file": "t-health.mp3",
+      "seconds": 0.77,
+      "stamp": "99390a228645"
+    },
+    {
+      "id": "t-kitchen",
+      "text": "الْمَطْبَخُ وَالْمَشْرُوبَاتُ.",
+      "file": "t-kitchen.mp3",
+      "seconds": 1.7,
+      "stamp": "4d9b0a69d2a6"
+    },
+    {
+      "id": "t-nature",
+      "text": "الطَّبِيعَةُ وَالْعَالَمُ.",
+      "file": "t-nature.mp3",
+      "seconds": 1.46,
+      "stamp": "7778a853e11b"
+    },
+    {
+      "id": "t-tech",
+      "text": "التِّقْنِيَةُ.",
+      "file": "t-tech.mp3",
+      "seconds": 0.91,
+      "stamp": "e6599584a99e"
+    },
+    {
+      "id": "t-shopping",
+      "text": "التَّسَوُّقُ وَالنُّقُودُ.",
+      "file": "t-shopping.mp3",
+      "seconds": 1.58,
+      "stamp": "a4ad12a37dd7"
+    },
+    {
+      "id": "t-verbs2",
+      "text": "أَفْعَالٌ أَكْثَرُ.",
+      "file": "t-verbs2.mp3",
+      "seconds": 1.2,
+      "stamp": "5983d08b873a"
+    },
+    {
+      "id": "t-where",
+      "text": "أَيْنَ؟ الْمَكَانُ وَالِاتِّجَاهُ.",
+      "file": "t-where.mp3",
+      "seconds": 2.93,
+      "stamp": "248fa4164a96"
+    },
+    {
+      "id": "t-manners",
+      "text": "الْأَخْلَاقُ الْحَسَنَةُ.",
+      "file": "t-manners.mp3",
+      "seconds": 1.32,
+      "stamp": "674891264d7d"
+    },
+    {
+      "id": "t-special",
+      "text": "أَيَّامُنَا الْمُمَيَّزَةُ.",
+      "file": "t-special.mp3",
+      "seconds": 1.51,
+      "stamp": "2fed8628ef63"
+    },
+    {
+      "id": "t-class",
+      "text": "جُمَلُ حِصَّتِي الْإِنْجِلِيزِيَّةِ.",
+      "file": "t-class.mp3",
+      "seconds": 2.02,
+      "stamp": "b00a84ceef4e"
+    },
+    {
+      "id": "t-describe",
+      "text": "نَصِفُ الْأَشْيَاءَ.",
+      "file": "t-describe.mp3",
+      "seconds": 1.42,
+      "stamp": "c41d4be946c7"
+    }
+  ]
+}

@@ -130,4 +130,17 @@ def build_genius():
     html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*UI*/',rd('ui.js'))
     open(os.path.join(O,'genius-challenge.html'),'w',encoding='utf-8').write(html)
     print('built genius-challenge.html',len(html))
-for n in (sys.argv[1:] or list(APPS)+['ollie','genius']): build_ollie() if n=='ollie' else build_genius() if n=='genius' else build(n)
+# ---- Word Falcon (صقر الكلمات): python3 src/build.py falcon  ->  word-falcon.html ----
+# One page from src/falcon/: page.html with style.css, the word data (words1-3.js and say.js, which also run in node
+# for tools/falcon-voices.js) and the program (art.js, app.js, quiz.js, talk.js, games.js). Its voice packs come from
+# tools/falcon-voices.js.
+FALCON_DATA=['words1.js','words2.js','words3.js','say.js']
+FALCON_APP=['art.js','app.js','quiz.js','talk.js','games.js']
+def build_falcon():
+    S=os.path.join(R,'falcon'); rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
+    data='\n'.join(rd(f) for f in FALCON_DATA)
+    prog='\n'.join(rd(f) for f in FALCON_APP)+'\nboot();\n'
+    html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*APP*/',prog)
+    open(os.path.join(O,'word-falcon.html'),'w',encoding='utf-8').write(html)
+    print('built word-falcon.html',len(html))
+for n in (sys.argv[1:] or list(APPS)+['ollie','genius','falcon']): build_ollie() if n=='ollie' else build_genius() if n=='genius' else build_falcon() if n=='falcon' else build(n)

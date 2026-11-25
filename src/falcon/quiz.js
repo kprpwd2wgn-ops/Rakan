@@ -87,7 +87,7 @@ function runSession(o) {
     fb.innerHTML = `<div class="feedback bad"><span>الإجابة الصحيحة:</span> <b class="en">${esc(w.en)}</b> <span class="muted">${esc(w.ar)}</span></div>
       <div class="qfoot"><button class="btn" id="cont">متابعة ◀︎</button></div>`;
     app.querySelector('#qb').appendChild(fb);
-    VO.say(x.say || [w.en]);
+    VO.say([...(x.say || [w.en]), 250, x.sayAr || { r: w.ar }]);
     fb.querySelector('#cont').onclick = () => { sfx('tap'); done(q, false); };
     fb.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest' });
   };
@@ -130,8 +130,9 @@ const TYPES = {
   },
   aw(q, body, intro, R) {
     const opts = mix([q.w, ...others(q.w, 3, 'en')]);
-    body.innerHTML = `<div class="prompt"><div class="arbig">${esc(q.w.ar)}</div>${!weak(q.w) ? '' : ''}</div>${optWords(opts, q.w)}`;
-    VO.say(intro);
+    body.innerHTML = `<div class="prompt"><div class="arbig">${esc(q.w.ar)}</div><button class="tbtn" id="hear">🔊 اسمع</button></div>${optWords(opts, q.w)}`;
+    VO.say([...intro, { r: q.w.ar }]);
+    body.querySelector('#hear').onclick = () => VO.say({ r: q.w.ar });
     bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: [q.w.en] }));
   },
   wa(q, body, intro, R) {
@@ -141,14 +142,14 @@ const TYPES = {
       <div class="opts${opts.some(x => x.ar.length > 14) ? '' : ' g2'}">${opts.map((x, i) => `<button class="opt" data-i="${i}"${x === q.w ? ' data-right' : ''}>${esc(x.ar)}</button>`).join('')}</div>`;
     VO.say([...intro, q.w.en]);
     body.querySelector('#hear').onclick = () => VO.say(q.w.en);
-    bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: ok ? [] : [q.w.en] }));
+    bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: ok ? [q.w.en, 250, { r: q.w.ar }] : [q.w.en] }));
   },
   gap(q, body, intro, R) {
     const w = q.w, opts = mix([w, ...others(w, 3, 'gap')]);
     body.innerHTML = `<div class="prompt">${weak(w) || q.mode === 'review' ? '' : `<span style="--ps:56px">${pic(w)}</span>`}<div class="gapline en" id="gl">${blanked(w.ex, w.en)}</div>
       ${ST.set.arHide ? '' : `<div class="muted small">${esc(w.exAr)}</div>`}</div>${optWords(opts, w)}`;
     VO.say(intro);
-    bindOpts(body, opts, w, (ok, el, right) => { body.querySelector('#gl').innerHTML = markWord(w.ex, w.en); R(ok, { el, right, say: [w.ex] }); });
+    bindOpts(body, opts, w, (ok, el, right) => { body.querySelector('#gl').innerHTML = markWord(w.ex, w.en); R(ok, { el, right, say: [w.ex], sayAr: { r: w.exAr } }); });
   },
   tf(q, body, intro, R) {
     const w = q.w, yes = Math.random() < .5, shown = yes ? w : (others(w, 1, 'pic')[0] || w), truth = shown === w;
@@ -172,7 +173,7 @@ const TYPES = {
       <div class="slots">${chars.map((c, i) => isL(c) ? `<span class="slot" data-s="${i}"></span>` : `<span class="slot sp">${c === ' ' ? '' : esc(c)}</span>`).join('')}</div>
       <div class="tiles">${pool.map((c, i) => `<button class="tile" data-t="${i}">${esc(c)}</button>`).join('')}</div>
       <div class="row qfoot"><button class="btn soft small" id="hint">💡 ساعدني بحرف</button></div>`;
-    VO.say([...intro, w.en]);
+    VO.say([...intro, { r: w.ar }, 300, w.en]);
     body.querySelector('#hear').onclick = () => VO.say(w.en);
     body.dataset.w = w.en; // for the test bot (tools/falcon-play.js)
     let pos = 0, miss = 0;
@@ -198,7 +199,7 @@ const TYPES = {
     if (pool.every((p, i) => p.t === toks[i]) && pool.length > 1) pool = [...pool.slice(1), pool[0]];
     body.innerHTML = `<div class="prompt"><div style="font-size:22px;font-weight:800">${esc(q.textAr || w.ar)}</div>${isPhrase(w) && !q.text ? `<div class="sit">🗣️ ${esc(w.exAr)}</div>` : ''}</div>
       <div class="built" id="built"></div><div class="tiles">${pool.map((p, i) => `<button class="tile w" data-t="${i}">${esc(p.t)}</button>`).join('')}</div>`;
-    VO.say(intro);
+    VO.say([...intro, { r: q.textAr || w.ar }]);
     body.dataset.w = text; // for the test bot
     let pos = 0, miss = 0;
     body.querySelectorAll('.tile').forEach(tile => tile.addEventListener('click', () => {
@@ -212,7 +213,7 @@ const TYPES = {
   sit(q, body, intro, R) {
     const opts = mix([q.w, ...others(q.w, 2, 'en')]);
     body.innerHTML = `<div class="prompt"><span class="pic emo" style="--ps:54px">${q.w.pic}</span><div style="font-size:22px;font-weight:800">${esc(q.w.exAr)}</div></div>${optWords(opts, q.w)}`;
-    VO.say(intro);
+    VO.say([...intro, { r: q.w.exAr }]);
     bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: [q.w.en] }));
   },
   say(q, body, intro, R) {

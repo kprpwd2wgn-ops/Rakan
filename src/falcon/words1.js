@@ -63,7 +63,7 @@ knee | ركبة | @body:knee | I fell and hurt my knee. | وقعت وآذيت ر
 foot | قدم | 🦶 | Put your right foot here. | ضع قدمك اليمنى هنا.
 toe | إصبع القدم | @body:toe | I hit my toe on the door. | ضربت إصبع قدمي في الباب.
 back | ظهر | @body:back | I carry my backpack on my back. | أحمل حقيبتي على ظهري. | w
-stomach | بطن | @body:stomach | My stomach is full after lunch. | بطني ممتلئة بعد الغداء.
+stomach | بطن | @body:stomach | My stomach is full after lunch. | بطني ممتلئ بعد الغداء.
 heart | قلب | ❤️ | My heart beats fast when I run. | قلبي يدق بسرعة عندما أركض.
 `);
 

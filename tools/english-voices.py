@@ -11,7 +11,8 @@ Each clip is named by a hash of its text, so the same sentence in several parts 
   <out>/<hash>-slow.mp3   for lines listed under "slow": the same clip stretched to 75% speed, same pitch
 Already-made clips are skipped. Needs ffmpeg and the same AZURE_SPEECH_KEY setup as game-voices.py.
 
-The input is JSON: {"voice": "en-US-AvaNeural", "lines": ["Hello!", ...], "slow": ["Hello!", ...]}.
+The input is JSON: {"voice": "en-US-AvaNeural", "lines": ["Hello!", ...], "slow": ["Hello!", ...]}; an optional "lufs"
+sets the loudness (Arabic lines in Hamed's voice use -14.5, like tools/game-voices.py).
 usage: python3 tools/english-voices.py lines.json --out ollie/voices
 """
 import argparse
@@ -108,6 +109,8 @@ def main():
         sys.exit('needs ffmpeg')
     spec_ = json.loads(args.lines.read_text(encoding='utf-8'))
     voice = spec_.get('voice', 'en-US-AvaNeural')
+    global TARGET_LUFS
+    TARGET_LUFS = float(spec_.get('lufs', TARGET_LUFS))  # e.g. -14.5 to match Hamed's lines made by game-voices.py
     lines = list(dict.fromkeys(t.strip() for t in spec_['lines'] if t.strip()))
     args.out.mkdir(parents=True, exist_ok=True)
     todo = [t for t in lines if not (args.out / f'{clip_id(t)}.mp3').exists()]

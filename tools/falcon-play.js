@@ -107,7 +107,10 @@ const server = http.createServer((q, r) => {
   const q = await page.locator('.gatebox .q').textContent(); const [a, b] = q.match(/\d+/g).map(Number);
   await click(`[data-v="${a * b}"]`); await page.waitForTimeout(400); await shot('parents');
   await page.screenshot({ path: path.join(OUT, String(++n).padStart(2, '0') + '-parents-full.png'), fullPage: true });
-  const voices = await page.evaluate(() => ({ packs: Object.keys(window.FALCON.VO.packs).length, idx: !!window.FALCON.VO.idx }));
+  const voices = await page.evaluate(() => { const F = window.FALCON; return { packs: Object.keys(F.VO.packs).length, idx: !!F.VO.idx,
+    en: F.WORDS.filter(w => F.VO.has(w.en) && (!w.ex || F.VO.has(w.ex))).length,
+    ar: F.WORDS.filter(w => F.VO.has({ r: w.ar }) && F.VO.has({ r: w.exAr })).length, all: F.WORDS.length }; });
+  console.log(`words with Ollie's English clips: ${voices.en}/${voices.all}; with Hamed's Arabic clips: ${voices.ar}/${voices.all}`);
   await browser.close(); server.close();
   console.log('voice packs fetched:', voices.packs, 'index loaded:', voices.idx);
   console.log('screenshots in ' + OUT);

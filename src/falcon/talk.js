@@ -26,7 +26,7 @@ def('talk', id => {
     const q = Qs[k], helpers = [...T.words.filter(w => !isPhrase(w) && isLearned(w)), ...T.words.filter(w => !isPhrase(w) && !isLearned(w))].slice(0, 10);
     app.innerHTML = bar('تحدّث · ' + esc(T.ar)) + `<div class="dots">${Qs.map((_, j) => `<i class="${j < k ? 'done' : j === k ? 'on' : ''}"></i>`).join('')}</div>
       <div class="card qcard"><div class="talkf"><div class="fmid" style="width:110px;height:110px">${falcon({ mood: 'wow' })}</div></div>
-        <div class="qen en">${esc(q.q)}</div><div class="muted" id="qar" ${ST.set.arHide ? 'hidden' : ''}>${esc(q.qAr)}</div>
+        <div class="qen en">${esc(q.q)}</div><button class="muted" id="qar" ${ST.set.arHide ? 'hidden' : ''}>🔊 ${esc(q.qAr)}</button>
         <div class="tools"><button class="tbtn" id="hq">🔊 السؤال</button><button class="tbtn" id="hqz">🐢 ببطء</button>${ST.set.arHide ? '<button class="tbtn" id="tr">👁 الترجمة</button>' : ''}</div></div>
       <div class="sec">أجب بجملة مثل هذه</div>
       <div class="frame en center">${esc(q.f).replace('___', '<span class="gap">_____</span>')}</div>
@@ -34,9 +34,10 @@ def('talk', id => {
       <div class="helpw">${helpers.map(w => `<button data-k="${esc(w.k)}">${pic(w)}${esc(w.en)}</button>`).join('')}</div>
       <div id="act" style="margin-top:14px"></div>`;
     bindBar();
-    VO.say([...(k === 0 ? [{ a: 'talk-intro' }, 300] : []), q.q]);
+    VO.say([...(k === 0 ? [{ a: 'talk-intro' }, 300] : []), q.q, ...(ST.set.arHide ? [] : [350, { r: q.qAr }])]);
     on('#hq', () => VO.say(q.q)); on('#hqz', () => VO.say({ z: q.q }));
-    on('#tr', el => { el.hidden = true; $('#qar').hidden = false; });
+    on('#tr', el => { el.hidden = true; $('#qar').hidden = false; VO.say({ r: q.qAr }); });
+    on('#qar', () => VO.say({ r: q.qAr }));
     on('.helpw button', el => VO.say(BYK[el.dataset.k].en));
     canMic() ? micMode(q) : buildMode(q);
   };

@@ -3,7 +3,9 @@
 // English (Ollie's voice, en-US-AvaNeural): every word, example sentence, class phrase, talk question and answer, and
 // the short remarks in EN_UI. Clips live in the shared folder ollie/voices/<sha1>.mp3 (many words were recorded for
 // Ollie already); lines with no clip yet go to word-falcon-en-lines.json.
-// Arabic (Hamed, ar-SA-HamedNeural): AR in src/falcon/say.js, written to word-falcon-lines.json, recorded into word-falcon/ar/.
+// Arabic (Hamed, ar-SA-HamedNeural): the guide lines AR in src/falcon/say.js (word-falcon-lines.json -> word-falcon/ar/<id>.mp3),
+// and the Arabic shown with every word: its meaning, its sentence's Arabic and each talk question's Arabic, written fully vowelled
+// in src/falcon/arvoice1-3.js (word-falcon-ar2-lines.json -> word-falcon/arw/<sha1>.mp3). The page asks for those by the text it shows.
 //
 // Then it joins the clips into word-falcon/voices/pack-<name>.mp3 (one pack of words, one of sentences and one of slow
 // sentences per topic, plus core and talk) and writes word-falcon/voices/packs.json. An Artifact play link holds about
@@ -12,13 +14,15 @@
 // To record what is missing (needs AZURE_SPEECH_KEY):
 //   python3 tools/english-voices.py word-falcon-en-lines.json --out ollie/voices
 //   python3 tools/game-voices.py word-falcon-lines.json --out word-falcon/ar
+//   python3 tools/english-voices.py word-falcon-ar2-lines.json --out word-falcon/arw
 //   node tools/falcon-voices.js
 // usage: node tools/falcon-voices.js [--check]     (--check: only check the data, write nothing)
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ROOT = path.join(__dirname, '..'), SRC = path.join(ROOT, 'src/falcon');
 const VO = path.join(ROOT, 'ollie/voices'), AR_DIR = path.join(ROOT, 'word-falcon/ar'), OUT = path.join(ROOT, 'word-falcon/voices');
-const code = ['words1.js', 'words2.js', 'words3.js', 'say.js'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n');
-const { TOPICS, TALK, WORDS, AR, EN_UI } = new Function(code + ';return {TOPICS,TALK,WORDS,AR,EN_UI};')();
+const code = ['words1.js', 'words2.js', 'words3.js', 'say.js', 'arvoice1.js', 'arvoice2.js', 'arvoice3.js'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n');
+const { TOPICS, TALK, WORDS, AR, EN_UI, ARV, TALKV } = new Function(code + ';return {TOPICS,TALK,WORDS,AR,EN_UI,ARV,TALKV};')();
+const ARW = path.join(ROOT, 'word-falcon/arw');
 
 // ---------- checks ----------
 const problems = [], seen = {}, strongPic = {};
@@ -48,6 +52,25 @@ for (const [id, text] of Object.entries(AR)) {
   if (bare.length) problems.push(`AR ${id}: words without haraka: ${bare.join(' ')}`);
 }
 TOPICS.forEach(t => { if (!AR['t-' + t.id]) problems.push(`AR t-${t.id} missing (the topic's spoken name)`); });
+// Hamed's vowelled Arabic for what each word shows: same letters as the shown text, every word vowelled
+const bare = t => t.replace(/[\u064B-\u0652\u0670\u0640]/g, '').replace(/[^\u0621-\u064A ]+/g, ' ').replace(/\s+/g, ' ').trim();
+const unvowelled = t => t.split(/\s+/).filter(x => ARABIC.test(x) && !/[\u064b-\u0652]/.test(x));
+const SPOKEN = new Map();   // shown text -> [vowelled text, pack]
+const speak = (shown, vowelled, pack, where) => {
+  if (!vowelled) { problems.push(`${where}: no vowelled line for "${shown}"`); return; }
+  if (bare(vowelled) !== bare(shown)) problems.push(`${where}: letters differ\n      shown:  ${shown}\n      spoken: ${vowelled}`);
+  const nv = unvowelled(vowelled); if (nv.length) problems.push(`${where}: words without haraka: ${nv.join(' ')}`);
+  const had = SPOKEN.get(shown);
+  if (had && had[0] !== vowelled) problems.push(`"${shown}" is vowelled two ways: ${had[0]} / ${vowelled}`);
+  if (!had) SPOKEN.set(shown, [vowelled, pack]);
+};
+for (const t of TOPICS) {
+  const rows = ARV[t.id] || [];
+  if (rows.length !== t.words.length) problems.push(`arvoice ${t.id}: ${rows.length} rows for ${t.words.length} words`);
+  t.words.forEach((w, i) => { const r = rows[i] || []; speak(w.ar, r[0], 'w-' + t.id, `arvoice ${t.id} "${w.en}" meaning`); speak(w.exAr, r[1], 's-' + t.id, `arvoice ${t.id} "${w.en}" sentence`); });
+}
+if (TALKV.length !== TALK.length) problems.push(`TALKV has ${TALKV.length} lines for ${TALK.length} talk questions`);
+TALK.forEach((q, i) => speak(q.qAr, TALKV[i], 'talk', `TALKV ${i}`));
 
 const total = WORDS.length, byStage = [1, 2, 3].map(s => TOPICS.filter(t => t.stage === s).reduce((n, t) => n + t.words.length, 0));
 console.log(`${TOPICS.length} topics, ${total} words and phrases (stage 1: ${byStage[0]}, stage 2: ${byStage[1]}, stage 3: ${byStage[2]}), ${TALK.length} talk questions, ${Object.keys(AR).length} Arabic lines`);
@@ -117,6 +140,14 @@ for (const [id, text] of Object.entries(AR)) {
   else arMissing.push(id);
 }
 
+// the Arabic shown with the words, keyed by the shown text
+const arWant = [];
+for (const [shown, [vowelled, pack]] of SPOKEN) {
+  const f = path.join(ARW, cid(vowelled) + '.mp3');
+  if (fs.existsSync(f)) items.push(['r' + fnv(shown), pack, f]); else arWant.push(vowelled);
+}
+fs.writeFileSync(path.join(ROOT, 'word-falcon-ar2-lines.json'), JSON.stringify({ voice: 'ar-SA-HamedNeural', lufs: -14.5, lines: arWant }, null, 1) + '\n');
+
 // ---------- packs ----------
 const packs = {}, index = {};
 for (const [key, pack, file, h] of items) {
@@ -132,5 +163,5 @@ let size = 0;
 for (const [name, bufs] of Object.entries(packs)) { const b = Buffer.concat(bufs); size += b.length; fs.writeFileSync(path.join(OUT, `pack-${name}.mp3`), b); }
 fs.writeFileSync(path.join(OUT, 'packs.json'), JSON.stringify({ packs: Object.fromEntries(Object.keys(packs).sort().map(n => [n, `pack-${n}.mp3`])), c: index }) + '\n');
 
-console.log(`English: ${todo.length} lines to record (${todo.reduce((n, t) => n + t.length, 0)} characters); Arabic: ${arMissing.length} of ${Object.keys(AR).length} to record`);
+console.log(`English: ${todo.length} lines to record (${todo.reduce((n, t) => n + t.length, 0)} characters); Arabic: ${arMissing.length} of ${Object.keys(AR).length} guide lines to record, ${arWant.length} of ${SPOKEN.size} word lines to record (${arWant.reduce((n, t) => n + t.length, 0)} characters)`);
 console.log(`packed ${Object.keys(index).length} clips into ${Object.keys(packs).length} packs (${(size / 1e6).toFixed(1)} MB) in word-falcon/voices`);

@@ -33,6 +33,7 @@ const VO = {
     if (typeof x === 'string') return ['e' + fnv(x)];
     if (x.a) return ['a' + x.a, fnv(AR[x.a] || '')];
     if (x.z) return ['z' + fnv(x.z)];
+    if (x.r) return ['r' + fnv(x.r)];   // Hamed saying Arabic that is shown on screen
     return ['e' + fnv(x.e)];
   },
   has(x) { const [k] = this.key(x); return !!(this.idx && this.idx.c[k]); },
@@ -245,6 +246,9 @@ function markWord(sentence, word) {
   return esc(sentence.slice(0, at)) + `<span class="mark">${esc(sentence.slice(at, at + m[2].length))}</span>` + esc(sentence.slice(at + m[2].length));
 }
 const pic = (w, cls = '') => picHTML(w.pic, (w.multi ? 'multi ' : '') + cls);
+/* a word card's sound: the English word (Ollie's Azure voice), its meaning (Hamed), the English sentence, its Arabic (Hamed) */
+const cardLines = w => [w.en, 300, { r: w.ar }, 450, ...(w.ex ? [w.ex, ...(ST.set.arHide ? [] : [350, { r: w.exAr }])] : [350, { r: w.exAr }])];
+const wordLines = w => [w.en, 250, { r: w.ar }];
 const falcon = (o = {}) => falconSVG(Object.assign({ rank: rankOf(nLearned()), wear: ST.wear }, o));
 
 /* sheets: an in-page dialog (the play link cannot show confirm()) */
@@ -264,18 +268,20 @@ function confirmSheet(text, yes, no = 'لا', fn) {
 function wordSheet(w) {
   const s = sOf(w), lv = !s || s.b < 1 ? 'لم تتعلمها بعد' : s.b >= 5 ? 'أتقنتها 💎' : s.b >= 3 ? 'قوية في ذاكرتك 💪' : 'تتعلمها الآن 🌱';
   const nextRev = s && s.b >= 1 ? (s.d <= DAY() ? 'موعد مراجعتها اليوم' : `مراجعتها بعد ${num(s.d - DAY())} ${s.d - DAY() === 1 ? 'يوم' : s.d - DAY() === 2 ? 'يومين' : 'أيام'}`) : '';
-  sheet(`<div class="meet">${pic(w)}<div class="word en${w.en.length > 14 ? ' long' : ''}" style="${w.en.length > 14 ? 'font-size:28px' : ''}">${esc(w.en)}</div><div class="mean">${esc(w.ar)}</div>
+  sheet(`<div class="meet">${pic(w)}<div class="word en${w.en.length > 14 ? ' long' : ''}" style="${w.en.length > 14 ? 'font-size:28px' : ''}">${esc(w.en)}</div><button class="mean" data-a="m">${esc(w.ar)}</button>
       <div class="tools"><button class="tbtn" data-a="w">🔊 الكلمة</button>${w.ex ? '<button class="tbtn" data-a="s">🔊 الجملة</button><button class="tbtn" data-a="z">🐢 ببطء</button>' : ''}</div>
-      ${w.ex ? `<div class="ex en">${markWord(w.ex, w.en)}</div><div class="exar">${esc(w.exAr)}</div>` : `<div class="sit">🗣️ ${esc(w.exAr)}</div>`}
+      ${w.ex ? `<div class="ex en">${markWord(w.ex, w.en)}</div><button class="exar" data-a="x">🔊 ${esc(w.exAr)}</button>` : `<button class="sit" data-a="x">🗣️ ${esc(w.exAr)}</button>`}
       <div class="muted small">${lv}${nextRev ? ' · ' + nextRev : ''}</div></div>
       <button class="btn soft" data-close>إغلاق</button>`, el => {
-    el.querySelector('[data-a="w"]').onclick = () => VO.say(w.en);
+    el.querySelector('[data-a="w"]').onclick = () => VO.say(wordLines(w));
+    el.querySelector('[data-a="m"]').onclick = () => VO.say({ r: w.ar });
+    el.querySelector('[data-a="x"]').onclick = () => VO.say({ r: w.exAr });
     const sb = el.querySelector('[data-a="s"]'); if (sb) sb.onclick = () => VO.say(w.ex);
     const zb = el.querySelector('[data-a="z"]'); if (zb) zb.onclick = () => VO.say({ z: w.ex });
     el.querySelector('.meet .pic').onclick = () => VO.say(w.en);
     el.querySelector('[data-close]').onclick = () => { VO.stop(); el.remove(); };
   });
-  VO.say([w.en, 400, ...(w.ex ? [w.ex] : [])]);
+  VO.say(cardLines(w));
 }
 
 /* ---------- start ---------- */
@@ -393,19 +399,21 @@ def('lesson', ({ t, i }) => {
   const show = () => {
     const w = L[k], long = w.en.length > 14;
     app.innerHTML = bar(`${esc(T.ar)} · الدرس ${num(i + 1)}`) + `<div class="dots">${L.map((_, j) => `<i class="${j < k ? 'done' : j === k ? 'on' : ''}"></i>`).join('')}</div>
-      <div class="card meet">${pic(w)}<div class="word en" style="${long ? 'font-size:30px' : ''}">${esc(w.en)}</div><div class="mean">${esc(w.ar)}</div>
+      <div class="card meet">${pic(w)}<div class="word en" style="${long ? 'font-size:30px' : ''}">${esc(w.en)}</div><button class="mean" data-a="m">${esc(w.ar)}</button>
         <div class="tools"><button class="tbtn" data-a="w">🔊 ${isPhrase(w) ? 'الجملة' : 'الكلمة'}</button>${w.ex ? '<button class="tbtn" data-a="s">🔊 المثال</button>' : ''}<button class="tbtn" data-a="z">🐢 ببطء</button>${canMic() ? '<button class="tbtn" data-a="m">🎤 قلها</button>' : ''}</div>
-        ${w.ex ? `<div class="ex en">${markWord(w.ex, w.en)}</div>${ST.set.arHide ? '<button class="tbtn" data-a="tr">👁 الترجمة</button><div class="exar" hidden>' + esc(w.exAr) + '</div>' : `<div class="exar">${esc(w.exAr)}</div>`}`
-               : `<div class="sit">🗣️ متى أقولها؟ ${esc(w.exAr)}</div>`}
+        ${w.ex ? `<div class="ex en">${markWord(w.ex, w.en)}</div>${ST.set.arHide ? '<button class="tbtn" data-a="tr">👁 الترجمة</button><button class="exar" data-a="x" hidden>🔊 ' + esc(w.exAr) + '</button>' : `<button class="exar" data-a="x">🔊 ${esc(w.exAr)}</button>`}`
+               : `<button class="sit" data-a="x">🗣️ متى أقولها؟ ${esc(w.exAr)}</button>`}
         <div class="heard" id="heard"></div></div>
       <div class="row qfoot">${k > 0 ? '<button class="btn soft" id="pv">→ السابق</button>' : ''}<button class="btn" id="nx">${k < L.length - 1 ? 'التالي ◀︎' : 'هيا نتدرب! ◀︎'}</button></div>`;
     bindBar();
-    const sayAll = () => VO.say([w.en, 500, ...(w.ex ? [w.ex] : [])]);
-    VO.say([...(k === 0 && Object.keys(ST.ls).length < 2 ? [{ a: 'meet' }, 300] : []), w.en, 500, ...(w.ex ? [w.ex] : [])]);
-    on('[data-a="w"]', () => VO.say(w.en));
+    const sayAll = () => VO.say(cardLines(w));
+    VO.say([...(k === 0 && Object.keys(ST.ls).length < 2 ? [{ a: 'meet' }, 300] : []), ...cardLines(w)]);
+    on('[data-a="w"]', () => VO.say(wordLines(w)));
+    on('[data-a="m"]', () => VO.say({ r: w.ar }));
+    on('[data-a="x"]', () => VO.say({ r: w.exAr }));
     on('[data-a="s"]', () => VO.say(w.ex));
     on('[data-a="z"]', () => VO.say({ z: w.ex || w.en }));
-    on('[data-a="tr"]', el => { el.hidden = true; el.nextElementSibling.hidden = false; });
+    on('[data-a="tr"]', el => { el.hidden = true; el.nextElementSibling.hidden = false; VO.say({ r: w.exAr }); });
     on('[data-a="m"]', el => sayIt(w, el, $('#heard')));
     $('.meet .pic').onclick = () => VO.say(w.en);
     $('.meet .word').onclick = sayAll;
@@ -647,7 +655,7 @@ def('parents', () => {
     <div class="sec">كيف يعمل البرنامج؟</div><div class="card"><p style="margin:0" class="small">
       ٧٣٢ كلمة وجملة في ٣٢ موضوعًا على ثلاث مراحل، تبدأ بكلمات الأساس ثم كلمات المستوى الرابع ثم أبعد. كل درس ٦ كلمات تقريبًا: يتعرف عليها بالصورة والصوت والمثال، ثم يتدرب عليها بأسئلة متنوعة.
       بعد الدرس تدخل الكلمة «المراجعة الذكية»: تعود بعد يوم، ثم يومين، ثم ٤ أيام، ثم أسبوع، ثم أسبوعين، ثم شهر. إذا أخطأ فيها تعود من البداية. هكذا تنتقل الكلمة إلى الذاكرة الطويلة.
-      يكفي ١٠–١٥ دقيقة يوميًا: درس جديد ومراجعة ما حان وقته. الأصوات مسجلة بصوت أولي بالإنجليزية وصوت حامد بالعربية، والمؤثرات بلا موسيقى.</p></div>
+      يكفي ١٠–١٥ دقيقة يوميًا: درس جديد ومراجعة ما حان وقته. كل كلمة وجملة إنجليزية مسجلة بصوت Azure الإنجليزي (صوت أولي)، وكل معنى وترجمة وتعليمات بالعربية بصوت حامد، ولا يُستعمل صوت الجهاز أبدًا. المؤثرات بلا موسيقى.</p></div>
     <div class="sec">البدء من جديد</div><div class="card stack"><button class="btn soft small" id="place">🧭 إعادة اختبار تحديد المستوى</button><button class="btn soft small" id="reset" style="color:var(--bad2)">🗑️ مسح كل التقدم</button></div>`;
   bindBar();
   on('[data-k]', el => VO.say(BYK[el.dataset.k].en));

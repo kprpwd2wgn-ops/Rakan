@@ -410,3 +410,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 .chip.today{background:var(--gold);color:#3b2a00}
 .mark .sfx{color:#c2410c;font-weight:800;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:3px}
 .en.nb{white-space:nowrap}
+/* the parts: a pill on the home hero, the line under the title, the parts menu */
+.partpill{display:inline-flex;align-items:center;gap:4px;align-self:flex-start;margin-bottom:6px;padding:3px 10px;border-radius:99px;background:var(--night);color:#fff;font-size:13px;font-weight:700}
+.hero .rk .partpill .en{color:#ffd76a;font-size:13px}
+.partsub{font-weight:800;color:var(--night2);font-size:18px}
+.partrow{text-decoration:none;color:inherit}
+.partrow.here{outline:3px solid var(--gold);outline-offset:2px}

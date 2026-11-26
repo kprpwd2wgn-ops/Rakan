@@ -1,0 +1,210 @@
+{
+  "voice": "ar-SA-HamedNeural",
+  "generated": "2026-11-26",
+  "loudness": "-14.5 LUFS",
+  "lines": [
+    {
+      "id": "t-homething",
+      "text": "أَشْيَاءُ الْبَيْتِ.",
+      "file": "t-homething.mp3",
+      "seconds": 1.15,
+      "stamp": "db842a1101d5"
+    },
+    {
+      "id": "t-cooking",
+      "text": "الطَّبْخُ وَالْمَطْعَمُ.",
+      "file": "t-cooking.mp3",
+      "seconds": 1.44,
+      "stamp": "7a20ac037a40"
+    },
+    {
+      "id": "t-looks",
+      "text": "الْمَلَابِسُ وَالْمَظْهَرُ.",
+      "file": "t-looks.mp3",
+      "seconds": 1.49,
+      "stamp": "9fa04001b6cf"
+    },
+    {
+      "id": "t-body2",
+      "text": "الصِّحَّةُ وَالْجِسْمُ.",
+      "file": "t-body2.mp3",
+      "seconds": 1.34,
+      "stamp": "c1a564bed269"
+    },
+    {
+      "id": "t-study",
+      "text": "الدِّرَاسَةُ وَالْمَوَادُّ.",
+      "file": "t-study.mp3",
+      "seconds": 1.51,
+      "stamp": "82d1ba790e67"
+    },
+    {
+      "id": "t-around",
+      "text": "فِي الْمَدِينَةِ.",
+      "file": "t-around.mp3",
+      "seconds": 0.84,
+      "stamp": "ebb8b8c12ada"
+    },
+    {
+      "id": "t-trips",
+      "text": "السَّفَرُ وَالرِّحْلَاتُ.",
+      "file": "t-trips.mp3",
+      "seconds": 1.44,
+      "stamp": "a0ac22b00430"
+    },
+    {
+      "id": "t-landscape",
+      "text": "الْأَرْضُ وَالطَّبِيعَةُ.",
+      "file": "t-landscape.mp3",
+      "seconds": 1.42,
+      "stamp": "e155cc9c9d14"
+    },
+    {
+      "id": "t-creatures",
+      "text": "حَيَوَانَاتٌ وَطُيُورٌ.",
+      "file": "t-creatures.mp3",
+      "seconds": 1.58,
+      "stamp": "186a53448e0a"
+    },
+    {
+      "id": "t-hobbies",
+      "text": "الْهِوَايَاتُ وَالرِّيَاضَةُ.",
+      "file": "t-hobbies.mp3",
+      "seconds": 1.58,
+      "stamp": "0a02071f1fd5"
+    },
+    {
+      "id": "t-actions",
+      "text": "أَفْعَالٌ مُفِيدَةٌ.",
+      "file": "t-actions.mp3",
+      "seconds": 1.27,
+      "stamp": "0671583fa0c1"
+    },
+    {
+      "id": "t-describing",
+      "text": "صِفَاتٌ جَدِيدَةٌ.",
+      "file": "t-describing.mp3",
+      "seconds": 1.27,
+      "stamp": "145ea0037316"
+    },
+    {
+      "id": "t-timewords",
+      "text": "الْوَقْتُ وَالتَّكْرَارُ.",
+      "file": "t-timewords.mp3",
+      "seconds": 1.49,
+      "stamp": "2d3712786fdf"
+    },
+    {
+      "id": "t-people2",
+      "text": "النَّاسُ مِنْ حَوْلِنَا.",
+      "file": "t-people2.mp3",
+      "seconds": 1.27,
+      "stamp": "3cca5291b88e"
+    },
+    {
+      "id": "t-class2",
+      "text": "جُمَلُ الْحِصَّةِ.",
+      "file": "t-class2.mp3",
+      "seconds": 1.13,
+      "stamp": "c86962cdb453"
+    },
+    {
+      "id": "part-hello",
+      "text": "أَهْلًا بِكَ فِي الْجُزْءِ الثَّانِي مِنْ صَقْرِ الْكَلِمَاتِ! كَلِمَاتٌ أَصْعَبُ، وَتَحَدٍّ أَكْبَرُ.",
+      "file": "part-hello.mp3",
+      "seconds": 6.53,
+      "stamp": "ca016ea0c33e"
+    },
+    {
+      "id": "part-plan",
+      "text": "فِي كُلِّ يَوْمٍ: دَرْسٌ جَدِيدٌ، وَإِمْلَاءٌ، وَقَاعِدَةٌ، وَتَحَدُّثٌ، وَمُرَاجَعَةٌ.",
+      "file": "part-plan.mp3",
+      "seconds": 6.43,
+      "stamp": "f0df09e92e02"
+    },
+    {
+      "id": "r2-past-1",
+      "text": "عِنْدَمَا نَتَحَدَّثُ عَنِ الْمَاضِي، نُضِيفُ إِلَى أَكْثَرِ الْأَفْعَالِ حُرُوفًا فِي آخِرِهَا:",
+      "file": "r2-past-1.mp3",
+      "seconds": 5.38,
+      "stamp": "b825d46dd588"
+    },
+    {
+      "id": "r2-past-2",
+      "text": "وَبَعْضُ الْأَفْعَالِ تَتَغَيَّرُ كُلُّهَا، فَنَحْفَظُهَا:",
+      "file": "r2-past-2.mp3",
+      "seconds": 3.58,
+      "stamp": "fe4886b8dd41"
+    },
+    {
+      "id": "r2-many-1",
+      "text": "مَعَ الْأَشْيَاءِ الَّتِي نَعُدُّهَا، مِثْلَ التُّفَّاحِ، نَقُولُ:",
+      "file": "r2-many-1.mp3",
+      "seconds": 4.25,
+      "stamp": "3f5bc1448e64"
+    },
+    {
+      "id": "r2-many-2",
+      "text": "وَمَعَ الْأَشْيَاءِ الَّتِي لَا نَعُدُّهَا، مِثْلَ الْمَاءِ، نَقُولُ:",
+      "file": "r2-many-2.mp3",
+      "seconds": 4.51,
+      "stamp": "efa87d133fce"
+    },
+    {
+      "id": "r2-going-1",
+      "text": "لِلْحَدِيثِ عَنْ خُطَطِ الْمُسْتَقْبَلِ نَقُولُ:",
+      "file": "r2-going-1.mp3",
+      "seconds": 2.66,
+      "stamp": "151740e300de"
+    },
+    {
+      "id": "r2-going-2",
+      "text": "وَمَعَ هُوَ وَهِيَ نَقُولُ:",
+      "file": "r2-going-2.mp3",
+      "seconds": 1.78,
+      "stamp": "edba8dfe9ca3"
+    },
+    {
+      "id": "r2-freq-1",
+      "text": "كَلِمَاتُ التَّكْرَارِ، مِثْلَ: دَائِمًا وَأَحْيَانًا وَأَبَدًا، تَأْتِي قَبْلَ الْفِعْلِ:",
+      "file": "r2-freq-1.mp3",
+      "seconds": 5.66,
+      "stamp": "9aa03ccde431"
+    },
+    {
+      "id": "r2-than-1",
+      "text": "لِلْمُقَارَنَةِ مَعَ الصِّفَاتِ الْقَصِيرَةِ، نُضِيفُ حُرُوفًا فِي آخِرِهَا:",
+      "file": "r2-than-1.mp3",
+      "seconds": 4.63,
+      "stamp": "10a3a53d1972"
+    },
+    {
+      "id": "r2-than-2",
+      "text": "وَمَعَ الصِّفَاتِ الطَّوِيلَةِ، نَضَعُ قَبْلَهَا كَلِمَةً:",
+      "file": "r2-than-2.mp3",
+      "seconds": 3.34,
+      "stamp": "3474e48a6a99"
+    },
+    {
+      "id": "r2-must-1",
+      "text": "لِلشَّيْءِ الْوَاجِبِ نَقُولُ:",
+      "file": "r2-must-1.mp3",
+      "seconds": 1.73,
+      "stamp": "52e294c43b5e"
+    },
+    {
+      "id": "r2-must-2",
+      "text": "وَلِلشَّيْءِ الْمَمْنُوعِ نَقُولُ:",
+      "file": "r2-must-2.mp3",
+      "seconds": 1.85,
+      "stamp": "cd69996b4181"
+    },
+    {
+      "id": "r2-must-3",
+      "text": "وَبَعْدَهُمَا يَأْتِي الْفِعْلُ كَمَا هُوَ، بِلَا زِيَادَةٍ.",
+      "file": "r2-must-3.mp3",
+      "seconds": 3.41,
+      "stamp": "d0c7a613c42d"
+    }
+  ]
+}

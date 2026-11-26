@@ -26,20 +26,26 @@ function planCard() {
     <div class="steps">${st.map(s => `<button class="step${s.done ? ' done' : ''}" data-step="${s.id}"><span class="si">${s.done ? '✓' : s.ico}</span><span>${s.ar}</span></button>`).join('')}</div></div>`;
 }
 def('planHello', () => {
+  const hello = PNO === 1 ? ['plan-1', 'plan-2'] : ['part-hello', 'part-plan'];
   app.innerHTML = `<div class="splash" style="min-height:auto;padding-top:18px"><div class="fbig" style="width:160px">${falcon({ mood: 'happy', pose: 'cheer' })}</div>
-    <div class="bubble">${esc(AR_PLAIN('plan-1'))} ${esc(AR_PLAIN('plan-2'))}</div>
+    <div class="bubble">${esc(AR_PLAIN(hello[0]))} ${esc(AR_PLAIN(hello[1]))}</div>
     <div class="card stack planlist">
-      <div class="pl"><span>📘</span><div><b>درس جديد</b><small>درس من كلمات المستوى الرابع، ثم درس من «كلمات كبيرة»</small></div></div>
+      <div class="pl"><span>📘</span><div><b>درس جديد</b><small>${PNO === 1 ? 'درس من كلمات المستوى الرابع، ثم درس من «كلمات كبيرة»' : `كلمات ${esc(PART.title)}، من «${esc(STAGES[0][0])}» إلى «${esc(STAGES[2][0])}»`}</small></div></div>
       <div class="pl"><span>✏️</span><div><b>ورشة الإملاء</b><small>٦ كلمات: تنظر إليها، ثم تكتبها من ذاكرتك</small></div></div>
       <div class="pl"><span>🧩</span><div><b>قاعدة اليوم</b><small>شرح قصير، ثم ثماني جمل تكملها</small></div></div>
       <div class="pl"><span>🎤</span><div><b>تحدّث</b><small>سؤالان كل يوم، وأجب بجملتين</small></div></div>
       <div class="pl"><span>🔁</span><div><b>المراجعة الذكية</b><small>حتى لا تنسى ما تعلمته</small></div></div></div>
     <button class="btn" id="go">هيا بنا! ◀︎</button></div>`;
-  VO.say([{ a: 'plan-1' }, 300, { a: 'plan-2' }, 300, { a: 'plan-3' }]);
+  VO.say(PNO === 1 ? [{ a: 'plan-1' }, 300, { a: 'plan-2' }, 300, { a: 'plan-3' }] : [{ a: 'part-hello' }, 300, { a: 'part-plan' }, 300, { a: 'plan-3' }]);
   on('#go', home);
 });
 function planParents() {
   if (typeof PLAN === 'undefined') return '';
+  if (PNO > 1) return `<div class="sec">${esc(PART.title)} <small class="en">${esc(PART.level)}</small></div><div class="card stack planpar">
+    <p style="margin:0">${bidi(PART.about)}</p>
+    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد، وورشة الإملاء، وقاعدة اليوم، وسؤالان في «تحدّث» يجيب عن كل منهما بجملتين، والمراجعة الذكية. تقدّم هذا الجزء محفوظ وحده، فلا يختلط بالأجزاء الأخرى.</p>
+    <div class="chips2"><span>✏️ يكتب ${num(WORDS.filter(spGood).length)} كلمة بلا خطأ</span><span>🧩 أتقن ${num(RULES.filter(ruleMastered).length)} من ${num(RULES.length)} قواعد</span></div>
+    <div class="setrow"><span>الدروس الجديدة تبدأ من</span><div class="seg">${STAGES.map((st, i) => `<button data-st="${i + 1}" class="${(ST.set.start || 1) === i + 1 ? 'on' : ''}">${num(i + 1)}</button>`).join('')}</div></div></div>`;
   const spelled = WORDS.filter(spGood).length, B = TOPIC.big;
   return `<div class="sec">خطة اختبار المستوى <small>${esc(PLAN.day)}</small></div><div class="card stack planpar">
     <div><b>المستوى:</b> ${bidi(PLAN.level)}</div>
@@ -328,4 +334,16 @@ function ruleDone(r, right, n) {
   on('#again', () => { clean(); cur = { name: 'rule', arg: r.id }; render(); });
   on('#all', () => { clean(); stack = [{ name: 'home' }]; cur = { name: 'rules' }; render(); });
   on('#hm', home);
+}
+
+/* ---------- the six parts: each is its own page on the GitHub site (and its own play link), with its own progress ---------- */
+function partsSheet() {
+  const inLink = !!(window.claude && window.claude.use);
+  sheet(`<div class="stack"><b style="font-size:21px;text-align:center">أجزاء صقر الكلمات</b>
+    <p class="small muted center" style="margin:0">كل جزء كلماته أصعب من الذي قبله، وتقدّم كل جزء محفوظ وحده.</p>
+    ${FALCON_PARTS.map(p => { const ready = FALCON_BUILT.includes(p.n), here = p.n === PNO;
+      const inner = `<span class="ln" style="background:${here ? 'var(--gold)' : ready ? 'var(--night2)' : '#c9c3b5'}">${num(p.n)}</span><span class="lx"><b>${esc(p.title)} <span class="en small muted">${esc(p.level)}</span></b><span class="small muted">${esc(p.sub)}</span></span>${here ? '<span class="chip today">هنا</span>' : ready ? '<span class="go">◀</span>' : '<span class="small muted">قريبًا</span>'}`;
+      return here || !ready ? `<div class="lcard partrow${here ? ' here' : ''}">${inner}</div>`
+        : `<a class="lcard partrow" href="${FALCON_SITE}${p.file}"${inLink ? ' target="_blank" rel="noopener"' : ''}>${inner}</a>`; }).join('')}
+    <button class="btn soft" data-close>إغلاق</button></div>`, el => { el.querySelector('[data-close]').onclick = () => { sfx('tap'); el.remove(); }; });
 }

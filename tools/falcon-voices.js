@@ -16,13 +16,27 @@
 //   python3 tools/game-voices.py word-falcon-lines.json --out word-falcon/ar
 //   python3 tools/english-voices.py word-falcon-ar2-lines.json --out word-falcon/arw
 //   node tools/falcon-voices.js
-// usage: node tools/falcon-voices.js [--check]     (--check: only check the data, write nothing)
+// Six parts share this tool: part 1's data is in src/falcon/, a later part's in src/falcon/parts/p<N>/. Hamed's shared
+// guide lines (say.js) live in word-falcon/ar/, a later part's own lines (AR_PART in its part.js) in word-falcon-<N>/ar/;
+// the Arabic word lines of every part share word-falcon/arw/ and the English clips ollie/voices/. A part's packs go to
+// word-falcon/voices/ (part 1) or word-falcon-<N>/voices/, and its lists of lines to record to word-falcon[-<N>]-*-lines.json.
+// usage: node tools/falcon-voices.js [N] [--check]     (N: the part, 1 by default; --check: only check the data, write nothing)
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ROOT = path.join(__dirname, '..'), SRC = path.join(ROOT, 'src/falcon');
-const VO = path.join(ROOT, 'ollie/voices'), AR_DIR = path.join(ROOT, 'word-falcon/ar'), OUT = path.join(ROOT, 'word-falcon/voices');
-const code = ['words1.js', 'words2.js', 'words3.js', 'say.js', 'plan.js', 'arvoice1.js', 'arvoice2.js', 'arvoice3.js'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n');
-const { TOPICS, TALK, WORDS, AR, EN_UI, ARV, TALKV, PLAN, RULES } = new Function(code + ';return {TOPICS,TALK,WORDS,AR,EN_UI,ARV,TALKV,PLAN,RULES};')();
+const PN = +(process.argv.slice(2).find(a => /^\d+$/.test(a)) || 1), TAG = PN === 1 ? 'word-falcon' : `word-falcon-${PN}`;
+const VO = path.join(ROOT, 'ollie/voices'), AR_DIR = path.join(ROOT, 'word-falcon/ar'), AR_PDIR = path.join(ROOT, TAG, 'ar'), OUT = path.join(ROOT, TAG, 'voices');
+const wordFiles = n => n === 1 ? ['base.js', 'words1.js', 'words2.js', 'words3.js'] : ['base.js', `parts/p${n}/words.js`];
+const allFiles = n => n === 1 ? [...wordFiles(1), 'say.js', 'plan.js', 'arbase.js', 'arvoice1.js', 'arvoice2.js', 'arvoice3.js']
+  : [...wordFiles(n), 'say.js', `parts/p${n}/part.js`, 'arbase.js', `parts/p${n}/arvoice.js`];
+const load = (files, names) => new Function(files.map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n') + `;return {${names}};`)();
+const { TOPICS, TALK, WORDS, AR: AR_SHARED, EN_UI, ARV, TALKV, PLAN, RULES, AR_PART } = load(allFiles(PN),
+  'TOPICS,TALK,WORDS,AR,EN_UI,ARV,TALKV,PLAN,RULES,AR_PART:typeof AR_PART==="undefined"?null:AR_PART');
+const AR = Object.assign({}, AR_SHARED, AR_PART || {});
 const ARW = path.join(ROOT, 'word-falcon/arw');
+const OTHER = {};   // the words of the other parts: a word is taught in one part only
+const partsHere = [1, ...(fs.existsSync(path.join(SRC, 'parts')) ? fs.readdirSync(path.join(SRC, 'parts')) : [])
+  .filter(d => /^p\d+$/.test(d) && fs.existsSync(path.join(SRC, 'parts', d, 'words.js'))).map(d => +d.slice(1))];
+for (const n of partsHere) if (n !== PN) for (const w of load(wordFiles(n), 'WORDS').WORDS) OTHER[w.en.toLowerCase()] = n;
 
 // ---------- checks ----------
 const problems = [], seen = {}, strongPic = {};
@@ -30,6 +44,7 @@ const ARABIC = /[ء-ي]/;
 for (const w of WORDS) {
   const k = w.en.toLowerCase();
   if (seen[k]) problems.push(`"${w.en}" is in ${seen[k]} and ${w.t}`);
+  if (OTHER[k]) problems.push(`"${w.en}" (${w.t}) is already taught in part ${OTHER[k]}`);
   seen[k] = w.t;
   if (!w.ar || !ARABIC.test(w.ar)) problems.push(`"${w.en}": no Arabic meaning`);
   if (!w.pic) problems.push(`"${w.en}": no picture`);
@@ -143,17 +158,18 @@ for (const r of RULES) { for (const p of r.parts) if (p.e) add(p.e, 'rules', fal
 for (const list of Object.values(EN_UI)) for (const t of list) add(t, 'core', false);
 
 const todo = [...new Set(want)];
-fs.writeFileSync(path.join(ROOT, 'word-falcon-en-lines.json'),
+fs.writeFileSync(path.join(ROOT, `${TAG}-en-lines.json`),
   JSON.stringify({ voice: 'en-US-AvaNeural', lines: todo, slow: [...new Set(slow)] }, null, 1) + '\n');
 
 // ---------- Arabic clips ----------
-fs.writeFileSync(path.join(ROOT, 'word-falcon-lines.json'), JSON.stringify({ voice: 'ar-SA-HamedNeural',
-  lines: Object.entries(AR).map(([id, text]) => ({ id, text })) }, null, 1) + '\n');
-let manifest = {};
-try { for (const l of JSON.parse(fs.readFileSync(path.join(AR_DIR, 'manifest.json'), 'utf8')).lines) manifest[l.id] = l; } catch (e) {}
+const OWN = PN === 1 ? AR : (AR_PART || {});
+if (!process.argv.includes('--check')) fs.writeFileSync(path.join(ROOT, `${TAG}-lines.json`), JSON.stringify({ voice: 'ar-SA-HamedNeural',
+  lines: Object.entries(OWN).map(([id, text]) => ({ id, text })) }, null, 1) + '\n');
+const readManifest = dir => { const m = {}; try { for (const l of JSON.parse(fs.readFileSync(path.join(dir, 'manifest.json'), 'utf8')).lines) m[l.id] = l; } catch (e) {} return m; };
+const manifest = readManifest(AR_DIR), pmanifest = PN === 1 ? manifest : readManifest(AR_PDIR);
 const arMissing = [];
 for (const [id, text] of Object.entries(AR)) {
-  const m = manifest[id], f = path.join(AR_DIR, id + '.mp3');
+  const own = PN > 1 && AR_PART && id in AR_PART, dir = own ? AR_PDIR : AR_DIR, m = (own ? pmanifest : manifest)[id], f = path.join(dir, id + '.mp3');
   if (m && m.text === text && fs.existsSync(f)) items.push(['a' + id, 'core', f, fnv(text)]);
   else arMissing.push(id);
 }
@@ -164,7 +180,7 @@ for (const [shown, [vowelled, pack]] of SPOKEN) {
   const f = path.join(ARW, cid(vowelled) + '.mp3');
   if (fs.existsSync(f)) items.push(['r' + fnv(shown), pack, f]); else arWant.push(vowelled);
 }
-fs.writeFileSync(path.join(ROOT, 'word-falcon-ar2-lines.json'), JSON.stringify({ voice: 'ar-SA-HamedNeural', lufs: -14.5, lines: arWant }, null, 1) + '\n');
+fs.writeFileSync(path.join(ROOT, `${TAG}-ar2-lines.json`), JSON.stringify({ voice: 'ar-SA-HamedNeural', lufs: -14.5, lines: arWant }, null, 1) + '\n');
 
 // ---------- packs ----------
 const packs = {}, index = {};
@@ -182,4 +198,4 @@ for (const [name, bufs] of Object.entries(packs)) { const b = Buffer.concat(bufs
 fs.writeFileSync(path.join(OUT, 'packs.json'), JSON.stringify({ packs: Object.fromEntries(Object.keys(packs).sort().map(n => [n, `pack-${n}.mp3`])), c: index }) + '\n');
 
 console.log(`English: ${todo.length} lines to record (${todo.reduce((n, t) => n + t.length, 0)} characters); Arabic: ${arMissing.length} of ${Object.keys(AR).length} guide lines to record, ${arWant.length} of ${SPOKEN.size} word lines to record (${arWant.reduce((n, t) => n + t.length, 0)} characters)`);
-console.log(`packed ${Object.keys(index).length} clips into ${Object.keys(packs).length} packs (${(size / 1e6).toFixed(1)} MB) in word-falcon/voices`);
+console.log(`packed ${Object.keys(index).length} clips into ${Object.keys(packs).length} packs (${(size / 1e6).toFixed(1)} MB) in ${TAG}/voices`);

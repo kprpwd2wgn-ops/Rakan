@@ -3,7 +3,7 @@
 // spelling workshop (one word written wrong first), the rule of the day, each of the eight games, the word
 // book, talk time, the falcon's nest, the badges and the parents' corner. It reports script errors, clips that
 // failed to load, and saves a screenshot of every screen in the folder it prints.
-// usage: node tools/falcon-play.js            (serves the repo on a local port so the voice packs load)
+// usage: node tools/falcon-play.js [N]        (N: the part, 1 by default; serves the repo on a local port so the voice packs load)
 const http = require('http'), fs = require('fs'), path = require('path'), os = require('os');
 const { chromium } = require('playwright');
 const ROOT = path.join(__dirname, '..'), OUT = fs.mkdtempSync(path.join(os.tmpdir(), 'falcon-play-'));
@@ -15,7 +15,7 @@ const server = http.createServer((q, r) => {
 });
 (async () => {
   await new Promise(res => server.listen(0, res));
-  const url = `http://127.0.0.1:${server.address().port}/word-falcon.html`;
+  const PN = +(process.argv[2] || 1), url = `http://127.0.0.1:${server.address().port}/${PN === 1 ? 'word-falcon.html' : 'word-falcon-' + PN + '.html'}`;
   const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
   const page = await browser.newPage({ viewport: { width: 390, height: 800 } });
   const errors = [], bad = [];
@@ -103,7 +103,7 @@ const server = http.createServer((q, r) => {
   await page.evaluate(() => { document.querySelectorAll('.sheet').forEach(s => s.remove()); window.FALCON.home(); });
   await page.waitForTimeout(300); await shot('home-plan');
   // the map, a topic, the topic check
-  await click('[data-go="map"]'); await shot('map'); await click('.tcard[data-t="food"]'); await shot('topic');
+  await click('[data-go="map"]'); await shot('map'); await click('.tcard'); await shot('topic');
   await click('#chk'); await click('#st'); k = 0; while (await page.locator('#qb').count() && k < 12) { await answer(k % 2 === 1); k++; } await shot('check-done'); await click('#ok');
   await page.locator('.wtile').first().click(); await page.waitForTimeout(300); await shot('word-card'); await page.evaluate(() => document.querySelectorAll('.sheet').forEach(s => s.remove()));
   // games
@@ -122,7 +122,7 @@ const server = http.createServer((q, r) => {
   }
   // book, talk, shop, badges, parents
   await page.evaluate(() => window.FALCON.home()); await click('[data-go="book"]'); await shot('book');
-  await page.evaluate(() => window.FALCON.home()); await click('[data-go="talkList"]'); await shot('talk-list'); await click('.lcard[data-t="food"]'); await page.waitForTimeout(500); await shot('talk-q');
+  await page.evaluate(() => window.FALCON.home()); await click('[data-go="talkList"]'); await shot('talk-list'); await click('.lcard'); await page.waitForTimeout(500); await shot('talk-q');
   if (await page.locator('#build').count()) await click('#build');
   const w = await page.locator('#act').getAttribute('data-w');
   if (w) for (const tok of w.split(' ')) { const tiles = page.locator('#act .tile:not(.used)'); const c = await tiles.count(); for (let i = 0; i < c; i++) { const t = tiles.nth(i); if ((await t.textContent()) === tok) { await t.click(); break; } } }

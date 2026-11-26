@@ -2,7 +2,7 @@
    With a microphone the browser's speech recognition listens (no device voice is used); without one he builds the answer from word tiles. */
 def('talkList', () => {
   app.innerHTML = bar('تحدّث') + `<div class="talkf"><div class="bubble">ستسمع سؤالًا مثل أسئلة معلمة الحصة، فأجب بجملة كاملة. الجمل تساعدك على الكلام بثقة!</div><div class="fmid">${falcon({ mood: 'happy' })}</div></div>
-    <div class="stack" style="margin-top:8px">${TOPICS.map(t => { const qs = TALK.filter(x => x.t === t.id), best = qs.reduce((s, _, j) => s + (ST.talk[t.id + ':' + j] || 0), 0), ready = topicLearned(t) >= 3;
+    <div class="stack" style="margin-top:8px">${TOPICS.filter(t => TALK.some(x => x.t === t.id)).map(t => { const qs = TALK.filter(x => x.t === t.id), best = qs.reduce((s, _, j) => s + (ST.talk[t.id + ':' + j] || 0), 0), ready = topicLearned(t) >= 3;
       return `<button class="lcard" data-t="${t.id}" style="${ready ? '' : 'opacity:.72'}"><span class="ln" style="background:${t.color};font-size:24px">${t.icon}</span><span class="lx"><b>${esc(t.ar)}</b><span class="small muted">${ready ? 'جاهز للمحادثة' : 'تعلّم كلماته أولًا لتسهل عليك'} · ${num(qs.length)} أسئلة</span></span>${starsHTML(Math.round(best / Math.max(1, qs.length)))}</button>`; }).join('')}</div>`;
   bindBar(); VO.say({ a: 'talk-intro' });
   on('.lcard', el => go('talk', el.dataset.t));

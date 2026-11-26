@@ -5,15 +5,8 @@
           s = a sacred word (kept out of the action games), p = a class phrase (column 4 empty, column 5 = when to say it).
    An optional column 7 names the wrong answers of the sentence question (words of the same topic), when the usual
    choice by kind of word could give a second word that fits.
-   Every english word and sentence is a recorded clip in Ollie's voice (tools/falcon-voices.js). */
-const TOPICS = [];
-function T(id, ar, en, icon, color, stage, rows){
-  const words = rows.trim().split('\n').map(l => l.trim()).filter(Boolean).map(l => {
-    const f = l.split(' | ').map(x => x.trim());
-    return { en: f[0], ar: f[1], pic: f[2], ex: f[3] || '', exAr: f[4] || '', fl: f[5] || '', t: id, gx: f[6] ? f[6].split(',').map(x => x.trim().toLowerCase()) : null };
-  });
-  TOPICS.push({ id, ar, en, icon, color, stage, words });
-}
+   Every english word and sentence is a recorded clip in Ollie's voice (tools/falcon-voices.js).
+   TOPICS and T() are in base.js, shared by all six parts. */
 
 T('family', 'العائلة والناس', 'Family & People', '👨‍👩‍👧‍👦', '#f59e0b', 1, `
 family | عائلة | 👨‍👩‍👧‍👦 | I love my family very much. | أحب عائلتي كثيرًا.

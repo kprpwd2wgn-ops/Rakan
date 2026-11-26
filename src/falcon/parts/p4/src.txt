@@ -1,0 +1,144 @@
+# صقر الكلمات — part 4 (B1+). One line per word:
+# english | picture | example sentence | flags | vowelled meaning | vowelled Arabic of the sentence | wrong answers (optional)
+# flags: w = the picture does not show the word, v = verb, a = adjective or adverb, x = small word or expression, p = class phrase
+# Then: node tools/falcon-part.js 4   (see src/falcon/parts/README.md)
+
+@topic relations | النَّاسُ وَالْعَلَاقَاتُ | People & Relationships | 🤝 | #f59e0b | 1 | rel
+friendship | 🧑‍🤝‍🧑 | Our friendship started in first grade. | w | صَدَاقَةٌ | بَدَأَتْ صَدَاقَتُنَا فِي الصَّفِّ الْأَوَّلِ.
+argument | 🗯️ | My brothers had an argument about the game. | w | جِدَالٌ | تَجَادَلَ أَخَوَايَ حَوْلَ اللُّعْبَةِ.
+apologize | 🙇 | You should apologize to your sister. | wv | يَعْتَذِرُ | يَجِبُ أَنْ تَعْتَذِرَ لِأُخْتِكَ.
+trust | 🤝 | I trust my best friend. | wv | يَثِقُ بِـ | أَثِقُ بِصَدِيقِي الْمُقَرَّبِ.
+support | 🫂 | My family will always support me. | wv | يَدْعَمُ | سَتَدْعَمُنِي عَائِلَتِي دَائِمًا.
+encourage | 📣 | My teacher encourages me, and I encourage my friends too. | wv | يُشَجِّعُ (يُحَفِّزُ) | تُشَجِّعُنِي مُعَلِّمَتِي، وَأَنَا أُحَفِّزُ أَصْدِقَائِي أَيْضًا.
+rely on | 🧱 | You can rely on me. | wv | يَعْتَمِدُ عَلَى | يُمْكِنُكَ أَنْ تَعْتَمِدَ عَلَيَّ.
+get along | 😊 | I get along well with my cousins. | wv | يَتَوَافَقُ مَعَ | أَتَوَافَقُ جَيِّدًا مَعَ أَبْنَاءِ عَمِّي.
+introduce | 👋 | Let me introduce my friend Omar. | wv | يُعَرِّفُ بِـ | دَعْنِي أُعَرِّفْكَ بِصَدِيقِي عُمَرَ.
+host | 🏠 | Our family will host the Eid lunch this year. | wv | يَسْتَضِيفُ | سَتَسْتَضِيفُ عَائِلَتُنَا غَدَاءَ الْعِيدِ هَذَا الْعَامَ.
+generation | 👨‍👩‍👧 | My grandfather's generation had no phones. | w | جِيلٌ | لَمْ تَكُنْ لِجِيلِ جَدِّي هَوَاتِفُ.
+ancestor | 📜 | My ancestor was a pearl diver. | w | جَدٌّ قَدِيمٌ (مِنَ الْأَجْدَادِ) | كَانَ أَحَدُ أَجْدَادِي غَوَّاصًا عَنِ اللُّؤْلُؤِ.
+elderly | 👴 | We help elderly people cross the road. | wa | كِبَارُ السِّنِّ | نُسَاعِدُ كِبَارَ السِّنِّ عَلَى عُبُورِ الشَّارِعِ.
+toddler | 🧒 | My toddler brother is learning to walk. | w | طِفْلٌ صَغِيرٌ يَتَعَلَّمُ الْمَشْيَ | أَخِي الصَّغِيرُ يَتَعَلَّمُ الْمَشْيَ.
+childhood | 🪀 | My father had a happy childhood. | w | الطُّفُولَةُ | عَاشَ أَبِي طُفُولَةً سَعِيدَةً.
+orphan | 🤲 | Our school helps an orphan every month. | w | يَتِيمٌ | تُسَاعِدُ مَدْرَسَتُنَا يَتِيمًا كُلَّ شَهْرٍ.
+community | 🏘️ | Our community cleaned the park together. | w | الْمُجْتَمَعُ | نَظَّفَ مُجْتَمَعُنَا الْحَدِيقَةَ مَعًا.
+teamwork | 👥 | We won because of good teamwork. | w | الْعَمَلُ الْجَمَاعِيُّ | فُزْنَا بِفَضْلِ الْعَمَلِ الْجَمَاعِيِّ الْجَيِّدِ.
+cooperate | 🤜 | We must cooperate to finish the project. | wv | يَتَعَاوَنُ | يَجِبُ أَنْ نَتَعَاوَنَ لِنُنْهِيَ الْمَشْرُوعَ.
+compliment | 🌟 | My teacher gave me a nice compliment. | w | مَدْحٌ (إِطْرَاءٌ) | مَدَحَتْنِي مُعَلِّمَتِي مَدْحًا جَمِيلًا.
+behave | 😇 | Please behave well at your grandmother's house. | wv | يَتَصَرَّفُ | مِنْ فَضْلِكَ تَصَرَّفْ جَيِّدًا فِي بَيْتِ جَدَّتِكَ.
+manners | 🎩 | My grandfather says good manners are important. | w | الْأَخْلَاقُ وَالْآدَابُ | يَقُولُ جَدِّي إِنَّ الْأَخْلَاقَ الْحَسَنَةَ مُهِمَّةٌ.
+kindness | 💛 | Kindness makes people happy. | w | اللُّطْفُ | اللُّطْفُ يُسْعِدُ النَّاسَ.
+advice | 💬 | My father gave me good advice. | w | نَصِيحَةٌ | أَعْطَانِي أَبِي نَصِيحَةً جَيِّدَةً.
+@talk How do you show kindness to others? | كَيْفَ تُظْهِرُ اللُّطْفَ لِلْآخَرِينَ؟ | I show kindness when I ___. | I show kindness when I help my neighbors and share my things.
+@talk Who do you rely on when you have a problem? | عَلَى مَنْ تَعْتَمِدُ عِنْدَمَا تُوَاجِهُ مُشْكِلَةً؟ | I rely on ___. | I rely on my parents because they give me good advice.
+
+@topic careers | الْمِهَنُ | Jobs & Careers | 💼 | #7c3aed | 1 | job
+architect | 📐 | The architect drew the plan of the new school. | w | مُهَنْدِسٌ مِعْمَارِيٌّ | رَسَمَ الْمُهَنْدِسُ الْمِعْمَارِيُّ مُخَطَّطَ الْمَدْرَسَةِ الْجَدِيدَةِ.
+accountant | 🧮 | An accountant works with numbers and money. | w | مُحَاسِبٌ | يَعْمَلُ الْمُحَاسِبُ بِالْأَرْقَامِ وَالْمَالِ.
+lawyer | ⚖️ | The lawyer helps people in court. | w | مُحَامٍ | يُسَاعِدُ الْمُحَامِي النَّاسَ فِي الْمَحْكَمَةِ.
+judge | 🧑‍⚖️ | The judge listens to both sides. | w | قَاضٍ | يَسْتَمِعُ الْقَاضِي إِلَى الطَّرَفَيْنِ.
+editor | 📝 | The editor checks the stories in the magazine. | w | مُحَرِّرٌ | يُرَاجِعُ الْمُحَرِّرُ الْقِصَصَ فِي الْمَجَلَّةِ.
+programmer | 👨‍💻 | A programmer writes code for apps. | w | مُبَرْمِجٌ | يَكْتُبُ الْمُبَرْمِجُ الْأَوَامِرَ لِلتَّطْبِيقَاتِ.
+designer | 🎨 | My aunt is a designer of clothes. | w | مُصَمِّمٌ | عَمَّتِي مُصَمِّمَةُ أَزْيَاءٍ.
+electrician | ⚡ | The electrician fixed the lights. | w | كَهْرَبَائِيٌّ | أَصْلَحَ الْكَهْرَبَائِيُّ الْأَنْوَارَ.
+plumber | 🔧 | The plumber repaired the broken pipe. | w | سَبَّاكٌ | أَصْلَحَ السَّبَّاكُ الْأُنْبُوبَ الْمَكْسُورَ.
+carpenter | 🪚 | The carpenter made a wooden table. | w | نَجَّارٌ | صَنَعَ النَّجَّارُ طَاوِلَةً خَشَبِيَّةً.
+pharmacist | 💊 | The pharmacist gave me the medicine. | w | صَيْدَلِيٌّ | أَعْطَانِي الصَّيْدَلِيُّ الدَّوَاءَ.
+surgeon | 🩺 | The surgeon works in the operating room. | w | جَرَّاحٌ | يَعْمَلُ الْجَرَّاحُ فِي غُرْفَةِ الْعَمَلِيَّاتِ.
+paramedic | 🚑 | The paramedic came quickly to help. | w | مُسْعِفٌ | جَاءَ الْمُسْعِفُ بِسُرْعَةٍ لِلْمُسَاعَدَةِ.
+soldier | 💂 | The soldier protects the country. | w | جُنْدِيٌّ | يَحْمِي الْجُنْدِيُّ الْبِلَادَ.
+tailor | 🪡 | The tailor made my new thobe. | w | خَيَّاطٌ | خَاطَ الْخَيَّاطُ ثَوْبِي الْجَدِيدَ.
+butcher | 🥩 | We buy fresh meat from the butcher. | w | جَزَّارٌ | نَشْتَرِي اللَّحْمَ الطَّازَجَ مِنَ الْجَزَّارِ.
+librarian | 📚 | The librarian helped me find a book. | w | أَمِينُ الْمَكْتَبَةِ | سَاعَدَنِي أَمِينُ الْمَكْتَبَةِ عَلَى إِيجَادِ كِتَابٍ.
+translator | 🌐 | A translator changes words from one language to another. | w | مُتَرْجِمٌ | يَنْقُلُ الْمُتَرْجِمُ الْكَلَامَ مِنْ لُغَةٍ إِلَى أُخْرَى.
+receptionist | 🛎️ | The receptionist gave us the room key. | w | مُوَظَّفُ الِاسْتِقْبَالِ | أَعْطَانَا مُوَظَّفُ الِاسْتِقْبَالِ مِفْتَاحَ الْغُرْفَةِ.
+chef | 👨‍🍳 | The chef cooks delicious food in the restaurant. | w | طَاهٍ مَاهِرٌ | يَطْبُخُ الطَّاهِي طَعَامًا لَذِيذًا فِي الْمَطْعَمِ.
+security guard | 💂 | The security guard stands at the gate. | w | حَارِسُ أَمْنٍ | يَقِفُ حَارِسُ الْأَمْنِ عِنْدَ الْبَوَّابَةِ.
+apply | 📄 | My sister wants to apply for a job. | wv | يَتَقَدَّمُ بِطَلَبٍ | تُرِيدُ أُخْتِي أَنْ تَتَقَدَّمَ بِطَلَبِ وَظِيفَةٍ.
+hire | 🤝 | The company will hire ten new workers. | wv | يُوَظِّفُ | سَتُوَظِّفُ الشَّرِكَةُ عَشَرَةَ عُمَّالٍ جُدُدٍ.
+retire | 🏖️ | My grandfather will retire next year. | wv | يَتَقَاعَدُ | سَيَتَقَاعَدُ جَدِّي فِي الْعَامِ الْقَادِمِ.
+@talk What job would you like? Why? | أَيَّ وَظِيفَةٍ تُحِبُّ؟ وَلِمَاذَا؟ | I would like to be ___. | I would like to be an architect because I love designing buildings.
+@talk What does a pharmacist do? | مَاذَا يَفْعَلُ الصَّيْدَلِيُّ؟ | A pharmacist ___. | A pharmacist gives people the medicine they need.
+
+@topic bodymind | الْجِسْمُ وَالْحَوَاسُّ | Body & Senses | 🫀 | #ef4444 | 1 | body
+wrist | ⌚ | I wear my watch on my left wrist. | w | الرُّسْغُ | أَلْبَسُ سَاعَتِي فِي رُسْغِي الْأَيْسَرِ.
+ankle | 🦶 | I hurt my ankle when I fell. | w | الْكَاحِلُ | آذَيْتُ كَاحِلِي عِنْدَمَا وَقَعْتُ.
+chin | 🧔 | He has a small cut on his chin. | w | الذَّقَنُ | عَلَى ذَقَنِهِ جُرْحٌ صَغِيرٌ.
+cheek | ☺️ | The baby has pink cheeks and a round cheek? | w | الْخَدُّ | لِلطِّفْلِ خَدٌّ وَرْدِيٌّ.
+forehead | 🤒 | Mom touched my forehead to check for fever. | w | الْجَبْهَةُ | لَمَسَتْ أُمِّي جَبْهَتِي لِتَتَأَكَّدَ مِنَ الْحُمَّى.
+eyebrow | 🤨 | He raised one eyebrow in surprise. | w | الْحَاجِبُ | رَفَعَ حَاجِبًا وَاحِدًا مُتَفَاجِئًا.
+eyelash | 👁️ | An eyelash fell into my eye. | w | رِمْشُ الْعَيْنِ | سَقَطَ رِمْشٌ فِي عَيْنِي.
+nail | 💅 | Cut your nail every week. | w | الظُّفْرُ | قُصَّ أَظَافِرَكَ كُلَّ أُسْبُوعٍ.
+spine | 🦴 | Sit up straight to protect your spine. | w | الْعَمُودُ الْفِقْرِيُّ | اِجْلِسْ مُسْتَقِيمًا لِتَحْمِيَ عَمُودَكَ الْفِقْرِيَّ.
+rib | 🦴 | He broke a rib playing football. | w | ضِلْعٌ | كُسِرَ ضِلْعُهُ وَهُوَ يَلْعَبُ كُرَةَ الْقَدَمِ.
+throat | 🗣️ | My throat hurts when I swallow. | w | الْحَلْقُ | يُؤْلِمُنِي حَلْقِي عِنْدَمَا أَبْلَعُ.
+chest | 🫁 | Put your hand on your chest and breathe. | w | الصَّدْرُ | ضَعْ يَدَكَ عَلَى صَدْرِكَ وَتَنَفَّسْ.
+hip | 🕺 | Grandma has pain in her hip. | w | الْوَرِكُ | تَشْعُرُ جَدَّتِي بِأَلَمٍ فِي وَرِكِهَا.
+heel | 👠 | I have a blister on my heel. | w | كَعْبُ الْقَدَمِ | عِنْدِي فُقَاعَةٌ عَلَى كَعْبِ قَدَمِي.
+palm | 🖐️ | Read the word on the palm of my hand. | w | رَاحَةُ الْيَدِ | اِقْرَأِ الْكَلِمَةَ عَلَى رَاحَةِ يَدِي.
+fist | ✊ | Close your hand to make a fist. | w | قَبْضَةُ الْيَدِ | أَغْلِقْ يَدَكَ لِتَصْنَعَ قَبْضَةً.
+sense | 👃 | A dog has a strong sense of smell. | w | حَاسَّةٌ | لِلْكَلْبِ حَاسَّةُ شَمٍّ قَوِيَّةٌ.
+sight | 👁️ | Eagles have very good sight. | w | الْبَصَرُ | لِلنُّسُورِ بَصَرٌ حَادٌّ جِدًّا.
+hearing | 👂 | Bats have excellent hearing. | w | السَّمْعُ | لِلْخَفَافِيشِ سَمْعٌ مُمْتَازٌ.
+nerve | 🧠 | A nerve sends messages to the brain. | w | عَصَبٌ | يُرْسِلُ الْعَصَبُ رَسَائِلَ إِلَى الدِّمَاغِ.
+heartbeat | 💓 | The doctor listened to my heartbeat. | w | نَبْضُ الْقَلْبِ | اِسْتَمَعَ الطَّبِيبُ إِلَى نَبْضِ قَلْبِي.
+pulse | 💓 | Put two fingers on your wrist to feel your pulse. | w | النَّبْضُ | ضَعْ إِصْبَعَيْنِ عَلَى رُسْغِكَ لِتَشْعُرَ بِنَبْضِكَ.
+organ | 🫀 | The heart is a very important organ. | w | عُضْوٌ فِي الْجِسْمِ | الْقَلْبُ عُضْوٌ مُهِمٌّ جِدًّا.
+skeleton | 🦴 | The skeleton holds up our body. | w | الْهَيْكَلُ الْعَظْمِيُّ | يَحْمِلُ الْهَيْكَلُ الْعَظْمِيُّ أَجْسَامَنَا.
+@talk Which sense is the most important to you? | أَيُّ حَاسَّةٍ هِيَ الْأَهَمُّ لَكَ؟ | I think ___ is the most important. | I think sight is the most important because I love reading.
+@talk What do you do when you hurt your ankle? | مَاذَا تَفْعَلُ عِنْدَمَا تُؤْذِي كَاحِلَكَ؟ | When I hurt my ankle, I ___. | When I hurt my ankle, I put ice on it and rest.
+
+@topic campus | الْمَدْرَسَةُ وَالْجَامِعَةُ | School & University | 🎓 | #2563eb | 1 | edu
+university | 🎓 | My brother studies at the university. |  | جَامِعَةٌ | يَدْرُسُ أَخِي فِي الْجَامِعَةِ.
+college | 🏫 | She goes to a college of engineering. | w | كُلِّيَّةٌ | تَدْرُسُ فِي كُلِّيَّةِ الْهَنْدَسَةِ.
+graduate | 👩‍🎓 | My cousin will graduate this summer. | wv | يَتَخَرَّجُ | سَيَتَخَرَّجُ ابْنُ عَمِّي هَذَا الصَّيْفَ.
+semester | 📅 | The new semester starts in January. | w | فَصْلٌ دِرَاسِيٌّ | يَبْدَأُ الْفَصْلُ الدِّرَاسِيُّ الْجَدِيدُ فِي يَنَايِرَ.
+lecture | 🧑‍🏫 | The lecture was about the solar system. | w | مُحَاضَرَةٌ | كَانَتِ الْمُحَاضَرَةُ عَنِ الْمَجْمُوعَةِ الشَّمْسِيَّةِ.
+principal | 👨‍💼 | The principal spoke to all the students. | w | مُدِيرُ الْمَدْرَسَةِ | تَحَدَّثَ مُدِيرُ الْمَدْرَسَةِ إِلَى جَمِيعِ الطُّلَّابِ.
+certificate | 📜 | I got a certificate for good reading. | w | شَهَادَةٌ | حَصَلْتُ عَلَى شَهَادَةٍ لِلْقِرَاءَةِ الْجَيِّدَةِ.
+scholarship | 🏅 | She won a scholarship to study abroad. | w | مِنْحَةٌ دِرَاسِيَّةٌ | فَازَتْ بِمِنْحَةٍ دِرَاسِيَّةٍ لِلدِّرَاسَةِ فِي الْخَارِجِ.
+assignment | 📋 | The teacher gave us a new assignment. | w | مُهِمَّةٌ دِرَاسِيَّةٌ | أَعْطَتْنَا الْمُعَلِّمَةُ مُهِمَّةً جَدِيدَةً.
+essay | 📝 | Write an essay about your best day. | w | مَقَالٌ إِنْشَائِيٌّ | اُكْتُبْ مَقَالًا عَنْ أَجْمَلِ أَيَّامِكَ.
+presentation | 📊 | I gave a presentation about camels. | w | عَرْضٌ تَقْدِيمِيٌّ | قَدَّمْتُ عَرْضًا عَنِ الْجِمَالِ.
+grammar | 📘 | English grammar is not too hard. | w | قَوَاعِدُ اللُّغَةِ | قَوَاعِدُ اللُّغَةِ الْإِنْجِلِيزِيَّةِ لَيْسَتْ صَعْبَةً جِدًّا.
+vocabulary | 🔤 | Reading helps you learn new vocabulary. | w | الْمُفْرَدَاتُ | تُسَاعِدُكَ الْقِرَاءَةُ عَلَى تَعَلُّمِ مُفْرَدَاتٍ جَدِيدَةٍ.
+pronunciation | 🗣️ | Listen and check your pronunciation. | w | النُّطْقُ | اِسْتَمِعْ، وَتَأَكَّدْ مِنْ نُطْقِكَ.
+translate | 🌐 | Can you translate this sentence into Arabic? | wv | يُتَرْجِمُ | هَلْ تَسْتَطِيعُ أَنْ تُتَرْجِمَ هَذِهِ الْجُمْلَةَ إِلَى الْعَرَبِيَّةِ؟
+kindergarten | 🧸 | My little sister goes to kindergarten. | w | رَوْضَةُ الْأَطْفَالِ | تَذْهَبُ أُخْتِي الصَّغِيرَةُ إِلَى الرَّوْضَةِ.
+primary school | 🏫 | I am in primary school. | w | الْمَدْرَسَةُ الِابْتِدَائِيَّةُ | أَنَا فِي الْمَدْرَسَةِ الِابْتِدَائِيَّةِ.
+secondary school | 🏫 | My brother goes to secondary school. | w | الْمَدْرَسَةُ الثَّانَوِيَّةُ | يَذْهَبُ أَخِي إِلَى الْمَدْرَسَةِ الثَّانَوِيَّةِ.
+attendance | ✅ | The teacher takes attendance every morning. | w | الْحُضُورُ | تُسَجِّلُ الْمُعَلِّمَةُ الْحُضُورَ كُلَّ صَبَاحٍ.
+absent | 🚫 | Ali was absent because he was sick. | wa | غَائِبٌ | كَانَ عَلِيٌّ غَائِبًا لِأَنَّهُ كَانَ مَرِيضًا.
+punctual | ⏰ | Our teacher is always punctual. | wa | يَلْتَزِمُ بِالْمَوْعِدِ | مُعَلِّمَتُنَا تَلْتَزِمُ بِالْمَوْعِدِ دَائِمًا.
+textbook | 📕 | Open your textbook to page ten. | w | الْكِتَابُ الْمَدْرَسِيُّ | اِفْتَحْ كِتَابَكَ الْمَدْرَسِيَّ عَلَى الصَّفْحَةِ الْعَاشِرَةِ.
+notes | 🗒️ | I write notes during the lesson. | w | مُلَاحَظَاتٌ | أَكْتُبُ مُلَاحَظَاتٍ أَثْنَاءَ الدَّرْسِ.
+deadline | ⏳ | The deadline for the project is Thursday. | w | الْمَوْعِدُ النِّهَائِيُّ | الْمَوْعِدُ النِّهَائِيُّ لِلْمَشْرُوعِ يَوْمُ الْخَمِيسِ.
+@talk What do you want to study at university? | مَاذَا تُرِيدُ أَنْ تَدْرُسَ فِي الْجَامِعَةِ؟ | At university, I want to study ___. | At university, I want to study engineering.
+@talk How do you prepare a presentation? | كَيْفَ تُجَهِّزُ عَرْضًا تَقْدِيمِيًّا؟ | To prepare a presentation, I ___. | To prepare a presentation, I read about the topic and make pictures.
+
+@topic shopping4 | التَّسَوُّقُ وَالْمُشْتَرِي | Shopping & Buyers | 🛒 | #d97706 | 1 | shop4
+product | 📦 | This product is made in Saudi Arabia. | w | مُنْتَجٌ | هَذَا الْمُنْتَجُ مَصْنُوعٌ فِي السُّعُودِيَّةِ.
+brand | 🏷️ | Which brand of shoes do you like? | w | عَلَامَةٌ تِجَارِيَّةٌ | أَيَّ عَلَامَةٍ تِجَارِيَّةٍ لِلْأَحْذِيَةِ تُحِبُّ؟
+quality | 💎 | This bag is good quality. | w | الْجَوْدَةُ | هَذِهِ الْحَقِيبَةُ ذَاتُ جَوْدَةٍ جَيِّدَةٍ.
+guarantee | 📃 | The phone has a two-year guarantee. | w | ضَمَانٌ | لِلْهَاتِفِ ضَمَانٌ لِمُدَّةِ سَنَتَيْنِ.
+refund | 💸 | The shop gave me a refund. | w | اسْتِرْدَادُ الْمَالِ | أَعَادَ لِيَ الْمَحَلُّ مَالِي.
+exchange | 🔄 | Can I exchange this shirt for a bigger size? | wv | يَسْتَبْدِلُ | هَلْ أَسْتَطِيعُ أَنْ أَسْتَبْدِلَ هَذَا الْقَمِيصَ بِمَقَاسٍ أَكْبَرَ؟
+deliver | 🚚 | They will deliver the sofa on Monday. | wv | يُوَصِّلُ | سَيُوَصِّلُونَ الْأَرِيكَةَ يَوْمَ الِاثْنَيْنِ.
+delivery | 📦 | The delivery came very fast. | w | التَّوْصِيلُ | وَصَلَتِ الطَّلَبِيَّةُ بِسُرْعَةٍ كَبِيرَةٍ.
+online shopping | 🛒 | Online shopping is easy, but be careful. | w | التَّسَوُّقُ عَبْرَ الْإِنْتَرْنِتِ | التَّسَوُّقُ عَبْرَ الْإِنْتَرْنِتِ سَهْلٌ، لَكِنْ كُنْ حَذِرًا.
+checkout | 🧾 | We paid at the checkout. | w | مَكَانُ الدَّفْعِ | دَفَعْنَا عِنْدَ مَكَانِ الدَّفْعِ.
+trolley | 🛒 | Put the bags in the trolley. | w | عَرَبَةُ التَّسَوُّقِ | ضَعِ الْأَكْيَاسَ فِي عَرَبَةِ التَّسَوُّقِ.
+aisle | 🛍️ | The rice is in aisle five. | w | مَمَرٌّ بَيْنَ الرُّفُوفِ | الْأَرُزُّ فِي الْمَمَرِّ الْخَامِسِ.
+label | 🏷️ | Read the label before you buy food. | w | مُلْصَقٌ تَعْرِيفِيٌّ | اِقْرَأِ الْمُلْصَقَ قَبْلَ أَنْ تَشْتَرِيَ الطَّعَامَ.
+expiry date | 📆 | Check the expiry date on the milk. | w | تَارِيخُ الِانْتِهَاءِ | تَأَكَّدْ مِنْ تَارِيخِ انْتِهَاءِ الْحَلِيبِ.
+coupon | 🎟️ | I used a coupon to get a discount. | w | قَسِيمَةُ خَصْمٍ | اِسْتَخْدَمْتُ قَسِيمَةً لِأَحْصُلَ عَلَى خَصْمٍ.
+queue | 🧍 | Please wait in the queue. | w | طَابُورٌ | مِنْ فَضْلِكَ انْتَظِرْ فِي الطَّابُورِ.
+catalogue | 📖 | Look at the catalogue to choose a desk. | w | دَلِيلُ الْمُنْتَجَاتِ | اُنْظُرْ فِي دَلِيلِ الْمُنْتَجَاتِ لِتَخْتَارَ مَكْتَبًا.
+fit | 👕 | These shoes fit me well. | wv | يُنَاسِبُ مَقَاسُهُ | هَذَا الْحِذَاءُ مَقَاسُهُ مُنَاسِبٌ لِي.
+suit | 👔 | That color will suit you. | wv | يَلِيقُ بِـ | سَيَلِيقُ بِكَ هَذَا اللَّوْنُ.
+complain | 😤 | He went to complain about the broken toy. | wv | يَشْتَكِي | ذَهَبَ لِيَشْتَكِيَ مِنَ اللُّعْبَةِ الْمَكْسُورَةِ.
+wrap | 🎁 | Can you wrap this gift, please? | wv | يُغَلِّفُ | هَلْ يُمْكِنُكَ أَنْ تُغَلِّفَ هَذِهِ الْهَدِيَّةَ، مِنْ فَضْلِكَ؟
+purchase | 🛍️ | Keep the bill of your purchase. | w | مُشْتَرَيَاتٌ | اِحْتَفِظْ بِفَاتُورَةِ مُشْتَرَيَاتِكَ.
+price tag | 🏷️ | The price tag says ten riyals. | w | بِطَاقَةُ السِّعْرِ | تَقُولُ بِطَاقَةُ السِّعْرِ عَشَرَةَ رِيَالَاتٍ.
+second-hand | ♻️ | I bought a second-hand bike. | wa | مُسْتَعْمَلٌ | اِشْتَرَيْتُ دَرَّاجَةً مُسْتَعْمَلَةً.
+@talk Do you like online shopping? Why? | هَلْ تُحِبُّ التَّسَوُّقَ عَبْرَ الْإِنْتَرْنِتِ؟ وَلِمَاذَا؟ | I ___ online shopping because ___. | I like online shopping because it is fast, but I prefer to see things first.
+@talk What do you check before you buy food? | مَاذَا تَتَأَكَّدُ مِنْهُ قَبْلَ أَنْ تَشْتَرِيَ الطَّعَامَ؟ | Before I buy food, I check ___. | Before I buy food, I check the expiry date and the price.

@@ -2,8 +2,6 @@
    (for a class phrase: its meaning | when to say it). One row per word, in the same order as words1-3.js.
    The page shows the plain text; tools/falcon-voices.js checks that every row has the same letters as the text shown,
    then the clip of the vowelled line plays for that text. Used by the tool only, not built into the page. */
-const ARV = {};
-function V(id, rows) { ARV[id] = rows.trim().split('\n').map(l => l.trim()).filter(Boolean).map(l => l.split(' | ').map(x => x.trim())); }
 
 V('family', `
 عَائِلَةٌ | أُحِبُّ عَائِلَتِي كَثِيرًا.

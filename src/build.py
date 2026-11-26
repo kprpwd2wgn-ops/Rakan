@@ -130,19 +130,35 @@ def build_genius():
     html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*UI*/',rd('ui.js'))
     open(os.path.join(O,'genius-challenge.html'),'w',encoding='utf-8').write(html)
     print('built genius-challenge.html',len(html))
-# ---- Word Falcon (صقر الكلمات): python3 src/build.py falcon  ->  word-falcon.html ----
-# One page from src/falcon/: page.html with style.css, the word data (words1-3.js and say.js, which also run in node
-# for tools/falcon-voices.js) and the program (art.js, app.js, quiz.js, talk.js, games.js). Its voice packs come from
-# tools/falcon-voices.js.
-FALCON_DATA=['words1.js','words2.js','words3.js','say.js','plan.js']
+# ---- Word Falcon (صقر الكلمات): python3 src/build.py falcon  ->  word-falcon.html and word-falcon-2.html ... -6.html ----
+# One engine for six parts. Part 1's data is in src/falcon/ (words1-3.js, say.js, plan.js); a later part's data is in
+# src/falcon/parts/p<N>/ (words.js, part.js; arvoice.js is for the voice tool only). Every part gets base.js (the word
+# helper), say.js (Hamed's shared lines), parts.js (the parts menu, with the list of built parts) and the program
+# (art.js, app.js, quiz.js, talk.js, games.js, plan-app.js). Voice packs come from tools/falcon-voices.js <N>.
+FALCON_DATA=['base.js','words1.js','words2.js','words3.js','say.js','plan.js']
 FALCON_APP=['art.js','app.js','quiz.js','talk.js','games.js','plan-app.js']
+def falcon_parts():
+    P=os.path.join(R,'falcon','parts')
+    return sorted(int(d[1:]) for d in (os.listdir(P) if os.path.isdir(P) else []) if d[:1]=='p' and d[1:].isdigit() and os.path.exists(os.path.join(P,d,'words.js')))
 def build_falcon():
     S=os.path.join(R,'falcon'); rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
-    data='\n'.join(rd(f) for f in FALCON_DATA)
+    built=[1]+falcon_parts()
+    parts=rd('parts.js').replace('/*BUILT*/[1]',json.dumps(built))
     prog='\n'.join(rd(f) for f in FALCON_APP)+'\nboot();\n'
-    html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*APP*/',prog)
-    open(os.path.join(O,'word-falcon.html'),'w',encoding='utf-8').write(html)
-    print('built word-falcon.html',len(html))
+    page=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*APP*/',prog)
+    AD='٠١٢٣٤٥٦٧٨٩'
+    for n in built:
+        if n==1:
+            data='\n'.join(rd(f) for f in FALCON_DATA)+'\n'+parts; out='word-falcon.html'; html=page
+        else:
+            d=os.path.join('parts','p%d'%n)
+            data='\n'.join(rd(f) for f in ['base.js',os.path.join(d,'words.js'),'say.js',os.path.join(d,'part.js')])+'\n'+parts
+            out='word-falcon-%d.html'%n; name='صقر الكلمات '+AD[n]
+            html=(page.replace('<title>صقر الكلمات</title>','<title>%s</title>'%name).replace('content="صقر الكلمات"','content="%s"'%name)
+                      .replace('word-falcon-icon-','word-falcon-%d-icon-'%n).replace('word-falcon.webmanifest','word-falcon-%d.webmanifest'%n))
+        html=html.replace('/*DATA*/',data)
+        open(os.path.join(O,out),'w',encoding='utf-8').write(html)
+        print('built',out,len(html))
 # ---- Level test (اختبار المستوى): python3 src/build.py leveltest  ->  level-test.html ----
 # One page from src/leveltest/: items.js (the questions, also read by tools/level-test-voices.js) and app.js,
 # with Shaheen's drawings (src/falcon/art.js) and Word Falcon's stylesheet plus extra.css.

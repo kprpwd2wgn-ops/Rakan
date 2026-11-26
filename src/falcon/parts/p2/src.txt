@@ -1,0 +1,416 @@
+# صقر الكلمات — part 2 (A2). One line per word:
+# english | picture | example sentence | flags | vowelled meaning | vowelled Arabic of the sentence | wrong answers (optional)
+# flags: w = the picture does not show the word, v = verb, a = adjective or adverb, x = small word (before, until ...), p = class phrase
+# Then: node tools/falcon-part.js 2   (see src/falcon/parts/README.md)
+
+@topic homething | أَشْيَاءُ الْبَيْتِ | Things at Home | 🏠 | #0ea5e9 | 1 | thing
+shelf | 📚 | Put the books on the shelf. | w | رَفٌّ | ضَعِ الْكُتُبَ عَلَى الرَّفِّ.
+drawer | 🗃️ | My socks are in the top drawer. | w | دُرْجٌ | جَوَارِبِي فِي الدُّرْجِ الْعُلْوِيِّ.
+cupboard | 🥫 | The plates are in the cupboard. | w | خِزَانَةُ الْمَطْبَخِ | الْأَطْبَاقُ فِي خِزَانَةِ الْمَطْبَخِ.
+pillow | 🛏️ | I sleep on a soft pillow. | w | وِسَادَةٌ | أَنَامُ عَلَى وِسَادَةٍ نَاعِمَةٍ.
+blanket | 🛌 | This blanket keeps me warm. | w | بَطَّانِيَّةٌ | هَذِهِ الْبَطَّانِيَّةُ تُدْفِئُنِي.
+towel | 🧖 | Dry your hands with the towel. | w | مِنْشَفَةٌ | جَفِّفْ يَدَيْكَ بِالْمِنْشَفَةِ.
+curtain | 🪟 | Please open the curtain. | w | سِتَارَةٌ | مِنْ فَضْلِكَ افْتَحِ السِّتَارَةَ.
+sink | 🚰 | Wash the cups in the sink. | w | حَوْضُ الْغَسِيلِ | اِغْسِلِ الْأَكْوَابَ فِي الْحَوْضِ.
+tap | 🚰 | Turn off the tap to save water. | w | صُنْبُورٌ | أَغْلِقِ الصُّنْبُورَ لِتُوَفِّرَ الْمَاءَ.
+bath | 🛁 | The baby is in the bath. |  | حَوْضُ الِاسْتِحْمَامِ | الطِّفْلُ فِي حَوْضِ الِاسْتِحْمَامِ.
+shower | 🚿 | The shower is too cold! |  | دُشٌّ | الدُّشُّ بَارِدٌ جِدًّا!
+toilet | 🚽 | Please keep the toilet clean. |  | دَوْرَةُ الْمِيَاهِ | مِنْ فَضْلِكَ حَافِظْ عَلَى نَظَافَةِ دَوْرَةِ الْمِيَاهِ.
+washing machine | 🧺 | Put your clothes in the washing machine. | w | غَسَّالَةُ الْمَلَابِسِ | ضَعْ مَلَابِسَكَ فِي الْغَسَّالَةِ.
+broom | 🧹 | I sweep the floor with a broom. |  | مِكْنَسَةٌ | أَكْنُسُ الْأَرْضَ بِالْمِكْنَسَةِ.
+iron | 👔 | Be careful, the iron is hot! | w | مِكْوَاةٌ | اِنْتَبِهْ، الْمِكْوَاةُ سَاخِنَةٌ!
+balcony | 🏙️ | We drink tea on the balcony. | w | شُرْفَةٌ | نَشْرَبُ الشَّايَ فِي الشُّرْفَةِ.
+garage | 🚘 | My father puts the car in the garage. | w | مِرْآبٌ | يَضَعُ أَبِي السَّيَّارَةَ فِي الْمِرْآبِ.
+fence | 🚧 | The cat is sitting on the fence. | w | سُورٌ | الْقِطَّةُ تَجْلِسُ عَلَى السُّورِ.
+lift | 🛗 | We take the lift to the fifth floor. |  | مِصْعَدٌ | نَرْكَبُ الْمِصْعَدَ إِلَى الطَّابِقِ الْخَامِسِ.
+bin | 🗑️ | Put the paper in the bin. |  | سَلَّةُ الْمُهْمَلَاتِ | ضَعِ الْوَرَقَةَ فِي سَلَّةِ الْمُهْمَلَاتِ.
+bucket | 🪣 | Fill the bucket with water. |  | دَلْوٌ | اِمْلَأِ الدَّلْوَ بِالْمَاءِ.
+sponge | 🧽 | I clean the table with a sponge. |  | إِسْفَنْجَةٌ | أُنَظِّفُ الطَّاوِلَةَ بِالْإِسْفَنْجَةِ.
+ladder | 🪜 | My uncle climbs the ladder to fix the light. |  | سُلَّمٌ | يَصْعَدُ عَمِّي السُّلَّمَ لِيُصْلِحَ الْمِصْبَاحَ.
+fan | 🌀 | Turn on the fan, it is very hot. | w | مِرْوَحَةٌ | شَغِّلِ الْمِرْوَحَةَ، الْجَوُّ حَارٌّ جِدًّا.
+@talk What is in your bedroom? | مَاذَا يُوجَدُ فِي غُرْفَةِ نَوْمِكَ؟ | In my bedroom, there is ___. | In my bedroom, there is a bed and a shelf.
+@talk How do you help at home? | كَيْفَ تُسَاعِدُ فِي الْبَيْتِ؟ | I help at home. I ___. | I help at home. I clean the floor with a broom.
+
+@topic cooking | الطَّبْخُ وَالْمَطْعَمُ | Cooking & Eating Out | 🍳 | #f97316 | 1 | cook
+recipe | 📖 | My grandmother has a great recipe for rice. | w | وَصْفَةُ طَبْخٍ | لَدَى جَدَّتِي وَصْفَةٌ رَائِعَةٌ لِلْأَرُزِّ.
+menu | 📋 | Can I see the menu, please? | w | قَائِمَةُ الطَّعَامِ | هَلْ يُمْكِنُنِي أَنْ أَرَى قَائِمَةَ الطَّعَامِ، مِنْ فَضْلِكَ؟
+meal | 🍽️ | Breakfast is my favorite meal. | w | وَجْبَةٌ | الْفُطُورُ وَجْبَتِي الْمُفَضَّلَةُ.
+snack | 🥨 | I eat a small snack after school. |  | وَجْبَةٌ خَفِيفَةٌ | آكُلُ وَجْبَةً خَفِيفَةً بَعْدَ الْمَدْرَسَةِ.
+dessert | 🍮 | We have fruit for dessert. |  | تَحْلِيَةٌ | نَأْكُلُ الْفَاكِهَةَ تَحْلِيَةً.
+flour | 🌾 | We need flour to make bread. |  | طَحِينٌ | نَحْتَاجُ إِلَى الطَّحِينِ لِنَصْنَعَ الْخُبْزَ.
+butter | 🧈 | I put butter on my toast. |  | زُبْدَةٌ | أَضَعُ الزُّبْدَةَ عَلَى خُبْزِي الْمُحَمَّصِ.
+oil | 🫒 | Cook the eggs in a little oil. | w | زَيْتٌ | اُطْبُخِ الْبَيْضَ فِي قَلِيلٍ مِنَ الزَّيْتِ.
+sauce | 🥫 | This pasta has tomato sauce. | w | صَلْصَةٌ | فِي هَذِهِ الْمَعْكَرُونَةِ صَلْصَةُ طَمَاطِمَ.
+spices | 🌶️ | My mother adds spices to the soup. | w | بَهَارَاتٌ | تُضِيفُ أُمِّي الْبَهَارَاتِ إِلَى الْحَسَاءِ.
+bill | 🧾 | Can we have the bill, please? | w | فَاتُورَةٌ | هَلْ نَسْتَطِيعُ أَنْ نَأْخُذَ الْفَاتُورَةَ، مِنْ فَضْلِكَ؟
+boil | ♨️ | We boil the water for the tea. | wv | يَغْلِي | نَغْلِي الْمَاءَ لِلشَّايِ.
+fry | 🍳 | I fry an egg for breakfast. | v | يَقْلِي | أَقْلِي بَيْضَةً لِلْفُطُورِ.
+bake | 🥖 | We bake bread on Friday. | v | يَخْبِزُ | نَخْبِزُ الْخُبْزَ يَوْمَ الْجُمُعَةِ.
+slice | 🔪 | Can you slice the cucumber? | wv | يُقَطِّعُ شَرَائِحَ | هَلْ تَسْتَطِيعُ أَنْ تُقَطِّعَ الْخِيَارَ شَرَائِحَ؟
+mix | 🥣 | Mix the flour and the milk. | v | يَخْلِطُ | اِخْلِطِ الطَّحِينَ وَالْحَلِيبَ.
+pour | 🫖 | Pour the tea into the cups. | v | يَسْكُبُ | اُسْكُبِ الشَّايَ فِي الْأَكْوَابِ.
+stir | 🥄 | Stir the soup with a big spoon. | v | يُحَرِّكُ | حَرِّكِ الْحَسَاءَ بِمِلْعَقَةٍ كَبِيرَةٍ.
+peel | 🍌 | Peel the banana before you eat it. | wv | يُقَشِّرُ | قَشِّرِ الْمَوْزَةَ قَبْلَ أَنْ تَأْكُلَهَا.
+taste | 👅 | Can I taste your soup? | v | يَتَذَوَّقُ | هَلْ أَسْتَطِيعُ أَنْ أَتَذَوَّقَ حَسَاءَكَ؟
+order | 🧾 | I want to order a chicken sandwich. | wv | يَطْلُبُ | أُرِيدُ أَنْ أَطْلُبَ شَطِيرَةَ دَجَاجٍ.
+spicy | 🌶️ | This food is too spicy for me. | wa | حَارٌّ فِيهِ بَهَارَاتٌ | هَذَا الطَّعَامُ حَارٌّ جِدًّا عَلَيَّ.
+raw | 🥩 | Do not eat raw chicken. | wa | نِيءٌ | لَا تَأْكُلِ الدَّجَاجَ النِّيءَ.
+fresh | 🥬 | We buy fresh fruit from the market. | a | طَازَجٌ | نَشْتَرِي فَاكِهَةً طَازَجَةً مِنَ السُّوقِ.
+@talk What can you cook? | مَاذَا تَسْتَطِيعُ أَنْ تَطْبُخَ؟ | I can cook ___. | I can cook eggs and pasta.
+@talk What is your favorite dessert? | مَا التَّحْلِيَةُ الْمُفَضَّلَةُ لَدَيْكَ؟ | My favorite dessert is ___. | My favorite dessert is ice cream.
+
+@topic looks | الْمَلَابِسُ وَالْمَظْهَرُ | Clothes & Looks | 👔 | #8b5cf6 | 1 | look
+belt | 🥋 | These pants need a belt. | w | حِزَامٌ | هَذَا السِّرْوَالُ يَحْتَاجُ إِلَى حِزَامٍ.
+button | 🔘 | A button fell off my shirt. | w | زِرٌّ | سَقَطَ زِرٌّ مِنْ قَمِيصِي.
+pocket | 👖 | The coin is in my pocket. | w | جَيْبٌ | الْقِطْعَةُ النَّقْدِيَّةُ فِي جَيْبِي.
+zip | 🧥 | Close the zip of your bag. | w | سَحَّابٌ | أَغْلِقْ سَحَّابَ حَقِيبَتِكَ.
+sleeve | 👕 | There is a hole in my sleeve. | w | كُمٌّ | يُوجَدُ ثُقْبٌ فِي كُمِّي.
+collar | 👔 | The collar of this shirt is blue. | w | يَاقَةٌ | يَاقَةُ هَذَا الْقَمِيصِ زَرْقَاءُ.
+coat | 🧥 | Wear your coat, it is cold. |  | مِعْطَفٌ | اِلْبَسْ مِعْطَفَكَ، الْجَوُّ بَارِدٌ.
+raincoat | 🧥 | Take your raincoat today. | w | مِعْطَفُ الْمَطَرِ | خُذْ مِعْطَفَ الْمَطَرِ الْيَوْمَ.
+jeans | 👖 | I wear blue jeans on the weekend. |  | بِنْطَالُ جِينْز | أَلْبَسُ بِنْطَالَ جِينْز أَزْرَقَ فِي الْعُطْلَةِ.
+slippers | 🥿 | I wear slippers at home. |  | خُفٌّ | أَلْبَسُ الْخُفَّ فِي الْبَيْتِ.
+sandals | 👡 | Wear your sandals at the beach. |  | صَنْدَلٌ | اِلْبَسْ صَنْدَلَكَ عِنْدَ الشَّاطِئِ.
+ring | 💍 | My father wears a silver ring. |  | خَاتَمٌ | يَلْبَسُ أَبِي خَاتَمًا فِضِّيًّا.
+necklace | 💎 | My sister has a gold necklace. | w | قِلَادَةٌ | لِأُخْتِي قِلَادَةٌ ذَهَبِيَّةٌ.
+bracelet | ⌚ | This bracelet is a gift from my aunt. | w | سِوَارٌ | هَذَا السِّوَارُ هَدِيَّةٌ مِنْ عَمَّتِي.
+handbag | 👜 | Mom's keys are in her handbag. |  | حَقِيبَةُ يَدٍ | مَفَاتِيحُ أُمِّي فِي حَقِيبَةِ يَدِهَا.
+comb | 💇 | Where is my comb? | w | مُشْطٌ | أَيْنَ مُشْطِي؟
+beard | 🧔 | My grandfather has a long white beard. |  | لِحْيَةٌ | لِجَدِّي لِحْيَةٌ بَيْضَاءُ طَوِيلَةٌ.
+moustache | 🥸 | My uncle has a black moustache. | w | شَارِبٌ | لِعَمِّي شَارِبٌ أَسْوَدُ.
+curly | 👨‍🦱 | My cousin has curly hair. | a | مُجَعَّدٌ | لِابْنِ عَمِّي شَعْرٌ مُجَعَّدٌ.
+blond | 👱 | The baby has blond hair. | a | أَشْقَرُ | لِلطِّفْلِ شَعْرٌ أَشْقَرُ.
+tight | 👟 | These shoes are too tight. | wa | ضَيِّقٌ | هَذَا الْحِذَاءُ ضَيِّقٌ جِدًّا.
+loose | 👕 | Your shirt is too loose. | wa | وَاسِعٌ | قَمِيصُكَ وَاسِعٌ جِدًّا.
+comfortable | 🛋️ | My new shoes are very comfortable. | wa | مُرِيحٌ | حِذَائِي الْجَدِيدُ مُرِيحٌ جِدًّا.
+try on | 🪞 | Can I try on this jacket? | wv | يُجَرِّبُ الْمَلَابِسَ | هَلْ أَسْتَطِيعُ أَنْ أُجَرِّبَ هَذِهِ السُّتْرَةَ؟
+@talk What are you wearing today? | مَاذَا تَلْبَسُ الْيَوْمَ؟ | Today, I am wearing ___. | Today, I am wearing a white shirt and jeans.
+@talk Who in your family has a beard? | مَنْ فِي عَائِلَتِكَ لَهُ لِحْيَةٌ؟ | My ___ has a beard. | My grandfather has a long beard.
+
+@topic body2 | الصِّحَّةُ وَالْجِسْمُ | Health & the Body | 🩺 | #10b981 | 1 | health
+bandage | 🩹 | The nurse puts a bandage on my knee. |  | ضِمَادَةٌ | تَضَعُ الْمُمَرِّضَةُ ضِمَادَةً عَلَى رُكْبَتِي.
+injury | 🤕 | The player has a leg injury. | w | إِصَابَةٌ | لَدَى اللَّاعِبِ إِصَابَةٌ فِي رِجْلِهِ.
+bruise | 🤕 | I have a blue bruise on my arm. | w | كَدْمَةٌ | لَدَيَّ كَدْمَةٌ زَرْقَاءُ عَلَى ذِرَاعِي.
+burn | 🔥 | Be careful, the hot pan can burn you. | wv | يَحْرِقُ | اِنْتَبِهْ، الْمِقْلَاةُ السَّاخِنَةُ قَدْ تَحْرِقُكَ.
+blood | 🩸 | Our heart pumps blood. |  | دَمٌ | يَضُخُّ قَلْبُنَا الدَّمَ.
+bone | 🦴 | The dog has a big bone. |  | عَظْمَةٌ | مَعَ الْكَلْبِ عَظْمَةٌ كَبِيرَةٌ.
+skin | ✋ | Wash your skin with soap and water. | w | جِلْدٌ | اِغْسِلْ جِلْدَكَ بِالصَّابُونِ وَالْمَاءِ.
+brain | 🧠 | We think with our brain. |  | دِمَاغٌ | نُفَكِّرُ بِدِمَاغِنَا.
+lungs | 🫁 | We breathe with our lungs. |  | رِئَتَانِ | نَتَنَفَّسُ بِرِئَتَيْنَا.
+muscle | 💪 | Exercise makes every muscle strong. |  | عَضَلَةٌ | الرِّيَاضَةُ تُقَوِّي كُلَّ عَضَلَةٍ.
+temperature | 🌡️ | The nurse checks my temperature. |  | حَرَارَةُ الْجِسْمِ | تَقِيسُ الْمُمَرِّضَةُ حَرَارَةَ جِسْمِي.
+pill | 💊 | Take one pill after lunch. |  | حَبَّةُ دَوَاءٍ | خُذْ حَبَّةً وَاحِدَةً بَعْدَ الْغَدَاءِ.
+appointment | 📅 | I have an appointment with the dentist. | w | مَوْعِدٌ | لَدَيَّ مَوْعِدٌ عِنْدَ طَبِيبِ الْأَسْنَانِ.
+clinic | 🏥 | The clinic opens at eight o'clock. | w | عِيَادَةٌ | تَفْتَحُ الْعِيَادَةُ فِي السَّاعَةِ الثَّامِنَةِ.
+check-up | 🩺 | I go to the doctor for a check-up. | w | فَحْصٌ طِبِّيٌّ | أَذْهَبُ إِلَى الطَّبِيبِ لِفَحْصٍ طِبِّيٍّ.
+sore throat | 🗣️ | I have a sore throat, so I drink warm water. | w | أَلَمٌ فِي الْحَلْقِ | فِي حَلْقِي أَلَمٌ، فَأَشْرَبُ مَاءً دَافِئًا.
+runny nose | 🤧 | A cold gives you a runny nose. | w | سَيَلَانُ الْأَنْفِ | الزُّكَامُ يُسَبِّبُ سَيَلَانَ الْأَنْفِ.
+allergy | 🤧 | My brother has an allergy to eggs. | w | حَسَاسِيَّةٌ | لَدَى أَخِي حَسَاسِيَّةٌ مِنَ الْبَيْضِ.
+flu | 🤒 | I stayed at home because I had the flu. | w | إِنْفِلْوَنْزَا | بَقِيتُ فِي الْبَيْتِ لِأَنَّنِي أُصِبْتُ بِالْإِنْفِلْوَنْزَا.
+vitamins | 🍊 | Fruit has many vitamins. | w | فِيتَامِينَاتٌ | فِي الْفَاكِهَةِ فِيتَامِينَاتٌ كَثِيرَةٌ.
+diet | 🥗 | A healthy diet has fruit and vegetables. | w | نِظَامٌ غِذَائِيٌّ | النِّظَامُ الْغِذَائِيُّ الصِّحِّيُّ فِيهِ فَاكِهَةٌ وَخُضَارٌ.
+breathe | 🌬️ | Breathe slowly and stay calm. | wv | يَتَنَفَّسُ | تَنَفَّسْ بِبُطْءٍ، وَابْقَ هَادِئًا.
+sweat | 😓 | We sweat when we run in the sun. | wv | يَتَعَرَّقُ | نَتَعَرَّقُ عِنْدَمَا نَرْكُضُ فِي الشَّمْسِ.
+recover | 💪 | Rest in bed to recover quickly. | wv | يَتَعَافَى | اِرْتَحْ فِي السَّرِيرِ لِتَتَعَافَى بِسُرْعَةٍ.
+@talk What do you do when you have a cold? | مَاذَا تَفْعَلُ عِنْدَمَا تُصَابُ بِالزُّكَامِ؟ | When I have a cold, I ___. | When I have a cold, I drink warm water and rest.
+@talk How do you keep your body healthy? | كَيْفَ تُحَافِظُ عَلَى صِحَّةِ جِسْمِكَ؟ | I keep my body healthy. I ___. | I keep my body healthy. I eat fruit and play sports.
+
+@topic study | الدِّرَاسَةُ وَالْمَوَادُّ | Study & School Subjects | 📐 | #2563eb | 1 | study
+subject | 📚 | Science is my favorite subject. | w | مَادَّةٌ دِرَاسِيَّةٌ | الْعُلُومُ مَادَّتِي الْمُفَضَّلَةُ.
+math | 🧮 | We have math every day. |  | الرِّيَاضِيَّاتُ | لَدَيْنَا حِصَّةُ رِيَاضِيَّاتٍ كُلَّ يَوْمٍ.
+science | 🔬 | In science, we learn about plants. |  | الْعُلُومُ | فِي الْعُلُومِ نَتَعَلَّمُ عَنِ النَّبَاتَاتِ.
+history | 🏛️ | In history, we read about old cities. | w | التَّارِيخُ | فِي التَّارِيخِ نَقْرَأُ عَنِ الْمُدُنِ الْقَدِيمَةِ.
+geography | 🗺️ | In geography, we study maps. | w | الْجُغْرَافِيَا | فِي الْجُغْرَافِيَا نَدْرُسُ الْخَرَائِطَ.
+art | 🎨 | I draw a camel in art. |  | التَّرْبِيَةُ الْفَنِّيَّةُ | أَرْسُمُ جَمَلًا فِي حِصَّةِ التَّرْبِيَةِ الْفَنِّيَّةِ.
+Arabic | ✍️ | I read a story in Arabic. | w | اللُّغَةُ الْعَرَبِيَّةُ | أَقْرَأُ قِصَّةً بِاللُّغَةِ الْعَرَبِيَّةِ.
+English | 🔤 | I speak English with my teacher. | w | اللُّغَةُ الْإِنْجِلِيزِيَّةُ | أَتَكَلَّمُ الْإِنْجِلِيزِيَّةَ مَعَ مُعَلِّمَتِي.
+exam | 📝 | I study hard for the exam. | w | اِمْتِحَانٌ | أُذَاكِرُ بِجِدٍّ لِلِامْتِحَانِ.
+mark | 💯 | I got a full mark in math! | w | دَرَجَةٌ | حَصَلْتُ عَلَى الدَّرَجَةِ الْكَامِلَةِ فِي الرِّيَاضِيَّاتِ!
+timetable | 📅 | Look at the timetable for Monday. | w | جَدْوَلُ الْحِصَصِ | اُنْظُرْ إِلَى جَدْوَلِ حِصَصِ يَوْمِ الِاثْنَيْنِ.
+break | ⚽ | We play football at break. | w | الْفُسْحَةُ | نَلْعَبُ كُرَةَ الْقَدَمِ فِي الْفُسْحَةِ.
+project | 📊 | Our class project is about the sea. | w | مَشْرُوعٌ | مَشْرُوعُ فَصْلِنَا عَنِ الْبَحْرِ.
+dictionary | 📕 | Look for the word in the dictionary. | w | قَامُوسٌ | اِبْحَثْ عَنِ الْكَلِمَةِ فِي الْقَامُوسِ.
+calculator | 🔢 | We use a calculator in math. | w | آلَةٌ حَاسِبَةٌ | نَسْتَخْدِمُ الْآلَةَ الْحَاسِبَةَ فِي الرِّيَاضِيَّاتِ.
+learn | 🧠 | I want to learn new words. | wv | يَتَعَلَّمُ | أُرِيدُ أَنْ أَتَعَلَّمَ كَلِمَاتٍ جَدِيدَةً.
+teach | 👩‍🏫 | My father can teach me to swim. | wv | يُعَلِّمُ | يَسْتَطِيعُ أَبِي أَنْ يُعَلِّمَنِي السِّبَاحَةَ.
+understand | 💡 | I understand the lesson now. | wv | يَفْهَمُ | أَفْهَمُ الدَّرْسَ الْآنَ.
+practice | 🔁 | I practice my spelling every day. | wv | يَتَدَرَّبُ | أَتَدَرَّبُ عَلَى الْإِمْلَاءِ كُلَّ يَوْمٍ.
+revise | 📖 | I revise my notes before the exam. | wv | يُرَاجِعُ | أُرَاجِعُ مُلَاحَظَاتِي قَبْلَ الِامْتِحَانِ.
+spell | 🔠 | Can you spell your name? | wv | يَتَهَجَّى | هَلْ تَسْتَطِيعُ أَنْ تَتَهَجَّى اسْمَكَ؟
+pass | ✅ | I hope I pass the test. | wv | يَنْجَحُ | أَرْجُو أَنْ أَنْجَحَ فِي الِاخْتِبَارِ.
+fail | ❌ | If you study, you will not fail. | wv | يَرْسُبُ | إِذَا ذَاكَرْتَ فَلَنْ تَرْسُبَ.
+correct | ✔️ | Your answer is correct! | wa | صَحِيحٌ | إِجَابَتُكَ صَحِيحَةٌ!
+@talk What is your favorite subject? | مَا مَادَّتُكَ الْمُفَضَّلَةُ؟ | My favorite subject is ___. | My favorite subject is science because it is fun.
+@talk How do you study for an exam? | كَيْفَ تُذَاكِرُ لِلِامْتِحَانِ؟ | I study for an exam. I ___. | I study for an exam. I revise my notes every day.
+
+@topic around | فِي الْمَدِينَةِ | Around Town | 🏙️ | #64748b | 2 | place
+crossing | 🚸 | Cross the street at the crossing. |  | مَمَرُّ الْمُشَاةِ | اُعْبُرِ الشَّارِعَ مِنْ مَمَرِّ الْمُشَاةِ.
+pavement | 🚶 | Walk on the pavement, not on the road. | w | الرَّصِيفُ | اِمْشِ عَلَى الرَّصِيفِ، لَا فِي الشَّارِعِ.
+fountain | ⛲ | There is a big fountain in the park. |  | نَافُورَةٌ | تُوجَدُ نَافُورَةٌ كَبِيرَةٌ فِي الْحَدِيقَةِ.
+tower | 🗼 | The tower is very tall. |  | بُرْجٌ | الْبُرْجُ طَوِيلٌ جِدًّا.
+stadium | 🏟️ | We watch the match at the stadium. |  | مَلْعَبٌ | نُشَاهِدُ الْمُبَارَاةَ فِي الْمَلْعَبِ.
+factory | 🏭 | My uncle works in a car factory. |  | مَصْنَعٌ | يَعْمَلُ عَمِّي فِي مَصْنَعِ سَيَّارَاتٍ.
+port | ⚓ | The big ships stop at the port. | w | مِينَاءٌ | تَتَوَقَّفُ السُّفُنُ الْكَبِيرَةُ فِي الْمِينَاءِ.
+petrol station | ⛽ | We stop at the petrol station. |  | مَحَطَّةُ الْوَقُودِ | نَتَوَقَّفُ عِنْدَ مَحَطَّةِ الْوَقُودِ.
+car park | 🅿️ | The car park is full. |  | مَوْقِفُ السَّيَّارَاتِ | مَوْقِفُ السَّيَّارَاتِ مُمْتَلِئٌ.
+bus stop | 🚏 | I wait at the bus stop. |  | مَوْقِفُ الْحَافِلَةِ | أَنْتَظِرُ عِنْدَ مَوْقِفِ الْحَافِلَةِ.
+post office | 🏤 | Send the letter from the post office. |  | مَكْتَبُ الْبَرِيدِ | أَرْسِلِ الرِّسَالَةَ مِنْ مَكْتَبِ الْبَرِيدِ.
+playground | 🤸 | The children play in the playground. | w | سَاحَةُ اللَّعِبِ | يَلْعَبُ الْأَطْفَالُ فِي سَاحَةِ اللَّعِبِ.
+sports center | 🏋️ | I swim at the sports center. | w | مَرْكَزٌ رِيَاضِيٌّ | أَسْبَحُ فِي الْمَرْكَزِ الرِّيَاضِيِّ.
+neighborhood | 🏘️ | Our neighborhood is quiet. | w | الْحَيُّ | حَيُّنَا هَادِئٌ.
+address | 📮 | Write your address on the envelope. | w | عُنْوَانٌ | اُكْتُبْ عُنْوَانَكَ عَلَى الظَّرْفِ.
+sign | 🪧 | Read the sign on the door. | w | لَافِتَةٌ | اِقْرَأِ اللَّافِتَةَ الَّتِي عَلَى الْبَابِ.
+map | 🗺️ | We use a map to find the museum. | w | خَرِيطَةٌ | نَسْتَخْدِمُ خَرِيطَةً لِنَجِدَ الْمَتْحَفَ.
+crowd | 👥 | There is a big crowd at the stadium. | w | حَشْدٌ مِنَ النَّاسِ | يُوجَدُ حَشْدٌ كَبِيرٌ فِي الْمَلْعَبِ.
+castle | 🏰 | We visited an old castle. |  | قَلْعَةٌ | زُرْنَا قَلْعَةً قَدِيمَةً.
+palace | 🏯 | The king lives in a palace. | w | قَصْرٌ | يَعِيشُ الْمَلِكُ فِي قَصْرٍ.
+traffic jam | 🚗 | We were late because of a traffic jam. | w | زَحْمَةُ السَّيْرِ | تَأَخَّرْنَا بِسَبَبِ زَحْمَةِ السَّيْرِ.
+downtown | 🏙️ | The big shops are downtown. | wa | وَسَطُ الْمَدِينَةِ | الْمَحَلَّاتُ الْكَبِيرَةُ فِي وَسَطِ الْمَدِينَةِ.
+cross | 🚶 | Look both ways before you cross the road. | wv | يَعْبُرُ | اُنْظُرْ إِلَى الْجِهَتَيْنِ قَبْلَ أَنْ تَعْبُرَ الشَّارِعَ.
+turn | ↩️ | Turn left at the bank. | wv | يَنْعَطِفُ | اِنْعَطِفْ يَسَارًا عِنْدَ الْبَنْكِ.
+@talk What is near your house? | مَاذَا يُوجَدُ قُرْبَ بَيْتِكَ؟ | Near my house, there is ___. | Near my house, there is a mosque and a playground.
+@talk How do you cross the street? | كَيْفَ تَعْبُرُ الشَّارِعَ؟ | I cross the street at ___. | I cross the street at the crossing, and I look both ways.
+
+@topic trips | السَّفَرُ وَالرِّحْلَاتُ | Travel & Trips | 🧳 | #f43f5e | 2 | travel
+passport | 🛂 | Do not forget your passport! |  | جَوَازُ السَّفَرِ | لَا تَنْسَ جَوَازَ سَفَرِكَ!
+suitcase | 🧳 | My suitcase is very heavy. |  | حَقِيبَةُ السَّفَرِ | حَقِيبَةُ سَفَرِي ثَقِيلَةٌ جِدًّا.
+luggage | 🧳 | Our luggage is in the car. | w | الْأَمْتِعَةُ | أَمْتِعَتُنَا فِي السَّيَّارَةِ.
+flight | ✈️ | Our flight is at nine o'clock. | w | رِحْلَةٌ جَوِّيَّةٌ | رِحْلَتُنَا الْجَوِّيَّةُ فِي السَّاعَةِ التَّاسِعَةِ.
+tourist | 📸 | The tourist takes a photo of the tower. | w | سَائِحٌ | يَلْتَقِطُ السَّائِحُ صُورَةً لِلْبُرْجِ.
+guide | 🧭 | The guide tells us about the old city. | w | مُرْشِدٌ سِيَاحِيٌّ | يُحَدِّثُنَا الْمُرْشِدُ عَنِ الْمَدِينَةِ الْقَدِيمَةِ.
+souvenir | 🎁 | I bought a small camel as a souvenir. | w | تَذْكَارٌ | اِشْتَرَيْتُ جَمَلًا صَغِيرًا تَذْكَارًا.
+sunscreen | 🧴 | Put on sunscreen at the beach. | w | وَاقِي الشَّمْسِ | ضَعْ وَاقِيَ الشَّمْسِ عَلَى الشَّاطِئِ.
+abroad | 🌍 | My cousin studies abroad. | wa | فِي الْخَارِجِ | يَدْرُسُ ابْنُ عَمِّي فِي الْخَارِجِ.
+view | 🏞️ | What a beautiful view from the mountain! | w | مَنْظَرٌ | يَا لَهُ مِنْ مَنْظَرٍ جَمِيلٍ مِنَ الْجَبَلِ!
+seat | 💺 | My seat is next to the window. |  | مَقْعَدٌ | مَقْعَدِي بِجَانِبِ النَّافِذَةِ.
+delay | ⏰ | There is a delay because of the storm. | w | تَأْخِيرٌ | يُوجَدُ تَأْخِيرٌ بِسَبَبِ الْعَاصِفَةِ.
+boarding pass | 🎫 | Show your boarding pass, please. | w | بِطَاقَةُ الصُّعُودِ | أَظْهِرْ بِطَاقَةَ الصُّعُودِ، مِنْ فَضْلِكَ.
+tour | 🚌 | We took a bus tour of the city. | w | جَوْلَةٌ | قُمْنَا بِجَوْلَةٍ فِي الْمَدِينَةِ بِالْحَافِلَةِ.
+sightseeing | 🏛️ | We go sightseeing in the morning. | w | زِيَارَةُ الْمَعَالِمِ | نَزُورُ الْمَعَالِمَ فِي الصَّبَاحِ.
+postcard | 📮 | I sent a postcard to my friend. | w | بِطَاقَةٌ بَرِيدِيَّةٌ | أَرْسَلْتُ بِطَاقَةً بَرِيدِيَّةً إِلَى صَدِيقِي.
+border | 🛂 | We stopped at the border. | w | الْحُدُودُ | تَوَقَّفْنَا عِنْدَ الْحُدُودِ.
+pack | 🎒 | Pack your bag the night before. | wv | يَحْزِمُ الْأَمْتِعَةَ | اِحْزِمْ حَقِيبَتَكَ فِي اللَّيْلَةِ السَّابِقَةِ.
+unpack | 🧳 | We unpack when we arrive at the hotel. | wv | يُفْرِغُ الْحَقِيبَةَ | نُفْرِغُ الْحَقَائِبَ عِنْدَمَا نَصِلُ إِلَى الْفُنْدُقِ.
+reserve | 📞 | We reserve a room at the hotel. | wv | يَحْجِزُ | نَحْجِزُ غُرْفَةً فِي الْفُنْدُقِ.
+stay | 🏨 | We stay with our grandparents in Abha. | wv | يُقِيمُ | نُقِيمُ عِنْدَ جَدِّي وَجَدَّتِي فِي أَبْهَا.
+relax | 😌 | On holiday, we relax by the sea. | wv | يَسْتَرْخِي | فِي الْإِجَازَةِ نَسْتَرْخِي عِنْدَ الْبَحْرِ.
+land | 🛬 | The plane will land in Jeddah. | wv | يَهْبِطُ | سَتَهْبِطُ الطَّائِرَةُ فِي جُدَّةَ.
+check in | 🛎️ | We check in at the hotel at two o'clock. | wv | يُسَجِّلُ الْوُصُولَ | نُسَجِّلُ وُصُولَنَا فِي الْفُنْدُقِ فِي السَّاعَةِ الثَّانِيَةِ.
+@talk Where did you go on your last holiday? | إِلَى أَيْنَ ذَهَبْتَ فِي إِجَازَتِكَ الْأَخِيرَةِ؟ | On my last holiday, I went to ___. | On my last holiday, I went to Abha with my family.
+@talk What do you pack for a trip? | مَاذَا تَحْزِمُ لِلرِّحْلَةِ؟ | I pack ___. | I pack my clothes, my toothbrush and a book.
+
+@topic landscape | الْأَرْضُ وَالطَّبِيعَةُ | Land & Nature | 🏞️ | #15803d | 2 | land
+valley | 🏞️ | A small river runs through the valley. | w | وَادٍ | يَجْرِي نَهْرٌ صَغِيرٌ فِي الْوَادِي.
+cave | 🕳️ | The bats live in a dark cave. | w | كَهْفٌ | تَعِيشُ الْخَفَافِيشُ فِي كَهْفٍ مُظْلِمٍ.
+waterfall | 💦 | The waterfall is very loud. | w | شَلَّالٌ | الشَّلَّالُ صَاخِبٌ جِدًّا.
+coast | 🏖️ | We drive along the coast. | w | سَاحِلٌ | نَقُودُ السَّيَّارَةَ عَلَى طُولِ السَّاحِلِ.
+hill | ⛰️ | We climb the hill to see the city. | w | تَلٌّ | نَصْعَدُ التَّلَّ لِنَرَى الْمَدِينَةَ.
+field | 🌾 | The farmer grows wheat in the field. | w | حَقْلٌ | يَزْرَعُ الْمُزَارِعُ الْقَمْحَ فِي الْحَقْلِ.
+stream | 💧 | The water in the stream is cold. | w | جَدْوَلُ مَاءٍ | الْمَاءُ فِي الْجَدْوَلِ بَارِدٌ.
+oasis | 🌴 | There are palm trees in the oasis. | w | وَاحَةٌ | تُوجَدُ أَشْجَارُ نَخِيلٍ فِي الْوَاحَةِ.
+dune | 🏜️ | We slide down the sand dune. | w | كَثِيبٌ رَمْلِيٌّ | نَتَزَلَّجُ عَلَى الْكَثِيبِ الرَّمْلِيِّ.
+cliff | 🧗 | Do not stand near the cliff. | w | جُرْفٌ | لَا تَقِفْ قُرْبَ الْجُرْفِ.
+ocean | 🌊 | The whale swims in the ocean. |  | مُحِيطٌ | يَسْبَحُ الْحُوتُ فِي الْمُحِيطِ.
+wave | 🌊 | A big wave hits the beach. | w | مَوْجَةٌ | تَضْرِبُ مَوْجَةٌ كَبِيرَةٌ الشَّاطِئَ.
+north | 🧭 | Tabuk is in the north of Saudi Arabia. | w | الشَّمَالُ | تَقَعُ تَبُوكُ فِي شَمَالِ السُّعُودِيَّةِ.
+south | 🧭 | Abha is in the south. | w | الْجَنُوبُ | تَقَعُ أَبْهَا فِي الْجَنُوبِ.
+east | 🌅 | The sun comes up in the east. | w | الشَّرْقُ | تُشْرِقُ الشَّمْسُ مِنَ الشَّرْقِ.
+west | 🌇 | The sun goes down in the west. | w | الْغَرْبُ | تَغْرُبُ الشَّمْسُ فِي الْغَرْبِ.
+path | 🥾 | Follow the path to the lake. | w | مَمَرٌّ | اِتْبَعِ الْمَمَرَّ إِلَى الْبُحَيْرَةِ.
+soil | 🪴 | Plants need good soil. | w | تُرْبَةٌ | تَحْتَاجُ النَّبَاتَاتُ إِلَى تُرْبَةٍ جَيِّدَةٍ.
+stone | 🪨 | He throws a stone into the water. |  | حَجَرٌ | يَرْمِي حَجَرًا فِي الْمَاءِ.
+mud | 🥾 | My shoes are full of mud. | w | طِينٌ | حِذَائِي مَلِيءٌ بِالطِّينِ.
+nature | 🌿 | I love walking in nature. | w | الطَّبِيعَةُ | أُحِبُّ الْمَشْيَ فِي الطَّبِيعَةِ.
+shade | 🌳 | Sit in the shade of the tree. | w | الظِّلُّ | اِجْلِسْ فِي ظِلِّ الشَّجَرَةِ.
+branch | 🌿 | A bird is on the branch. | w | غُصْنٌ | يَقِفُ طَائِرٌ عَلَى الْغُصْنِ.
+seed | 🌱 | Put the seed in the soil. |  | بِذْرَةٌ | ضَعِ الْبِذْرَةَ فِي التُّرْبَةِ.
+@talk What can you see in the desert? | مَاذَا تَرَى فِي الصَّحْرَاءِ؟ | In the desert, I can see ___. | In the desert, I can see sand dunes and camels.
+@talk Where does the sun come up? | مِنْ أَيْنَ تُشْرِقُ الشَّمْسُ؟ | The sun comes up in the ___. | The sun comes up in the east.
+
+@topic creatures | حَيَوَانَاتٌ وَطُيُورٌ | Animals & Birds | 🦚 | #84cc16 | 2 | creature
+squirrel | 🐿️ | The squirrel climbs the tree. |  | سِنْجَابٌ | يَتَسَلَّقُ السِّنْجَابُ الشَّجَرَةَ.
+hedgehog | 🦔 | The hedgehog sleeps in the day. |  | قُنْفُذٌ | يَنَامُ الْقُنْفُذُ فِي النَّهَارِ.
+ostrich | 🐦 | The ostrich is the biggest bird. | w | نَعَامَةٌ | النَّعَامَةُ أَكْبَرُ الطُّيُورِ.
+peacock | 🦚 | The peacock has beautiful feathers. |  | طَاوُوسٌ | لِلطَّاوُوسِ رِيشٌ جَمِيلٌ.
+swan | 🦢 | A white swan swims on the lake. |  | بَجَعَةٌ | تَسْبَحُ بَجَعَةٌ بَيْضَاءُ فِي الْبُحَيْرَةِ.
+goose | 🦢 | The goose is bigger than the duck. | w | إِوَزَّةٌ | الْإِوَزَّةُ أَكْبَرُ مِنَ الْبَطَّةِ.
+sparrow | 🐦 | A little sparrow eats the seeds. |  | عُصْفُورٌ | يَأْكُلُ عُصْفُورٌ صَغِيرٌ الْبُذُورَ.
+flamingo | 🦩 | The flamingo stands on one leg. |  | طَائِرُ النُّحَامِ | يَقِفُ طَائِرُ النُّحَامِ عَلَى رِجْلٍ وَاحِدَةٍ.
+koala | 🐨 | The koala sleeps in a tree. |  | الْكُوَالَا | يَنَامُ الْكُوَالَا فِي شَجَرَةٍ.
+leopard | 🐆 | The leopard has black spots. |  | نَمِرٌ مُرَقَّطٌ | لِلنَّمِرِ الْمُرَقَّطِ بُقَعٌ سَوْدَاءُ.
+rhino | 🦏 | The rhino has a big horn. |  | وَحِيدُ الْقَرْنِ | لِوَحِيدِ الْقَرْنِ قَرْنٌ كَبِيرٌ.
+buffalo | 🐃 | The buffalo drinks from the river. |  | جَامُوسٌ | يَشْرَبُ الْجَامُوسُ مِنَ النَّهْرِ.
+donkey | 🐴 | The donkey carries the bags. | w | حِمَارٌ | يَحْمِلُ الْحِمَارُ الْأَكْيَاسَ.
+puppy | 🐶 | The puppy plays with a ball. |  | جِرْوٌ | يَلْعَبُ الْجِرْوُ بِالْكُرَةِ.
+kitten | 🐱 | The kitten drinks milk. |  | قِطٌّ صَغِيرٌ | يَشْرَبُ الْقِطُّ الصَّغِيرُ الْحَلِيبَ.
+lamb | 🐑 | The lamb stays near its mother. |  | حَمَلٌ | يَبْقَى الْحَمَلُ قُرْبَ أُمِّهِ.
+otter | 🦦 | The otter swims in the river. |  | ثَعْلَبُ الْمَاءِ | يَسْبَحُ ثَعْلَبُ الْمَاءِ فِي النَّهْرِ.
+beaver | 🦫 | The beaver builds a home in the river. |  | الْقُنْدُسُ | يَبْنِي الْقُنْدُسُ بَيْتًا فِي النَّهْرِ.
+nest | 🐣 | The bird makes a nest in the tree. | w | عُشٌّ | يَبْنِي الطَّائِرُ عُشًّا فِي الشَّجَرَةِ.
+wing | 🦅 | The bird has a broken wing. | w | جَنَاحٌ | لِلطَّائِرِ جَنَاحٌ مَكْسُورٌ.
+tail | 🐒 | The monkey has a long tail. | w | ذَيْلٌ | لِلْقِرْدِ ذَيْلٌ طَوِيلٌ.
+fur | 🐻 | The cat has soft fur. | w | فَرْوٌ | لِلْقِطَّةِ فَرْوٌ نَاعِمٌ.
+horn | 🐐 | This goat has one horn. | w | قَرْنٌ | لِهَذَا الْمَاعِزِ قَرْنٌ وَاحِدٌ.
+paw | 🐾 | The dog gives me its paw. |  | قَدَمُ الْحَيَوَانِ | يُعْطِينِي الْكَلْبُ قَدَمَهُ.
+@talk Which animal would you like as a pet? | أَيُّ حَيَوَانٍ تُحِبُّ أَنْ يَكُونَ حَيَوَانَكَ الْأَلِيفَ؟ | I would like a ___. | I would like a kitten because it is cute.
+@talk What does a bird use to fly? | مَاذَا يَسْتَخْدِمُ الطَّائِرُ لِيَطِيرَ؟ | A bird uses its ___. | A bird uses its wings to fly.
+
+@topic hobbies | الْهِوَايَاتُ وَالرِّيَاضَةُ | Hobbies & Sport | 🏹 | #16a34a | 2 | hobby
+archery | 🏹 | Archery needs strong arms. |  | الرِّمَايَةُ بِالسِّهَامِ | الرِّمَايَةُ بِالسِّهَامِ تَحْتَاجُ إِلَى ذِرَاعَيْنِ قَوِيَّتَيْنِ.
+karate | 🥋 | My brother goes to karate on Monday. |  | الْكَارَاتِيهْ | يَذْهَبُ أَخِي إِلَى الْكَارَاتِيهْ يَوْمَ الِاثْنَيْنِ.
+skating | 🛼 | Skating is fun in the park. |  | التَّزَلُّجُ عَلَى الْعَجَلَاتِ | التَّزَلُّجُ عَلَى الْعَجَلَاتِ مُمْتِعٌ فِي الْحَدِيقَةِ.
+diving | 🤿 | We see colorful fish when we go diving. |  | الْغَوْصُ | نَرَى أَسْمَاكًا مُلَوَّنَةً عِنْدَمَا نَذْهَبُ لِلْغَوْصِ.
+sailing | ⛵ | Sailing on the sea is exciting. |  | الْإِبْحَارُ | الْإِبْحَارُ فِي الْبَحْرِ مُثِيرٌ.
+fishing | 🎣 | My grandfather loves fishing. |  | صَيْدُ السَّمَكِ | جَدِّي يُحِبُّ صَيْدَ السَّمَكِ.
+hiking | 🥾 | We go hiking in the mountains. |  | الْمَشْيُ فِي الْجِبَالِ | نَذْهَبُ لِلْمَشْيِ فِي الْجِبَالِ.
+climbing | 🧗 | Rock climbing is hard but fun. |  | التَّسَلُّقُ | تَسَلُّقُ الصُّخُورِ صَعْبٌ لَكِنَّهُ مُمْتِعٌ.
+photography | 📷 | My hobby is photography. |  | التَّصْوِيرُ | هِوَايَتِي التَّصْوِيرُ.
+gardening | 🪴 | My mother likes gardening. | w | الْبَسْتَنَةُ | تُحِبُّ أُمِّي الْبَسْتَنَةَ.
+reading | 📚 | Reading is my favorite hobby. | w | الْقِرَاءَةُ | الْقِرَاءَةُ هِوَايَتِي الْمُفَضَّلَةُ.
+board game | ♟️ | We play a board game with our cousins. |  | لُعْبَةٌ لَوْحِيَّةٌ | نَلْعَبُ لُعْبَةً لَوْحِيَّةً مَعَ أَبْنَاءِ عَمِّنَا.
+stamp | 📮 | I have a stamp from Egypt. | w | طَابَعُ بَرِيدٍ | عِنْدِي طَابَعُ بَرِيدٍ مِنْ مِصْرَ.
+referee | 🟨 | The referee blows the whistle. | w | الْحَكَمُ | يُطْلِقُ الْحَكَمُ الصَّافِرَةَ.
+coach | 📋 | Our coach helps us play better. | w | الْمُدَرِّبُ | يُسَاعِدُنَا مُدَرِّبُنَا عَلَى اللَّعِبِ بِشَكْلٍ أَفْضَلَ.
+score | 🔢 | The score is two to one. | w | النَّتِيجَةُ | النَّتِيجَةُ اثْنَانِ مُقَابِلَ وَاحِدٍ.
+champion | 🏆 | Our team is the champion this year. | w | الْبَطَلُ | فَرِيقُنَا هُوَ الْبَطَلُ هَذَا الْعَامَ.
+medal | 🏅 | She won a gold medal. |  | مِيدَالِيَةٌ | فَازَتْ بِمِيدَالِيَةٍ ذَهَبِيَّةٍ.
+trophy | 🏆 | The captain lifts the trophy. |  | كَأْسُ الْبُطُولَةِ | يَرْفَعُ الْقَائِدُ كَأْسَ الْبُطُولَةِ.
+prize | 🎁 | The first prize is a new bike. | w | جَائِزَةٌ | الْجَائِزَةُ الْأُولَى دَرَّاجَةٌ جَدِيدَةٌ.
+club | 🏟️ | I am in the school chess club. | w | نَادٍ | أَنَا فِي نَادِي الشِّطْرَنْجِ بِالْمَدْرَسَةِ.
+jog | 🏃 | My father and I jog in the morning. | wv | يُهَرْوِلُ | أُهَرْوِلُ أَنَا وَأَبِي فِي الصَّبَاحِ.
+beat | 🥇 | We can beat the other team! | wv | يَهْزِمُ | نَسْتَطِيعُ أَنْ نَهْزِمَ الْفَرِيقَ الْآخَرَ!
+cheer | 📣 | We cheer for our team. | wv | يُشَجِّعُ | نُشَجِّعُ فَرِيقَنَا.
+@talk What is your hobby? | مَا هِوَايَتُكَ؟ | My hobby is ___. | My hobby is reading stories.
+@talk Which sport do you want to try? | أَيَّ رِيَاضَةٍ تُرِيدُ أَنْ تُجَرِّبَ؟ | I want to try ___. | I want to try archery.
+
+@topic actions | أَفْعَالٌ مُفِيدَةٌ | Useful Verbs | 🏃 | #0d9488 | 3 | verb
+bring | 🎒 | Please bring your book tomorrow. | wv | يُحْضِرُ | مِنْ فَضْلِكَ أَحْضِرْ كِتَابَكَ غَدًا.
+send | 📤 | I send a message to my grandmother. | wv | يُرْسِلُ | أُرْسِلُ رِسَالَةً إِلَى جَدَّتِي.
+drop | ⬇️ | Be careful, don't drop the glass! | wv | يُوقِعُ | اِنْتَبِهْ، لَا تُوقِعِ الْكَأْسَ!
+fill | 🥛 | Fill your bottle with water. | wv | يَمْلَأُ | اِمْلَأْ زُجَاجَتَكَ بِالْمَاءِ.
+hang | 🧥 | Hang your coat on the door. | wv | يُعَلِّقُ | عَلِّقْ مِعْطَفَكَ عَلَى الْبَابِ.
+hurry | 🏃 | Hurry up, the bus is here! | wv | يُسْرِعُ | أَسْرِعْ، الْحَافِلَةُ هُنَا!
+join | 🤝 | Can I join your team? | wv | يَنْضَمُّ | هَلْ أَسْتَطِيعُ أَنْ أَنْضَمَّ إِلَى فَرِيقِكَ؟
+knock | 🚪 | Knock on the door before you come in. | wv | يَطْرُقُ | اُطْرُقِ الْبَابَ قَبْلَ أَنْ تَدْخُلَ.
+lend | ✏️ | Can you lend me your pencil? | wv | يُعِيرُ | هَلْ تُعِيرُنِي قَلَمَكَ؟
+lie down | 🛌 | Lie down and rest for a while. | wv | يَسْتَلْقِي | اِسْتَلْقِ، وَارْتَحْ قَلِيلًا.
+miss | 🥺 | I miss my grandmother. | wv | يَشْتَاقُ إِلَى | أَشْتَاقُ إِلَى جَدَّتِي.
+move | 📦 | Help me move the table. | wv | يَنْقُلُ | سَاعِدْنِي فِي نَقْلِ الطَّاوِلَةِ.
+pick up | ✋ | Pick up the paper from the floor. | wv | يَلْتَقِطُ | اِلْتَقِطِ الْوَرَقَةَ مِنَ الْأَرْضِ.
+reach | 🙋 | I can't reach the top shelf. | wv | يَصِلُ إِلَى | لَا أَسْتَطِيعُ أَنْ أَصِلَ إِلَى الرَّفِّ الْعُلْوِيِّ.
+repeat | 🔁 | Please repeat the question. | wv | يُكَرِّرُ | مِنْ فَضْلِكَ كَرِّرِ السُّؤَالَ.
+worry | 😟 | Don't worry, it is easy. | wv | يَقْلَقُ | لَا تَقْلَقْ، الْأَمْرُ سَهْلٌ.
+guess | ❓ | Guess what is in the box! | wv | يُخَمِّنُ | خَمِّنْ مَاذَا يُوجَدُ فِي الصُّنْدُوقِ!
+hope | ✨ | I hope it rains tomorrow. | wv | يَأْمُلُ | آمُلُ أَنْ تُمْطِرَ غَدًا.
+keep | 📦 | You can keep this book. | wv | يَحْتَفِظُ بِـ | يُمْكِنُكَ أَنْ تَحْتَفِظَ بِهَذَا الْكِتَابِ.
+enjoy | 😄 | We enjoy our time at the beach. | wv | يَسْتَمْتِعُ | نَسْتَمْتِعُ بِوَقْتِنَا عَلَى الشَّاطِئِ.
+fall | 🍂 | Leaves fall from the trees in autumn. | wv | يَسْقُطُ | تَسْقُطُ الْأَوْرَاقُ مِنَ الْأَشْجَارِ فِي الْخَرِيفِ.
+look for | 🔍 | I look for my keys every morning. | wv | يَبْحَثُ عَنْ | أَبْحَثُ عَنْ مَفَاتِيحِي كُلَّ صَبَاحٍ.
+smell | 👃 | I can smell the bread from the bakery. | wv | يَشُمُّ | أَشُمُّ رَائِحَةَ الْخُبْزِ مِنَ الْمَخْبَزِ.
+touch | 👆 | Don't touch the hot pan. | wv | يَلْمِسُ | لَا تَلْمِسِ الْمِقْلَاةَ السَّاخِنَةَ.
+@talk What do you bring to school? | مَاذَا تُحْضِرُ إِلَى الْمَدْرَسَةِ؟ | I bring ___. | I bring my books, my pencils and a bottle of water.
+@talk What do you enjoy doing on the weekend? | مَاذَا تَسْتَمْتِعُ بِفِعْلِهِ فِي الْعُطْلَةِ؟ | On the weekend, I enjoy ___. | On the weekend, I enjoy playing football with my friends.
+
+@topic describing | صِفَاتٌ جَدِيدَةٌ | More Describing Words | ✨ | #a855f7 | 3 | adj
+afraid | 😨 | My little brother is afraid of the dark. | a | خَائِفٌ | أَخِي الصَّغِيرُ خَائِفٌ مِنَ الظَّلَامِ.
+alone | 🧍 | My grandfather lives alone. | wa | بِمُفْرَدِهِ | يَعِيشُ جَدِّي بِمُفْرَدِهِ.
+boring | 🥱 | This game is boring. | wa | مُمِلٌّ | هَذِهِ اللُّعْبَةُ مُمِلَّةٌ.
+cute | 🐣 | What a cute kitten! | wa | لَطِيفٌ | يَا لَهُ مِنْ قِطٍّ صَغِيرٍ لَطِيفٍ!
+deep | 🌊 | The sea is very deep here. | wa | عَمِيقٌ | الْبَحْرُ عَمِيقٌ جِدًّا هُنَا.
+shallow | 🏖️ | Children swim in the shallow water. | wa | ضَحْلٌ | يَسْبَحُ الْأَطْفَالُ فِي الْمَاءِ الضَّحْلِ.
+huge | 🐘 | An elephant is a huge animal. | wa | ضَخْمٌ | الْفِيلُ حَيَوَانٌ ضَخْمٌ.
+tiny | 🐜 | An ant is tiny. | wa | صَغِيرٌ جِدًّا | النَّمْلَةُ صَغِيرَةٌ جِدًّا.
+lazy | 😴 | The lazy cat sleeps all day. | wa | كَسُولٌ | الْقِطَّةُ الْكَسُولُ تَنَامُ طَوَالَ الْيَوْمِ.
+modern | 🏙️ | Riyadh has many modern buildings. | wa | حَدِيثٌ | فِي الرِّيَاضِ مَبَانٍ حَدِيثَةٌ كَثِيرَةٌ.
+ancient | 🏛️ | We visited an ancient city. | wa | أَثَرِيٌّ قَدِيمٌ | زُرْنَا مَدِينَةً أَثَرِيَّةً قَدِيمَةً.
+narrow | ↔️ | The street is too narrow for the bus. | wa | ضَيِّقٌ | الشَّارِعُ ضَيِّقٌ جِدًّا عَلَى الْحَافِلَةِ.
+wide | ↔️ | The river is wide. | wa | عَرِيضٌ | النَّهْرُ عَرِيضٌ.
+noisy | 🔊 | The classroom is noisy. | wa | صَاخِبٌ | الْفَصْلُ صَاخِبٌ.
+rude | 😠 | It is rude to shout at people. | wa | غَيْرُ مُؤَدَّبٍ | الصُّرَاخُ عَلَى النَّاسِ تَصَرُّفٌ غَيْرُ مُؤَدَّبٍ.
+smooth | 🪨 | The stone is smooth. | wa | نَاعِمُ الْمَلْمَسِ | الْحَجَرُ نَاعِمُ الْمَلْمَسِ.
+rough | 🧱 | The wall is rough. | wa | خَشِنٌ | الْجِدَارُ خَشِنٌ.
+strict | 👨‍🏫 | Our teacher is strict but kind. | wa | صَارِمٌ | مُعَلِّمُنَا صَارِمٌ لَكِنَّهُ طَيِّبٌ.
+terrible | ⛈️ | The storm was terrible. | wa | فَظِيعٌ | كَانَتِ الْعَاصِفَةُ فَظِيعَةً.
+perfect | 💯 | Your drawing is perfect! | wa | مِثَالِيٌّ | رَسْمُكَ مِثَالِيٌّ!
+thick | 📚 | This book is very thick. | wa | سَمِيكٌ | هَذَا الْكِتَابُ سَمِيكٌ جِدًّا.
+thin | 📄 | The paper is thin. | wa | رَقِيقٌ | الْوَرَقُ رَقِيقٌ.
+bright | ☀️ | The sun is very bright today. | wa | سَاطِعٌ | الشَّمْسُ سَاطِعَةٌ جِدًّا الْيَوْمَ.
+colorful | 🎨 | The market is full of colorful clothes. | wa | مُلَوَّنٌ | السُّوقُ مَلِيءٌ بِالْمَلَابِسِ الْمُلَوَّنَةِ.
+@talk Describe your school. | صِفْ مَدْرَسَتَكَ. | My school is ___. | My school is big and modern.
+@talk Describe your favorite toy. | صِفْ لُعْبَتَكَ الْمُفَضَّلَةَ. | My favorite toy is ___. | My favorite toy is a small, colorful car.
+
+@topic timewords | الْوَقْتُ وَالتَّكْرَارُ | Time Words | ⏳ | #6366f1 | 3 | when
+ago | ⏳ | We moved here two years ago. | wx | مُنْذُ | اِنْتَقَلْنَا إِلَى هُنَا مُنْذُ سَنَتَيْنِ.
+before | ⏪ | Wash your hands before lunch. | wx | قَبْلَ | اِغْسِلْ يَدَيْكَ قَبْلَ الْغَدَاءِ.
+after | ⏩ | We go to the park after school. | wx | بَعْدَ | نَذْهَبُ إِلَى الْحَدِيقَةِ بَعْدَ الْمَدْرَسَةِ.
+during | 🤫 | Don't talk during the test. | wx | أَثْنَاءَ | لَا تَتَكَلَّمْ أَثْنَاءَ الِاخْتِبَارِ.
+until | ⏱️ | Wait here until I come back. | wx | حَتَّى | اِنْتَظِرْ هُنَا حَتَّى أَعُودَ.
+often | 🔁 | We often visit our grandparents. | wa | غَالِبًا | غَالِبًا مَا نَزُورُ جَدَّيْنَا.
+once | 1️⃣ | I go to the dentist once a year. | wa | مَرَّةً وَاحِدَةً | أَذْهَبُ إِلَى طَبِيبِ الْأَسْنَانِ مَرَّةً وَاحِدَةً فِي السَّنَةِ.
+twice | 2️⃣ | I brush my teeth twice a day. | wa | مَرَّتَيْنِ | أُنَظِّفُ أَسْنَانِي مَرَّتَيْنِ فِي الْيَوْمِ.
+ever | ❔ | Have you ever seen a camel race? | wa | مِنْ قَبْلُ | هَلْ رَأَيْتَ سِبَاقَ هُجُنٍ مِنْ قَبْلُ؟
+daily | 📆 | We practice English daily. | wa | يَوْمِيًّا | نَتَدَرَّبُ عَلَى الْإِنْجِلِيزِيَّةِ يَوْمِيًّا.
+weekly | 🗓️ | We have a weekly test. | wa | أُسْبُوعِيٌّ | لَدَيْنَا اخْتِبَارٌ أُسْبُوعِيٌّ.
+century | 💯 | This mosque is more than a century old. | w | قَرْنٌ مِنَ الزَّمَانِ | عُمْرُ هَذَا الْمَسْجِدِ أَكْثَرُ مِنْ قَرْنٍ.
+decade | 🔟 | A decade is ten years. | w | عَقْدٌ مِنَ الزَّمَانِ | الْعَقْدُ عَشْرُ سَنَوَاتٍ.
+moment | ⏱️ | Wait a moment, please. | w | لَحْظَةٌ | اِنْتَظِرْ لَحْظَةً، مِنْ فَضْلِكَ.
+midnight | 🕛 | Everyone is asleep at midnight. | w | مُنْتَصَفُ اللَّيْلِ | الْجَمِيعُ نَائِمُونَ فِي مُنْتَصَفِ اللَّيْلِ.
+noon | 🕐 | We have lunch at noon. | w | الظُّهْرُ | نَتَغَدَّى عِنْدَ الظُّهْرِ.
+past | 📜 | In the past, people traveled by camel. | w | الْمَاضِي | فِي الْمَاضِي سَافَرَ النَّاسُ عَلَى الْجِمَالِ.
+tonight | 🌙 | We will visit my aunt tonight. | wa | اللَّيْلَةَ | سَنَزُورُ خَالَتِي اللَّيْلَةَ.
+still | ⏳ | It is still raining. | wa | لَا يَزَالُ | لَا يَزَالُ الْمَطَرُ يَنْزِلُ.
+yet | ⌛ | I haven't finished my homework yet. | wa | حَتَّى الْآنَ | لَمْ أُنْهِ وَاجِبِي حَتَّى الْآنَ.
+just | ⚡ | I have just eaten lunch. | wa | لِلتَّوِّ | تَنَاوَلْتُ الْغَدَاءَ لِلتَّوِّ.
+recently | 🆕 | I recently learned to swim. | wa | مُؤَخَّرًا | تَعَلَّمْتُ السِّبَاحَةَ مُؤَخَّرًا.
+finally | 🏁 | Finally, the holiday is here! | wa | أَخِيرًا | أَخِيرًا جَاءَتِ الْإِجَازَةُ!
+nowadays | 📱 | Nowadays, children use tablets. | wa | هَذِهِ الْأَيَّامَ | يَسْتَخْدِمُ الْأَطْفَالُ الْأَجْهِزَةَ اللَّوْحِيَّةَ هَذِهِ الْأَيَّامَ.
+@talk How often do you visit your grandparents? | كَمْ مَرَّةً تَزُورُ جَدَّيْكَ؟ | I visit them ___. | I visit them once a week.
+@talk What did you do two days ago? | مَاذَا فَعَلْتَ قَبْلَ يَوْمَيْنِ؟ | Two days ago, I ___. | Two days ago, I went to the park with my brother.
+
+@topic people2 | النَّاسُ مِنْ حَوْلِنَا | People Around Us | 👥 | #f59e0b | 3 | person
+classmate | 🧑‍🤝‍🧑 | My classmate sits next to me. | w | زَمِيلُ الْفَصْلِ | يَجْلِسُ زَمِيلِي فِي الْفَصْلِ بِجَانِبِي.
+stranger | 👤 | Don't talk to a stranger. | w | شَخْصٌ غَرِيبٌ | لَا تَتَحَدَّثْ مَعَ شَخْصٍ غَرِيبٍ.
+adult | 🧑 | Ask an adult for help. | w | شَخْصٌ بَالِغٌ | اُطْلُبِ الْمُسَاعَدَةَ مِنْ شَخْصٍ بَالِغٍ.
+teenager | 🧑‍🎓 | My cousin is a teenager. He is fifteen. | w | مُرَاهِقٌ | اِبْنُ عَمِّي مُرَاهِقٌ، عُمْرُهُ خَمْسَ عَشْرَةَ سَنَةً.
+twins | 👫 | Sara and Huda are twins. | w | تَوْأَمَانِ | سَارَةُ وَهُدَى تَوْأَمَانِ.
+relatives | 👨‍👩‍👧‍👦 | We visit our relatives on Eid. | w | الْأَقَارِبُ | نَزُورُ أَقَارِبَنَا فِي الْعِيدِ.
+grandchild | 👶 | My grandmother loves her new grandchild. | w | حَفِيدٌ | تُحِبُّ جَدَّتِي حَفِيدَهَا الْجَدِيدَ.
+nephew | 👦 | My nephew is two years old. | w | اِبْنُ الْأَخِ | اِبْنُ أَخِي عُمْرُهُ سَنَتَانِ.
+niece | 👧 | My niece likes to draw. | w | بِنْتُ الْأَخِ | بِنْتُ أَخِي تُحِبُّ الرَّسْمَ.
+husband | 👨 | My aunt's husband is a pilot. | w | زَوْجٌ | زَوْجُ عَمَّتِي طَيَّارٌ.
+wife | 👩 | My uncle and his wife live in Dammam. | w | زَوْجَةٌ | يَعِيشُ عَمِّي وَزَوْجَتُهُ فِي الدَّمَّامِ.
+member | 🪪 | I am a member of the reading club. | w | عُضْوٌ | أَنَا عُضْوٌ فِي نَادِي الْقِرَاءَةِ.
+leader | 🧭 | A good leader listens to everyone. | w | قَائِدٌ | الْقَائِدُ الْجَيِّدُ يَسْتَمِعُ إِلَى الْجَمِيعِ.
+hero | 🦸 | The firefighter is a real hero. | w | بَطَلٌ | رَجُلُ الْإِطْفَاءِ بَطَلٌ حَقِيقِيٌّ.
+captain | ⚽ | Omar is the captain of our team. | w | قَائِدُ الْفَرِيقِ | عُمَرُ قَائِدُ فَرِيقِنَا.
+owner | 🏪 | The owner of the shop is kind. | w | صَاحِبٌ | صَاحِبُ الْمَحَلِّ لَطِيفٌ.
+visitor | 🚪 | We have a visitor today. | w | زَائِرٌ | لَدَيْنَا زَائِرٌ الْيَوْمَ.
+everyone | 👥 | Everyone in my class is here. | w | الْجَمِيعُ | الْجَمِيعُ فِي فَصْلِي حَاضِرُونَ.
+someone | 👤 | Someone is at the door. | w | شَخْصٌ مَا | يُوجَدُ شَخْصٌ مَا عِنْدَ الْبَابِ.
+nobody | 🚫 | Nobody is in the classroom. | w | لَا أَحَدَ | لَا أَحَدَ فِي الْفَصْلِ.
+group | 👥 | We work in a group of four. | w | مَجْمُوعَةٌ | نَعْمَلُ فِي مَجْمُوعَةٍ مِنْ أَرْبَعَةٍ.
+king | 👑 | The king visited our city. |  | مَلِكٌ | زَارَ الْمَلِكُ مَدِينَتَنَا.
+volunteer | 🙋 | My sister is a volunteer at the hospital. | w | مُتَطَوِّعٌ | أُخْتِي مُتَطَوِّعَةٌ فِي الْمُسْتَشْفَى.
+citizen | 🏙️ | A good citizen keeps the city clean. | w | مُوَاطِنٌ | الْمُوَاطِنُ الصَّالِحُ يُحَافِظُ عَلَى نَظَافَةِ الْمَدِينَةِ.
+@talk Who is your hero? | مَنْ بَطَلُكَ؟ | My hero is ___. | My hero is my father because he helps everyone.
+@talk Who are your relatives? | مَنْ أَقَارِبُكَ؟ | My relatives are ___. | My relatives are my aunts, my uncles and my cousins.
+
+@topic class2 | جُمَلُ الْحِصَّةِ | My English Class | 🎧 | #4f46e5 | 3 | phrase
+Could you repeat that, please? | 🔁 |  | p | هَلْ يُمْكِنُكِ أَنْ تُكَرِّرِي ذَلِكَ، مِنْ فَضْلِكِ؟ | عِنْدَمَا لَا تَسْمَعُ الْكَلَامَ جَيِّدًا.
+How do you pronounce this word? | 🗣️ |  | p | كَيْفَ نَنْطِقُ هَذِهِ الْكَلِمَةَ؟ | عِنْدَمَا تُرِيدُ أَنْ تَعْرِفَ كَيْفَ تَقُولُ الْكَلِمَةَ.
+Can you give me an example? | 💡 |  | p | هَلْ يُمْكِنُكِ أَنْ تُعْطِيَنِي مِثَالًا؟ | عِنْدَمَا لَا تَفْهَمُ الْقَاعِدَةَ جَيِّدًا.
+I agree with you. | 👍 |  | p | أَنَا أُوَافِقُكِ. | عِنْدَمَا تَرَى الرَّأْيَ نَفْسَهُ.
+I don't agree. | 👎 |  | p | لَا أُوَافِقُ. | عِنْدَمَا يَكُونُ لَكَ رَأْيٌ آخَرُ.
+In my opinion... | 💭 |  | p | فِي رَأْيِي... | عِنْدَمَا تَبْدَأُ بِقَوْلِ رَأْيِكَ.
+That's a good idea! | 🌟 |  | p | هَذِهِ فِكْرَةٌ جَيِّدَةٌ! | عِنْدَمَا تُعْجِبُكَ فِكْرَةُ غَيْرِكَ.
+Is it my turn? | ✋ |  | p | هَلْ جَاءَ دَوْرِي؟ | عِنْدَمَا لَا تَعْرِفُ مَنْ يُجِيبُ الْآنَ.
+Let me think. | 🤔 |  | p | دَعِينِي أُفَكِّرُ. | عِنْدَمَا تَحْتَاجُ إِلَى وَقْتٍ قَبْلَ الْإِجَابَةِ.
+I forgot the word. | 😅 |  | p | نَسِيتُ الْكَلِمَةَ. | عِنْدَمَا لَا تَتَذَكَّرُ الْكَلِمَةَ الْإِنْجِلِيزِيَّةَ.
+One more time, please. | 🔂 |  | p | مَرَّةً أُخْرَى، مِنْ فَضْلِكِ. | عِنْدَمَا تُرِيدُ أَنْ تُجَرِّبَ أَوْ تَسْمَعَ مَرَّةً أُخْرَى.
+Can you hear me now? | 🎤 |  | p | هَلْ تَسْمَعِينَنِي الْآنَ؟ | بَعْدَ أَنْ تُصْلِحَ الْمِيكْرُوفُونَ.
+My microphone is not working. | 🔇 |  | p | الْمِيكْرُوفُونُ لَا يَعْمَلُ. | عِنْدَمَا لَا تَسْمَعُكَ الْمُعَلِّمَةُ.
+Sorry, I made a mistake. | 😬 |  | p | آسِفٌ، أَخْطَأْتُ. | عِنْدَمَا تَعْرِفُ أَنَّ إِجَابَتَكَ خَطَأٌ.
+I did my homework. | 📝 |  | p | أَنْهَيْتُ وَاجِبِي. | عِنْدَمَا تَسْأَلُكَ الْمُعَلِّمَةُ عَنِ الْوَاجِبِ.
+Have a nice day! | ☀️ |  | p | أَتَمَنَّى لَكِ يَوْمًا سَعِيدًا! | فِي نِهَايَةِ الْحِصَّةِ.
+@talk Do you agree with me? | هَلْ تُوَافِقُنِي؟ | Yes, I ___. | Yes, I agree with you.
+@talk Is it your turn? | هَلْ جَاءَ دَوْرُكَ؟ | Yes, it is ___. | Yes, it is my turn.

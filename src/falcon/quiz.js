@@ -7,13 +7,16 @@ const INS = {
   sp: ['q-sp', 'رتّب الحروف لتكتب الكلمة.'], tf: ['q-tf', 'هل هذه الكلمة تناسب الصورة؟'], say: ['q-say', 'انطق الكلمة بصوت واضح.'],
   sit: ['q-sit', 'ماذا تقول في هذا الموقف؟'], ord: ['q-ord', 'رتّب الكلمات لتكوّن جملة صحيحة.'],
 };
-/* n wrong answers for w. mode: pic (they are shown as pictures), en, ar, gap (only one may fit the sentence) */
+/* n wrong answers for w. mode: pic (they are shown as pictures), en, ar, gap (only one may fit the sentence).
+   In parts 2-6 every word says what kind of word it is (flags v verb, a adjective or adverb, x small word, else a noun),
+   and the wrong answers of a sentence question are words of another kind, so only one choice can fit. */
+const pos = w => w.fl.includes('v') ? 'v' : w.fl.includes('a') ? 'a' : w.fl.includes('x') ? 'x' : 'n';
 function others(w, n, mode) {
   const T = TOPIC[w.t], words = s => s.split(' ').length;
   const fits = x => x !== w && x.k !== w.k && isPhrase(x) === isPhrase(w) && !similar(x, w)
     && (mode !== 'pic' || (!weak(x) && x.pic !== w.pic))
     && (mode !== 'ar' || x.ar !== w.ar)
-    && (mode !== 'gap' || (KIND[x.t] !== KIND[w.t] && !isPhrase(x) && !x.gx));   // big words (own wrong answers) could fit other sentences
+    && (mode !== 'gap' || ((PNO > 1 ? pos(x) !== pos(w) : KIND[x.t] !== KIND[w.t]) && !isPhrase(x) && !x.gx));   // big words (own wrong answers) could fit other sentences
   const tiers = mode === 'gap' ? [WORDS.filter(x => words(x.en) === words(w.en)), WORDS]
     : [lessonOf(w), T.words, WORDS.filter(x => TOPIC[x.t].stage === T.stage), WORDS];
   const out = [];

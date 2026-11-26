@@ -143,4 +143,13 @@ def build_falcon():
     html=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*DATA*/',data).replace('/*APP*/',prog)
     open(os.path.join(O,'word-falcon.html'),'w',encoding='utf-8').write(html)
     print('built word-falcon.html',len(html))
-for n in (sys.argv[1:] or list(APPS)+['ollie','genius','falcon']): build_ollie() if n=='ollie' else build_genius() if n=='genius' else build_falcon() if n=='falcon' else build(n)
+# ---- Level test (اختبار المستوى): python3 src/build.py leveltest  ->  level-test.html ----
+# One page from src/leveltest/: items.js (the questions, also read by tools/level-test-voices.js) and app.js,
+# with Shaheen's drawings (src/falcon/art.js) and Word Falcon's stylesheet plus extra.css.
+def build_leveltest():
+    S=os.path.join(R,'leveltest'); F=os.path.join(R,'falcon'); rd=lambda d,f:open(os.path.join(d,f),encoding='utf-8').read()
+    css=rd(F,'style.css')+'\n'+rd(S,'extra.css')
+    html=rd(S,'page.html').replace('/*CSS*/',css).replace('/*DATA*/',rd(S,'items.js')).replace('/*APP*/',rd(F,'art.js')+'\n'+rd(S,'app.js'))
+    open(os.path.join(O,'level-test.html'),'w',encoding='utf-8').write(html)
+    print('built level-test.html',len(html))
+for n in (sys.argv[1:] or list(APPS)+['ollie','genius','falcon','leveltest']): build_ollie() if n=='ollie' else build_genius() if n=='genius' else build_falcon() if n=='falcon' else build_leveltest() if n=='leveltest' else build(n)

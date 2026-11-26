@@ -1,0 +1,14 @@
+{
+  "name": "اختبار المستوى",
+  "short_name": "اختبار المستوى",
+  "start_url": "https://kprpwd2wgn-ops.github.io/Rakan/level-test.html",
+  "display": "standalone",
+  "background_color": "#cfe9ff",
+  "theme_color": "#0b3b66",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "https://kprpwd2wgn-ops.github.io/Rakan/level-test-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "https://kprpwd2wgn-ops.github.io/Rakan/level-test-icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

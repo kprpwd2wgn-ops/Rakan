@@ -1,0 +1,15 @@
+/* اختبار المستوى — added to Word Falcon's stylesheet (src/falcon/style.css) */
+.ltparts{display:flex;gap:6px;justify-content:center;margin:12px 0 10px}
+.ltparts span{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-size:18px;background:var(--card);box-shadow:0 3px 0 var(--line);font-family:var(--emo);opacity:.55}
+.ltparts span.on{opacity:1;outline:3px solid var(--gold);outline-offset:1px}
+.ltparts span.done{opacity:1;background:var(--okbg);color:var(--ok2);font-family:var(--f-num);font-weight:700}
+.ltsec{font-weight:800;white-space:nowrap;font-size:15px}
+.ltbig{font-size:72px;line-height:1.1;font-family:var(--emo)}
+.opt.chosen{background:#dbeafe;box-shadow:0 5px 0 var(--blue);color:var(--blue2)}
+.ltstory{font-size:20px;line-height:1.7;padding:16px;border-radius:20px;background:var(--card);box-shadow:var(--sh);text-align:left}
+.ltrate{justify-content:flex-start;text-align:right;font-size:17px;display:flex;gap:10px;min-height:56px}
+.ltstars{color:var(--gold);letter-spacing:1px;font-size:18px;direction:ltr}
+.ltstars .off{color:#e3d9c4}
+.ltseg{flex-wrap:wrap;margin-top:8px;gap:6px;background:none;padding:0}
+.ltseg button{background:var(--sand);font-family:var(--f-ar);font-size:15px;padding:8px 12px}
+.feedback.info{background:#dbeafe;color:var(--blue2)}

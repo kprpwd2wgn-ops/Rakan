@@ -11,7 +11,7 @@ harder words than the part before, its own page (`word-falcon-<N>.html`), its ow
 | 1 | A1 – B1 | the basics · level-4 words · going further (+ big words, his plan from the level test) |
 | 2 | A2 | home and school · places and nature · actions and descriptions |
 | 3 | B1 | everyday life · science and the world · thinking and feeling |
-| 4 | B1+ | ... (planned when built) |
+| 4 | B1+ | people and life · science and history · stronger language (phrasal verbs, strong adjectives, word partners, linking words) |
 | 5 | B2 | ... |
 | 6 | B2+ | ... |
 
@@ -36,10 +36,12 @@ sentence of the level test is used, so a retest stays fair.
    `python3 tools/game-voices.py word-falcon-<N>-lines.json --out word-falcon-<N>/ar`,
    `python3 tools/english-voices.py word-falcon-<N>-ar2-lines.json --out word-falcon/arw`; then run it again to pack.
 3. `python3 src/build.py falcon`, `node tools/check-game.js word-falcon-<N>.html`, `node tools/falcon-play.js <N>`.
-4. Publish `word-falcon-<N>.html` as a new artifact with every file of `word-falcon-<N>/voices/`, add its row to
+4. `node tools/falcon-voices.js <N>` marks the part `done` in its `packs.json` once every line has a clip; only such parts
+   are listed in the parts menu, so build again after the last recording. Publish `word-falcon-<N>.html` as a new artifact with every file of `word-falcon-<N>/voices/`, add its row to
    CLAUDE.md, commit, push.
 
 ## Status
 
 - Part 2: built, recorded and published on 26 Nov 2026 (https://claude.ai/artifact/7AdbmScgVAHuy8wswxfQCh).
-- Part 3: data written and checked; being recorded.
+- Part 3: built, recorded and published on 26 Nov 2026 (https://claude.ai/artifact/Vji27tLmGMR1YDwLM7ZXy5).
+- Part 4: data written and checked; being recorded.

@@ -143,7 +143,12 @@ def falcon_parts():
 def build_falcon():
     S=os.path.join(R,'falcon'); rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
     built=[1]+falcon_parts()
-    parts=rd('parts.js').replace('/*BUILT*/[1]',json.dumps(built))
+    # the parts menu lists a part only once all its voices are recorded (packs.json says done, see tools/falcon-voices.js)
+    def voiced(n):
+        try: return json.load(open(os.path.join(O,'word-falcon-%d'%n,'voices','packs.json'),encoding='utf-8')).get('done',False)
+        except (OSError,ValueError): return False
+    ready=[1]+[n for n in falcon_parts() if voiced(n)]
+    parts=rd('parts.js').replace('/*BUILT*/[1]',json.dumps(ready))
     prog='\n'.join(rd(f) for f in FALCON_APP)+'\nboot();\n'
     page=rd('page.html').replace('/*CSS*/',rd('style.css')).replace('/*APP*/',prog)
     AD='٠١٢٣٤٥٦٧٨٩'

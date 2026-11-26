@@ -195,7 +195,9 @@ fs.mkdirSync(OUT, { recursive: true });
 for (const old of fs.readdirSync(OUT)) if (/^pack-.*\.mp3$/.test(old) && !packs[old.slice(5, -4)]) fs.unlinkSync(path.join(OUT, old));
 let size = 0;
 for (const [name, bufs] of Object.entries(packs)) { const b = Buffer.concat(bufs); size += b.length; fs.writeFileSync(path.join(OUT, `pack-${name}.mp3`), b); }
-fs.writeFileSync(path.join(OUT, 'packs.json'), JSON.stringify({ packs: Object.fromEntries(Object.keys(packs).sort().map(n => [n, `pack-${n}.mp3`])), c: index }) + '\n');
+// done: every line of the part has its clip, so src/build.py lists the part in every part's parts menu
+const done = !todo.length && !arMissing.length && !arWant.length;
+fs.writeFileSync(path.join(OUT, 'packs.json'), JSON.stringify({ done, packs: Object.fromEntries(Object.keys(packs).sort().map(n => [n, `pack-${n}.mp3`])), c: index }) + '\n');
 
 console.log(`English: ${todo.length} lines to record (${todo.reduce((n, t) => n + t.length, 0)} characters); Arabic: ${arMissing.length} of ${Object.keys(AR).length} guide lines to record, ${arWant.length} of ${SPOKEN.size} word lines to record (${arWant.reduce((n, t) => n + t.length, 0)} characters)`);
 console.log(`packed ${Object.keys(index).length} clips into ${Object.keys(packs).length} packs (${(size / 1e6).toFixed(1)} MB) in ${TAG}/voices`);

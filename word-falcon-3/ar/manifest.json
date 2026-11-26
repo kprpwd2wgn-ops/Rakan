@@ -1,0 +1,231 @@
+{
+  "voice": "ar-SA-HamedNeural",
+  "generated": "2026-11-26",
+  "loudness": "-14.5 LUFS",
+  "lines": [
+    {
+      "id": "t-chores",
+      "text": "أَعْمَالُ الْبَيْتِ.",
+      "file": "t-chores.mp3",
+      "seconds": 1.15,
+      "stamp": "a14ba1f44ae3"
+    },
+    {
+      "id": "t-nutrition",
+      "text": "الطَّعَامُ وَالتَّغْذِيَةُ.",
+      "file": "t-nutrition.mp3",
+      "seconds": 1.42,
+      "stamp": "3b365777639f"
+    },
+    {
+      "id": "t-money",
+      "text": "الْمَالُ وَالْعَمَلُ.",
+      "file": "t-money.mp3",
+      "seconds": 1.18,
+      "stamp": "dd34bd385615"
+    },
+    {
+      "id": "t-media",
+      "text": "الْأَخْبَارُ وَالتَّوَاصُلُ.",
+      "file": "t-media.mp3",
+      "seconds": 1.68,
+      "stamp": "3a9e5b0bec91"
+    },
+    {
+      "id": "t-road",
+      "text": "الطَّرِيقُ وَالْمُوَاصَلَاتُ.",
+      "file": "t-road.mp3",
+      "seconds": 1.68,
+      "stamp": "16c318ae8b62"
+    },
+    {
+      "id": "t-sciences",
+      "text": "الْعُلُومُ وَالتَّجَارِبُ.",
+      "file": "t-sciences.mp3",
+      "seconds": 1.56,
+      "stamp": "2a0414f90859"
+    },
+    {
+      "id": "t-universe",
+      "text": "الْفَضَاءُ وَالْكَوْنُ.",
+      "file": "t-universe.mp3",
+      "seconds": 1.39,
+      "stamp": "9a15cd29b1f9"
+    },
+    {
+      "id": "t-environment",
+      "text": "الْبِيئَةُ وَالطَّاقَةُ.",
+      "file": "t-environment.mp3",
+      "seconds": 1.37,
+      "stamp": "3f3925e2ff90"
+    },
+    {
+      "id": "t-peoples",
+      "text": "الْعَالَمُ وَالشُّعُوبُ.",
+      "file": "t-peoples.mp3",
+      "seconds": 1.54,
+      "stamp": "672352557712"
+    },
+    {
+      "id": "t-weather3",
+      "text": "الطَّقْسُ وَقُوَّةُ الطَّبِيعَةِ.",
+      "file": "t-weather3.mp3",
+      "seconds": 1.85,
+      "stamp": "3e2209c06aca"
+    },
+    {
+      "id": "t-emotions",
+      "text": "مَشَاعِرُ أَكْثَرَ.",
+      "file": "t-emotions.mp3",
+      "seconds": 1.37,
+      "stamp": "f5e7547071ec"
+    },
+    {
+      "id": "t-character",
+      "text": "الشَّخْصِيَّةُ.",
+      "file": "t-character.mp3",
+      "seconds": 0.96,
+      "stamp": "101fd39415bb"
+    },
+    {
+      "id": "t-thinking",
+      "text": "التَّفْكِيرُ وَالرَّأْيُ.",
+      "file": "t-thinking.mp3",
+      "seconds": 1.34,
+      "stamp": "c686d2ec3aea"
+    },
+    {
+      "id": "t-linking",
+      "text": "كَلِمَاتُ الرَّبْطِ.",
+      "file": "t-linking.mp3",
+      "seconds": 1.03,
+      "stamp": "3b0cc97a4dba"
+    },
+    {
+      "id": "t-class3",
+      "text": "جُمَلُ الْحِصَّةِ.",
+      "file": "t-class3.mp3",
+      "seconds": 1.13,
+      "stamp": "c86962cdb453"
+    },
+    {
+      "id": "part-hello",
+      "text": "أَهْلًا بِكَ فِي الْجُزْءِ الثَّالِثِ مِنْ صَقْرِ الْكَلِمَاتِ! صِرْتَ فِي الْمُسْتَوَى الْمُتَوَسِّطِ.",
+      "file": "part-hello.mp3",
+      "seconds": 5.81,
+      "stamp": "5938c7127f5c"
+    },
+    {
+      "id": "part-plan",
+      "text": "فِي كُلِّ يَوْمٍ: دَرْسٌ جَدِيدٌ، وَإِمْلَاءٌ، وَقَاعِدَةٌ، وَتَحَدُّثٌ، وَمُرَاجَعَةٌ.",
+      "file": "part-plan.mp3",
+      "seconds": 6.43,
+      "stamp": "f0df09e92e02"
+    },
+    {
+      "id": "r3-perf-1",
+      "text": "لِلْحَدِيثِ عَنْ شَيْءٍ حَدَثَ، وَلَا نَذْكُرُ مَتَى حَدَثَ، نَقُولُ:",
+      "file": "r3-perf-1.mp3",
+      "seconds": 4.54,
+      "stamp": "c7752ef6f510"
+    },
+    {
+      "id": "r3-perf-2",
+      "text": "وَمَعَ هُوَ وَهِيَ نَقُولُ:",
+      "file": "r3-perf-2.mp3",
+      "seconds": 1.78,
+      "stamp": "edba8dfe9ca3"
+    },
+    {
+      "id": "r3-perf-3",
+      "text": "وَلِلسُّؤَالِ عَنِ التَّجْرِبَةِ نَقُولُ:",
+      "file": "r3-perf-3.mp3",
+      "seconds": 2.38,
+      "stamp": "660f8e8be4fd"
+    },
+    {
+      "id": "r3-pc-1",
+      "text": "لِشَيْءٍ كَانَ يَحْدُثُ فِي وَقْتٍ مُعَيَّنٍ مِنَ الْمَاضِي، نَقُولُ:",
+      "file": "r3-pc-1.mp3",
+      "seconds": 4.22,
+      "stamp": "fd03df9b65d4"
+    },
+    {
+      "id": "r3-pc-2",
+      "text": "وَمَعَ أَنْتَ وَنَحْنُ وَهُمْ نَقُولُ:",
+      "file": "r3-pc-2.mp3",
+      "seconds": 2.16,
+      "stamp": "c7434aa3ce91"
+    },
+    {
+      "id": "r3-pc-3",
+      "text": "وَنَقُولُهُ مَعَ شَيْءٍ قَصِيرٍ حَدَثَ فِي أَثْنَائِهِ:",
+      "file": "r3-pc-3.mp3",
+      "seconds": 3.14,
+      "stamp": "cc44dba47754"
+    },
+    {
+      "id": "r3-if-1",
+      "text": "لِلشَّرْطِ فِي الْمُسْتَقْبَلِ نَقُولُ:",
+      "file": "r3-if-1.mp3",
+      "seconds": 1.99,
+      "stamp": "12f1c01c8fbb"
+    },
+    {
+      "id": "r3-if-2",
+      "text": "وَبَعْدَ أَدَاةِ الشَّرْطِ لَا نَقُولُ كَلِمَةَ الْمُسْتَقْبَلِ.",
+      "file": "r3-if-2.mp3",
+      "seconds": 3.17,
+      "stamp": "1c8638dec99d"
+    },
+    {
+      "id": "r3-should-1",
+      "text": "لِلنَّصِيحَةِ نَقُولُ:",
+      "file": "r3-should-1.mp3",
+      "seconds": 1.56,
+      "stamp": "8c9faeb78ebb"
+    },
+    {
+      "id": "r3-should-2",
+      "text": "وَلِلنَّصِيحَةِ بِأَلَّا نَفْعَلَ شَيْئًا نَقُولُ:",
+      "file": "r3-should-2.mp3",
+      "seconds": 2.93,
+      "stamp": "becab9be6d66"
+    },
+    {
+      "id": "r3-who-1",
+      "text": "لِلنَّاسِ نَقُولُ:",
+      "file": "r3-who-1.mp3",
+      "seconds": 1.3,
+      "stamp": "e91c8534eea2"
+    },
+    {
+      "id": "r3-who-2",
+      "text": "وَلِلْأَشْيَاءِ وَالْحَيَوَانَاتِ نَقُولُ:",
+      "file": "r3-who-2.mp3",
+      "seconds": 2.45,
+      "stamp": "7cd5d7e7167d"
+    },
+    {
+      "id": "r3-who-3",
+      "text": "وَلِلْأَمَاكِنِ نَقُولُ:",
+      "file": "r3-who-3.mp3",
+      "seconds": 1.68,
+      "stamp": "7a9b887ad0d0"
+    },
+    {
+      "id": "r3-used-1",
+      "text": "لِعَادَةٍ كَانَتْ فِي الْمَاضِي ثُمَّ انْتَهَتْ، نَقُولُ:",
+      "file": "r3-used-1.mp3",
+      "seconds": 3.53,
+      "stamp": "d6e0cd457986"
+    },
+    {
+      "id": "r3-used-2",
+      "text": "وَفِي السُّؤَالِ وَالنَّفْيِ نَحْذِفُ الْحَرْفَ الْأَخِيرَ:",
+      "file": "r3-used-2.mp3",
+      "seconds": 2.71,
+      "stamp": "a078ddc82f23"
+    }
+  ]
+}

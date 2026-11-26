@@ -12,7 +12,7 @@ harder words than the part before, its own page (`word-falcon-<N>.html`), its ow
 | 2 | A2 | home and school · places and nature · actions and descriptions |
 | 3 | B1 | everyday life · science and the world · thinking and feeling |
 | 4 | B1+ | people and life · science and history · stronger language (phrasal verbs, strong adjectives, word partners, linking words) |
-| 5 | B2 | ... |
+| 5 | B2 | society and life (faith and good character first) · science and research · thinking and expressing |
 | 6 | B2+ | ... |
 
 A word is taught in one part only (`tools/falcon-voices.js <N>` checks this against every built part), and no word or
@@ -44,4 +44,5 @@ sentence of the level test is used, so a retest stays fair.
 
 - Part 2: built, recorded and published on 26 Nov 2026 (https://claude.ai/artifact/7AdbmScgVAHuy8wswxfQCh).
 - Part 3: built, recorded and published on 26 Nov 2026 (https://claude.ai/artifact/Vji27tLmGMR1YDwLM7ZXy5).
-- Part 4: data written and checked; being recorded.
+- Part 4: built, recorded and published on 26 Nov 2026 (https://claude.ai/artifact/EE6eWihS1cT34PbhMeaccz).
+- Part 5: data written, checked and recorded; being tested.

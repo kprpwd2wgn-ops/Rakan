@@ -1,0 +1,259 @@
+{
+  "voice": "ar-SA-HamedNeural",
+  "generated": "2026-11-26",
+  "loudness": "-14.5 LUFS",
+  "lines": [
+    {
+      "id": "t-relations",
+      "text": "النَّاسُ وَالْعَلَاقَاتُ.",
+      "file": "t-relations.mp3",
+      "seconds": 1.51,
+      "stamp": "db936cd52cf7"
+    },
+    {
+      "id": "t-careers",
+      "text": "الْمِهَنُ وَالْوَظَائِفُ.",
+      "file": "t-careers.mp3",
+      "seconds": 1.56,
+      "stamp": "07035c17e8b5"
+    },
+    {
+      "id": "t-bodymind",
+      "text": "الْجِسْمُ وَالْحَوَاسُّ.",
+      "file": "t-bodymind.mp3",
+      "seconds": 1.37,
+      "stamp": "b08b9b1c29c0"
+    },
+    {
+      "id": "t-campus",
+      "text": "الْمَدْرَسَةُ وَالْجَامِعَةُ.",
+      "file": "t-campus.mp3",
+      "seconds": 1.63,
+      "stamp": "f434351e4fb1"
+    },
+    {
+      "id": "t-shopping4",
+      "text": "التَّسَوُّقُ.",
+      "file": "t-shopping4.mp3",
+      "seconds": 1.01,
+      "stamp": "5066c18cf8d2"
+    },
+    {
+      "id": "t-inventions",
+      "text": "الِاخْتِرَاعَاتُ وَالتِّقْنِيَةُ.",
+      "file": "t-inventions.mp3",
+      "seconds": 1.8,
+      "stamp": "84e2cf63e772"
+    },
+    {
+      "id": "t-digital",
+      "text": "الْعَالَمُ الرَّقْمِيُّ.",
+      "file": "t-digital.mp3",
+      "seconds": 1.32,
+      "stamp": "877b237287eb"
+    },
+    {
+      "id": "t-building",
+      "text": "الْبِنَاءُ وَالْمُدُنُ.",
+      "file": "t-building.mp3",
+      "seconds": 1.39,
+      "stamp": "02e594b30d0b"
+    },
+    {
+      "id": "t-seas",
+      "text": "الْبِحَارُ وَالْمُحِيطَاتُ.",
+      "file": "t-seas.mp3",
+      "seconds": 1.7,
+      "stamp": "d87e4a289618"
+    },
+    {
+      "id": "t-history",
+      "text": "التَّارِيخُ.",
+      "file": "t-history.mp3",
+      "seconds": 0.86,
+      "stamp": "39acb3f63622"
+    },
+    {
+      "id": "t-phrasal",
+      "text": "أَفْعَالٌ مُرَكَّبَةٌ.",
+      "file": "t-phrasal.mp3",
+      "seconds": 1.32,
+      "stamp": "fd0ac1b12b9f"
+    },
+    {
+      "id": "t-strong",
+      "text": "صِفَاتٌ قَوِيَّةٌ.",
+      "file": "t-strong.mp3",
+      "seconds": 1.34,
+      "stamp": "a5fb0ce7c4f9"
+    },
+    {
+      "id": "t-partners",
+      "text": "كَلِمَاتٌ تَأْتِي مَعًا.",
+      "file": "t-partners.mp3",
+      "seconds": 1.58,
+      "stamp": "505c161e3b02"
+    },
+    {
+      "id": "t-linking4",
+      "text": "كَلِمَاتُ رَبْطٍ أَقْوَى.",
+      "file": "t-linking4.mp3",
+      "seconds": 1.51,
+      "stamp": "5d9af1fcd812"
+    },
+    {
+      "id": "t-class4",
+      "text": "جُمَلُ الْحِصَّةِ.",
+      "file": "t-class4.mp3",
+      "seconds": 1.13,
+      "stamp": "c86962cdb453"
+    },
+    {
+      "id": "part-hello",
+      "text": "أَهْلًا بِكَ فِي الْجُزْءِ الرَّابِعِ مِنْ صَقْرِ الْكَلِمَاتِ! كَلِمَاتُهُ أَصْعَبُ، وَأَنْتَ صِرْتَ أَقْوَى.",
+      "file": "part-hello.mp3",
+      "seconds": 6.74,
+      "stamp": "eeb17156cf67"
+    },
+    {
+      "id": "part-plan",
+      "text": "فِي كُلِّ يَوْمٍ: دَرْسٌ جَدِيدٌ، وَإِمْلَاءٌ، وَقَاعِدَةٌ، وَتَحَدُّثٌ، وَمُرَاجَعَةٌ.",
+      "file": "part-plan.mp3",
+      "seconds": 6.43,
+      "stamp": "f0df09e92e02"
+    },
+    {
+      "id": "r4-if2-1",
+      "text": "لِشَيْءٍ نَتَخَيَّلُهُ، وَهُوَ لَيْسَ حَقِيقِيًّا الْآنَ، نَقُولُ:",
+      "file": "r4-if2-1.mp3",
+      "seconds": 4.51,
+      "stamp": "d21d5183c7a5"
+    },
+    {
+      "id": "r4-if2-2",
+      "text": "بَعْدَ أَدَاةِ الشَّرْطِ نَقُولُ الْفِعْلَ فِي الْمَاضِي، حَتَّى لَوْ كَانَ الْكَلَامُ عَنِ الْآنَ:",
+      "file": "r4-if2-2.mp3",
+      "seconds": 5.04,
+      "stamp": "bcc0ade24822"
+    },
+    {
+      "id": "r4-if2-3",
+      "text": "وَلِلنَّصِيحَةِ نَقُولُ:",
+      "file": "r4-if2-3.mp3",
+      "seconds": 1.73,
+      "stamp": "bac3a54f5f20"
+    },
+    {
+      "id": "r4-pass-1",
+      "text": "عِنْدَمَا يَهُمُّنَا الشَّيْءُ أَكْثَرَ مِمَّنْ فَعَلَهُ، نَقُولُ:",
+      "file": "r4-pass-1.mp3",
+      "seconds": 3.82,
+      "stamp": "afda13375480"
+    },
+    {
+      "id": "r4-pass-2",
+      "text": "وَفِي الْمَاضِي نَقُولُ:",
+      "file": "r4-pass-2.mp3",
+      "seconds": 1.56,
+      "stamp": "bde157775453"
+    },
+    {
+      "id": "r4-pass-3",
+      "text": "وَإِذَا أَرَدْنَا أَنْ نَذْكُرَ مَنْ فَعَلَهُ، نَقُولُ:",
+      "file": "r4-pass-3.mp3",
+      "seconds": 3.31,
+      "stamp": "5342ba731246"
+    },
+    {
+      "id": "r4-rep-1",
+      "text": "لِنَنْقُلَ كَلَامَ شَخْصٍ، نَقُولُ:",
+      "file": "r4-rep-1.mp3",
+      "seconds": 2.5,
+      "stamp": "9548d89ae555"
+    },
+    {
+      "id": "r4-rep-2",
+      "text": "وَإِذَا ذَكَرْنَا مَنْ سَمِعَ الْكَلَامَ، نَقُولُ:",
+      "file": "r4-rep-2.mp3",
+      "seconds": 3.22,
+      "stamp": "3fda1f57884b"
+    },
+    {
+      "id": "r4-rep-3",
+      "text": "وَلِنَنْقُلَ طَلَبًا، نَقُولُ:",
+      "file": "r4-rep-3.mp3",
+      "seconds": 2.35,
+      "stamp": "adb8c76d63a0"
+    },
+    {
+      "id": "r4-rep-4",
+      "text": "وَلِنَنْقُلَ سُؤَالًا، نَقُولُ:",
+      "file": "r4-rep-4.mp3",
+      "seconds": 2.59,
+      "stamp": "054b80ccb896"
+    },
+    {
+      "id": "r4-ger-1",
+      "text": "بَعْدَ بَعْضِ الْأَفْعَالِ، نَزِيدُ عَلَى الْفِعْلِ الَّذِي بَعْدَهَا هَذِهِ النِّهَايَةَ:",
+      "file": "r4-ger-1.mp3",
+      "seconds": 4.66,
+      "stamp": "14d34b52a1ae"
+    },
+    {
+      "id": "r4-ger-2",
+      "text": "وَبَعْدَ أَفْعَالٍ أُخْرَى، نَضَعُ قَبْلَهُ هَذِهِ الْكَلِمَةَ:",
+      "file": "r4-ger-2.mp3",
+      "seconds": 3.86,
+      "stamp": "9d31dbcb2e41"
+    },
+    {
+      "id": "r4-ger-3",
+      "text": "وَبَعْدَ حَرْفِ الْجَرِّ نَزِيدُ النِّهَايَةَ أَيْضًا:",
+      "file": "r4-ger-3.mp3",
+      "seconds": 2.78,
+      "stamp": "3fbec77aac8a"
+    },
+    {
+      "id": "r4-ppc-1",
+      "text": "لِشَيْءٍ بَدَأَ فِي الْمَاضِي وَمَا زَالَ مُسْتَمِرًّا، نَقُولُ:",
+      "file": "r4-ppc-1.mp3",
+      "seconds": 4.01,
+      "stamp": "f080a74c80d3"
+    },
+    {
+      "id": "r4-ppc-2",
+      "text": "وَمَعَ هُوَ وَهِيَ نَقُولُ:",
+      "file": "r4-ppc-2.mp3",
+      "seconds": 1.78,
+      "stamp": "edba8dfe9ca3"
+    },
+    {
+      "id": "r4-ppc-3",
+      "text": "وَلِلسُّؤَالِ عَنِ الْمُدَّةِ نَقُولُ:",
+      "file": "r4-ppc-3.mp3",
+      "seconds": 2.18,
+      "stamp": "c45d9b29aff9"
+    },
+    {
+      "id": "r4-tag-1",
+      "text": "لِنَطْلُبَ الْمُوَافَقَةَ فِي آخِرِ الْجُمْلَةِ، نَقُولُ:",
+      "file": "r4-tag-1.mp3",
+      "seconds": 3.5,
+      "stamp": "a4bda49020de"
+    },
+    {
+      "id": "r4-tag-2",
+      "text": "وَإِذَا كَانَتِ الْجُمْلَةُ مَنْفِيَّةً، يَكُونُ السُّؤَالُ فِي آخِرِهَا مُثْبَتًا:",
+      "file": "r4-tag-2.mp3",
+      "seconds": 4.49,
+      "stamp": "c5cbdb89db54"
+    },
+    {
+      "id": "r4-tag-3",
+      "text": "وَمَعَ الْأَفْعَالِ الْعَادِيَّةِ نَسْتَعْمِلُ فِعْلَ الْمُسَاعَدَةِ:",
+      "file": "r4-tag-3.mp3",
+      "seconds": 3.34,
+      "stamp": "e88daaa11cc5"
+    }
+  ]
+}

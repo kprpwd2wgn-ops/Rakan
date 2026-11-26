@@ -135,11 +135,12 @@ const FX = { c: null, x: null, p: [], raf: 0,
 /* ---------- progress, kept in this browser ---------- */
 const KEY = 'rakan-falcon-v1';
 const DEF = () => ({ w: {}, ls: {}, fe: 0, own: {}, wear: {}, bg: 'desert', days: {}, streak: { n: 0, last: -9 }, best: {}, badges: {},
-  set: { goal: 1, arHide: false, sfx: true, mic: true, rev: 15 }, placed: false, rank: 0, talk: {}, hello: false, games: 0, talkN: 0, revN: 0, perfect: 0, goalDay: -1 });
+  set: { goal: 1, arHide: false, sfx: true, mic: true, rev: 15, start: 1, big: false }, placed: false, rank: 0, talk: {}, hello: false, games: 0, talkN: 0, revN: 0, perfect: 0, goalDay: -1,
+  plan: '', alt: 0, sp: {}, spN: 0, gr: {}, planDay: -1 });
 let ST = (() => { try { const r = localStorage.getItem(KEY); if (r) { const o = Object.assign(DEF(), JSON.parse(r)); o.set = Object.assign(DEF().set, o.set); return o; } } catch (e) {} return DEF(); })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
 const DAY = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
-function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0 }); }
+function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0 }); }
 function streakNow() { return ST.streak.last >= DAY() - 1 ? ST.streak.n : 0; }
 function touchStreak() { const d = DAY(); if (ST.streak.last === d) return false; ST.streak.n = ST.streak.last === d - 1 ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); return true; }
 let lastTouch = Date.now();
@@ -167,7 +168,7 @@ TOPICS.forEach((t, i) => {
 // what kind of word a topic holds: gap questions take their wrong answers from other kinds, so only one choice fits the sentence
 const KIND = { family: 'people', jobs: 'people', body: 'body', clothes: 'clothes', food: 'food', fruit: 'food', kitchen: 'food', animals: 'animal', wild: 'animal', sea: 'animal',
   house: 'place', town: 'place', nature: 'place', school: 'school', colors: 'idea', verbs: 'verb', verbs2: 'verb', day: 'time', time: 'time', weather: 'weather',
-  transport: 'move', sports: 'sport', feelings: 'adj', opposites: 'adj', describe: 'adj', health: 'health', tech: 'tech', shopping: 'shop', where: 'prep', manners: 'manners', special: 'special', class: 'phrase' };
+  transport: 'move', sports: 'sport', feelings: 'adj', opposites: 'adj', describe: 'adj', health: 'health', tech: 'tech', shopping: 'shop', where: 'prep', manners: 'manners', special: 'special', class: 'phrase', big: 'big' };
 // words that look alike in pictures or mean nearly the same: never wrong answers for each other
 const SIMILAR = [
   ['book', 'notebook', 'library', 'lesson', 'page', 'paper'], ['pen', 'pencil', 'crayon', 'draw'], ['cup', 'glass', 'milk', 'coffee', 'tea', 'teapot', 'drink', 'juice'], ['shoes', 'sneakers', 'boots'],
@@ -184,6 +185,11 @@ const SIMILAR = [
   ['boy', 'brother', 'son', 'child', 'cousin'], ['girl', 'sister', 'daughter'], ['family', 'parents', 'children', 'people', 'team'], ['clock', 'watch', 'time', 'hour', 'minute', "o'clock", 'half past', 'late', 'wake up'],
   ['week', 'month', 'calendar', 'weekend', 'year', 'today', 'tomorrow', 'yesterday'], ['football', 'kick', 'goal', 'sport', 'match', 'player'], ['win', 'race', 'first'], ['gift', 'give', 'generous', 'Eid', 'celebrate'],
   ['desert', 'sand', 'dry', 'camel', 'sandstorm'], ['sunset', 'evening'], ['sunrise', 'morning', 'early'], ['up', 'straight', 'above'], ['down', 'below', 'under'], ['in', 'inside'], ['on', 'above'], ['near', 'next to'],
+  ['journey', 'trip', 'travel', 'holiday', 'adventure', 'explore'], ['decide', 'choose', 'think'], ['explain', 'tell', 'speak', 'teacher'], ['discover', 'find', 'explore'],
+  ['protect', 'help', 'careful', 'safe'], ['idea', 'think', 'know', 'imagine'], ['problem', 'mistake'], ['solve', 'fix', 'answer', 'puzzle'], ['improve', 'better', 'grow'],
+  ['prepare', 'ready'], ['borrow', 'give', 'library', 'return'], ['collect', 'shell'], ['competition', 'race', 'match', 'win', 'first'], ['maybe', 'possible'],
+  ['nervous', 'scared', 'worried', 'shy'], ['future', 'tomorrow'], ['environment', 'earth', 'world', 'planet'], ['energy', 'strong', 'battery'], ['arrive', 'airport', 'plane', 'travel'],
+  ['already', 'finish'],
   ['kind', 'friendly', 'polite', 'generous'], ['welcome', "you're welcome", 'greet', 'thank you'], ['scared', 'worried'], ['tired', 'bored', 'sleep'], ['help', 'hold', 'respect', 'promise'], ['big', 'tall', 'long'], ['small', 'short', 'young'],
 ];
 const SIM = {}; SIMILAR.forEach((g, i) => g.forEach(k => { (SIM[k.toLowerCase()] = SIM[k.toLowerCase()] || []).push(i); }));
@@ -204,8 +210,10 @@ const nLearned = () => WORDS.filter(isLearned).length;
 const nMastered = () => WORDS.filter(isMastered).length;
 const dueWords = () => WORDS.filter(w => { const s = sOf(w); return s && s.b >= 1 && s.d <= DAY(); }).sort((a, b) => sOf(a).d - sOf(b).d || sOf(a).b - sOf(b).b);
 function nextLesson() {
-  for (const t of TOPICS) for (let j = 0; j < t.lessons.length; j++) if (t.lessons[j].some(w => !isLearned(w))) return { t: t.id, i: j };
-  return null;
+  const from = ts => { for (const t of ts) for (let j = 0; j < t.lessons.length; j++) if (t.lessons[j].some(w => !isLearned(w))) return { t: t.id, i: j }; return null; };
+  const start = ST.set.start || 1, big = TOPICS.filter(t => t.id === 'big');
+  if (ST.set.big && ST.alt === 1) { const b = from(big); if (b) return b; }
+  return from(TOPICS.filter(t => t.stage >= start && t.id !== 'big')) || from(big) || from(TOPICS.filter(t => t.stage < start));
 }
 const lessonsToday = () => today().l;
 const topicLearned = t => t.words.filter(isLearned).length;
@@ -290,14 +298,14 @@ def('splash', () => {
     <h1>صقر الكلمات</h1><div class="enname en">WORD FALCON</div>
     <p class="tag">كلمات إنجليزية جديدة كل يوم: صور، وصوت، وألعاب، ومراجعة ذكية لا تنسى معها شيئًا.</p>
     <button class="btn" id="go">▶︎ ابدأ</button></div>`;
-  $('#go').onclick = () => { VO.start(); FX.init(); sfx('tap'); ST.hello ? home() : go('intro', 0, false); };
+  $('#go').onclick = () => { VO.start(); FX.init(); sfx('tap'); const fresh = applyPlan(); ST.hello ? (fresh ? go('planHello', null, false) : home()) : go('intro', 0, false); };
 });
 def('intro', step => {
   const lines = ['hello-1', 'hello-2', 'hello-3'];
   app.innerHTML = `<div class="splash"><div class="bubble">${esc(AR_PLAIN(lines[step]))}</div><div class="fbig">${falcon({ mood: step === 2 ? 'happy' : 'idle', pose: step === 2 ? 'cheer' : 'idle' })}</div>
     <button class="btn" id="nx">${step < 2 ? 'التالي ◀︎' : 'هيا بنا!'}</button></div>`;
   VO.say({ a: lines[step] });
-  $('#nx').onclick = () => { sfx('tap'); if (step < 2) { cur.arg = step + 1; render(); } else { ST.hello = true; save(); ST.placed ? home() : go('placeAsk', null, false); } };
+  $('#nx').onclick = () => { sfx('tap'); if (step < 2) { cur.arg = step + 1; render(); } else { ST.hello = true; save(); ST.plan ? go('planHello', null, false) : ST.placed ? home() : go('placeAsk', null, false); } };
 });
 function AR_PLAIN(id) { return (AR[id] || '').replace(/[ً-ْٰ]/g, ''); }
 def('placeAsk', () => {
@@ -321,14 +329,16 @@ def('home', () => {
       <div class="rk"><b class="rn">${RANKS[r].ar}</b><span class="en">${RANKS[r].en}</span>
         <div class="pbar"><i style="width:${prog}%"></i></div>
         <span class="small muted">${nx ? `كلماتك <b class="num">${num(nl)}</b> · بقي ${num(nx.at - nl)} لتصبح «${nx.ar}»` : `كلماتك <b class="num">${num(nl)}</b> · أعلى رتبة!`}</span></div></div></section>
-    <div class="card today" style="margin-top:14px"><div class="ring" style="--p:${pct}"><span>${num(Math.min(tdy.l, goal))}/${num(goal)}</span></div>
+    ${ST.plan ? planCard() : `<div class="card today" style="margin-top:14px"><div class="ring" style="--p:${pct}"><span>${num(Math.min(tdy.l, goal))}/${num(goal)}</span></div>
       <div class="t"><b>${tdy.l >= goal ? 'حققت هدف اليوم! 🎉' : 'هدف اليوم: ' + (goal === 1 ? 'درس واحد' : goal === 2 ? 'درسان' : num(goal) + ' دروس')}</b>
-      <span class="small muted">تعلمت اليوم ${num(tdy.n)} كلمة · راجعت ${num(tdy.r)}</span></div></div>
+      <span class="small muted">تعلمت اليوم ${num(tdy.n)} كلمة · راجعت ${num(tdy.r)}</span></div></div>`}
     <div class="stack" style="margin-top:14px">
       ${L ? `<button class="big main" id="lesson"><span class="ico" style="background:${T.color}33">${T.icon}</span><span class="tx"><b>الدرس التالي</b><small>${esc(T.ar)} · الدرس ${num(L.i + 1)} من ${num(T.lessons.length)}</small>
         <span class="prevw">${T.lessons[L.i].slice(0, 7).map(w => pic(w)).join('')}</span></span><span class="go">◀</span></button>`
            : `<div class="card center"><b>أنهيت كل الدروس! 👑</b><div class="muted small">واصل المراجعة والألعاب لتبقى الكلمات في ذاكرتك.</div></div>`}
       <button class="big" id="review"><span class="ico" style="background:#dbeafe">🔁</span><span class="tx"><b>المراجعة الذكية</b><small>${due ? 'كلمات حان وقت مراجعتها حتى لا تنساها' : 'لا مراجعة الآن. تعود الكلمات في وقتها.'}</small></span>${due ? `<span class="badge">${num(due)}</span>` : '<span class="go">✓</span>'}</button>
+      <div class="duo"><button class="big half" id="spell"><span class="ico" style="background:#fde68a">✏️</span><span class="tx"><b>ورشة الإملاء</b><small>${(tdy.sp || 0) ? 'أحسنت اليوم ✓' : spDue() ? num(spDue()) + ' كلمة تنتظرك' : '٦ كلمات تكتبها'}</small></span></button>
+        <button class="big half" id="rule"><span class="ico" style="background:#e0e7ff">🧩</span><span class="tx"><b>قاعدة اليوم</b><small class="en">${esc(ruleOfDay().en)}</small></span></button></div>
     </div>
     <div class="minis" style="margin-top:14px">
       <button class="mini" data-go="map"><span>🗺️</span>المواضيع</button>
@@ -341,10 +351,13 @@ def('home', () => {
   $('#fh').onclick = () => { const f = $('#fh'); f.classList.remove('bob', 'hop'); void f.offsetWidth; f.classList.add('hop'); VO.say({ a: pick(['home-1', 'home-2']) }); };
   if (L) on('#lesson', () => go('lesson', L));
   on('#review', () => startReview());
+  on('#spell', () => go('spell'));
+  on('#rule', () => go('rule', ruleOfDay().id));
+  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else startReview(); });
   on('[data-go]', el => go(el.dataset.go));
   on('#par', () => go('gate'));
   on('#fechip', () => go('shop'));
-  if (!ST.placed && nl === 0) setTimeout(() => { if (cur.name === 'home') go('placeAsk'); }, 400);
+  if (!ST.placed && nl === 0 && !ST.plan) setTimeout(() => { if (cur.name === 'home') go('placeAsk'); }, 400);
   if (pendingRank >= 0) { const pr = pendingRank; pendingRank = -1; setTimeout(() => rankSheet(pr), 500); }
 });
 
@@ -441,6 +454,7 @@ function lessonDone(T, i, L, S) {
   L.forEach(introduce);
   ST.ls[key] = Math.max(ST.ls[key] || 0, stars);
   today().l++; if (!wrong) ST.perfect++;
+  ST.alt = T.id === 'big' ? 0 : 1;   // with the plan, a lesson of big words comes after every other lesson
   const fe = 5 + stars * 2; ST.fe += fe; save();
   const streakUp = touchStreak();
   app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ mood: 'happy', pose: 'cheer' })}</div><h2>أنهيت الدرس!</h2>
@@ -463,6 +477,7 @@ function celebrate(lines) {
   const got = newBadges();
   if (got.length) { lines.push(300, { a: 'badge' }); got.forEach((b, j) => setTimeout(() => toast(`${b[1]} وسام جديد: ${b[2]}`), 900 + j * 900)); }
   if (today().l >= ST.set.goal && ST.goalDay !== DAY()) { ST.goalDay = DAY(); lines.push(300, { a: 'goal' }); setTimeout(() => toast('🎯 حققت هدف اليوم!'), 2200); }
+  if (ST.plan && ST.planDay !== DAY() && planSteps().every(s => s.done)) { ST.planDay = DAY(); lines.push(300, { a: 'plan-all' }); setTimeout(() => { toast('🌟 أنهيت خطة اليوم كلها!'); FX.confetti(); }, 3000); }
   save(); VO.say(lines);
 }
 function rankSheet(r) {
@@ -610,6 +625,8 @@ const BADGES = [
   ['talk10', '🎤', 'متحدث', '١٠ إجابات في «تحدّث»', () => ST.talkN >= 10], ['games10', '🎮', 'لاعب ماهر', 'لعبت ١٠ ألعاب', () => ST.games >= 10],
   ['stage1', '🥉', 'المرحلة الأولى', 'أنهيت «الأساس»', () => stageDone(1)], ['stage2', '🥈', 'المرحلة الثانية', 'أنهيت «المستوى الرابع»', () => stageDone(2)],
   ['stage3', '🥇', 'المرحلة الثالثة', 'أنهيت «انطلق أبعد»', () => stageDone(3)], ['place', '🧭', 'المستكشف', 'أجريت اختبار تحديد المستوى', () => ST.placed === true],
+  ['spell20', '✏️', 'كاتب ماهر', 'كتبت ٢٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 20], ['spell100', '🖋️', 'بطل الإملاء', 'كتبت ١٠٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 100],
+  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
 ];
 function newBadges() { const got = []; BADGES.forEach(b => { if (!ST.badges[b[0]] && b[4]()) { ST.badges[b[0]] = DAY(); got.push(b); } }); return got; }
 def('badges', () => {
@@ -644,6 +661,7 @@ def('parents', () => {
       <div class="legend"><span><i style="background:var(--gold)"></i>كلمات جديدة</span><span><i style="background:#7cb8ff"></i>مراجعات</span></div></div>
     <div class="sec">المراحل</div><div class="card stack">${stg.map(([n, g, t]) => `<div><b>${n}</b> <span class="muted small num">${g}/${t}</span><div class="pbar green" style="margin-top:4px"><i style="width:${Math.round(g / t * 100)}%"></i></div></div>`).join('')}</div>
     <div class="sec">كلمات تحتاج تدريبًا</div><div class="card">${hard.length ? hard.map(w => `<div class="hard">${pic(w)}<span class="en">${esc(w.en)}</span><span class="muted small">${esc(w.ar)}</span><button class="tbtn" data-k="${esc(w.k)}">🔊</button></div>`).join('') : '<p class="muted" style="margin:0">لا توجد كلمات صعبة الآن.</p>'}</div>
+    ${planParents()}
     <div class="sec">الإعدادات</div><div class="card">
       <div class="setrow"><span>هدف اليوم</span><div class="seg" id="goal">${[1, 2, 3].map(g => `<button data-g="${g}" class="${ST.set.goal === g ? 'on' : ''}">${g === 1 ? 'درس' : g === 2 ? 'درسان' : '٣ دروس'}</button>`).join('')}</div></div>
       <div class="setrow"><span>كلمات المراجعة في الجلسة</span><div class="seg" id="rev">${[10, 15, 20].map(g => `<button data-r="${g}" class="${ST.set.rev === g ? 'on' : ''}">${g}</button>`).join('')}</div></div>
@@ -651,9 +669,10 @@ def('parents', () => {
       <div class="setrow"><span>المؤثرات الصوتية</span><button class="switch${ST.set.sfx ? ' on' : ''}" data-s="sfx" aria-label="المؤثرات"></button></div>
       <div class="setrow"><span>النطق بالميكروفون${MIC ? '' : ' (لا يدعمه هذا المتصفح)'}</span><button class="switch${ST.set.mic ? ' on' : ''}" data-s="mic" aria-label="الميكروفون"></button></div></div>
     <div class="sec">لمعلمة الحصة</div><div class="card stack"><p class="muted small" style="margin:0">انسخوا قائمة الكلمات التي تعلمها وأرسلوها لمعلمته لتستعملها معه في الحصة.</p>
-      <button class="btn soft small" id="copy">📋 نسخ قائمة الكلمات</button><textarea class="copybox" id="cbox" readonly hidden></textarea></div>
+      <button class="btn soft small" id="copy">📋 نسخ قائمة الكلمات</button><button class="btn soft small" id="copyt">📋 نسخ ملاحظات اختبار المستوى</button><textarea class="copybox" id="cbox" readonly hidden></textarea></div>
     <div class="sec">كيف يعمل البرنامج؟</div><div class="card"><p style="margin:0" class="small">
-      ٧٣٢ كلمة وجملة في ٣٢ موضوعًا على ثلاث مراحل، تبدأ بكلمات الأساس ثم كلمات المستوى الرابع ثم أبعد. كل درس ٦ كلمات تقريبًا: يتعرف عليها بالصورة والصوت والمثال، ثم يتدرب عليها بأسئلة متنوعة.
+      ${num(WORDS.length)} كلمة وجملة في ${num(TOPICS.length)} موضوعًا على ثلاث مراحل، تبدأ بكلمات الأساس ثم كلمات المستوى الرابع ثم أبعد. كل درس ٦ كلمات تقريبًا: يتعرف عليها بالصورة والصوت والمثال، ثم يتدرب عليها بأسئلة متنوعة.
+      وفي ورشة الإملاء يرى الكلمة بحروفها الملونة ثم يكتبها من ذاكرته، وتعود كل كلمة بعد يوم ثم ٣ أيام ثم أسبوع حتى يثبت إملاؤها. وفي «قاعدة اليوم» شرح قصير وثماني جمل لقاعدة من القواعد التي أخطأ فيها في اختبار المستوى.
       بعد الدرس تدخل الكلمة «المراجعة الذكية»: تعود بعد يوم، ثم يومين، ثم ٤ أيام، ثم أسبوع، ثم أسبوعين، ثم شهر. إذا أخطأ فيها تعود من البداية. هكذا تنتقل الكلمة إلى الذاكرة الطويلة.
       يكفي ١٠–١٥ دقيقة يوميًا: درس جديد ومراجعة ما حان وقته. كل كلمة وجملة إنجليزية مسجلة بصوت Azure الإنجليزي (صوت أولي)، وكل معنى وترجمة وتعليمات بالعربية بصوت حامد، ولا يُستعمل صوت الجهاز أبدًا. المؤثرات بلا موسيقى.</p></div>
     <div class="sec">البدء من جديد</div><div class="card stack"><button class="btn soft small" id="place">🧭 إعادة اختبار تحديد المستوى</button><button class="btn soft small" id="reset" style="color:var(--bad2)">🗑️ مسح كل التقدم</button></div>`;
@@ -662,6 +681,9 @@ def('parents', () => {
   on('[data-g]', el => { ST.set.goal = +el.dataset.g; save(); render(); });
   on('[data-r]', el => { ST.set.rev = +el.dataset.r; save(); render(); });
   on('[data-s]', el => { const k = el.dataset.s; ST.set[k] = !ST.set[k]; if (k === 'mic') micBlocked = false; save(); el.classList.toggle('on', ST.set[k]); });
+  on('[data-st]', el => { ST.set.start = +el.dataset.st; save(); render(); });
+  on('#copyt', () => { const box = $('#cbox'); box.value = PLAN.teacher; box.hidden = false;
+    try { navigator.clipboard.writeText(PLAN.teacher).then(() => toast('نُسخت الملاحظات ✓'), () => { box.select(); toast('اضغطوا على النص وانسخوه'); }); } catch (e) { box.select(); } });
   on('#copy', () => {
     const ws = WORDS.filter(isLearned), text = `Words I learned (${ws.length}):\n` + TOPICS.map(t => { const x = t.words.filter(isLearned); return x.length ? `${t.en}: ${x.map(w => w.en).join(', ')}` : ''; }).filter(Boolean).join('\n');
     const box = $('#cbox'); box.value = text; box.hidden = false;
@@ -673,4 +695,4 @@ def('parents', () => {
 
 /* ---------- boot (called at the very end of the page, after quiz.js, talk.js and games.js) ---------- */
 function boot() { FX.init(); cur = { name: 'splash' }; render(); }
-window.FALCON = { get ST() { return ST; }, set ST(v) { ST = v; }, VO, WORDS, TOPICS, go, home, save, DAY }; // for the test bot
+window.FALCON = { get ST() { return ST; }, set ST(v) { ST = v; }, VO, WORDS, TOPICS, go, home, save, DAY, RULES, teams, spellRound, nextLesson }; // for the test bot

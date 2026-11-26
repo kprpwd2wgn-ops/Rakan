@@ -134,8 +134,8 @@ def build_genius():
 # One page from src/falcon/: page.html with style.css, the word data (words1-3.js and say.js, which also run in node
 # for tools/falcon-voices.js) and the program (art.js, app.js, quiz.js, talk.js, games.js). Its voice packs come from
 # tools/falcon-voices.js.
-FALCON_DATA=['words1.js','words2.js','words3.js','say.js']
-FALCON_APP=['art.js','app.js','quiz.js','talk.js','games.js']
+FALCON_DATA=['words1.js','words2.js','words3.js','say.js','plan.js']
+FALCON_APP=['art.js','app.js','quiz.js','talk.js','games.js','plan-app.js']
 def build_falcon():
     S=os.path.join(R,'falcon'); rd=lambda f:open(os.path.join(S,f),encoding='utf-8').read()
     data='\n'.join(rd(f) for f in FALCON_DATA)

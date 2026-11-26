@@ -372,6 +372,65 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media (max-width:380px){.meet .word{font-size:38px}.prompt .wbig{font-size:34px}.opt{font-size:19px}.hero .fhome{width:120px;height:120px}}
 
+/* ---------- his plan from the level test: today's plan, spelling workshop, rule of the day ---------- */
+.plan .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.step{display:grid;justify-items:center;gap:4px;padding:10px 4px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:14px;font-weight:700;line-height:1.25;text-align:center}
+.step:active{transform:translateY(2px)}
+.step .si{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#fff;font-family:var(--emo)}
+.step.done{background:var(--okbg);color:var(--ok2);box-shadow:0 3px 0 #a7e3bb}
+.step.done .si{background:var(--ok);color:#fff;font-family:var(--f-num);font-weight:700}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.big.half{flex-direction:column;align-items:flex-start;gap:8px;min-height:0;padding:12px 14px}
+.big.half .ico{width:46px;height:46px;font-size:26px;border-radius:14px}
+.big.half .tx b{font-size:18px}
+.big.half .tx small.en{font-size:14px}
+.planlist{width:100%;text-align:right}
+.planlist .pl{display:flex;align-items:center;gap:12px}
+.planlist .pl>span{width:46px;height:46px;border-radius:14px;background:var(--sky2);display:grid;place-items:center;font-size:26px;flex:none;font-family:var(--emo)}
+.planlist .pl b{display:block;font-size:18px}
+.planlist .pl small{display:block;color:var(--ink2);font-size:14px;line-height:1.4}
+.planpar ul{margin:4px 0 0;padding-inline-start:22px}
+.planpar li{margin:2px 0}
+.chips2{display:flex;flex-wrap:wrap;gap:8px}
+.chips2 span{background:var(--sky2);border-radius:99px;padding:4px 12px;font-weight:700;font-size:14px}
+.sword{font-family:var(--f-en);font-size:46px;font-weight:700;line-height:1.15;color:var(--night);letter-spacing:.04em;overflow-wrap:anywhere}
+.sword.small{font-size:30px}
+.sword .tm{color:#b45309;background:#fff1c2;border-radius:10px;padding:0 3px;font-weight:700}
+.sword .x{color:var(--bad2);background:var(--badbg);border-radius:6px;text-decoration:underline wavy}
+.spslots{gap:10px}
+.spslots .grp{display:flex;gap:4px}
+.spslots .grp.tm{padding:4px;border-radius:16px;background:#fff1c2;box-shadow:inset 0 0 0 2px #f5d37a}
+.spslots .slot{cursor:pointer}
+.spslots .slot.good{border-color:var(--ok);background:var(--okbg);color:var(--ok2)}
+.spslots .slot.bad{border-style:solid;border-color:var(--bad);background:var(--badbg);color:var(--bad2)}
+.spslots .slot.hinted{border-color:var(--gold2)}
+.spslots.long{gap:7px}
+.spslots.long .grp{gap:3px}
+.spslots.long .slot{width:32px;height:44px;font-size:22px;border-radius:10px}
+.tiles.long .tile{min-width:42px;height:48px;font-size:22px}
+.spfix{display:grid;justify-items:center;gap:2px;text-align:center;margin-top:14px}
+.wlist span.again{box-shadow:0 3px 0 #f3c2c2}
+.rulecard{display:grid;gap:12px}
+.rhead{display:flex;align-items:center;gap:12px}
+.rhead b{font-size:21px}
+.ricon{width:52px;height:52px;border-radius:16px;background:#e0e7ff;display:grid;place-items:center;font-size:28px;flex:none;font-family:var(--emo)}
+.rparts{display:grid;gap:8px}
+.rp{margin:0;padding:10px 12px;border-radius:14px;opacity:.45;transition:opacity .3s,background .3s}
+.rp.on{opacity:1}
+.rp.ar{font-size:18px;font-weight:700}
+.rp.ar.on{background:var(--sky2)}
+.rp.ex{font-size:22px;background:var(--card2);display:flex;align-items:center;gap:10px}
+.rp.ex .t{flex:1;min-width:0}
+.rp.ex.on{background:#fff7dc;box-shadow:inset 0 0 0 2px #f5d37a}
+.rp .rsay{font-size:18px;width:34px;height:34px;border-radius:50%;background:var(--sky2);flex:none}
+.rp.wrong{font-size:20px;color:var(--bad2);background:var(--badbg)}
+.rp.wrong s{text-decoration-thickness:2px}
+.rchip{display:inline-block;background:#e0e7ff;color:#3730a3;border-radius:99px;padding:2px 12px;font-size:14px;font-weight:700}
+.lcard.today-rule{outline:3px solid var(--gold);outline-offset:2px}
+.chip.today{background:var(--gold);color:#3b2a00}
+.mark .sfx{color:#c2410c;font-weight:800;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:3px}
+.en.nb{white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -385,12 +444,14 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
    picture: an emoji (2021 or older), or @name for a drawing in art.js.
    flags: w = the picture alone does not show the word (no picture-only questions for it),
           s = a sacred word (kept out of the action games), p = a class phrase (column 4 empty, column 5 = when to say it).
+   An optional column 7 names the wrong answers of the sentence question (words of the same topic), when the usual
+   choice by kind of word could give a second word that fits.
    Every english word and sentence is a recorded clip in Ollie's voice (tools/falcon-voices.js). */
 const TOPICS = [];
 function T(id, ar, en, icon, color, stage, rows){
   const words = rows.trim().split('\n').map(l => l.trim()).filter(Boolean).map(l => {
     const f = l.split(' | ').map(x => x.trim());
-    return { en: f[0], ar: f[1], pic: f[2], ex: f[3] || '', exAr: f[4] || '', fl: f[5] || '', t: id };
+    return { en: f[0], ar: f[1], pic: f[2], ex: f[3] || '', exAr: f[4] || '', fl: f[5] || '', t: id, gx: f[6] ? f[6].split(',').map(x => x.trim().toLowerCase()) : null };
   });
   TOPICS.push({ id, ar, en, icon, color, stage, words });
 }
@@ -1227,6 +1288,42 @@ strange | غريب | 👽 | What a strange animal! | يا له من حيوان �
 favorite | مفضل | ❤️ | Pizza is my favorite food. | البيتزا طعامي المفضل. | w
 `);
 
+/* Big words (B1), added after his level test of 26 Nov 2026: the words he could not read there (journey, environment,
+   decide) and more of the same kind, words a picture cannot show. Column 7 holds the wrong answers of the sentence
+   question, picked by hand from this topic so that only one choice fits. */
+T('big', 'كلمات كبيرة', 'Big Words', '🦅', '#b45309', 3, `
+journey | رحلة | 🐫 | The journey to the desert was long. | كانت الرحلة إلى الصحراء طويلة. | w | idea, energy, mistake
+travel | يسافر | ✈️ | We travel to Abha every summer. | نسافر إلى أبها كل صيف. | w | decide, borrow, imagine
+arrive | يصل | 🛬 | Our plane will arrive at five o'clock. | ستصل طائرتنا في الساعة الخامسة. | w | explain, collect, solve
+explore | يستكشف | 🧭 | We want to explore the old castle. | نريد أن نستكشف القلعة القديمة. | w | agree, energy, maybe
+adventure | مغامرة | 🗺️ | Our trip to the mountains was a big adventure. | كانت رحلتنا إلى الجبال مغامرة كبيرة. | w | information, energy, enough
+decide | يقرر | ⚖️ | It is hard to decide which game to play. | من الصعب أن أقرر أي لعبة ألعب. | w | arrive, travel, energy
+environment | البيئة | ♻️ | We must keep our environment clean. | يجب أن نحافظ على بيئتنا نظيفة. | w | idea, mistake, future
+protect | يحمي | 🛡️ | A helmet can protect your head. | تستطيع الخوذة أن تحمي رأسك. | w | arrive, explain, borrow
+discover | يكتشف | 🔎 | Scientists discover new things every day. | يكتشف العلماء أشياء جديدة كل يوم. | w | arrive, agree, maybe
+energy | طاقة | ⚡ | Fruit gives you energy to play. | الفاكهة تعطيك طاقة لتلعب. | w | mistake, journey, problem
+information | معلومات | ℹ️ | The library has a lot of information about animals. | في المكتبة معلومات كثيرة عن الحيوانات. | w | energy, adventure, future
+imagine | يتخيل | 💭 | Imagine you can fly like a bird! | تخيل أنك تستطيع أن تطير مثل الطائر! | w | arrive, borrow, collect
+explain | يشرح | 👩‍🏫 | Can you explain the lesson again, please? | هل يمكنك أن تشرح الدرس مرة أخرى، من فضلك؟ | w | arrive, travel, agree
+idea | فكرة | 💡 | I have a great idea! Let's build a tent. | لدي فكرة رائعة! هيا نبني خيمة. | w | information, problem, energy
+problem | مشكلة | 😣 | No problem! I can help you. | لا مشكلة! أستطيع أن أساعدك. | w | mistake, journey, energy
+solve | يحل | 🔑 | Can you solve this puzzle? | هل تستطيع أن تحل هذه الأحجية؟ | w | arrive, agree, travel
+mistake | خطأ | ❌ | It is OK to make a mistake. | لا بأس أن ترتكب خطأ. | w | energy, information, future
+improve | يحسن | 📈 | I read every day to improve my English. | أقرأ كل يوم لأحسن لغتي الإنجليزية. | w | arrive, agree, return
+prepare | يجهز | 🎒 | I prepare my school bag at night. | أجهز حقيبتي المدرسية في الليل. | w | arrive, agree, explain
+borrow | يستعير | 📕 | Can I borrow your book, please? | هل يمكنني أن أستعير كتابك، من فضلك؟ | w | arrive, decide, nervous
+return | يرجع | 🔄 | Please return the book to the library. | من فضلك أرجع الكتاب إلى المكتبة. | w | decide, imagine, agree
+collect | يجمع | 🐚 | I like to collect shells on the beach. | أحب أن أجمع الأصداف على الشاطئ. | w | arrive, agree, solve
+agree | يوافق | 🙆 | I agree with you. You are right. | أنا أوافقك. أنت على حق. | w | borrow, solve, collect
+competition | مسابقة | 🏅 | Our class won the reading competition. | فاز فصلنا في مسابقة القراءة. | w | energy, information, mistake
+maybe | ربما | 🤷 | Maybe it will rain tomorrow. | ربما تمطر غدًا. | w | enough, already, nervous
+enough | يكفي | ✋ | We have enough water for the trip. | لدينا ماء يكفي للرحلة. | w | maybe, nervous, possible
+already | بالفعل | ☑️ | I have already finished my homework. | لقد أنهيت واجبي بالفعل. | w | enough, possible, nervous
+possible | ممكن | 👌 | Is it possible to visit the zoo today? | هل من الممكن أن نزور حديقة الحيوان اليوم؟ | w | nervous, already, maybe
+nervous | متوتر | 😰 | I feel nervous before a test. | أشعر بالتوتر قبل الاختبار. | w | enough, possible, already
+future | المستقبل | ⏩ | In the future, I want to be a pilot. | في المستقبل، أريد أن أصبح طيارًا. | w | energy, information, adventure
+`);
+
 /* Talk time: the voice asks q, the child answers with the frame f (___ is the part he fills in);
    a is a model answer, said after he speaks. */
 const TALK = [
@@ -1294,6 +1391,9 @@ const TALK = [
  ['class','Are you ready?','هل أنت جاهز؟','Yes, I\'m ___!','Yes, I\'m ready!'],
  ['describe','What is a table made of?','مم تصنع الطاولة؟','A table is made of ___.','A table is made of wood.'],
  ['describe','What is your favorite thing?','ما أكثر شيء تحبه من أغراضك؟','My favorite thing is my ___.','My favorite thing is my bike.'],
+ ['big','Where do you want to travel?','إلى أين تريد أن تسافر؟','I want to travel to ___.','I want to travel to Makkah with my family.'],
+ ['big','What do you want to be in the future?','ماذا تريد أن تصبح في المستقبل؟','In the future, I want to be ___.','In the future, I want to be an engineer.'],
+ ['big','What do you do when you make a mistake?','ماذا تفعل عندما ترتكب خطأ؟','When I make a mistake, I ___.','When I make a mistake, I try again.'],
 ].map(([t, q, qAr, f, a]) => ({ t, q, qAr, f, a }));
 
 const WORDS = [].concat(...TOPICS.map(t => t.words));
@@ -1392,6 +1492,39 @@ const AR = {
   't-special': 'أَيَّامُنَا الْمُمَيَّزَةُ.',
   't-class': 'جُمَلُ حِصَّتِي الْإِنْجِلِيزِيَّةِ.',
   't-describe': 'نَصِفُ الْأَشْيَاءَ.',
+  't-big': 'كَلِمَاتٌ كَبِيرَةٌ.',
+  // his plan from the level test (plan.js)
+  'plan-1': 'قَرَأْتُ نَتِيجَةَ اخْتِبَارِكَ! أَنْتَ مُمْتَازٌ فِي الِاسْتِمَاعِ وَالْقِرَاءَةِ.',
+  'plan-2': 'وَالْآنَ سَنَتَدَرَّبُ كُلَّ يَوْمٍ عَلَى كِتَابَةِ الْكَلِمَاتِ، وَعَلَى قَوَاعِدَ سَهْلَةٍ، وَعَلَى كَلِمَاتٍ كَبِيرَةٍ.',
+  'plan-3': 'هَذِهِ خُطَّتُكَ لِكُلِّ يَوْمٍ: عِشْرُونَ دَقِيقَةً فَقَطْ. هَيَّا بِنَا!',
+  'plan-all': 'أَنْهَيْتَ خُطَّةَ الْيَوْمِ كُلَّهَا! أَنْتَ بَطَلٌ حَقِيقِيٌّ.',
+  // the spelling workshop
+  'sp-intro': 'وَرْشَةُ الْإِمْلَاءِ! اُنْظُرْ إِلَى الْكَلِمَةِ جَيِّدًا، ثُمَّ نُخْفِيهَا، فَتَكْتُبُهَا أَنْتَ بِالْحُرُوفِ.',
+  'sp-look': 'اُنْظُرْ إِلَى الْحُرُوفِ الْمُلَوَّنَةِ، فَهِيَ تَأْتِي مَعًا.',
+  'sp-build': 'الْآنَ اُكْتُبِ الْكَلِمَةَ بِالْحُرُوفِ.',
+  'sp-memory': 'هَلْ تَتَذَكَّرُهَا؟ اُكْتُبْهَا مِنْ ذَاكِرَتِكَ.',
+  'sp-fix': 'قَرِيبٌ! اُنْظُرْ إِلَى الْكَلِمَةِ الصَّحِيحَةِ، ثُمَّ اكْتُبْهَا مَرَّةً أُخْرَى.',
+  'sp-done': 'أَحْسَنْتَ! صِرْتَ تَكْتُبُ كَلِمَاتٍ أَكْثَرَ بِلَا أَخْطَاءٍ.',
+  // the rule of the day
+  'rules': 'اِخْتَرْ قَاعِدَةً لِتَتَدَرَّبَ عَلَيْهَا.',
+  'rule-intro': 'قَاعِدَةُ الْيَوْمِ! اِسْمَعِ الشَّرْحَ، ثُمَّ أَجِبْ عَنِ الْأَسْئِلَةِ.',
+  'rule-great': 'مُمْتَازٌ! فَهِمْتَ الْقَاعِدَةَ جَيِّدًا.',
+  'rule-more': 'جَيِّدٌ! سَنَتَدَرَّبُ عَلَيْهَا مَرَّةً أُخْرَى حَتَّى تُتْقِنَهَا.',
+  'rule-master': 'رَائِعٌ! أَتْقَنْتَ هَذِهِ الْقَاعِدَةَ، وَغَدًا نَبْدَأُ قَاعِدَةً جَدِيدَةً.',
+  'r-wrong': 'اِنْتَبِهْ: هَذِهِ الْجُمْلَةُ خَطَأٌ، فَلَا نَقُولُهَا.',
+  'r-s-1': 'مَعَ: أَنَا، وَنَحْنُ، وَهُمْ، يَبْقَى الْفِعْلُ كَمَا هُوَ:',
+  'r-s-2': 'وَمَعَ الشَّخْصِ الْوَاحِدِ: هُوَ، أَوْ هِيَ، أَوْ أُخْتِي، نُضِيفُ حَرْفًا فِي آخِرِ الْفِعْلِ:',
+  'r-s-3': 'وَلَا نَضَعُ قَبْلَ الْفِعْلِ كَلِمَةً زَائِدَةً، فَهَذِهِ الْجُمْلَةُ خَطَأٌ.',
+  'r-time-1': 'مَعَ أَيَّامِ الْأُسْبُوعِ نَقُولُ:',
+  'r-time-2': 'وَمَعَ الشُّهُورِ، وَالْفُصُولِ، وَأَجْزَاءِ الْيَوْمِ، نَقُولُ:',
+  'r-time-3': 'وَمَعَ السَّاعَةِ نَقُولُ:',
+  'r-time-4': 'وَانْتَبِهْ! مَعَ اللَّيْلِ نَقُولُ:',
+  'r-bc-1': 'مَعْنَاهَا: لِأَنَّ، وَيَأْتِي بَعْدَهَا السَّبَبُ:',
+  'r-bc-2': 'وَهَذِهِ مَعْنَاهَا: لِذَلِكَ، وَيَأْتِي بَعْدَهَا مَا حَدَثَ:',
+  'r-sf-1': 'نَقُولُهَا مَعَ الْوَقْتِ الَّذِي بَدَأَ فِيهِ الشَّيْءُ، مِثْلَ سَنَةٍ أَوْ يَوْمٍ:',
+  'r-sf-2': 'وَهَذِهِ نَقُولُهَا مَعَ طُولِ الْمُدَّةِ، مِثْلَ ثَلَاثِ سَنَوَاتٍ أَوْ سَاعَةٍ:',
+  'r-bb-1': 'يَعْنِي: جَيِّدٌ، ثُمَّ أَفْضَلُ، ثُمَّ الْأَفْضَلُ مِنَ الْجَمِيعِ:',
+  'r-bb-2': 'وَمَعَ الصِّفَاتِ الْقَصِيرَةِ نُضِيفُ حُرُوفًا فِي آخِرِهَا:',
 };
 const EN_UI = {
   good: ['Great job!', 'Excellent!', 'Great!', 'Awesome!', 'Nice!', 'Well done!', 'Perfect!', 'Amazing!', 'You got it!', 'Super!', 'Fantastic!'],
@@ -1399,6 +1532,105 @@ const EN_UI = {
   misc: ['Try like this:'],
 };
 if (typeof module !== 'undefined') module.exports = { AR, EN_UI };
+
+/* صقر الكلمات — his plan from the level test (level-test.html) of 26 Nov 2026, read by Claude.
+   Results: listening 88%, reading 100%, speaking 100% (as his parents rated it), words 86%, grammar 69%, spelling 25%.
+   Level A2, with listening and reading already at the start of B1. So new lessons start with the level-4 words (stage 2),
+   every other lesson comes from «كلمات كبيرة» (B1 words, the kind he could not read in the test), the spelling workshop
+   trains writing, and the rule of the day works on the five slips of the grammar part.
+   The plan is applied once in each browser (ST.plan); after that the parents can change it in their corner. */
+const PLAN = {
+  id: 'lt-2026-11-26', day: '٢٦ نوفمبر ٢٠٢٦', start: 2, big: true,
+  spell: ['fish', 'elephant', 'butterfly'],   // the words he spelled wrong in the test come first in the workshop
+  level: 'ما قبل المتوسط (A2)، وفي الاستماع والقراءة وصل إلى بداية المتوسط (B1)',
+  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلام', 100], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
+  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها', 'يجيب عن الأسئلة القصيرة بجملة كاملة'],
+  needs: ['كتابة الكلمات بحروفها (الإملاء)', 'الكلمات التي لا تظهر في صورة، مثل: journey، decide، environment',
+    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الإجابة في الحصة بجملتين أو ثلاث بدل جملة واحدة'],
+  teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). Please help him with spelling, ' +
+    'he/she + verb-s (he plays), on/in/at with time, because and so, since and for, good/better/the best, ' +
+    'and answering with two or three sentences.',
+};
+
+/* The rule of the day. A rule is said in parts: a = one of Hamed's lines (AR), e = an English line in Ollie's voice with
+   hl the words to light up, x = a wrong sentence, shown crossed out and never said. Then 8 sentences to complete.
+   Every e line and every finished sentence is a recorded clip (tools/falcon-voices.js). None of them is a sentence of the
+   level test, so the next test still shows what he learned. */
+const RULES = [
+  { id: 's', ar: 'الفعل مع هو وهي', en: 'He plays.', icon: '🏃', parts: [
+      { a: 'r-s-1' }, { e: 'I like apples.', hl: ['like'] },
+      { a: 'r-s-2' }, { e: 'My sister likes apples.', hl: ['like+s'] },
+      { a: 'r-s-3' }, { x: 'My sister is like apples.' }],
+    qs: [
+      ['My sister ___ to school by bus.', 'goes', ['go', 'is go']],
+      ['He ___ his teeth every morning.', 'brushes', ['brush', 'is brush']],
+      ['Our cat ___ milk every day.', 'drinks', ['drink', 'is drink']],
+      ['My father ___ the car on Friday.', 'washes', ['wash', 'is wash']],
+      ['Sara ___ English very well.', 'speaks', ['speak', 'is speak']],
+      ['The baby ___ a lot.', 'sleeps', ['sleep', 'is sleep']],
+      ['I ___ football after school.', 'play', ['plays', 'is play']],
+      ['We ___ in a big house.', 'live', ['lives', 'is live']],
+    ] },
+  { id: 'time', ar: 'on و in و at مع الوقت', en: 'on Monday · in summer · at six', icon: '⏰', parts: [
+      { a: 'r-time-1' }, { e: 'I have English on Monday.', hl: ['on'] },
+      { a: 'r-time-2' }, { e: 'In winter, we wear warm clothes.', hl: ['In'] },
+      { a: 'r-time-3' }, { e: "I wake up at six o'clock.", hl: ['at'] },
+      { a: 'r-time-4' }, { e: 'I sleep at night.', hl: ['at'] },
+      { a: 'r-wrong' }, { x: 'I have English in Monday.' }],
+    qs: [
+      ['My cousin visits us ___ Wednesday.', 'on', ['in', 'at']],
+      ['The sun is very hot ___ summer.', 'in', ['on', 'at']],
+      ["School starts ___ seven o'clock.", 'at', ['on', 'in']],
+      ['___ Friday, we pray at the mosque.', 'On', ['In', 'At']],
+      ['I drink milk ___ the morning.', 'in', ['on', 'at']],
+      ["I go to bed ___ nine o'clock.", 'at', ['in', 'on']],
+      ['We fast ___ Ramadan.', 'in', ['on', 'at']],
+      ['The owl hunts ___ night.', 'at', ['in', 'on']],
+    ] },
+  { id: 'because', ar: 'because و so', en: 'because · so', icon: '🔗', parts: [
+      { e: 'because', hl: ['because'] }, { a: 'r-bc-1' }, { e: 'I went to bed early because I was tired.', hl: ['because'] },
+      { e: 'so', hl: ['so'] }, { a: 'r-bc-2' }, { e: 'I was tired, so I went to bed early.', hl: ['so'] }],
+    qs: [
+      ['I am happy ___ it is Eid today.', 'because', ['so', 'but']],
+      ['I was hungry, ___ I ate a sandwich.', 'so', ['because', 'but']],
+      ['He is tired ___ he played a lot.', 'because', ['so', 'or']],
+      ['It was raining, ___ we stayed at home.', 'so', ['because', 'but']],
+      ['I drink water ___ I am thirsty.', 'because', ['so', 'but']],
+      ['The bag was heavy, ___ my father helped me.', 'so', ['because', 'or']],
+      ['We wear warm clothes ___ it is cold.', 'because', ['so', 'but']],
+      ['I studied hard, ___ I passed the test.', 'so', ['because', 'but']],
+    ] },
+  { id: 'since', ar: 'since و for', en: 'since 2022 · for three years', icon: '⏳', parts: [
+      { e: 'since', hl: ['since'] }, { a: 'r-sf-1' }, { e: 'I have studied English since 2022.', hl: ['since'] },
+      { e: 'for', hl: ['for'] }, { a: 'r-sf-2' }, { e: 'I have studied English for three years.', hl: ['for'] },
+      { a: 'r-wrong' }, { x: 'I have studied English from 2022.' }],
+    qs: [
+      ['I have known Ali ___ 2019.', 'since', ['for', 'from']],
+      ['We have lived in this house ___ six years.', 'for', ['since', 'from']],
+      ['She has been here ___ Monday.', 'since', ['for', 'from']],
+      ['I have waited ___ an hour.', 'for', ['since', 'from']],
+      ['My uncle has worked there ___ 2015.', 'since', ['for', 'from']],
+      ['We have had our cat ___ two years.', 'for', ['since', 'from']],
+      ['He has played football ___ he was six.', 'since', ['for', 'from']],
+      ['They have been friends ___ a long time.', 'for', ['since', 'from']],
+    ] },
+  { id: 'best', ar: 'better و the best', en: 'good · better · the best', icon: '🏆', parts: [
+      { e: 'good, better, the best.', hl: ['good', 'better', 'best'] }, { a: 'r-bb-1' }, { e: 'My mother makes the best bread.', hl: ['best'] },
+      { e: 'big, bigger, the biggest.', hl: ['big', 'bigg+er', 'bigg+est'] }, { a: 'r-bb-2' }, { e: 'The whale is the biggest animal in the sea.', hl: ['bigg+est'] },
+      { a: 'r-wrong' }, { x: 'the most good' }, { x: 'more big' }],
+    qs: [
+      ['My drawing is ___ than yours.', 'better', ['best', 'more good']],
+      ['Omar is the ___ player in our class.', 'best', ['better', 'most good']],
+      ['The elephant is the ___ animal in the zoo.', 'biggest', ['bigger', 'most big']],
+      ['A camel is ___ than a goat.', 'bigger', ['biggest', 'more big']],
+      ['The falcon is the ___ bird.', 'fastest', ['faster', 'most fast']],
+      ['Today is ___ than yesterday.', 'hotter', ['hottest', 'more hot']],
+      ['This is the ___ day of my life!', 'best', ['better', 'most good']],
+      ['Your bag is ___ than mine.', 'heavier', ['heaviest', 'more heavy']],
+    ] },
+];
+RULES.forEach(r => { r.qs = r.qs.map(([text, ans, wrong]) => ({ text, ans, wrong, full: text.replace('___', ans) })); });
+if (typeof module !== 'undefined') module.exports = { PLAN, RULES };
 
 </script>
 <script>
@@ -1800,11 +2032,12 @@ const FX = { c: null, x: null, p: [], raf: 0,
 /* ---------- progress, kept in this browser ---------- */
 const KEY = 'rakan-falcon-v1';
 const DEF = () => ({ w: {}, ls: {}, fe: 0, own: {}, wear: {}, bg: 'desert', days: {}, streak: { n: 0, last: -9 }, best: {}, badges: {},
-  set: { goal: 1, arHide: false, sfx: true, mic: true, rev: 15 }, placed: false, rank: 0, talk: {}, hello: false, games: 0, talkN: 0, revN: 0, perfect: 0, goalDay: -1 });
+  set: { goal: 1, arHide: false, sfx: true, mic: true, rev: 15, start: 1, big: false }, placed: false, rank: 0, talk: {}, hello: false, games: 0, talkN: 0, revN: 0, perfect: 0, goalDay: -1,
+  plan: '', alt: 0, sp: {}, spN: 0, gr: {}, planDay: -1 });
 let ST = (() => { try { const r = localStorage.getItem(KEY); if (r) { const o = Object.assign(DEF(), JSON.parse(r)); o.set = Object.assign(DEF().set, o.set); return o; } } catch (e) {} return DEF(); })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
 const DAY = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
-function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0 }); }
+function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0 }); }
 function streakNow() { return ST.streak.last >= DAY() - 1 ? ST.streak.n : 0; }
 function touchStreak() { const d = DAY(); if (ST.streak.last === d) return false; ST.streak.n = ST.streak.last === d - 1 ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); return true; }
 let lastTouch = Date.now();
@@ -1832,7 +2065,7 @@ TOPICS.forEach((t, i) => {
 // what kind of word a topic holds: gap questions take their wrong answers from other kinds, so only one choice fits the sentence
 const KIND = { family: 'people', jobs: 'people', body: 'body', clothes: 'clothes', food: 'food', fruit: 'food', kitchen: 'food', animals: 'animal', wild: 'animal', sea: 'animal',
   house: 'place', town: 'place', nature: 'place', school: 'school', colors: 'idea', verbs: 'verb', verbs2: 'verb', day: 'time', time: 'time', weather: 'weather',
-  transport: 'move', sports: 'sport', feelings: 'adj', opposites: 'adj', describe: 'adj', health: 'health', tech: 'tech', shopping: 'shop', where: 'prep', manners: 'manners', special: 'special', class: 'phrase' };
+  transport: 'move', sports: 'sport', feelings: 'adj', opposites: 'adj', describe: 'adj', health: 'health', tech: 'tech', shopping: 'shop', where: 'prep', manners: 'manners', special: 'special', class: 'phrase', big: 'big' };
 // words that look alike in pictures or mean nearly the same: never wrong answers for each other
 const SIMILAR = [
   ['book', 'notebook', 'library', 'lesson', 'page', 'paper'], ['pen', 'pencil', 'crayon', 'draw'], ['cup', 'glass', 'milk', 'coffee', 'tea', 'teapot', 'drink', 'juice'], ['shoes', 'sneakers', 'boots'],
@@ -1849,6 +2082,11 @@ const SIMILAR = [
   ['boy', 'brother', 'son', 'child', 'cousin'], ['girl', 'sister', 'daughter'], ['family', 'parents', 'children', 'people', 'team'], ['clock', 'watch', 'time', 'hour', 'minute', "o'clock", 'half past', 'late', 'wake up'],
   ['week', 'month', 'calendar', 'weekend', 'year', 'today', 'tomorrow', 'yesterday'], ['football', 'kick', 'goal', 'sport', 'match', 'player'], ['win', 'race', 'first'], ['gift', 'give', 'generous', 'Eid', 'celebrate'],
   ['desert', 'sand', 'dry', 'camel', 'sandstorm'], ['sunset', 'evening'], ['sunrise', 'morning', 'early'], ['up', 'straight', 'above'], ['down', 'below', 'under'], ['in', 'inside'], ['on', 'above'], ['near', 'next to'],
+  ['journey', 'trip', 'travel', 'holiday', 'adventure', 'explore'], ['decide', 'choose', 'think'], ['explain', 'tell', 'speak', 'teacher'], ['discover', 'find', 'explore'],
+  ['protect', 'help', 'careful', 'safe'], ['idea', 'think', 'know', 'imagine'], ['problem', 'mistake'], ['solve', 'fix', 'answer', 'puzzle'], ['improve', 'better', 'grow'],
+  ['prepare', 'ready'], ['borrow', 'give', 'library', 'return'], ['collect', 'shell'], ['competition', 'race', 'match', 'win', 'first'], ['maybe', 'possible'],
+  ['nervous', 'scared', 'worried', 'shy'], ['future', 'tomorrow'], ['environment', 'earth', 'world', 'planet'], ['energy', 'strong', 'battery'], ['arrive', 'airport', 'plane', 'travel'],
+  ['already', 'finish'],
   ['kind', 'friendly', 'polite', 'generous'], ['welcome', "you're welcome", 'greet', 'thank you'], ['scared', 'worried'], ['tired', 'bored', 'sleep'], ['help', 'hold', 'respect', 'promise'], ['big', 'tall', 'long'], ['small', 'short', 'young'],
 ];
 const SIM = {}; SIMILAR.forEach((g, i) => g.forEach(k => { (SIM[k.toLowerCase()] = SIM[k.toLowerCase()] || []).push(i); }));
@@ -1869,8 +2107,10 @@ const nLearned = () => WORDS.filter(isLearned).length;
 const nMastered = () => WORDS.filter(isMastered).length;
 const dueWords = () => WORDS.filter(w => { const s = sOf(w); return s && s.b >= 1 && s.d <= DAY(); }).sort((a, b) => sOf(a).d - sOf(b).d || sOf(a).b - sOf(b).b);
 function nextLesson() {
-  for (const t of TOPICS) for (let j = 0; j < t.lessons.length; j++) if (t.lessons[j].some(w => !isLearned(w))) return { t: t.id, i: j };
-  return null;
+  const from = ts => { for (const t of ts) for (let j = 0; j < t.lessons.length; j++) if (t.lessons[j].some(w => !isLearned(w))) return { t: t.id, i: j }; return null; };
+  const start = ST.set.start || 1, big = TOPICS.filter(t => t.id === 'big');
+  if (ST.set.big && ST.alt === 1) { const b = from(big); if (b) return b; }
+  return from(TOPICS.filter(t => t.stage >= start && t.id !== 'big')) || from(big) || from(TOPICS.filter(t => t.stage < start));
 }
 const lessonsToday = () => today().l;
 const topicLearned = t => t.words.filter(isLearned).length;
@@ -1955,14 +2195,14 @@ def('splash', () => {
     <h1>صقر الكلمات</h1><div class="enname en">WORD FALCON</div>
     <p class="tag">كلمات إنجليزية جديدة كل يوم: صور، وصوت، وألعاب، ومراجعة ذكية لا تنسى معها شيئًا.</p>
     <button class="btn" id="go">▶︎ ابدأ</button></div>`;
-  $('#go').onclick = () => { VO.start(); FX.init(); sfx('tap'); ST.hello ? home() : go('intro', 0, false); };
+  $('#go').onclick = () => { VO.start(); FX.init(); sfx('tap'); const fresh = applyPlan(); ST.hello ? (fresh ? go('planHello', null, false) : home()) : go('intro', 0, false); };
 });
 def('intro', step => {
   const lines = ['hello-1', 'hello-2', 'hello-3'];
   app.innerHTML = `<div class="splash"><div class="bubble">${esc(AR_PLAIN(lines[step]))}</div><div class="fbig">${falcon({ mood: step === 2 ? 'happy' : 'idle', pose: step === 2 ? 'cheer' : 'idle' })}</div>
     <button class="btn" id="nx">${step < 2 ? 'التالي ◀︎' : 'هيا بنا!'}</button></div>`;
   VO.say({ a: lines[step] });
-  $('#nx').onclick = () => { sfx('tap'); if (step < 2) { cur.arg = step + 1; render(); } else { ST.hello = true; save(); ST.placed ? home() : go('placeAsk', null, false); } };
+  $('#nx').onclick = () => { sfx('tap'); if (step < 2) { cur.arg = step + 1; render(); } else { ST.hello = true; save(); ST.plan ? go('planHello', null, false) : ST.placed ? home() : go('placeAsk', null, false); } };
 });
 function AR_PLAIN(id) { return (AR[id] || '').replace(/[ً-ْٰ]/g, ''); }
 def('placeAsk', () => {
@@ -1986,14 +2226,16 @@ def('home', () => {
       <div class="rk"><b class="rn">${RANKS[r].ar}</b><span class="en">${RANKS[r].en}</span>
         <div class="pbar"><i style="width:${prog}%"></i></div>
         <span class="small muted">${nx ? `كلماتك <b class="num">${num(nl)}</b> · بقي ${num(nx.at - nl)} لتصبح «${nx.ar}»` : `كلماتك <b class="num">${num(nl)}</b> · أعلى رتبة!`}</span></div></div></section>
-    <div class="card today" style="margin-top:14px"><div class="ring" style="--p:${pct}"><span>${num(Math.min(tdy.l, goal))}/${num(goal)}</span></div>
+    ${ST.plan ? planCard() : `<div class="card today" style="margin-top:14px"><div class="ring" style="--p:${pct}"><span>${num(Math.min(tdy.l, goal))}/${num(goal)}</span></div>
       <div class="t"><b>${tdy.l >= goal ? 'حققت هدف اليوم! 🎉' : 'هدف اليوم: ' + (goal === 1 ? 'درس واحد' : goal === 2 ? 'درسان' : num(goal) + ' دروس')}</b>
-      <span class="small muted">تعلمت اليوم ${num(tdy.n)} كلمة · راجعت ${num(tdy.r)}</span></div></div>
+      <span class="small muted">تعلمت اليوم ${num(tdy.n)} كلمة · راجعت ${num(tdy.r)}</span></div></div>`}
     <div class="stack" style="margin-top:14px">
       ${L ? `<button class="big main" id="lesson"><span class="ico" style="background:${T.color}33">${T.icon}</span><span class="tx"><b>الدرس التالي</b><small>${esc(T.ar)} · الدرس ${num(L.i + 1)} من ${num(T.lessons.length)}</small>
         <span class="prevw">${T.lessons[L.i].slice(0, 7).map(w => pic(w)).join('')}</span></span><span class="go">◀</span></button>`
            : `<div class="card center"><b>أنهيت كل الدروس! 👑</b><div class="muted small">واصل المراجعة والألعاب لتبقى الكلمات في ذاكرتك.</div></div>`}
       <button class="big" id="review"><span class="ico" style="background:#dbeafe">🔁</span><span class="tx"><b>المراجعة الذكية</b><small>${due ? 'كلمات حان وقت مراجعتها حتى لا تنساها' : 'لا مراجعة الآن. تعود الكلمات في وقتها.'}</small></span>${due ? `<span class="badge">${num(due)}</span>` : '<span class="go">✓</span>'}</button>
+      <div class="duo"><button class="big half" id="spell"><span class="ico" style="background:#fde68a">✏️</span><span class="tx"><b>ورشة الإملاء</b><small>${(tdy.sp || 0) ? 'أحسنت اليوم ✓' : spDue() ? num(spDue()) + ' كلمة تنتظرك' : '٦ كلمات تكتبها'}</small></span></button>
+        <button class="big half" id="rule"><span class="ico" style="background:#e0e7ff">🧩</span><span class="tx"><b>قاعدة اليوم</b><small class="en">${esc(ruleOfDay().en)}</small></span></button></div>
     </div>
     <div class="minis" style="margin-top:14px">
       <button class="mini" data-go="map"><span>🗺️</span>المواضيع</button>
@@ -2006,10 +2248,13 @@ def('home', () => {
   $('#fh').onclick = () => { const f = $('#fh'); f.classList.remove('bob', 'hop'); void f.offsetWidth; f.classList.add('hop'); VO.say({ a: pick(['home-1', 'home-2']) }); };
   if (L) on('#lesson', () => go('lesson', L));
   on('#review', () => startReview());
+  on('#spell', () => go('spell'));
+  on('#rule', () => go('rule', ruleOfDay().id));
+  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else startReview(); });
   on('[data-go]', el => go(el.dataset.go));
   on('#par', () => go('gate'));
   on('#fechip', () => go('shop'));
-  if (!ST.placed && nl === 0) setTimeout(() => { if (cur.name === 'home') go('placeAsk'); }, 400);
+  if (!ST.placed && nl === 0 && !ST.plan) setTimeout(() => { if (cur.name === 'home') go('placeAsk'); }, 400);
   if (pendingRank >= 0) { const pr = pendingRank; pendingRank = -1; setTimeout(() => rankSheet(pr), 500); }
 });
 
@@ -2106,6 +2351,7 @@ function lessonDone(T, i, L, S) {
   L.forEach(introduce);
   ST.ls[key] = Math.max(ST.ls[key] || 0, stars);
   today().l++; if (!wrong) ST.perfect++;
+  ST.alt = T.id === 'big' ? 0 : 1;   // with the plan, a lesson of big words comes after every other lesson
   const fe = 5 + stars * 2; ST.fe += fe; save();
   const streakUp = touchStreak();
   app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ mood: 'happy', pose: 'cheer' })}</div><h2>أنهيت الدرس!</h2>
@@ -2128,6 +2374,7 @@ function celebrate(lines) {
   const got = newBadges();
   if (got.length) { lines.push(300, { a: 'badge' }); got.forEach((b, j) => setTimeout(() => toast(`${b[1]} وسام جديد: ${b[2]}`), 900 + j * 900)); }
   if (today().l >= ST.set.goal && ST.goalDay !== DAY()) { ST.goalDay = DAY(); lines.push(300, { a: 'goal' }); setTimeout(() => toast('🎯 حققت هدف اليوم!'), 2200); }
+  if (ST.plan && ST.planDay !== DAY() && planSteps().every(s => s.done)) { ST.planDay = DAY(); lines.push(300, { a: 'plan-all' }); setTimeout(() => { toast('🌟 أنهيت خطة اليوم كلها!'); FX.confetti(); }, 3000); }
   save(); VO.say(lines);
 }
 function rankSheet(r) {
@@ -2275,6 +2522,8 @@ const BADGES = [
   ['talk10', '🎤', 'متحدث', '١٠ إجابات في «تحدّث»', () => ST.talkN >= 10], ['games10', '🎮', 'لاعب ماهر', 'لعبت ١٠ ألعاب', () => ST.games >= 10],
   ['stage1', '🥉', 'المرحلة الأولى', 'أنهيت «الأساس»', () => stageDone(1)], ['stage2', '🥈', 'المرحلة الثانية', 'أنهيت «المستوى الرابع»', () => stageDone(2)],
   ['stage3', '🥇', 'المرحلة الثالثة', 'أنهيت «انطلق أبعد»', () => stageDone(3)], ['place', '🧭', 'المستكشف', 'أجريت اختبار تحديد المستوى', () => ST.placed === true],
+  ['spell20', '✏️', 'كاتب ماهر', 'كتبت ٢٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 20], ['spell100', '🖋️', 'بطل الإملاء', 'كتبت ١٠٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 100],
+  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
 ];
 function newBadges() { const got = []; BADGES.forEach(b => { if (!ST.badges[b[0]] && b[4]()) { ST.badges[b[0]] = DAY(); got.push(b); } }); return got; }
 def('badges', () => {
@@ -2309,6 +2558,7 @@ def('parents', () => {
       <div class="legend"><span><i style="background:var(--gold)"></i>كلمات جديدة</span><span><i style="background:#7cb8ff"></i>مراجعات</span></div></div>
     <div class="sec">المراحل</div><div class="card stack">${stg.map(([n, g, t]) => `<div><b>${n}</b> <span class="muted small num">${g}/${t}</span><div class="pbar green" style="margin-top:4px"><i style="width:${Math.round(g / t * 100)}%"></i></div></div>`).join('')}</div>
     <div class="sec">كلمات تحتاج تدريبًا</div><div class="card">${hard.length ? hard.map(w => `<div class="hard">${pic(w)}<span class="en">${esc(w.en)}</span><span class="muted small">${esc(w.ar)}</span><button class="tbtn" data-k="${esc(w.k)}">🔊</button></div>`).join('') : '<p class="muted" style="margin:0">لا توجد كلمات صعبة الآن.</p>'}</div>
+    ${planParents()}
     <div class="sec">الإعدادات</div><div class="card">
       <div class="setrow"><span>هدف اليوم</span><div class="seg" id="goal">${[1, 2, 3].map(g => `<button data-g="${g}" class="${ST.set.goal === g ? 'on' : ''}">${g === 1 ? 'درس' : g === 2 ? 'درسان' : '٣ دروس'}</button>`).join('')}</div></div>
       <div class="setrow"><span>كلمات المراجعة في الجلسة</span><div class="seg" id="rev">${[10, 15, 20].map(g => `<button data-r="${g}" class="${ST.set.rev === g ? 'on' : ''}">${g}</button>`).join('')}</div></div>
@@ -2316,9 +2566,10 @@ def('parents', () => {
       <div class="setrow"><span>المؤثرات الصوتية</span><button class="switch${ST.set.sfx ? ' on' : ''}" data-s="sfx" aria-label="المؤثرات"></button></div>
       <div class="setrow"><span>النطق بالميكروفون${MIC ? '' : ' (لا يدعمه هذا المتصفح)'}</span><button class="switch${ST.set.mic ? ' on' : ''}" data-s="mic" aria-label="الميكروفون"></button></div></div>
     <div class="sec">لمعلمة الحصة</div><div class="card stack"><p class="muted small" style="margin:0">انسخوا قائمة الكلمات التي تعلمها وأرسلوها لمعلمته لتستعملها معه في الحصة.</p>
-      <button class="btn soft small" id="copy">📋 نسخ قائمة الكلمات</button><textarea class="copybox" id="cbox" readonly hidden></textarea></div>
+      <button class="btn soft small" id="copy">📋 نسخ قائمة الكلمات</button><button class="btn soft small" id="copyt">📋 نسخ ملاحظات اختبار المستوى</button><textarea class="copybox" id="cbox" readonly hidden></textarea></div>
     <div class="sec">كيف يعمل البرنامج؟</div><div class="card"><p style="margin:0" class="small">
-      ٧٣٢ كلمة وجملة في ٣٢ موضوعًا على ثلاث مراحل، تبدأ بكلمات الأساس ثم كلمات المستوى الرابع ثم أبعد. كل درس ٦ كلمات تقريبًا: يتعرف عليها بالصورة والصوت والمثال، ثم يتدرب عليها بأسئلة متنوعة.
+      ${num(WORDS.length)} كلمة وجملة في ${num(TOPICS.length)} موضوعًا على ثلاث مراحل، تبدأ بكلمات الأساس ثم كلمات المستوى الرابع ثم أبعد. كل درس ٦ كلمات تقريبًا: يتعرف عليها بالصورة والصوت والمثال، ثم يتدرب عليها بأسئلة متنوعة.
+      وفي ورشة الإملاء يرى الكلمة بحروفها الملونة ثم يكتبها من ذاكرته، وتعود كل كلمة بعد يوم ثم ٣ أيام ثم أسبوع حتى يثبت إملاؤها. وفي «قاعدة اليوم» شرح قصير وثماني جمل لقاعدة من القواعد التي أخطأ فيها في اختبار المستوى.
       بعد الدرس تدخل الكلمة «المراجعة الذكية»: تعود بعد يوم، ثم يومين، ثم ٤ أيام، ثم أسبوع، ثم أسبوعين، ثم شهر. إذا أخطأ فيها تعود من البداية. هكذا تنتقل الكلمة إلى الذاكرة الطويلة.
       يكفي ١٠–١٥ دقيقة يوميًا: درس جديد ومراجعة ما حان وقته. كل كلمة وجملة إنجليزية مسجلة بصوت Azure الإنجليزي (صوت أولي)، وكل معنى وترجمة وتعليمات بالعربية بصوت حامد، ولا يُستعمل صوت الجهاز أبدًا. المؤثرات بلا موسيقى.</p></div>
     <div class="sec">البدء من جديد</div><div class="card stack"><button class="btn soft small" id="place">🧭 إعادة اختبار تحديد المستوى</button><button class="btn soft small" id="reset" style="color:var(--bad2)">🗑️ مسح كل التقدم</button></div>`;
@@ -2327,6 +2578,9 @@ def('parents', () => {
   on('[data-g]', el => { ST.set.goal = +el.dataset.g; save(); render(); });
   on('[data-r]', el => { ST.set.rev = +el.dataset.r; save(); render(); });
   on('[data-s]', el => { const k = el.dataset.s; ST.set[k] = !ST.set[k]; if (k === 'mic') micBlocked = false; save(); el.classList.toggle('on', ST.set[k]); });
+  on('[data-st]', el => { ST.set.start = +el.dataset.st; save(); render(); });
+  on('#copyt', () => { const box = $('#cbox'); box.value = PLAN.teacher; box.hidden = false;
+    try { navigator.clipboard.writeText(PLAN.teacher).then(() => toast('نُسخت الملاحظات ✓'), () => { box.select(); toast('اضغطوا على النص وانسخوه'); }); } catch (e) { box.select(); } });
   on('#copy', () => {
     const ws = WORDS.filter(isLearned), text = `Words I learned (${ws.length}):\n` + TOPICS.map(t => { const x = t.words.filter(isLearned); return x.length ? `${t.en}: ${x.map(w => w.en).join(', ')}` : ''; }).filter(Boolean).join('\n');
     const box = $('#cbox'); box.value = text; box.hidden = false;
@@ -2338,7 +2592,7 @@ def('parents', () => {
 
 /* ---------- boot (called at the very end of the page, after quiz.js, talk.js and games.js) ---------- */
 function boot() { FX.init(); cur = { name: 'splash' }; render(); }
-window.FALCON = { get ST() { return ST; }, set ST(v) { ST = v; }, VO, WORDS, TOPICS, go, home, save, DAY }; // for the test bot
+window.FALCON = { get ST() { return ST; }, set ST(v) { ST = v; }, VO, WORDS, TOPICS, go, home, save, DAY, RULES, teams, spellRound, nextLesson }; // for the test bot
 
 /* صقر الكلمات — the question engine: one session of questions for a lesson, a review or a test.
    Kinds: lp listen→picture, wp read→picture, pw picture→word, aw Arabic→word, wa word→Arabic, gap fill the sentence,
@@ -2355,7 +2609,7 @@ function others(w, n, mode) {
   const fits = x => x !== w && x.k !== w.k && isPhrase(x) === isPhrase(w) && !similar(x, w)
     && (mode !== 'pic' || (!weak(x) && x.pic !== w.pic))
     && (mode !== 'ar' || x.ar !== w.ar)
-    && (mode !== 'gap' || (KIND[x.t] !== KIND[w.t] && !isPhrase(x)));
+    && (mode !== 'gap' || (KIND[x.t] !== KIND[w.t] && !isPhrase(x) && !x.gx));   // big words (own wrong answers) could fit other sentences
   const tiers = mode === 'gap' ? [WORDS.filter(x => words(x.en) === words(w.en)), WORDS]
     : [lessonOf(w), T.words, WORDS.filter(x => TOPIC[x.t].stage === T.stage), WORDS];
   const out = [];
@@ -2487,7 +2741,7 @@ const TYPES = {
     bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: ok ? [q.w.en, 250, { r: q.w.ar }] : [q.w.en] }));
   },
   gap(q, body, intro, R) {
-    const w = q.w, opts = mix([w, ...others(w, 3, 'gap')]);
+    const w = q.w, opts = mix([w, ...(w.gx ? w.gx.map(k => BYK[k]).filter(Boolean) : others(w, 3, 'gap'))]);
     body.innerHTML = `<div class="prompt">${weak(w) || q.mode === 'review' ? '' : `<span style="--ps:56px">${pic(w)}</span>`}<div class="gapline en" id="gl">${blanked(w.ex, w.en)}</div>
       ${ST.set.arHide ? '' : `<div class="muted small">${esc(w.exAr)}</div>`}</div>${optWords(opts, w)}`;
     VO.say(intro);
@@ -2946,6 +3200,335 @@ const GAME = {
     });
   },
 };
+
+/* صقر الكلمات — his plan from the level test (plan.js): today's plan, the spelling workshop and the rule of the day.
+   Built after games.js by `python3 src/build.py falcon`. */
+
+/* ---------- the plan: applied once in this browser, shown on the home screen and in the parents' corner ---------- */
+function applyPlan() {
+  if (typeof PLAN === 'undefined' || ST.plan === PLAN.id) return false;
+  ST.plan = PLAN.id;
+  if ((ST.set.start || 1) < PLAN.start) ST.set.start = PLAN.start;
+  ST.set.big = PLAN.big; ST.alt = 1;   // the plan's first lesson is big words, which begin with the ones of his test
+  save(); return true;
+}
+function planSteps() {
+  const t = today();
+  return [
+    { id: 'lesson', ico: '📘', ar: 'درس جديد', done: t.l >= ST.set.goal || !nextLesson() },
+    { id: 'spell', ico: '✏️', ar: 'الإملاء', done: (t.sp || 0) >= 1 },
+    { id: 'rule', ico: '🧩', ar: 'قاعدة اليوم', done: (t.g || 0) >= 1 },
+    { id: 'review', ico: '🔁', ar: 'المراجعة', done: dueWords().length === 0 },
+  ];
+}
+function planCard() {
+  const st = planSteps(), n = st.filter(s => s.done).length;
+  return `<div class="card plan" style="margin-top:14px"><div class="today"><div class="ring" style="--p:${Math.round(n / st.length * 100)}"><span>${num(n)}/${num(st.length)}</span></div>
+      <div class="t"><b>${n === st.length ? 'أنهيت خطة اليوم! 🌟' : 'خطة اليوم'}</b><span class="small muted">${n === st.length ? 'أنت بطل! عُد غدًا لخطة جديدة.' : 'نحو ٢٠ دقيقة. اضغط على أي خطوة.'}</span></div></div>
+    <div class="steps">${st.map(s => `<button class="step${s.done ? ' done' : ''}" data-step="${s.id}"><span class="si">${s.done ? '✓' : s.ico}</span><span>${s.ar}</span></button>`).join('')}</div></div>`;
+}
+def('planHello', () => {
+  app.innerHTML = `<div class="splash" style="min-height:auto;padding-top:18px"><div class="fbig" style="width:160px">${falcon({ mood: 'happy', pose: 'cheer' })}</div>
+    <div class="bubble">${esc(AR_PLAIN('plan-1'))} ${esc(AR_PLAIN('plan-2'))}</div>
+    <div class="card stack planlist">
+      <div class="pl"><span>📘</span><div><b>درس جديد</b><small>درس من كلمات المستوى الرابع، ثم درس من «كلمات كبيرة»</small></div></div>
+      <div class="pl"><span>✏️</span><div><b>ورشة الإملاء</b><small>٦ كلمات: تنظر إليها، ثم تكتبها من ذاكرتك</small></div></div>
+      <div class="pl"><span>🧩</span><div><b>قاعدة اليوم</b><small>شرح قصير، ثم ثماني جمل تكملها</small></div></div>
+      <div class="pl"><span>🔁</span><div><b>المراجعة الذكية</b><small>حتى لا تنسى ما تعلمته</small></div></div></div>
+    <button class="btn" id="go">هيا بنا! ◀︎</button></div>`;
+  VO.say([{ a: 'plan-1' }, 300, { a: 'plan-2' }, 300, { a: 'plan-3' }]);
+  on('#go', home);
+});
+function planParents() {
+  if (typeof PLAN === 'undefined') return '';
+  const spelled = WORDS.filter(spGood).length, B = TOPIC.big;
+  return `<div class="sec">خطة اختبار المستوى <small>${esc(PLAN.day)}</small></div><div class="card stack planpar">
+    <div><b>المستوى:</b> ${bidi(PLAN.level)}</div>
+    <div class="stack" style="gap:6px">${PLAN.skills.map(([n, v]) => `<div><div class="row" style="justify-content:space-between"><span>${n}</span><span class="num">${num(v)}٪</span></div><div class="pbar${v >= 80 ? ' green' : ''}"><i style="width:${v}%"></i></div></div>`).join('')}</div>
+    <div><b>أقوى ما عنده</b><ul>${PLAN.strong.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
+    <div><b>ما نعمل عليه الآن</b><ul>${PLAN.needs.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
+    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>
+    <div class="chips2"><span>✏️ يكتب ${num(spelled)} كلمة بلا خطأ</span><span>🧩 أتقن ${num(RULES.filter(ruleMastered).length)} من ${num(RULES.length)} قواعد</span><span>🦅 كلمات كبيرة ${num(topicLearned(B))}/${num(B.words.length)}</span></div>
+    <div class="setrow"><span>الدروس الجديدة تبدأ من</span><div class="seg">${['الأساس', 'المستوى ٤', 'أبعد'].map((n, i) => `<button data-st="${i + 1}" class="${(ST.set.start || 1) === i + 1 ? 'on' : ''}">${n}</button>`).join('')}</div></div>
+    <div class="setrow"><span>درس من «كلمات كبيرة» بعد كل درس</span><button class="switch${ST.set.big ? ' on' : ''}" data-s="big" aria-label="كلمات كبيرة"></button></div></div>`;
+}
+
+/* ---------- the spelling workshop: look at the word, cover it, write it, check it ----------
+   Each word has its own spelling box (ST.sp): right the first time moves it on (back after 1, 3, 7, 14, 30 days),
+   a mistake brings it back tomorrow. A new or missed word is shown first with its letter teams coloured;
+   a word he has spelled before is written from memory. */
+const SPGAP = [0, 1, 3, 7, 14, 30];
+const TEAMS = ['tch', 'igh', 'sh', 'ch', 'th', 'ph', 'wh', 'ck', 'ng', 'qu', 'kn', 'wr', 'ee', 'oo', 'ea', 'ai', 'ay', 'oa', 'ow', 'ou', 'oi', 'oy', 'aw', 'ew', 'ue', 'ar', 'er', 'ir', 'or', 'ur'];
+// the word cut into the letters that are written together (sh, ee, tt ...): [[from, length], ...]
+function teams(word) {
+  const lo = word.toLowerCase(), out = [];
+  for (let i = 0; i < lo.length;) {
+    let n = 1;
+    if (/[a-z]/.test(lo[i])) {
+      if (lo[i + 1] === lo[i] && /[bcdfgklmnprstz]/.test(lo[i])) n = 2;
+      else { const t = TEAMS.find(x => lo.startsWith(x, i) && !(x === 'ng' && /[eiy]/.test(lo[i + 2] || ''))); if (t) n = t.length; }
+    }
+    out.push([i, n]); i += n;
+  }
+  return out;
+}
+const teamHTML = word => teams(word).map(([i, n]) => { const s = word.slice(i, i + n);
+  return n > 1 ? `<b class="tm">${esc(s)}</b>` : /[A-Za-z]/.test(s) ? `<span>${esc(s)}</span>` : `<span class="nl">${s === ' ' ? '&nbsp;' : esc(s)}</span>`; }).join('');
+const spOf = w => ST.sp && ST.sp[w.k];
+const spGood = w => !!(spOf(w) && spOf(w).n >= 3);
+const spDue = () => WORDS.filter(w => spOf(w) && spOf(w).d <= DAY()).length;
+function spellRound(n = 6) {
+  const D = DAY(), all = WORDS.filter(spellable), len = w => letters(w).length, bucket = w => len(w) <= 4 ? 0 : len(w) <= 6 ? 1 : 2;
+  const due = all.filter(w => spOf(w) && spOf(w).d <= D).sort((a, b) => spOf(a).d - spOf(b).d || spOf(a).n - spOf(b).n);
+  const first = (ST.plan && typeof PLAN !== 'undefined' ? PLAN.spell : []).map(k => BYK[k]).filter(w => w && !spOf(w));
+  const learned = all.filter(w => !spOf(w) && isLearned(w) && !first.includes(w)).sort((a, b) => bucket(a) - bucket(b));
+  const rest = all.filter(w => !spOf(w) && !isLearned(w) && !first.includes(w))
+    .sort((a, b) => TOPIC[a.t].stage - TOPIC[b.t].stage || bucket(a) - bucket(b) || TOPIC[a.t].i - TOPIC[b.t].i);
+  const out = due.slice(0, 4);
+  for (const w of [...first, ...learned, ...rest]) { if (out.length >= n) break; out.push(w); }
+  for (const w of due.slice(4)) { if (out.length >= n) break; out.push(w); }
+  return out;
+}
+def('spell', () => {
+  const list = spellRound();
+  app.innerHTML = `<div class="splash"><div class="fbig" style="width:170px">${falcon({ mood: 'wow' })}</div>
+    <div class="bubble">ورشة الإملاء ✏️ انظر إلى الكلمة جيدًا، ثم نخفيها، فتكتبها أنت بالحروف.</div>
+    <div class="wlist">${list.map(w => `<span>${pic(w)}</span>`).join('')}</div>
+    <button class="btn" id="st">ابدأ ◀︎</button><button class="btn soft" id="bk2" style="max-width:320px">رجوع</button></div>`;
+  VO.say({ a: 'sp-intro' }); VO.pre(list.map(w => w.en));
+  on('#st', () => spellRun(list)); on('#bk2', back);
+});
+function spellRun(list) {
+  let k = 0, said = {}, over = false;
+  const res = [];
+  onLeave(() => { over = true; });
+  const top = () => `<div class="qtop"><button class="x" id="qx" aria-label="خروج">✕</button><div class="pbar"><i style="width:${Math.round(k / list.length * 100)}%"></i></div><span class="fe">🪶 ${num(ST.fe)}</span></div>`;
+  const bindTop = () => { $('#qx').onclick = () => { sfx('tap'); confirmSheet('هل تريد الخروج من الورشة؟', 'نعم، اخرج', 'أكمل', () => { over = true; back(); }); }; };
+  const once = id => { if (said[id]) return []; said[id] = 1; return [{ a: id }, 250]; };
+  const next = () => {
+    if (over) return;
+    if (k >= list.length) { over = true; return spellDone(res); }
+    const w = list[k], s = spOf(w);
+    app.dataset.qn = (+app.dataset.qn || 0) + 1;
+    if (!s || s.n === 0) look(w); else build(w, 'memory');
+  };
+  const record = (w, firstTry) => {
+    const s = ST.sp[w.k] || (ST.sp[w.k] = { n: 0, d: 0, x: 0 });
+    if (firstTry) { s.n = Math.min(5, s.n + 1); ST.spN = (ST.spN || 0) + 1; } else { s.n = 0; s.x++; }
+    s.d = DAY() + SPGAP[Math.max(1, s.n)]; s.l = DAY();
+    res.push({ w, ok: firstTry }); const t = today(); t.q++; if (firstTry) t.c++;
+    save();
+  };
+  // look: the word with its letter teams, its sound and its meaning
+  const look = w => {
+    app.innerHTML = top() + `<p class="qins"><button id="qsay" aria-label="اسمع">🔊</button><span>انظر إلى الكلمة، وإلى الحروف الملونة التي تأتي معًا.</span></p>
+      <div class="card meet splook">${pic(w)}<div class="sword en">${teamHTML(w.en)}</div><button class="mean" id="mn">${esc(w.ar)}</button>
+        <div class="tools"><button class="tbtn" id="hw">🔊 الكلمة</button></div></div>
+      <div class="qfoot"><button class="btn" id="go">✏️ أخفِها، وسأكتبها ◀︎</button></div>`;
+    bindTop();
+    $('#qsay').onclick = () => VO.say({ a: 'sp-look' });
+    $('#hw').onclick = () => VO.say(w.en);
+    $('#mn').onclick = () => VO.say({ r: w.ar });
+    $('.splook .pic').onclick = () => VO.say(w.en);
+    VO.say([w.en, 300, { r: w.ar }, 400, ...once('sp-look'), w.en]);
+    on('#go', () => build(w, 'look'));
+  };
+  // write: free tiles (two extra letters) and a check at the end; 'fix' is the guided second try after a mistake
+  const build = (w, mode) => {
+    if (over) return;
+    const s = spOf(w), guided = mode === 'fix', chars = [...w.en], isL = c => /[A-Za-z]/.test(c);
+    const at = chars.map((c, i) => isL(c) ? i : -1).filter(i => i >= 0), need = at.map(i => chars[i]);
+    const abc = 'abcdefghijklmnoprstuwy'.split('').filter(c => !need.some(x => x.toLowerCase() === c));
+    let pool = mix([...need, ...(guided ? [] : mix(abc).slice(0, 2))]);
+    if (pool.join('') === need.join('') && pool.length > 1) pool = [...pool.slice(1), pool[0]];
+    const showTeams = guided || !s || s.n < 2, long = need.length > 7;
+    const slotsHTML = teams(w.en).map(([i, n]) => `<span class="grp${showTeams && n > 1 ? ' tm' : ''}">${chars.slice(i, i + n).map((c, j) =>
+      isL(c) ? `<span class="slot" data-s="${i + j}"></span>` : `<span class="slot sp">${c === ' ' ? '' : esc(c)}</span>`).join('')}</span>`).join('');
+    const ins = guided ? 'اكتبها مرة أخرى، حرفًا حرفًا.' : mode === 'memory' ? 'هل تتذكرها؟ اكتبها من ذاكرتك.' : 'الآن اكتب الكلمة بالحروف.';
+    app.innerHTML = top() + `<p class="qins"><button id="qsay" aria-label="اسمع">🔊</button><span>${ins}</span></p>
+      <div class="prompt">${pic(w)}<div style="font-size:21px;font-weight:800">${esc(w.ar)}</div><button class="tbtn" id="hear">🔊 اسمع</button></div>
+      <div class="slots spslots${long ? ' long' : ''}">${slotsHTML}</div>
+      <div class="tiles${long ? ' long' : ''}">${pool.map((c, i) => `<button class="tile" data-t="${i}">${esc(c)}</button>`).join('')}</div>
+      <div class="row qfoot"><button class="btn soft small" id="hint">💡 ساعدني بحرف</button></div>`;
+    bindTop();
+    body().dataset.w = w.en; // for the test bot
+    $('#qsay').onclick = () => VO.say({ a: guided ? 'sp-fix' : mode === 'memory' ? 'sp-memory' : 'sp-build' });
+    $('#hear').onclick = () => VO.say(w.en);
+    VO.say([...(guided ? [] : once(mode === 'memory' ? 'sp-memory' : 'sp-build')), ...(mode === 'memory' ? [{ r: w.ar }, 300] : []), w.en]);
+    const fill = {}, slots = $$('.spslots .slot[data-s]'), order = slots.map(el => +el.dataset.s);
+    let hinted = false, done = false;
+    const used = () => Object.values(fill);
+    const draw = () => {
+      slots.forEach(el => { const t = fill[el.dataset.s]; el.textContent = t == null ? '' : pool[t]; el.classList.toggle('f', t != null); });
+      $$('.tiles .tile').forEach(b => b.classList.toggle('used', used().includes(+b.dataset.t)));
+    };
+    const firstEmpty = () => order.find(i => fill[i] == null);
+    const place = (pos, t) => { fill[pos] = t; draw(); const el = slots.find(x => +x.dataset.s === pos); el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); if (order.every(i => fill[i] != null)) setTimeout(check, 250); };
+    $$('.tiles .tile').forEach(b => b.addEventListener('click', () => {
+      const t = +b.dataset.t, pos = firstEmpty();
+      if (done || over || used().includes(t) || pos == null) return;
+      if (guided && pool[t].toLowerCase() !== chars[pos].toLowerCase()) { sfx('no'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); return; }
+      sfx('tap'); place(pos, t);
+    }));
+    slots.forEach(el => el.addEventListener('click', () => { const i = +el.dataset.s; if (done || over || guided || fill[i] == null) return; sfx('tap'); delete fill[i]; draw(); }));
+    $('#hint').onclick = () => {
+      if (done || over) return;
+      const pos = order.find(i => fill[i] == null || pool[fill[i]].toLowerCase() !== chars[i].toLowerCase());
+      if (pos == null) return;
+      const want = chars[pos].toLowerCase();
+      let t = pool.findIndex((c, j) => c.toLowerCase() === want && !used().includes(j));
+      if (t < 0) { const from = order.find(i => i !== pos && fill[i] != null && pool[fill[i]].toLowerCase() === want && pool[fill[i]].toLowerCase() !== chars[i].toLowerCase()); if (from == null) return; t = fill[from]; delete fill[from]; }
+      hinted = true; sfx('tap'); place(pos, t); slots.find(x => +x.dataset.s === pos).classList.add('hinted');
+    };
+    const check = () => {
+      if (done || over) return; done = true;
+      const bad = order.filter(i => pool[fill[i]].toLowerCase() !== chars[i].toLowerCase());
+      slots.forEach(el => el.classList.add(bad.includes(+el.dataset.s) ? 'bad' : 'good'));
+      $('#hint').disabled = true;
+      if (!bad.length) {
+        const first = !hinted && !guided;
+        if (mode !== 'fix') record(w, first);
+        sfx('ok'); const r = $('.spslots').getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + r.height / 2);
+        if (first) addFeathers(2, $('.spslots'));
+        Promise.all([VO.say(first ? [w.en, 200, praise()] : [w.en]), wait(1100)]).then(() => { if (over) return; k++; next(); });
+        return;
+      }
+      record(w, false); sfx('no');
+      const tried = order.map(i => `<span class="${bad.includes(i) ? 'x' : ''}">${esc(pool[fill[i]])}</span>`).join('');
+      setTimeout(() => { if (over) return;
+        app.querySelector('.row.qfoot').outerHTML = `<div class="card spfix"><div class="small muted">كتبتَ:</div><div class="sword small en">${tried}</div>
+          <div class="small muted">والصحيح:</div><div class="sword en">${teamHTML(w.en)}</div></div><div class="qfoot"><button class="btn" id="again">✏️ اكتبها مرة أخرى ◀︎</button></div>`;
+        VO.say([{ a: 'sp-fix' }, 250, w.en]);
+        on('#again', () => build(w, 'fix'));
+        app.querySelector('.spfix').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest' });
+      }, 900);
+    };
+  };
+  const body = () => app;
+  next();
+}
+function spellDone(res) {
+  const ok = res.filter(r => r.ok).length, fe = 3;
+  ST.fe += fe; const t = today(); t.sp = (t.sp || 0) + 1; save();
+  const streakUp = touchStreak();
+  app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ mood: 'happy', pose: 'cheer' })}</div><h2>أنهيت ورشة الإملاء!</h2>
+    <div class="bigstars">${Array.from({ length: 3 }, (_, j) => j < (ok >= res.length - 1 ? 3 : ok >= res.length / 2 ? 2 : 1) ? '★' : '<span class="off">★</span>').join('')}</div>
+    <div class="gain"><span>✏️ ${num(ok)} من ${num(res.length)} من أول مرة</span><span>🪶 +${num(fe + ok * 2)}</span>${streakUp ? `<span>🔥 ${num(streakNow())}</span>` : ''}</div>
+    <div class="wlist">${res.map(r => `<span class="${r.ok ? '' : 'again'}">${pic(r.w)}${esc(r.w.en)} ${r.ok ? '✓' : '🔁'}</span>`).join('')}</div>
+    <p class="muted small" style="margin:0">${res.some(r => !r.ok) ? 'الكلمات التي عليها 🔁 تعود غدًا لتكتبها مرة أخرى.' : 'رائع! ستعود الكلمات بعد أيام لتتأكد أنك ما زلت تتذكرها.'}</p>
+    <div class="stack" style="width:100%"><button class="btn" id="more">✏️ ٦ كلمات أخرى</button><button class="btn soft" id="hm">🏠 الرئيسية</button></div></div>`;
+  FX.confetti(); sfx('win');
+  celebrate([{ a: 'sp-done' }]);
+  on('#more', () => { clean(); cur = { name: 'spell' }; render(); });
+  on('#hm', home);
+}
+
+/* ---------- the rule of the day: a short explanation (Hamed and Ollie), then 8 sentences to complete ----------
+   A rule is learned after two rounds with at most one mistake, on two different days. */
+const grOf = r => ST.gr[r.id] || (ST.gr[r.id] = { d: [], best: 0, n: 0, last: -1 });
+const ruleMastered = r => !!(ST.gr && ST.gr[r.id] && ST.gr[r.id].d.length >= 2);
+function ruleOfDay() {
+  const left = RULES.filter(r => !ruleMastered(r));
+  return left.length ? left[0] : RULES.slice().sort((a, b) => grOf(a).last - grOf(b).last)[0];
+}
+// English words to light up; 'like+s' lights up likes and shows the added s in its own colour
+const hlHTML = (text, hl) => text.split(/([A-Za-z']+)/).map(t => { const h = (hl || []).find(x => x.replace('+', '') === t);
+  if (!h) return esc(t); const [base, add] = h.split('+'); return `<span class="mark">${esc(base)}${add ? `<b class="sfx">${esc(add)}</b>` : ''}</span>`; }).join('');
+// Arabic text with English words in it: each English run is isolated so it keeps its place in the sentence
+const bidi = s => String(s).split(/([A-Za-z][A-Za-z0-9 '’\/.-]*[A-Za-z0-9]|[A-Za-z])/).map((p, i) => i % 2 ? `<span class="en nb">${esc(p)}</span>` : esc(p)).join('');
+def('rules', () => {
+  const R = ruleOfDay();
+  app.innerHTML = bar('القواعد') + `<p class="center muted small" style="margin-top:0">خمس قواعد اختارها شاهين من اختبار المستوى. تتقن القاعدة بجولتين ممتازتين في يومين.</p>
+    <div class="stack">${RULES.map((r, i) => { const g = ST.gr[r.id], m = ruleMastered(r);
+      return `<button class="lcard${r === R ? ' today-rule' : ''}" data-r="${r.id}"><span class="ln" style="background:${m ? 'var(--ok)' : '#6366f1'}">${m ? '✓' : r.icon}</span>
+        <span class="lx"><b>${bidi(r.ar)}</b><span class="en small muted">${esc(r.en)}</span></span>${r === R && !m ? '<span class="chip today">اليوم</span>' : starsHTML(g ? Math.min(2, g.d.length) : 0, 2)}</button>`; }).join('')}</div>`;
+  bindBar(); VO.say({ a: 'rules' });
+  on('[data-r]', el => go('rule', el.dataset.r));
+});
+def('rule', id => {
+  const r = RULES.find(x => x.id === id) || ruleOfDay();
+  const part = (p, i) => p.a ? `<p class="rp ar" data-p="${i}">${esc(AR_PLAIN(p.a))}</p>`
+    : p.e ? `<p class="rp en ex" data-p="${i}"><button class="rsay" aria-label="اسمع">🔊</button><span class="t">${hlHTML(p.e, p.hl)}</span></p>`
+    : `<p class="rp en wrong" data-p="${i}"><span>✗</span> <s>${esc(p.x)}</s></p>`;
+  app.innerHTML = bar(bidi(r.ar), { right: `<button class="ib" id="all" aria-label="كل القواعد">📋</button>` }) + `<div class="card rulecard">
+      <div class="rhead"><span class="ricon">${r.icon}</span><div><b>${bidi(r.ar)}</b><div class="en muted">${esc(r.en)}</div></div></div>
+      <div class="rparts">${r.parts.map(part).join('')}</div>
+      <div class="tools"><button class="tbtn" id="again">🔊 أعد الشرح</button></div></div>
+    <div class="qfoot"><button class="btn" id="go">🧩 هيا نتدرب ◀︎</button></div>`;
+  bindBar();
+  let run = 0;
+  const here = cur, els = $$('.rparts [data-p]');
+  const play = async () => {
+    const me = ++run; els.forEach(el => el.classList.remove('on'));
+    if (!grOf(r).n) { await VO.say({ a: 'rule-intro' }); }
+    for (let i = 0; i < r.parts.length; i++) {
+      if (me !== run || cur !== here) return;
+      const p = r.parts[i]; els[i].classList.add('on');
+      if (p.a) await VO.say({ a: p.a }); else if (p.e) await VO.say(p.e); else await wait(800);
+      await wait(200);
+    }
+  };
+  onLeave(() => { run++; });
+  play();
+  on('#again', () => play());
+  on('#all', () => go('rules'));
+  $$('.rparts .ex').forEach(el => { const i = +el.dataset.p; el.querySelector('.rsay').onclick = () => { run++; VO.say(r.parts[i].e); }; });
+  on('#go', () => { run++; VO.stop(); ruleQuiz(r); });
+});
+function ruleQuiz(r) {
+  const qs = mix(r.qs); let k = 0, right = 0, over = false;
+  onLeave(() => { over = true; });
+  const next = () => {
+    if (over) return;
+    if (k >= qs.length) { over = true; return ruleDone(r, right, qs.length); }
+    const q = qs[k], opts = mix([q.ans, ...q.wrong]);
+    app.dataset.qn = (+app.dataset.qn || 0) + 1;
+    app.innerHTML = `<div class="qtop"><button class="x" id="qx" aria-label="خروج">✕</button><div class="pbar"><i style="width:${Math.round(k / qs.length * 100)}%"></i></div><span class="fe">🪶 ${num(ST.fe)}</span></div>
+      <p class="qins"><button id="qsay" aria-label="اسمع السؤال">🔊</button><span>اختر الكلمة التي تكمل الجملة.</span></p>
+      <div class="prompt"><span class="rchip">${r.icon} ${bidi(r.ar)}</span><div class="gapline en" id="gl">${esc(q.text).replace('___', '<span class="blank">&nbsp;</span>')}</div></div>
+      <div class="opts">${opts.map((o, i) => `<button class="opt en" data-i="${i}"${o === q.ans ? ' data-right' : ''}>${esc(o)}</button>`).join('')}</div><div id="fb"></div>`;
+    $('#qx').onclick = () => { sfx('tap'); confirmSheet('هل تريد الخروج؟', 'نعم، اخرج', 'أكمل', () => { over = true; back(); }); };
+    $('#qsay').onclick = () => VO.say({ a: 'q-gap' });
+    if (k === 0) VO.say({ a: 'q-gap' });
+    let answered = false;
+    $$('.opt').forEach(el => el.addEventListener('click', () => {
+      if (answered || over) return; answered = true;
+      const ok = opts[+el.dataset.i] === q.ans, rt = $('.opt[data-right]');
+      $('.opts').classList.add('locked');
+      $('#gl').innerHTML = esc(q.text).replace('___', `<span class="mark">${esc(q.ans)}</span>`);
+      if (ok) {
+        right++; sfx('ok'); el.classList.add('ok'); const b = el.getBoundingClientRect(); FX.burst(b.left + b.width / 2, b.top + b.height / 2); addFeathers(1, el);
+        Promise.all([VO.say(q.full), wait(1000)]).then(() => { if (!over) { k++; next(); } });
+        return;
+      }
+      sfx('no'); el.classList.add('bad', 'shake'); rt.classList.add('ok');
+      $('#fb').innerHTML = `<div class="feedback bad"><span>الصحيح:</span> <b class="en">${esc(q.full)}</b></div><div class="qfoot"><button class="btn" id="cont">متابعة ◀︎</button></div>`;
+      VO.say(q.full);
+      $('#cont').onclick = () => { sfx('tap'); k++; next(); };
+      $('#fb').scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest' });
+    }));
+  };
+  next();
+}
+function ruleDone(r, right, n) {
+  const g = grOf(r), D = DAY(), great = right >= n - 1, before = ruleMastered(r);
+  g.n++; g.best = Math.max(g.best, right); g.last = D;
+  if (great && !g.d.includes(D)) g.d.push(D);
+  const mastered = !before && ruleMastered(r), t = today(); t.g = (t.g || 0) + 1;
+  const fe = 3, stars = great ? 3 : right >= n - 3 ? 2 : 1; ST.fe += fe; save();
+  const streakUp = touchStreak();
+  const msg = mastered ? 'أتقنت هذه القاعدة! 🎉' : great ? (g.d.length < 2 ? 'ممتاز! جولة ممتازة أخرى في يوم آخر وتتقنها.' : 'ممتاز! ما زلت تتذكرها جيدًا.') : 'جيد! سنتدرب عليها مرة أخرى حتى تتقنها.';
+  app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ mood: 'happy', pose: 'cheer' })}</div><h2>${bidi(r.ar)}</h2>
+    <div class="bigstars">${Array.from({ length: 3 }, (_, j) => j < stars ? '★' : '<span class="off">★</span>').join('')}</div>
+    <div class="gain"><span>✅ ${num(right)} من ${num(n)}</span><span>🪶 +${num(fe + right)}</span>${streakUp ? `<span>🔥 ${num(streakNow())}</span>` : ''}</div>
+    <p style="margin:0;font-weight:800">${msg}</p>
+    <div class="stack" style="width:100%"><button class="btn" id="again">🔁 تدرب مرة أخرى</button><button class="btn soft" id="all">🧩 كل القواعد</button><button class="btn soft" id="hm">🏠 الرئيسية</button></div></div>`;
+  FX.confetti(); sfx('win');
+  celebrate([{ a: mastered ? (RULES.some(x => !ruleMastered(x)) ? 'rule-master' : 'rule-great') : great ? 'rule-great' : 'rule-more' }]);
+  on('#again', () => { clean(); cur = { name: 'rule', arg: r.id }; render(); });
+  on('#all', () => { clean(); stack = [{ name: 'home' }]; cur = { name: 'rules' }; render(); });
+  on('#hm', home);
+}
 
 boot();
 

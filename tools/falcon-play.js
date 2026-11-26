@@ -1,5 +1,6 @@
-// Plays Word Falcon (word-falcon.html) in headless Chromium the way a child would: the intro, the placement test,
-// a lesson (meeting the words and answering every question), the smart review, each of the eight games, the word
+// Plays Word Falcon (word-falcon.html) in headless Chromium the way a child would: the intro and his plan from the
+// level test, the placement test, a lesson (meeting the words and answering every question), the smart review, the
+// spelling workshop (one word written wrong first), the rule of the day, each of the eight games, the word
 // book, talk time, the falcon's nest, the badges and the parents' corner. It reports script errors, clips that
 // failed to load, and saves a screenshot of every screen in the folder it prints.
 // usage: node tools/falcon-play.js            (serves the repo on a local port so the voice packs load)
@@ -57,7 +58,8 @@ const server = http.createServer((q, r) => {
   await page.goto(url); await page.waitForTimeout(800); await shot('splash');
   await click('#go'); await page.waitForTimeout(600); await shot('intro');
   for (let i = 0; i < 3; i++) await click('#nx');
-  await shot('placement-ask'); await click('#yes'); await click('#st'); await page.waitForTimeout(500); await shot('placement-q');
+  await shot('plan-hello'); await click('#go'); await page.waitForTimeout(500);       // his plan from the level test (plan.js)
+  await page.evaluate(() => window.FALCON.go('placement')); await click('#st'); await page.waitForTimeout(500); await shot('placement-q');
   let k = 0; while (await screen() === 'placement' && await page.locator('#qb').count() && k < 40) { await answer(k % 3 === 2); k++; }
   await shot('placement-result'); await click('#hm'); await page.waitForTimeout(500); await shot('home');
   // a lesson
@@ -74,6 +76,32 @@ const server = http.createServer((q, r) => {
   k = 0; while (await page.locator('#qb').count() && k < 40) { if (k === 1) await shot('review-q'); await answer(k === 1); k++; }
   await shot('review-done'); console.log('review questions answered:', k);
   await page.evaluate(() => { document.querySelectorAll('.sheet').forEach(s => s.remove()); window.FALCON.home(); });
+  // the spelling workshop: the second word is written backwards first, then fixed
+  const tap = async letters => { for (const c of letters) { const tiles = page.locator('.tiles .tile:not(.used)'); const m = await tiles.count();
+    for (let i = 0; i < m; i++) { const t = tiles.nth(i); if ((await t.textContent()).toLowerCase() === c.toLowerCase()) { await t.click(); break; } } } };
+  await click('#spell'); await shot('spell-start'); await click('#st');
+  for (k = 0; k < 6; k++) {
+    await page.waitForTimeout(300);
+    if (await page.locator('.splook').count()) { if (k === 0) await shot('spell-look'); await click('#go'); }
+    await page.locator('.spslots').waitFor({ timeout: 8000 });
+    const qn = await page.evaluate(() => document.getElementById('app').dataset.qn), sw = await page.evaluate(() => document.getElementById('app').dataset.w);
+    const ls = [...sw].filter(c => /[A-Za-z]/.test(c));
+    await tap(k === 1 ? [...ls].reverse() : ls);
+    if (k === 1) { await click('#again'); await shot('spell-fix'); await tap(ls); }
+    await page.waitForFunction(q => document.getElementById('app').dataset.qn !== q || !document.querySelector('.spslots'), qn, { timeout: 15000 });
+  }
+  await page.waitForTimeout(600); await shot('spell-done'); console.log('spelling workshop:', await page.locator('.result .gain').textContent());
+  await page.evaluate(() => { document.querySelectorAll('.sheet').forEach(s => s.remove()); window.FALCON.home(); });
+  // the rule of the day: the explanation, then eight sentences (the first one wrong)
+  await click('#rule'); await page.waitForTimeout(2500); await shot('rule'); await click('#go');
+  for (k = 0; k < 8; k++) {
+    await page.locator('.opt').first().waitFor({ timeout: 8000 }); const qn = await page.evaluate(() => document.getElementById('app').dataset.qn);
+    if (k === 0) { await page.locator('.opt:not([data-right])').first().click(); await shot('rule-wrong'); await click('#cont'); } else await page.locator('.opt[data-right]').first().click();
+    await page.waitForFunction(q => document.getElementById('app').dataset.qn !== q || !document.querySelector('.opt'), qn, { timeout: 15000 });
+  }
+  await page.waitForTimeout(600); await shot('rule-done'); console.log('rule of the day:', await page.locator('.result .gain').textContent());
+  await page.evaluate(() => { document.querySelectorAll('.sheet').forEach(s => s.remove()); window.FALCON.home(); });
+  await page.waitForTimeout(300); await shot('home-plan');
   // the map, a topic, the topic check
   await click('[data-go="map"]'); await shot('map'); await click('.tcard[data-t="food"]'); await shot('topic');
   await click('#chk'); await click('#st'); k = 0; while (await page.locator('#qb').count() && k < 12) { await answer(k % 2 === 1); k++; } await shot('check-done'); await click('#ok');
@@ -111,6 +139,9 @@ const server = http.createServer((q, r) => {
     en: F.WORDS.filter(w => F.VO.has(w.en) && (!w.ex || F.VO.has(w.ex))).length,
     ar: F.WORDS.filter(w => F.VO.has({ r: w.ar }) && F.VO.has({ r: w.exAr })).length, all: F.WORDS.length }; });
   console.log(`words with Ollie's English clips: ${voices.en}/${voices.all}; with Hamed's Arabic clips: ${voices.ar}/${voices.all}`);
+  const rules = await page.evaluate(() => { const F = window.FALCON, lines = F.RULES.flatMap(r => [...r.parts.filter(p => p.e).map(p => p.e), ...r.qs.map(q => q.full)]);
+    return { has: lines.filter(t => F.VO.has(t)).length, all: lines.length, ar: F.RULES.flatMap(r => r.parts.filter(p => p.a)).every(p => F.VO.has({ a: p.a })) }; });
+  console.log(`rule lines with Ollie's clips: ${rules.has}/${rules.all}; Hamed's rule lines all there: ${rules.ar}`);
   await browser.close(); server.close();
   console.log('voice packs fetched:', voices.packs, 'index loaded:', voices.idx);
   console.log('screenshots in ' + OUT);

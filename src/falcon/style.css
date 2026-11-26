@@ -351,3 +351,62 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 @keyframes flyfe{to{transform:translate(var(--dx),var(--dy)) scale(.5);opacity:.2}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media (max-width:380px){.meet .word{font-size:38px}.prompt .wbig{font-size:34px}.opt{font-size:19px}.hero .fhome{width:120px;height:120px}}
+
+/* ---------- his plan from the level test: today's plan, spelling workshop, rule of the day ---------- */
+.plan .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.step{display:grid;justify-items:center;gap:4px;padding:10px 4px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:14px;font-weight:700;line-height:1.25;text-align:center}
+.step:active{transform:translateY(2px)}
+.step .si{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#fff;font-family:var(--emo)}
+.step.done{background:var(--okbg);color:var(--ok2);box-shadow:0 3px 0 #a7e3bb}
+.step.done .si{background:var(--ok);color:#fff;font-family:var(--f-num);font-weight:700}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.big.half{flex-direction:column;align-items:flex-start;gap:8px;min-height:0;padding:12px 14px}
+.big.half .ico{width:46px;height:46px;font-size:26px;border-radius:14px}
+.big.half .tx b{font-size:18px}
+.big.half .tx small.en{font-size:14px}
+.planlist{width:100%;text-align:right}
+.planlist .pl{display:flex;align-items:center;gap:12px}
+.planlist .pl>span{width:46px;height:46px;border-radius:14px;background:var(--sky2);display:grid;place-items:center;font-size:26px;flex:none;font-family:var(--emo)}
+.planlist .pl b{display:block;font-size:18px}
+.planlist .pl small{display:block;color:var(--ink2);font-size:14px;line-height:1.4}
+.planpar ul{margin:4px 0 0;padding-inline-start:22px}
+.planpar li{margin:2px 0}
+.chips2{display:flex;flex-wrap:wrap;gap:8px}
+.chips2 span{background:var(--sky2);border-radius:99px;padding:4px 12px;font-weight:700;font-size:14px}
+.sword{font-family:var(--f-en);font-size:46px;font-weight:700;line-height:1.15;color:var(--night);letter-spacing:.04em;overflow-wrap:anywhere}
+.sword.small{font-size:30px}
+.sword .tm{color:#b45309;background:#fff1c2;border-radius:10px;padding:0 3px;font-weight:700}
+.sword .x{color:var(--bad2);background:var(--badbg);border-radius:6px;text-decoration:underline wavy}
+.spslots{gap:10px}
+.spslots .grp{display:flex;gap:4px}
+.spslots .grp.tm{padding:4px;border-radius:16px;background:#fff1c2;box-shadow:inset 0 0 0 2px #f5d37a}
+.spslots .slot{cursor:pointer}
+.spslots .slot.good{border-color:var(--ok);background:var(--okbg);color:var(--ok2)}
+.spslots .slot.bad{border-style:solid;border-color:var(--bad);background:var(--badbg);color:var(--bad2)}
+.spslots .slot.hinted{border-color:var(--gold2)}
+.spslots.long{gap:7px}
+.spslots.long .grp{gap:3px}
+.spslots.long .slot{width:32px;height:44px;font-size:22px;border-radius:10px}
+.tiles.long .tile{min-width:42px;height:48px;font-size:22px}
+.spfix{display:grid;justify-items:center;gap:2px;text-align:center;margin-top:14px}
+.wlist span.again{box-shadow:0 3px 0 #f3c2c2}
+.rulecard{display:grid;gap:12px}
+.rhead{display:flex;align-items:center;gap:12px}
+.rhead b{font-size:21px}
+.ricon{width:52px;height:52px;border-radius:16px;background:#e0e7ff;display:grid;place-items:center;font-size:28px;flex:none;font-family:var(--emo)}
+.rparts{display:grid;gap:8px}
+.rp{margin:0;padding:10px 12px;border-radius:14px;opacity:.45;transition:opacity .3s,background .3s}
+.rp.on{opacity:1}
+.rp.ar{font-size:18px;font-weight:700}
+.rp.ar.on{background:var(--sky2)}
+.rp.ex{font-size:22px;background:var(--card2);display:flex;align-items:center;gap:10px}
+.rp.ex .t{flex:1;min-width:0}
+.rp.ex.on{background:#fff7dc;box-shadow:inset 0 0 0 2px #f5d37a}
+.rp .rsay{font-size:18px;width:34px;height:34px;border-radius:50%;background:var(--sky2);flex:none}
+.rp.wrong{font-size:20px;color:var(--bad2);background:var(--badbg)}
+.rp.wrong s{text-decoration-thickness:2px}
+.rchip{display:inline-block;background:#e0e7ff;color:#3730a3;border-radius:99px;padding:2px 12px;font-size:14px;font-weight:700}
+.lcard.today-rule{outline:3px solid var(--gold);outline-offset:2px}
+.chip.today{background:var(--gold);color:#3b2a00}
+.mark .sfx{color:#c2410c;font-weight:800;text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:3px}
+.en.nb{white-space:nowrap}

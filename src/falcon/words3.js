@@ -218,6 +218,42 @@ strange | غريب | 👽 | What a strange animal! | يا له من حيوان �
 favorite | مفضل | ❤️ | Pizza is my favorite food. | البيتزا طعامي المفضل. | w
 `);
 
+/* Big words (B1), added after his level test of 26 Nov 2026: the words he could not read there (journey, environment,
+   decide) and more of the same kind, words a picture cannot show. Column 7 holds the wrong answers of the sentence
+   question, picked by hand from this topic so that only one choice fits. */
+T('big', 'كلمات كبيرة', 'Big Words', '🦅', '#b45309', 3, `
+journey | رحلة | 🐫 | The journey to the desert was long. | كانت الرحلة إلى الصحراء طويلة. | w | idea, energy, mistake
+travel | يسافر | ✈️ | We travel to Abha every summer. | نسافر إلى أبها كل صيف. | w | decide, borrow, imagine
+arrive | يصل | 🛬 | Our plane will arrive at five o'clock. | ستصل طائرتنا في الساعة الخامسة. | w | explain, collect, solve
+explore | يستكشف | 🧭 | We want to explore the old castle. | نريد أن نستكشف القلعة القديمة. | w | agree, energy, maybe
+adventure | مغامرة | 🗺️ | Our trip to the mountains was a big adventure. | كانت رحلتنا إلى الجبال مغامرة كبيرة. | w | information, energy, enough
+decide | يقرر | ⚖️ | It is hard to decide which game to play. | من الصعب أن أقرر أي لعبة ألعب. | w | arrive, travel, energy
+environment | البيئة | ♻️ | We must keep our environment clean. | يجب أن نحافظ على بيئتنا نظيفة. | w | idea, mistake, future
+protect | يحمي | 🛡️ | A helmet can protect your head. | تستطيع الخوذة أن تحمي رأسك. | w | arrive, explain, borrow
+discover | يكتشف | 🔎 | Scientists discover new things every day. | يكتشف العلماء أشياء جديدة كل يوم. | w | arrive, agree, maybe
+energy | طاقة | ⚡ | Fruit gives you energy to play. | الفاكهة تعطيك طاقة لتلعب. | w | mistake, journey, problem
+information | معلومات | ℹ️ | The library has a lot of information about animals. | في المكتبة معلومات كثيرة عن الحيوانات. | w | energy, adventure, future
+imagine | يتخيل | 💭 | Imagine you can fly like a bird! | تخيل أنك تستطيع أن تطير مثل الطائر! | w | arrive, borrow, collect
+explain | يشرح | 👩‍🏫 | Can you explain the lesson again, please? | هل يمكنك أن تشرح الدرس مرة أخرى، من فضلك؟ | w | arrive, travel, agree
+idea | فكرة | 💡 | I have a great idea! Let's build a tent. | لدي فكرة رائعة! هيا نبني خيمة. | w | information, problem, energy
+problem | مشكلة | 😣 | No problem! I can help you. | لا مشكلة! أستطيع أن أساعدك. | w | mistake, journey, energy
+solve | يحل | 🔑 | Can you solve this puzzle? | هل تستطيع أن تحل هذه الأحجية؟ | w | arrive, agree, travel
+mistake | خطأ | ❌ | It is OK to make a mistake. | لا بأس أن ترتكب خطأ. | w | energy, information, future
+improve | يحسن | 📈 | I read every day to improve my English. | أقرأ كل يوم لأحسن لغتي الإنجليزية. | w | arrive, agree, return
+prepare | يجهز | 🎒 | I prepare my school bag at night. | أجهز حقيبتي المدرسية في الليل. | w | arrive, agree, explain
+borrow | يستعير | 📕 | Can I borrow your book, please? | هل يمكنني أن أستعير كتابك، من فضلك؟ | w | arrive, decide, nervous
+return | يرجع | 🔄 | Please return the book to the library. | من فضلك أرجع الكتاب إلى المكتبة. | w | decide, imagine, agree
+collect | يجمع | 🐚 | I like to collect shells on the beach. | أحب أن أجمع الأصداف على الشاطئ. | w | arrive, agree, solve
+agree | يوافق | 🙆 | I agree with you. You are right. | أنا أوافقك. أنت على حق. | w | borrow, solve, collect
+competition | مسابقة | 🏅 | Our class won the reading competition. | فاز فصلنا في مسابقة القراءة. | w | energy, information, mistake
+maybe | ربما | 🤷 | Maybe it will rain tomorrow. | ربما تمطر غدًا. | w | enough, already, nervous
+enough | يكفي | ✋ | We have enough water for the trip. | لدينا ماء يكفي للرحلة. | w | maybe, nervous, possible
+already | بالفعل | ☑️ | I have already finished my homework. | لقد أنهيت واجبي بالفعل. | w | enough, possible, nervous
+possible | ممكن | 👌 | Is it possible to visit the zoo today? | هل من الممكن أن نزور حديقة الحيوان اليوم؟ | w | nervous, already, maybe
+nervous | متوتر | 😰 | I feel nervous before a test. | أشعر بالتوتر قبل الاختبار. | w | enough, possible, already
+future | المستقبل | ⏩ | In the future, I want to be a pilot. | في المستقبل، أريد أن أصبح طيارًا. | w | energy, information, adventure
+`);
+
 /* Talk time: the voice asks q, the child answers with the frame f (___ is the part he fills in);
    a is a model answer, said after he speaks. */
 const TALK = [
@@ -285,6 +321,9 @@ const TALK = [
  ['class','Are you ready?','هل أنت جاهز؟','Yes, I\'m ___!','Yes, I\'m ready!'],
  ['describe','What is a table made of?','مم تصنع الطاولة؟','A table is made of ___.','A table is made of wood.'],
  ['describe','What is your favorite thing?','ما أكثر شيء تحبه من أغراضك؟','My favorite thing is my ___.','My favorite thing is my bike.'],
+ ['big','Where do you want to travel?','إلى أين تريد أن تسافر؟','I want to travel to ___.','I want to travel to Makkah with my family.'],
+ ['big','What do you want to be in the future?','ماذا تريد أن تصبح في المستقبل؟','In the future, I want to be ___.','In the future, I want to be an engineer.'],
+ ['big','What do you do when you make a mistake?','ماذا تفعل عندما ترتكب خطأ؟','When I make a mistake, I ___.','When I make a mistake, I try again.'],
 ].map(([t, q, qAr, f, a]) => ({ t, q, qAr, f, a }));
 
 const WORDS = [].concat(...TOPICS.map(t => t.words));

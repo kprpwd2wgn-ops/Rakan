@@ -13,7 +13,7 @@ function others(w, n, mode) {
   const fits = x => x !== w && x.k !== w.k && isPhrase(x) === isPhrase(w) && !similar(x, w)
     && (mode !== 'pic' || (!weak(x) && x.pic !== w.pic))
     && (mode !== 'ar' || x.ar !== w.ar)
-    && (mode !== 'gap' || (KIND[x.t] !== KIND[w.t] && !isPhrase(x)));
+    && (mode !== 'gap' || (KIND[x.t] !== KIND[w.t] && !isPhrase(x) && !x.gx));   // big words (own wrong answers) could fit other sentences
   const tiers = mode === 'gap' ? [WORDS.filter(x => words(x.en) === words(w.en)), WORDS]
     : [lessonOf(w), T.words, WORDS.filter(x => TOPIC[x.t].stage === T.stage), WORDS];
   const out = [];
@@ -145,7 +145,7 @@ const TYPES = {
     bindOpts(body, opts, q.w, (ok, el, right) => R(ok, { el, right, say: ok ? [q.w.en, 250, { r: q.w.ar }] : [q.w.en] }));
   },
   gap(q, body, intro, R) {
-    const w = q.w, opts = mix([w, ...others(w, 3, 'gap')]);
+    const w = q.w, opts = mix([w, ...(w.gx ? w.gx.map(k => BYK[k]).filter(Boolean) : others(w, 3, 'gap'))]);
     body.innerHTML = `<div class="prompt">${weak(w) || q.mode === 'review' ? '' : `<span style="--ps:56px">${pic(w)}</span>`}<div class="gapline en" id="gl">${blanked(w.ex, w.en)}</div>
       ${ST.set.arHide ? '' : `<div class="muted small">${esc(w.exAr)}</div>`}</div>${optWords(opts, w)}`;
     VO.say(intro);

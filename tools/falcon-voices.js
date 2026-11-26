@@ -20,8 +20,8 @@
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const ROOT = path.join(__dirname, '..'), SRC = path.join(ROOT, 'src/falcon');
 const VO = path.join(ROOT, 'ollie/voices'), AR_DIR = path.join(ROOT, 'word-falcon/ar'), OUT = path.join(ROOT, 'word-falcon/voices');
-const code = ['words1.js', 'words2.js', 'words3.js', 'say.js', 'arvoice1.js', 'arvoice2.js', 'arvoice3.js'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n');
-const { TOPICS, TALK, WORDS, AR, EN_UI, ARV, TALKV } = new Function(code + ';return {TOPICS,TALK,WORDS,AR,EN_UI,ARV,TALKV};')();
+const code = ['words1.js', 'words2.js', 'words3.js', 'say.js', 'plan.js', 'arvoice1.js', 'arvoice2.js', 'arvoice3.js'].map(f => fs.readFileSync(path.join(SRC, f), 'utf8').replace(/^if \(typeof module.*$/mg, '')).join('\n');
+const { TOPICS, TALK, WORDS, AR, EN_UI, ARV, TALKV, PLAN, RULES } = new Function(code + ';return {TOPICS,TALK,WORDS,AR,EN_UI,ARV,TALKV,PLAN,RULES};')();
 const ARW = path.join(ROOT, 'word-falcon/arw');
 
 // ---------- checks ----------
@@ -43,6 +43,23 @@ for (const w of WORDS) {
     strongPic[w.pic] = w.en;
   }
 }
+// hand-picked wrong answers of a sentence question: words of the same topic, never the word itself
+const byKey = Object.fromEntries(WORDS.map(w => [w.en.toLowerCase(), w]));
+for (const w of WORDS) if (w.gx) {
+  if (w.gx.length < 3) problems.push(`"${w.en}": column 7 needs three wrong answers`);
+  for (const k of w.gx) { const x = byKey[k]; if (!x) problems.push(`"${w.en}": wrong answer "${k}" is not a word`); else if (x === w || x.t !== w.t) problems.push(`"${w.en}": wrong answer "${k}" must be another word of its topic`); }
+}
+// the rule of the day (plan.js)
+for (const r of RULES) {
+  for (const p of r.parts) if (p.a && !AR[p.a]) problems.push(`rule ${r.id}: no Arabic line ${p.a}`);
+  for (const p of r.parts) if (p.e && p.hl) for (const h of p.hl) if (!new RegExp('(^|[^A-Za-z])' + h.replace('+', '') + '([^A-Za-z]|$)').test(p.e)) problems.push(`rule ${r.id}: "${h}" is not in "${p.e}"`);
+  if (r.qs.length !== 8) problems.push(`rule ${r.id}: ${r.qs.length} sentences, not 8`);
+  for (const q of r.qs) {
+    if (q.text.split('___').length !== 2) problems.push(`rule ${r.id}: one blank needed in "${q.text}"`);
+    if (q.wrong.includes(q.ans) || new Set(q.wrong).size !== q.wrong.length) problems.push(`rule ${r.id}: choices of "${q.text}" repeat`);
+  }
+}
+for (const k of PLAN.spell) if (!byKey[k]) problems.push(`plan: spelling word "${k}" is not a word`);
 for (const t of TALK) {
   if (!TOPICS.find(x => x.id === t.t)) problems.push(`talk: no topic ${t.t}`);
   if (!t.f.includes('___')) problems.push(`talk: frame without ___: ${t.f}`);
@@ -122,6 +139,7 @@ for (const t of TOPICS) for (const w of t.words) {
   if (w.ex) add(w.ex, 's-' + t.id, true);
 }
 for (const q of TALK) { add(q.q, 'talk', true); add(q.a, 'talk', true); }
+for (const r of RULES) { for (const p of r.parts) if (p.e) add(p.e, 'rules', false); for (const q of r.qs) add(q.full, 'rules', false); }
 for (const list of Object.values(EN_UI)) for (const t of list) add(t, 'core', false);
 
 const todo = [...new Set(want)];

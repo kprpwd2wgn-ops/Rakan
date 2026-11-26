@@ -299,6 +299,12 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 .mcard .front{background:var(--card);transform:rotateY(180deg);text-align:center}
 .mcard .front .pic{--ps:44px}
 .mcard .front .en{font-size:18px;font-weight:700;overflow-wrap:anywhere}
+/* parts 3-6: the picture games show a word's Arabic meaning in place of its picture */
+.arface{display:block;direction:rtl;font-weight:800;line-height:1.35;text-align:center;color:var(--night);overflow-wrap:anywhere}
+.prompt .arface{font-size:26px;padding:6px 4px}
+.skybox .bub.word{width:116px;height:116px;padding:12px}
+.skybox .bub .arface{font-size:14px;line-height:1.25}
+.mcard .front .arface{font-size:14px;line-height:1.3}
 .mcard.got .front{background:var(--okbg)}
 .tower{display:flex;flex-direction:column-reverse;align-items:center;gap:3px;min-height:120px;justify-content:flex-start}
 .tower .ttop{width:74px;height:74px;margin-bottom:-6px}
@@ -956,8 +962,12 @@ const AR = {
   'g-tower': 'اُكْتُبِ الْكَلِمَاتِ لِتَبْنِيَ بُرْجًا عَالِيًا.',
   'g-rush': 'أَجِبْ عَنْ أَكْبَرِ عَدَدٍ مِنَ الْأَسْئِلَةِ فِي دَقِيقَةٍ وَاحِدَةٍ!',
   'g-odd': 'ثَلَاثُ صُوَرٍ مِنْ مَجْمُوعَةٍ وَاحِدَةٍ، وَوَاحِدَةٌ غَرِيبَةٌ. اِبْحَثْ عَنْهَا!',
+  'g-odd-w': 'ثَلَاثُ كَلِمَاتٍ مِنْ مَجْمُوعَةٍ وَاحِدَةٍ، وَوَاحِدَةٌ غَرِيبَةٌ. اِبْحَثْ عَنْهَا!',
   'g-mystery': 'اِكْتَشِفِ الْكَلِمَةَ الْغَامِضَةَ حَرْفًا حَرْفًا.',
   'g-tf': 'هَلِ الْكَلِمَةُ الَّتِي تَسْمَعُهَا تُنَاسِبُ الصُّورَةَ؟ أَجِبْ بِسُرْعَةٍ!',
+  'g-catch-m': 'اِسْمَعِ الْكَلِمَةَ، وَالْمِسْ مَعْنَاهَا لِيَصْطَادَهُ الصَّقْرُ!',
+  'g-memory-m': 'اِقْلِبْ بِطَاقَتَيْنِ، وَابْحَثْ عَنِ الْكَلِمَةِ وَمَعْنَاهَا.',
+  'g-tf-m': 'هَلِ الْكَلِمَةُ الَّتِي تَسْمَعُهَا تُنَاسِبُ الْمَعْنَى؟ أَجِبْ بِسُرْعَةٍ!',
   'talk-intro': 'سَتَسْمَعُ سُؤَالًا بِالْإِنْجِلِيزِيَّةِ، فَأَجِبْ عَنْهُ بِجُمْلَةٍ كَامِلَةٍ.',
   'talk-mic': 'اِضْغَطِ الزِّرَّ، ثُمَّ تَكَلَّمْ.',
   'talk-build': 'رَتِّبِ الْكَلِمَاتِ لِتَبْنِيَ الْإِجَابَةَ.',
@@ -1179,12 +1189,12 @@ if (typeof module !== 'undefined') module.exports = { PARTNO, PART, AR_PART, PLA
 const FALCON_PARTS = [
   { n: 1, title: 'الجزء الأول', level: 'A1 – B1', sub: 'الأساس، وكلمات المستوى الرابع، وكلمات كبيرة', file: 'word-falcon.html' },
   { n: 2, title: 'الجزء الثاني', level: 'A2', sub: 'البيت، والطبخ، والصحة، والسفر، وأفعال وصفات جديدة', file: 'word-falcon-2.html' },
-  { n: 3, title: 'الجزء الثالث', level: 'B1', sub: 'العلوم، والبيئة، والتقنية، والمشاعر', file: 'word-falcon-3.html' },
-  { n: 4, title: 'الجزء الرابع', level: 'B1+', sub: 'الاختراعات، والعالم، والأفعال المركبة', file: 'word-falcon-4.html' },
-  { n: 5, title: 'الجزء الخامس', level: 'B2', sub: 'التفكير، والبحث، والمجتمع', file: 'word-falcon-5.html' },
-  { n: 6, title: 'الجزء السادس', level: 'B2+', sub: 'الرأي والإقناع، والأخبار، والمستقبل', file: 'word-falcon-6.html' },
+  { n: 3, title: 'الجزء الثالث', level: 'B1', sub: 'الحياة اليومية، والعلوم والعالم، والتفكير والمشاعر', file: 'word-falcon-3.html' },
+  { n: 4, title: 'الجزء الرابع', level: 'B1+', sub: 'الناس والمهن، والاختراعات والتاريخ، والأفعال المركبة', file: 'word-falcon-4.html' },
+  { n: 5, title: 'الجزء الخامس', level: 'B2', sub: 'الإيمان والمجتمع، والعلم والبحث، والتفكير والتعبير', file: 'word-falcon-5.html' },
+  { n: 6, title: 'الجزء السادس', level: 'B2+', sub: 'الأخبار والعالم، والرأي والتعابير، والمستقبل والطموح', file: 'word-falcon-6.html' },
 ];
-const FALCON_BUILT = [1, 2, 3, 4];
+const FALCON_BUILT = [1, 2, 3, 4, 5];
 const FALCON_SITE = 'https://kprpwd2wgn-ops.github.io/Rakan/';
 
 </script>
@@ -2544,24 +2554,31 @@ def('talk', id => {
 /* صقر الكلمات — eight games with the words he has learned (the first topics' words until he has enough).
    Sacred words (mosque, Ramadan, Eid, pray, Quran) are kept out of the games. Sound effects are noise only. */
 const GAMES = [
-  { id: 'catch', ar: 'صيد الصقر', ico: '🦅', color: '#0ea5e9', sub: 'اسمع، والمس الصورة', line: 'g-catch' },
-  { id: 'memory', ar: 'بطاقات الذاكرة', ico: '🧠', color: '#8b5cf6', sub: 'الصورة وكلمتها', line: 'g-memory' },
+  { id: 'catch', ar: 'صيد الصقر', ico: '🦅', color: '#0ea5e9', sub: 'اسمع، والمس الصورة', subM: 'اسمع، والمس المعنى', line: 'g-catch', lineM: 'g-catch-m' },
+  { id: 'memory', ar: 'بطاقات الذاكرة', ico: '🧠', color: '#8b5cf6', sub: 'الصورة وكلمتها', subM: 'المعنى وكلمته', line: 'g-memory', lineM: 'g-memory-m' },
   { id: 'tower', ar: 'برج الحروف', ico: '🧱', color: '#f97316', sub: 'اكتب لتبني برجًا', line: 'g-tower' },
   { id: 'rush', ar: 'دقيقة التحدي', ico: '⏱️', color: '#e11d48', sub: 'أكبر عدد في دقيقة', line: 'g-rush' },
   { id: 'order', ar: 'رتّب الجملة', ico: '🧩', color: '#16a34a', sub: 'جمل الأمثلة', line: 'q-ord' },
   { id: 'odd', ar: 'الكلمة الدخيلة', ico: '🔎', color: '#0d9488', sub: 'أيها لا يناسب؟', line: 'g-odd' },
   { id: 'mystery', ar: 'الكلمة الغامضة', ico: '🕵️', color: '#7c3aed', sub: 'حرفًا حرفًا', line: 'g-mystery' },
-  { id: 'tf', ar: 'صح أم خطأ', ico: '✅', color: '#d97706', sub: 'أجب بسرعة!', line: 'g-tf' },
+  { id: 'tf', ar: 'صح أم خطأ', ico: '✅', color: '#d97706', sub: 'أجب بسرعة!', line: 'g-tf', lineM: 'g-tf-m' },
 ];
+/* Parts 3-6 teach ideas more than things, so few of their words have a clear picture (27, 13, 3 and none):
+   there the picture games show each word's Arabic meaning in place of its picture. */
+const PICS_OK = WORDS.filter(w => !weak(w) && !sacred(w)).length >= 60;
+const face = w => PICS_OK ? pic(w) : `<span class="arface">${esc(w.ar)}</span>`;
+const gline = g => (!PICS_OK && g.lineM) || g.line;
 function gamePool(needPic, filter = () => true) {
-  const ok = w => !sacred(w) && !isPhrase(w) && (!needPic || !weak(w)) && filter(w);
+  const ok = w => !sacred(w) && !isPhrase(w) && (!needPic || !PICS_OK || !weak(w)) && filter(w);
   let ws = WORDS.filter(w => ok(w) && isLearned(w));
   if (ws.length < 10) ws = [...ws, ...mix(WORDS.filter(w => ok(w) && !isLearned(w) && TOPIC[w.t].stage === 1))].slice(0, Math.max(14, ws.length));
   return mix(ws);
 }
 /* wrong answers from the game's own pool (so they are words he knows), else from all words */
 function gameOthers(w, pool, n, mode) {
-  const out = [], fits = x => x !== w && !similar(x, w) && (mode !== 'pic' || (!weak(x) && x.pic !== w.pic)) && !out.some(y => similar(x, y) || y.pic === x.pic);
+  if (mode === 'pic' && !PICS_OK) mode = 'ar';
+  const same = (x, y) => mode === 'ar' ? x.ar === y.ar : x.pic === y.pic;
+  const out = [], fits = x => x !== w && !similar(x, w) && (mode !== 'pic' || (!weak(x) && x.pic !== w.pic)) && (mode !== 'ar' || x.ar !== w.ar) && !out.some(y => similar(x, y) || same(x, y));
   for (const x of mix(pool)) { if (out.length >= n) break; if (fits(x)) out.push(x); }
   if (out.length < n) others(w, n - out.length, mode).forEach(x => { if (!out.includes(x)) out.push(x); });
   return out.slice(0, n);
@@ -2569,7 +2586,7 @@ function gameOthers(w, pool, n, mode) {
 def('games', () => {
   const n = WORDS.filter(isLearned).length;
   app.innerHTML = bar('الألعاب') + (n < 10 ? `<div class="card small muted" style="margin-bottom:12px">الألعاب تستعمل الكلمات التي تعلمتها. حتى تتعلم ١٠ كلمات ستلعب بكلمات المرحلة الأولى.</div>` : '') +
-    `<div class="games">${GAMES.map(g => `<button class="gcard" data-g="${g.id}" style="background:${g.color}"><span>${g.ico}</span><b>${g.ar}</b><small>${g.sub}</small><small>أفضل نتيجة: ${num(ST.best[g.id] || 0)}</small></button>`).join('')}</div>`;
+    `<div class="games">${GAMES.map(g => `<button class="gcard" data-g="${g.id}" style="background:${g.color}"><span>${g.ico}</span><b>${g.ar}</b><small>${(!PICS_OK && g.subM) || g.sub}</small><small>أفضل نتيجة: ${num(ST.best[g.id] || 0)}</small></button>`).join('')}</div>`;
   bindBar(); VO.say({ a: 'games' });
   on('.gcard', el => go('game', el.dataset.g));
 });
@@ -2587,12 +2604,12 @@ const hud = (g, parts) => bar(g.ar) + `<div class="ghud">${parts}</div>`;
 function startCard(g, how, fn) {
   app.innerHTML = bar(g.ar) + `<div class="splash" style="min-height:auto;padding-top:20px"><div style="font-size:70px;font-family:var(--emo)">${g.ico}</div><div class="bubble">${how}</div>
     <div class="fbig" style="width:150px">${falcon({ mood: 'happy' })}</div><button class="btn" id="play">▶︎ ابدأ اللعب</button></div>`;
-  bindBar(); VO.say({ a: g.line }); on('#play', fn);
+  bindBar(); VO.say({ a: gline(g) }); on('#play', fn);
 }
 const GAME = {
   /* the falcon catches the picture of the word he hears */
   catch(g) {
-    startCard(g, 'اسمع الكلمة، والمس صورتها قبل أن تطير بعيدًا. لديك دقيقة واحدة!', () => {
+    startCard(g, PICS_OK ? 'اسمع الكلمة، والمس صورتها قبل أن تطير بعيدًا. لديك دقيقة واحدة!' : 'اسمع الكلمة، والمس معناها قبل أن يطير بعيدًا. لديك دقيقة واحدة!', () => {
       const pool = gamePool(true); let score = 0, left = 60, target = null, bubs = [], t0 = 0, raf = 0, round = 0, over = false;
       app.innerHTML = hud(g, `<span class="chipd">⭐ <b id="sc">٠</b></span><div class="timer"><i id="tm" style="width:100%"></i></div><button class="tbtn" id="rep">🔊</button>`) +
         `<div class="skybox" id="sky"><div class="gf" id="gf">${falcon({ pose: 'fly', mood: 'happy' })}</div></div>`;
@@ -2609,7 +2626,7 @@ const GAME = {
         target = pool[round % pool.length];
         const set = mix([target, ...gameOthers(target, pool, 2, 'pic')]), lanes = mix([.08, .33, .58]), speed = 70 + Math.min(110, score * 1.6);
         set.forEach((w, i) => {
-          const el = document.createElement('button'); el.className = 'bub'; el.innerHTML = pic(w); el.setAttribute('aria-label', 'صورة');
+          const el = document.createElement('button'); el.className = 'bub' + (PICS_OK ? '' : ' word'); el.innerHTML = face(w); el.setAttribute('aria-label', PICS_OK ? 'صورة' : 'معنى');
           const b = { w, el, x: W() + 30 + i * 120, y: lanes[i] * (H() - 150) + 10, v: speed * (0.9 + Math.random() * .25) };
           el.style.transform = `translate(${b.x}px,${b.y}px)`; sky.appendChild(el); bubs.push(b);
           el.addEventListener('pointerdown', e => { e.preventDefault(); hit(b); });
@@ -2642,8 +2659,8 @@ const GAME = {
     const ws = gamePool(true).slice(0, 6), cards = mix(ws.flatMap(w => [{ w, k: 'p' }, { w, k: 'e' }]));
     let open = [], moves = 0, got = 0, lock = false;
     app.innerHTML = hud(g, `<span class="chipd">🔁 <b id="mv">٠</b></span><span class="grow"></span><span class="chipd">✓ <b id="gt">٠</b>/٦</span>`) +
-      `<div class="memgrid">${cards.map((c, i) => `<button class="mcard" data-i="${i}" aria-label="بطاقة"><span class="fc back">🪶</span><span class="fc front">${c.k === 'p' ? pic(c.w) : `<span class="en">${esc(c.w.en)}</span>`}</span></button>`).join('')}</div>`;
-    bindBar(); VO.say({ a: g.line });
+      `<div class="memgrid">${cards.map((c, i) => `<button class="mcard" data-i="${i}" aria-label="بطاقة"><span class="fc back">🪶</span><span class="fc front">${c.k === 'p' ? face(c.w) : `<span class="en">${esc(c.w.en)}</span>`}</span></button>`).join('')}</div>`;
+    bindBar(); VO.say({ a: gline(g) });
     $$('.mcard').forEach(el => el.addEventListener('click', () => {
       const c = cards[+el.dataset.i]; if (lock || el.classList.contains('up')) return;
       el.classList.add('up'); sfx('flip'); if (c.k === 'e') VO.say(c.w.en);
@@ -2675,14 +2692,14 @@ const GAME = {
   },
   /* one minute: as many pictures as he can name */
   rush(g) {
-    startCard(g, 'دقيقة واحدة! اختر اسم كل صورة بأسرع ما يمكن.', () => {
+    startCard(g, PICS_OK ? 'دقيقة واحدة! اختر اسم كل صورة بأسرع ما يمكن.' : 'دقيقة واحدة! اختر الكلمة الإنجليزية لكل معنى بأسرع ما يمكن.', () => {
       const pool = gamePool(true); let score = 0, left = 60, k = 0, over = false;
       const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 60 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 1300); } }, 1000);
       onLeave(() => { over = true; clearInterval(tick); });
       const show = () => {
         if (over) return; const w = pool[k++ % pool.length], opts = mix([w, ...gameOthers(w, pool, 2, 'en')]);
         app.innerHTML = hud(g, `<span class="chipd">⭐ <b>${num(score)}</b></span><div class="timer"><i id="tm" style="width:${left / 60 * 100}%"></i></div>`) +
-          `<div class="prompt">${pic(w)}</div><div class="opts">${opts.map((x, i) => `<button class="opt en" data-i="${i}"${x === w ? ' data-right' : ''}>${esc(x.en)}</button>`).join('')}</div>`;
+          `<div class="prompt">${face(w)}</div><div class="opts">${opts.map((x, i) => `<button class="opt en" data-i="${i}"${x === w ? ' data-right' : ''}>${esc(x.en)}</button>`).join('')}</div>`;
         bindBar();
         $$('.opt').forEach(el => el.addEventListener('click', () => {
           if (over || el.closest('.opts').classList.contains('locked')) return; el.closest('.opts').classList.add('locked');
@@ -2711,18 +2728,23 @@ const GAME = {
   },
   /* three pictures from one topic and one from another */
   odd(g) {
-    const kinds = TOPICS.filter(t => t.stage <= 3 && t.id !== 'class' && t.words.filter(w => !weak(w) && !sacred(w)).length >= 4);
+    const clear = t => t.words.filter(w => !weak(w) && !sacred(w));
+    let kinds = TOPICS.filter(t => t.stage <= 3 && t.id !== 'class' && clear(t).length >= 4);
+    // the later parts teach ideas more than things, so few words have a clear picture: then the game shows the English words
+    const byWord = new Set(kinds.map(t => KIND[t.id])).size < 2;
+    const usable = t => byWord ? t.words.filter(w => !isPhrase(w) && !sacred(w)) : clear(t);
+    if (byWord) kinds = TOPICS.filter(t => usable(t).length >= 4);
     const rounds = 8; let k = 0, score = 0;
     const show = () => {
       if (k >= rounds) return gameEnd(g, score, score);
-      const learnedFirst = t => { const s = t.words.filter(w => !weak(w) && !sacred(w)); const l = s.filter(isLearned); return l.length >= 3 ? l : s; };
+      const learnedFirst = t => { const s = usable(t); const l = s.filter(isLearned); return l.length >= 3 ? l : s; };
       const ranked = mix(kinds).sort((a, b) => topicLearned(b) - topicLearned(a)), A = ranked[k % Math.min(ranked.length, 10)], B = pick(kinds.filter(t => KIND[t.id] !== KIND[A.id]));
       const three = [];
-      for (const w of mix(learnedFirst(A))) { if (three.length < 3 && !three.some(x => similar(x, w) || x.pic === w.pic)) three.push(w); }
+      for (const w of mix(learnedFirst(A))) { if (three.length < 3 && !three.some(x => similar(x, w) || (!byWord && x.pic === w.pic))) three.push(w); }
       const oddW = pick(learnedFirst(B)), set = mix([...three, oddW]);
       app.innerHTML = hud(g, `<span class="chipd">⭐ <b>${num(score)}</b></span><span class="grow"></span><span class="chipd">${num(k + 1)}/${num(rounds)}</span>`) +
-        `<p class="center" style="font-weight:800;margin:0 0 12px">أي صورة لا تنتمي إلى المجموعة؟</p>${optPics(set, oddW)}<div id="fb"></div>`;
-      bindBar(); if (k === 0) VO.say({ a: g.line });
+        `<p class="center" style="font-weight:800;margin:0 0 12px">أي ${byWord ? 'كلمة' : 'صورة'} لا تنتمي إلى المجموعة؟</p>${byWord ? optWords(set, oddW) : optPics(set, oddW)}<div id="fb"></div>`;
+      bindBar(); if (k === 0) VO.say({ a: byWord ? 'g-odd-w' : g.line });
       $$('.opt').forEach(el => el.addEventListener('click', () => {
         const box = el.closest('.opts'); if (box.classList.contains('locked')) return; box.classList.add('locked');
         const ok = set[+el.dataset.i] === oddW; if (ok) { score++; el.classList.add('ok'); sfx('ok'); } else { el.classList.add('bad'); $('.opt[data-right]').classList.add('ok'); sfx('no'); }
@@ -2744,9 +2766,9 @@ const GAME = {
       const draw = () => {
         const left = [...word].filter(c => /[a-z]/.test(c) && !found.has(c)).length, total = new Set([...word].filter(c => /[a-z]/.test(c))).size;
         app.innerHTML = hud(g, `<span class="chipd">⭐ <b>${num(score)}</b></span><span class="grow"></span><span class="lives">${Array.from({ length: 6 }, (_, i) => `<span class="${i < lives ? '' : 'lost'}">🪶</span>`).join('')}</span>`) +
-          `<div class="prompt"><span class="mystpic" style="--bl:${finished ? 0 : Math.round(16 * (found.size / total < 1 ? 1 - found.size / total : 0))}px">${pic(w)}</span>
+          `<div class="prompt">${PICS_OK ? `<span class="mystpic" style="--bl:${finished ? 0 : Math.round(16 * (found.size / total < 1 ? 1 - found.size / total : 0))}px">${pic(w)}</span>` : face(w)}
             <div class="slots">${[...word].map(c => /[a-z]/.test(c) ? `<span class="slot${found.has(c) || finished ? ' f' : ''}">${found.has(c) || finished ? c : ''}</span>` : `<span class="slot sp">${esc(c)}</span>`).join('')}</div>
-            ${finished ? `<div style="font-weight:800">${esc(w.ar)}</div>` : ''}</div>
+            ${finished && PICS_OK ? `<div style="font-weight:800">${esc(w.ar)}</div>` : ''}</div>
           ${finished ? `<button class="btn" id="nx">${k < ws.length - 1 ? 'الكلمة التالية ◀︎' : 'النتيجة ◀︎'}</button>` :
             `<div class="kb">${'abcdefghijklmnopqrstuvwxyz'.split('').map(c => `<button data-c="${c}" class="${tried.has(c) ? (word.includes(c) ? 'yes' : 'no') : ''}" ${tried.has(c) ? 'disabled' : ''}>${c}</button>`).join('')}</div>
             <div class="row qfoot"><button class="btn soft small" id="hear">🔊 اسمعها (تكلّف ريشة)</button></div>`}`;
@@ -2767,14 +2789,14 @@ const GAME = {
   },
   /* does the word he hears match the picture? */
   tf(g) {
-    startCard(g, 'سترى صورة وتسمع كلمة. هل الكلمة تناسب الصورة؟ لديك ٤٥ ثانية!', () => {
+    startCard(g, PICS_OK ? 'سترى صورة وتسمع كلمة. هل الكلمة تناسب الصورة؟ لديك ٤٥ ثانية!' : 'سترى معنى وتسمع كلمة. هل الكلمة تناسب المعنى؟ لديك ٤٥ ثانية!', () => {
       const pool = gamePool(true); let score = 0, left = 45, k = 0, over = false;
       const tick = setInterval(() => { left--; const t = $('#tm'); if (t) t.style.width = (left / 45 * 100) + '%'; if (left <= 0) { over = true; clearInterval(tick); VO.say({ a: 'time-up' }); setTimeout(() => gameEnd(g, score, score), 1300); } }, 1000);
       onLeave(() => { over = true; clearInterval(tick); });
       const show = () => {
         if (over) return; const w = pool[k++ % pool.length], yes = Math.random() < .5, shown = yes ? w : (gameOthers(w, pool, 1, 'pic')[0] || w), truth = shown === w;
         app.innerHTML = hud(g, `<span class="chipd">⭐ <b>${num(score)}</b></span><div class="timer"><i id="tm" style="width:${left / 45 * 100}%"></i></div>`) +
-          `<div class="prompt">${pic(w)}<div class="wbig en" style="font-size:32px">${esc(shown.en)}</div></div>
+          `<div class="prompt">${face(w)}<div class="wbig en" style="font-size:32px">${esc(shown.en)}</div></div>
           <div class="opts tf"><button class="opt" data-v="1">✓ صح</button><button class="opt" data-v="0">✗ خطأ</button></div>`;
         bindBar(); VO.say(shown.en);
         $$('.opt').forEach(el => el.addEventListener('click', () => {

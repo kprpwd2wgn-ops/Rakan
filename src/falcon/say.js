@@ -50,6 +50,8 @@ const AR = {
   'talk-intro': 'سَتَسْمَعُ سُؤَالًا بِالْإِنْجِلِيزِيَّةِ، فَأَجِبْ عَنْهُ بِجُمْلَةٍ كَامِلَةٍ.',
   'talk-mic': 'اِضْغَطِ الزِّرَّ، ثُمَّ تَكَلَّمْ.',
   'talk-build': 'رَتِّبِ الْكَلِمَاتِ لِتَبْنِيَ الْإِجَابَةَ.',
+  'talk-more': 'أَحْسَنْتَ! الْآنَ قُلْ جُمْلَةً ثَانِيَةً عَنِ الْمَوْضُوعِ نَفْسِهِ.',
+  'talk-two': 'رَائِعٌ! أَجَبْتَ بِجُمْلَتَيْنِ.',
   'shop': 'اِجْمَعِ الرِّيشَ، وَاشْتَرِ لِي أَشْيَاءَ جَمِيلَةً.',
   'book': 'هَذَا قَامُوسُكَ، فِيهِ كُلُّ كَلِمَةٍ تَعَلَّمْتَهَا.',
   'map': 'اِخْتَرْ مَوْضُوعًا تُحِبُّهُ.',
@@ -128,6 +130,6 @@ const AR = {
 const EN_UI = {
   good: ['Great job!', 'Excellent!', 'Great!', 'Awesome!', 'Nice!', 'Well done!', 'Perfect!', 'Amazing!', 'You got it!', 'Super!', 'Fantastic!'],
   oops: ['Try again!', 'Good try!'],
-  misc: ['Try like this:'],
+  misc: ['Try like this:', 'Can you tell me more?'],
 };
 if (typeof module !== 'undefined') module.exports = { AR, EN_UI };

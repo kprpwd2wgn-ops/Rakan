@@ -1,6 +1,8 @@
 /* صقر الكلمات — his plan from the level test (level-test.html) of 26 Nov 2026, read by Claude.
-   Results: listening 88%, reading 100%, words 86%, grammar 69%, spelling 25%. Speaking is not counted: his mother rated it,
-   then said she could not judge it, so the test's speaking part now listens through the microphone and Claude rates it.
+   Results: listening 88%, reading 100%, words 86%, grammar 69%, spelling 25%. His mother first rated the speaking part, then
+   said she could not judge it, so it was taken again into the microphone the same day and Claude rated his six answers:
+   all full sentences the microphone understood the first time, four of them right, two with a slip (16 of 18 points, A2;
+   his answers are one short sentence, so talk time asks for a second one).
    Level A2, with listening and reading already at the start of B1. So new lessons start with the level-4 words (stage 2),
    every other lesson comes from «كلمات كبيرة» (B1 words, the kind he could not read in the test), the spelling workshop
    trains writing, and the rule of the day works on the five slips of the grammar part.
@@ -9,14 +11,15 @@ const PLAN = {
   id: 'lt-2026-11-26', day: '٢٦ نوفمبر ٢٠٢٦', start: 2, big: true,
   spell: ['fish', 'elephant', 'butterfly'],   // the words he spelled wrong in the test come first in the workshop
   level: 'ما قبل المتوسط (A2)، وفي الاستماع والقراءة وصل إلى بداية المتوسط (B1)',
-  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
-  speak: 'الكلام: لم يُقَس بعد. سيجيب بصوته في الميكروفون في «جزء الكلام فقط» من اختبار المستوى، ثم يقيّمه Claude.',
-  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها'],
+  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلام', 89], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
+  speak: 'الكلام قيّمه Claude من ست إجابات بالميكروفون: كلها جمل كاملة، أربع منها صحيحة تمامًا. والصحيح في الجملتين الأخريين: Seeing my family makes me happy، وI like the sea because I can swim and play there.',
+  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها', 'يجيب بجمل كاملة واضحة، ويذكر السبب بكلمة because'],
   needs: ['كتابة الكلمات بحروفها (الإملاء)', 'الكلمات التي لا تظهر في صورة، مثل: journey، decide، environment',
-    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الكلام، وهو أصعب شيء عليه كما قال والداه: الإجابة بجملتين أو ثلاث بدل جملة واحدة'],
-  teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). Please help him with spelling, ' +
-    'he/she + verb-s (he plays), on/in/at with time, because and so, since and for, good/better/the best, ' +
-    'and answering with two or three sentences.',
+    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الكلام: إجاباته جملة واحدة قصيرة، والهدف جملتان أو ثلاث'],
+  teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). In speaking he answers in short, ' +
+    'clear, mostly correct sentences (A2), so please ask follow-up questions (Why? Tell me more.) to get two or three sentences. ' +
+    'Please also help him with spelling, he/she + verb-s (he plays), on/in/at with time, because and so, since and for, ' +
+    'and good/better/the best.',
 };
 
 /* The rule of the day. A rule is said in parts: a = one of Hamed's lines (AR), e = an English line in Ollie's voice with

@@ -42,15 +42,38 @@ def('talk', id => {
     canMic() ? micMode(q) : buildMode(q);
   };
   const finish = (q, stars, heard) => {
-    const key = id + ':' + k; ST.talk[key] = Math.max(ST.talk[key] || 0, stars); ST.talkN++; total += stars; addFeathers(stars, $('#act')); save();
+    const key = id + ':' + k; ST.talk[key] = Math.max(ST.talk[key] || 0, stars); ST.talkN++; today().tk = (today().tk || 0) + 1; total += stars; addFeathers(stars, $('#act')); save();
     $('#act').innerHTML = `<div class="card center stack"><div class="bigstars" style="font-size:40px">${Array.from({ length: 3 }, (_, j) => j < stars ? '★' : '<span class="off">★</span>').join('')}</div>
       ${heard ? `<div class="muted small">سمعت: <span class="en">${esc(heard)}</span></div>` : ''}
       <div><b>إجابة نموذجية:</b></div><div class="en" style="font-size:22px;font-weight:700;color:var(--night)">${esc(q.a)}</div>
+      ${heard && canMic() ? '<button class="btn green small" id="more2">➕ قل جملة ثانية</button>' : ''}
       <div class="row"><button class="btn soft small" id="again">🔁 حاول مرة أخرى</button><button class="btn small" id="nq">${k < Qs.length - 1 ? 'السؤال التالي ◀︎' : 'انتهيت ◀︎'}</button></div></div>`;
     sfx(stars >= 2 ? 'ok' : 'pop'); if (stars === 3) FX.confetti();
     VO.say([stars === 3 ? praise() : stars === 2 ? 'Good try!' : 'Try again!', 300, 'Try like this:', 200, q.a]);
     on('#again', show);
+    on('#more2', () => moreMode());
     on('#nq', () => { if (k < Qs.length - 1) { k++; show(); } else done(); });
+  };
+  // a second sentence about the same question: his answers are one short sentence, and his plan asks for two
+  const moreMode = () => {
+    $('#act').innerHTML = `<div class="card center stack"><div class="en" style="font-size:22px;font-weight:700;color:var(--night)">Can you tell me more?</div>
+      <p class="small muted" style="margin:0">قل جملة ثانية عن الموضوع نفسه: لماذا؟ أو متى؟ أو مع من؟</p>
+      <button class="micbtn" id="mic2" aria-label="اضغط وتكلم">🎤</button><div class="heard" id="heard2">اضغط على الميكروفون، ثم تكلم</div>
+      <button class="btn small" id="nq2">${k < Qs.length - 1 ? 'السؤال التالي ◀︎' : 'انتهيت ◀︎'}</button></div>`;
+    VO.say([{ a: 'talk-more' }, 250, 'Can you tell me more?']);
+    let got = false;
+    $('#mic2').onclick = async () => {
+      if (got) return;
+      const b = $('#mic2'), out = $('#heard2'); VO.stop(); b.classList.add('on'); out.textContent = '… أستمع';
+      const r = await listen(); b.classList.remove('on');
+      if (r.err) { out.textContent = r.msg; return; }
+      const said = r.alts[0] || '', n = normE(said).split(' ').filter(Boolean).length;
+      if (n < 3) { out.innerHTML = said ? `سمعت: <span class="en">${esc(said)}</span> · قل جملة أطول` : 'لم أسمع شيئًا. اقترب وتكلم بوضوح.'; return; }
+      got = true; out.innerHTML = `✅ <span class="en">${esc(said)}</span>`;
+      ST.talk2 = (ST.talk2 || 0) + 1; addFeathers(2, b); save();
+      sfx('ok'); FX.confetti(); VO.say({ a: 'talk-two' });
+    };
+    on('#nq2', () => { if (k < Qs.length - 1) { k++; show(); } else done(); });
   };
   const micMode = q => {
     $('#act').innerHTML = `<button class="micbtn" id="mic" aria-label="اضغط وتكلم">🎤</button><div class="heard" id="heard">اضغط على الميكروفون وأجب بصوتك</div>

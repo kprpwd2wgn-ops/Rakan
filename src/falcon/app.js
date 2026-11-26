@@ -140,7 +140,7 @@ const DEF = () => ({ w: {}, ls: {}, fe: 0, own: {}, wear: {}, bg: 'desert', days
 let ST = (() => { try { const r = localStorage.getItem(KEY); if (r) { const o = Object.assign(DEF(), JSON.parse(r)); o.set = Object.assign(DEF().set, o.set); return o; } } catch (e) {} return DEF(); })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
 const DAY = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
-function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0 }); }
+function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0, tk: 0 }); }
 function streakNow() { return ST.streak.last >= DAY() - 1 ? ST.streak.n : 0; }
 function touchStreak() { const d = DAY(); if (ST.streak.last === d) return false; ST.streak.n = ST.streak.last === d - 1 ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); return true; }
 let lastTouch = Date.now();
@@ -353,7 +353,7 @@ def('home', () => {
   on('#review', () => startReview());
   on('#spell', () => go('spell'));
   on('#rule', () => go('rule', ruleOfDay().id));
-  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else startReview(); });
+  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else if (k === 'talk') go('talkList'); else startReview(); });
   on('[data-go]', el => go(el.dataset.go));
   on('#par', () => go('gate'));
   on('#fechip', () => go('shop'));
@@ -626,7 +626,7 @@ const BADGES = [
   ['stage1', '🥉', 'المرحلة الأولى', 'أنهيت «الأساس»', () => stageDone(1)], ['stage2', '🥈', 'المرحلة الثانية', 'أنهيت «المستوى الرابع»', () => stageDone(2)],
   ['stage3', '🥇', 'المرحلة الثالثة', 'أنهيت «انطلق أبعد»', () => stageDone(3)], ['place', '🧭', 'المستكشف', 'أجريت اختبار تحديد المستوى', () => ST.placed === true],
   ['spell20', '✏️', 'كاتب ماهر', 'كتبت ٢٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 20], ['spell100', '🖋️', 'بطل الإملاء', 'كتبت ١٠٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 100],
-  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
+  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['two10', '🗣️', 'جملتان', 'أجبت ١٠ مرات بجملتين في «تحدّث»', () => (ST.talk2 || 0) >= 10], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
 ];
 function newBadges() { const got = []; BADGES.forEach(b => { if (!ST.badges[b[0]] && b[4]()) { ST.badges[b[0]] = DAY(); got.push(b); } }); return got; }
 def('badges', () => {

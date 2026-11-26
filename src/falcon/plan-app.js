@@ -15,6 +15,7 @@ function planSteps() {
     { id: 'lesson', ico: '📘', ar: 'درس جديد', done: t.l >= ST.set.goal || !nextLesson() },
     { id: 'spell', ico: '✏️', ar: 'الإملاء', done: (t.sp || 0) >= 1 },
     { id: 'rule', ico: '🧩', ar: 'قاعدة اليوم', done: (t.g || 0) >= 1 },
+    { id: 'talk', ico: '🎤', ar: 'تحدّث', done: (t.tk || 0) >= 2 },
     { id: 'review', ico: '🔁', ar: 'المراجعة', done: dueWords().length === 0 },
   ];
 }
@@ -31,6 +32,7 @@ def('planHello', () => {
       <div class="pl"><span>📘</span><div><b>درس جديد</b><small>درس من كلمات المستوى الرابع، ثم درس من «كلمات كبيرة»</small></div></div>
       <div class="pl"><span>✏️</span><div><b>ورشة الإملاء</b><small>٦ كلمات: تنظر إليها، ثم تكتبها من ذاكرتك</small></div></div>
       <div class="pl"><span>🧩</span><div><b>قاعدة اليوم</b><small>شرح قصير، ثم ثماني جمل تكملها</small></div></div>
+      <div class="pl"><span>🎤</span><div><b>تحدّث</b><small>سؤالان كل يوم، وأجب بجملتين</small></div></div>
       <div class="pl"><span>🔁</span><div><b>المراجعة الذكية</b><small>حتى لا تنسى ما تعلمته</small></div></div></div>
     <button class="btn" id="go">هيا بنا! ◀︎</button></div>`;
   VO.say([{ a: 'plan-1' }, 300, { a: 'plan-2' }, 300, { a: 'plan-3' }]);
@@ -45,7 +47,7 @@ function planParents() {
       ${PLAN.speak ? `<div class="small muted">${bidi(PLAN.speak)}</div>` : ''}</div>
     <div><b>أقوى ما عنده</b><ul>${PLAN.strong.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
     <div><b>ما نعمل عليه الآن</b><ul>${PLAN.needs.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
-    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>
+    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، وسؤالان في «تحدّث» يجيب عن كل منهما بجملتين، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>
     <div class="chips2"><span>✏️ يكتب ${num(spelled)} كلمة بلا خطأ</span><span>🧩 أتقن ${num(RULES.filter(ruleMastered).length)} من ${num(RULES.length)} قواعد</span><span>🦅 كلمات كبيرة ${num(topicLearned(B))}/${num(B.words.length)}</span></div>
     <div class="setrow"><span>الدروس الجديدة تبدأ من</span><div class="seg">${['الأساس', 'المستوى ٤', 'أبعد'].map((n, i) => `<button data-st="${i + 1}" class="${(ST.set.start || 1) === i + 1 ? 'on' : ''}">${n}</button>`).join('')}</div></div>
     <div class="setrow"><span>درس من «كلمات كبيرة» بعد كل درس</span><button class="switch${ST.set.big ? ' on' : ''}" data-s="big" aria-label="كلمات كبيرة"></button></div></div>`;

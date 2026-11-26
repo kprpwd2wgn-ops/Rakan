@@ -373,8 +373,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 @media (max-width:380px){.meet .word{font-size:38px}.prompt .wbig{font-size:34px}.opt{font-size:19px}.hero .fhome{width:120px;height:120px}}
 
 /* ---------- his plan from the level test: today's plan, spelling workshop, rule of the day ---------- */
-.plan .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
-.step{display:grid;justify-items:center;gap:4px;padding:10px 4px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:14px;font-weight:700;line-height:1.25;text-align:center}
+.plan .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}
+.step{display:grid;justify-items:center;align-content:start;gap:4px;padding:10px 2px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:13px;font-weight:700;line-height:1.25;text-align:center}
 .step:active{transform:translateY(2px)}
 .step .si{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#fff;font-family:var(--emo)}
 .step.done{background:var(--okbg);color:var(--ok2);box-shadow:0 3px 0 #a7e3bb}
@@ -1451,6 +1451,8 @@ const AR = {
   'talk-intro': 'سَتَسْمَعُ سُؤَالًا بِالْإِنْجِلِيزِيَّةِ، فَأَجِبْ عَنْهُ بِجُمْلَةٍ كَامِلَةٍ.',
   'talk-mic': 'اِضْغَطِ الزِّرَّ، ثُمَّ تَكَلَّمْ.',
   'talk-build': 'رَتِّبِ الْكَلِمَاتِ لِتَبْنِيَ الْإِجَابَةَ.',
+  'talk-more': 'أَحْسَنْتَ! الْآنَ قُلْ جُمْلَةً ثَانِيَةً عَنِ الْمَوْضُوعِ نَفْسِهِ.',
+  'talk-two': 'رَائِعٌ! أَجَبْتَ بِجُمْلَتَيْنِ.',
   'shop': 'اِجْمَعِ الرِّيشَ، وَاشْتَرِ لِي أَشْيَاءَ جَمِيلَةً.',
   'book': 'هَذَا قَامُوسُكَ، فِيهِ كُلُّ كَلِمَةٍ تَعَلَّمْتَهَا.',
   'map': 'اِخْتَرْ مَوْضُوعًا تُحِبُّهُ.',
@@ -1529,13 +1531,15 @@ const AR = {
 const EN_UI = {
   good: ['Great job!', 'Excellent!', 'Great!', 'Awesome!', 'Nice!', 'Well done!', 'Perfect!', 'Amazing!', 'You got it!', 'Super!', 'Fantastic!'],
   oops: ['Try again!', 'Good try!'],
-  misc: ['Try like this:'],
+  misc: ['Try like this:', 'Can you tell me more?'],
 };
 if (typeof module !== 'undefined') module.exports = { AR, EN_UI };
 
 /* صقر الكلمات — his plan from the level test (level-test.html) of 26 Nov 2026, read by Claude.
-   Results: listening 88%, reading 100%, words 86%, grammar 69%, spelling 25%. Speaking is not counted: his mother rated it,
-   then said she could not judge it, so the test's speaking part now listens through the microphone and Claude rates it.
+   Results: listening 88%, reading 100%, words 86%, grammar 69%, spelling 25%. His mother first rated the speaking part, then
+   said she could not judge it, so it was taken again into the microphone the same day and Claude rated his six answers:
+   all full sentences the microphone understood the first time, four of them right, two with a slip (16 of 18 points, A2;
+   his answers are one short sentence, so talk time asks for a second one).
    Level A2, with listening and reading already at the start of B1. So new lessons start with the level-4 words (stage 2),
    every other lesson comes from «كلمات كبيرة» (B1 words, the kind he could not read in the test), the spelling workshop
    trains writing, and the rule of the day works on the five slips of the grammar part.
@@ -1544,14 +1548,15 @@ const PLAN = {
   id: 'lt-2026-11-26', day: '٢٦ نوفمبر ٢٠٢٦', start: 2, big: true,
   spell: ['fish', 'elephant', 'butterfly'],   // the words he spelled wrong in the test come first in the workshop
   level: 'ما قبل المتوسط (A2)، وفي الاستماع والقراءة وصل إلى بداية المتوسط (B1)',
-  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
-  speak: 'الكلام: لم يُقَس بعد. سيجيب بصوته في الميكروفون في «جزء الكلام فقط» من اختبار المستوى، ثم يقيّمه Claude.',
-  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها'],
+  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلام', 89], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
+  speak: 'الكلام قيّمه Claude من ست إجابات بالميكروفون: كلها جمل كاملة، أربع منها صحيحة تمامًا. والصحيح في الجملتين الأخريين: Seeing my family makes me happy، وI like the sea because I can swim and play there.',
+  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها', 'يجيب بجمل كاملة واضحة، ويذكر السبب بكلمة because'],
   needs: ['كتابة الكلمات بحروفها (الإملاء)', 'الكلمات التي لا تظهر في صورة، مثل: journey، decide، environment',
-    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الكلام، وهو أصعب شيء عليه كما قال والداه: الإجابة بجملتين أو ثلاث بدل جملة واحدة'],
-  teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). Please help him with spelling, ' +
-    'he/she + verb-s (he plays), on/in/at with time, because and so, since and for, good/better/the best, ' +
-    'and answering with two or three sentences.',
+    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الكلام: إجاباته جملة واحدة قصيرة، والهدف جملتان أو ثلاث'],
+  teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). In speaking he answers in short, ' +
+    'clear, mostly correct sentences (A2), so please ask follow-up questions (Why? Tell me more.) to get two or three sentences. ' +
+    'Please also help him with spelling, he/she + verb-s (he plays), on/in/at with time, because and so, since and for, ' +
+    'and good/better/the best.',
 };
 
 /* The rule of the day. A rule is said in parts: a = one of Hamed's lines (AR), e = an English line in Ollie's voice with
@@ -2039,7 +2044,7 @@ const DEF = () => ({ w: {}, ls: {}, fe: 0, own: {}, wear: {}, bg: 'desert', days
 let ST = (() => { try { const r = localStorage.getItem(KEY); if (r) { const o = Object.assign(DEF(), JSON.parse(r)); o.set = Object.assign(DEF().set, o.set); return o; } } catch (e) {} return DEF(); })();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
 const DAY = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
-function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0 }); }
+function today() { const d = DAY(); return ST.days[d] || (ST.days[d] = { n: 0, r: 0, c: 0, q: 0, s: 0, l: 0, sp: 0, g: 0, tk: 0 }); }
 function streakNow() { return ST.streak.last >= DAY() - 1 ? ST.streak.n : 0; }
 function touchStreak() { const d = DAY(); if (ST.streak.last === d) return false; ST.streak.n = ST.streak.last === d - 1 ? ST.streak.n + 1 : 1; ST.streak.last = d; save(); return true; }
 let lastTouch = Date.now();
@@ -2252,7 +2257,7 @@ def('home', () => {
   on('#review', () => startReview());
   on('#spell', () => go('spell'));
   on('#rule', () => go('rule', ruleOfDay().id));
-  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else startReview(); });
+  on('[data-step]', el => { const k = el.dataset.step; if (k === 'lesson') { const n = nextLesson(); if (n) go('lesson', n); } else if (k === 'spell') go('spell'); else if (k === 'rule') go('rule', ruleOfDay().id); else if (k === 'talk') go('talkList'); else startReview(); });
   on('[data-go]', el => go(el.dataset.go));
   on('#par', () => go('gate'));
   on('#fechip', () => go('shop'));
@@ -2525,7 +2530,7 @@ const BADGES = [
   ['stage1', '🥉', 'المرحلة الأولى', 'أنهيت «الأساس»', () => stageDone(1)], ['stage2', '🥈', 'المرحلة الثانية', 'أنهيت «المستوى الرابع»', () => stageDone(2)],
   ['stage3', '🥇', 'المرحلة الثالثة', 'أنهيت «انطلق أبعد»', () => stageDone(3)], ['place', '🧭', 'المستكشف', 'أجريت اختبار تحديد المستوى', () => ST.placed === true],
   ['spell20', '✏️', 'كاتب ماهر', 'كتبت ٢٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 20], ['spell100', '🖋️', 'بطل الإملاء', 'كتبت ١٠٠ كلمة صحيحة من أول مرة', () => (ST.spN || 0) >= 100],
-  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
+  ['rules', '🧩', 'خبير القواعد', 'أتقنت القواعد الخمس', () => RULES.every(ruleMastered)], ['two10', '🗣️', 'جملتان', 'أجبت ١٠ مرات بجملتين في «تحدّث»', () => (ST.talk2 || 0) >= 10], ['big', '🦅', 'الكلمات الكبيرة', 'تعلمت كل «الكلمات الكبيرة»', () => TOPIC.big.words.every(isLearned)],
 ];
 function newBadges() { const got = []; BADGES.forEach(b => { if (!ST.badges[b[0]] && b[4]()) { ST.badges[b[0]] = DAY(); got.push(b); } }); return got; }
 def('badges', () => {
@@ -2905,15 +2910,38 @@ def('talk', id => {
     canMic() ? micMode(q) : buildMode(q);
   };
   const finish = (q, stars, heard) => {
-    const key = id + ':' + k; ST.talk[key] = Math.max(ST.talk[key] || 0, stars); ST.talkN++; total += stars; addFeathers(stars, $('#act')); save();
+    const key = id + ':' + k; ST.talk[key] = Math.max(ST.talk[key] || 0, stars); ST.talkN++; today().tk = (today().tk || 0) + 1; total += stars; addFeathers(stars, $('#act')); save();
     $('#act').innerHTML = `<div class="card center stack"><div class="bigstars" style="font-size:40px">${Array.from({ length: 3 }, (_, j) => j < stars ? '★' : '<span class="off">★</span>').join('')}</div>
       ${heard ? `<div class="muted small">سمعت: <span class="en">${esc(heard)}</span></div>` : ''}
       <div><b>إجابة نموذجية:</b></div><div class="en" style="font-size:22px;font-weight:700;color:var(--night)">${esc(q.a)}</div>
+      ${heard && canMic() ? '<button class="btn green small" id="more2">➕ قل جملة ثانية</button>' : ''}
       <div class="row"><button class="btn soft small" id="again">🔁 حاول مرة أخرى</button><button class="btn small" id="nq">${k < Qs.length - 1 ? 'السؤال التالي ◀︎' : 'انتهيت ◀︎'}</button></div></div>`;
     sfx(stars >= 2 ? 'ok' : 'pop'); if (stars === 3) FX.confetti();
     VO.say([stars === 3 ? praise() : stars === 2 ? 'Good try!' : 'Try again!', 300, 'Try like this:', 200, q.a]);
     on('#again', show);
+    on('#more2', () => moreMode());
     on('#nq', () => { if (k < Qs.length - 1) { k++; show(); } else done(); });
+  };
+  // a second sentence about the same question: his answers are one short sentence, and his plan asks for two
+  const moreMode = () => {
+    $('#act').innerHTML = `<div class="card center stack"><div class="en" style="font-size:22px;font-weight:700;color:var(--night)">Can you tell me more?</div>
+      <p class="small muted" style="margin:0">قل جملة ثانية عن الموضوع نفسه: لماذا؟ أو متى؟ أو مع من؟</p>
+      <button class="micbtn" id="mic2" aria-label="اضغط وتكلم">🎤</button><div class="heard" id="heard2">اضغط على الميكروفون، ثم تكلم</div>
+      <button class="btn small" id="nq2">${k < Qs.length - 1 ? 'السؤال التالي ◀︎' : 'انتهيت ◀︎'}</button></div>`;
+    VO.say([{ a: 'talk-more' }, 250, 'Can you tell me more?']);
+    let got = false;
+    $('#mic2').onclick = async () => {
+      if (got) return;
+      const b = $('#mic2'), out = $('#heard2'); VO.stop(); b.classList.add('on'); out.textContent = '… أستمع';
+      const r = await listen(); b.classList.remove('on');
+      if (r.err) { out.textContent = r.msg; return; }
+      const said = r.alts[0] || '', n = normE(said).split(' ').filter(Boolean).length;
+      if (n < 3) { out.innerHTML = said ? `سمعت: <span class="en">${esc(said)}</span> · قل جملة أطول` : 'لم أسمع شيئًا. اقترب وتكلم بوضوح.'; return; }
+      got = true; out.innerHTML = `✅ <span class="en">${esc(said)}</span>`;
+      ST.talk2 = (ST.talk2 || 0) + 1; addFeathers(2, b); save();
+      sfx('ok'); FX.confetti(); VO.say({ a: 'talk-two' });
+    };
+    on('#nq2', () => { if (k < Qs.length - 1) { k++; show(); } else done(); });
   };
   const micMode = q => {
     $('#act').innerHTML = `<button class="micbtn" id="mic" aria-label="اضغط وتكلم">🎤</button><div class="heard" id="heard">اضغط على الميكروفون وأجب بصوتك</div>
@@ -3220,6 +3248,7 @@ function planSteps() {
     { id: 'lesson', ico: '📘', ar: 'درس جديد', done: t.l >= ST.set.goal || !nextLesson() },
     { id: 'spell', ico: '✏️', ar: 'الإملاء', done: (t.sp || 0) >= 1 },
     { id: 'rule', ico: '🧩', ar: 'قاعدة اليوم', done: (t.g || 0) >= 1 },
+    { id: 'talk', ico: '🎤', ar: 'تحدّث', done: (t.tk || 0) >= 2 },
     { id: 'review', ico: '🔁', ar: 'المراجعة', done: dueWords().length === 0 },
   ];
 }
@@ -3236,6 +3265,7 @@ def('planHello', () => {
       <div class="pl"><span>📘</span><div><b>درس جديد</b><small>درس من كلمات المستوى الرابع، ثم درس من «كلمات كبيرة»</small></div></div>
       <div class="pl"><span>✏️</span><div><b>ورشة الإملاء</b><small>٦ كلمات: تنظر إليها، ثم تكتبها من ذاكرتك</small></div></div>
       <div class="pl"><span>🧩</span><div><b>قاعدة اليوم</b><small>شرح قصير، ثم ثماني جمل تكملها</small></div></div>
+      <div class="pl"><span>🎤</span><div><b>تحدّث</b><small>سؤالان كل يوم، وأجب بجملتين</small></div></div>
       <div class="pl"><span>🔁</span><div><b>المراجعة الذكية</b><small>حتى لا تنسى ما تعلمته</small></div></div></div>
     <button class="btn" id="go">هيا بنا! ◀︎</button></div>`;
   VO.say([{ a: 'plan-1' }, 300, { a: 'plan-2' }, 300, { a: 'plan-3' }]);
@@ -3250,7 +3280,7 @@ function planParents() {
       ${PLAN.speak ? `<div class="small muted">${bidi(PLAN.speak)}</div>` : ''}</div>
     <div><b>أقوى ما عنده</b><ul>${PLAN.strong.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
     <div><b>ما نعمل عليه الآن</b><ul>${PLAN.needs.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
-    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>
+    <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، وسؤالان في «تحدّث» يجيب عن كل منهما بجملتين، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>
     <div class="chips2"><span>✏️ يكتب ${num(spelled)} كلمة بلا خطأ</span><span>🧩 أتقن ${num(RULES.filter(ruleMastered).length)} من ${num(RULES.length)} قواعد</span><span>🦅 كلمات كبيرة ${num(topicLearned(B))}/${num(B.words.length)}</span></div>
     <div class="setrow"><span>الدروس الجديدة تبدأ من</span><div class="seg">${['الأساس', 'المستوى ٤', 'أبعد'].map((n, i) => `<button data-st="${i + 1}" class="${(ST.set.start || 1) === i + 1 ? 'on' : ''}">${n}</button>`).join('')}</div></div>
     <div class="setrow"><span>درس من «كلمات كبيرة» بعد كل درس</span><button class="switch${ST.set.big ? ' on' : ''}" data-s="big" aria-label="كلمات كبيرة"></button></div></div>`;

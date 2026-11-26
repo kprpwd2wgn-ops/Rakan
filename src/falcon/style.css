@@ -353,8 +353,8 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-o
 @media (max-width:380px){.meet .word{font-size:38px}.prompt .wbig{font-size:34px}.opt{font-size:19px}.hero .fhome{width:120px;height:120px}}
 
 /* ---------- his plan from the level test: today's plan, spelling workshop, rule of the day ---------- */
-.plan .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
-.step{display:grid;justify-items:center;gap:4px;padding:10px 4px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:14px;font-weight:700;line-height:1.25;text-align:center}
+.plan .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:12px}
+.step{display:grid;justify-items:center;align-content:start;gap:4px;padding:10px 2px;border-radius:16px;background:var(--card2);box-shadow:0 3px 0 var(--line);font-size:13px;font-weight:700;line-height:1.25;text-align:center}
 .step:active{transform:translateY(2px)}
 .step .si{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:#fff;font-family:var(--emo)}
 .step.done{background:var(--okbg);color:var(--ok2);box-shadow:0 3px 0 #a7e3bb}

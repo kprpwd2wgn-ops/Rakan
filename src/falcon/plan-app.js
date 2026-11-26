@@ -41,7 +41,8 @@ function planParents() {
   const spelled = WORDS.filter(spGood).length, B = TOPIC.big;
   return `<div class="sec">خطة اختبار المستوى <small>${esc(PLAN.day)}</small></div><div class="card stack planpar">
     <div><b>المستوى:</b> ${bidi(PLAN.level)}</div>
-    <div class="stack" style="gap:6px">${PLAN.skills.map(([n, v]) => `<div><div class="row" style="justify-content:space-between"><span>${n}</span><span class="num">${num(v)}٪</span></div><div class="pbar${v >= 80 ? ' green' : ''}"><i style="width:${v}%"></i></div></div>`).join('')}</div>
+    <div class="stack" style="gap:6px">${PLAN.skills.map(([n, v]) => `<div><div class="row" style="justify-content:space-between"><span>${n}</span><span class="num">${num(v)}٪</span></div><div class="pbar${v >= 80 ? ' green' : ''}"><i style="width:${v}%"></i></div></div>`).join('')}
+      ${PLAN.speak ? `<div class="small muted">${bidi(PLAN.speak)}</div>` : ''}</div>
     <div><b>أقوى ما عنده</b><ul>${PLAN.strong.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
     <div><b>ما نعمل عليه الآن</b><ul>${PLAN.needs.map(x => `<li>${bidi(x)}</li>`).join('')}</ul></div>
     <p class="small muted" style="margin:0">كل يوم نحو ٢٠ دقيقة: درس جديد (درس من كلمات المستوى الرابع ثم درس من «كلمات كبيرة»)، وورشة الإملاء، وقاعدة اليوم، والمراجعة الذكية. أعيدوا اختبار المستوى بعد ستة أسابيع ليظهر تقدمه.</p>

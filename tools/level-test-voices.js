@@ -13,11 +13,10 @@ const { LT_SECTIONS, LT_AR } = require(path.join(ROOT, 'src/leveltest/items.js')
 const cid = t => crypto.createHash('sha1').update(t).digest('hex').slice(0, 12);
 function fnv(text) { let h = 2166136261; for (const ch of text) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619) >>> 0; } return h.toString(36); }
 
-const english = new Set(['Try like this:']);
+const english = new Set();
 for (const s of LT_SECTIONS) for (const it of s.items) {
   if (typeof it.say === 'string') english.add(it.say);
   if (Array.isArray(it.say)) it.say.forEach(t => english.add(t));
-  if (it.model) english.add(it.model);
 }
 const items = [], want = [];
 for (const t of english) {

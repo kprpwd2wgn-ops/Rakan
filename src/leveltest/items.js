@@ -52,15 +52,16 @@ const LT_SECTIONS = [
   { id: 's6', ar: 'أكتب الكلمة', en: 'Spelling', icon: '✏️', line: 's6', kind: 'spell', stop: -1, items: [
     { b: 1, say: 'fish', pic: '🐟' }, { b: 2, say: 'horse', pic: '🐴' }, { b: 3, say: 'elephant', pic: '🐘' }, { b: 4, say: 'butterfly', pic: '🦋' },
   ] },
+  /* speaking: he answers into the microphone; only his words are kept (never the sound), and Claude rates them */
   { id: 's7', ar: 'أتكلم', en: 'Speaking', icon: '🎤', line: 's7', kind: 'speak', stop: -1, items: [
-    { b: 1, say: 'What is your favorite color?', model: 'My favorite color is green.' },
-    { b: 2, say: 'What do you do after school?', model: 'After school, I play with my brother.' },
-    { b: 3, say: 'What do you want to be?', model: 'I want to be a pilot.' },
-    { b: 4, say: 'What makes you happy?', model: 'My family makes me happy.' },
+    { b: 1, say: 'What is your favorite color?' },
+    { b: 2, say: 'What do you do after school?' },
+    { b: 2, say: 'What do you want to be?' },
+    { b: 3, say: 'What did you do last weekend?' },
+    { b: 3, say: 'What makes you happy?' },
+    { b: 4, say: 'Which do you like more, the sea or the desert? Why?' },
   ] },
 ];
-/* the parents rate each spoken answer */
-const LT_RATE = ['لم يُجب أو لم يفهم السؤال', 'أجاب بكلمة واحدة', 'جملة قصيرة فيها أخطاء', 'جملة كاملة صحيحة'];
 /* questions for the parents at the end */
 const LT_PARENT = [
   { id: 'understand', q: 'في حصة الإنجليزي، هل يفهم ما تقوله المعلمة؟', opts: ['غالبًا لا', 'أحيانًا', 'غالبًا نعم', 'دائمًا تقريبًا'] },
@@ -79,7 +80,11 @@ const LT_AR = {
   's4': 'الْجُزْءُ الرَّابِعُ: اِسْمَعِ الْكَلَامَ جَيِّدًا، ثُمَّ أَجِبْ عَنِ السُّؤَالِ.',
   's5': 'الْجُزْءُ الْخَامِسُ: اِقْرَأِ الْقِصَّةَ الْقَصِيرَةَ، ثُمَّ أَجِبْ عَنِ الْأَسْئِلَةِ.',
   's6': 'الْجُزْءُ السَّادِسُ: اِسْمَعِ الْكَلِمَةَ، ثُمَّ اكْتُبْهَا بِالْحُرُوفِ.',
-  's7': 'الْجُزْءُ السَّابِعُ: سَتَسْمَعُ سُؤَالًا بِالْإِنْجِلِيزِيَّةِ، فَأَجِبْ عَنْهُ بِصَوْتِكَ.',
+  's7': 'الْجُزْءُ السَّابِعُ: اِسْمَعِ السُّؤَالَ، ثُمَّ اضْغَطْ عَلَى الْمِيكْرُوفُونِ، وَأَجِبْ بِجُمْلَةٍ كَامِلَةٍ.',
+  'mic-heard': 'أَحْسَنْتَ! سَمِعْتُكَ.',
+  'mic-again': 'لَمْ أَسْمَعْكَ جَيِّدًا. اِقْتَرِبْ، وَتَكَلَّمْ بِصَوْتٍ وَاضِحٍ.',
+  'speak-only': 'هَيَّا نَتَكَلَّمُ! سَتَسْمَعُ سِتَّةَ أَسْئِلَةٍ، فَأَجِبْ عَنْ كُلِّ سُؤَالٍ بِجُمْلَةٍ كَامِلَةٍ.',
+  'speak-done': 'أَحْسَنْتَ يَا بَطَلُ! أَنْهَيْتَ جُزْءَ الْكَلَامِ.',
   'next': 'أَحْسَنْتَ! هَيَّا إِلَى الْجُزْءِ التَّالِي.',
   'done': 'أَحْسَنْتَ يَا بَطَلُ! أَنْهَيْتَ الِاخْتِبَارَ كُلَّهُ.',
   'parents': 'شُكْرًا لَكَ! بَقِيَتْ أَسْئِلَةٌ قَصِيرَةٌ لِلْوَالِدَيْنِ.',
@@ -97,4 +102,4 @@ const LT_AR = {
 };
 /* every item gets an id: section-band-number (s1-2-3), reading questions s5-<band>-<q> */
 LT_SECTIONS.forEach(s => { const n = {}; s.items.forEach(it => { n[it.b] = (n[it.b] || 0) + 1; it.id = `${s.id}-${it.b}-${n[it.b]}`; if (it.qs) it.qs.forEach((q, j) => { q.id = `${s.id}-${it.b}-${j + 1}`; q.b = it.b; }); }); });
-if (typeof module !== 'undefined') module.exports = { LT_SECTIONS, LT_AR, LT_RATE, LT_PARENT, LT_BANDS };
+if (typeof module !== 'undefined') module.exports = { LT_SECTIONS, LT_AR, LT_PARENT, LT_BANDS };

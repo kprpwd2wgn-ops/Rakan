@@ -1,5 +1,6 @@
 /* صقر الكلمات — his plan from the level test (level-test.html) of 26 Nov 2026, read by Claude.
-   Results: listening 88%, reading 100%, speaking 100% (as his parents rated it), words 86%, grammar 69%, spelling 25%.
+   Results: listening 88%, reading 100%, words 86%, grammar 69%, spelling 25%. Speaking is not counted: his mother rated it,
+   then said she could not judge it, so the test's speaking part now listens through the microphone and Claude rates it.
    Level A2, with listening and reading already at the start of B1. So new lessons start with the level-4 words (stage 2),
    every other lesson comes from «كلمات كبيرة» (B1 words, the kind he could not read in the test), the spelling workshop
    trains writing, and the rule of the day works on the five slips of the grammar part.
@@ -8,10 +9,11 @@ const PLAN = {
   id: 'lt-2026-11-26', day: '٢٦ نوفمبر ٢٠٢٦', start: 2, big: true,
   spell: ['fish', 'elephant', 'butterfly'],   // the words he spelled wrong in the test come first in the workshop
   level: 'ما قبل المتوسط (A2)، وفي الاستماع والقراءة وصل إلى بداية المتوسط (B1)',
-  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلام', 100], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
-  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها', 'يجيب عن الأسئلة القصيرة بجملة كاملة'],
+  skills: [['الاستماع', 88], ['القراءة', 100], ['الكلمات', 86], ['القواعد', 69], ['الكتابة', 25]],
+  speak: 'الكلام: لم يُقَس بعد. سيجيب بصوته في الميكروفون في «جزء الكلام فقط» من اختبار المستوى، ثم يقيّمه Claude.',
+  strong: ['يفهم ما يسمعه جيدًا، حتى جمل المستوى B1', 'يقرأ القصص القصيرة ويفهمها كلها'],
   needs: ['كتابة الكلمات بحروفها (الإملاء)', 'الكلمات التي لا تظهر في صورة، مثل: journey، decide، environment',
-    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الإجابة في الحصة بجملتين أو ثلاث بدل جملة واحدة'],
+    'خمس قواعد أخطأ فيها: he plays، on / in / at، because / so، since / for، better / the best', 'الكلام، وهو أصعب شيء عليه كما قال والداه: الإجابة بجملتين أو ثلاث بدل جملة واحدة'],
   teacher: 'Level check (26 Nov 2026): his listening and reading are strong (A2, reaching B1). Please help him with spelling, ' +
     'he/she + verb-s (he plays), on/in/at with time, because and so, since and for, good/better/the best, ' +
     'and answering with two or three sentences.',

@@ -91,6 +91,66 @@ const FX = { c: null, x: null, p: [], raf: 0,
     this.raf = requestAnimationFrame(step); },
 };
 
+/* ---------- the microphone for part 7: his words become text, and Claude rates them when reading the results ----------
+   On the play link the platform's dictation is used where it is offered (a Chromium browser tab or the desktop app);
+   elsewhere the browser's own speech recognition (Chrome, or Safari on iPhone with the GitHub link). Only the words are
+   kept, never the sound. An answer ends 3 seconds after he stops talking, after 20 seconds, or with the stop button. */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const GH = 'https://kprpwd2wgn-ops.github.io/Rakan/level-test.html#speak';
+const EAR = {
+  dict: null, asked: false, blocked: false, cur: null, fake: null, why: '',
+  init() { if (this.asked) return; this.asked = true;
+    try { if (window.claude && window.claude.use) window.claude.use('dictation').then(d => { this.dict = d || null; }, () => {}); } catch (e) {} },
+  can() { return !!this.fake || !!this.dict || (!this.blocked && !!SR && location.protocol !== 'file:'); },
+  stop() { try { if (this.cur) this.cur(); } catch (e) {} },
+  // call it straight from a click (dictation must start inside the click); onLive(text) shows the words as they come
+  listen(onLive) {
+    const t0 = Date.now(), sec = () => Math.round((Date.now() - t0) / 100) / 10;
+    if (this.fake) return wait(300).then(() => { const t = this.fake(); return t ? { text: t, alts: [], conf: null, sec: 2, src: 'test' } : { err: 'no_speech' }; });
+    if (this.dict) {
+      const d = this.dict;
+      return new Promise(res => {
+        let text = '', live = '', done = false, idle = 0;
+        const subs = [], stop = () => { d.stop().catch(() => {}); };
+        const end = x => { if (done) return; done = true; clearTimeout(idle); clearTimeout(cap); clearTimeout(quiet); subs.forEach(u => { try { u(); } catch (e) {} }); this.cur = null; res(x); };
+        const settle = () => { clearTimeout(idle); idle = setTimeout(stop, 3000); };
+        subs.push(d.onPartial(e => { live = e.text || ''; onLive((text + ' ' + live).trim()); if (live) settle(); }));
+        subs.push(d.onFinal(e => { text = (text + e.text).replace(/^\s+/, ''); live = ''; onLive(text); settle(); }));
+        subs.push(d.onState(e => { if (e.state !== 'idle') return; const why = e.reason || 'stopped';
+          if (why === 'not_granted' || why === 'unavailable') { this.dict = null; this.why = 'dict-' + why; }
+          const t = (text + ' ' + live).trim(); end(t ? { text: t, alts: [], conf: null, sec: sec(), src: 'dictation' } : { err: why }); }));
+        const cap = setTimeout(stop, 20000), quiet = setTimeout(() => { if (!text && !live) stop(); }, 9000);
+        this.cur = stop;
+        d.start({ language: 'en' }).catch(err => { const why = (err && err.code) || 'upstream_error';
+          if (why === 'not_granted' || why === 'unavailable') { this.dict = null; this.why = 'dict-' + why; } end({ err: why }); });
+      });
+    }
+    if (!SR || this.blocked) return Promise.resolve({ err: 'unavailable' });
+    return new Promise(res => {
+      let r; try { r = new SR(); } catch (e) { this.blocked = true; return res({ err: 'unavailable' }); }
+      r.lang = 'en-US'; r.interimResults = true; r.maxAlternatives = 3; r.continuous = true;
+      const fin = [], alts = []; let live = '', conf = null, done = false, idle = 0;
+      const stop = () => { try { r.stop(); } catch (e) {} };
+      // iPhone: the page asks for media playback (UNMUTE); while he speaks it asks for recording instead
+      const session = t => { try { if (navigator.audioSession) navigator.audioSession.type = t; } catch (e) {} };
+      const end = x => { if (done) return; done = true; clearTimeout(idle); clearTimeout(cap); clearTimeout(quiet); this.cur = null; try { r.abort(); } catch (e) {} session('playback'); UNMUTE.go(); res(x); };
+      const settle = () => { clearTimeout(idle); idle = setTimeout(stop, 3000); };
+      r.onresult = e => { live = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) { const R = e.results[i];
+          if (R.isFinal) { fin[i] = R[0].transcript.trim(); alts[i] = Array.from(R).map(a => a.transcript.trim()); if (R[0].confidence) conf = Math.round(R[0].confidence * 100) / 100; }
+          else live += R[0].transcript; }
+        onLive((fin.filter(Boolean).join(' ') + ' ' + live).trim()); settle(); };
+      r.onerror = e => { if (['not-allowed', 'service-not-allowed', 'audio-capture'].includes(e.error)) { this.blocked = true; this.why = 'browser-' + e.error; end({ err: 'not_granted' }); } };
+      r.onend = () => { const t = (fin.filter(Boolean).join(' ') + ' ' + live).replace(/\s+/g, ' ').trim();
+        end(t ? { text: t, alts: alts.filter(Boolean), conf, sec: sec(), src: 'browser' } : { err: 'no_speech' }); };
+      const cap = setTimeout(stop, 20000), quiet = setTimeout(() => { if (!fin.length && !live) stop(); }, 9000);
+      this.cur = stop;
+      if (UNMUTE.a) UNMUTE.a.pause(); session('play-and-record');
+      try { r.start(); } catch (e) { end({ err: 'upstream_error' }); }
+    });
+  },
+};
+
 /* ---------- the attempt, kept in this browser so a reload can carry on ---------- */
 const KEY = 'rakan-leveltest-v1';
 let T = null;
@@ -117,14 +177,15 @@ function summary() {
   const bands = { 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] }, sections = {};
   for (const s of LT_SECTIONS) {
     const per = { 1: [0, 0], 2: [0, 0], 3: [0, 0], 4: [0, 0] };
-    if (s.kind === 'speak') { s.items.forEach(it => { const r = T.speak[it.id]; per[it.b] = [r == null ? 0 : r, 3]; }); sections[s.id] = per; continue; }
+    // speaking is not scored here: Claude rates his words when reading the results. per band: [answered, questions]
+    if (s.kind === 'speak') { s.items.forEach(it => { const r = T.speak[it.id]; per[it.b][1]++; if (r && r.tries && r.tries.length) per[it.b][0]++; }); sections[s.id] = per; continue; }
     for (const q of flat(s)) { const a = T.answers[q.id]; per[q.b][1]++; bands[q.b][1]++; if (a && a.ok) { per[q.b][0]++; bands[q.b][0]++; } }
     sections[s.id] = per;
   }
   const rate = b => bands[b][1] ? bands[b][0] / bands[b][1] : 0, r = [0, rate(1), rate(2), rate(3), rate(4)];
   const level = r[1] < .6 ? 'Pre-A1' : r[2] < .5 ? 'Pre-A1+' : r[3] < .5 ? 'A1' : r[4] < .5 ? 'A2' : 'B1';
   const pct = ids => { let c = 0, t = 0; ids.forEach(id => { const p = sections[id]; for (const b in p) { c += p[b][0]; t += p[b][1]; } }); return t ? Math.round(c / t * 100) : 0; };
-  const skills = { vocabulary: pct(['s1', 's2']), grammar: pct(['s3']), listening: pct(['s4']), reading: pct(['s5']), spelling: pct(['s6']), speaking: pct(['s7']) };
+  const skills = { vocabulary: pct(['s1', 's2']), grammar: pct(['s3']), listening: pct(['s4']), reading: pct(['s5']), spelling: pct(['s6']), speaking: null };
   return { level, bands: { 1: r[1], 2: r[2], 3: r[3], 4: r[4] }, sections, skills };
 }
 const LEVEL_AR = { 'Pre-A1': 'مبتدئ (Pre-A1)', 'Pre-A1+': 'مبتدئ متقدم (Pre-A1 مرتفع)', A1: 'أساسي (A1)', A2: 'ما قبل المتوسط (A2)', B1: 'متوسط (B1)' };
@@ -134,16 +195,23 @@ function payload() {
     const a = T.answers[q.id];
     list.push({ id: q.id, b: q.b, ok: a ? (a.ok ? 1 : 0) : null, dunno: a && a.dunno ? 1 : 0, ms: a ? a.ms : null, replays: a ? a.replays || 0 : 0, pick: a ? a.pick : null, skipped: T.skipped.includes(q.id) ? 1 : 0 });
   }
-  return { v: 1, app: 'level-test', started: T.started, finished: T.finished, minutes: Math.round(T.ms / 60000), answers: list,
-    speak: LT_SECTIONS.find(s => s.kind === 'speak').items.map(it => ({ id: it.id, b: it.b, rating: T.speak[it.id] == null ? null : T.speak[it.id] })),
+  return { v: 2, app: 'level-test', mode: T.mode || 'full', started: T.started, finished: T.finished, minutes: Math.round(T.ms / 60000), answers: T.mode === 'speak' ? [] : list,
+    speak: SPEAK.items.map(it => { const r = T.speak[it.id] || {}; return { id: it.id, b: it.b, q: it.say, tries: r.tries || [], skipped: r.skipped ? 1 : 0, replays: it._replays || 0 }; }),
     parent: LT_PARENT.map(p => ({ id: p.id, answer: T.parent[p.id] == null ? null : p.opts[T.parent[p.id]] })), summary: summary() };
 }
-/* a short code the parents can copy when the database is not there (outside the play link) */
+/* what the parents copy when the database is not there (outside the play link): a short code of the answers, then
+   every spoken answer word for word, one line per question, for Claude to rate */
+const SPEAK = LT_SECTIONS.find(s => s.kind === 'speak');
+function speakLines() {
+  return SPEAK.items.map((it, i) => { const r = T.speak[it.id] || {}, said = (r.tries || []).map(t => t.text).join(' / ');
+    return `${i + 1}) ${it.say} -> ${said || (r.skipped ? '(skipped)' : '-')}`; }).join('\n');
+}
 function code() {
-  const parts = LT_SECTIONS.map(s => s.id + ':' + [1, 2, 3, 4].map(b => s.kind === 'speak'
-    ? s.items.filter(it => it.b === b).map(it => T.speak[it.id] == null ? '-' : T.speak[it.id]).join('')
-    : flat(s).filter(q => q.b === b).map(q => { const a = T.answers[q.id]; return !a ? '-' : a.dunno ? 'd' : a.ok ? '1' : '0'; }).join('')).join('.'));
-  return `LT1|${parts.join('|')}|p:${LT_PARENT.map(p => T.parent[p.id] == null ? '-' : T.parent[p.id]).join('')}|L:${summary().level}|m:${Math.round(T.ms / 60000)}`;
+  const m = Math.round(T.ms / 60000);
+  if (T.mode === 'speak') return `LT1S|m:${m}\n${speakLines()}`;
+  const parts = LT_SECTIONS.filter(s => s.kind !== 'speak').map(s => s.id + ':' + [1, 2, 3, 4].map(b =>
+    flat(s).filter(q => q.b === b).map(q => { const a = T.answers[q.id]; return !a ? '-' : a.dunno ? 'd' : a.ok ? '1' : '0'; }).join('')).join('.'));
+  return `LT1|${parts.join('|')}|p:${LT_PARENT.map(p => T.parent[p.id] == null ? '-' : T.parent[p.id]).join('')}|L:${summary().level}|m:${m}\n${speakLines()}`;
 }
 
 /* ---------- screens ---------- */
@@ -151,17 +219,30 @@ let shownAt = 0, timer = 0;
 function tick() { clearInterval(timer); let last = Date.now(); timer = setInterval(() => { const n = Date.now(); if (!document.hidden && n - last < 5000) T.ms += n - last; last = n; }, 1000); }
 const falcon = (o = {}) => falconSVG(Object.assign({ rank: 2 }, o));
 function partDots(cur) {
+  if (T && T.mode === 'speak') return '';
   return `<div class="ltparts">${LT_SECTIONS.map((s, i) => `<span class="${i < cur ? 'done' : i === cur ? 'on' : ''}" title="${esc(s.ar)}">${i < cur ? '✓' : s.icon}</span>`).join('')}</div>`;
 }
 function start() {
-  const kept = loadKept(), resume = kept && !kept.finished && kept.pos + kept.sec > 0;
+  const kept = loadKept(), resume = kept && !kept.finished && kept.pos + kept.sec > 0, speakFirst = location.hash === '#speak';
+  EAR.init();
   app.innerHTML = `<div class="splash"><div class="fbig bob">${falcon({ mood: 'happy', pose: 'cheer' })}</div>
     <h1>اختبار المستوى</h1><div class="enname en">ENGLISH LEVEL CHECK</div>
     <p class="tag">٧ أجزاء قصيرة: كلمات، وقواعد، واستماع، وقراءة، وكتابة، وكلام. حوالي ١٥ دقيقة.</p>
-    ${resume ? '<button class="btn green" id="res">▶︎ أكمل من حيث توقفت</button><button class="btn soft" id="new" style="max-width:320px">ابدأ من جديد</button>' : '<button class="btn" id="go">▶︎ ابدأ</button>'}
-    <p class="small muted" style="max-width:24em">للوالدين: اجلسوا معه في الجزء السابع (الكلام)، وفي آخر الاختبار أسئلة قصيرة لكم.</p></div>`;
-  const begin = fresh => { VO.start(); FX.init(); DB.init(); sfx('tap'); T = fresh ? newAttempt() : kept; keep(); tick(); fresh ? intro(0) : section(T.sec, true); };
-  if (resume) { $('#res').onclick = () => begin(false); $('#new').onclick = () => begin(true); } else $('#go').onclick = () => begin(true);
+    ${resume ? '<button class="btn green" id="res">▶︎ أكمل من حيث توقفت</button><button class="btn soft" id="new" style="max-width:320px">ابدأ من جديد</button>'
+      : speakFirst ? '<button class="btn" id="sp">🎤 ابدأ جزء الكلام</button><button class="btn soft" id="go" style="max-width:320px">الاختبار كله</button>'
+      : '<button class="btn" id="go">▶︎ ابدأ</button><button class="btn soft" id="sp" style="max-width:320px">🎤 جزء الكلام فقط</button>'}
+    <p class="small muted" style="max-width:24em">في جزء الكلام يجيب بصوته في الميكروفون، فاختاروا مكانًا هادئًا. الميكروفون يكتب ما قاله، ثم يقيّمه Claude، فلا تحتاجون إلى تقييمه.</p></div>`;
+  const begin = (fresh, mode) => { VO.start(); FX.init(); DB.init(); sfx('tap'); T = fresh ? newAttempt() : kept; if (mode) T.mode = mode; keep(); tick();
+    if (!fresh) return section(T.sec, true);
+    if (mode === 'speak') { T.sec = LT_SECTIONS.indexOf(SPEAK); return speakIntro(); }
+    intro(0); };
+  if (resume) { $('#res').onclick = () => begin(false); $('#new').onclick = () => begin(true); }
+  else { $('#go').onclick = () => begin(true); $('#sp').onclick = () => begin(true, 'speak'); }
+}
+function speakIntro() {
+  app.innerHTML = `<div class="splash"><div class="bubble">هيا نتكلم! ستسمع ستة أسئلة، فأجب عن كل سؤال بجملة كاملة.</div><div class="fbig" style="width:190px">${falcon({ mood: 'happy' })}</div><button class="btn" id="nx">هيا نبدأ ◀︎</button></div>`;
+  VO.say({ a: 'speak-only' });
+  $('#nx').onclick = () => { sfx('tap'); T.pos = 0; keep(); item(); };
 }
 function intro(step) {
   const ids = ['intro-1', 'intro-2'], text = ['أهلًا يا بطل! هذا اختبار قصير لنعرف مستواك في اللغة الإنجليزية.', 'ليس فيه نجاح ولا رسوب. أجب بهدوء، وإذا لم تعرف الإجابة فاضغط «لا أعرف».'];
@@ -171,7 +252,7 @@ function intro(step) {
 }
 function section(si, resume) {
   T.sec = si; if (!resume) T.pos = 0; keep();
-  if (si >= LT_SECTIONS.length) return parents();
+  if (si >= LT_SECTIONS.length) return T.mode === 'speak' ? finish() : parents();
   const s = LT_SECTIONS[si];
   app.innerHTML = `${partDots(si)}<div class="splash" style="min-height:auto;padding-top:10px"><div class="ltbig">${s.icon}</div>
     <h1 style="font-size:32px">الجزء ${num(si + 1)}: ${esc(s.ar)}</h1><div class="bubble">${esc(LT_HOW[s.kind])}</div>
@@ -181,7 +262,7 @@ function section(si, resume) {
 }
 const LT_HOW = { listenPic: 'اسمع الكلمة، ثم اختر صورتها.', readMeaning: 'اقرأ الكلمة الإنجليزية، ثم اختر معناها.', grammar: 'اختر الكلمة التي تكمل الجملة.',
   listenQ: 'اسمع الكلام جيدًا، ثم أجب عن السؤال. تستطيع أن تسمعه مرة أخرى.', reading: 'اقرأ القصة القصيرة، ثم أجب عن الأسئلة.', spell: 'اسمع الكلمة، ثم اكتبها بالحروف.',
-  speak: 'ستسمع سؤالًا بالإنجليزية، فأجب عنه بصوتك. ومن يجلس معك يختار كيف كانت إجابتك.' };
+  speak: 'ستسمع سؤالًا بالإنجليزية. اضغط على الميكروفون، وأجب بجملة كاملة. الميكروفون يكتب ما تقوله.' };
 
 /* the item at T.pos in the current section; skips what the early stop removed */
 function item() {
@@ -211,7 +292,7 @@ function nextItem() {
 function sectionDone() {
   DB.save();
   const si = T.sec + 1;
-  if (si >= LT_SECTIONS.length) return section(si);
+  if (si >= LT_SECTIONS.length || T.mode === 'speak') return section(LT_SECTIONS.length);
   app.innerHTML = `${partDots(si)}<div class="splash" style="min-height:auto;padding-top:24px"><div class="fbig hop" style="width:200px">${falcon({ mood: 'happy', pose: 'cheer' })}</div>
     <h1 style="font-size:30px">أحسنت!</h1><p class="tag">أنهيت ${num(si)} من ${num(LT_SECTIONS.length)} أجزاء.</p><button class="btn" id="nx">الجزء التالي ◀︎</button></div>`;
   sfx('win'); VO.say({ a: 'next' });
@@ -288,20 +369,52 @@ const KINDS = {
     $('#ok').onclick = () => finish(false);
     $('#dunno').onclick = () => finish(true);
   },
+  // he answers into the microphone; up to three tries are kept, word for word, for Claude to rate
   speak(it, body) {
-    body.innerHTML = `<div class="prompt"><button class="spkbig" id="spk" aria-label="اسمع السؤال">🔊</button><div class="en" style="font-size:24px;font-weight:800;color:var(--night)">${esc(it.say)}</div>
-      <div class="small muted">الطفل يجيب بصوته، ومن معه يختار:</div></div>
-      <div class="opts">${LT_RATE.map((r, i) => `<button class="opt ltrate" data-r="${i}"><span class="ltstars">${'★'.repeat(i)}<span class="off">${'★'.repeat(3 - i)}</span></span> ${esc(r)}</button>`).join('')}</div>`;
+    const rec = T.speak[it.id] = T.speak[it.id] || { tries: [] };
+    body.innerHTML = `<div class="prompt"><button class="spkbig" id="spk" aria-label="اسمع السؤال">🔊</button><div class="en ltq">${esc(it.say)}</div></div>
+      <button class="micbtn" id="mic" aria-label="اضغط وتكلم">🎤</button><div class="heard ltheard" id="heard">اسمع السؤال، ثم اضغط على الميكروفون وأجب.</div>
+      <div class="row qfoot"><button class="btn soft" id="again" hidden>🔁 قلها مرة أخرى</button><button class="btn" id="nx" hidden>التالي ◀︎</button></div>
+      <div id="nomic"></div><button class="btn soft small" id="skip" style="margin-top:12px">⏭ تخطَّ هذا السؤال</button>`;
     VO.say(it.say);
-    $('#spk').onclick = () => VO.say(it.say);
-    let done = false;
-    $$('.ltrate').forEach(b => b.addEventListener('click', () => {
-      if (done) return; done = true; sfx('pick'); b.classList.add('chosen');
-      T.speak[it.id] = +b.dataset.r; keep();
-      body.insertAdjacentHTML('beforeend', `<div class="feedback ok" style="margin-top:12px">مثال لإجابة جيدة: <b class="en">${esc(it.model)}</b></div><button class="btn" id="nx" style="margin-top:12px">التالي ◀︎</button>`);
-      VO.say(['Try like this:', 200, it.model]);
-      $('#nx').onclick = () => { sfx('tap'); nextItem(); };
-    }));
+    $('#spk').onclick = () => { if (EAR.cur) return; it._replays = (it._replays || 0) + 1; VO.say(it.say); };
+    const mic = $('#mic'), heard = $('#heard');
+    let on = false;
+    const noMic = why => {
+      mic.hidden = true; heard.hidden = true; $('#again').hidden = true;
+      // in the play link the platform's dictation is offered only in Chrome on a computer; elsewhere the GitHub link works
+      const inLink = !!(window.claude && window.claude.use), msg = inLink
+        ? (EAR.why === 'dict-not_granted' ? 'رُفض استعمال الميكروفون في هذه الصفحة. اسمحوا به من قائمة الأذونات، أو افتحوا جزء الكلام من هذا الرابط في Safari (آيفون) أو Chrome:'
+          : 'الميكروفون لا يعمل في هذا الرابط على هذا الجهاز. افتحوا جزء الكلام من هذا الرابط في Safari (آيفون) أو Chrome:')
+        : why === 'not_granted' ? 'لم يُسمح للصفحة باستعمال الميكروفون. اسمحوا به من إعدادات المتصفح، وفي الآيفون فعّلوا «الإملاء» (الإعدادات ← عام ← لوحة المفاتيح)، ثم افتحوا الصفحة من جديد.'
+        : 'هذا المتصفح لا يكتب الكلام. افتحوا هذه الصفحة في Safari (آيفون) أو Chrome.';
+      $('#nomic').innerHTML = `<div class="feedback info" style="margin-top:12px">${esc(msg)}${inLink ? `<br><a class="en" href="${GH}" target="_blank" rel="noopener">${esc(GH)}</a>` : ''}</div>
+        <button class="btn soft small" id="skipall" style="margin-top:10px">⏭ تخطَّ جزء الكلام كله</button>`;
+      $('#skipall').onclick = () => { sfx('tap'); SPEAK.items.forEach(x => { const r = T.speak[x.id] = T.speak[x.id] || { tries: [] }; if (!r.tries.length) r.skipped = 1; }); keep(); T.pos = SPEAK.items.length; item(); };
+    };
+    const go = () => {
+      if (on) { EAR.stop(); return; }
+      if (!EAR.can()) return noMic(EAR.blocked ? 'not_granted' : 'unavailable');
+      on = true; VO.stop(); mic.classList.add('on'); mic.textContent = '⏹'; mic.setAttribute('aria-label', 'انتهيت');
+      heard.textContent = '… أستمع. تكلم الآن، ثم اضغط ⏹ عندما تنتهي.'; $('#again').hidden = true; $('#nx').hidden = true;
+      EAR.listen(t => { heard.innerHTML = `<span class="en">${esc(t)}</span>`; }).then(r => {
+        on = false; mic.classList.remove('on'); mic.textContent = '🎤'; mic.setAttribute('aria-label', 'اضغط وتكلم');
+        if (r.err) {
+          if (r.err === 'not_granted' || r.err === 'unavailable') return noMic(r.err);
+          heard.textContent = 'لم أسمعك جيدًا. اقترب، وتكلم بصوت واضح، ثم اضغط على الميكروفون.'; VO.say({ a: 'mic-again' });
+          if (rec.tries.length) $('#nx').hidden = false;
+          return;
+        }
+        rec.tries.push({ text: r.text, alts: r.alts, conf: r.conf, sec: r.sec, src: r.src }); delete rec.skipped; keep();
+        heard.innerHTML = `سمعتك تقول:<br><span class="en">«${esc(r.text)}»</span>`;
+        sfx('pick'); VO.say({ a: 'mic-heard' });
+        $('#nx').hidden = false; $('#again').hidden = rec.tries.length >= 3; $('#skip').hidden = true;
+      });
+    };
+    mic.onclick = go;
+    $('#again').onclick = go;
+    $('#nx').onclick = () => { sfx('tap'); VO.stop(); EAR.stop(); nextItem(); };
+    $('#skip').onclick = () => { sfx('tap'); EAR.stop(); if (!rec.tries.length) rec.skipped = 1; keep(); nextItem(); };
   },
 };
 
@@ -319,19 +432,24 @@ function parents() {
 async function finish() {
   if (!T.finished) T.finished = new Date().toISOString();
   clearInterval(timer); keep();
-  app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ rank: 4, mood: 'happy', pose: 'cheer' })}</div><h2>أنهيت الاختبار! 🎉</h2>
-    <div class="bigstars">★★★</div><p style="margin:0;font-size:19px">شكرًا يا بطل. أجبت عن كل الأجزاء بشجاعة!</p></div><div id="par" style="margin-top:18px"></div>`;
-  FX.confetti(); sfx('win'); VO.say({ a: 'done' });
+  const only = T.mode === 'speak';
+  app.innerHTML = `<div class="result"><div class="fres hop">${falcon({ rank: 4, mood: 'happy', pose: 'cheer' })}</div><h2>${only ? 'أنهيت جزء الكلام! 🎤' : 'أنهيت الاختبار! 🎉'}</h2>
+    <div class="bigstars">★★★</div><p style="margin:0;font-size:19px">${only ? 'شكرًا يا بطل. تكلمت بشجاعة!' : 'شكرًا يا بطل. أجبت عن كل الأجزاء بشجاعة!'}</p></div><div id="par" style="margin-top:18px"></div>`;
+  FX.confetti(); sfx('win'); VO.say({ a: only ? 'speak-done' : 'done' });
   await DB.save();
-  const S = summary(), skills = [['الكلمات', S.skills.vocabulary], ['القواعد', S.skills.grammar], ['الاستماع', S.skills.listening], ['القراءة', S.skills.reading], ['الكتابة', S.skills.spelling], ['الكلام', S.skills.speaking]];
-  $('#par').innerHTML = `<div class="card stack"><b style="font-size:19px">للوالدين: النتيجة</b>
-    <div>تقدير أولي للمستوى: <b>${esc(LEVEL_AR[S.level])}</b></div>
-    ${skills.map(([n, v]) => `<div><div class="row" style="justify-content:space-between"><span>${n}</span><span class="num">${v}%</span></div><div class="pbar green"><i style="width:${v}%"></i></div></div>`).join('')}
-    ${DB.saved ? '<div class="feedback ok">✓ وصلت النتيجة إلى Claude. اكتبوا له: «انتهى الاختبار»، وسيقرأ الإجابات ويضع له خطة.</div>'
+  const S = summary(), skills = [['الكلمات', S.skills.vocabulary], ['القواعد', S.skills.grammar], ['الاستماع', S.skills.listening], ['القراءة', S.skills.reading], ['الكتابة', S.skills.spelling]];
+  const said = SPEAK.items.map(it => { const r = T.speak[it.id] || {}, t = (r.tries || []).map(x => x.text);
+    return `<div class="ltsaid"><div class="en q">${esc(it.say)}</div><div class="en a">${t.length ? t.map(x => '«' + esc(x) + '»').join('<br>') : '<span class="muted">—</span>'}</div></div>`; }).join('');
+  $('#par').innerHTML = `<div class="card stack"><b style="font-size:19px">للوالدين: ${only ? 'إجاباته' : 'النتيجة'}</b>
+    ${only ? '' : `<div>تقدير أولي للمستوى: <b>${esc(LEVEL_AR[S.level])}</b></div>
+    ${skills.map(([n, v]) => `<div><div class="row" style="justify-content:space-between"><span>${n}</span><span class="num">${v}%</span></div><div class="pbar green"><i style="width:${v}%"></i></div></div>`).join('')}`}
+    <div><div class="row" style="justify-content:space-between"><span>الكلام</span><span class="small muted">يقيّمه Claude من كلماته</span></div></div>
+    <details class="ltsaidbox"${only ? ' open' : ''}><summary>ما كتبه الميكروفون من كلامه</summary>${said}</details>
+    ${DB.saved ? `<div class="feedback ok">${only ? '✓ وصلت إجاباته إلى Claude. اكتبوا له: «انتهى»، وسيقيّم كلامه.' : '✓ وصلت النتيجة إلى Claude. اكتبوا له: «انتهى الاختبار»، وسيقرأ الإجابات ويضع له خطة.'}</div>`
       : `<div class="feedback info">انسخوا رمز النتيجة وأرسلوه إلى Claude، وسيقرأ الإجابات ويضع له خطة.</div><textarea class="copybox" id="code" readonly>${esc(code())}</textarea><button class="btn soft small" id="cp">📋 نسخ رمز النتيجة</button>`}
     <button class="btn soft small" id="again">🔁 اختبار جديد</button></div>`;
   const cp = $('#cp'); if (cp) cp.onclick = () => { const box = $('#code'); try { navigator.clipboard.writeText(box.value).then(() => { cp.textContent = '✓ نُسخ'; }, () => box.select()); } catch (e) { box.select(); } };
   $('#again').onclick = () => { try { localStorage.removeItem(KEY); } catch (e) {} start(); };
 }
-window.LEVELTEST = { get T() { return T; }, summary, code, DB }; // for the test bot
+window.LEVELTEST = { get T() { return T; }, summary, code, DB, EAR, payload }; // for the test bot
 start();

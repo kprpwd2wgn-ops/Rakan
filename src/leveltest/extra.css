@@ -13,3 +13,11 @@
 .ltseg{flex-wrap:wrap;margin-top:8px;gap:6px;background:none;padding:0}
 .ltseg button{background:var(--sand);font-family:var(--f-ar);font-size:15px;padding:8px 12px}
 .feedback.info{background:#dbeafe;color:var(--blue2)}
+/* part 7: the microphone */
+.ltq{font-size:24px;font-weight:800;color:var(--night);line-height:1.35}
+.ltheard{min-height:56px;line-height:1.5;padding:0 6px}
+.ltheard .en{color:var(--night);font-weight:700}
+.ltsaidbox summary{cursor:pointer;font-weight:800;padding:4px 0}
+.ltsaid{padding:8px 0;border-top:1px solid var(--line)}
+.ltsaid .q{font-weight:800;color:var(--night)}
+.ltsaid .a{color:var(--ink2);text-align:left}

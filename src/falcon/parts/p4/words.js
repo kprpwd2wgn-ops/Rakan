@@ -211,7 +211,7 @@ architecture | فن العمارة | 🏛️ | I love the old architecture of Je
 resident | ساكن (من سكان المكان) | 🏠 | Every resident must keep the street clean. | يجب على كل ساكن أن يحافظ على نظافة الشارع. | w
 pedestrian | الماشي في الشارع | 🚶 | A pedestrian must cross at the lights. | يجب على الماشي أن يعبر عند الإشارة. | w
 column | عمود | 🏛️ | Each column is made of stone. | كل عمود مصنوع من الحجر. | w
-minaret | المئذنة | 🕌 | The minaret of the mosque is very tall. | مئذنة المسجد عالية جدا. | w
+minaret | المئذنة | 🕌 | The minaret of the mosque is very tall. | مئذنة المسجد عالية جدا. | ws
 dome | قبة | 🕌 | The mosque has a big green dome. | للمسجد قبة خضراء كبيرة. | w
 wooden | خشبي | 🪵 | We have a wooden door. | عندنا باب خشبي. | wa
 `);

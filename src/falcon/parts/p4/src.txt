@@ -221,7 +221,7 @@ architecture | 🏛️ | I love the old architecture of Jeddah. | w | فَنُّ
 resident | 🏠 | Every resident must keep the street clean. | w | سَاكِنٌ (مِنْ سُكَّانِ الْمَكَانِ) | يَجِبُ عَلَى كُلِّ سَاكِنٍ أَنْ يُحَافِظَ عَلَى نَظَافَةِ الشَّارِعِ.
 pedestrian | 🚶 | A pedestrian must cross at the lights. | w | الْمَاشِي فِي الشَّارِعِ | يَجِبُ عَلَى الْمَاشِي أَنْ يَعْبُرَ عِنْدَ الْإِشَارَةِ.
 column | 🏛️ | Each column is made of stone. | w | عَمُودٌ | كُلُّ عَمُودٍ مَصْنُوعٌ مِنَ الْحَجَرِ.
-minaret | 🕌 | The minaret of the mosque is very tall. | w | الْمِئْذَنَةُ | مِئْذَنَةُ الْمَسْجِدِ عَالِيَةٌ جِدًّا.
+minaret | 🕌 | The minaret of the mosque is very tall. | ws | الْمِئْذَنَةُ | مِئْذَنَةُ الْمَسْجِدِ عَالِيَةٌ جِدًّا.
 dome | 🕌 | The mosque has a big green dome. | w | قُبَّةٌ | لِلْمَسْجِدِ قُبَّةٌ خَضْرَاءُ كَبِيرَةٌ.
 wooden | 🪵 | We have a wooden door. | wa | خَشَبِيٌّ | عِنْدَنَا بَابٌ خَشَبِيٌّ.
 @talk What is the tallest building you have seen? | مَا أَعْلَى مَبْنًى رَأَيْتَهُ؟ | The tallest building I have seen is ___. | The tallest building I have seen is a skyscraper in Riyadh.

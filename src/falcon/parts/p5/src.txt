@@ -4,15 +4,15 @@
 # Then: node tools/falcon-part.js 5   (see src/falcon/parts/README.md)
 
 @topic faith | الْإِيمَانُ وَالْأَخْلَاقُ | Faith & Good Character | 🕌 | #059669 | 1 | faith
-prayer | 🧎 | The Fajr prayer is before sunrise. | w | الصَّلَاةُ | صَلَاةُ الْفَجْرِ قَبْلَ شُرُوقِ الشَّمْسِ.
-fasting | 🌙 | Fasting in Ramadan teaches us patience. | w | الصِّيَامُ | يُعَلِّمُنَا الصِّيَامُ فِي رَمَضَانَ الصَّبْرَ.
-pilgrimage | 🕋 | My grandparents went on the pilgrimage last year. | w | الْحَجُّ | ذَهَبَ جَدِّي وَجَدَّتِي إِلَى الْحَجِّ فِي الْعَامِ الْمَاضِي.
-zakat | 💰 | Muslims pay zakat to help the poor. | w | الزَّكَاةُ | يُخْرِجُ الْمُسْلِمُونَ الزَّكَاةَ لِيُسَاعِدُوا الْفُقَرَاءَ.
-imam | 🕌 | The imam leads the prayer in the mosque. | w | الْإِمَامُ | يَؤُمُّ الْإِمَامُ الْمُصَلِّينَ فِي الْمَسْجِدِ.
-sermon | 📢 | We listen to the sermon every Friday. | w | الْخُطْبَةُ | نَسْتَمِعُ إِلَى الْخُطْبَةِ كُلَّ جُمُعَةٍ.
-call to prayer | 📣 | I heard the call to prayer from the minaret. | w | الْأَذَانُ | سَمِعْتُ الْأَذَانَ مِنَ الْمِئْذَنَةِ.
-prayer mat | 🟩 | Put the prayer mat facing Makkah. | w | سَجَّادَةُ الصَّلَاةِ | ضَعْ سَجَّادَةَ الصَّلَاةِ بِاتِّجَاهِ الْقِبْلَةِ.
-faith | 💚 | Faith makes our hearts strong. | w | الْإِيمَانُ | الْإِيمَانُ يَجْعَلُ قُلُوبَنَا قَوِيَّةً.
+prayer | 🧎 | The Fajr prayer is before sunrise. | ws | الصَّلَاةُ | صَلَاةُ الْفَجْرِ قَبْلَ شُرُوقِ الشَّمْسِ.
+fasting | 🌙 | Fasting in Ramadan teaches us patience. | ws | الصِّيَامُ | يُعَلِّمُنَا الصِّيَامُ فِي رَمَضَانَ الصَّبْرَ.
+pilgrimage | 🕋 | My grandparents went on the pilgrimage last year. | ws | الْحَجُّ | ذَهَبَ جَدِّي وَجَدَّتِي إِلَى الْحَجِّ فِي الْعَامِ الْمَاضِي.
+zakat | 💰 | Muslims pay zakat to help the poor. | ws | الزَّكَاةُ | يُخْرِجُ الْمُسْلِمُونَ الزَّكَاةَ لِيُسَاعِدُوا الْفُقَرَاءَ.
+imam | 🕌 | The imam leads the prayer in the mosque. | ws | الْإِمَامُ | يَؤُمُّ الْإِمَامُ الْمُصَلِّينَ فِي الْمَسْجِدِ.
+sermon | 📢 | We listen to the sermon every Friday. | ws | الْخُطْبَةُ | نَسْتَمِعُ إِلَى الْخُطْبَةِ كُلَّ جُمُعَةٍ.
+call to prayer | 📣 | I heard the call to prayer from the minaret. | ws | الْأَذَانُ | سَمِعْتُ الْأَذَانَ مِنَ الْمِئْذَنَةِ.
+prayer mat | 🟩 | Put the prayer mat facing Makkah. | ws | سَجَّادَةُ الصَّلَاةِ | ضَعْ سَجَّادَةَ الصَّلَاةِ بِاتِّجَاهِ الْقِبْلَةِ.
+faith | 💚 | Faith makes our hearts strong. | ws | الْإِيمَانُ | الْإِيمَانُ يَجْعَلُ قُلُوبَنَا قَوِيَّةً.
 mercy | 🤲 | Show mercy to people and animals. | w | الرَّحْمَةُ | اِرْحَمِ النَّاسَ وَالْحَيَوَانَاتِ.
 forgiveness | 🕊️ | Asking for forgiveness is brave. | w | الْمُسَامَحَةُ | طَلَبُ الْمُسَامَحَةِ شَجَاعَةٌ.
 patience | ⏳ | Learning a language needs patience. | w | الصَّبْرُ | تَعَلُّمُ اللُّغَةِ يَحْتَاجُ إِلَى صَبْرٍ.
@@ -23,7 +23,7 @@ humility | 🙇 | Humility is a beautiful quality. | w | التَّوَاضُع�
 good deed | 🌱 | Helping your neighbor is a good deed. | w | عَمَلٌ صَالِحٌ | مُسَاعَدَةُ جَارِكَ عَمَلٌ صَالِحٌ.
 reward | 🏆 | Every good deed has a reward. | w | الْأَجْرُ | لِكُلِّ عَمَلٍ صَالِحٍ أَجْرٌ.
 blessing | 🌧️ | Rain is a blessing for the desert. | w | نِعْمَةٌ | الْمَطَرُ نِعْمَةٌ لِلصَّحْرَاءِ.
-worship | 🕌 | A mosque is a place of worship. | w | الْعِبَادَةُ | الْمَسْجِدُ مَكَانٌ لِلْعِبَادَةِ.
+worship | 🕌 | A mosque is a place of worship. | ws | الْعِبَادَةُ | الْمَسْجِدُ مَكَانٌ لِلْعِبَادَةِ.
 respectful | 🙂 | Be respectful to older people. | wa | مُؤَدَّبٌ (يَحْتَرِمُ غَيْرَهُ) | كُنْ مُؤَدَّبًا مَعَ مَنْ هُمْ أَكْبَرُ مِنْكَ.
 obey | 👂 | Children should obey their parents. | wv | يُطِيعُ | يَنْبَغِي أَنْ يُطِيعَ الْأَبْنَاءُ وَالِدَيْهِمْ.
 gossip | 🗣️ | Gossip hurts people. | w | النَّمِيمَةُ | النَّمِيمَةُ تُؤْذِي النَّاسَ.
